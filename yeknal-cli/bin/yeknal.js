@@ -8,6 +8,7 @@
 const fs = require("fs");
 const path = require("path");
 const https = require("https");
+const { exec } = require("child_process");
 
 // ==========================================
 // USER CONFIGURATION (UPDATE THESE VALUES)
@@ -73,6 +74,27 @@ https
     fileStream.on("finish", () => {
       fileStream.close();
       console.log(`✅ Successfully saved to: ${localDest}\n`);
+
+      if (category === "security") {
+        console.log(`🔍 Running security audit (this may take a moment)...`);
+        exec("npx secure-repo audit", (error, stdout, stderr) => {
+          const logPath = path.join(process.cwd(), "security-audit.log");
+          const output = `--- Security Audit Log ---\nDate: ${new Date().toISOString()}\n\n${stdout}\n${stderr ? "Errors/Warnings:\n" + stderr : ""}`;
+
+          fs.writeFileSync(logPath, output);
+
+          if (error) {
+            console.log(
+              `⚠️ Security audit found issues (or returned an error code).`,
+            );
+            console.log(`👉 See ${logPath} for details.\n`);
+          } else {
+            console.log(
+              `✅ Security audit clean. Results saved to: ${logPath}\n`,
+            );
+          }
+        });
+      }
     });
   })
   .on("error", (err) => {
