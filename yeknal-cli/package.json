@@ -1,6 +1,6 @@
 {
   "name": "yeknal",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "CLI to fetch MD templates for security, design, and seo",
   "main": "bin/yeknal.js",
   "bin": {
