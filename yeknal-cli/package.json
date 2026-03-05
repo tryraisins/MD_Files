@@ -1,0 +1,16 @@
+{
+  "name": "yeknal",
+  "version": "1.0.0",
+  "description": "CLI to fetch MD templates for security, design, and seo",
+  "main": "bin/yeknal.js",
+  "bin": {
+    "yeknal": "./bin/yeknal.js"
+  },
+  "keywords": [
+    "cli",
+    "markdown",
+    "templates"
+  ],
+  "author": "nubiaville",
+  "license": "ISC"
+}
