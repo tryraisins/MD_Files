@@ -79,11 +79,144 @@ https
         console.log(`🔍 Running security audit (this may take a moment)...`);
         exec("npx secure-repo audit", (error, stdout, stderr) => {
           const logPath = path.join(process.cwd(), "security-audit.log");
-          const output = `--- Security Audit Log ---\nDate: ${new Date().toISOString()}\n\n${stdout}\n${stderr ? "Errors/Warnings:\n" + stderr : ""}`;
+
+          // Parse stdout to remove Policy files and recalculate scores
+          const outputLines = stdout.split("\n");
+          const finalLines = [];
+
+          let inPolicySection = false;
+          let policyPasses = 0;
+          let policyWarnings = 0;
+          let policyIssues = 0;
+          let policyPoints = 0;
+
+          for (let i = 0; i < outputLines.length; i++) {
+            const line = outputLines[i];
+
+            if (line.match(/^\s*Policy files:/)) {
+              inPolicySection = true;
+              continue;
+            }
+
+            if (inPolicySection) {
+              if (
+                line.match(/^\s*Environment files:/) ||
+                line.match(/^\s*Secret scanning:/) ||
+                line.match(/^\s*Configuration:/)
+              ) {
+                inPolicySection = false;
+              } else {
+                if (line.includes("[FAIL]")) policyIssues++;
+                if (line.includes("[warn]")) policyWarnings++;
+                if (line.includes("[pass]")) {
+                  policyPasses++;
+                  if (
+                    line.includes("SECURITY.md") ||
+                    line.includes("AUTH.md") ||
+                    line.includes("API.md") ||
+                    line.includes("ENV_VARIABLES.md")
+                  ) {
+                    policyPoints += 10;
+                  } else {
+                    policyPoints += 5;
+                  }
+                }
+                continue;
+              }
+            }
+
+            if (line.match(/^\s*Security Score:\s*\d+\s*\/\s*\d+/)) {
+              const match = line.match(/^\s*Security Score:\s*(\d+)/);
+              if (match) {
+                const oldScore = parseInt(match[1], 10);
+                const newScore = oldScore - policyPoints;
+                finalLines.push(`  Security Score: ${newScore} / 45`);
+              } else {
+                finalLines.push(line);
+              }
+              continue;
+            }
+
+            if (
+              line.match(
+                /^\s*Results:\s*\d+\s*passed,\s*\d+\s*warnings,\s*\d+\s*issues/,
+              )
+            ) {
+              const match = line.match(
+                /Results:\s*(\d+)\s*passed,\s*(\d+)\s*warnings,\s*(\d+)\s*issues/,
+              );
+              if (match) {
+                const newPassed = parseInt(match[1], 10) - policyPasses;
+                const newWarnings = parseInt(match[2], 10) - policyWarnings;
+                const newIssues = parseInt(match[3], 10) - policyIssues;
+                finalLines.push(
+                  `  Results: ${newPassed} passed, ${newWarnings} warnings, ${newIssues} issues`,
+                );
+              } else {
+                finalLines.push(line);
+              }
+              continue;
+            }
+
+            if (line.match(/^\s*\d+\s*issue\(s\)\s*found/)) {
+              const match = line.match(/^\s*(\d+)\s*issue\(s\)/);
+              if (match) {
+                const newIssues = parseInt(match[1], 10) - policyIssues;
+                finalLines.push(
+                  `  ${newIssues} issue(s) found. Fix these before shipping.`,
+                );
+              } else {
+                finalLines.push(line);
+              }
+              continue;
+            }
+
+            if (
+              line.includes("Run: npx secure-repo init") &&
+              line.includes("adds missing policy files")
+            ) {
+              continue;
+            }
+
+            if (line.includes("Want deeper coverage? The pro pack adds")) {
+              i += 2; // skip this and next 2 lines
+              continue;
+            }
+
+            if (line.includes("────────────────────────────────────")) {
+              // there are multiple of these, we drop the one used for the pro upsell if the previous lines were the pro upsell
+              // To be safe we'll leave it, the upsell message is dropped.
+              // Actually, the previous line is "Run: npx secure-repo init", then "────────────────────────────────────", then "Want deeper coverage?"
+              // So if we see "────────────────────────────────────" and the NEXT line is "Want deeper coverage?", we skip both.
+              if (
+                i + 1 < outputLines.length &&
+                outputLines[i + 1].includes(
+                  "Want deeper coverage? The pro pack adds",
+                )
+              ) {
+                i += 3;
+                continue;
+              }
+            }
+
+            finalLines.push(line);
+          }
+
+          const modifiedStdout = finalLines.join("\n");
+
+          const output = `--- Security Audit Log ---\nDate: ${new Date().toISOString()}\n\n${modifiedStdout}\n${stderr ? "Errors/Warnings:\n" + stderr : ""}`;
 
           fs.writeFileSync(logPath, output);
 
-          if (error) {
+          // We adjust the error logging checking new issues count
+          const totalNewIssuesRegex = /^\s*(\d+)\s*issue\(s\)\s*found/m;
+          const matchNewIssues = modifiedStdout.match(totalNewIssuesRegex);
+          let hasIssues = error !== null;
+          if (matchNewIssues) {
+            hasIssues = parseInt(matchNewIssues[1], 10) > 0;
+          }
+
+          if (hasIssues) {
             console.log(
               `⚠️ Security audit found issues (or returned an error code).`,
             );

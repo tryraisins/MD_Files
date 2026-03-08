@@ -1,0 +1,28 @@
+--- Security Audit Log ---
+Date: 2026-03-08T09:34:22.661Z
+
+
+  secure-repo audit
+
+  Scanning repository for security issues...
+
+  Environment files:
+    [FAIL] No .gitignore found
+    [warn] .env.example missing — document required env vars
+
+  Secret scanning:
+    [pass] No obvious secrets found in source files
+
+  Configuration:
+    [pass] Dependency lock file exists
+
+  ════════════════════════════════════
+  Security Score: 25 / 45
+  ════════════════════════════════════
+
+  Results: 2 passed, 1 warnings, 1 issues
+
+  1 issue(s) found. Fix these before shipping.
+
+
+

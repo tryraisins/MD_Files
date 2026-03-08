@@ -1,0 +1,42 @@
+--- Security Audit Log ---
+Date: 2026-03-08T09:31:16.215Z
+
+
+  secure-repo audit
+
+  Scanning repository for security issues...
+
+  Policy files:
+    [FAIL] SECURITY.md — missing (high priority)
+    [FAIL] AUTH.md — missing (high priority)
+    [FAIL] API.md — missing (high priority)
+    [warn] ACCESSIBILITY.md — missing
+    [warn] DATABASE.md — missing
+    [warn] DEPLOYMENT.md — missing
+    [warn] INCIDENT_RESPONSE.md — missing
+    [FAIL] ENV_VARIABLES.md — missing (high priority)
+
+  Environment files:
+    [FAIL] No .gitignore found
+    [warn] .env.example missing — document required env vars
+
+  Secret scanning:
+    [pass] No obvious secrets found in source files
+
+  Configuration:
+
+  ════════════════════════════════════
+  Security Score: 20 / 100
+  ════════════════════════════════════
+
+  Results: 1 passed, 5 warnings, 5 issues
+
+  5 issue(s) found. Fix these before shipping.
+  Run: npx secure-repo init    (adds missing policy files)
+
+  ────────────────────────────────────
+  Want deeper coverage? The pro pack adds 12 more policy files:
+    DATABASE.md, DEPLOYMENT.md, INCIDENT_RESPONSE.md, ENV_VARIABLES.md, +8 more
+  Run: npx secure-repo upgrade
+
+
