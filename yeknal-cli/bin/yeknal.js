@@ -23,7 +23,8 @@ const BRANCH = "main";
 // ==========================================
 
 const RAW_BASE_URL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${BRANCH}`;
-const CONTENTS_API_BASE = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents`;
+const API_BASE = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}`;
+const GITHUB_TOKEN = process.env.YEKNAL_GITHUB_TOKEN || process.env.GITHUB_TOKEN || "";
 
 const EXCLUDED_SKILL_FOLDERS = new Set(["Design", "Security", "Security_Raw", "SEO"]);
 
@@ -54,15 +55,26 @@ function isHttpSuccess(statusCode) {
   return typeof statusCode === "number" && statusCode >= 200 && statusCode < 300;
 }
 
+function getRequestHeaders(url) {
+  const isApiRequest = url.includes("api.github.com");
+  const headers = {
+    "User-Agent": "yeknal-cli",
+    Accept: isApiRequest ? "application/vnd.github+json" : "*/*",
+  };
+
+  if (GITHUB_TOKEN) {
+    headers.Authorization = `Bearer ${GITHUB_TOKEN}`;
+  }
+
+  return headers;
+}
+
 function requestBuffer(url, redirectsRemaining = 5) {
   return new Promise((resolve, reject) => {
     const req = https.get(
       url,
       {
-        headers: {
-          "User-Agent": "yeknal-cli",
-          Accept: "application/vnd.github+json",
-        },
+        headers: getRequestHeaders(url),
       },
       (res) => {
         const statusCode = res.statusCode || 0;
@@ -73,7 +85,8 @@ function requestBuffer(url, redirectsRemaining = 5) {
             return;
           }
           res.resume();
-          requestBuffer(res.headers.location, redirectsRemaining - 1).then(resolve).catch(reject);
+          const nextUrl = new URL(res.headers.location, url).toString();
+          requestBuffer(nextUrl, redirectsRemaining - 1).then(resolve).catch(reject);
           return;
         }
 
@@ -96,6 +109,15 @@ async function fetchJson(url) {
   const response = await requestBuffer(url);
   if (!isHttpSuccess(response.statusCode)) {
     const bodyText = response.body.toString("utf8");
+    if (response.statusCode === 403 && bodyText.includes("API rate limit exceeded")) {
+      throw new Error(
+        `GitHub API rate limit exceeded.\n` +
+          `Set an auth token to increase limits:\n` +
+          `  PowerShell: $env:YEKNAL_GITHUB_TOKEN=\"<your_token>\"\n` +
+          `  Bash/zsh:  export YEKNAL_GITHUB_TOKEN=\"<your_token>\"\n` +
+          `Then rerun: npx yeknal skills`,
+      );
+    }
     throw new Error(`GitHub API request failed (${response.statusCode}): ${url}\n${bodyText}`);
   }
   return JSON.parse(response.body.toString("utf8"));
@@ -110,63 +132,55 @@ async function downloadUrlToFile(url, localPath) {
   await fsp.writeFile(localPath, response.body);
 }
 
-function buildContentsApiUrl(repoPath) {
-  const encoded = repoPath
-    .split("/")
-    .filter(Boolean)
-    .map((segment) => encodeURIComponent(segment))
-    .join("/");
-  const endpoint = encoded ? `/${encoded}` : "";
-  return `${CONTENTS_API_BASE}${endpoint}?ref=${encodeURIComponent(BRANCH)}`;
+function buildGitTreeApiUrl() {
+  return `${API_BASE}/git/trees/${encodeURIComponent(BRANCH)}?recursive=1`;
 }
 
-async function listRepoPath(repoPath) {
-  const data = await fetchJson(buildContentsApiUrl(repoPath));
-  return Array.isArray(data) ? data : [data];
+async function fetchRepoTree() {
+  const data = await fetchJson(buildGitTreeApiUrl());
+  if (!data || !Array.isArray(data.tree)) {
+    throw new Error("GitHub tree response was missing expected data.");
+  }
+  return data.tree;
 }
 
-async function folderHasTopLevelSkillFile(folderName) {
-  const entries = await listRepoPath(folderName);
-  return entries.some((entry) => entry.type === "file" && entry.name === "SKILL.md");
-}
+function discoverSkillFolders(repoTree) {
+  const topLevelDirs = new Set();
+  const dirsWithSkill = new Set();
 
-async function discoverSkillFolders() {
-  const rootEntries = await listRepoPath("");
-  const candidateDirs = rootEntries.filter(
-    (entry) => entry.type === "dir" && !EXCLUDED_SKILL_FOLDERS.has(entry.name),
-  );
-
-  const checks = await Promise.all(
-    candidateDirs.map(async (dir) => ({
-      name: dir.name,
-      hasSkillFile: await folderHasTopLevelSkillFile(dir.name),
-    })),
-  );
-
-  return checks
-    .filter((entry) => entry.hasSkillFile)
-    .map((entry) => entry.name)
-    .sort((a, b) => a.localeCompare(b));
-}
-
-async function downloadRepoFolderRecursive(repoPath, localFolderPath) {
-  const entries = await listRepoPath(repoPath);
-  await fsp.mkdir(localFolderPath, { recursive: true });
-
-  for (const entry of entries) {
-    const nextLocalPath = path.join(localFolderPath, entry.name);
-    if (entry.type === "dir") {
-      await downloadRepoFolderRecursive(entry.path, nextLocalPath);
+  for (const entry of repoTree) {
+    if (entry.type === "tree" && typeof entry.path === "string" && !entry.path.includes("/")) {
+      if (!EXCLUDED_SKILL_FOLDERS.has(entry.path)) {
+        topLevelDirs.add(entry.path);
+      }
       continue;
     }
 
-    if (entry.type === "file") {
-      if (!entry.download_url) {
-        throw new Error(`Missing download URL for repo file: ${entry.path}`);
+    if (entry.type === "blob" && typeof entry.path === "string") {
+      const parts = entry.path.split("/");
+      if (parts.length === 2 && parts[1] === "SKILL.md" && !EXCLUDED_SKILL_FOLDERS.has(parts[0])) {
+        dirsWithSkill.add(parts[0]);
       }
-      await downloadUrlToFile(entry.download_url, nextLocalPath);
     }
   }
+
+  return Array.from(topLevelDirs)
+    .filter((dir) => dirsWithSkill.has(dir))
+    .sort((a, b) => a.localeCompare(b));
+}
+
+function listFilesForFolder(repoTree, folderName) {
+  const prefix = `${folderName}/`;
+  return repoTree
+    .filter((entry) => entry.type === "blob" && typeof entry.path === "string")
+    .map((entry) => entry.path)
+    .filter((repoPath) => repoPath.startsWith(prefix))
+    .sort((a, b) => a.localeCompare(b));
+}
+
+function buildRawFileUrl(repoFilePath) {
+  const encodedPath = repoFilePath.split("/").map((part) => encodeURIComponent(part)).join("/");
+  return `${RAW_BASE_URL}/${encodedPath}`;
 }
 
 async function copyDirRecursive(sourceDir, targetDir) {
@@ -188,12 +202,90 @@ async function copyDirRecursive(sourceDir, targetDir) {
   }
 }
 
+function execCommand(command) {
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(new Error(stderr || error.message));
+        return;
+      }
+      resolve({ stdout, stderr });
+    });
+  });
+}
+
 async function isDirectory(filePath) {
   try {
     const stats = await fsp.stat(filePath);
     return stats.isDirectory();
   } catch {
     return false;
+  }
+}
+
+async function discoverLocalSkillFolders(sourceRoot) {
+  const entries = await fsp.readdir(sourceRoot, { withFileTypes: true });
+  const folders = [];
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+    const folderName = entry.name;
+    if (EXCLUDED_SKILL_FOLDERS.has(folderName)) {
+      continue;
+    }
+
+    const skillFilePath = path.join(sourceRoot, folderName, "SKILL.md");
+    if (await isDirectory(path.join(sourceRoot, folderName))) {
+      try {
+        await fsp.access(skillFilePath, fs.constants.F_OK);
+        folders.push(folderName);
+      } catch {
+        // not a skill folder
+      }
+    }
+  }
+
+  return folders.sort((a, b) => a.localeCompare(b));
+}
+
+async function downloadSkillsFromGit(tempRoot, skillFolders, repoTree) {
+  for (const folder of skillFolders) {
+    const localFolder = path.join(tempRoot, folder);
+    const folderFiles = listFilesForFolder(repoTree, folder);
+
+    await fsp.mkdir(localFolder, { recursive: true });
+    for (const repoPath of folderFiles) {
+      const relativePath = repoPath.slice(folder.length + 1);
+      const destinationPath = path.join(localFolder, relativePath);
+      await downloadUrlToFile(buildRawFileUrl(repoPath), destinationPath);
+    }
+  }
+}
+
+async function stageSkillsFromGitClone(tempRoot) {
+  const cloneRoot = await fsp.mkdtemp(path.join(os.tmpdir(), "yeknal-repo-"));
+  const repoPath = path.join(cloneRoot, "repo");
+  const cloneUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO}.git`;
+  const cloneCommand = `git clone --depth 1 --branch ${BRANCH} ${cloneUrl} "${repoPath}"`;
+
+  try {
+    await execCommand(cloneCommand);
+    const skillFolders = await discoverLocalSkillFolders(repoPath);
+    if (skillFolders.length === 0) {
+      throw new Error("No skill folders were discovered from the cloned repository.");
+    }
+
+    for (const folder of skillFolders) {
+      const sourceFolder = path.join(repoPath, folder);
+      const destinationFolder = path.join(tempRoot, folder);
+      await copyDirRecursive(sourceFolder, destinationFolder);
+    }
+
+    return skillFolders;
+  } finally {
+    await fsp.rm(cloneRoot, { recursive: true, force: true });
   }
 }
 
@@ -262,20 +354,32 @@ async function runSkillsCommand() {
     console.log(`  - ${target.label}: ${target.parentPath}`);
   }
 
-  const skillFolders = await discoverSkillFolders();
-  if (skillFolders.length === 0) {
-    throw new Error("No skill folders were discovered from the GitHub repository.");
-  }
-
-  console.log(`\nSkill folders to sync (${skillFolders.length}):`);
-  console.log(`  ${skillFolders.join(", ")}`);
-
   const tempRoot = await fsp.mkdtemp(path.join(os.tmpdir(), "yeknal-skills-"));
   try {
-    for (const folder of skillFolders) {
-      const localFolder = path.join(tempRoot, folder);
-      await downloadRepoFolderRecursive(folder, localFolder);
+    let skillFolders = [];
+    let sourceLabel = "GitHub API + raw file download";
+
+    try {
+      const repoTree = await fetchRepoTree();
+      skillFolders = discoverSkillFolders(repoTree);
+      if (skillFolders.length === 0) {
+        throw new Error("No skill folders were discovered from the GitHub repository.");
+      }
+
+      await downloadSkillsFromGit(tempRoot, skillFolders, repoTree);
+    } catch (error) {
+      const message = error && error.message ? error.message : String(error);
+      if (!message.includes("GitHub API rate limit exceeded")) {
+        throw error;
+      }
+
+      console.log("\nGitHub API rate-limited. Falling back to git clone source download...");
+      skillFolders = await stageSkillsFromGitClone(tempRoot);
+      sourceLabel = "git clone fallback";
     }
+
+    console.log(`\nSkill folders to sync (${skillFolders.length}) via ${sourceLabel}:`);
+    console.log(`  ${skillFolders.join(", ")}`);
 
     let hadFailure = false;
     for (const target of targets) {

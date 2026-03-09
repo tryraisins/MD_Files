@@ -31,7 +31,9 @@ npx yeknal skills
 
 ## Skills Sync Behavior
 
-- Source mode is GitHub-only.
+- Source mode is GitHub download.
+- Uses GitHub API + raw file download by default.
+- If GitHub API rate limit is hit, it automatically falls back to `git clone` (Git must be installed).
 - Includes only top-level folders that contain `SKILL.md`.
 - Overwrites existing destination skill folders.
 - Creates `<parent>/skills` when parent exists but skills folder does not.
@@ -44,6 +46,7 @@ Optional parent path overrides:
 - `YEKNAL_GEMINI_PARENT`
 - `YEKNAL_CODEX_PARENT`
 - `YEKNAL_CLAUDE_PARENT`
+- `YEKNAL_GITHUB_TOKEN` (or `GITHUB_TOKEN`) for higher GitHub API rate limits (optional)
 
 ## Repository Structure
 
