@@ -1,7 +1,7 @@
 {
   "name": "yeknal",
-  "version": "1.0.2",
-  "description": "CLI to fetch MD templates for security, design, and seo",
+  "version": "1.0.5",
+  "description": "CLI to fetch markdown templates and sync AI agent skills",
   "main": "bin/yeknal.js",
   "bin": {
     "yeknal": "bin/yeknal.js"
@@ -9,7 +9,9 @@
   "keywords": [
     "cli",
     "markdown",
-    "templates"
+    "templates",
+    "skills",
+    "ai-agents"
   ],
   "author": "nubiaville",
   "license": "ISC",

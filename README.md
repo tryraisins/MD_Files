@@ -1,49 +1,58 @@
 # MD Files
 
-A collection of reusable project guideline templates for **Security**, **Design**, and **SEO**. Pull any template instantly into your project using the [`yeknal`](https://www.npmjs.com/package/yeknal) CLI.
+A collection of reusable project guideline templates and skill folders for AI coding agents.
+
+Use [`yeknal`](https://www.npmjs.com/package/yeknal) to pull templates or sync skills.
 
 ## Quick Start
 
-Run any of these from the root of your project — no installation required:
-
 ```bash
-# Fetch security guidelines + run a security audit
+# Fetch security guidelines + run security audit
 npx yeknal security
 
-# Fetch design system guidelines
+# Fetch design guidelines
 npx yeknal design
 
-# Fetch SEO improvement checklist
+# Fetch SEO checklist
 npx yeknal seo
+
+# Sync skill folders to local agent directories
+npx yeknal skills
 ```
 
-## Available Templates
+## Commands
 
-| Command | File Downloaded | Description |
-|---------|----------------|-------------|
-| `npx yeknal security` | `Security-Master.md` | Security best practices, policies, and automated audit |
-| `npx yeknal design` | `Design.md` | UI/UX design principles and standards |
-| `npx yeknal seo` | `SEO-Prompt.md` | SEO checklist and improvement strategies |
+| Command | Result |
+| --- | --- |
+| `npx yeknal security` | Downloads `Security-Master.md` and runs `secure-repo audit` |
+| `npx yeknal design` | Downloads `Design.md` |
+| `npx yeknal seo` | Downloads `SEO-Prompt.md` |
+| `npx yeknal skills` | Syncs skill folders (excluding `Design`, `Security`, `Security_Raw`, `SEO`) |
 
-## What Happens
+## Skills Sync Behavior
 
-1. The CLI fetches the requested markdown template from this repository.
-2. The file is saved directly into your current working directory.
-3. For `security`, it additionally runs `npx secure-repo audit` and saves the results to `security-audit.log`.
+- Source mode is GitHub-only.
+- Includes only top-level folders that contain `SKILL.md`.
+- Overwrites existing destination skill folders.
+- Creates `<parent>/skills` when parent exists but skills folder does not.
+- Sync targets:
+- Gemini: `~/.gemini/antigravity` or `~/.antigravity`
+- Codex: `~/.codex`
+- Claude: `~/.claude`
+
+Optional parent path overrides:
+- `YEKNAL_GEMINI_PARENT`
+- `YEKNAL_CODEX_PARENT`
+- `YEKNAL_CLAUDE_PARENT`
 
 ## Repository Structure
 
 ```
-├── Security/
-│   └── Security-Master.md
-├── Design/
-│   └── SKILL.md
-├── SEO/
-│   └── seo-improvement-prompt.md
-└── yeknal-cli/          # CLI source code
-    ├── bin/yeknal.js
-    ├── package.json
-    └── README.md
+Security/
+Design/
+SEO/
+...skill folders...
+yeknal-cli/
 ```
 
 ## License
