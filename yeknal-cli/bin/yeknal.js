@@ -577,16 +577,11 @@ async function checkSecretsAndEnv(projectDir, fileContents) {
       ".gitignore exists", "Phase 10", 3, 3, "pass",
       ".gitignore file found",
     ));
-  } else if (hasRealEnvFiles) {
-    checks.push(checkResult(
-      ".gitignore exists", "Phase 10", 3, 0, "fail",
-      "No .gitignore file found but .env files exist. Create a .gitignore to prevent committing secrets.",
-      [{ file: ".gitignore", message: "Missing .gitignore file" }],
-    ));
   } else {
     checks.push(checkResult(
-      ".gitignore exists", "Phase 10", 3, 3, "pass",
-      "No .gitignore file found, but no .env files exist either — no secrets at risk",
+      ".gitignore exists", "Phase 10", 3, 0, "fail",
+      "No .gitignore file found. Create one to prevent committing secrets, node_modules, build artifacts, and IDE files.",
+      [{ file: ".gitignore", message: "Missing .gitignore file" }],
     ));
   }
 
