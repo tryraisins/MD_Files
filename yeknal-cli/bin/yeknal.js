@@ -559,6 +559,16 @@ function checkResult(name, reference, points, earned, status, details, issues) {
 async function checkSecretsAndEnv(projectDir, fileContents) {
   const checks = [];
 
+  // Detect whether the project has any real .env files (excluding .env.example/.env.sample/.env.template)
+  let hasRealEnvFiles = false;
+  for (const [filePath] of fileContents) {
+    const base = path.basename(filePath).toLowerCase();
+    if (base.startsWith(".env") && !base.includes("example") && !base.includes("sample") && !base.includes("template")) {
+      hasRealEnvFiles = true;
+      break;
+    }
+  }
+
   // Check 1: .gitignore exists (3 pts)
   const gitignorePath = path.join(projectDir, ".gitignore");
   const gitignoreContent = await safeReadFile(gitignorePath);
@@ -567,11 +577,16 @@ async function checkSecretsAndEnv(projectDir, fileContents) {
       ".gitignore exists", "Phase 10", 3, 3, "pass",
       ".gitignore file found",
     ));
-  } else {
+  } else if (hasRealEnvFiles) {
     checks.push(checkResult(
       ".gitignore exists", "Phase 10", 3, 0, "fail",
-      "No .gitignore file found. Create one to prevent committing secrets.",
+      "No .gitignore file found but .env files exist. Create a .gitignore to prevent committing secrets.",
       [{ file: ".gitignore", message: "Missing .gitignore file" }],
+    ));
+  } else {
+    checks.push(checkResult(
+      ".gitignore exists", "Phase 10", 3, 3, "pass",
+      "No .gitignore file found, but no .env files exist either — no secrets at risk",
     ));
   }
 
@@ -588,18 +603,28 @@ async function checkSecretsAndEnv(projectDir, fileContents) {
         ".gitignore covers .env files", "Phase 10", 4, 4, "pass",
         ".gitignore includes .env patterns",
       ));
-    } else {
+    } else if (hasRealEnvFiles) {
       checks.push(checkResult(
         ".gitignore covers .env files", "Phase 10", 4, 0, "fail",
-        ".gitignore does not cover .env files. Add .env* to .gitignore.",
+        ".gitignore does not cover .env files but .env files exist. Add .env* to .gitignore.",
         [{ file: ".gitignore", message: "Missing .env* patterns in .gitignore" }],
       ));
+    } else {
+      checks.push(checkResult(
+        ".gitignore covers .env files", "Phase 10", 4, 4, "pass",
+        "No .env files in project — .gitignore coverage not required",
+      ));
     }
-  } else {
+  } else if (hasRealEnvFiles) {
     checks.push(checkResult(
       ".gitignore covers .env files", "Phase 10", 4, 0, "fail",
-      "Cannot check — .gitignore missing",
+      ".gitignore missing and .env files exist — secrets may be committed",
       [{ file: ".gitignore", message: ".gitignore missing entirely" }],
+    ));
+  } else {
+    checks.push(checkResult(
+      ".gitignore covers .env files", "Phase 10", 4, 4, "pass",
+      "No .env files in project — .gitignore coverage not required",
     ));
   }
 
