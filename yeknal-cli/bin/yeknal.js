@@ -1757,6 +1757,11 @@ async function runSecurityCommand() {
   fs.writeFileSync(logPath, logContent);
   console.log(`\n  Full report: ${logPath}\n`);
 
+  // Clean up downloaded files — only the log should remain
+  if (fs.existsSync(masterDest)) {
+    fs.unlinkSync(masterDest);
+  }
+
   // Ensure yeknal-security.log is in .gitignore so it never gets pushed
   const gitignorePath = path.join(projectDir, ".gitignore");
   const logEntry = "yeknal-security.log";
