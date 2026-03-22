@@ -267,7 +267,11 @@ async function discoverLocalSkillFolders(sourceRoot) {
 }
 
 async function downloadSkillsFromGit(tempRoot, skillFolders, repoTree) {
-  for (const folder of skillFolders) {
+  const total = skillFolders.length;
+  for (let i = 0; i < skillFolders.length; i++) {
+    const folder = skillFolders[i];
+    process.stdout.write(`\r  Downloading skills... (${i + 1}/${total}) ${folder.padEnd(32)}`);
+
     const localFolder = path.join(tempRoot, folder);
     const folderFiles = listFilesForFolder(repoTree, folder);
 
@@ -278,6 +282,7 @@ async function downloadSkillsFromGit(tempRoot, skillFolders, repoTree) {
       await downloadUrlToFile(buildRawFileUrl(repoPath), destinationPath);
     }
   }
+  process.stdout.write(`\r  Downloaded ${total} skill folder(s).${" ".repeat(32)}\n`);
 }
 
 async function stageSkillsFromGitClone(tempRoot) {
@@ -376,12 +381,16 @@ async function runSkillsCommand() {
     let sourceLabel = "GitHub API + raw file download";
 
     try {
+      process.stdout.write("  Fetching repository file list from GitHub API...");
       const repoTree = await fetchRepoTree();
+      process.stdout.write(" done.\n");
+
       skillFolders = discoverSkillFolders(repoTree);
       if (skillFolders.length === 0) {
         throw new Error("No skill folders were discovered from the GitHub repository.");
       }
 
+      console.log(`  Found ${skillFolders.length} skill folder(s). Starting download...\n`);
       await downloadSkillsFromGit(tempRoot, skillFolders, repoTree);
     } catch (error) {
       const message = error && error.message ? error.message : String(error);
@@ -389,8 +398,10 @@ async function runSkillsCommand() {
         throw error;
       }
 
-      console.log("\nGitHub API rate-limited. Falling back to git clone source download...");
+      console.log("\n  GitHub API rate-limited. Falling back to git clone...");
+      console.log("  Cloning repository (this may take a moment)...");
       skillFolders = await stageSkillsFromGitClone(tempRoot);
+      console.log(`  Clone complete. Found ${skillFolders.length} skill folder(s).`);
       sourceLabel = "git clone fallback";
     }
 
