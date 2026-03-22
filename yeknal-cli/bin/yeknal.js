@@ -1448,8 +1448,8 @@ async function checkFrontendSecurity(projectDir, fileContents) {
       if (/new\s+Function\s*\([^)]*(?:req\.|res\.|params|query|body|input|user|data)/.test(line)) {
         evalIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "new Function() with dynamic argument" });
       }
-      // setTimeout/setInterval with a string argument containing a variable
-      if (/(?:setTimeout|setInterval)\s*\(\s*(?!['"`])/.test(line) && !/(?:setTimeout|setInterval)\s*\(\s*(?:function|\()/.test(line)) {
+      // setTimeout/setInterval with a string literal as first argument (the actual eval-like risk)
+      if (/(?:setTimeout|setInterval)\s*\(\s*['"`]/.test(line)) {
         evalIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "setTimeout/setInterval with string argument" });
       }
     });
