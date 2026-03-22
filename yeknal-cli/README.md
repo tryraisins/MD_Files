@@ -39,7 +39,6 @@ Behavior:
 - Uses GitHub API + raw file download by default.
 - If GitHub API rate limit is hit, it automatically falls back to `git clone` (Git must be installed).
 - Top-level folders are included only if they contain `SKILL.md`.
-- Excludes `Design`, `Security`, `Security_Raw`, and `SEO`.
 - Sync targets (if parent folder exists):
 - Gemini: `~/.gemini/antigravity` or `~/.antigravity`
 - Codex: `~/.codex`
