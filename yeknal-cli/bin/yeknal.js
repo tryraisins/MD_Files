@@ -1405,6 +1405,249 @@ async function checkDatabase(projectDir, fileContents) {
   return { name: "Database", checks };
 }
 
+// ---- Category 7: Frontend Code Security (15 pts) ----
+// security-best-practices references: javascript-general, react, vue, next.js
+async function checkFrontendSecurity(projectDir, fileContents) {
+  const checks = [];
+
+  const jsTsFiles = [...fileContents.entries()].filter(([fp]) => {
+    const ext = path.extname(fp).toLowerCase();
+    return [".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs", ".vue"].includes(ext);
+  });
+
+  if (jsTsFiles.length === 0) {
+    checks.push(checkResult("No dynamic code execution", "security-best-practices/js-general", 5, 0, "skip", "No JS/TS files found"));
+    checks.push(checkResult("No unsafe HTML injection sinks", "security-best-practices/react-vue", 5, 0, "skip", "No JS/TS files found"));
+    checks.push(checkResult("No client-side secret exposure", "security-best-practices/next-react-vue", 5, 0, "skip", "No JS/TS files found"));
+    return { name: "Frontend Security", checks };
+  }
+
+  // Check: No eval() / new Function() with dynamic args (5 pts)
+  const evalIssues = [];
+  for (const [filePath, content] of jsTsFiles) {
+    // Exclude test files and comments
+    const lines = content.split("\n");
+    lines.forEach((line, idx) => {
+      const trimmed = line.trim();
+      if (trimmed.startsWith("//") || trimmed.startsWith("*")) return;
+      // eval(variable) — skip eval("literal string") as those are lower risk
+      if (/\beval\s*\(\s*(?!['"`])/.test(line)) {
+        evalIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "eval() with dynamic argument" });
+      }
+      // new Function(variable...) — skip new Function() with all literals
+      if (/new\s+Function\s*\([^)]*(?:req\.|res\.|params|query|body|input|user|data)/.test(line)) {
+        evalIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "new Function() with dynamic argument" });
+      }
+      // setTimeout/setInterval with a string argument containing a variable
+      if (/(?:setTimeout|setInterval)\s*\(\s*(?!['"`])/.test(line) && !/(?:setTimeout|setInterval)\s*\(\s*(?:function|\()/.test(line)) {
+        evalIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "setTimeout/setInterval with string argument" });
+      }
+    });
+  }
+
+  if (evalIssues.length === 0) {
+    checks.push(checkResult("No dynamic code execution", "security-best-practices/js-general", 5, 5, "pass", "No eval() or dynamic Function() usage detected"));
+  } else {
+    checks.push(checkResult(
+      "No dynamic code execution", "security-best-practices/js-general", 5, 0, "fail",
+      `${evalIssues.length} instance(s) of dynamic code execution (eval/Function/setTimeout). Refactor to static functions.`,
+      evalIssues,
+    ));
+  }
+
+  // Check: No unsafe HTML injection sinks — dangerouslySetInnerHTML, v-html (5 pts)
+  const htmlSinkIssues = [];
+  const sanitizers = ["DOMPurify", "sanitizeHtml", "sanitize-html", "xss", "isomorphic-dompurify"];
+
+  for (const [filePath, content] of jsTsFiles) {
+    const hasSanitizer = sanitizers.some((s) => content.includes(s));
+    const lines = content.split("\n");
+
+    lines.forEach((line, idx) => {
+      const trimmed = line.trim();
+      if (trimmed.startsWith("//") || trimmed.startsWith("*")) return;
+
+      // React dangerouslySetInnerHTML
+      if (/dangerouslySetInnerHTML/.test(line) && !hasSanitizer) {
+        htmlSinkIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "dangerouslySetInnerHTML without sanitizer" });
+      }
+      // Vue v-html
+      if (/v-html\s*=/.test(line) && !hasSanitizer) {
+        htmlSinkIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "v-html without sanitizer (DOMPurify etc.)" });
+      }
+      // jQuery .html() with variable
+      if (/\$\(.*\)\.html\s*\(\s*(?!['"`])/.test(line) || /\.html\s*\(\s*(?:req\.|res\.|params|query|body|user|data|input)/.test(line)) {
+        htmlSinkIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "jQuery .html() with dynamic content" });
+      }
+    });
+  }
+
+  if (htmlSinkIssues.length === 0) {
+    checks.push(checkResult("No unsafe HTML injection sinks", "security-best-practices/react-vue", 5, 5, "pass", "No unsafe innerHTML/dangerouslySetInnerHTML/v-html sinks detected"));
+  } else {
+    checks.push(checkResult(
+      "No unsafe HTML injection sinks", "security-best-practices/react-vue", 5, 0, "fail",
+      `${htmlSinkIssues.length} unsafe HTML sink(s). Use a sanitizer like DOMPurify before injecting HTML.`,
+      htmlSinkIssues,
+    ));
+  }
+
+  // Check: No client-side secret exposure via env vars (5 pts)
+  // NEXT_PUBLIC_*, REACT_APP_*, VITE_* should never hold real secrets
+  const clientSecretIssues = [];
+  const clientSecretPattern = /(?:NEXT_PUBLIC_|REACT_APP_|VITE_)(?:SECRET|KEY|TOKEN|PASSWORD|PASS|PWD|API_KEY|PRIVATE|AUTH)\s*[=:]\s*['"][^'"]{8,}['"]/gi;
+
+  for (const [filePath, content] of fileContents) {
+    const base = path.basename(filePath).toLowerCase();
+    // Only check .env files and source files, skip .env.example/.env.sample
+    if (base.includes("example") || base.includes("sample") || base.includes("template")) continue;
+
+    let match;
+    clientSecretPattern.lastIndex = 0;
+    while ((match = clientSecretPattern.exec(content)) !== null) {
+      const line = content.substring(0, match.index).split("\n").length;
+      clientSecretIssues.push({ file: relPath(projectDir, filePath), line, message: `Client-exposed secret: ${match[0].substring(0, 40)}...` });
+    }
+  }
+
+  if (clientSecretIssues.length === 0) {
+    checks.push(checkResult("No client-side secret exposure", "security-best-practices/next-react-vue", 5, 5, "pass", "No secrets found in client-exposed env vars (NEXT_PUBLIC_, REACT_APP_, VITE_)"));
+  } else {
+    checks.push(checkResult(
+      "No client-side secret exposure", "security-best-practices/next-react-vue", 5, 0, "fail",
+      `${clientSecretIssues.length} secret(s) exposed via client-side env vars. Move to server-only env vars.`,
+      clientSecretIssues,
+    ));
+  }
+
+  return { name: "Frontend Security", checks };
+}
+
+// ---- Category 8: Framework Configuration Security (13 pts) ----
+// security-best-practices references: django, flask, express, next.js
+async function checkFrameworkConfig(projectDir, fileContents) {
+  const checks = [];
+
+  // Detect frameworks present
+  const allContent = [...fileContents.values()].join("\n");
+  const hasDjango = /(?:from django|import django|DJANGO_SETTINGS_MODULE|django\.conf)/i.test(allContent);
+  const hasFlask = /(?:from flask|import flask|Flask\(__name__\))/i.test(allContent);
+  const hasExpress = /(?:require\(['"]express['"]\)|from ['"]express['"])/i.test(allContent);
+  const hasPython = [...fileContents.keys()].some((fp) => fp.endsWith(".py"));
+  const hasJS = [...fileContents.keys()].some((fp) => [".js", ".ts", ".mjs"].includes(path.extname(fp)));
+
+  // Check: Django ALLOWED_HOSTS / DEBUG misconfiguration (5 pts)
+  if (hasDjango) {
+    const djangoIssues = [];
+
+    for (const [filePath, content] of fileContents) {
+      if (!filePath.endsWith(".py")) continue;
+      const lines = content.split("\n");
+
+      lines.forEach((line, idx) => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith("#")) return;
+        if (/ALLOWED_HOSTS\s*=\s*\[.*['"]\*['"]/.test(line)) {
+          djangoIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "ALLOWED_HOSTS = ['*'] allows any host — set explicit domains in production" });
+        }
+        if (/^\s*DEBUG\s*=\s*True/.test(line) && !filePath.includes("test") && !filePath.includes("dev") && !filePath.includes("local")) {
+          djangoIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "DEBUG = True — ensure this is not active in production" });
+        }
+      });
+    }
+
+    if (djangoIssues.length === 0) {
+      checks.push(checkResult("Django: safe ALLOWED_HOSTS / DEBUG", "security-best-practices/django", 5, 5, "pass", "No ALLOWED_HOSTS=['*'] or unconditional DEBUG=True detected"));
+    } else {
+      checks.push(checkResult(
+        "Django: safe ALLOWED_HOSTS / DEBUG", "security-best-practices/django", 5, 0, "fail",
+        `${djangoIssues.length} Django configuration issue(s). Wildcard hosts and DEBUG=True expose the application.`,
+        djangoIssues,
+      ));
+    }
+  } else if (hasPython) {
+    checks.push(checkResult("Django: safe ALLOWED_HOSTS / DEBUG", "security-best-practices/django", 5, 0, "skip", "Django not detected"));
+  } else {
+    checks.push(checkResult("Django: safe ALLOWED_HOSTS / DEBUG", "security-best-practices/django", 5, 0, "skip", "No Python project detected"));
+  }
+
+  // Check: No server-side template injection (SSTI) patterns (5 pts)
+  const sstiIssues = [];
+
+  for (const [filePath, content] of fileContents) {
+    const ext = path.extname(filePath).toLowerCase();
+    if (![".py", ".js", ".ts", ".mjs"].includes(ext)) continue;
+
+    const lines = content.split("\n");
+    lines.forEach((line, idx) => {
+      const trimmed = line.trim();
+      if (trimmed.startsWith("#") || trimmed.startsWith("//") || trimmed.startsWith("*")) return;
+
+      // Flask/Jinja2: render_template_string(request.* or user input)
+      if (/render_template_string\s*\(.*(?:request\.|form\[|args\[|json\[|data\[)/.test(line)) {
+        sstiIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "render_template_string() with user-controlled input (SSTI)" });
+      }
+      // Django: Template(user_input)
+      if (/Template\s*\(.*(?:request\.|GET\[|POST\[|data\[)/.test(line)) {
+        sstiIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "Django Template() with user-controlled input (SSTI)" });
+      }
+      // Express: res.render(req.query.* or req.body.*)
+      if (/res\.render\s*\(\s*req\.(?:query|body|params)/.test(line)) {
+        sstiIssues.push({ file: relPath(projectDir, filePath), line: idx + 1, message: "res.render() with user-controlled template name (SSTI)" });
+      }
+    });
+  }
+
+  if (sstiIssues.length === 0) {
+    checks.push(checkResult("No server-side template injection", "security-best-practices/flask-express", 5, 5, "pass", "No SSTI patterns (render_template_string/res.render with user input) detected"));
+  } else {
+    checks.push(checkResult(
+      "No server-side template injection", "security-best-practices/flask-express", 5, 0, "fail",
+      `${sstiIssues.length} SSTI risk(s). Never pass user-controlled strings directly to template engines.`,
+      sstiIssues,
+    ));
+  }
+
+  // Check: No Express MemoryStore session (3 pts)
+  if (hasExpress) {
+    const memStoreIssues = [];
+
+    for (const [filePath, content] of fileContents) {
+      const ext = path.extname(filePath).toLowerCase();
+      if (![".js", ".ts", ".mjs", ".cjs"].includes(ext)) continue;
+
+      if (/express-session|session\s*\(/.test(content)) {
+        // MemoryStore is the default when no store: option is set alongside session()
+        if (!/store\s*:/.test(content) && /session\s*\(\s*\{/.test(content)) {
+          const line = content.split("\n").findIndex((l) => /session\s*\(\s*\{/.test(l)) + 1;
+          memStoreIssues.push({ file: relPath(projectDir, filePath), line, message: "express-session configured without explicit store — defaults to MemoryStore (not production-safe)" });
+        }
+        // Explicit new MemoryStore() is always wrong
+        if (/new\s+MemoryStore\s*\(/.test(content)) {
+          const line = content.split("\n").findIndex((l) => /new\s+MemoryStore/.test(l)) + 1;
+          memStoreIssues.push({ file: relPath(projectDir, filePath), line, message: "Explicit MemoryStore — leaks memory and resets on restart. Use Redis or DB store." });
+        }
+      }
+    }
+
+    if (memStoreIssues.length === 0) {
+      checks.push(checkResult("Express: persistent session store", "security-best-practices/express", 3, 3, "pass", "No MemoryStore session configuration detected"));
+    } else {
+      checks.push(checkResult(
+        "Express: persistent session store", "security-best-practices/express", 3, 0, "fail",
+        `${memStoreIssues.length} Express session issue(s). Use connect-redis, connect-pg-simple, or similar persistent store.`,
+        memStoreIssues,
+      ));
+    }
+  } else if (hasJS) {
+    checks.push(checkResult("Express: persistent session store", "security-best-practices/express", 3, 0, "skip", "Express not detected"));
+  } else {
+    checks.push(checkResult("Express: persistent session store", "security-best-practices/express", 3, 0, "skip", "No JS project detected"));
+  }
+
+  return { name: "Framework Config", checks };
+}
+
 // ---- Utility helpers for scanner ----
 
 function relPath(projectDir, filePath) {
@@ -1464,6 +1707,8 @@ async function runSecurityScan(projectDir) {
     await checkInputApi(projectDir, fileContents),
     await checkHeadersTransport(projectDir, fileContents),
     await checkDatabase(projectDir, fileContents),
+    await checkFrontendSecurity(projectDir, fileContents),
+    await checkFrameworkConfig(projectDir, fileContents),
   ];
 
   // Calculate scores
