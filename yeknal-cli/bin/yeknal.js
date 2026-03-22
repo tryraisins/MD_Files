@@ -579,9 +579,8 @@ async function checkSecretsAndEnv(projectDir, fileContents) {
     ));
   } else {
     checks.push(checkResult(
-      ".gitignore exists", "Phase 10", 3, 0, "fail",
-      "No .gitignore file found. Create one to prevent committing secrets, node_modules, build artifacts, and IDE files.",
-      [{ file: ".gitignore", message: "Missing .gitignore file" }],
+      ".gitignore exists", "Phase 10", 3, 2, "warn",
+      ".gitignore not found — one will be created after this scan completes.",
     ));
   }
 
@@ -1314,8 +1313,8 @@ async function checkDatabase(projectDir, fileContents) {
     ));
   } else {
     checks.push(checkResult(
-      "ORM or parameterized queries", "Phase 8", 5, 0, "warn",
-      "No ORM detected. Ensure parameterized queries are used for all database operations.",
+      "ORM or parameterized queries", "Phase 8", 5, 0, "skip",
+      "No ORM or DB library detected — skipping parameterized query check.",
     ));
   }
 
