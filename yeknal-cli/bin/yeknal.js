@@ -1757,6 +1757,20 @@ async function runSecurityCommand() {
   fs.writeFileSync(logPath, logContent);
   console.log(`\n  Full report: ${logPath}\n`);
 
+  // Ensure yeknal-security.log is in .gitignore so it never gets pushed
+  const gitignorePath = path.join(projectDir, ".gitignore");
+  const logEntry = "yeknal-security.log";
+  if (fs.existsSync(gitignorePath)) {
+    const content = fs.readFileSync(gitignorePath, "utf8");
+    if (!content.split("\n").some((line) => line.trim() === logEntry)) {
+      fs.appendFileSync(gitignorePath, `\n${logEntry}\n`);
+      console.log("  Added yeknal-security.log to .gitignore");
+    }
+  } else {
+    fs.writeFileSync(gitignorePath, `# Security scan logs\n${logEntry}\n`);
+    console.log("  Created .gitignore with yeknal-security.log");
+  }
+
   // Exit with error code if critical issues found
   if (results.totalIssues > 0) {
     process.exitCode = 1;
