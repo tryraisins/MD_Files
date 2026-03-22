@@ -1,20 +1,14 @@
 # MD Files
 
-A collection of reusable project guideline templates and skill folders for AI coding agents.
+A collection of reusable skill folders and security guidelines for AI coding agents.
 
-Use [`yeknal`](https://www.npmjs.com/package/yeknal) to pull templates or sync skills.
+Use [`yeknal`](https://www.npmjs.com/package/yeknal) to sync skills or run a security audit.
 
 ## Quick Start
 
 ```bash
 # Fetch security guidelines + run security audit
 npx yeknal security
-
-# Fetch design guidelines
-npx yeknal design
-
-# Fetch SEO checklist
-npx yeknal seo
 
 # Sync skill folders to local agent directories
 npx yeknal skills
@@ -24,9 +18,7 @@ npx yeknal skills
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal security` | Downloads `Security-Master.md` and runs `secure-repo audit` |
-| `npx yeknal design` | Downloads `Design.md` |
-| `npx yeknal seo` | Downloads `SEO-Prompt.md` |
+| `npx yeknal security` | Downloads `Security-Master.md` and runs a security audit |
 | `npx yeknal skills` | Syncs skill folders (excluding `Design`, `Security`, `Security_Raw`, `SEO`) |
 
 ## Skills Sync Behavior
@@ -52,8 +44,6 @@ Optional parent path overrides:
 
 ```
 Security/
-Design/
-SEO/
 ...skill folders...
 yeknal-cli/
 ```

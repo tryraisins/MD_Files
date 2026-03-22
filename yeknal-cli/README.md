@@ -1,6 +1,6 @@
 # yeknal
 
-A CLI tool to fetch project guideline templates and sync skill folders for AI coding agents.
+A CLI tool to sync skill folders for AI coding agents and run security audits.
 
 ## Installation
 
@@ -25,28 +25,6 @@ npx yeknal security
 Output:
 - `Security-Master.md`
 - `security-audit.log`
-
-### Design
-
-Fetches `Design.md`.
-
-```bash
-npx yeknal design
-```
-
-Output:
-- `Design.md`
-
-### SEO
-
-Fetches `SEO-Prompt.md`.
-
-```bash
-npx yeknal seo
-```
-
-Output:
-- `SEO-Prompt.md`
 
 ### Skills
 
@@ -80,12 +58,6 @@ Optional environment variable overrides:
 ```bash
 # Pull security guidelines + run audit
 npx yeknal security
-
-# Pull design guidelines
-npx yeknal design
-
-# Pull SEO guidelines
-npx yeknal seo
 
 # Sync skill folders for Gemini/Codex/Claude
 npx yeknal skills

@@ -2,7 +2,6 @@
 
 /**
  * yeknal CLI
- * - Fetches markdown templates (security, design, seo).
  * - Syncs skill folders into local AI agent directories (skills command).
  * - Scans project repos for security issues based on Security-Master.md rules.
  */
@@ -31,22 +30,9 @@ const EXCLUDED_SKILL_FOLDERS = new Set(["Design", "Security", "Security_Raw", "S
 
 const SECURITY_REPO_FOLDERS = ["Security", "Security_Raw"];
 
-const singleFileConfigs = {
-  design: {
-    remotePath: "Design/SKILL.md",
-    localName: "Design.md",
-  },
-  seo: {
-    remotePath: "SEO/seo-improvement-prompt.md",
-    localName: "SEO-Prompt.md",
-  },
-};
-
 function usage() {
   console.log("\nUsage:");
   console.log("  npx yeknal security   Sync security skills + scan current project");
-  console.log("  npx yeknal design     Fetch design guidelines");
-  console.log("  npx yeknal seo        Fetch SEO guidelines");
   console.log("  npx yeknal skills     Sync all skill folders\n");
 }
 
@@ -440,16 +426,6 @@ async function runSkillsCommand() {
   } finally {
     await fsp.rm(tempRoot, { recursive: true, force: true });
   }
-}
-
-async function runSingleFileTemplateCommand(category) {
-  const config = singleFileConfigs[category];
-  const fileUrl = `${RAW_BASE_URL}/${config.remotePath}`;
-  const localDest = path.join(process.cwd(), config.localName);
-
-  console.log(`\nFetching ${category} guidelines...`);
-  await downloadUrlToFile(fileUrl, localDest);
-  console.log(`Saved to: ${localDest}\n`);
 }
 
 // ==========================================
@@ -2058,11 +2034,6 @@ async function main() {
 
   if (command === "security") {
     await runSecurityCommand();
-    return;
-  }
-
-  if (singleFileConfigs[command]) {
-    await runSingleFileTemplateCommand(command);
     return;
   }
 
