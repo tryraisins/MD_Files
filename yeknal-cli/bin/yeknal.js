@@ -453,6 +453,7 @@ const SCAN_CONFIG_EXTENSIONS = new Set([
 const SCAN_ALL_EXTENSIONS = new Set([
   ...SCAN_SOURCE_EXTENSIONS, ...SCAN_CONFIG_EXTENSIONS,
   ".env", ".html", ".xml",
+  ".pem", ".key", ".crt", ".p12", ".pfx", ".jks", ".pkcs12",
 ]);
 
 // Secret patterns from Security-Master.md Part 1:
@@ -480,6 +481,19 @@ const SECRET_SCAN_EXCLUDE_FILES = new Set([
   ".env.example", ".env.sample", ".env.template",
   "tsconfig.json", "jsconfig.json",
 ]);
+
+// Credential file naming patterns — these must be in .gitignore before creation and deleted after testing
+// Security-Master.md Agent Rules: "Gitignore FIRST, delete after testing"
+const CREDENTIAL_FILENAME_PATTERNS = [
+  /^test\.env$/i,
+  /^\.env\.(test|ci|staging|prod|production|dev|development)(\.\w+)?$/i,
+  /^.*credentials?\.(?:json|yaml|yml|env|conf|cfg|ini)$/i,
+  /^.*secrets?\.(?:json|yaml|yml|env|conf|cfg|ini)$/i,
+  /^.*keyfile\.(?:json|yaml|yml|pem|key)$/i,
+  /^.*service[_-]?account.*\.(?:json|yaml|yml)$/i,
+  /^.*auth[_-]?keys?\.(?:json|yaml|yml|env)$/i,
+];
+const CREDENTIAL_EXT_PATTERNS = /\.(?:pem|key|crt|p12|pfx|jks|pkcs12)$/i;
 
 // Walk directory tree collecting scannable files
 async function walkProjectFiles(rootDir) {
@@ -727,6 +741,62 @@ async function checkSecretsAndEnv(projectDir, fileContents) {
       `${keyIssues.length} private key(s) found`,
       keyIssues,
     ));
+  }
+
+  // Check 6: Credential-pattern files covered by .gitignore (6 pts)
+  // Security-Master.md Agent Rules: gitignore BEFORE creation, delete after testing
+  const credPatternFiles = [];
+  for (const [fp] of fileContents) {
+    const base = path.basename(fp);
+    if (/example|sample|template|placeholder/i.test(base)) continue;
+    if (
+      CREDENTIAL_FILENAME_PATTERNS.some((p) => p.test(base)) ||
+      CREDENTIAL_EXT_PATTERNS.test(base)
+    ) {
+      credPatternFiles.push(fp);
+    }
+  }
+
+  if (credPatternFiles.length === 0) {
+    checks.push(checkResult(
+      "No credential files outside .gitignore", "Security-Master Agent Rules", 6, 6, "pass",
+      "No unprotected credential-pattern files detected",
+    ));
+  } else {
+    const isGitRepo = await isDirectory(path.join(projectDir, ".git"));
+    const exposedFiles = [];
+
+    for (const fp of credPatternFiles) {
+      const rel = relPath(projectDir, fp);
+      if (isGitRepo) {
+        // git check-ignore exits 0 if the file IS ignored, 1 if it is NOT ignored
+        const result = await execCommandSafe(`git check-ignore -q "${rel}"`, { cwd: projectDir });
+        if (result.error) {
+          exposedFiles.push({
+            file: rel,
+            message: "NOT covered by .gitignore — this file could be pushed to GitHub. Add to .gitignore immediately and delete after testing.",
+          });
+        }
+      } else {
+        exposedFiles.push({
+          file: rel,
+          message: "Credential-pattern file found (not a git repo — ensure it is never committed or deployed)",
+        });
+      }
+    }
+
+    if (exposedFiles.length === 0) {
+      checks.push(checkResult(
+        "No credential files outside .gitignore", "Security-Master Agent Rules", 6, 6, "pass",
+        `${credPatternFiles.length} credential-pattern file(s) found — all covered by .gitignore`,
+      ));
+    } else {
+      checks.push(checkResult(
+        "No credential files outside .gitignore", "Security-Master Agent Rules", 6, 0, "fail",
+        `${exposedFiles.length} credential-pattern file(s) are NOT in .gitignore. Risk of being pushed to GitHub.`,
+        exposedFiles,
+      ));
+    }
   }
 
   return { name: "Secrets & Environment", checks };
@@ -1792,7 +1862,7 @@ function generateSecurityLog(results) {
   lines.push(`Issues:          ${results.totalIssues}`);
   lines.push(`Warnings:        ${results.totalWarnings}`);
   lines.push("");
-  lines.push("Based on: Security-Master.md (yeknal security guidelines)");
+  lines.push("Based on: Security-Master.md + Security/SKILL.md (yeknal security guidelines)");
   lines.push("Reference: https://github.com/tryraisins/MD_Files/blob/main/Security/Security-Master.md");
   lines.push("");
 

@@ -185,6 +185,94 @@ For HTML-only work, prioritize CSS-only solutions.
 - Removed if ornamental only
 - One well-orchestrated page load with staggered reveals creates more delight than scattered micro-interactions
 
+## Philosophy: Simple UX, Beautiful UI
+
+These are not in tension — the best interfaces achieve both simultaneously.
+
+- **UX**: ruthlessly simple. Every flow must be completable in the fewest possible steps. No hidden actions, no ambiguous states, no cognitive overhead. Navigation, forms, and feedback patterns must be immediately intuitive.
+- **UI**: unexpectedly beautiful. Memorable first impressions, distinctive typography, deliberate motion, and depth that rewards attention. Never generic, never "on-distribution", never AI slop.
+- When in doubt: make it simpler to use *and* more visually striking at the same time.
+
+## Implementation Stack
+
+### Tailwind First
+
+Use Tailwind utilities before reaching for custom CSS. Custom CSS is acceptable for:
+
+- Complex animations not expressible as utilities
+- CSS variables and design tokens (`:root` level only)
+- Pseudo-elements and complex transforms
+
+Never write custom CSS for spacing, color, typography, flexbox, or grid that Tailwind already handles.
+
+### Advanced Animation Libraries
+
+When the visual direction demands it, use these — always indicate which are used at the end of the response:
+
+- **GSAP**: timeline-based animations, `ScrollTrigger` for scroll-driven reveals, `SplitText` for character-level type animation, `DrawSVGPlugin` for path reveals
+- **Anime.js**: lightweight DOM/SVG/CSS property animation, good for staggered entrance sequences and morphing effects
+- **Three.js**: WebGL 3D scenes, particle systems, canvas-based interactive backgrounds, animated geometry — for when the design demands true 3D depth
+- **Framer Motion / Motion library**: React-specific. Shared layout transitions, exit animations, gesture-driven interactions
+
+### Cursor
+
+Every interactive element — buttons, links, dropdowns, toggles, sliders, clickable cards — **must** have `cursor-pointer`. Never leave the default cursor on an actionable element. This is a UX requirement, not optional.
+
+## Navigation Patterns
+
+### Glassmorphism Navbar
+
+When building navbars, prefer a floating glass-effect bar over a traditional full-width stretched header:
+
+```css
+/* Glass navbar — does not stretch edge to edge */
+backdrop-filter: blur(16px) saturate(180%);
+background: rgba(255, 255, 255, 0.08);
+border: 1px solid rgba(255, 255, 255, 0.15);
+border-radius: 16px; /* or 9999px for pill shape */
+/* Add horizontal margin to prevent wall-to-wall stretch */
+margin: 16px auto;
+max-width: fit-content; /* or a specific px/rem */
+```
+
+In Tailwind:
+
+```html
+<nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl px-6 py-3 flex items-center gap-6">
+```
+
+Animate the navbar on load (fade-in + slide-down) and add hover states to nav links with smooth transitions.
+
+### Light / Dark Mode Toggle
+
+Every project should ship with a theme toggle. Implementation requirements:
+
+- Toggle lives in the navbar
+- Store preference in `localStorage` with key `theme`
+- Apply class `dark` to `<html>` element (Tailwind dark mode strategy: `class`)
+- Use CSS variables for all color tokens so switching is instantaneous — no flash
+- Toggle icon must be context-sensitive (sun icon in dark mode, moon icon in light mode) — do NOT use the bolt or star icons; choose something distinctive
+
+```js
+// Minimal toggle implementation
+const toggle = () => {
+  const isDark = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+};
+// On load
+if (localStorage.theme === 'dark' || (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.classList.add('dark');
+}
+```
+
+## Icon Rules
+
+Avoid icons that have become shorthand for AI-generated content:
+
+- **Never use**: bolt/lightning, generic star, sparkle/magic wand, generic rocket, simple gear cog as the sole icon
+- **Instead**: choose icons that are specific to the context, or use custom SVG marks, or typographic symbols
+- If using a library (Lucide, Phosphor, Heroicons), pick the least common variants — outline over filled for utility UI, filled for emphasis only
+
 ## Hard Rules
 
 - No cards by default.

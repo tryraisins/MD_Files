@@ -28,6 +28,47 @@ For full implementation details and code examples, reference `Security-Master.md
 - `.gitignore` must cover: `.env*`, `.env.local`, `.env.*.local`, private keys, IDE files
 - Never log passwords, API keys, credit card numbers, session tokens, or PII
 
+## Credential File Safety During Testing
+
+**This section is non-negotiable. Violations result in credentials being pushed to GitHub.**
+
+### Mandatory order of operations — no exceptions
+
+1. **Gitignore FIRST** — Before writing any credential content to a file, add that filename or pattern to `.gitignore`. Never write credentials then gitignore later. If no `.gitignore` exists, create it first.
+2. **Test** — Run the test with the credential file in place.
+3. **Delete immediately after** — Delete the file as soon as testing is done. Do not stage it. Do not leave it on disk.
+
+### Red-flag file patterns — auto-trigger gitignore + deletion
+
+Any file matching these patterns that contains credentials MUST be gitignored before creation and deleted after use:
+
+- `*.test.env`, `test.env*`, `.env.test*`, `.env.ci*`, `.env.staging*`
+- `*credentials*`, `*secrets*`, `*keyfile*`, `*service-account*`
+- `*.json` containing `"private_key"`, `"client_secret"`, or `"password"`
+- `*.pem`, `*.key`, `*.crt`, `*.p12`, `*.pfx`, `*.jks`
+- Any file with a connection string that embeds a password: `://user:password@host`
+- Shell scripts containing `export SECRET=` or `export API_KEY=`
+
+### Pre-push gate — run before every `git push`
+
+```bash
+# Confirm no credential-pattern files are untracked or staged
+git status
+git diff --cached | grep -iE "(password|secret|api_key|private_key|token)"
+
+# Confirm .gitignore covers all temp credential files from this session
+cat .gitignore | grep -E "\.(env|pem|key|p12)"
+```
+
+If any credential-pattern file appears in `git status` output and is NOT listed in `.gitignore`, stop — do not push. Add the file to `.gitignore`, delete the file, then verify again.
+
+### NEVER
+
+- Create a credential file, commit it, then add to `.gitignore` as a follow-up step
+- Leave test credential files on disk after testing is complete
+- Use production credentials in test files — use test-environment credentials only
+- Assume `.gitignore` covers a file without verifying the pattern matches the exact filename
+
 ## Authentication & Authorization
 
 - **Never trust client auth state** — server always verifies tokens/sessions
@@ -107,7 +148,7 @@ Use Helmet for Express or configure via `next.config.js` headers for Next.js.
 ## Rate Limiting
 
 | Tier | Limit | Use |
-|------|-------|-----|
+| ------ | ------- | ----- |
 | `auth` | 5 per 15 min | Login, token generation |
 | `passwordReset` | 3 per hour | Password reset, magic links |
 | `api` | 60 per minute | Authenticated API calls |
@@ -144,3 +185,70 @@ Return 429 with `Retry-After` header when limits exceeded.
 - [ ] Password hashing uses bcrypt/argon2/scrypt (cost >= 12)
 - [ ] .gitignore covers .env files, secrets, and keys
 - [ ] `npm audit` clean (no critical/high vulnerabilities)
+- [ ] `.gitignore` was updated **before** any credential file was written (not after)
+- [ ] All test credential files created this session have been **deleted from disk**
+- [ ] `git status` shows no untracked files matching credential-pattern names
+- [ ] `git diff --cached` contains no hardcoded passwords, API keys, or tokens
+
+## Adversarial Security Audit Mode
+
+When explicitly asked to perform a security audit, red-team review, or penetration-style analysis, activate adversarial mode. Think like an attacker with motivation and creativity — not a checklist runner.
+
+### Attacker Profiles to Simulate
+
+| Profile | Access Level | Primary Goal |
+| --- | --- | --- |
+| Anonymous user | Unauthenticated, public endpoints only | Auth bypass, data exfiltration, account takeover |
+| Authenticated user | Valid session, standard permissions | Privilege escalation, IDOR, horizontal access |
+| Insider / ex-employee | Knowledge of internal architecture | Credential theft, backdoor, data manipulation |
+| API consumer | API key only, no browser | Rate limit bypass, scope escalation, key rotation abuse |
+| Supply chain attacker | Dependency or CI/CD access | RCE via package, backdoor in build artifact |
+
+### Full Attack Surface — Audit Every Layer
+
+**Frontend:** Client-side auth bypass, DOM-based XSS, open redirects, client secret exposure (`NEXT_PUBLIC_*`, `REACT_APP_*`), localStorage token theft, clickjacking  
+**Backend:** SSRF, command injection, deserialization attacks, mass assignment, unsafe `eval()`/`Function()`, path traversal  
+**Authentication:** JWT algorithm confusion, session fixation, password reset link abuse, OAuth `state` param bypass, token leakage in URLs or logs  
+**Database:** SQL/NoSQL injection, IDOR/BOLA (Broken Object Level Authorization), insecure direct object references, mass assignment via ORM  
+**Infrastructure:** CORS wildcard on authenticated endpoints, exposed debug routes, `.env` file serving, cloud bucket misconfiguration, admin panel without auth  
+**Dependencies:** Vulnerable packages (`npm audit`), malicious transitive dependencies, lock file tampering, typosquatting  
+
+### Advanced Attack Patterns — Actively Probe These
+
+- **Chained exploits**: Combine low-severity issues into critical paths (e.g., SSRF + CORS bypass + JWT token leakage = account takeover)
+- **Race conditions**: Double-submit forms, check-then-act (TOCTOU), concurrent request abuse, double spending
+- **Business logic abuse**: Skip payment/approval steps, replay completed transactions, bypass feature flags via URL params
+- **Cache poisoning**: Unkeyed request headers, CDN cache pollution with attacker-controlled content
+- **Timing attacks**: Auth comparison leaks, username enumeration via response time differences
+- **Replay attacks**: Reuse expired tokens, replay magic links after single-use should have invalidated them
+- **State desynchronization**: Multi-step wizard bypass, stale frontend state exploits, incomplete server-side validation
+
+### Required Output Format
+
+```markdown
+### 1. Vulnerability Summary
+- Critical: N | High: N | Medium: N | Low: N
+
+### 2. Detailed Findings
+For each vulnerability:
+- Title + Severity (Critical/High/Medium/Low)
+- Affected component + file/line if known
+- Description of the flaw
+- Exploitation scenario (step-by-step)
+- Impact if exploited
+- Recommended fix
+
+### 3. Attack Chains
+- Show how 2–4 lower-severity issues combine into a critical exploit path
+
+### 4. Secure Design Recommendations
+- Architectural improvements and safer patterns
+```
+
+### Adversarial Mindset Rules
+
+- **Do NOT assume the code is safe** — every boundary is a potential entry point
+- **Do NOT skip due to missing context** — infer risks and flag assumptions explicitly
+- **Flag "that shouldn't be possible" scenarios** — they often are
+- **Think in chains** — three low-severity issues can create a critical exploit
+- **Assume breach** — what damage can an attacker do once they're inside?

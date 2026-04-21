@@ -73,6 +73,46 @@ Deliver an actionable AppSec-grade threat model that is specific to the reposito
 - Medium: targeted DoS of critical components, partial data exposure, rate-limit bypass with measurable impact, log/metrics poisoning that affects detection.
 - Low: low-sensitivity info leaks, noisy DoS with easy mitigation, issues requiring unlikely preconditions.
 
+## Adversarial Audit Extension
+
+When the user asks for a **red-team review**, **penetration test**, or **adversarial security audit** (distinct from a standard threat model), extend the workflow with the following:
+
+### Attacker profiles to enumerate
+
+- **Anonymous user** — unauthenticated, public endpoints: auth bypass, data exfiltration, account takeover
+- **Authenticated user** — valid session, standard permissions: privilege escalation, IDOR/BOLA, horizontal access
+- **Insider / ex-employee** — knowledge of internals: credential theft, backdoor, data manipulation
+- **API consumer** — API key only, no browser session: rate limit bypass, scope escalation
+- **Supply chain attacker** — dependency or CI/CD access: RCE via package, build artifact backdoor
+
+### Advanced threat categories to actively probe
+
+- **Chained exploits**: Combine lower-severity issues (e.g., SSRF + CORS bypass + JWT token leakage = account takeover)
+- **Race conditions**: Double-submit, check-then-act (TOCTOU), concurrent request abuse, double spending
+- **Business logic abuse**: Skip payment/approval steps, replay completed transactions, bypass feature flags via URL params
+- **Cache poisoning**: Unkeyed request headers, CDN cache pollution with attacker-controlled content
+- **Timing attacks**: Auth comparison leaks, username enumeration via response time differences
+- **Replay attacks**: Reuse expired tokens, replay magic links after single-use invalidation
+- **State desynchronization**: Multi-step wizard bypass, stale frontend state, incomplete server-side validation
+- **JWT confusion**: Algorithm switching (`none`, RS→HS), key confusion attacks
+- **Mass assignment**: ORM/framework auto-binding of untrusted request fields to privileged model fields
+
+### Required output additions for adversarial audits
+
+Beyond the standard threat model output, include:
+
+- **Exploitation scenario** for each finding: step-by-step attacker action sequence
+- **Attack chains section**: show how 2–4 minor issues combine into a critical exploit
+- **"Assume breach" recommendations**: what controls limit damage once an attacker is inside
+- **Severity justification**: why this is Critical/High/Medium/Low given the actual exploitability
+
+### Adversarial mindset rules
+
+- Do NOT assume the code is safe — treat every input boundary as exploitable until proven otherwise
+- Do NOT skip due to missing context — infer risks and state assumptions explicitly
+- Flag "that shouldn't be possible" behaviors — they often are under edge conditions
+- Think in chains — three low-severity issues can create one critical exploit path
+
 ## References
 
 - Output contract and full prompt template: `references/prompt-template.md`

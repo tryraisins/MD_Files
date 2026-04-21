@@ -1,6 +1,6 @@
 {
   "name": "yeknal",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "CLI to fetch markdown templates and sync AI agent skills",
   "main": "bin/yeknal.js",
   "bin": {

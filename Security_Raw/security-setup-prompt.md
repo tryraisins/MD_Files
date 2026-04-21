@@ -1091,12 +1091,20 @@ if (!process.env.JWT_SECRET) {
 .env.test.local
 .env.production.local
 .env*.local
+.env.ci
+.env.staging
 
 # Secrets
 *.pem
 *.key
 *.crt
+*.p12
+*.pfx
+*.jks
 secrets/
+*credentials*
+*keyfile*
+*service-account*.json
 
 # IDE and system
 .idea/
@@ -1104,6 +1112,41 @@ secrets/
 .DS_Store
 Thumbs.db
 ```
+
+### 10.4 Credential File Lifecycle During Testing (MANDATORY)
+
+When any file containing credentials must be created for testing purposes, the following order is non-negotiable:
+
+**Step 1 — Gitignore first:**
+Add the filename or pattern to `.gitignore` BEFORE creating the file. Never write the credential file first.
+
+**Step 2 — Write and test:**
+Only after `.gitignore` is saved, write the credential file and run the test.
+
+**Step 3 — Delete immediately:**
+Delete the credential file the moment testing is complete. Do not stage it. Do not leave it in the working directory.
+
+**Pre-push verification** — run before every `git push`:
+
+```bash
+# Check for untracked or staged credential-pattern files
+git status
+
+# Scan staged changes for embedded secrets
+git diff --cached | grep -iE "(password|secret|api_key|private_key|token|bearer)"
+
+# Verify .gitignore covers all temp credential patterns
+cat .gitignore | grep -E "\.(env|pem|key|p12|crt|pfx)"
+```
+
+If any credential-pattern file appears untracked or staged — STOP. Do not push. Resolve by adding to `.gitignore`, deleting the file, and verifying clean status.
+
+**Red-flag filenames — always gitignore + delete:**
+
+- `test.env`, `*.test.env`, `.env.test*`
+- `*credentials*.json`, `*service-account*.json`, `*secrets*.json`
+- Any `.json` file with `"private_key"` or `"client_secret"` fields
+- Shell scripts exporting `SECRET=`, `API_KEY=`, or `PASSWORD=`
 
 ---
 

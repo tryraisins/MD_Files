@@ -18,6 +18,14 @@ This repository handles production user data and privileged database access. Tre
   - Never commit: Database passwords, JWT secrets, API keys, service account keys, or admin credentials.
   - Client-side env vars must be limited to public-safe values only (e.g. public API URLs, publishable keys).
 
+- **Credential file lifecycle — mandatory order, no exceptions**
+  - **Step 1 — Gitignore before creation**: Before writing any credential content to a file (even a temp test file), add the exact filename or pattern to `.gitignore`. If `.gitignore` does not exist, create it as the very first action.
+  - **Step 2 — Write and test**: Only after `.gitignore` is saved may you write the credential file and run tests.
+  - **Step 3 — Delete immediately**: Delete the file the moment testing is complete. Do not stage it. Do not leave it in the working directory.
+  - **Pre-push verification**: Run `git status` before every `git push`. If any file matching `*.env*`, `*secret*`, `*credential*`, `*key*`, `*.pem`, `*.p12`, `*.crt`, `*.pfx` appears as untracked or staged, STOP — do not push until resolved.
+  - Never use production credentials in test files. Use test-environment credentials only.
+  - The sequence `.gitignore` → write → test → delete is non-negotiable. Committing first and gitignoring after is a security incident.
+
 - **Assume public keys are public**
   - Anyone can extract client-side keys from a web app.
   - All data protection must be enforced via database access control, safe RPCs, and server-side checks.
@@ -56,6 +64,12 @@ This repository handles production user data and privileged database access. Tre
     - Database passwords or connection strings
     - JWTs (`eyJ...`)
     - Any secret keys, tokens, or credentials
+  - Scan for credential-pattern files not covered by `.gitignore`:
+    - Files matching `*.env*`, `*secret*`, `*credential*`, `*keyfile*`, `*.pem`, `*.key`, `*.crt`, `*.p12`, `*.pfx`
+    - JSON files containing `"private_key"`, `"client_secret"`, or `"password"` fields
+    - Shell scripts with `export SECRET=` or `export API_KEY=` assignments
+  - Confirm all test credential files created during this session have been **deleted from disk**
+  - Confirm `.gitignore` was updated **before** any credential file was written (not as a cleanup step afterward)
 
 - **Database review** (required after any DB/access control change)
   - Verify access control policies cover new tables and columns.
