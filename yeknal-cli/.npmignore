@@ -1,0 +1,6 @@
+node_modules/
+*.log
+*.log.*
+yeknal-security.log
+security-audit.log
+package-lock.json
