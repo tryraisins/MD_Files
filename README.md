@@ -28,7 +28,9 @@ npx yeknal skills
 - Uses GitHub API + raw file download by default.
 - If GitHub API rate limit is hit, it automatically falls back to `git clone` (Git must be installed).
 - Includes only top-level folders that contain `SKILL.md`.
-- Overwrites existing destination skill folders.
+- Installs each synced skill with a `yeknal-` folder prefix, for example `taste-skill` installs as `yeknal-taste-skill`.
+- Only matching `yeknal-*` managed destination folders are overwritten during sync.
+- Personal/private skill folders without the `yeknal-` prefix are left untouched.
 - Creates `<parent>/skills` when parent exists but skills folder does not.
 - Sync targets:
 - Gemini: `~/.gemini/antigravity` or `~/.antigravity`

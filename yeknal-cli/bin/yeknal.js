@@ -27,6 +27,7 @@ const API_BASE = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}
 const GITHUB_TOKEN = process.env.YEKNAL_GITHUB_TOKEN || process.env.GITHUB_TOKEN || "";
 
 const EXCLUDED_SKILL_FOLDERS = new Set(["Design", "Security", "Security_Raw", "SEO"]);
+const MANAGED_SKILL_FOLDER_PREFIX = "yeknal-";
 
 const SECURITY_REPO_FOLDERS = ["Security", "Security_Raw"];
 
@@ -161,6 +162,13 @@ function listFilesForFolder(repoTree, folderName) {
     .map((entry) => entry.path)
     .filter((repoPath) => repoPath.startsWith(prefix))
     .sort((a, b) => a.localeCompare(b));
+}
+
+function getManagedSkillFolderName(folderName) {
+  if (folderName.startsWith(MANAGED_SKILL_FOLDER_PREFIX)) {
+    return folderName;
+  }
+  return `${MANAGED_SKILL_FOLDER_PREFIX}${folderName}`;
 }
 
 function buildRawFileUrl(repoFilePath) {
@@ -393,6 +401,7 @@ async function runSkillsCommand() {
 
     console.log(`\nSkill folders to sync (${skillFolders.length}) via ${sourceLabel}:`);
     console.log(`  ${skillFolders.join(", ")}`);
+    console.log(`\nInstalled folders use the managed "${MANAGED_SKILL_FOLDER_PREFIX}" prefix.`);
 
     let hadFailure = false;
     for (const target of targets) {
@@ -402,7 +411,7 @@ async function runSkillsCommand() {
 
         for (const folder of skillFolders) {
           const sourceFolder = path.join(tempRoot, folder);
-          const destinationFolder = path.join(target.skillsPath, folder);
+          const destinationFolder = path.join(target.skillsPath, getManagedSkillFolderName(folder));
           await fsp.rm(destinationFolder, { recursive: true, force: true });
           await copyDirRecursive(sourceFolder, destinationFolder);
           copiedCount += 1;
