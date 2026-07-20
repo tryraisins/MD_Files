@@ -1,6 +1,6 @@
 # yeknal
 
-A CLI tool to sync skill folders for AI coding agents and run security audits.
+A CLI tool to sync the latest skill folders for AI coding agents and run security audits.
 
 ## Installation
 
@@ -28,7 +28,7 @@ Output:
 
 ### Skills
 
-Syncs skill folders from the GitHub repository into detected local agent folders.
+Syncs the latest skill folders from the GitHub repository into detected local agent folders.
 
 ```bash
 npx yeknal skills
@@ -36,6 +36,7 @@ npx yeknal skills
 
 Behavior:
 - Source mode is GitHub download.
+- Pulls the current top-level `SKILL.md` folders from `tryraisins/MD_Files` on `main`.
 - Uses GitHub API + raw file download by default.
 - If GitHub API rate limit is hit, it automatically falls back to `git clone` (Git must be installed).
 - Top-level folders are included only if they contain `SKILL.md`.

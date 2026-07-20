@@ -19,11 +19,12 @@ npx yeknal skills
 | Command | Result |
 | --- | --- |
 | `npx yeknal security` | Downloads `Security-Master.md` and runs a security audit |
-| `npx yeknal skills` | Syncs skill folders (excluding `Design`, `Security`, `Security_Raw`, `SEO`) |
+| `npx yeknal skills` | Syncs the latest top-level skill folders (excluding `Design`, `Security`, `Security_Raw`, `SEO`) |
 
 ## Skills Sync Behavior
 
 - Source mode is GitHub download.
+- Pulls the current top-level `SKILL.md` folders from this repository on `main`.
 - Uses GitHub API + raw file download by default.
 - If GitHub API rate limit is hit, it automatically falls back to `git clone` (Git must be installed).
 - Includes only top-level folders that contain `SKILL.md`.
@@ -47,6 +48,24 @@ Security/
 ...skill folders...
 yeknal-cli/
 ```
+
+## Latest Taste Skills
+
+The repository now includes the Taste skill bundle:
+
+- `taste-skill`
+- `taste-skill-v1`
+- `gpt-tasteskill`
+- `image-to-code-skill`
+- `imagegen-frontend-web`
+- `imagegen-frontend-mobile`
+- `brandkit`
+- `redesign-skill`
+- `soft-skill`
+- `output-skill`
+- `minimalist-skill`
+- `brutalist-skill`
+- `stitch-skill`
 
 ## License
 
