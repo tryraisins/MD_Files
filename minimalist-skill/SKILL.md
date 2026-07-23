@@ -68,6 +68,10 @@ Color is a scarce resource, utilized only for semantic meaning or subtle accents
 
 ## 7. Subtle Motion & Micro-Animations
 Motion should feel invisible — present but never distracting. The goal is quiet sophistication, not spectacle.
+
+### Loading Feedback (React)
+
+For visible action or process loading, default to the restrained use of `thinking-orbs` (`ThinkingOrb`) instead of a generic spinner. Verify or install it with `npm install thinking-orbs`, select a contextual state such as `working`, and keep the orb small within buttons or inline feedback; use a larger orb only for dialog or full-screen progress. Keep skeletons for layout-shaped content loading and pair the orb with accessible text status and a reduced-motion-safe fallback.
 - Scroll Entry: Elements fade in gently as they enter the viewport. Use `translateY(12px)` + `opacity: 0` resolving over `600ms` with `cubic-bezier(0.16, 1, 0.3, 1)`. Use `IntersectionObserver`, never `window.addEventListener('scroll')`.
 - Hover States: Cards lift with an ultra-subtle shadow shift (`box-shadow` transitioning from `0 0 0` to `0 2px 8px rgba(0,0,0,0.04)` over `200ms`). Buttons respond with `scale(0.98)` on `:active`.
 - Staggered Reveals: Lists and grid items enter with a cascade delay (`animation-delay: calc(var(--index) * 80ms)`). Never mount everything at once.

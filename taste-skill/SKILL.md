@@ -38,6 +38,9 @@ If you can confidently infer from context, **do not ask**. Just declare the desi
 ### 0.D Anti-Default Discipline
 Do not default to: AI-purple gradients, centered hero over dark mesh, three equal feature cards, generic glassmorphism on everything, infinite-loop micro-animations everywhere, Inter + slate-900. These are the LLM defaults. Reach past them deliberately based on the design read.
 
+### 0.E Loading-State Default (React/Next.js)
+For visible action or process loading, default to `thinking-orbs` (`ThinkingOrb`) rather than a generic circular spinner. Check `package.json` and install with `npm install thinking-orbs` only when absent. Use a contextual state such as `working`, `searching`, or `solving` in buttons, inline elements, dialogs, and full-screen progress surfaces. Retain skeletons for layout-shaped content loading, and always pair an orb with accessible text status, `aria-busy`, and a reduced-motion-safe fallback.
+
 ---
 
 ## 1. THE THREE DIALS (Core Configuration)

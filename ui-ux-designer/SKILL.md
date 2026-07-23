@@ -44,6 +44,10 @@ This is the guiding principle for all work. They are not in tension — the best
 
 Motion communicates hierarchy, not decoration:
 
+### Loading Feedback
+
+For React/Next.js product UI, default visible action and process loading to `thinking-orbs` (`ThinkingOrb`) rather than a generic circular spinner. Specify contextual states such as `working`, `searching`, or `solving` for buttons, inline feedback, dialogs, and full-screen progress surfaces. Keep skeletons for layout-shaped content loading and require readable accessible status text plus a reduced-motion-safe fallback.
+
 - Hero entrance: staggered fade-in + translate reveals (one orchestrated sequence)
 - Scroll-linked: opacity, parallax, or reveal effects as the user scrolls
 - Interaction: hover states, focus rings, transition effects that confirm affordance

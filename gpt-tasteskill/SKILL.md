@@ -45,6 +45,10 @@ The Hero must breathe. It must NOT be a narrow, 6-line text wall.
 
 ## 5. ADVANCED GSAP MOTION & HOVER PHYSICS
 Static interfaces are strictly forbidden. You must write real GSAP (`@gsap/react`, `ScrollTrigger`).
+
+### Loading Feedback (React)
+
+For a visible action or process in progress, prefer the animated `thinking-orbs` `ThinkingOrb` component over a generic spinner. Confirm it is installed first (`npm install thinking-orbs` when needed), select a state that describes the work (`working`, `searching`, `solving`), and use it in buttons, inline feedback, dialogs, or full-screen loading surfaces. Do not replace layout-shaped skeleton loaders; accompany the orb with accessible text status and a reduced-motion-safe fallback.
 - **Hover Physics:** Every clickable card and image must react. Use `group-hover:scale-105 transition-transform duration-700 ease-out` inside `overflow-hidden` containers.
 - **Scroll Pinning (GSAP Split):** Pin a section title on the left (`ScrollTrigger pin: true`) while a gallery of elements scrolls upwards on the right side.
 - **Image Scale & Fade Scroll:** Images must start small (`scale: 0.8`). As they scroll into view, they grow to `scale: 1.0`. As they scroll out of view, they smoothly darken and fade out (`opacity: 0.2`).

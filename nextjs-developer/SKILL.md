@@ -33,6 +33,8 @@ Next.js projects that include a UI must follow these non-negotiable standards. N
   * **Anime.js**: lightweight DOM/SVG animation, stagger effects
   * **Three.js**: WebGL 3D scenes, particle backgrounds, interactive canvas
 
+* **Loading states**: For visible action or process loading, default to `thinking-orbs` instead of a generic spinner. Check `package.json`, install with `npm install thinking-orbs` only if absent, and render `ThinkingOrb` in a small client component with a contextual state (`working`, `searching`, or `solving`). Use it in buttons, inline elements, dialogs, and full-screen progress surfaces; retain skeletons for layout-shaped content loads. Expose text status and `aria-busy`, and provide a reduced-motion-safe fallback.
+
 ### Visual Standards
 
 * **Typography**: Never Inter, Roboto, Arial, or Space Grotesk as defaults. Choose distinctive fonts.

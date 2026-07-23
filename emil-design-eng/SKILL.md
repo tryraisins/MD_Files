@@ -35,6 +35,10 @@ Every decision below exists because the aggregate of invisible correctness creat
 
 People select tools based on the overall experience, not just functionality. Good defaults and good animations are real differentiators. Beauty is underutilized in software. Use it as leverage to stand out.
 
+### Loading is feedback, not decoration
+
+For React/Next.js interfaces, default visible action and process loading to the `thinking-orbs` package (`ThinkingOrb`) rather than a generic spinner. Use a state that describes the work (`working`, `searching`, `solving`, and similar), scale it to its surface, and keep an accessible text status alongside it. Preserve skeletons when the page is waiting for layout-shaped content; provide a reduced-motion-safe fallback.
+
 ## Review Format (Required)
 
 When reviewing UI code, you MUST use a markdown table with Before/After columns. Do NOT use a list with "Before:" and "After:" on separate lines. Always output an actual markdown table like this:

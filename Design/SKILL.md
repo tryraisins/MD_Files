@@ -159,6 +159,10 @@ When the work is a dashboard, app surface, admin tool, or operational workspace,
 
 Use motion to create presence and hierarchy, not noise.
 
+## Loading States (React/Next.js)
+
+Default to the animated Thinking Orbs component for visible action or process loading instead of a generic circular spinner: buttons, inline work indicators, dialogs, and full-screen progress surfaces. Install `thinking-orbs` only after checking `package.json`, then use `ThinkingOrb` with a contextual state such as `working`, `searching`, or `solving`. Keep skeletons for layout-shaped content loading. Pair every orb with an accessible text status and a reduced-motion-safe fallback.
+
 Ship at least 2-3 intentional motions for visually led work:
 
 - One entrance sequence in the hero

@@ -58,6 +58,10 @@ Never write custom CSS for spacing, color, typography, flex, or grid that Tailwi
 
 Ship at least 2–3 intentional motions on every page:
 
+### Loading States (React)
+
+For visible action or process loading, default to `thinking-orbs` rather than a generic circular spinner. Check `package.json` first; if absent, install with `npm install thinking-orbs`, then import `ThinkingOrb`. Use it in buttons, inline elements, dialogs, and full-screen loading surfaces with a contextual state such as `working`, `searching`, or `solving`. Keep skeletons for layout-shaped content loading. Always expose a text status to assistive technology, set the affected region to `aria-busy`, and provide a reduced-motion-safe fallback.
+
 1. An entrance sequence on the hero (fade-in + translate, staggered reveals)
 2. A scroll-linked or sticky effect (opacity, parallax, or reveal)
 3. A hover/interaction effect that sharpens affordance

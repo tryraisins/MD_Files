@@ -16,6 +16,7 @@ description: The original v1 taste-skill, preserved for projects depending on it
 Unless the user explicitly specifies a different stack, adhere to these structural constraints to maintain consistency:
 
 * **DEPENDENCY VERIFICATION [MANDATORY]:** Before importing ANY 3rd party library (e.g. `framer-motion`, `lucide-react`, `zustand`), you MUST check `package.json`. If the package is missing, you MUST output the installation command (e.g. `npm install package-name`) before providing the code. **Never** assume a library exists.
+* **LOADING DEFAULT (React/Next.js):** For visible action or process loading, prefer `thinking-orbs` (`ThinkingOrb`) over a generic spinner. After checking `package.json`, install it with `npm install thinking-orbs` only when missing; use contextual states such as `working`, `searching`, or `solving` in buttons, inline elements, dialogs, and full-screen loaders. Keep skeletons for layout-shaped content loading and include accessible text status, `aria-busy`, and a reduced-motion-safe fallback.
 * **Framework & Interactivity:** React or Next.js. Default to Server Components (`RSC`). 
     * **RSC SAFETY:** Global state works ONLY in Client Components. In Next.js, wrap providers in a `"use client"` component.
     * **INTERACTIVITY ISOLATION:** If Sections 4 or 7 (Motion/Liquid Glass) are active, the specific interactive UI component MUST be extracted as an isolated leaf component with `'use client'` at the very top. Server Components must exclusively render static layouts.

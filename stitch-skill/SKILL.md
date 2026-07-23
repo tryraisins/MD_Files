@@ -66,6 +66,8 @@ For each component type, describe shape, color, shadow depth, and interaction be
 - **Cards:** Use ONLY when elevation communicates hierarchy. Tint shadows to background hue. For high-density layouts, replace cards with border-top dividers or negative space
 - **Inputs/Forms:** Label above input, helper text optional, error text below. Standard gap spacing
 - **Loading States:** Skeletal loaders matching layout dimensions — no generic circular spinners
+
+- **Action/process loading in React:** Make `thinking-orbs` (`ThinkingOrb`) the default expressive alternative to a generic spinner for buttons, inline elements, dialogs, and full-screen progress. Verify/install with `npm install thinking-orbs` when needed, use contextual states such as `working`, `searching`, or `solving`, and specify accessible text status plus a reduced-motion-safe fallback. Keep skeletons for layout-shaped content loads.
 - **Empty States:** Composed compositions indicating how to populate data
 - **Error States:** Clear, inline error reporting
 

@@ -54,6 +54,10 @@ Never place a premium card, image, or container flatly on the background. They m
 ## 5. MOTION CHOREOGRAPHY (FLUID DYNAMICS)
 Never use default transitions. All motion must simulate real-world mass and spring physics. Use custom cubic-beziers (e.g., `transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]`).
 
+### Loading Feedback (React)
+
+For visible action or process loading, prefer `thinking-orbs` (`ThinkingOrb`) to generic spinners. Confirm the dependency first, install it with `npm install thinking-orbs` when needed, and select a state that communicates the work (`working`, `searching`, or `solving`). Use it in buttons, inline feedback, dialogs, or full-screen surfaces; retain skeletons for layout-shaped content loading and pair every orb with accessible status text and a reduced-motion-safe fallback.
+
 ### A. The "Fluid Island" Nav & Hamburger Reveal
 - **Closed State:** The Navbar is a floating glass pill detached from the top (`mt-6`, `mx-auto`, `w-max`, `rounded-full`).
 - **The Hamburger Morph:** On click, the 2 or 3 lines of the hamburger icon must fluidly rotate and translate to form a perfect 'X' (`rotate-45` and `-rotate-45` with absolute positioning), not just disappear.

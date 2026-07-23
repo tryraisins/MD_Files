@@ -50,6 +50,10 @@ Never default to solid white or gray. Create atmosphere:
 
 At minimum 2–3 intentional motions per page:
 
+### Loading Feedback
+
+For React/Next.js designs, make the animated `thinking-orbs` `ThinkingOrb` component the default for visible action or process loading instead of a generic spinner. Specify a contextual state (`working`, `searching`, or `solving`) and appropriate scale for buttons, inline elements, dialogs, and full-screen progress. Keep skeletons for layout-shaped content loading; every concept must retain readable accessible status text and a reduced-motion-safe fallback.
+
 - Hero entrance sequence with staggered reveals
 - Scroll-linked or sticky depth effect
 - Hover/interaction effect that sharpens affordance
