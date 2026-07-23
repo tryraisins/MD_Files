@@ -4,7 +4,7 @@ description: "Translate Figma nodes into production-ready code with 1:1 visual f
 ---
 
 
-# Implement Design
+# Figma MCP: Design Context to Production Code
 
 ## Overview
 
@@ -18,6 +18,19 @@ This skill provides a structured workflow for translating Figma designs into pro
   - `1-2` is the node ID (the specific component or frame to implement)
 - **OR** when using `figma-desktop` MCP: User can select a node directly in the Figma desktop app (no URL required)
 - Project should have an established design system or component library (preferred)
+
+### MCP setup and troubleshooting
+
+If the Figma MCP is not connected, configure the server before implementation:
+
+```toml
+[mcp_servers.figma]
+url = "https://mcp.figma.com/mcp"
+bearer_token_env_var = "FIGMA_OAUTH_TOKEN"
+http_headers = { "X-Figma-Region" = "us-east-1" }
+```
+
+Enable the remote MCP client (`[features].rmcp_client = true`), authenticate with `codex mcp login figma`, and restart Codex after configuration changes. Keep `FIGMA_OAUTH_TOKEN` out of source control. Read [references/figma-mcp-config.md](references/figma-mcp-config.md) for verification and troubleshooting, and [references/figma-tools-and-prompts.md](references/figma-tools-and-prompts.md) for the tool catalog and prompt patterns.
 
 ## Required Workflow
 

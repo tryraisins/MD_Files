@@ -41,7 +41,7 @@ Behavior:
 - If GitHub API rate limit is hit, it automatically falls back to `git clone` (Git must be installed).
 - Top-level folders are included only if they contain `SKILL.md`.
 - Installs each synced skill with a `yeknal-` folder prefix, for example `taste-skill` installs as `yeknal-taste-skill`.
-- Only the matching `yeknal-*` managed destination folders are overwritten during sync.
+- Matching `yeknal-*` managed destination folders are overwritten during sync, and stale `yeknal-*` folders removed from an earlier repository version are cleaned up. Unprefixed personal skill folders are never touched.
 - Sync targets (if parent folder exists):
 - Gemini: `~/.gemini/antigravity` or `~/.antigravity`
 - Codex: `~/.codex`

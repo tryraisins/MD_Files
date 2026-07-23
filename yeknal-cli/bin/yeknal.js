@@ -195,6 +195,26 @@ async function copyDirRecursive(sourceDir, targetDir) {
   }
 }
 
+async function removeStaleManagedSkillFolders(skillsPath, expectedFolders) {
+  const entries = await fsp.readdir(skillsPath, { withFileTypes: true });
+  const removed = [];
+
+  for (const entry of entries) {
+    if (!entry.isDirectory() || !entry.name.startsWith(MANAGED_SKILL_FOLDER_PREFIX)) {
+      continue;
+    }
+
+    if (expectedFolders.has(entry.name)) {
+      continue;
+    }
+
+    await fsp.rm(path.join(skillsPath, entry.name), { recursive: true, force: true });
+    removed.push(entry.name);
+  }
+
+  return removed;
+}
+
 function execCommand(command, options = {}) {
   return new Promise((resolve, reject) => {
     exec(command, options, (error, stdout, stderr) => {
@@ -408,6 +428,17 @@ async function runSkillsCommand() {
       try {
         await fsp.mkdir(target.skillsPath, { recursive: true });
         let copiedCount = 0;
+        const expectedFolders = new Set(
+          skillFolders.map((folder) => getManagedSkillFolderName(folder)),
+        );
+        const removedFolders = await removeStaleManagedSkillFolders(
+          target.skillsPath,
+          expectedFolders,
+        );
+
+        for (const removedFolder of removedFolders) {
+          console.log(`  [removed] ${target.label}: stale managed skill ${removedFolder}`);
+        }
 
         for (const folder of skillFolders) {
           const sourceFolder = path.join(tempRoot, folder);

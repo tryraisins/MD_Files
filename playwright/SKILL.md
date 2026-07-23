@@ -4,10 +4,16 @@ description: "Use when the task requires automating a real browser from the term
 ---
 
 
-# Playwright CLI Skill
+# Playwright Browser Automation
 
 Drive a real browser from the terminal using `playwright-cli`. Prefer the bundled wrapper script so the CLI works even when it is not globally installed.
 Treat this skill as CLI-first automation. Do not pivot to `@playwright/test` unless the user explicitly asks for test files.
+
+## Persistent interactive mode
+
+When fast iterative debugging needs browser or Electron handles to survive across checks, use the persistent `js_repl` mode instead of restarting the CLI for every iteration. It requires `js_repl` enabled in Codex, a workspace-local Playwright install, and the same project directory throughout the session. Keep named handles (`browser`, `context`, `page`, `electronApp`, `appWindow`) in shared top-level bindings, reload after renderer changes, relaunch after process changes, and reset only when handles are genuinely stale.
+
+Interactive QA must include a written inventory of requested behavior, controls, state changes, visual evidence, and at least two off-happy-path scenarios. Run separate functional and visual passes, verify viewport fit, inspect screenshots, and clean up the session only after all claims are checked.
 
 ## Prerequisite check (required)
 

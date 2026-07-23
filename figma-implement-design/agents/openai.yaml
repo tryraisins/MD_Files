@@ -1,6 +1,6 @@
 interface:
-  display_name: "Figma Implement Design"
-  short_description: "Turn Figma designs into production-ready code"
+  display_name: "Figma Design to Code"
+  short_description: "Fetch, configure, and implement Figma designs"
   icon_small: "./assets/figma-small.svg"
   icon_large: "./assets/figma.png"
   default_prompt: "Implement this Figma design in this codebase, matching layout, states, and responsive behavior."

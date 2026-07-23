@@ -1,6 +1,6 @@
 ---
 name: review
-description: Comprehensive code and system review with actionable insights and quality metrics.
+description: Comprehensive code, system, refactoring, and maintainability review with actionable insights and quality metrics.
 ---
 
 # Review — Comprehensive Code Review
@@ -76,6 +76,10 @@ Multi-agent parallel analysis for comprehensive system review.
 - Technical debt identification and prioritization
 - Testing coverage and quality assessment
 - Documentation completeness and accuracy
+
+### Refactoring and dead-code review
+
+When the request is to refactor, simplify, or clean up code, inspect dependency direction, duplication, dead imports/functions/branches, naming, cohesion, and test coverage before proposing edits. Separate safe mechanical cleanup from behavior-changing redesign. Give each finding a file/line, impact, confidence, and smallest safe fix. Do not remove code merely because it looks unused without checking exports, dynamic imports, configuration, tests, and runtime entry points.
 
 ### Architecture Review
 
