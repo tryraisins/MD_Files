@@ -477,8 +477,35 @@ const SCAN_IGNORE_DIRS = new Set([
   "node_modules", ".git", ".next", "dist", "build", ".cache", ".output",
   "coverage", ".nyc_output", "__pycache__", ".venv", "venv", "env",
   ".terraform", "vendor", "target", "bin", "obj", ".nuxt", ".svelte-kit",
-  ".vercel", ".netlify", ".turbo", "out", ".parcel-cache", "tmp",
+  ".astro", ".vercel", ".netlify", ".turbo", "out", ".parcel-cache", "tmp",
 ]);
+
+// Dependency backups and similarly named generated/build directories are
+// commonly left beside the working tree after reinstalls or builds.
+const SCAN_IGNORE_DIR_PATTERNS = [
+  /^node_modules(?:\.|[-_])(?:bak|backup)(?:[-_.]|$)/i,
+  /^(?:vendor|bower_components|\.venv|venv|env)(?:\.|[-_])(?:bak|backup)(?:[-_.]|$)/i,
+  /^(?:build|dist|out|coverage|generated|__generated__)(?:\.|[-_])(?:bak|backup)(?:[-_.]|$)/i,
+];
+
+// Generated source/config files can contain copied secrets or noisy bundled
+// content that is not the project's authored implementation.
+const SCAN_IGNORE_FILE_PATTERNS = [
+  /\.min\.(?:js|css|mjs|cjs)$/i,
+  /\.(?:bundle|chunk|generated|gen)\.[^.]+$/i,
+  /(?:^|[._-])generated(?:[._-]|$)/i,
+  /\.d\.ts$/i,
+  /\.map$/i,
+];
+
+function isScanIgnoredDirectory(name) {
+  const nameLC = name.toLowerCase();
+  return SCAN_IGNORE_DIRS.has(nameLC) || SCAN_IGNORE_DIR_PATTERNS.some((pattern) => pattern.test(name));
+}
+
+function isScanIgnoredFile(name) {
+  return SCAN_IGNORE_FILE_PATTERNS.some((pattern) => pattern.test(name));
+}
 
 const SCAN_SOURCE_EXTENSIONS = new Set([
   ".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs",
@@ -555,13 +582,16 @@ async function walkProjectFiles(rootDir) {
       const fullPath = path.join(dir, entry.name);
 
       if (entry.isDirectory()) {
-        if (!SCAN_IGNORE_DIRS.has(entry.name)) {
+        if (!isScanIgnoredDirectory(entry.name)) {
           await walk(fullPath, depth + 1);
         }
         continue;
       }
 
       if (entry.isFile()) {
+        if (isScanIgnoredFile(entry.name)) {
+          continue;
+        }
         const ext = path.extname(entry.name).toLowerCase();
         const nameLC = entry.name.toLowerCase();
         if (SCAN_ALL_EXTENSIONS.has(ext) || nameLC.startsWith(".env")) {

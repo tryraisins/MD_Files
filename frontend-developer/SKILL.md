@@ -74,6 +74,20 @@ For visible action or process loading, default to `thinking-orbs` rather than a 
 - One well-orchestrated page load with staggered reveals creates more delight than scattered micro-interactions
 - Always indicate which animation libraries are used at the end of the response
 
+### AI-native product components
+
+For products with assistants, tool execution, retrieval, background jobs, or agent-proposed changes, default to an inspectable workspace—not a decorative chat pane. Do not introduce these patterns where no agentic capability exists, and let the product’s established design system or an explicit brief win.
+
+- Build typed, reusable components for `ActivityTrace`, `ToolChip`, `TaskRow`, `ApprovalCard`, `PromptComposer`, `ContextCard`, `RecommendationCard`, and `ChangeReview` only when their supporting data exists.
+- An activity trace exposes an accessible plain-language status, elapsed/progress information, and expandable high-level events such as steps, tool results, sources, and files. Do not display private model reasoning, invent progress, or imply a tool ran when it did not.
+- Model task rows as `queued | running | completed | failed | canceled`; support children, progress, retry, and failure detail where the backend supplies them. Use chips for concise evidence or navigation, not fake operational jargon.
+- Put a human confirmation boundary before mutations. `ApprovalCard` must show the proposed action, scope, meaningful alternatives, an optional comment, and distinct approve/edit/reject/cancel paths. Prevent accidental confirmation by Enter and make the pending state idempotent.
+- Render proposed record/code changes as a field-level or line-level diff before applying them. Recommendations need evidence or a real confidence value, alternatives when available, and a clear action.
+- Give assistant output inline source links, useful follow-ups, and selection actions only when they are operational. Context cards carry a useful excerpt and provenance (source, type, location/freshness).
+- Add `@` context, `/` commands, attachments, model settings, or keyboard shortcuts to the composer only when each is wired end-to-end. Command UI must remain keyboard navigable and discoverable.
+
+Use low-glare neutral surfaces, quiet dividers, a restrained radius scale, tabular numerals for operational data, and short monospace metadata where scanning benefits. Keep components compact but generous enough for touch targets and translated text. Implement idle, working, streaming, awaiting-approval, empty, success, error/retry, and canceled states; announce status changes via live regions and honor reduced motion.
+
 ### Backgrounds
 
 Create atmosphere — never default to solid white or gray:

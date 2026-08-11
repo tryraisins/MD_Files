@@ -369,6 +369,21 @@ Only after this deep analysis should you implement the frontend.
 
 ---
 
+## 9A. AI-NATIVE PRODUCT REFERENCE EXTRACTION
+
+When the supplied or generated reference depicts an assistant, streaming output, tool execution, retrieval, background tasks, or agent-proposed changes, extract the interaction contract as carefully as the visual system. Do not merely recreate a decorative chat panel.
+
+Identify and preserve only the components the reference and product can genuinely support:
+
+- activity traces with plain-language status, real elapsed/progress, and expandable high-level tool/source/file evidence;
+- task rows for queued, running, completed, failed, and canceled work, plus compact tool chips that serve as actual evidence or navigation;
+- approval surfaces that state action, scope, impact, alternatives, optional instructions, and clear approve/edit/reject/cancel paths before consequential writes;
+- readable field or line diffs for proposed changes;
+- inline provenance, context cards with useful excerpts and freshness/location, recommendation evidence/confidence, and operational follow-ups;
+- a calm prompt composer with `@` context, `/` commands, attachments, model controls, and shortcuts only when each capability exists end-to-end.
+
+Match the reference's compact operational rhythm: low-glare neutral surfaces, quiet dividers, restrained radii, tabular numerals, and monospace only for short metadata. Keep states explicit—idle, working, streaming, awaiting approval, empty, success, error/retry, and canceled—and preserve visible focus, text alternatives for status colour, and reduced-motion behavior. Never expose private reasoning, fabricate a tool run, or turn a non-agent product into an agent console.
+
 ## 10. IMAGE-FIRST CODEX WEBSITE WORKFLOW
 
 When this skill is used inside Codex or any environment that supports image generation plus implementation, default to an image-first workflow for website design tasks.

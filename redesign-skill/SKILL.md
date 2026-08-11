@@ -19,6 +19,19 @@ When applied to an existing project, follow this sequence:
 
 - **Generic circular spinners for meaningful work.** In React/Next.js redesigns, replace them by default with `thinking-orbs` (`ThinkingOrb`) for button, inline, dialog, and full-screen action/process states. Verify the package before import and install it with `npm install thinking-orbs` only when missing. Use contextual states such as `working`, `searching`, and `solving`; keep skeletons for layout-shaped content loading, accessible text status, `aria-busy`, and a reduced-motion-safe fallback.
 
+### AI-native workflow audit
+
+Run this part of the audit only when the product already has an assistant, tool execution, retrieval, background work, or AI-proposed changes. Improve the real workflow; do not add superficial agent UI.
+
+- **Opaque work.** Add a compact, expandable activity trace with plain-language status, real elapsed/progress data, and high-level tool/source/file evidence. Do not expose private reasoning, make up progress, or present a simulated tool run as real.
+- **Unsafe or ambiguous writes.** Add a review/approval boundary before consequential actions. It needs the action, scope, impact, alternatives, optional user instruction, and unmistakable approve/edit/reject/cancel controls.
+- **Invisible proposed edits.** Replace a vague “Apply” button with a readable field-level or code diff and per-change review where the task warrants it.
+- **Undifferentiated async state.** Use compact task rows for queued/running/completed/failed/canceled work and chips only for actual tool evidence or navigation. Include error detail, retry, and cancellation where supported.
+- **Source-free or dead-end output.** Add inline provenance, context cards with useful excerpts and source/freshness, and operational follow-up or selected-text actions.
+- **Performative command UI.** Keep a quiet composer. Add `@` context, `/` commands, attachments, and model controls only if they work end-to-end and remain keyboard-accessible.
+
+Prefer low-glare neutral surfaces, quiet dividers, a restrained radius scale, tabular numerals, and short monospace metadata. Preserve the existing brand and design system; these are interaction defaults, not a mandate to recolor the app.
+
 ### Typography
 
 Check for these problems and fix them:

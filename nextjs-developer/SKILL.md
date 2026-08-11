@@ -44,6 +44,17 @@ Next.js projects that include a UI must follow these non-negotiable standards. N
 * **Backgrounds**: Create atmosphere — gradient meshes, noise textures, geometric patterns. No solid white/gray defaults.
 * **Icons**: Avoid bolt, star, sparkle, rocket as primary icons. Use context-specific or custom SVG marks.
 
+### AI-native workflows
+
+When a Next.js feature has a real assistant, streaming response, tool call, retrieval result, background job, or AI-proposed mutation, design it as a controllable workspace. Do not add these components to ordinary screens without that capability.
+
+* Model activity as server-provided, high-level events and render them in a compact expandable trace: accessible status, real elapsed/progress, tool/source/file evidence, and failure/retry state. Keep raw model reasoning private and never invent tool activity.
+* Use client-component leaves for live trace animation, streaming text, prompt composition, selection actions, and approval interactions; keep data retrieval and safe initial rendering in Server Components where appropriate.
+* Put a human approval/review boundary in front of mutations. Show proposed action, scope, meaningful alternatives, optional instructions, clear approve/edit/reject/cancel controls, and a field/line-level diff before applying changes.
+* Use typed task rows (`queued`, `running`, `completed`, `failed`, `canceled`) and compact tool chips only for actual operational detail. Recommendation cards need genuine evidence/confidence and alternatives when available; context cards need a useful excerpt and provenance.
+* Support inline sources and useful follow-ups in assistant output. Add `@` context, `/` commands, attachments, model controls, or shortcuts only when the implementation supports them end-to-end and accessibly.
+* Ship the full state model: idle, working, streaming, awaiting approval, empty, success, error/retry, and canceled. Use live regions, visible focus, reduced-motion fallbacks, idempotent mutations, and refresh-safe state reconciliation.
+
 ### Navigation
 
 Prefer a floating glassmorphism navbar — not a traditional full-width header:

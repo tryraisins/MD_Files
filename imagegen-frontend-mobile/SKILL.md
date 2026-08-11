@@ -81,6 +81,16 @@ Do not describe code.
 Do not build SwiftUI, React Native, Flutter, or HTML.
 Generate mobile screen images and screen-flow images only.
 
+## AI-NATIVE MOBILE FLOW DEFAULT
+
+When the app genuinely includes an assistant, tool calls, retrieval, background tasks, or agent-proposed edits, depict an honest mobile flow rather than a generic chat screen. Do not apply this treatment to a product without those capabilities.
+
+- Show concise, high-level activity/task state with readable labels, progress or elapsed time only where meaningful, and a drill-in for sources, tools, files, or failure detail. Do not show private reasoning or fake execution.
+- For consequential actions, include a clear review/approval screen or bottom sheet with the proposed action, scope, impact, alternatives, optional instructions, and distinct approve/edit/reject/cancel outcomes. Make proposed changes readable as a focused diff, not a dense desktop table.
+- Use compact chips as real tool evidence/navigation; use source/context sheets for excerpts and provenance; pair recommendations with a genuine confidence/evidence cue and an obvious next action.
+- Keep prompt composition calm and thumb-reachable. Add `@` context, `/` commands, attachments, or model controls only where the product can truly support them.
+- Retain a low-glare, high-contrast operational system: quiet dividers, restrained radii, tabular metrics, monospace only for short metadata, clear status text in addition to colour, visible focus, and reduced-motion-safe feedback.
+
 ---
 
 ## 1. ACTIVE BASELINE CONFIGURATION

@@ -192,6 +192,16 @@ Use the MCP Apps bridge first for portability, then add ChatGPT-specific `window
 
 Use `window.openai` for compatibility and extensions (file upload, modal, display mode, etc.), not as the only integration path for new apps.
 
+#### AI-native widget defaults
+
+When the app’s tool surface supports it, make agent work inspectable and reviewable inside the widget. Do not simulate an agent console for a simple read-only result.
+
+- Render compact activity/task rows from actual tool notifications or structured state: readable status, elapsed/progress when supplied, real tool/source/file evidence, and error/retry/canceled states. Never expose private model reasoning or fabricate a running tool.
+- Use concise tool chips only as truthful evidence or navigation. Use a source/context card for a useful excerpt plus source identity, type, and freshness/location.
+- For a mutating tool, render a review/approval surface before the call when the product flow permits: proposed action, scope, impact, alternatives, optional instruction, and unambiguous approve/edit/reject/cancel controls. Pair proposed record changes with a readable diff.
+- Assistant responses may include inline provenance, follow-up actions, and selection actions when those interactions are wired through the bridge. A prompt composer may offer `@` context, `/` commands, attachments, or model controls only when each has a working backing capability.
+- Keep the widget compact, low-glare, keyboard-accessible, and host-theme aware. Use text with every status colour, live announcements for material changes, reduced-motion-safe transitions, and visible focus states.
+
 #### API Surface Guardrails
 
 - Some examples wrap the bridge with an `app` object (for example, `@modelcontextprotocol/ext-apps/react`) and expose helper names like `app.sendMessage()`, `app.callServerTool()`, `app.openLink()`, or host getter methods.

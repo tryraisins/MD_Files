@@ -62,6 +62,20 @@ For React/Next.js product UI, default visible action and process loading to `thi
 - Treat accessibility, focus states, reduced motion, and readable status feedback as part of the visual system, not a later pass.
 - Make loading, empty, error, success, and disabled states explicit in every important flow.
 
+### AI-native interaction system
+
+For a product that actually includes an assistant, tool calls, retrieval, or agent-led edits, make the work legible and controllable. Do not apply an AI-native shell to an ordinary form or dashboard merely because it looks current.
+
+- Map the lifecycle: compose → working/streaming → inspect sources or tool results → approve/edit/reject a consequential proposal → success, retry, or cancel. Design every transition, including partial failure and reconnect/retry.
+- Use expandable activity traces for concise, high-level steps and evidence. Show status, elapsed/progress, sources, files, and tools; never require the product to expose private reasoning or fabricate activity.
+- Use task rows for live queue state and compact chips for completed tools/evidence. Every status needs text as well as color, a sensible sort/order, and a path to the relevant detail.
+- Gate writes with an approval card that states action, scope, impact, alternatives, and optional instructions. Give clear approve, edit, reject, and cancel outcomes; confirmation must not be accidental.
+- Pair assistant output with inline provenance, follow-up actions, and selection actions only when they help users act. Use context cards with a useful excerpt plus source identity, type, and freshness/location.
+- Show proposed structured changes as a reviewable diff. Recommendations need a meaningful evidence/confidence treatment and alternate paths when available.
+- Use a calm command composer; add `@` sources, `/` commands, attachments, model controls, and shortcuts only when the product supports them. Keep it keyboard-accessible and avoid overwhelming the primary task.
+
+Style these surfaces as compact, low-glare operational UI: quiet dividers, restrained radii, tabular numerals for metrics, and monospace only for short metadata. Dense is good when it improves scanning; opacity, tiny labels, and colour must not replace hierarchy or accessibility.
+
 ### Cursor
 
 All interactive elements — buttons, links, dropdowns, toggles, sliders, cards with actions — must show `cursor: pointer`. This is a fundamental UX signal.

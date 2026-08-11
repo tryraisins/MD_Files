@@ -118,6 +118,23 @@ Avoid:
 
 If a panel can become plain layout without losing meaning, remove the card treatment.
 
+### AI-native workspace defaults
+
+When the product genuinely includes an assistant, tool-running workflow, retrieval, background automation, or agent-assisted editing, use an AI-native workspace rather than bolting a chat bubble onto a conventional dashboard. Do not force these patterns into products that do not have an agentic workflow, and never override an established brand or an explicit brief.
+
+- Treat work as inspectable: use a compact activity row with a plain-language status, elapsed/progress signal, and expandable **high-level** steps, tool results, files, or sources. Show useful operational detail, not private model reasoning or fabricated progress.
+- Treat consequential actions as a human gate: an approval surface states the proposed action, scope, consequences, alternatives, and an optional free-text response. Keep Approve, edit, reject, and cancel unambiguous; do not make Enter silently approve a mutation.
+- Make agent state part of the layout. Use compact tool chips for completed calls, task rows for queued/running/failed/completed work, and nested children only when they explain a real parent task. A chip is evidence or navigation, never decorative pseudo-technical metadata.
+- Give generated answers useful handles: inline sources/provenance, follow-up actions, and a selected-text action bar when users can improve, explain, shorten, or correct a result.
+- Before applying agent-proposed record or code changes, show a readable diff or field-level change set with accept/reject/review controls. Never hide a mutation behind a vague CTA.
+- For recommendations, show the suggestion, confidence or evidence, viable alternatives, and the next action. Confidence must reflect a real signal or be omitted.
+- Use context cards for retrieved material: a short, useful excerpt plus source type, name, freshness/location, and a direct way to inspect the source.
+- A prompt composer may support `@` context, `/` commands, attachments, model/options, and shortcuts only when the underlying capability exists. Keep the primary input calm and make command discoverability keyboard-accessible.
+
+Visual language: favor a low-glare neutral canvas, restrained 1px dividers, a small radius scale, calm sans-serif body type, tabular numerals for data, and optional monospace for short metadata. Keep the work surface dense enough to scan but never cramped; reserve saturated color for status, risk, and the primary action. These components are purposeful exceptions to the no-card default: they package an explicit decision, source, recommendation, or independently actionable unit.
+
+For every async or agent-assisted flow, design idle, working, streaming, awaiting approval, success, no-result, error, retry, and canceled states. Announce meaningful status changes accessibly and honor reduced-motion preferences.
+
 ## Imagery
 
 Imagery must do narrative work.
