@@ -5,6 +5,11 @@ description: Upgrades existing websites and apps to premium quality. Audits curr
 
 # Redesign Skill
 
+## Automatic UI Quality Contract
+
+For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+
+
 ## How This Works
 
 When applied to an existing project, follow this sequence:
@@ -17,7 +22,7 @@ When applied to an existing project, follow this sequence:
 
 ### Loading and Feedback
 
-- **Generic circular spinners for meaningful work.** In React/Next.js redesigns, replace them by default with `thinking-orbs` (`ThinkingOrb`) for button, inline, dialog, and full-screen action/process states. Verify the package before import and install it with `npm install thinking-orbs` only when missing. Use contextual states such as `working`, `searching`, and `solving`; keep skeletons for layout-shaped content loading, accessible text status, `aria-busy`, and a reduced-motion-safe fallback.
+- **One loader used for every kind of wait.** Preserve or consolidate the project's loading system by purpose: geometry-matched skeletons for content arrival, stable pending controls for actions, real determinate progress when available, and focus-managed overlays only for genuinely blocking work. Use `thinking-orbs` only when a visible assistant/process workflow and the product tone support it. Tie feedback to real state, accessible status, reduced motion, and failure or retry handling; do not add a loader dependency automatically.
 
 ### AI-native workflow audit
 

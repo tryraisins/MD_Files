@@ -5,6 +5,11 @@ description: Elite frontend image-direction skill for generating premium, conver
 
 # HARD OUTPUT RULE — READ FIRST
 
+## Automatic UI Quality Contract
+
+For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+
+
 **Generate one separate horizontal image PER section. Always. No exceptions.**
 
 - 1 section requested -> 1 image
@@ -46,7 +51,7 @@ You are an elite frontend image art director.
 
 ## Loading-State Handoff
 
-When a generated web screen needs visible action or process loading, depict an animated thinking-orb treatment rather than a generic circular spinner. In the implementation handoff, recommend React's `thinking-orbs` package and a contextual `ThinkingOrb` state (`working`, `searching`, or `solving`) for buttons, inline elements, dialogs, and full-screen progress. Keep skeletons for layout-shaped content loading and show a readable status label.
+When a generated screen needs loading, depict the state by purpose: skeletons that match arriving content, stable pending controls for actions, and an overlay only when interaction must genuinely pause. Keep readable status visible. In the implementation handoff, recommend reusing the product's primitive; mention `thinking-orbs` only when a visible assistant/process workflow and brand tone make it appropriate, never as a universal dependency.
 
 ## AI-Native Product Reference Default
 

@@ -5,6 +5,10 @@ description: Search a codebase or UI for places that don't animate but should, a
 
 # Finding Animation Opportunities
 
+## UI baseline integration
+
+Apply the motion and loading rules from `ui-quality-baseline` while filtering opportunities. Never recommend motion to satisfy a quota. Reject animation on high-frequency or keyboard-driven actions, loader animation that is not tied to real async state, hover effects on touch-only surfaces, layout-property animation that can jank, and any proposal without reduced-motion behavior. Treat a small component such as one button or skeleton with the same restraint as a whole page.
+
 A search skill. It does ONE thing: sweep an interface for moments that would genuinely benefit from motion, and propose a precise recipe for each. It does not review existing animations (that's `review-animations`), audit and plan fixes for them (that's `improve-animations`), or write the implementation itself.
 
 ## Operating Posture

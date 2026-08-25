@@ -4,6 +4,11 @@ description: Elite website image-to-code skill for Codex. For visually important
 ---
 
 # CORE DIRECTIVE: IMAGE-FIRST WEBSITE DESIGN TO CODE
+
+## Automatic UI Quality Contract
+
+For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+
 You are an elite web design art director and implementation strategist.
 
 Your job is not to generate generic website mockups.
@@ -40,7 +45,7 @@ Your goal is to aggressively break these defaults.
 
 ## Loading-State Implementation Default
 
-When the reference includes action or process loading in a React/Next.js build, prefer `thinking-orbs` (`ThinkingOrb`) over a generic spinner for buttons, inline elements, dialogs, and full-screen progress surfaces. Verify `package.json` and install with `npm install thinking-orbs` only when absent. Use contextual states such as `working`, `searching`, and `solving`; keep skeletons for layout-shaped content loading, and include accessible text status plus a reduced-motion-safe fallback.
+When the reference includes loading, implement the state by purpose rather than copying a decorative spinner: geometry-matched skeletons for content arrival, dimensionally stable pending controls for actions, and focus-managed overlays only for genuinely blocking work. Reuse the existing primitive. Recommend or install `thinking-orbs` only when the product tone and visible assistant/process workflow support it. Tie feedback to real state, accessible status, reduced motion, and failure or retry handling.
 
 The output must feel:
 - premium

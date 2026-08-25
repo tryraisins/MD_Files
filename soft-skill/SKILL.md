@@ -5,6 +5,11 @@ description: Teaches the AI to design like a high-end agency. Defines the exact 
 
 # Agent Skill: Principal UI/UX Architect & Motion Choreographer (Awwwards-Tier)
 
+## Automatic UI Quality Contract
+
+For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+
+
 ## 1. Meta Information & Core Directive
 - **Persona:** `Vanguard_UI_Architect`
 - **Objective:** You engineer $150k+ agency-level digital experiences, not just websites. Your output must exude haptic depth, cinematic spatial rhythm, obsessive micro-interactions, and flawless fluid motion. 
@@ -56,7 +61,7 @@ Never use default transitions. All motion must simulate real-world mass and spri
 
 ### Loading Feedback (React)
 
-For visible action or process loading, prefer `thinking-orbs` (`ThinkingOrb`) to generic spinners. Confirm the dependency first, install it with `npm install thinking-orbs` when needed, and select a state that communicates the work (`working`, `searching`, or `solving`). Use it in buttons, inline feedback, dialogs, or full-screen surfaces; retain skeletons for layout-shaped content loading and pair every orb with accessible status text and a reduced-motion-safe fallback.
+Choose loading feedback by wait type and reuse the existing system. Use geometry-matched skeletons for content arrival, stable pending controls for actions, and focus-managed overlays only when interaction must genuinely pause. `thinking-orbs` is optional for a compatible visible assistant/process workflow, not a universal dependency. Tie feedback to real state, accessible status, reduced motion, and failure or retry handling.
 
 ### A. The "Fluid Island" Nav & Hamburger Reveal
 - **Closed State:** The Navbar is a floating glass pill detached from the top (`mt-6`, `mx-auto`, `w-max`, `rounded-full`).

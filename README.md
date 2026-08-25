@@ -55,6 +55,7 @@ yeknal-cli/
 
 The repository now includes the Taste skill bundle:
 
+- `ui-quality-baseline` — automatic control, typography, icon, responsive, loading, skeleton, and motion standards for any UI task, including individual elements
 - `taste-skill`
 - `taste-skill-v1`
 - `gpt-tasteskill`

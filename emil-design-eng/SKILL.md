@@ -5,6 +5,11 @@ description: This skill encodes Emil Kowalski's philosophy on UI polish, compone
 
 # Design Engineering
 
+## Automatic UI Quality Contract
+
+For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+
+
 ## Initial Response
 
 When this skill is first invoked without a specific question, respond only with:
@@ -37,7 +42,7 @@ People select tools based on the overall experience, not just functionality. Goo
 
 ### Loading is feedback, not decoration
 
-For React/Next.js interfaces, default visible action and process loading to the `thinking-orbs` package (`ThinkingOrb`) rather than a generic spinner. Use a state that describes the work (`working`, `searching`, `solving`, and similar), scale it to its surface, and keep an accessible text status alongside it. Preserve skeletons when the page is waiting for layout-shaped content; provide a reduced-motion-safe fallback.
+For React/Next.js interfaces, choose feedback by wait type and reuse the current primitive: geometry-matched skeletons for content arrival, dimensionally stable pending controls for actions, and focus-managed overlays only for genuinely blocking work. `thinking-orbs` is appropriate only when a visible assistant/process workflow and product tone support it. Tie every loader to real state, accessible status, reduced motion, and failure or retry handling.
 
 ## Review Format (Required)
 

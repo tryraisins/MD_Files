@@ -6,6 +6,11 @@ license: Complete terms in LICENSE.txt
 
 # Frontend Design Skill
 
+## Automatic UI Quality Contract
+
+For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+
+
 Use this skill when the quality of the work depends on art direction, hierarchy, restraint, imagery, and motion rather than component count.
 
 Goal: ship interfaces that feel deliberate, premium, and current. Default toward award-level composition: one big idea, strong imagery, sparse copy, rigorous spacing, and a small number of memorable motions.
@@ -178,9 +183,9 @@ Use motion to create presence and hierarchy, not noise.
 
 ## Loading States (React/Next.js)
 
-Default to the animated Thinking Orbs component for visible action or process loading instead of a generic circular spinner: buttons, inline work indicators, dialogs, and full-screen progress surfaces. Install `thinking-orbs` only after checking `package.json`, then use `ThinkingOrb` with a contextual state such as `working`, `searching`, or `solving`. Keep skeletons for layout-shaped content loading. Pair every orb with an accessible text status and a reduced-motion-safe fallback.
+Choose loading feedback by wait type and reuse the project's established primitive. Use layout-shaped skeletons with stable dimensions for content arrival; keep pending controls dimensionally stable with accessible status; reserve a blocking overlay for work that truly prevents interaction. `thinking-orbs` is an option only when the product tone and visible assistant/process workflow support it, not a universal spinner replacement. Tie every loader to real state, reduced-motion behavior, and failure or retry handling before adding a dependency.
 
-Ship at least 2-3 intentional motions for visually led work:
+For visually led work, select only the motions that materially improve hierarchy, feedback, or spatial understanding. Do not satisfy a fixed animation quota. Appropriate candidates include:
 
 - One entrance sequence in the hero
 - One scroll-linked, sticky, or depth effect

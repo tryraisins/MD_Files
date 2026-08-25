@@ -1,3 +1,4 @@
+ui-quality-baseline: Mandatory automatic baseline for every UI task, from full products and redesigns to one button. Enforces tokenized spacing/radii/type, optical centering, coherent icons, responsive containment, truthful skeleton/loading/overlay behavior, purposeful motion, accessibility, and rendered QA.
 taste-skill: The default design skill (v2 experimental). Read the brief, infer the design language, tune three dials (VARIANCE / MOTION / DENSITY), and ship landing pages, portfolios, and redesigns that do not look templated. Brief inference, design-system map, em-dash ban, GSAP code skeletons, hard-rules pre-flight check. Actively iterating toward v2.0.0 stable.
 taste-skill-v1: The original v1 of taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental).
 gpt-taste: Elite Awwwards-level frontend design and GSAP motion skill for premium, deterministic, anti-slop UI generation.

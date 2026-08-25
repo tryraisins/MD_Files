@@ -1,9 +1,14 @@
 ---
 name: stitch-design-taste
-description: Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
+description: Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, purposeful motion, and hardware-accelerated performance.
 ---
 
 # Stitch Design Taste — Semantic Design System Skill
+
+## Automatic UI Quality Contract
+
+For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+
 
 ## Overview
 This skill generates `DESIGN.md` files optimized for Google Stitch screen generation. It translates the battle-tested anti-slop frontend engineering directives into Stitch's native semantic design language — descriptive, natural-language rules paired with precise values that Stitch's AI agent can interpret to produce premium, non-generic interfaces.
@@ -21,7 +26,7 @@ Generate a `DESIGN.md` file that encodes:
 3. **Typographic architecture** — font stacks, scale hierarchy, and anti-patterns
 4. **Component behaviors** — buttons, cards, inputs with interaction states
 5. **Layout principles** — grid systems, spacing philosophy, responsive strategy
-6. **Motion philosophy** — animation engine specs, spring physics, perpetual micro-interactions
+6. **Motion philosophy** — animation engine specs, spring physics, and purposeful state or feedback motion
 7. **Anti-patterns** — explicit list of banned AI design clichés
 
 ## Analysis & Synthesis Instructions
@@ -67,7 +72,7 @@ For each component type, describe shape, color, shadow depth, and interaction be
 - **Inputs/Forms:** Label above input, helper text optional, error text below. Standard gap spacing
 - **Loading States:** Skeletal loaders matching layout dimensions — no generic circular spinners
 
-- **Action/process loading in React:** Make `thinking-orbs` (`ThinkingOrb`) the default expressive alternative to a generic spinner for buttons, inline elements, dialogs, and full-screen progress. Verify/install with `npm install thinking-orbs` when needed, use contextual states such as `working`, `searching`, or `solving`, and specify accessible text status plus a reduced-motion-safe fallback. Keep skeletons for layout-shaped content loads.
+- **Action/process loading in React:** Reuse the product's primitive and preserve control geometry. Use `thinking-orbs` only when a visible assistant/process workflow and brand tone support it. Keep skeletons matched to layout-shaped content, reserve overlays for genuinely blocking work, and specify real-state timing, accessible status, reduced motion, and failure or retry handling.
 - **Empty States:** Composed compositions indicating how to populate data
 - **Error States:** Clear, inline error reporting
 
@@ -91,7 +96,7 @@ Every design must work across all viewports:
 
 ### 8. Encode Motion Philosophy
 - **Spring Physics default:** `stiffness: 100, damping: 20` — premium, weighty feel. No linear easing
-- **Perpetual Micro-Interactions:** Every active component should have an infinite loop state (Pulse, Typewriter, Float, Shimmer)
+- **Purposeful Micro-Interactions:** Active components use motion only when it conveys live status, feedback, or state. Do not assign an infinite loop to every component.
 - **Staggered Orchestration:** Never mount lists instantly — use cascade delays for waterfall reveals
 - **Performance:** Animate exclusively via `transform` and `opacity`. Never animate `top`, `left`, `width`, `height`. Grain/noise filters on fixed pseudo-elements only
 
@@ -154,7 +159,7 @@ No flexbox percentage math. Generous internal padding.)
 
 ## 6. Motion & Interaction
 (Spring physics for all interactive elements. Staggered cascade reveals.
-Perpetual micro-loops on active dashboard components. Hardware-accelerated
+Purposeful, hardware-accelerated status motion only where live state requires it
 transforms only. Isolated Client Components for CPU-heavy animations.)
 
 ## 7. Anti-Patterns (Banned)

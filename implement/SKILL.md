@@ -5,6 +5,11 @@ description: No description provided.
 
 # Implement
 
+## Automatic UI Quality Contract
+
+For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+
+
 
 
 # /implement - Feature Implementation
@@ -37,7 +42,7 @@ Implement features, components, and code functionality with intelligent expert a
 
 ### React Loading-State Default
 
-For visible action or process loading in React/Next.js UI, prefer `thinking-orbs` over a generic spinner. Check `package.json`; if the package is missing, use `npm install thinking-orbs`, then render `ThinkingOrb` with a contextual state such as `working`, `searching`, or `solving`. Use it in buttons, inline elements, dialogs, and full-screen loaders. Preserve skeletons for layout-shaped content loading, and include accessible status text, `aria-busy`, and a reduced-motion-safe fallback.
+For React/Next.js UI, choose loading feedback by wait type and reuse existing primitives. Use geometry-matched skeletons for content arrival, stable pending controls for mutations, and focus-managed overlays only for genuinely blocking operations. `thinking-orbs` is optional when a visible assistant/process workflow and product tone support it, not a default dependency. Tie feedback to real state, accessible status, `aria-busy`, reduced motion, and failure or retry handling.
 
 - **Backend**: APIs, services, database integration
   - Keywords: API, database, server, endpoint, authentication

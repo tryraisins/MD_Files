@@ -5,6 +5,11 @@ description: Anti-slop frontend skill for landing pages, portfolios, and redesig
 
 # tasteskill: Anti-Slop Frontend Skill
 
+## Automatic UI Quality Contract
+
+For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+
+
 > Landing pages, portfolios, and redesigns. Not dashboards, not data tables, not multi-step product UI.
 > Every rule below is **contextual**. None of it fires automatically. First read the brief, then pull only what fits.
 
@@ -39,7 +44,7 @@ If you can confidently infer from context, **do not ask**. Just declare the desi
 Do not default to: AI-purple gradients, centered hero over dark mesh, three equal feature cards, generic glassmorphism on everything, infinite-loop micro-animations everywhere, Inter + slate-900. These are the LLM defaults. Reach past them deliberately based on the design read.
 
 ### 0.E Loading-State Default (React/Next.js)
-For visible action or process loading, default to `thinking-orbs` (`ThinkingOrb`) rather than a generic circular spinner. Check `package.json` and install with `npm install thinking-orbs` only when absent. Use a contextual state such as `working`, `searching`, or `solving` in buttons, inline elements, dialogs, and full-screen progress surfaces. Retain skeletons for layout-shaped content loading, and always pair an orb with accessible text status, `aria-busy`, and a reduced-motion-safe fallback.
+Choose loading feedback by wait type and reuse the current design system. Use geometry-matched skeletons for content arrival, dimensionally stable pending controls for actions, and focus-managed overlays only for genuinely blocking work. `thinking-orbs` is optional when a visible assistant/process workflow and product tone support it; it is not a universal dependency. Tie feedback to real state, accessible status, `aria-busy`, reduced motion, and failure or retry handling.
 
 ---
 

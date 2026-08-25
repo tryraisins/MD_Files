@@ -5,6 +5,11 @@ description: Clean editorial-style interfaces. Warm monochrome palette, typograp
 
 # Protocol: Premium Utilitarian Minimalism UI Architect
 
+## Automatic UI Quality Contract
+
+For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+
+
 ## 1. Protocol Overview
 Name: Premium Utilitarian Minimalism & Editorial UI
 Description: An advanced frontend engineering directive for generating highly refined, ultra-minimalist, "document-style" web interfaces analogous to top-tier workspace platforms. This protocol strictly enforces a high-contrast warm monochrome palette, bespoke typographic hierarchies, meticulous structural macro-whitespace, bento-grid layouts, and an ultra-flat component architecture with deliberate muted pastel accents. It actively rejects standard generic SaaS design trends.
@@ -71,7 +76,7 @@ Motion should feel invisible — present but never distracting. The goal is quie
 
 ### Loading Feedback (React)
 
-For visible action or process loading, default to the restrained use of `thinking-orbs` (`ThinkingOrb`) instead of a generic spinner. Verify or install it with `npm install thinking-orbs`, select a contextual state such as `working`, and keep the orb small within buttons or inline feedback; use a larger orb only for dialog or full-screen progress. Keep skeletons for layout-shaped content loading and pair the orb with accessible text status and a reduced-motion-safe fallback.
+Keep loading as restrained as the interface: geometry-matched skeletons for content arrival, stable pending controls for actions, and overlays only when interaction must genuinely pause. Reuse existing primitives. Use `thinking-orbs` only for a compatible visible assistant/process workflow, not as a universal spinner replacement. Require real-state timing, readable status, reduced motion, and failure or retry handling.
 - Scroll Entry: Elements fade in gently as they enter the viewport. Use `translateY(12px)` + `opacity: 0` resolving over `600ms` with `cubic-bezier(0.16, 1, 0.3, 1)`. Use `IntersectionObserver`, never `window.addEventListener('scroll')`.
 - Hover States: Cards lift with an ultra-subtle shadow shift (`box-shadow` transitioning from `0 0 0` to `0 2px 8px rgba(0,0,0,0.04)` over `200ms`). Buttons respond with `scale(0.98)` on `:active`.
 - Staggered Reveals: Lists and grid items enter with a cascade delay (`animation-delay: calc(var(--index) * 80ms)`). Never mount everything at once.
