@@ -26,10 +26,12 @@ const RAW_BASE_URL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GIT
 const API_BASE = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}`;
 const GITHUB_TOKEN = process.env.YEKNAL_GITHUB_TOKEN || process.env.GITHUB_TOKEN || "";
 
-const EXCLUDED_SKILL_FOLDERS = new Set(["Design", "Security", "Security_Raw", "SEO"]);
+// Security is a normal managed skill. Security_Raw is source/reference material
+// without a SKILL.md entry point, so it is intentionally not installed.
+const EXCLUDED_SKILL_FOLDERS = new Set(["Design", "Security_Raw", "SEO"]);
 const MANAGED_SKILL_FOLDER_PREFIX = "yeknal-";
 
-const SECURITY_REPO_FOLDERS = ["Security", "Security_Raw"];
+const SECURITY_REPO_FOLDERS = ["Security"];
 
 function usage() {
   console.log("\nUsage:");
@@ -2203,13 +2205,13 @@ async function syncSecuritySkills(targets) {
         for (const folder of SECURITY_REPO_FOLDERS) {
           const src = path.join(tempRoot, folder);
           if (await isDirectory(src)) {
-            const dest = path.join(target.skillsPath, folder);
+            const dest = path.join(target.skillsPath, getManagedSkillFolderName(folder));
             await fsp.rm(dest, { recursive: true, force: true });
             await copyDirRecursive(src, dest);
           }
         }
         syncCount++;
-        console.log(`  [ok] ${target.label}: synced security skills to ${target.skillsPath}`);
+        console.log(`  [ok] ${target.label}: synced managed security skills to ${target.skillsPath}`);
       } catch (error) {
         console.error(`  [error] ${target.label}: ${error.message}`);
       }

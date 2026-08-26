@@ -18,8 +18,8 @@ npx yeknal skills
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal security` | Downloads `Security-Master.md` and runs a security audit |
-| `npx yeknal skills` | Syncs the latest top-level skill folders (excluding `Design`, `Security`, `Security_Raw`, `SEO`) |
+| `npx yeknal security` | Refreshes the managed `yeknal-Security` skill, downloads `Security-Master.md`, and runs a security audit |
+| `npx yeknal skills` | Syncs the latest top-level skill folders, including `Security` as `yeknal-Security` (excluding `Design`, `Security_Raw`, `SEO`) |
 
 ## Skills Sync Behavior
 
@@ -29,6 +29,8 @@ npx yeknal skills
 - If GitHub API rate limit is hit, it automatically falls back to `git clone` (Git must be installed).
 - Includes only top-level folders that contain `SKILL.md`.
 - Installs each synced skill with a `yeknal-` folder prefix, for example `taste-skill` installs as `yeknal-taste-skill`.
+- The canonical security skill is installed as `yeknal-Security` by both commands; re-running either command overwrites that managed folder.
+- `Security_Raw` is reference/source material rather than an installable skill (it has no `SKILL.md`), so it is not downloaded.
 - Only matching `yeknal-*` managed destination folders are overwritten during sync.
 - Personal/private skill folders without the `yeknal-` prefix are left untouched.
 - Creates `<parent>/skills` when parent exists but skills folder does not.
