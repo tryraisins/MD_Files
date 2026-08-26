@@ -509,13 +509,27 @@ function isScanIgnoredFile(name) {
 
 const SCAN_SOURCE_EXTENSIONS = new Set([
   ".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs",
-  ".py", ".rb", ".php", ".go", ".rs", ".java", ".cs",
-  ".vue", ".svelte",
+  ".py", ".rb", ".php", ".go", ".rs", ".java", ".kt", ".kts", ".cs",
+  ".ex", ".exs", ".vue", ".svelte",
 ]);
 
 const SCAN_CONFIG_EXTENSIONS = new Set([
-  ".json", ".yaml", ".yml", ".toml", ".ini", ".cfg", ".conf",
+  ".json", ".yaml", ".yml", ".toml", ".ini", ".cfg", ".conf", ".gradle",
 ]);
+
+// Dependency manifests are evidence for stack-specific security controls even
+// when their extension is not otherwise source/config content.
+const SCAN_MANIFEST_FILENAMES = new Set([
+  "requirements.txt", "pipfile", "pipfile.lock", "pyproject.toml", "poetry.lock",
+  "composer.json", "gemfile", "go.mod", "cargo.toml", "mix.exs",
+  "build.gradle", "build.gradle.kts",
+]);
+
+const SCAN_MANIFEST_SUFFIXES = [".csproj", ".fsproj", ".vbproj"];
+
+function isPythonRequirementsFile(name) {
+  return /^requirements(?:[-_.].*)?\.txt$/i.test(name);
+}
 
 const SCAN_ALL_EXTENSIONS = new Set([
   ...SCAN_SOURCE_EXTENSIONS, ...SCAN_CONFIG_EXTENSIONS,
@@ -594,7 +608,13 @@ async function walkProjectFiles(rootDir) {
         }
         const ext = path.extname(entry.name).toLowerCase();
         const nameLC = entry.name.toLowerCase();
-        if (SCAN_ALL_EXTENSIONS.has(ext) || nameLC.startsWith(".env")) {
+        if (
+          SCAN_ALL_EXTENSIONS.has(ext) ||
+          SCAN_MANIFEST_FILENAMES.has(nameLC) ||
+          isPythonRequirementsFile(nameLC) ||
+          SCAN_MANIFEST_SUFFIXES.some((suffix) => nameLC.endsWith(suffix)) ||
+          nameLC.startsWith(".env")
+        ) {
           try {
             const stats = await fsp.stat(fullPath);
             if (stats.size <= maxFileSize) {
@@ -1123,6 +1143,132 @@ async function checkAuthSessions(projectDir, fileContents) {
   return { name: "Auth & Sessions", checks };
 }
 
+// Detect known server-side validation packages and idiomatic framework hooks.
+// This is evidence that a validation mechanism exists, not a claim that every
+// endpoint validates every input.
+function findValidationEvidence(projectDir, fileContents) {
+  const evidence = new Set();
+  const validationSubjectPaths = [];
+  const serverSourceExtensions = new Set([".py", ".php", ".rb", ".go", ".rs", ".java", ".kt", ".kts", ".cs", ".ex", ".exs"]);
+  const jsValidationLibs = ["zod", "yup", "joi", "@hapi/joi", "ajv", "superstruct", "valibot", "io-ts", "class-validator"];
+  const composerValidationLibs = new Map([
+    ["laravel/framework", "Laravel validation"],
+    ["illuminate/validation", "Laravel validation"],
+    ["symfony/validator", "Symfony Validator"],
+    ["respect/validation", "Respect Validation"],
+    ["rakit/validation", "Rakit Validation"],
+    ["spatie/laravel-data", "Spatie Laravel Data"],
+  ]);
+
+  for (const [filePath, content] of fileContents) {
+    const baseName = path.basename(filePath).toLowerCase();
+    const extension = path.extname(filePath).toLowerCase();
+    const relativeFile = relPath(projectDir, filePath);
+
+    if (
+      baseName === "package.json" ||
+      SCAN_MANIFEST_FILENAMES.has(baseName) ||
+      isPythonRequirementsFile(baseName) ||
+      SCAN_MANIFEST_SUFFIXES.some((suffix) => baseName.endsWith(suffix)) ||
+      baseName === "pom.xml"
+    ) {
+      validationSubjectPaths.push(relativeFile);
+    } else if (serverSourceExtensions.has(extension)) {
+      validationSubjectPaths.push(relativeFile);
+    }
+
+    if (baseName === "package.json") {
+      try {
+        const pkg = JSON.parse(content);
+        const dependencies = {
+          ...(pkg.dependencies || {}),
+          ...(pkg.devDependencies || {}),
+          ...(pkg.peerDependencies || {}),
+        };
+        for (const library of jsValidationLibs) {
+          if (Object.prototype.hasOwnProperty.call(dependencies, library)) evidence.add(library);
+        }
+      } catch { /* malformed package.json is reported by dependency checks */ }
+      continue;
+    }
+
+    if (isPythonRequirementsFile(baseName) || ["pipfile", "pipfile.lock", "pyproject.toml", "poetry.lock"].includes(baseName)) {
+      if (/\bpydantic(?:[\[<>=!~@\s]|$)/im.test(content)) evidence.add("Pydantic");
+      if (/\bmarshmallow(?:[\[<>=!~@\s]|$)/im.test(content)) evidence.add("Marshmallow");
+      if (/\bcerberus(?:[\[<>=!~@\s]|$)/im.test(content)) evidence.add("Cerberus");
+      if (/\bwtforms(?:[\[<>=!~@\s]|$)/im.test(content)) evidence.add("WTForms");
+      if (/\bfastapi(?:[\[<>=!~@\s]|$)/im.test(content)) evidence.add("FastAPI/Pydantic");
+    }
+
+    if (baseName === "composer.json") {
+      try {
+        const composer = JSON.parse(content);
+        const dependencies = { ...(composer.require || {}), ...(composer["require-dev"] || {}) };
+        for (const [library, label] of composerValidationLibs) {
+          if (Object.prototype.hasOwnProperty.call(dependencies, library)) evidence.add(label);
+        }
+      } catch { /* malformed composer.json is outside this check */ }
+    }
+
+    if (baseName === "gemfile" && /gem\s+["'](?:dry-validation|dry-schema|active_model)["']/i.test(content)) {
+      evidence.add("Ruby validation library");
+    }
+    if (baseName === "go.mod" && /(?:github\.com\/go-playground\/validator|github\.com\/go-ozzo\/ozzo-validation)/i.test(content)) {
+      evidence.add("Go validator");
+    }
+    if (baseName === "cargo.toml" && /^\s*validator\s*=/im.test(content)) {
+      evidence.add("Rust validator");
+    }
+    if (baseName === "pom.xml" || baseName === "build.gradle" || baseName === "build.gradle.kts") {
+      if (/(?:jakarta\.validation|javax\.validation|hibernate-validator|spring-boot-starter-validation)/i.test(content)) {
+        evidence.add("Java validation framework");
+      }
+    }
+    if (SCAN_MANIFEST_SUFFIXES.some((suffix) => baseName.endsWith(suffix)) && /(?:FluentValidation|System\.ComponentModel\.DataAnnotations)/i.test(content)) {
+      evidence.add(".NET validation framework");
+    }
+
+    if ([".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs"].includes(extension)) {
+      if (/(?:from\s+['"](?:zod|yup|joi|@hapi\/joi|ajv|valibot|superstruct|io-ts|class-validator)['"]|require\s*\(\s*['"](?:zod|yup|joi|@hapi\/joi|ajv|valibot|superstruct|io-ts|class-validator)['"]\))/i.test(content)) {
+        evidence.add("JavaScript/TypeScript validation import");
+      }
+    } else if (extension === ".py") {
+      if (/\b(?:from\s+pydantic\s+import|import\s+pydantic)\b/i.test(content)) evidence.add("Pydantic");
+      if (/\b(?:from\s+marshmallow\s+import|import\s+marshmallow)\b/i.test(content)) evidence.add("Marshmallow");
+      if (/\b(?:from\s+cerberus\s+import|import\s+cerberus)\b/i.test(content)) evidence.add("Cerberus");
+      if (/\b(?:from\s+wtforms\s+import|import\s+wtforms)\b/i.test(content)) evidence.add("WTForms");
+      if (/\b(?:from\s+rest_framework\s+import\s+serializers|rest_framework\.serializers)\b/i.test(content)) evidence.add("Django REST Framework serializers");
+      if (/\b(?:from\s+fastapi\s+import|import\s+fastapi)\b/i.test(content)) evidence.add("FastAPI/Pydantic");
+    } else if (extension === ".php") {
+      if (/(?:->validate\s*\(|Validator::make\s*\(|extends\s+FormRequest\b|use\s+Illuminate\\(?:Validation|Http\\Request)|Symfony\\Component\\Validator|Respect\\Validation|filter_var\s*\()/i.test(content)) {
+        evidence.add("PHP server-side validation");
+      }
+    } else if (extension === ".rb") {
+      if (/(?:Dry::Validation|ActiveModel::Validations|\bvalidates\s+:[a-z_]+)/i.test(content)) evidence.add("Ruby server-side validation");
+    } else if ([".java", ".kt", ".kts"].includes(extension)) {
+      if (/(?:\b(?:jakarta|javax)\.validation\b|\b@(?:Valid|Validated)\b|org\.springframework\.validation)/i.test(content)) {
+        evidence.add("Java validation framework");
+      }
+    } else if (extension === ".cs") {
+      if (/(?:\bFluentValidation\b|\bSystem\.ComponentModel\.DataAnnotations\b|\[(?:Required|StringLength|Range|EmailAddress|RegularExpression)\b)/i.test(content)) {
+        evidence.add(".NET validation framework");
+      }
+    } else if (extension === ".go") {
+      if (/(?:github\.com\/go-playground\/validator|github\.com\/go-ozzo\/ozzo-validation|binding:\"(?:required|email|uuid)|\bShouldBind(?:JSON|Query|Uri)\s*\()/i.test(content)) {
+        evidence.add("Go validator");
+      }
+    } else if (extension === ".rs") {
+      if (/(?:use\s+validator|derive\s*\(\s*Validate\s*\))/i.test(content)) evidence.add("Rust validator");
+    } else if ([".ex", ".exs"].includes(extension)) {
+      if (/(?:\bEcto\.Changeset\b|\bvalidate_(?:required|format|length|number|inclusion)\s*\()/i.test(content)) {
+        evidence.add("Elixir Ecto changeset validation");
+      }
+    }
+  }
+
+  return { evidence: [...evidence].sort(), validationSubjectPaths };
+}
+
 // ---- Category 4: Input & API Security (15 pts) ----
 // Security-Master.md Part 3: API Standards
 async function checkInputApi(projectDir, fileContents) {
@@ -1137,35 +1283,24 @@ async function checkInputApi(projectDir, fileContents) {
     : [];
 
   // Check 11: Input validation library present (5 pts)
-  // Part 3 Rule 1: "Validate all input — use zod/yup/joi"
-  const validationLibs = ["zod", "yup", "joi", "@hapi/joi", "ajv", "superstruct", "valibot", "io-ts", "class-validator"];
-  const foundValidation = validationLibs.filter((lib) => allDeps.includes(lib));
-
-  let hasValidationImport = false;
-  if (foundValidation.length === 0) {
-    for (const [, content] of fileContents) {
-      if (/(?:from\s+['"](?:zod|yup|joi|ajv|valibot|superstruct)['"]|require\s*\(\s*['"](?:zod|yup|joi|ajv|valibot)['"])/i.test(content)) {
-        hasValidationImport = true;
-        break;
-      }
-    }
-  }
-
-  if (foundValidation.length > 0 || hasValidationImport) {
+  // Part 3 Rule 1: "Validate all input". Framework-native mechanisms are
+  // accepted when they enforce validation server-side.
+  const { evidence: validationEvidence, validationSubjectPaths } = findValidationEvidence(projectDir, fileContents);
+  if (validationEvidence.length > 0) {
     checks.push(checkResult(
       "Input validation library present", "Part 3 Rule 1", 5, 5, "pass",
-      `Validation library found: ${foundValidation.join(", ") || "detected in imports"}`,
+      `Validation support found: ${validationEvidence.join(", ")}. This confirms a validation mechanism exists; review route coverage separately.`,
     ));
-  } else if (pkgJson) {
+  } else if (validationSubjectPaths.length > 0) {
     checks.push(checkResult(
       "Input validation library present", "Part 3 Rule 1", 5, 0, "fail",
-      "No input validation library detected. Install zod, yup, or joi.",
-      [{ file: "package.json", message: "Add a validation library (zod recommended)" }],
+      "No server-side input validation library or framework validation hook detected.",
+      [{ file: validationSubjectPaths[0], message: "Add a server-side schema validator appropriate for this stack and validate every request boundary." }],
     ));
   } else {
     checks.push(checkResult(
       "Input validation library present", "Part 3 Rule 1", 5, 0, "skip",
-      "No package.json found",
+      "No recognized application dependency manifest found",
     ));
   }
 

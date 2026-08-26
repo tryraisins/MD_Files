@@ -18,6 +18,12 @@ Run commands from your project root:
 
 Fetches `Security-Master.md` and runs a security audit.
 
+Validation detection recognizes common server-side ecosystems, including
+JavaScript/TypeScript, Python (Pydantic, Marshmallow, Django REST Framework,
+FastAPI), PHP (Laravel, Symfony, Respect), Ruby, Java/Kotlin, .NET, Go, Rust,
+and Elixir. It identifies the presence of a validation mechanism; it does not
+replace route-by-route validation review.
+
 ```bash
 npx yeknal security
 ```
