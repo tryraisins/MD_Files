@@ -72,6 +72,18 @@ The repository now includes the Taste skill bundle:
 - `brutalist-skill`
 - `stitch-skill`
 
+## Emil Kowalski UI skill merge
+
+The design and motion collection also includes the upstream UI-focused skills from [`emilkowalski/skills`](https://github.com/emilkowalski/skills/tree/main/skills), reviewed from commit `d23d7f8`:
+
+- `animate` and `animate-expo` for purposeful, performant web and React Native motion
+- `ask-sonner` for accessible, stateful toast workflows
+- `prototype` for isolated, divergent UI explorations
+- `write-swift` for modern Swift and SwiftUI-adjacent work
+- supporting recipes, API, picker, audit, plan, and standards references for the imported and existing skills
+
+Existing local skills retain their `ui-quality-baseline` integration; the newly imported visible-UI skills reference the same baseline so typography, tokens, geometry, responsive behavior, accessibility, loading states, and reduced motion remain consistent across outputs.
+
 ## License
 
 ISC
