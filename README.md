@@ -1,16 +1,24 @@
 # MD Files
 
-A collection of reusable skill folders and security guidelines for AI coding agents.
+A collection of reusable skill folders and security guidance for AI coding agents.
 
-Use [`yeknal`](https://www.npmjs.com/package/yeknal) to sync skills or run a security audit.
+Use [`yeknal`](https://www.npmjs.com/package/yeknal) when you want to copy the latest skills into your local agent setup or run a static security scan on a project.
+
+## Requirements
+
+`yeknal` does not need a global install. A new device still needs Node.js with npm, internet access, and at least one supported agent folder for skill sync:
+
+- Codex: `~/.codex`
+- Claude: `~/.claude`
+- Gemini Antigravity: `~/.gemini/antigravity`
+- Antigravity: `~/.antigravity`
+
+Git is optional. It is only used if the normal GitHub download path is rate-limited.
 
 ## Quick Start
 
 ```bash
-# Fetch security guidelines + run security audit
 npx yeknal security
-
-# Sync skill folders to local agent directories
 npx yeknal skills
 ```
 
@@ -18,32 +26,24 @@ npx yeknal skills
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal security` | Refreshes the managed `yeknal-Security` skill, downloads `Security-Master.md`, and runs a security audit |
-| `npx yeknal skills` | Syncs the latest top-level skill folders, including `Security` as `yeknal-Security` (excluding `Design`, `Security_Raw`, `SEO`) |
+| `npx yeknal security` | Refreshes `yeknal-Security`, scans the current folder, and writes `yeknal-security.log` |
+| `npx yeknal skills` | Syncs current top-level `SKILL.md` folders into detected local agent skill folders |
 
-## Skills Sync Behavior
+## Sync Behavior
 
-- Source mode is GitHub download.
-- Pulls the current top-level `SKILL.md` folders from this repository on `main`.
-- Uses GitHub API + raw file download by default.
-- If GitHub API rate limit is hit, it automatically falls back to `git clone` (Git must be installed).
-- Includes only top-level folders that contain `SKILL.md`.
-- Installs each synced skill with a `yeknal-` folder prefix, for example `taste-skill` installs as `yeknal-taste-skill`.
-- The canonical security skill is installed as `yeknal-Security` by both commands; re-running either command overwrites that managed folder.
-- `Security_Raw` is reference/source material rather than an installable skill (it has no `SKILL.md`), so it is not downloaded.
-- Only matching `yeknal-*` managed destination folders are overwritten during sync.
+- Skills are pulled from this repository on `main`.
+- Installed skill folders use the managed `yeknal-` prefix, for example `taste-skill` installs as `yeknal-taste-skill`.
+- `Security` is installed as `yeknal-Security` by both commands.
+- `Design`, `SEO`, and `Security_Raw` are not installed by the CLI.
+- Missing `skills` folders are created inside detected agent parent folders.
+- Managed `yeknal-*` folders are overwritten or removed when the repository changes.
 - Personal/private skill folders without the `yeknal-` prefix are left untouched.
-- Creates `<parent>/skills` when parent exists but skills folder does not.
-- Sync targets:
-- Gemini: `~/.gemini/antigravity` or `~/.antigravity`
-- Codex: `~/.codex`
-- Claude: `~/.claude`
 
-Optional parent path overrides:
-- `YEKNAL_GEMINI_PARENT`
-- `YEKNAL_CODEX_PARENT`
-- `YEKNAL_CLAUDE_PARENT`
-- `YEKNAL_GITHUB_TOKEN` (or `GITHUB_TOKEN`) for higher GitHub API rate limits (optional)
+## Security Scan
+
+`npx yeknal security` temporarily downloads the latest `Security-Master.md` rules, scans the current project, and removes the temporary rules file after writing `yeknal-security.log`.
+
+The scanner checks common static signals including secrets, credential files, dependency manifests, authentication/session patterns, input validation evidence, CORS, security headers, database-access risks, unsafe frontend sinks, and framework configuration issues. It is a helper for finding issues quickly, not a replacement for manual security review.
 
 ## Repository Structure
 

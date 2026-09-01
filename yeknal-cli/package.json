@@ -1,11 +1,15 @@
 {
   "name": "yeknal",
-  "version": "1.4.4",
-  "description": "CLI to fetch markdown templates and sync AI agent skills",
+  "version": "1.4.5",
+  "description": "Sync AI agent skills and run static security audits",
   "main": "bin/yeknal.js",
   "bin": {
     "yeknal": "bin/yeknal.js"
   },
+  "files": [
+    "bin/",
+    "README.md"
+  ],
   "keywords": [
     "cli",
     "markdown",
