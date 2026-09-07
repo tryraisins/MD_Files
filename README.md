@@ -105,7 +105,7 @@ Upstream material is adapted selectively. Existing local specialist design and c
 
 ## Validation and releases
 
-GitHub Actions validates skill structure, relative Markdown links, CLI tests, package contents, and changed-file whitespace on pushes and pull requests. npm releases are published from GitHub releases through npm trusted publishing with short-lived OIDC credentials; the workflow does not require a stored npm write token.
+GitHub Actions validates skill structure, relative Markdown links, CLI tests, package contents, and changed-file whitespace on pushes and pull requests. The npm trusted-publishing workflow is prepared but remains dormant until the package has a matching OIDC connection and the repository variable `NPM_TRUSTED_PUBLISHING_ENABLED` is set to `true`. Until then, package owners publish from an authenticated local npm client; no npm write token is stored in GitHub.
 
 `evaluations/skill-routing.json` records high-value routing and precedence cases. CI validates the dataset and referenced skills; model-level activation scoring remains a separate behavioral evaluation boundary.
 

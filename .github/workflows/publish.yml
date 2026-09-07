@@ -11,6 +11,9 @@ permissions:
 
 jobs:
   publish:
+    # Enable only after the npm package has a matching trusted-publisher
+    # connection. A missing variable keeps release events safely dormant.
+    if: ${{ vars.NPM_TRUSTED_PUBLISHING_ENABLED == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
 

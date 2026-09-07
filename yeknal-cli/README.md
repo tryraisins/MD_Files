@@ -49,7 +49,7 @@ npm test
 npm pack --dry-run
 ```
 
-Releases are published by `.github/workflows/publish.yml` after a matching `v<package-version>` GitHub release is published. npm trusted publishing supplies a short-lived OIDC credential and provenance; no long-lived npm publish token belongs in repository secrets.
+`.github/workflows/publish.yml` is ready for npm trusted publishing but is gated by the repository variable `NPM_TRUSTED_PUBLISHING_ENABLED`. Set that variable to `true` only after npm has a matching OIDC connection for `tryraisins/MD_Files` and `publish.yml`. Until then, publish manually from an authenticated local npm client; do not store a long-lived npm publish token in repository secrets.
 
 ## Notes
 
