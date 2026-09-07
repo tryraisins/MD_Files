@@ -310,6 +310,29 @@ async function discoverLocalSkillFolders(sourceRoot) {
   return folders.sort((a, b) => a.localeCompare(b));
 }
 
+/**
+ * Codex ships first-party skills below ~/.codex/skills/.system. Do not install
+ * a second, managed copy of a repository skill when that system skill exists.
+ */
+async function discoverSystemSkillNames(skillsPath) {
+  const systemPath = path.join(skillsPath, ".system");
+  if (!(await isDirectory(systemPath))) {
+    return new Set();
+  }
+
+  const entries = await fsp.readdir(systemPath, { withFileTypes: true });
+  const names = new Set();
+  for (const entry of entries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+    if (await fileExists(path.join(systemPath, entry.name, "SKILL.md"))) {
+      names.add(entry.name);
+    }
+  }
+  return names;
+}
+
 async function downloadSkillsFromGit(tempRoot, skillFolders, repoTree) {
   const total = skillFolders.length;
   for (let i = 0; i < skillFolders.length; i++) {
@@ -456,9 +479,28 @@ async function runSkillsCommand() {
     for (const target of targets) {
       try {
         await fsp.mkdir(target.skillsPath, { recursive: true });
+        const systemSkillNames =
+          target.label === "Codex"
+            ? await discoverSystemSkillNames(target.skillsPath)
+            : new Set();
+        const syncSkillFolders = skillFolders.filter(
+          (folder) => !systemSkillNames.has(folder),
+        );
+        const skippedSystemFolders = skillFolders.filter((folder) =>
+          systemSkillNames.has(folder),
+        );
+        for (const folder of skippedSystemFolders) {
+          console.log(
+            `  [skipped] ${target.label}: ${folder} is provided by ${path.join(
+              target.skillsPath,
+              ".system",
+              folder,
+            )}`,
+          );
+        }
         let copiedCount = 0;
         const expectedFolders = new Set(
-          skillFolders.map((folder) => getManagedSkillFolderName(folder)),
+          syncSkillFolders.map((folder) => getManagedSkillFolderName(folder)),
         );
         const removedFolders = await removeStaleManagedSkillFolders(
           target.skillsPath,
@@ -469,7 +511,7 @@ async function runSkillsCommand() {
           console.log(`  [removed] ${target.label}: stale managed skill ${removedFolder}`);
         }
 
-        for (const folder of skillFolders) {
+        for (const folder of syncSkillFolders) {
           const sourceFolder = path.join(tempRoot, folder);
           const destinationFolder = path.join(target.skillsPath, getManagedSkillFolderName(folder));
           await fsp.rm(destinationFolder, { recursive: true, force: true });
@@ -2509,6 +2551,7 @@ module.exports = {
   checkResult,
   copyDirRecursive,
   discoverLocalSkillFolders,
+  discoverSystemSkillNames,
   discoverSkillFolders,
   downloadUrlToFile,
   generateSecurityJson,

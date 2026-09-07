@@ -82,7 +82,7 @@ The old duplicate raw security prompt files and generated audit log were removed
 - prompt injection, unsafe tool output, memory poisoning, excessive agency, approval boundaries, and bounded agent execution;
 - replay, races, retries, exceptional conditions, logging, and incident response.
 
-The CLI now syncs all four security skills and reads the master baseline from `application-security`. Version `1.6.0` adds stable security rule IDs, JSON and SARIF reports, interrupted-download handling, automated tests, CI validation, and an OIDC-ready npm release workflow.
+The CLI now syncs all four security skills and reads the master baseline from `application-security`. Version `1.6.1` adds Codex `.system` collision avoidance on top of the stable security rule IDs, JSON and SARIF reports, interrupted-download handling, automated tests, CI validation, and the OIDC-ready npm release workflow.
 
 ## Validation commands
 

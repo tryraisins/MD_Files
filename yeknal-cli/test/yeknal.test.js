@@ -58,6 +58,17 @@ test("discovers and copies a staged local skill tree", async () => {
   });
 });
 
+test("discovers Codex system skills without treating unrelated folders as skills", async () => {
+  await withTempDir(async (directory) => {
+    await fsp.mkdir(path.join(directory, ".system", "imagegen"), { recursive: true });
+    await fsp.mkdir(path.join(directory, ".system", "not-a-skill"), { recursive: true });
+    await fsp.writeFile(path.join(directory, ".system", "imagegen", "SKILL.md"), "system\n");
+    await fsp.writeFile(path.join(directory, ".system", "not-a-skill", "README.md"), "notes\n");
+
+    assert.deepEqual([...await yeknal.discoverSystemSkillNames(directory)], ["imagegen"]);
+  });
+});
+
 test("removes stale managed folders but preserves expected and personal folders", async () => {
   await withTempDir(async (directory) => {
     for (const folder of ["yeknal-current", "yeknal-stale", "personal-skill"]) {

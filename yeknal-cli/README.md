@@ -28,6 +28,7 @@ The command:
 - creates missing `skills` directories in supported agent folders;
 - updates and removes only managed `yeknal-*` folders;
 - preserves personal skill folders without that prefix;
+- on Codex, skips repository skills already supplied by `~/.codex/skills/.system`;
 - excludes `SEO`, which is reference material without a `SKILL.md`.
 
 ### `npx yeknal security`
