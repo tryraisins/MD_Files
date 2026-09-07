@@ -37,15 +37,25 @@ This command:
 1. downloads `application-security/Security-Master.md` temporarily;
 2. syncs `application-security`, `security-best-practices`, `security-ownership-map`, and `security-threat-model`;
 3. scans the current project;
-4. writes `yeknal-security.log` and removes the temporary master file.
+4. writes `yeknal-security.log`, `yeknal-security.json`, and `yeknal-security.sarif`, then removes the temporary master file.
 
-The scanner checks static signals for exposed secrets and credential files, dependency risk, authentication and session handling, input validation, CORS, security headers, database access, unsafe frontend sinks, and framework configuration. Findings require human review; a static scan cannot prove runtime authorization, exploitability, deployment posture, or the absence of vulnerabilities.
+The scanner checks static signals for exposed secrets and credential files, dependency risk, authentication and session handling, input validation, CORS, security headers, database access, unsafe frontend sinks, and framework configuration. Checks use stable rule IDs and current `Security-Master.md` anchors. JSON supports custom processing, while SARIF 2.1.0 supports compatible code-scanning tools. Findings require human review; a static scan cannot prove runtime authorization, exploitability, deployment posture, or the absence of vulnerabilities.
+
+## Development and release
+
+```bash
+npm ci
+npm test
+npm pack --dry-run
+```
+
+Releases are published by `.github/workflows/publish.yml` after a matching `v<package-version>` GitHub release is published. npm trusted publishing supplies a short-lived OIDC credential and provenance; no long-lived npm publish token belongs in repository secrets.
 
 ## Notes
 
 - If no supported agent folder exists, the skills command exits without installing anything.
 - If GitHub API limits are reached, set `YEKNAL_GITHUB_TOKEN` or `GITHUB_TOKEN`, or install Git for the fallback clone.
-- `yeknal-security.log` is local evidence and should not be committed.
+- Generated `yeknal-security.log`, `yeknal-security.json`, and `yeknal-security.sarif` files are local evidence and should not be committed.
 
 ## License
 

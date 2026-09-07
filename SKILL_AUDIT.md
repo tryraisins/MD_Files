@@ -82,14 +82,15 @@ The old duplicate raw security prompt files and generated audit log were removed
 - prompt injection, unsafe tool output, memory poisoning, excessive agency, approval boundaries, and bounded agent execution;
 - replay, races, retries, exceptional conditions, logging, and incident response.
 
-The CLI now syncs all four security skills and reads the master baseline from `application-security`. Its package version is `1.5.0`.
+The CLI now syncs all four security skills and reads the master baseline from `application-security`. Version `1.6.0` adds stable security rule IDs, JSON and SARIF reports, interrupted-download handling, automated tests, CI validation, and an OIDC-ready npm release workflow.
 
 ## Validation commands
 
 ```powershell
 pwsh -NoProfile -File .\markdown-management\scripts\audit-skills.ps1 -Root .
+pwsh -NoProfile -File .\markdown-management\scripts\audit-markdown-links.ps1 -Root .
 skills-ref validate <each top-level skill folder>
-node --check .\yeknal-cli\bin\yeknal.js
+npm test --prefix .\yeknal-cli
 git diff --check
 ```
 

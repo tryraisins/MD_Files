@@ -23,7 +23,7 @@ npx yeknal security
 | Command | Result |
 | --- | --- |
 | `npx yeknal skills` | Syncs every current top-level skill folder into detected local agent skill folders. |
-| `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes `yeknal-security.log`. |
+| `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 
 ## Sync behavior
 
@@ -68,6 +68,13 @@ Run the local structural audit with:
 
 ```powershell
 pwsh -NoProfile -File .\markdown-management\scripts\audit-skills.ps1 -Root .
+pwsh -NoProfile -File .\markdown-management\scripts\audit-markdown-links.ps1 -Root .
+```
+
+Audit duplicate names across installed Codex, Claude, and shared skill roots without deleting personal skills:
+
+```powershell
+pwsh -NoProfile -File .\markdown-management\scripts\audit-installed-skill-conflicts.ps1
 ```
 
 ### Security
@@ -78,6 +85,8 @@ pwsh -NoProfile -File .\markdown-management\scripts\audit-skills.ps1 -Root .
 - `security-ownership-map`: sensitive-code ownership and concentration analysis.
 
 The guidance covers current OWASP web/API risks, secure authentication and password storage, software supply chains, exceptional conditions, and prompt/tool/agent boundaries. Static checks are evidence, not proof of live authorization, deployment, tenant, browser, or provider behavior.
+
+Security scan checks use stable IDs and link to current `Security-Master.md` anchors. The CLI writes `yeknal-security.log`, `yeknal-security.json`, and SARIF 2.1.0 `yeknal-security.sarif`; all three are ignored by Git by default.
 
 ### SEO discovery
 
@@ -93,6 +102,12 @@ The 2026-09-07 refresh reviewed:
 - `swamimalode/rare-ui` at `b3efd6c290884a852b7af39d34df99a762dbbf3f`.
 
 Upstream material is adapted selectively. Existing local specialist design and command instructions win where generic upstream guidance conflicts.
+
+## Validation and releases
+
+GitHub Actions validates skill structure, relative Markdown links, CLI tests, package contents, and changed-file whitespace on pushes and pull requests. npm releases are published from GitHub releases through npm trusted publishing with short-lived OIDC credentials; the workflow does not require a stored npm write token.
+
+`evaluations/skill-routing.json` records high-value routing and precedence cases. CI validates the dataset and referenced skills; model-level activation scoring remains a separate behavioral evaluation boundary.
 
 ## License
 

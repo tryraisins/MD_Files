@@ -63,6 +63,18 @@ function getRequestHeaders(url) {
 
 function requestBuffer(url, redirectsRemaining = 5) {
   return new Promise((resolve, reject) => {
+    let settled = false;
+    const resolveOnce = (value) => {
+      if (settled) return;
+      settled = true;
+      resolve(value);
+    };
+    const rejectOnce = (error) => {
+      if (settled) return;
+      settled = true;
+      reject(error);
+    };
+
     const req = https.get(
       url,
       {
@@ -73,19 +85,21 @@ function requestBuffer(url, redirectsRemaining = 5) {
 
         if ([301, 302, 303, 307, 308].includes(statusCode) && res.headers.location) {
           if (redirectsRemaining <= 0) {
-            reject(new Error(`Too many redirects requesting ${url}`));
+            rejectOnce(new Error(`Too many redirects requesting ${url}`));
             return;
           }
           res.resume();
           const nextUrl = new URL(res.headers.location, url).toString();
-          requestBuffer(nextUrl, redirectsRemaining - 1).then(resolve).catch(reject);
+          requestBuffer(nextUrl, redirectsRemaining - 1).then(resolveOnce).catch(rejectOnce);
           return;
         }
 
         const chunks = [];
         res.on("data", (chunk) => chunks.push(chunk));
+        res.on("aborted", () => rejectOnce(new Error(`Response aborted while requesting ${url}`)));
+        res.on("error", rejectOnce);
         res.on("end", () => {
-          resolve({
+          resolveOnce({
             statusCode,
             body: Buffer.concat(chunks),
           });
@@ -93,8 +107,16 @@ function requestBuffer(url, redirectsRemaining = 5) {
       },
     );
 
-    req.on("error", reject);
+    req.on("error", rejectOnce);
   });
+}
+
+function shouldUseGitCloneFallback(error) {
+  const message = error && error.message ? error.message : String(error || "");
+  return Boolean(
+    (error && error.code === "GITHUB_RATE_LIMIT") ||
+      message.includes("GitHub API rate limit exceeded"),
+  );
 }
 
 async function fetchJson(url) {
@@ -102,21 +124,23 @@ async function fetchJson(url) {
   if (!isHttpSuccess(response.statusCode)) {
     const bodyText = response.body.toString("utf8");
     if (response.statusCode === 403 && bodyText.includes("API rate limit exceeded")) {
-      throw new Error(
+      const error = new Error(
         `GitHub API rate limit exceeded.\n` +
           `Set an auth token to increase limits:\n` +
           `  PowerShell: $env:YEKNAL_GITHUB_TOKEN="<your_token>"\n` +
           `  Bash/zsh:  export YEKNAL_GITHUB_TOKEN="<your_token>"\n` +
           `Then rerun: npx yeknal security`,
       );
+      error.code = "GITHUB_RATE_LIMIT";
+      throw error;
     }
     throw new Error(`GitHub API request failed (${response.statusCode}): ${url}\n${bodyText}`);
   }
   return JSON.parse(response.body.toString("utf8"));
 }
 
-async function downloadUrlToFile(url, localPath) {
-  const response = await requestBuffer(url);
+async function downloadUrlToFile(url, localPath, requester = requestBuffer) {
+  const response = await requester(url);
   if (!isHttpSuccess(response.statusCode)) {
     throw new Error(`Failed to download file (${response.statusCode}): ${url}`);
   }
@@ -413,8 +437,7 @@ async function runSkillsCommand() {
       console.log(`  Found ${skillFolders.length} skill folder(s). Starting download...\n`);
       await downloadSkillsFromGit(tempRoot, skillFolders, repoTree);
     } catch (error) {
-      const message = error && error.message ? error.message : String(error);
-      if (!message.includes("GitHub API rate limit exceeded")) {
+      if (!shouldUseGitCloneFallback(error)) {
         throw error;
       }
 
@@ -645,9 +668,60 @@ async function safeReadFile(filePath) {
   }
 }
 
-// Create a check result object
-function checkResult(name, reference, points, earned, status, details, issues) {
-  return { name, reference, points, earned, status, details, issues: issues || [] };
+const SECURITY_MASTER_URL = "https://github.com/tryraisins/MD_Files/blob/main/application-security/Security-Master.md";
+
+const SECURITY_RULES = {
+  ".gitignore exists": { id: "SEC-001", reference: "#secrets-and-workloads" },
+  ".gitignore covers .env files": { id: "SEC-002", reference: "#secrets-and-workloads" },
+  "No .env files tracked in git": { id: "SEC-003", reference: "#secrets-and-workloads" },
+  "No .env files in project": { id: "SEC-003", reference: "#secrets-and-workloads" },
+  "No hardcoded secrets in source": { id: "SEC-004", reference: "#secrets-and-workloads" },
+  "No private keys in repo": { id: "SEC-005", reference: "#secrets-and-workloads" },
+  "No credential files outside .gitignore": { id: "SEC-006", reference: "#secrets-and-workloads" },
+  "Dependency lock file present": { id: "DEP-001", reference: "#software-supply-chain" },
+  "Dependency audit clean": { id: "DEP-002", reference: "#software-supply-chain" },
+  "No tokens in localStorage": { id: "AUTH-001", reference: "#sessions-and-cookies" },
+  "Strong password hashing": { id: "AUTH-002", reference: "#password-storage" },
+  "Secure cookie configuration": { id: "AUTH-003", reference: "#sessions-and-cookies" },
+  "Express: persistent session store": { id: "AUTH-004", reference: "#sessions-and-cookies" },
+  "Input validation library present": { id: "API-001", reference: "#input-output-and-interpreters" },
+  "Rate limiting configured": { id: "API-002", reference: "#api-and-resource-controls" },
+  "CORS properly configured": { id: "API-003", reference: "#api-and-resource-controls" },
+  "Security headers configured": { id: "HTTP-001", reference: "#browser-security-headers" },
+  "No internal error exposure": { id: "HTTP-002", reference: "#security-policy-and-evidence" },
+  "HTTPS enforcement": { id: "HTTP-003", reference: "#browser-security-headers" },
+  "ORM or parameterized queries": { id: "DATA-001", reference: "#input-output-and-interpreters" },
+  "No SQL injection patterns": { id: "DATA-002", reference: "#input-output-and-interpreters" },
+  "DB credentials not hardcoded": { id: "DATA-003", reference: "#secrets-and-workloads" },
+  "No client-side secret exposure": { id: "FE-001", reference: "#secrets-and-workloads" },
+  "No unsafe HTML injection sinks": { id: "FE-002", reference: "#browser-security-headers" },
+  "No dynamic code execution": { id: "FE-003", reference: "#input-output-and-interpreters" },
+  "No server-side template injection": { id: "FE-004", reference: "#input-output-and-interpreters" },
+  "Django: safe ALLOWED_HOSTS / DEBUG": { id: "CFG-001", reference: "#security-policy-and-evidence" },
+};
+
+function fallbackRuleId(name) {
+  return `GEN-${name.toUpperCase().replace(/[^A-Z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+}
+
+// Create a check result object. The legacy reference argument is retained at
+// call sites for compatibility, but output uses stable rule IDs and current
+// Security-Master anchors.
+function checkResult(name, _legacyReference, points, earned, status, details, issues) {
+  const rule = SECURITY_RULES[name] || {
+    id: fallbackRuleId(name),
+    reference: "#security-policy-and-evidence",
+  };
+  return {
+    id: rule.id,
+    name,
+    reference: rule.reference,
+    points,
+    earned,
+    status,
+    details,
+    issues: issues || [],
+  };
 }
 
 // ---- Category 1: Secrets & Environment (25 pts) ----
@@ -2074,7 +2148,7 @@ function generateSecurityLog(results) {
   lines.push(`Warnings:        ${results.totalWarnings}`);
   lines.push("");
   lines.push("Based on: Security-Master.md + application-security/SKILL.md (yeknal security guidelines)");
-  lines.push("Reference: https://github.com/tryraisins/MD_Files/blob/main/application-security/Security-Master.md");
+  lines.push(`Reference: ${SECURITY_MASTER_URL}`);
   lines.push("");
 
   for (const category of results.categories) {
@@ -2085,8 +2159,8 @@ function generateSecurityLog(results) {
 
     for (const check of category.checks) {
       const icon = check.status === "pass" ? "[PASS]" : check.status === "fail" ? "[FAIL]" : check.status === "warn" ? "[WARN]" : "[SKIP]";
-      lines.push(`  ${icon} ${check.name}`);
-      lines.push(`         Points: ${check.earned}/${check.points} | Reference: Security-Master.md ${check.reference}`);
+      lines.push(`  ${icon} [${check.id}] ${check.name}`);
+      lines.push(`         Points: ${check.earned}/${check.points} | Reference: ${SECURITY_MASTER_URL}${check.reference}`);
       lines.push(`         ${check.details}`);
 
       if (check.issues && check.issues.length > 0) {
@@ -2149,6 +2223,91 @@ function generateSecurityLog(results) {
   return lines.join("\n");
 }
 
+function generateSecurityJson(results) {
+  return JSON.stringify({
+    schemaVersion: "1.0.0",
+    tool: {
+      name: "yeknal",
+      informationUri: "https://github.com/tryraisins/MD_Files",
+    },
+    scan: results,
+  }, null, 2) + "\n";
+}
+
+function generateSecuritySarif(results) {
+  const ruleDefinitions = new Map();
+  const sarifResults = [];
+
+  for (const category of results.categories) {
+    for (const check of category.checks) {
+      if (!ruleDefinitions.has(check.id)) {
+        ruleDefinitions.set(check.id, {
+          id: check.id,
+          name: check.name.replace(/[^A-Za-z0-9]+/g, "_"),
+          shortDescription: { text: check.name },
+          helpUri: `${SECURITY_MASTER_URL}${check.reference}`,
+          properties: { category: category.name },
+        });
+      }
+
+      if (check.status !== "fail" && check.status !== "warn") {
+        continue;
+      }
+
+      const findings = check.issues && check.issues.length > 0 ? check.issues : [null];
+      for (const issue of findings) {
+        const result = {
+          ruleId: check.id,
+          level: check.status === "fail" ? "error" : "warning",
+          message: {
+            text: issue && issue.message ? `${check.details} ${issue.message}` : check.details,
+          },
+          properties: {
+            checkStatus: check.status,
+            earnedPoints: check.earned,
+            availablePoints: check.points,
+          },
+        };
+
+        if (issue && issue.file) {
+          const physicalLocation = {
+            artifactLocation: { uri: String(issue.file).replace(/\\/g, "/") },
+          };
+          if (Number.isInteger(issue.line) && issue.line > 0) {
+            physicalLocation.region = { startLine: issue.line };
+          }
+          result.locations = [{ physicalLocation }];
+        }
+
+        sarifResults.push(result);
+      }
+    }
+  }
+
+  return JSON.stringify({
+    $schema: "https://json.schemastore.org/sarif-2.1.0.json",
+    version: "2.1.0",
+    runs: [{
+      tool: {
+        driver: {
+          name: "yeknal",
+          informationUri: "https://github.com/tryraisins/MD_Files",
+          rules: Array.from(ruleDefinitions.values()),
+        },
+      },
+      automationDetails: { id: "yeknal/security-scan" },
+      results: sarifResults,
+      properties: {
+        scannedAt: results.timestamp,
+        filesScanned: results.filesScanned,
+        score: results.percentage,
+        issues: results.totalIssues,
+        warnings: results.totalWarnings,
+      },
+    }],
+  }, null, 2) + "\n";
+}
+
 // ==========================================
 // SECURITY SKILL SYNC
 // ==========================================
@@ -2162,8 +2321,7 @@ async function syncSecuritySkills(targets) {
   try {
     repoTree = await fetchRepoTree();
   } catch (error) {
-    const message = error && error.message ? error.message : String(error);
-    if (message.includes("GitHub API rate limit exceeded")) {
+    if (shouldUseGitCloneFallback(error)) {
       console.log("  GitHub API rate-limited. Falling back to git clone...");
       useClone = true;
     } else {
@@ -2263,29 +2421,40 @@ async function runSecurityCommand() {
   // Step 4: Print results to CLI
   printScanResults(results);
 
-  // Step 5: Write detailed log
+  // Step 5: Write human-readable and machine-readable reports
   const logPath = path.join(projectDir, "yeknal-security.log");
-  const logContent = generateSecurityLog(results);
-  fs.writeFileSync(logPath, logContent);
-  console.log(`\n  Full report: ${logPath}\n`);
+  const jsonPath = path.join(projectDir, "yeknal-security.json");
+  const sarifPath = path.join(projectDir, "yeknal-security.sarif");
+  await Promise.all([
+    fsp.writeFile(logPath, generateSecurityLog(results), "utf8"),
+    fsp.writeFile(jsonPath, generateSecurityJson(results), "utf8"),
+    fsp.writeFile(sarifPath, generateSecuritySarif(results), "utf8"),
+  ]);
+  console.log("\n  Reports:");
+  console.log(`    Text:  ${logPath}`);
+  console.log(`    JSON:  ${jsonPath}`);
+  console.log(`    SARIF: ${sarifPath}\n`);
 
-  // Clean up downloaded files — only the log should remain
+  // Clean up the temporary baseline; generated reports remain in the project.
   if (fs.existsSync(masterDest)) {
     fs.unlinkSync(masterDest);
   }
 
-  // Ensure yeknal-security.log is in .gitignore so it never gets pushed
+  // Ensure generated security reports are ignored so local evidence does not
+  // get committed accidentally.
   const gitignorePath = path.join(projectDir, ".gitignore");
-  const logEntry = "yeknal-security.log";
+  const reportEntries = ["yeknal-security.log", "yeknal-security.json", "yeknal-security.sarif"];
   if (fs.existsSync(gitignorePath)) {
     const content = fs.readFileSync(gitignorePath, "utf8");
-    if (!content.split("\n").some((line) => line.trim() === logEntry)) {
-      fs.appendFileSync(gitignorePath, `\n${logEntry}\n`);
-      console.log("  Added yeknal-security.log to .gitignore");
+    const existingEntries = new Set(content.split("\n").map((line) => line.trim()));
+    const missingEntries = reportEntries.filter((entry) => !existingEntries.has(entry));
+    if (missingEntries.length > 0) {
+      fs.appendFileSync(gitignorePath, `\n${missingEntries.join("\n")}\n`);
+      console.log(`  Added ${missingEntries.join(", ")} to .gitignore`);
     }
   } else {
-    fs.writeFileSync(gitignorePath, `# Security scan logs\n${logEntry}\n`);
-    console.log("  Created .gitignore with yeknal-security.log");
+    fs.writeFileSync(gitignorePath, `# Security scan reports\n${reportEntries.join("\n")}\n`);
+    console.log("  Created .gitignore with generated security reports");
   }
 
   // Exit with error code if critical issues found
@@ -2328,7 +2497,25 @@ async function main() {
   process.exit(1);
 }
 
-main().catch((error) => {
-  console.error(`\nError: ${error.message}`);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(`\nError: ${error.message}`);
+    process.exit(1);
+  });
+}
+
+module.exports = {
+  SECURITY_RULES,
+  checkResult,
+  copyDirRecursive,
+  discoverLocalSkillFolders,
+  discoverSkillFolders,
+  downloadUrlToFile,
+  generateSecurityJson,
+  generateSecurityLog,
+  generateSecuritySarif,
+  getManagedSkillFolderName,
+  listFilesForFolder,
+  removeStaleManagedSkillFolders,
+  shouldUseGitCloneFallback,
+};

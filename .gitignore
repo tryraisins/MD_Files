@@ -1,2 +1,4 @@
-# Security scan logs
+# Security scan reports
 yeknal-security.log
+yeknal-security.json
+yeknal-security.sarif

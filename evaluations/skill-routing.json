@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "1.0.0",
+  "cases": [
+    {
+      "id": "redesign-existing-product",
+      "prompt": "Redesign this existing dashboard without breaking its working filters or data flow.",
+      "primary": "redesign-existing-projects",
+      "secondary": ["ui-quality-baseline"],
+      "mustNotLead": ["frontend-design"],
+      "rationale": "A redesign-specific workflow outranks generic visual direction."
+    },
+    {
+      "id": "new-distinctive-landing-page",
+      "prompt": "Build a distinctive new landing page from this product brief.",
+      "primary": "design-taste-frontend",
+      "secondary": ["ui-quality-baseline"],
+      "mustNotLead": ["frontend-design"],
+      "rationale": "The detailed local design system outranks the generic frontend design entry point."
+    },
+    {
+      "id": "minimalist-art-direction",
+      "prompt": "Create a restrained editorial interface with warm monochrome colors and almost no depth.",
+      "primary": "minimalist-ui",
+      "secondary": ["ui-quality-baseline"],
+      "mustNotLead": ["frontend-design"],
+      "rationale": "An explicit aesthetic maps to the narrow visual skill."
+    },
+    {
+      "id": "name-animation-effect",
+      "prompt": "What is the animation called when a popover opens with a small bounce?",
+      "primary": "animation-vocabulary",
+      "secondary": [],
+      "mustNotLead": ["animate"],
+      "rationale": "The user wants terminology, not implementation."
+    },
+    {
+      "id": "ordinary-interface-motion",
+      "prompt": "Add an interruptible spring transition to this menu.",
+      "primary": "animate",
+      "secondary": ["ui-quality-baseline"],
+      "mustNotLead": ["oil-motion"],
+      "rationale": "Ordinary component motion should not invoke a frame-sequence pipeline."
+    },
+    {
+      "id": "frame-based-scroll-story",
+      "prompt": "Build a scroll-controlled product transformation from 180 generated frames.",
+      "primary": "oil-motion",
+      "secondary": ["ui-quality-baseline"],
+      "mustNotLead": ["animate"],
+      "rationale": "Continuous generated-frame media belongs to oil-motion."
+    },
+    {
+      "id": "markdown-consolidation",
+      "prompt": "Merge these duplicate README files and preserve their links and authoritative instructions.",
+      "primary": "markdown-management",
+      "secondary": [],
+      "mustNotLead": ["add-changelog"],
+      "rationale": "General Markdown consolidation is not a release-history task."
+    },
+    {
+      "id": "release-notes",
+      "prompt": "Add the verified changes for version 2.3.0 to the changelog.",
+      "primary": "add-changelog",
+      "secondary": ["markdown-management"],
+      "mustNotLead": [],
+      "rationale": "The focused changelog command owns the task."
+    },
+    {
+      "id": "javascript-security-review",
+      "prompt": "Perform a security best-practices review of this Express service.",
+      "primary": "security-best-practices",
+      "secondary": ["application-security"],
+      "mustNotLead": ["review"],
+      "rationale": "An explicit supported-stack security review outranks generic review."
+    },
+    {
+      "id": "threat-model",
+      "prompt": "Threat model this repository and enumerate trust boundaries and abuse paths.",
+      "primary": "security-threat-model",
+      "secondary": ["application-security"],
+      "mustNotLead": ["review"],
+      "rationale": "Threat modeling produces a distinct artifact."
+    },
+    {
+      "id": "unused-code-audit",
+      "prompt": "Find every unused import and unreachable function in this TypeScript project.",
+      "primary": "dead-code-hunter",
+      "secondary": [],
+      "mustNotLead": ["cleanup"],
+      "rationale": "The dead-code specialist is narrower than general cleanup."
+    },
+    {
+      "id": "nextjs-feature",
+      "prompt": "Implement an authenticated Next.js route and its responsive client form.",
+      "primary": "nextjs-developer",
+      "secondary": ["application-security", "ui-quality-baseline"],
+      "mustNotLead": ["engineering-specialists"],
+      "rationale": "The framework skill leads while shared security and UI baselines supplement it."
+    },
+    {
+      "id": "netlify-deployment",
+      "prompt": "Deploy this application to Netlify and return the production URL.",
+      "primary": "netlify-deploy",
+      "secondary": [],
+      "mustNotLead": ["engineering-specialists"],
+      "rationale": "The provider-specific deployment workflow owns the task."
+    }
+  ]
+}

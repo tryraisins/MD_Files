@@ -1,0 +1,78 @@
+name: Validate skills and CLI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.13"
+
+      - name: Install pinned Agent Skills validator
+        run: python -m pip install "git+https://github.com/agentskills/agentskills.git@69ef37e9424c0a7ea9dd2293b559e43ec8176379#subdirectory=skills-ref"
+
+      - name: Validate every Agent Skill
+        shell: pwsh
+        run: |
+          $skills = Get-ChildItem -LiteralPath . -Directory |
+            Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'SKILL.md') }
+          foreach ($skill in $skills) {
+            skills-ref validate $skill.FullName
+            if ($LASTEXITCODE -ne 0) {
+              throw "Agent Skills validation failed for $($skill.Name)."
+            }
+          }
+          Write-Output "Validated $($skills.Count) skills."
+
+      - name: Run Markdown audits
+        shell: pwsh
+        run: |
+          ./markdown-management/scripts/audit-skills.ps1 -Root .
+          ./markdown-management/scripts/audit-markdown-links.ps1 -Root .
+          ./markdown-management/scripts/validate-routing-evals.ps1 -Root .
+
+      - name: Test yeknal CLI
+        working-directory: yeknal-cli
+        run: |
+          npm ci
+          npm test
+          npm pack --dry-run
+
+      - name: Check changed whitespace
+        shell: pwsh
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          if ($env:BASE_SHA -and $env:BASE_SHA -notmatch '^0+$') {
+            git diff --check "$env:BASE_SHA...$env:HEAD_SHA"
+          }
+          else {
+            git show --check --format= $env:HEAD_SHA
+          }
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Whitespace validation failed.'
+          }

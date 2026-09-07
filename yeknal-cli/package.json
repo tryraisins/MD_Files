@@ -1,7 +1,16 @@
 {
   "name": "yeknal",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Sync AI agent skills and run static security audits",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tryraisins/MD_Files.git",
+    "directory": "yeknal-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/tryraisins/MD_Files/issues"
+  },
+  "homepage": "https://github.com/tryraisins/MD_Files/tree/main/yeknal-cli#readme",
   "main": "bin/yeknal.js",
   "bin": {
     "yeknal": "bin/yeknal.js"
@@ -21,8 +30,14 @@
   ],
   "author": "nubiaville",
   "license": "ISC",
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "test": "node --check bin/yeknal.js && node bin/yeknal.js --help"
+    "test": "node --test"
   },
   "dependencies": {}
 }

@@ -101,6 +101,18 @@ Write a Markdown report:
 pwsh ./markdown-management/scripts/audit-skills.ps1 -Root . -ReportPath ./SKILL_AUDIT.md
 ```
 
+Check repository-wide relative Markdown links:
+
+```powershell
+pwsh ./markdown-management/scripts/audit-markdown-links.ps1 -Root .
+```
+
+Audit duplicate skill names across local Codex, Claude, and shared agent roots without deleting anything:
+
+```powershell
+pwsh ./markdown-management/scripts/audit-installed-skill-conflicts.ps1
+```
+
 ## Verification
 
 Use the repository's configured formatter and linter first. When none exists, perform at least:
