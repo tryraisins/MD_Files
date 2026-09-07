@@ -1,206 +1,56 @@
 ---
 name: implement
-description: No description provided.
+description: Implement a scoped feature or fix end to end while preserving repository architecture, behavior, and validation boundaries. Use when the user asks to build, change, add, or repair code rather than only review or explain it.
 ---
 
 # Implement
 
-## Automatic UI Quality Contract
+Turn a requested behavior into the smallest complete, verified repository change. Prefer project evidence and specialist skills over generic framework recipes.
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+## Precedence
 
+1. The user's explicit requirements and approved design or specification.
+2. Repository instructions, architecture, package manager, versions, and existing patterns.
+3. A narrow specialist skill for the affected domain or command.
+4. Shared baselines such as `ui-quality-baseline`, `application-security`, and `markdown-management`.
+5. This generic implementation workflow.
 
+Do not invent unavailable tools, agents, packages, or integrations. Inspect what is actually installed before relying on it.
 
+## Workflow
 
-# /implement - Feature Implementation
+1. Read the relevant source, tests, configuration, documentation, and working-tree state.
+2. Trace the existing end-to-end path: input, state, data flow, authorization, validation, side effects, errors, and rendered output.
+3. State the smallest change that satisfies the request and identify proof that must come from a browser, tenant, database, provider, or deployment.
+4. Implement the complete path. Preserve unrelated behavior and user changes.
+5. Add or update focused tests when the repository supports them and the behavior warrants them.
+6. Update Markdown when commands, configuration, behavior, setup, failure modes, or proof boundaries changed. Use `markdown-management` for substantial documentation work.
+7. Run the narrowest relevant tests, type checks, lint, build, security checks, and `git diff --check`.
+8. Report the outcome, changed files, evidence, and any unverified external boundary.
 
-## Purpose
-Implement features, components, and code functionality with intelligent expert activation, comprehensive development support, and best practices enforcement.
+## Domain routing
 
-## Usage
-```bash
-/implement [feature-description] [--type <type>] [--framework <name>] [--<flags>]
-```
+- Visible UI: apply `ui-quality-baseline`; use the most specific design skill that matches the requested aesthetic.
+- Framework or language work: use the relevant frontend, backend, Next.js, TypeScript, Python, Rust, SQL, mobile, or other specialist.
+- Authentication, authorization, untrusted input, secrets, dependencies, or agent/tool boundaries: apply `application-security` and the appropriate security review skill.
+- Deployment or provider configuration: use the provider-specific skill and distinguish local validation from live deployment proof.
+- Motion: use ordinary CSS or a project dependency for interface transitions; use `oil-motion` only for deliberate frame-based interactive media.
 
-## Arguments
-- `[feature-description]` - Clear description of what to implement
-- `--type component|api|service|feature|module` - Implementation type
-- `--framework react|vue|angular|express|fastapi|etc` - Target framework
-- `--safe` - Use conservative implementation approach
-- `--iterative` - Enable iterative development with validation
-- `--with-tests` - Include test implementation
-- `--documentation` - Generate documentation alongside code
-- `--agent <agent-name>` - Manually activate specific agent
-- `--agents <agent-list>` - Activate multiple coordinated agents
+## UI states
 
-## Auto-Activation Patterns
+For React and similar interfaces, choose feedback by wait type and reuse existing primitives:
 
-### Personas (Context-Dependent)
-- **Frontend**: UI components, React/Vue/Angular development
-  - Keywords: component, UI, React, Vue, responsive, accessibility
-  - Files: `*.jsx`, `*.tsx`, `*.vue`, `*.css`
+- geometry-matched skeletons for content arrival;
+- stable pending controls for mutations;
+- focus-managed overlays only for genuinely blocking work;
+- real error and retry states, `aria-busy`, status announcements, and reduced-motion support.
 
-### React Loading-State Default
+Never add a loading or animation package by default.
 
-For React/Next.js UI, choose loading feedback by wait type and reuse existing primitives. Use geometry-matched skeletons for content arrival, stable pending controls for mutations, and focus-managed overlays only for genuinely blocking operations. `thinking-orbs` is optional when a visible assistant/process workflow and product tone support it, not a default dependency. Tie feedback to real state, accessible status, `aria-busy`, reduced motion, and failure or retry handling.
+## Guardrails
 
-- **Backend**: APIs, services, database integration
-  - Keywords: API, database, server, endpoint, authentication
-  - Files: `*.js`, `*.ts`, `*.py`, `*.go`, `controllers/*`, `models/*`
-
-- **Security**: Authentication, authorization, data protection
-  - Keywords: auth, security, encryption, validation
-  - Auto-activates for sensitive operations
-
-- **Architect**: System design and module structure
-  - Complex features requiring architectural decisions
-  - Multi-component implementations
-
-### MCP Servers
-- **Banana**: Primary for UI component generation and design systems
-- **Context7**: Framework documentation and implementation patterns
-- **Sequential**: Complex business logic and multi-step workflows
-
-### Agent Coordination
-- **Single Domain**: Domain-specific agent (frontend, backend, etc.)
-- **Multi-Domain**: Hierarchical coordination with multiple specialists
-- **Testing**: Automatic test-agent activation with `--with-tests`
-- **Documentation**: Automatic docs-agent activation with `--documentation`
-
-## Execution Workflow
-
-1. **Requirements Analysis**
-   - Parse feature description and detect technology context
-   - Identify required components and dependencies
-   - Determine implementation complexity
-
-2. **Persona & Agent Activation**
-   - Auto-activate relevant personas based on context
-   - Route to specialized agents when beneficial
-   - Coordinate MCP servers for enhanced capabilities
-
-3. **Implementation Phase**
-   - Generate code with framework best practices
-   - Apply security and quality validation
-   - Follow project conventions and patterns
-   - Use appropriate design patterns
-
-4. **Testing & Validation**
-   - Generate tests if requested
-   - Validate against requirements
-   - Check for common pitfalls and vulnerabilities
-
-5. **Documentation & Next Steps**
-   - Document implementation decisions
-   - Provide usage examples
-   - Suggest testing and integration steps
-
-## Examples
-
-```bash
-# Frontend component with tests
-/implement LoginComponent --type component --framework react --with-tests
-
-# Backend API with documentation
-/implement user-authentication-system --type feature --documentation
-
-# Multi-agent full-stack feature
-/implement user-dashboard --agents frontend,backend,test,docs
-
-# Safe iterative implementation
-/implement payment-processing-service --type service --safe --iterative
-
-# Explicit agent selection
-/implement REST-API-users --type api --agent gd-backend-agent
-```
-
-## Integration Features
-
-### Framework Detection
-- Automatically detects project framework and conventions
-- Adapts code style to existing patterns
-- Uses project-specific dependencies
-
-### Security-First
-- Security persona auto-activates for sensitive operations
-- Input validation by default
-- OWASP compliance checks
-
-### Quality Assurance
-- Code quality validation
-- Performance considerations
-- Accessibility compliance (for UI components)
-
-### Testing Integration
-- Unit test generation
-- Integration test suggestions
-- E2E test strategies with Playwright agent
-
-## Output Structure
-
-```markdown
-# Implementation: [Feature Name]
-
-## Summary
-- Type: [component|api|service|feature]
-- Framework: [framework-name]
-- Complexity: [low|medium|high]
-- Estimated time: [time estimate]
-
-## Files Created/Modified
-- `path/to/file1.ts` - Description
-- `path/to/file2.ts` - Description
-
-## Implementation Details
-[Code with explanations]
-
-## Security Considerations
-- [Security measure 1]
-- [Security measure 2]
-
-## Testing
-- Unit tests: [location]
-- Integration tests: [strategy]
-- E2E tests: [recommendations]
-
-## Next Steps
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-## Documentation
-[Usage examples and API documentation]
-```
-
-## Best Practices
-
-### Code Quality
-- Follow SOLID principles
-- Use appropriate design patterns
-- Maintain DRY principle
-- Ensure proper error handling
-
-### Performance
-- Optimize critical paths
-- Consider scalability
-- Monitor resource usage
-- Implement caching strategies
-
-### Security
-- Input validation
-- Authentication/Authorization
-- Secure data handling
-- OWASP compliance
-
-### Testing
-- Comprehensive test coverage
-- Edge case handling
-- Integration testing
-- Performance testing
-
-## Related Commands
-- `/build` - Build and compile project
-- `/test` - Run test suite
-- `/improve` - Enhance existing implementation
-- `/review` - Code review before merge
-- `/document` - Generate documentation
+- Do not replace a working path with placeholders, mock data, redirects, or cosmetic approximations.
+- Do not change data contracts, dependencies, authentication, storage, or deployment behavior silently.
+- Do not claim that static analysis proves runtime, browser, tenant, database, payment, or production behavior.
+- Do not estimate completion time unless the user asks for an estimate.
+- Do not commit or push unless the user requested it.

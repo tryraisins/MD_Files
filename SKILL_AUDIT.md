@@ -1,0 +1,96 @@
+# Skill Collection Audit
+
+Audit date: 2026-09-07
+
+## Outcome
+
+- 79 top-level skill folders reviewed.
+- 79 of 79 pass the Agent Skills `skills-ref` reference validator.
+- 79 of 79 pass the repository Markdown audit with zero errors and zero warnings.
+- All skill folder names match their frontmatter `name` and use lowercase hyphenated identifiers.
+- Every main `SKILL.md` is below 500 lines; detailed material was moved to focused references where needed.
+- Repository-wide relative Markdown link checking reports zero unresolved targets.
+- The yeknal CLI parses successfully, and the final patch passes `git diff --check`.
+
+## Consolidation decisions
+
+### Merged
+
+- `document` and `update-docs` became `markdown-management`. The merged skill covers creation, updating, deduplication, splitting, renaming, link preservation, source authority, and skill-folder validation.
+- `agent-organizer` and `multi-agent-coordinator` were folded into `orchestration-specialists`. Unsupported performance promises were removed; bounded task ownership, dependency tracking, conflict avoidance, and evidence contracts were retained.
+
+### Kept separate
+
+- Focused command skills such as `implement`, `review`, `troubleshoot`, `cleanup`, `git`, and `finalize` remain distinct because their trigger and safety contracts are narrower than `engineering-specialists`.
+- Specialist visual directions remain distinct. An approved design, repository design system, or narrow aesthetic skill takes precedence over generic frontend guidance.
+- The four security skills remain separate because application implementation, best-practice review, threat modeling, and ownership analysis produce different artifacts.
+
+## Naming repairs
+
+The following folders were renamed to match their existing skill names:
+
+| Previous folder | Current folder |
+| --- | --- |
+| `Design` | `frontend-design` |
+| `Security` | `application-security` |
+| `brutalist-skill` | `industrial-brutalist-ui` |
+| `gpt-tasteskill` | `gpt-taste` |
+| `image-to-code-skill` | `image-to-code` |
+| `minimalist-skill` | `minimalist-ui` |
+| `output-skill` | `full-output-enforcement` |
+| `redesign-skill` | `redesign-existing-projects` |
+| `soft-skill` | `high-end-visual-design` |
+| `stitch-skill` | `stitch-design-taste` |
+| `taste-skill` | `design-taste-frontend` |
+| `taste-skill-v1` | `design-taste-frontend-v1` |
+
+## Progressive disclosure
+
+Six oversized design skills were split without discarding their specialist material:
+
+- `brandkit/references/brand-system-and-prompts.md`
+- `design-taste-frontend/references/patterns-redesign-and-sources.md`
+- `emil-design-eng/references/component-motion-craft.md`
+- `image-to-code/references/implementation-and-extraction.md`
+- `imagegen-frontend-mobile/references/mobile-art-direction-system.md`
+- `imagegen-frontend-web/references/web-art-direction-system.md`
+
+## Upstream review and incorporation
+
+Reviewed repositories and revisions:
+
+- [Anthropic skills](https://github.com/anthropics/skills) at `41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f`;
+- [OpenAI plugins](https://github.com/openai/plugins) at `1e285826e604f66f7208f7ac4dba0fe8341d1f57`;
+- [oil-motion](https://github.com/oil-oil/oil-motion) at `eafd4a45dc9c996489df3c54ac4ebdcde2bd030b`;
+- [Rare UI](https://github.com/swamimalode/rare-ui) at `b3efd6c290884a852b7af39d34df99a762dbbf3f`.
+
+The Anthropic frontend guidance was adapted into a compact `frontend-design` entry point. OpenAI's current plugin repository was treated as format and progressive-disclosure reference material, not copied wholesale. Existing local specialist design and command behavior was retained wherever broader upstream guidance conflicted.
+
+Rare UI is incorporated into `pick-ui-library` as an inspectable shadcn-compatible source registry. It is never an automatic dependency. `oil-motion` is a separate specialist skill for generated or captured frame timelines, not ordinary component transitions.
+
+The official IndexNow protocol and LaunchIgniter submitter are covered in `content-seo/references/indexnow.md`, with submission receipt kept separate from crawling, indexing, and ranking evidence.
+
+## Security refresh
+
+The old duplicate raw security prompt files and generated audit log were removed. `application-security` and its reference baseline now cover:
+
+- OWASP Top 10:2025 and API Security Top 10 risks;
+- Argon2id password storage and safer session/CSRF defaults;
+- CSP `frame-ancestors` and removal of deprecated `X-XSS-Protection` advice;
+- tenant and object-level authorization, SSRF, uploads, webhooks, and resource limits;
+- dependency, artifact, CI/CD, plugin, model, and prompt supply-chain integrity;
+- prompt injection, unsafe tool output, memory poisoning, excessive agency, approval boundaries, and bounded agent execution;
+- replay, races, retries, exceptional conditions, logging, and incident response.
+
+The CLI now syncs all four security skills and reads the master baseline from `application-security`. Its package version is `1.5.0`.
+
+## Validation commands
+
+```powershell
+pwsh -NoProfile -File .\markdown-management\scripts\audit-skills.ps1 -Root .
+skills-ref validate <each top-level skill folder>
+node --check .\yeknal-cli\bin\yeknal.js
+git diff --check
+```
+
+The checks validate static structure and syntax. They do not prove behavioral activation quality in every model/client or live security posture in a deployed application.

@@ -1,89 +1,99 @@
 # MD Files
 
-A collection of reusable skill folders and security guidance for AI coding agents.
-
-Use [`yeknal`](https://www.npmjs.com/package/yeknal) when you want to copy the latest skills into your local agent setup or run a static security scan on a project.
+A curated collection of reusable skill folders for AI coding agents. The collection favors specific design and command guidance over generic personas, uses progressive disclosure for long references, and keeps security guidance grounded in current primary sources.
 
 ## Requirements
 
-`yeknal` does not need a global install. A new device still needs Node.js with npm, internet access, and at least one supported agent folder for skill sync:
+`yeknal` does not need a global install. A new device needs Node.js with npm, internet access, and at least one supported agent folder:
 
 - Codex: `~/.codex`
 - Claude: `~/.claude`
 - Gemini Antigravity: `~/.gemini/antigravity`
 - Antigravity: `~/.antigravity`
 
-Git is optional. It is only used if the normal GitHub download path is rate-limited.
+Git is optional and is used only if the GitHub download path is rate-limited.
 
-## Quick Start
+## Quick start
 
 ```bash
-npx yeknal security
 npx yeknal skills
+npx yeknal security
 ```
-
-## Commands
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal security` | Refreshes `yeknal-Security`, scans the current folder, and writes `yeknal-security.log` |
-| `npx yeknal skills` | Syncs current top-level `SKILL.md` folders into detected local agent skill folders |
+| `npx yeknal skills` | Syncs every current top-level skill folder into detected local agent skill folders. |
+| `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes `yeknal-security.log`. |
 
-## Sync Behavior
+## Sync behavior
 
 - Skills are pulled from this repository on `main`.
-- Installed skill folders use the managed `yeknal-` prefix, for example `taste-skill` installs as `yeknal-taste-skill`.
-- `Security` is installed as `yeknal-Security` by both commands.
-- `Design`, `SEO`, and `Security_Raw` are not installed by the CLI.
+- Installed folders use the managed `yeknal-` prefix; `frontend-design` becomes `yeknal-frontend-design`.
+- `npx yeknal security` installs `application-security`, `security-best-practices`, `security-ownership-map`, and `security-threat-model`.
+- `SEO` remains source/reference material and is not installed because it has no `SKILL.md` entry point.
 - Missing `skills` folders are created inside detected agent parent folders.
-- Managed `yeknal-*` folders are overwritten or removed when the repository changes.
-- Personal/private skill folders without the `yeknal-` prefix are left untouched.
+- Managed `yeknal-*` folders are updated or removed as the repository changes.
+- Personal folders without the `yeknal-` prefix are left untouched.
 
-## Security Scan
+## Selection and precedence
 
-`npx yeknal security` temporarily downloads the latest `Security-Master.md` rules, scans the current project, and removes the temporary rules file after writing `yeknal-security.log`.
+Use the narrowest applicable skill. When guidance conflicts, follow this order:
 
-The scanner checks common static signals including secrets, credential files, dependency manifests, authentication/session patterns, input validation evidence, CORS, security headers, database-access risks, unsafe frontend sinks, and framework configuration issues. It is a helper for finding issues quickly, not a replacement for manual security review.
+1. explicit user requirements and approved artifacts;
+2. repository instructions and existing design systems;
+3. focused design, framework, provider, or command skills;
+4. shared baselines such as `ui-quality-baseline`, `application-security`, and `markdown-management`;
+5. generic specialist routers or personas.
 
-## Repository Structure
+The consolidated routers are `engineering-specialists`, `orchestration-specialists`, and `research-analysis`. They reduce duplicate persona skills without overriding more specific instructions.
 
+## Notable skill groups
+
+### Design and motion
+
+- `frontend-design`: compact anti-generic frontend direction adapted from Anthropic's current frontend skill.
+- `design-taste-frontend` and `design-taste-frontend-v1`: detailed local design systems for expressive, non-templated interfaces.
+- `gpt-taste`, `high-end-visual-design`, `minimalist-ui`, `industrial-brutalist-ui`, and `stitch-design-taste`: specialist aesthetic directions.
+- `ui-quality-baseline`: accessibility, responsive containment, coherent tokens, truthful loading states, and rendered QA.
+- `emil-design-eng`, `animate`, `animate-expo`, and the animation review skills: interaction and motion craft.
+- `oil-motion`: a specialized workflow for generated or captured frame-based interactive media, adapted from `oil-oil/oil-motion`.
+- `pick-ui-library`: dependency-aware component selection with Rare UI treated as a source registry, not a default dependency.
+
+### Markdown and implementation commands
+
+- `markdown-management`: create, update, merge, split, rename, and audit Markdown and skill folders without losing authority, links, anchors, or provenance.
+- `implement`, `review`, `troubleshoot`, `cleanup`, `git`, `finalize`, and `add-changelog`: focused command workflows that defer to repository evidence and specialist skills.
+
+Run the local structural audit with:
+
+```powershell
+pwsh -NoProfile -File .\markdown-management\scripts\audit-skills.ps1 -Root .
 ```
-Security/
-...skill folders...
-yeknal-cli/
-```
 
-## Latest Taste Skills
+### Security
 
-The repository now includes the Taste skill bundle:
+- `application-security`: cross-stack secure-by-design baseline and `Security-Master.md` reference.
+- `security-best-practices`: focused repository security review.
+- `security-threat-model`: trust-boundary and abuse-case threat modeling, including AI and agentic systems.
+- `security-ownership-map`: sensitive-code ownership and concentration analysis.
 
-- `ui-quality-baseline` — automatic control, typography, icon, responsive, loading, skeleton, and motion standards for any UI task, including individual elements
-- `taste-skill`
-- `taste-skill-v1`
-- `gpt-tasteskill`
-- `image-to-code-skill`
-- `imagegen-frontend-web`
-- `imagegen-frontend-mobile`
-- `brandkit`
-- `redesign-skill`
-- `soft-skill`
-- `output-skill`
-- `minimalist-skill`
-- `brutalist-skill`
-- `stitch-skill`
+The guidance covers current OWASP web/API risks, secure authentication and password storage, software supply chains, exceptional conditions, and prompt/tool/agent boundaries. Static checks are evidence, not proof of live authorization, deployment, tenant, browser, or provider behavior.
 
-## Emil Kowalski UI skill merge
+### SEO discovery
 
-The design and motion collection also includes the upstream UI-focused skills from [`emilkowalski/skills`](https://github.com/emilkowalski/skills/tree/main/skills), reviewed from commit `d23d7f8`:
+`content-seo` includes an IndexNow workflow for changed-URL notification. It treats LaunchIgniter's submitter as an optional manual helper and keeps receipt, crawling, indexing, and ranking as separate proof boundaries.
 
-- `animate` and `animate-expo` for purposeful, performant web and React Native motion
-- `ask-sonner` for accessible, stateful toast workflows
-- `prototype` for isolated, divergent UI explorations
-- `write-swift` for modern Swift and SwiftUI-adjacent work
-- supporting recipes, API, picker, audit, plan, and standards references for the imported and existing skills
+## Upstream review
 
-Existing local skills retain their `ui-quality-baseline` integration; the newly imported visible-UI skills reference the same baseline so typography, tokens, geometry, responsive behavior, accessibility, loading states, and reduced motion remain consistent across outputs.
+The 2026-09-07 refresh reviewed:
+
+- `anthropics/skills` at `41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f`;
+- `openai/plugins` at `1e285826e604f66f7208f7ac4dba0fe8341d1f57`;
+- `oil-oil/oil-motion` at `eafd4a45dc9c996489df3c54ac4ebdcde2bd030b`;
+- `swamimalode/rare-ui` at `b3efd6c290884a852b7af39d34df99a762dbbf3f`.
+
+Upstream material is adapted selectively. Existing local specialist design and command instructions win where generic upstream guidance conflicts.
 
 ## License
 
-ISC
+ISC. Imported or adapted skills retain their upstream license files where required.

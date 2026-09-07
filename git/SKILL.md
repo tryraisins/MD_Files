@@ -1,6 +1,6 @@
 ---
 name: git
-description: Git operations with intelligent commit messages and branch management
+description: Perform scoped Git status, diff, branch, commit, merge, and history operations while preserving unrelated work. Use when the user asks for a Git operation or repository-state investigation.
 ---
 
 # Git
@@ -31,8 +31,10 @@ Execute Git operations with intelligent commit messages, branch management, and 
 4. Handle merge conflicts and branch management
 5. Provide clear feedback and next steps
 
-## Claude Code Integration
-- Uses Bash for Git command execution
-- Leverages Read for repository analysis
-- Applies TodoWrite for operation tracking
-- Maintains Git best practices and conventions
+## Safety rules
+
+- Inspect `git status`, relevant diffs, remotes, and branch state before mutating history or publishing.
+- Stage only intended files; exclude secrets, screenshots, generated test artifacts, and unrelated user changes.
+- Prefer non-interactive commands and recoverable operations.
+- Never use destructive reset, checkout, clean, force-push, or history rewriting unless the user clearly requested that exact effect.
+- Do not commit or push merely because validation succeeded; require the user's request.

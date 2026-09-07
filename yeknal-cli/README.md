@@ -1,60 +1,51 @@
 # yeknal
 
-Sync reusable AI-agent skill folders and run a lightweight security audit from the command line.
+Sync reusable AI-agent skills and run a lightweight static security audit from the command line.
 
 ## Requirements
 
-You do not need to install `yeknal` globally. On a new device, you only need:
+You do not need a global install. A new device needs:
 
-- Node.js with npm, so `npx` is available.
-- Internet access, because the CLI reads the latest skills from GitHub.
-- At least one supported agent folder for skill sync: Codex (`~/.codex`), Claude (`~/.claude`), Gemini Antigravity (`~/.gemini/antigravity`), or Antigravity (`~/.antigravity`).
+- Node.js with npm;
+- internet access;
+- at least one supported agent folder: Codex (`~/.codex`), Claude (`~/.claude`), Gemini Antigravity (`~/.gemini/antigravity`), or Antigravity (`~/.antigravity`).
 
-Git is optional. The CLI uses Git only as a fallback if GitHub API rate limits block the normal download path.
-
-## Quick Start
-
-Run commands from the project you want to work in:
-
-```bash
-npx yeknal security
-npx yeknal skills
-```
+Git is optional and is used only as a fallback when the GitHub API is rate-limited.
 
 ## Commands
 
-### `npx yeknal security`
-
-Use this when you want security guidance plus a scan of the current project.
-
-It does three things:
-
-- Refreshes the managed security skill as `yeknal-Security` in detected agent skill folders.
-- Temporarily downloads the latest `Security-Master.md` rules from GitHub.
-- Scans the current folder and writes a detailed report to `yeknal-security.log`.
-
-The scan checks for common issues such as hardcoded secrets, risky credential files, dependency manifests, authentication/session patterns, missing input validation evidence, permissive CORS, missing security headers, database-access risks, unsafe frontend sinks, and framework configuration problems. It is a static audit helper; it does not replace a full manual security review.
+```bash
+npx yeknal skills
+npx yeknal security
+```
 
 ### `npx yeknal skills`
 
-Use this when you want the latest reusable skills copied into your local agent setup.
+Downloads top-level folders from `tryraisins/MD_Files` on `main` when they contain a `SKILL.md`, then installs them with the managed `yeknal-` prefix. For example, `frontend-design` becomes `yeknal-frontend-design`.
 
-It syncs top-level folders from `tryraisins/MD_Files` on GitHub when they contain a `SKILL.md` file. Installed folders are managed with a `yeknal-` prefix, for example `taste-skill` becomes `yeknal-taste-skill`.
+The command:
 
-The command preserves your personal skills. It only overwrites or removes managed `yeknal-*` folders that came from this repository.
+- creates missing `skills` directories in supported agent folders;
+- updates and removes only managed `yeknal-*` folders;
+- preserves personal skill folders without that prefix;
+- excludes `SEO`, which is reference material without a `SKILL.md`.
 
-## What Gets Synced
+### `npx yeknal security`
 
-- Skill folders are downloaded from the repository `main` branch.
-- `Security` is installed as `yeknal-Security`.
-- `Design`, `SEO`, and `Security_Raw` are not installed by the CLI.
-- Missing `skills` folders are created inside detected agent parent folders.
-- Stale managed `yeknal-*` folders are removed when they no longer exist in the repository.
+This command:
+
+1. downloads `application-security/Security-Master.md` temporarily;
+2. syncs `application-security`, `security-best-practices`, `security-ownership-map`, and `security-threat-model`;
+3. scans the current project;
+4. writes `yeknal-security.log` and removes the temporary master file.
+
+The scanner checks static signals for exposed secrets and credential files, dependency risk, authentication and session handling, input validation, CORS, security headers, database access, unsafe frontend sinks, and framework configuration. Findings require human review; a static scan cannot prove runtime authorization, exploitability, deployment posture, or the absence of vulnerabilities.
 
 ## Notes
 
-- If no supported agent folder exists, `npx yeknal skills` has nowhere to sync and exits without installing anything.
-- If GitHub API limits are reached, set `YEKNAL_GITHUB_TOKEN` or `GITHUB_TOKEN`, or make sure Git is installed so the fallback clone can run.
+- If no supported agent folder exists, the skills command exits without installing anything.
+- If GitHub API limits are reached, set `YEKNAL_GITHUB_TOKEN` or `GITHUB_TOKEN`, or install Git for the fallback clone.
+- `yeknal-security.log` is local evidence and should not be committed.
 
 ## License
 

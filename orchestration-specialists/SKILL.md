@@ -1,6 +1,6 @@
 ---
 name: orchestration-specialists
-description: Unified guidance for agent organization, task distribution, context management, knowledge synthesis, prompt engineering, and MCP design. Use when work spans multiple agents, tools, prompts, or persistent project context.
+description: Organize bounded multi-agent work, distribute independent tasks, manage context, synthesize evidence, engineer prompts, and design MCP tools. Use when work spans multiple agents, tools, prompts, or persistent project context.
 ---
 
 # Orchestration Specialists
@@ -20,12 +20,16 @@ Keep multi-agent and tool-using work bounded, observable, and easy to hand off. 
 
 1. Define the final outcome and acceptance checks.
 2. Split only genuinely independent work; keep shared-file work serial.
-3. Give each worker the minimum context needed and require raw evidence.
-4. Collect outputs, resolve conflicts, and verify against the original request.
-5. Summarize decisions, open risks, and follow-up work for the next agent or user.
+3. Map each task to a concrete capability and artifact; do not create workers merely to restate the plan.
+4. Give each worker the minimum context needed, explicit file or system boundaries, acceptance checks, and an evidence contract.
+5. Track dependencies and integrate at message boundaries; interrupt only when a changed requirement invalidates active work.
+6. Collect outputs, inspect shared artifacts, resolve conflicts, and verify against the original request.
+7. Summarize decisions, open risks, ownership, and follow-up work for the next agent or user.
 
 ## Guardrails
 
 - Do not delegate secrets, destructive actions, or ambiguous authority without explicit approval.
 - Do not treat an agent's claim as verification; inspect artifacts and run checks yourself.
+- Do not promise delivery guarantees, fixed response times, arbitrary utilization targets, or unlimited scale without measured evidence.
+- Avoid parallel edits to the same files. If overlap is unavoidable, nominate one integrator and serialize the final patch.
 - Keep prompts and tool schemas deterministic enough to reproduce failures.

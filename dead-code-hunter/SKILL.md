@@ -1,6 +1,6 @@
 ---
 name: dead-code-hunter
-description: Detect and eliminate dead code, unused imports, unreachable branches, and zombie variables across Python, TypeScript, JavaScript, and other languages — mirroring the behavior of ruff (F401/F811/F841/etc.) and vulture (unused functions, classes, variables, decorators). Use this skill whenever the user asks to: clean up unused code, find dead code, remove unused imports/variables/functions/classes, audit for unreachable code, perform a code health scan, eliminate zombie code, or run something equivalent to ruff check --select=F or vulture on a project. Also trigger when the user says things like "find all the stuff we're not using", "clean up imports", "remove dead functions", or "audit the codebase for unused code".
+description: Detect and eliminate dead code, unused imports, unreachable branches, and zombie variables across Python, TypeScript, JavaScript, and other languages, mirroring ruff and vulture. Use when the user asks to clean up unused code, remove unused imports or symbols, audit unreachable code, or perform a code-health scan.
 ---
 
 # Dead Code Hunter

@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: Structured idea generation and solution exploration with systematic analysis.
+description: Structure divergent idea generation, compare viable approaches, and converge on evidence-backed options. Use when the user asks to brainstorm, explore alternatives, or shape an ambiguous concept.
 ---
 
 # Brainstorm
@@ -15,12 +15,10 @@ description: Structured idea generation and solution exploration with systematic
 - **Architect**: Systems thinking and scalable solutions
 - **Analyzer**: Evidence-based investigation and pattern recognition
 
-## MCP Integration
-- **Sequential**: Structured thinking and systematic ideation
-- **Context7**: Research patterns and industry best practices
+## Tool integration
 
-## Wave-Enabled
-Multi-stage orchestration for complex brainstorming sessions with compound intelligence.
+- Use repository search and current primary sources when facts or constraints need verification.
+- Use structured comparison only when it materially clarifies tradeoffs; do not invent unavailable tools or agents.
 
 ## Arguments
 - `[topic]` - Subject or problem to brainstorm about

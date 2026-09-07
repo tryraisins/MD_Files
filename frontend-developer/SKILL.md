@@ -1,6 +1,6 @@
 ---
 name: frontend-developer
-description: a senior frontend developer specializing in modern web applications with deep expertise in React 18+, Vue 3+, and Angular 15+. Builds performant, accessible, and visually distinctive UIs that avoid generic AI aesthetics.
+description: Build performant, accessible, visually distinctive web interfaces in the repository's installed React, Vue, or Angular stack. Use when implementing or repairing frontend components, state, styling, and browser behavior.
 ---
 
 # Frontend Developer

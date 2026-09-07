@@ -1,6 +1,9 @@
 ---
 name: "security-ownership-map"
 description: "Analyze git repositories to build a security ownership topology (people-to-file), compute bus factor and sensitive-code ownership, and export CSV/JSON for graph databases and visualization. Trigger only when the user explicitly wants a security-oriented ownership or bus-factor analysis grounded in git history (for example: orphaned sensitive code, security maintainers, CODEOWNERS reality checks for risk, sensitive hotspots, or ownership clusters). Do not trigger for general maintainer lists or non-security ownership questions."
+metadata:
+  openai-plugins-reviewed-commit: 1e285826e604f66f7208f7ac4dba0fe8341d1f57
+  last-reviewed: "2026-09-07"
 ---
 
 # Security Ownership Map
@@ -23,7 +26,7 @@ pip install networkx
 ## Workflow
 
 1. Scope the repo and time window (optional `--since/--until`).
-2. Decide sensitivity rules (use defaults or provide a CSV config).
+2. Decide sensitivity rules. Include authentication, authorization, cryptography, secrets, CI/release workflows, policy-as-code, infrastructure, parsers, AI tool definitions, prompts, retrieval/memory pipelines, and approval gates when present.
 3. Build the ownership map with `scripts/run_ownership_map.py` (co-change graph is on by default; use `--cochange-max-files` to ignore supernode commits).
 4. Communities are computed by default; graphml output is optional (`--graphml`).
 5. Query the outputs with `scripts/query_ownership.py` for bounded JSON slices.
@@ -204,3 +207,5 @@ Use `references/neo4j-import.md` when you need to load the CSVs into Neo4j. It i
 - `bus_factor_hotspots` in `summary.json` lists sensitive files with low bus factor; `orphaned_sensitive_code` is the stale subset.
 - If `git log` is too large, narrow with `--since` or `--until`.
 - Compare `summary.json` against CODEOWNERS to highlight ownership drift.
+- Treat CODEOWNERS as declared routing, not proof of review or expertise. Git history is also incomplete when work was squashed, mirrored, generated, or performed outside the repository; label those limits.
+- Minimize personal data in exported graphs. Use approved identity normalization and retention rules before sharing contributor emails, time zones, or employment inferences.

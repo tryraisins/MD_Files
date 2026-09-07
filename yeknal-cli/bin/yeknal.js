@@ -26,12 +26,16 @@ const RAW_BASE_URL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GIT
 const API_BASE = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}`;
 const GITHUB_TOKEN = process.env.YEKNAL_GITHUB_TOKEN || process.env.GITHUB_TOKEN || "";
 
-// Security is a normal managed skill. Security_Raw is source/reference material
-// without a SKILL.md entry point, so it is intentionally not installed.
-const EXCLUDED_SKILL_FOLDERS = new Set(["Design", "Security_Raw", "SEO"]);
+// SEO is source/reference material without a SKILL.md entry point.
+const EXCLUDED_SKILL_FOLDERS = new Set(["SEO"]);
 const MANAGED_SKILL_FOLDER_PREFIX = "yeknal-";
 
-const SECURITY_REPO_FOLDERS = ["Security"];
+const SECURITY_REPO_FOLDERS = [
+  "application-security",
+  "security-best-practices",
+  "security-ownership-map",
+  "security-threat-model",
+];
 
 function usage() {
   console.log("\nUsage:");
@@ -2069,8 +2073,8 @@ function generateSecurityLog(results) {
   lines.push(`Issues:          ${results.totalIssues}`);
   lines.push(`Warnings:        ${results.totalWarnings}`);
   lines.push("");
-  lines.push("Based on: Security-Master.md + Security/SKILL.md (yeknal security guidelines)");
-  lines.push("Reference: https://github.com/tryraisins/MD_Files/blob/main/Security/Security-Master.md");
+  lines.push("Based on: Security-Master.md + application-security/SKILL.md (yeknal security guidelines)");
+  lines.push("Reference: https://github.com/tryraisins/MD_Files/blob/main/application-security/Security-Master.md");
   lines.push("");
 
   for (const category of results.categories) {
@@ -2234,7 +2238,7 @@ async function runSecurityCommand() {
   console.log("  ===============\n");
 
   // Step 1: Download Security-Master.md to current directory
-  const masterUrl = `${RAW_BASE_URL}/Security/Security-Master.md`;
+  const masterUrl = `${RAW_BASE_URL}/application-security/Security-Master.md`;
   const masterDest = path.join(projectDir, "Security-Master.md");
   console.log("  Downloading Security-Master.md...");
   try {
@@ -2302,6 +2306,11 @@ async function main() {
     console.error("Error: Missing command.");
     usage();
     process.exit(1);
+  }
+
+  if (command === "help" || command === "--help" || command === "-h") {
+    usage();
+    return;
   }
 
   if (command === "skills") {

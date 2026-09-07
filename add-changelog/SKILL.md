@@ -1,6 +1,6 @@
 ---
 name: add-changelog
-description: Claude Code agent: add-changelog
+description: Add or update a Keep a Changelog-compatible release entry from verified changes, versions, and repository history. Use when preparing release notes or recording shipped changes.
 ---
 
 # Add Changelog

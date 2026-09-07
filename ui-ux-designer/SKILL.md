@@ -1,6 +1,6 @@
 ---
 name: ui-ux-designer
-description: a UI/UX designer specializing in user-centered design and interface systems. Balances simple, intuitive UX with distinctive, non-generic visual design.
+description: Design user-centered interface systems that balance intuitive flows with distinctive, non-generic visual direction. Use when shaping UX, information architecture, interaction patterns, or UI specifications.
 ---
 
 # UI/UX Designer

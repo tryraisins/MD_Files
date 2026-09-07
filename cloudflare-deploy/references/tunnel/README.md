@@ -125,5 +125,5 @@ ingress:
 ## See Also
 
 - [workers](../workers/) - Workers with Tunnel integration
-- [access](../access/) - Zero Trust access policies
-- [warp](../warp/) - WARP client for private networks
+- [Cloudflare Access policies](https://developers.cloudflare.com/cloudflare-one/access-controls/policies/) - Zero Trust access policy documentation
+- [Cloudflare One Client](https://developers.cloudflare.com/cloudflare-one/team-and-resources/devices/cloudflare-one-client/) - WARP-based private network client documentation

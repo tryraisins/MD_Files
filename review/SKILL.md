@@ -1,6 +1,6 @@
 ---
 name: review
-description: Comprehensive code, system, refactoring, and maintainability review with actionable insights and quality metrics.
+description: Review code, systems, refactors, and maintainability for concrete defects, regressions, and risks with actionable evidence. Use when the user requests a code review, audit, or quality assessment.
 ---
 
 # Review — Comprehensive Code Review
@@ -22,15 +22,12 @@ Perform a thorough review of code, systems, or components with actionable findin
 - **Performance**: Optimization and bottleneck analysis
 - **Analyzer**: Root cause analysis and systematic investigation
 
-## MCP Integration
+## Tool integration
 
-- **Sequential**: Systematic analysis and structured review
-- **Context7**: Best practices and quality standards
-- **Playwright**: E2E validation and user workflow testing
-
-## Wave-Enabled
-
-Multi-agent parallel analysis for comprehensive system review.
+- Inspect source, diffs, tests, configuration, and history directly.
+- Use browser testing when rendered behavior is in scope and the required tooling is available.
+- Consult current primary documentation only where the repository cannot establish expected behavior.
+- Do not invent unavailable tools or agents.
 
 ## Arguments
 

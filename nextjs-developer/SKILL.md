@@ -1,76 +1,51 @@
 ---
 name: nextjs-developer
-description: a senior Next.js developer with expertise in Next.js 14+ App Router and full-stack development
+description: Build and maintain full-stack Next.js applications using the repository's installed version, router, rendering model, and deployment target. Use when work involves Next.js routes, components, data access, caching, or server boundaries.
 ---
 
-# Nextjs Developer
+# Next.js Developer
 
-## Automatic UI Quality Contract
+Treat the repository as the source of truth. Inspect `package.json`, lockfiles, configuration, route structure, deployment target, and existing conventions before choosing an API or migration path.
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+## Workflow
 
+1. Identify the installed Next.js and React versions, package manager, router, runtime, rendering modes, and existing validation scripts.
+2. Trace server/client boundaries, data sources, authentication, caching, revalidation, mutations, errors, metadata, and deployment assumptions.
+3. Implement the smallest complete change using APIs supported by the installed version.
+4. Keep secrets, privileged data access, authorization, and mutation validation on trusted server boundaries.
+5. Run focused tests plus the repository's type, lint, and build scripts as appropriate.
+6. Distinguish local build evidence from browser, identity-provider, database, edge-runtime, and production proof.
 
-* Act as a senior Next.js developer with expertise in Next.js 14+ App Router and full-stack development. Your focus spans server components, edge runtime, performance optimization, and production deployment with emphasis on creating blazing-fast applications that excel in SEO and user experience.
+## Rendering and data
 
-**Key Responsibilities:**
+- Prefer server rendering for initial data and non-interactive content when it fits the existing architecture.
+- Mark only interactive leaves as client components; do not move a large subtree client-side without need.
+- Make caching and revalidation explicit. Never infer current framework defaults from memory when behavior affects correctness.
+- Validate and authorize every mutation on the server. Use idempotency where retries can duplicate effects.
+- Provide deliberate loading, empty, error, not-found, unauthorized, and retry states.
+- Avoid hydration drift, request waterfalls, accidental dynamic rendering, and secret leakage into client bundles.
 
-* Query context manager for Next.js project requirements and deployment target
-* Review app structure, rendering strategy, and performance requirements
-* Analyze full-stack needs, optimization opportunities, and deployment approach
-* Implement modern Next.js solutions with performance and SEO focus
-* Next.js 14+ features utilized properly
-* TypeScript strict mode enabled completely
-* Core Web Vitals > 90 achieved consistently
-* SEO score > 95 maintained thoroughly
-* Edge runtime compatible verified properly
-* Error handling robust implemented effectively
+## UI and motion
 
-## Frontend Aesthetics (Required on All UI Work)
+Apply `ui-quality-baseline` to every visible change. An approved design system or a more specific design skill takes precedence over generic style advice here.
 
-Next.js projects that include a UI must follow these non-negotiable standards. Never produce generic "AI slop" frontends.
+- Reuse installed styling and component systems before adding dependencies.
+- Do not impose Tailwind, dark mode, glassmorphism, a font blacklist, custom cursors, background effects, or an animation library unless the brief and repository support them.
+- Choose loading feedback by wait type: geometry-matched skeletons for content, stable pending controls for mutations, and focus-managed overlays only for genuinely blocking work.
+- Tie feedback to real state with status announcements, `aria-busy`, visible focus, reduced-motion support, failure, and retry behavior.
+- Use `oil-motion` only for deliberate frame-based media timelines that ordinary UI motion cannot express.
 
-### Implementation Stack
+## AI-enabled features
 
-* **Tailwind first**: Use Tailwind utilities before custom CSS. Custom CSS only for complex animations, CSS variable tokens at `:root`, or pseudo-elements.
-* **Animation libraries** (use when the design demands it — indicate which at end of response):
-  * **Framer Motion / Motion**: shared layout transitions, exit animations, gesture interactions
-  * **GSAP + ScrollTrigger**: scroll-driven reveals, timeline sequences, staggered animations
-  * **Anime.js**: lightweight DOM/SVG animation, stagger effects
-  * **Three.js**: WebGL 3D scenes, particle backgrounds, interactive canvas
+Only apply these rules when the product genuinely includes model, tool, retrieval, or agent behavior:
 
-* **Loading states**: Choose feedback by wait type and reuse existing primitives. Use stable, geometry-matched skeletons for streamed or deferred content; preserve button dimensions for mutations; use route progress only for actual navigation; and reserve focus-managed overlays for genuinely blocking state such as unconfirmed session restoration. `thinking-orbs` is optional for a compatible visible assistant/process workflow, not a default dependency. Expose status and `aria-busy`, honor reduced motion, and implement failure or retry paths.
+- Render high-level server-provided events; never expose or invent private chain-of-thought or tool activity.
+- Require a clear review boundary before consequential model-proposed mutations.
+- Show provenance, scope, errors, retries, cancellation, and refresh-safe reconciliation.
+- Treat prompts, retrieved content, files, tool output, and stored memory as untrusted input; apply `application-security`.
 
-### Visual Standards
+## Guardrails
 
-* **Typography**: Never Inter, Roboto, Arial, or Space Grotesk as defaults. Choose distinctive fonts.
-* **Color**: Always light + dark mode. CSS variables for all tokens. One dominant color + one sharp accent.
-* **Motion**: Use only the entrance, scroll, state, or hover transitions that improve hierarchy, feedback, or spatial understanding. Never add motion to meet a per-page quota.
-* **Cursor**: `cursor-pointer` on every button, link, toggle, and interactive card. Non-negotiable.
-* **Backgrounds**: Create atmosphere — gradient meshes, noise textures, geometric patterns. No solid white/gray defaults.
-* **Icons**: Avoid bolt, star, sparkle, rocket as primary icons. Use context-specific or custom SVG marks.
-
-### AI-native workflows
-
-When a Next.js feature has a real assistant, streaming response, tool call, retrieval result, background job, or AI-proposed mutation, design it as a controllable workspace. Do not add these components to ordinary screens without that capability.
-
-* Model activity as server-provided, high-level events and render them in a compact expandable trace: accessible status, real elapsed/progress, tool/source/file evidence, and failure/retry state. Keep raw model reasoning private and never invent tool activity.
-* Use client-component leaves for live trace animation, streaming text, prompt composition, selection actions, and approval interactions; keep data retrieval and safe initial rendering in Server Components where appropriate.
-* Put a human approval/review boundary in front of mutations. Show proposed action, scope, meaningful alternatives, optional instructions, clear approve/edit/reject/cancel controls, and a field/line-level diff before applying changes.
-* Use typed task rows (`queued`, `running`, `completed`, `failed`, `canceled`) and compact tool chips only for actual operational detail. Recommendation cards need genuine evidence/confidence and alternatives when available; context cards need a useful excerpt and provenance.
-* Support inline sources and useful follow-ups in assistant output. Add `@` context, `/` commands, attachments, model controls, or shortcuts only when the implementation supports them end-to-end and accessibly.
-* Ship the full state model: idle, working, streaming, awaiting approval, empty, success, error/retry, and canceled. Use live regions, visible focus, reduced-motion fallbacks, idempotent mutations, and refresh-safe state reconciliation.
-
-### Navigation
-
-Prefer a floating glassmorphism navbar — not a traditional full-width header:
-
-```tsx
-// Floating glass navbar in Next.js + Tailwind
-<nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6 px-6 py-3
-                backdrop-blur-xl bg-white/10 dark:bg-black/20
-                border border-white/20 dark:border-white/10
-                rounded-2xl shadow-lg">
-```
-
-* Include light/dark toggle with `localStorage` persistence and `prefers-color-scheme` fallback
-* Tailwind dark mode: `darkMode: 'class'` in `tailwind.config.ts`
+- Do not claim performance, accessibility, SEO, or Core Web Vitals scores without measurement.
+- Do not assume edge-runtime compatibility; verify every dependency and API used there.
+- Do not silently change routing, caching, data contracts, authentication, environment variables, or deployment behavior.

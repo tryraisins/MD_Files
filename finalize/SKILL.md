@@ -1,6 +1,6 @@
 ---
 name: finalize
-description: Complete project finalization with quality gates and git workflow automation.
+description: Run repository-appropriate documentation and quality gates, summarize the final diff, and perform only explicitly requested Git publication steps. Use when the user asks to finalize, prepare, commit, or publish completed work.
 ---
 
 # Finalize
@@ -11,24 +11,13 @@ description: Complete project finalization with quality gates and git workflow a
 ```
 
 ## Workflow Pipeline
-1. Update documentation (.md files) with latest changes
-2. Detect Next.js version from package.json
-3. **If Next.js < 16**: Run `bun lint` for code quality validation
-4. Run `bun type` for TypeScript type checking
-5. Run `bun build` for compilation verification
-6. Generate structured commit message if not provided
-7. Git add, commit, and push if all gates pass
 
-> **Note**: Next.js 16+ removed `next lint`. The command auto-detects the version and skips linting for Next.js 16+.
-
-## Auto-Persona Activation
-- **DevOps**: Infrastructure and deployment automation
-- **QA**: Quality assurance and testing validation
-- **Scribe**: Professional commit message generation
-
-## MCP Integration
-- **Sequential**: Workflow coordination and systematic validation
-- **Context7**: Best practices and commit message patterns
+1. Inspect repository instructions, working-tree state, package manager, scripts, and changed files.
+2. Update affected Markdown through `markdown-management`; do not rewrite unrelated documentation.
+3. Run the repository's actual focused test, type, lint, and build commands. Never assume Bun, Next.js, or a script name.
+4. Run `git diff --check`, inspect the final diff, and distinguish new failures from baseline failures.
+5. Summarize changed behavior, validation evidence, and external proof still required.
+6. Stage, commit, or push only when explicitly requested, and only after confirming the exact files and destination.
 
 ## Arguments
 - `[commit-message]` - Custom commit message (optional)
@@ -54,4 +43,4 @@ description: Complete project finalization with quality gates and git workflow a
 /finalize "fix: resolve login bug" --no-push
 ```
 
-Perfect for automating the repetitive "document + lint + build + commit + push" workflow you mentioned!
+Skipped gates must be reported. A passing local build does not prove browser, tenant, provider, deployment, or production behavior.
