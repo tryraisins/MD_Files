@@ -55,9 +55,15 @@ The consolidated routers are `engineering-specialists`, `orchestration-specialis
 - `design-taste-frontend` and `design-taste-frontend-v1`: detailed local design systems for expressive, non-templated interfaces.
 - `gpt-taste`, `high-end-visual-design`, `minimalist-ui`, `industrial-brutalist-ui`, and `stitch-design-taste`: specialist aesthetic directions.
 - `ui-quality-baseline`: accessibility, responsive containment, coherent tokens, truthful loading states, and rendered QA.
+- `mobile-app-design`: native mobile screen and flow implementation with optional Appllama reference research; it delegates motion-only work to `animate-expo` and image-only concepts to `imagegen-frontend-mobile`.
 - `emil-design-eng`, `animate`, `animate-expo`, and the animation review skills: interaction and motion craft.
 - `oil-motion`: a specialized workflow for generated or captured frame-based interactive media, adapted from `oil-oil/oil-motion`.
 - `pick-ui-library`: dependency-aware component selection with Rare UI treated as a source registry, not a default dependency.
+
+### Research and response modes
+
+- `research-analysis`: the canonical research workflow. Explicit deep-research requests load a focused reference for resumable evidence ledgers, claim verification, saturation-based stopping, and evidence-only follow-up instead of adding a second research skill.
+- `i-have-adhd`: an explicit-only, persistent response mode with action-first structure, bounded steps, visible state, and evidence-based time estimates.
 
 ### Markdown and implementation commands
 
@@ -94,14 +100,19 @@ Security scan checks use stable IDs and link to current `Security-Master.md` anc
 
 ## Upstream review
 
-The 2026-09-07 refresh reviewed:
+The 2026-09-08 refresh reviewed:
 
 - `anthropics/skills` at `41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f`;
 - `openai/plugins` at `1e285826e604f66f7208f7ac4dba0fe8341d1f57`;
 - `oil-oil/oil-motion` at `eafd4a45dc9c996489df3c54ac4ebdcde2bd030b`;
-- `swamimalode/rare-ui` at `b3efd6c290884a852b7af39d34df99a762dbbf3f`.
+- `swamimalode/rare-ui` at `b3efd6c290884a852b7af39d34df99a762dbbf3f`;
+- `NeetigyaShah/deep-research` at `201dc0e0366f1108ba94f0f422a9ccaecb733b21`;
+- `ayghri/i-have-adhd` at `58494af57962b2d7a996b4d419474380a299af5e`;
+- `Appllama/appllama-skills` at `dd5caaec3d5d50ad7fc0324da238119c6b7c3707`.
 
 Upstream material is adapted selectively. Existing local specialist design and command instructions win where generic upstream guidance conflicts.
+
+Deep Research is incorporated as a mode of `research-analysis`; its separate follow-up entry point is unnecessary because the canonical mode already includes evidence-only follow-up. AppLlama's two upstream skills are consolidated into `mobile-app-design`, with MCP research instructions loaded only when that service is connected. The ADHD-friendly response contract remains one explicit-only skill because it changes conversation behavior rather than research, UI, or implementation behavior.
 
 ## Validation and releases
 

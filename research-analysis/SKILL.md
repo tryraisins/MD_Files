@@ -1,11 +1,17 @@
 ---
 name: research-analysis
-description: Unified research and analysis workflow for competitive intelligence, market research, data discovery, trend analysis, search, and evidence-based reports. Use when Codex needs to gather, compare, synthesize, or validate information from multiple sources.
+description: Unified workflow for research, discovery, comparison, source validation, and evidence-backed reports. Use for market, competitive, trend, data, or explicit deep-research requests that require multiple sources.
 ---
 
 # Research and Analysis
 
 Turn an ambiguous research request into a bounded question, an explicit source contract, and an evidence-backed answer. Match the depth to the decision at hand.
+
+## Choose the depth
+
+- **Ordinary research:** use the workflow below and stop when the decision can be supported honestly.
+- **Deep research:** when the user explicitly asks for deep, exhaustive, or claim-verified research, read [references/deep-research.md](references/deep-research.md). It adds resumable evidence ledgers, independent claim checks, saturation-based stopping, and evidence-only follow-up without creating a competing skill.
+- **Simple lookup:** answer directly from the best current source. Do not create a research workspace or multi-round process when one verified source resolves the question.
 
 ## Choose the lens
 
@@ -24,6 +30,8 @@ Turn an ambiguous research request into a bounded question, an explicit source c
 4. Extract only decision-relevant facts and preserve links, dates, and units.
 5. Compare evidence, resolve contradictions, and label inference or uncertainty.
 6. Deliver a concise synthesis with findings, caveats, and recommended next steps.
+
+Scale the report to the user’s requested output. “Deep” changes evidence rigor and coverage, not permission to produce unnecessary length.
 
 ## Integrity rules
 

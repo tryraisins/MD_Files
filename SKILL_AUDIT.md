@@ -1,12 +1,12 @@
 # Skill Collection Audit
 
-Audit date: 2026-09-07
+Audit date: 2026-09-08
 
 ## Outcome
 
-- 79 top-level skill folders reviewed.
-- 79 of 79 pass the Agent Skills `skills-ref` reference validator.
-- 79 of 79 pass the repository Markdown audit with zero errors and zero warnings.
+- 81 top-level skill folders reviewed.
+- 81 of 81 pass the Agent Skills `skills-ref` reference validator.
+- 81 of 81 pass the repository Markdown audit with zero errors and zero warnings.
 - All skill folder names match their frontmatter `name` and use lowercase hyphenated identifiers.
 - Every main `SKILL.md` is below 500 lines; detailed material was moved to focused references where needed.
 - Repository-wide relative Markdown link checking reports zero unresolved targets.
@@ -18,12 +18,15 @@ Audit date: 2026-09-07
 
 - `document` and `update-docs` became `markdown-management`. The merged skill covers creation, updating, deduplication, splitting, renaming, link preservation, source authority, and skill-folder validation.
 - `agent-organizer` and `multi-agent-coordinator` were folded into `orchestration-specialists`. Unsupported performance promises were removed; bounded task ownership, dependency tracking, conflict avoidance, and evidence contracts were retained.
+- `NeetigyaShah/deep-research` became a progressively disclosed mode inside `research-analysis`; its standalone follow-up skill was omitted because the canonical mode already covers evidence-only follow-up.
+- AppLlama's research and app-design skills became one `mobile-app-design` skill. Existing `animate-expo`, `imagegen-frontend-mobile`, and `ui-quality-baseline` instructions remain authoritative for their narrower concerns.
 
 ### Kept separate
 
 - Focused command skills such as `implement`, `review`, `troubleshoot`, `cleanup`, `git`, and `finalize` remain distinct because their trigger and safety contracts are narrower than `engineering-specialists`.
 - Specialist visual directions remain distinct. An approved design, repository design system, or narrow aesthetic skill takes precedence over generic frontend guidance.
 - The four security skills remain separate because application implementation, best-practice review, threat modeling, and ownership analysis produce different artifacts.
+- `i-have-adhd` remains one explicit-only skill because its persistent conversation-output contract has no behavioral equivalent in the research, documentation, or implementation skills.
 
 ## Naming repairs
 
@@ -55,6 +58,11 @@ Six oversized design skills were split without discarding their specialist mater
 - `imagegen-frontend-mobile/references/mobile-art-direction-system.md`
 - `imagegen-frontend-web/references/web-art-direction-system.md`
 
+The new research and mobile integrations use the same progressive-disclosure pattern:
+
+- `research-analysis/references/deep-research.md`
+- `mobile-app-design/references/appllama-research.md`
+
 ## Upstream review and incorporation
 
 Reviewed repositories and revisions:
@@ -62,11 +70,16 @@ Reviewed repositories and revisions:
 - [Anthropic skills](https://github.com/anthropics/skills) at `41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f`;
 - [OpenAI plugins](https://github.com/openai/plugins) at `1e285826e604f66f7208f7ac4dba0fe8341d1f57`;
 - [oil-motion](https://github.com/oil-oil/oil-motion) at `eafd4a45dc9c996489df3c54ac4ebdcde2bd030b`;
-- [Rare UI](https://github.com/swamimalode/rare-ui) at `b3efd6c290884a852b7af39d34df99a762dbbf3f`.
+- [Rare UI](https://github.com/swamimalode/rare-ui) at `b3efd6c290884a852b7af39d34df99a762dbbf3f`;
+- [Deep Research](https://github.com/NeetigyaShah/deep-research) at `201dc0e0366f1108ba94f0f422a9ccaecb733b21`;
+- [i-have-adhd](https://github.com/ayghri/i-have-adhd) at `58494af57962b2d7a996b4d419474380a299af5e`;
+- [AppLlama skills](https://github.com/Appllama/appllama-skills) at `dd5caaec3d5d50ad7fc0324da238119c6b7c3707`.
 
 The Anthropic frontend guidance was adapted into a compact `frontend-design` entry point. OpenAI's current plugin repository was treated as format and progressive-disclosure reference material, not copied wholesale. Existing local specialist design and command behavior was retained wherever broader upstream guidance conflicted.
 
 Rare UI is incorporated into `pick-ui-library` as an inspectable shadcn-compatible source registry. It is never an automatic dependency. `oil-motion` is a separate specialist skill for generated or captured frame timelines, not ordinary component transitions.
+
+Deep Research extends the canonical research workflow instead of duplicating it. AppLlama's two related entry points are represented by one mobile implementation skill with optional MCP research. The ADHD-friendly response mode remains explicit-only. These boundaries are covered by routing evaluations for deep research, native mobile flows, Expo animation, mobile image generation, and ADHD mode.
 
 The official IndexNow protocol and LaunchIgniter submitter are covered in `content-seo/references/indexnow.md`, with submission receipt kept separate from crawling, indexing, and ranking evidence.
 

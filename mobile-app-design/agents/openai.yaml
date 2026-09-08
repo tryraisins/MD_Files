@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mobile App Design"
+  short_description: "Native mobile screens and flows"
+  default_prompt: "Use $mobile-app-design to design or implement this mobile flow with native platform behavior and rendered verification."

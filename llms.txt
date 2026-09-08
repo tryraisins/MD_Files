@@ -11,6 +11,7 @@ gpt-taste: Premium deterministic frontend design and GSAP motion guidance.
 image-to-code: Image-first frontend analysis and implementation workflow.
 imagegen-frontend-web: Image-generation-only workflow for premium website design references.
 imagegen-frontend-mobile: Image-generation-only workflow for premium mobile concepts and flows.
+mobile-app-design: Native mobile screen and flow design or implementation, with optional Appllama reference research; delegates motion-only and image-only work to their focused skills.
 brandkit: Image-generation-only workflow for visual identity systems and brand-kit boards.
 redesign-existing-projects: Audits and upgrades existing interfaces without breaking behavior.
 high-end-visual-design: Agency-style typography, layout, depth, and motion direction.
@@ -29,3 +30,5 @@ git: Scoped, non-destructive Git operations that preserve unrelated work.
 finalize: Repository-appropriate documentation and quality gates with publication only when explicitly requested.
 orchestration-specialists: Bounded multi-agent, context, prompt, synthesis, and MCP coordination guidance.
 engineering-specialists: Cross-stack specialist routing for implementation work.
+research-analysis: Canonical evidence-backed research workflow, including a progressively disclosed deep-research mode with claim verification and saturation-based stopping.
+i-have-adhd: Explicit-only persistent response mode with action-first structure, bounded steps, visible state, and evidence-based time estimates.

@@ -42,6 +42,30 @@
       "rationale": "Ordinary component motion should not invoke a frame-sequence pipeline."
     },
     {
+      "id": "expo-animation",
+      "prompt": "Fix the stuttering drag-to-dismiss animation in this Expo screen.",
+      "primary": "animate-expo",
+      "secondary": ["ui-quality-baseline"],
+      "mustNotLead": ["mobile-app-design", "imagegen-frontend-mobile"],
+      "rationale": "A motion-only React Native task belongs to the focused Expo animation skill."
+    },
+    {
+      "id": "native-mobile-flow",
+      "prompt": "Design and implement this Expo onboarding flow with native navigation, sheets, loading states, and dark mode.",
+      "primary": "mobile-app-design",
+      "secondary": ["ui-quality-baseline"],
+      "mustNotLead": ["imagegen-frontend-mobile", "engineering-specialists"],
+      "rationale": "End-to-end mobile screen and flow work is distinct from image-only concepts and generic engineering routing."
+    },
+    {
+      "id": "mobile-concept-images",
+      "prompt": "Generate polished image concepts for five screens of this mobile app; do not write code.",
+      "primary": "imagegen-frontend-mobile",
+      "secondary": ["ui-quality-baseline"],
+      "mustNotLead": ["mobile-app-design"],
+      "rationale": "The requested deliverable is image generation, not mobile implementation."
+    },
+    {
       "id": "frame-based-scroll-story",
       "prompt": "Build a scroll-controlled product transformation from 180 generated frames.",
       "primary": "oil-motion",
@@ -56,6 +80,22 @@
       "secondary": [],
       "mustNotLead": ["add-changelog"],
       "rationale": "General Markdown consolidation is not a release-history task."
+    },
+    {
+      "id": "deep-research-request",
+      "prompt": "Perform deep research on this market, verify every important claim, preserve the evidence, and identify remaining gaps.",
+      "primary": "research-analysis",
+      "secondary": ["orchestration-specialists"],
+      "mustNotLead": [],
+      "rationale": "Deep research is a rigorous mode inside the canonical research skill rather than a duplicate entry point."
+    },
+    {
+      "id": "adhd-output-mode",
+      "prompt": "Use ADHD mode for the rest of this conversation and keep each step easy to act on.",
+      "primary": "i-have-adhd",
+      "secondary": [],
+      "mustNotLead": ["full-output-enforcement"],
+      "rationale": "The user explicitly requested the persistent ADHD-friendly response contract."
     },
     {
       "id": "release-notes",
