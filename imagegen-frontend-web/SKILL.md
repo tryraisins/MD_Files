@@ -1,29 +1,30 @@
 ---
 name: imagegen-frontend-web
-description: Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.
+description: Generate implementation-readable website concept images for landing pages, marketing sites, product pages, and individual sections. Use when the user requests visual concepts rather than code; derive the page sequence from real content and provide section-scale images where developers need readable detail.
 ---
 
-# HARD OUTPUT RULE — READ FIRST
+# Output framing
 
 ## Automatic UI Quality Contract
 
 For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
+When the visual direction is unresolved or the user supplies reference URLs, apply `design-reference-research` before generation. Use its product thesis and rejection list; do not collage unrelated gallery sections or claim that a generated still proves responsive or interactive behavior.
 
-**Generate one separate horizontal image PER section. Always. No exceptions.**
+
+When the user requests a multi-section implementation reference, generate one readable horizontal image per agreed section so text, spacing, controls, and assets can be inspected.
 
 - 1 section requested -> 1 image
 - 4 sections requested -> 4 images
 - 8 sections requested -> 8 images
 - 12 sections requested -> 12 images
-- "landing page" with no count -> default to 6 sections -> 6 images
-- "full website template" -> default to 8 sections -> 8 images
+- When the section count is unspecified, infer the smallest complete sequence from the product's real content and user journey; do not default every landing page to six or every website to eight sections.
 
-Each image is one section, generated as its own image call. Never combine multiple sections into one frame. Never return a single tall image that contains the whole page.
+Do not compress several implementation-critical sections into an unreadable collage or tall strip. A whole-page overview is acceptable when the user asks for it, but create section-scale detail views for regions that developers must reproduce accurately.
 
 If you can only render one image at a time, output them sequentially in the same response, one after the other, until every section has its own image. Announce each one ("Section 1 of 8: Hero", "Section 2 of 8: Trust bar", etc.).
 
-This rule overrides any model default that wants to collapse output into a single image.
+Do not generate surplus sections merely to satisfy a count; each image needs a content and implementation role.
 
 ---
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Human-AI Interface Design"
+  short_description: "Design trustworthy, controllable AI product interactions"
+  default_prompt: "Design this AI-mediated experience for appropriate reliance, clear provenance, user control, safe approvals, recovery, accessibility, and verifiable behavior."

@@ -1,6 +1,6 @@
 ---
 name: image-to-code
-description: Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero clean, spacious, readable, and visible on a small laptop.
+description: Analyze approved or generated website reference images, extract their visual and responsive system, and implement the frontend faithfully. Use when the user provides a screenshot or explicitly wants an image-first concept-to-code workflow; never replace an approved reference with a newly generated design.
 ---
 
 # CORE DIRECTIVE: IMAGE-FIRST WEBSITE DESIGN TO CODE
@@ -60,22 +60,13 @@ The output must feel:
 - responsive in spirit
 - realistic on a small laptop viewport
 
-IMPORTANT:
-For visual website tasks, you must first generate the design image(s) yourself.
-Then you must deeply analyze the generated image(s).
-Only after that should you implement the frontend.
+Choose the source path from the request:
 
-Do not skip image generation when image generation is available.
-Do not begin with freeform coding first.
-The generated image(s) are the primary visual source of truth.
+1. **Approved or user-supplied reference:** inspect it directly and treat it as visual authority within repository and behavior constraints. Do not generate a replacement.
+2. **Explicit image-first concept request:** use `design-reference-research` when direction is unclear, generate the authorized concept, inspect it, then implement it.
+3. **Design already fixed in code/files:** preserve that system and use the reference only to resolve the requested delta.
 
-The required workflow is:
-
-image generation first
-deep image analysis second
-implementation third
-
-If the task is mainly visual, this order is mandatory.
+Do not begin freeform styling before extracting the reference's hierarchy, tokens, component anatomy, states, assets, and responsive transformations. Generated imagery is a proposal, not authority over an approved design or working behavior.
 
 ---
 
@@ -118,24 +109,20 @@ Interpretation:
 
 ---
 
-## 2. MANDATORY IMAGE-FIRST RULE
+## 2. REFERENCE-FIRST RULE
 
-For website design requests where visual quality matters, image generation is mandatory first.
+Inspect the strongest authorized visual source before implementation. Generate an image only when the user requests or authorizes a concept and no approved reference already governs the work.
 
-This means:
-1. generate the design image or image set yourself first
-2. deeply inspect and analyze the generated image(s)
-3. extract the design system from them
-4. implement the frontend only after that
+The workflow is:
 
-Do not:
-- start with freeform coding
-- skip straight to implementation
-- describe a website without first generating the visual reference when generation is available
-- rely on memory of “good frontend taste” instead of producing the actual reference
+1. establish authority and product constraints;
+2. research references when direction is unresolved;
+3. inspect the supplied or generated image at useful resolution;
+4. extract the design and responsive system;
+5. implement without breaking behavior;
+6. compare the rendered result with the source across target viewports.
 
-The image is the design source.
-The code is the translation layer.
+Do not substitute memory of “good taste,” a generated alternative, or a convenient framework template for the actual reference.
 
 ---
 
@@ -392,4 +379,4 @@ Match the reference's compact operational rhythm: low-glare neutral surfaces, qu
 
 ## Detailed implementation and extraction reference
 
-Read [implementation-and-extraction.md](references/implementation-and-extraction.md) before starting the image-first implementation workflow. It contains trigger rules, variation engines, responsive and hero constraints, extraction methods, anti-drift checks, missing-detail handling, section systems, response behavior, examples, and the final acceptance goal.
+Load [implementation-and-extraction.md](references/implementation-and-extraction.md) selectively when the task needs its extraction methods, anti-drift checks, missing-detail handling, or implementation techniques. Its legacy fixed counts and variation heuristics do not override the reference-first authority rules in this skill.

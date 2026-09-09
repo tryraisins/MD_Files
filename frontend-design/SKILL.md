@@ -16,6 +16,8 @@ Approach the work as the design lead at a studio known for giving every client a
 
 Use `ui-quality-baseline` for tokens, responsive containment, accessibility, loading states, control geometry, and rendered verification. This skill owns the visual thesis. The baseline protects quality without flattening that thesis. An explicit brief, approved design, established brand, or platform convention wins when it conflicts with either skill.
 
+When the user supplies references or the brief lacks a defensible visual direction, use `design-reference-research` before choosing a thesis. For products with AI-generated, retrieved, or agent-executed behavior, also apply `human-ai-interface-design` to the interaction lifecycle; do not treat AI trust as a styling problem.
+
 ## Ground the design in the subject
 
 Identify the product, audience, primary job, and subject-specific visual language before designing. If the brief omits one of these, infer a concrete proposal from available context and confirm only decisions that would materially change the result.
@@ -50,10 +52,11 @@ Before implementation, write a compact design plan:
 
 1. `Subject`: product, audience, primary job, and relevant vernacular.
 2. `Visual thesis`: one sentence explaining the distinctive idea.
-3. `Color`: four to six role-named colors with values.
-4. `Type`: families, roles, scale, and line-length intent.
-5. `Layout`: one or two short ASCII wireframes when structure is not already fixed.
-6. `Interaction`: the one or two moments where motion or feedback materially helps.
+3. `Evidence`: the functional reference pattern adopted, what was deliberately rejected, and any access or proof limit.
+4. `Color`: the role-named colors and values the product actually needs, including state and data roles.
+5. `Type`: families, roles, scale, and line-length intent.
+6. `Layout`: one or two short ASCII wireframes when structure is not already fixed, including the mobile transformation.
+7. `Interaction`: the one or two moments where motion or feedback materially helps.
 
 Critique the plan against the brief before writing code. Replace any decision that could be reused unchanged for several unrelated products. State only the material revision, then implement.
 

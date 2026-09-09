@@ -18,6 +18,22 @@
       "rationale": "The detailed local design system outranks the generic frontend design entry point."
     },
     {
+      "id": "reference-led-design-research",
+      "prompt": "Review these live product and gallery URLs, extract the useful UI patterns across desktop and mobile, and give me an original design direction before writing code.",
+      "primary": "design-reference-research",
+      "secondary": ["ui-quality-baseline"],
+      "mustNotLead": ["frontend-design"],
+      "rationale": "Reference synthesis is a read-only evidence task before implementation, not generic visual generation."
+    },
+    {
+      "id": "human-ai-agent-interface",
+      "prompt": "Design the review, provenance, approval, undo, and failure experience for an AI agent that proposes and applies record changes.",
+      "primary": "human-ai-interface-design",
+      "secondary": ["ui-quality-baseline", "application-security"],
+      "mustNotLead": ["ui-ux-designer"],
+      "rationale": "Appropriate reliance and consequential AI actions need the dedicated human-AI interaction contract."
+    },
+    {
       "id": "minimalist-art-direction",
       "prompt": "Create a restrained editorial interface with warm monochrome colors and almost no depth.",
       "primary": "minimalist-ui",

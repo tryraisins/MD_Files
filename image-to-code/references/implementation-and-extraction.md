@@ -1,30 +1,26 @@
-## 10. IMAGE-FIRST CODEX WEBSITE WORKFLOW
+## 10. REFERENCE-FIRST CODEX WEBSITE WORKFLOW
 
-When this skill is used inside Codex or any environment that supports image generation plus implementation, default to an image-first workflow for website design tasks.
+This file preserves detailed extraction and implementation techniques. The main `SKILL.md`, approved references, repository behavior, `design-reference-research`, and `ui-quality-baseline` take precedence over any fixed count, layout, palette, or generation heuristic below.
 
 Preferred execution order:
-1. infer the section count
-2. generate section reference images first
-3. generate extra detail/extraction images where needed
-4. if needed, regenerate unclear sections as fresh standalone images
-5. deeply inspect all generated images
-6. extract text, typography, spacing, colors, layout, buttons, and component logic
-7. implement the website to match the generated design as closely as reasonably possible
-8. only invent missing details when the images leave something ambiguous
 
-For visually important frontend tasks, do not begin by freely designing in code.
-Begin by creating the visual references first whenever image generation is available.
+1. identify the authoritative visual source and protected product behavior;
+2. inspect a supplied or approved reference directly, or generate a concept only when the user requests or authorizes one;
+3. create a fresh detail view only when the authoritative image lacks readable implementation detail and a generated interpretation will not overwrite it;
+4. inspect the images at useful resolution;
+5. extract hierarchy, text, typography, spacing, color, layout, assets, component states, and responsive behavior;
+6. implement without replacing the source's meaning or the product's working behavior;
+7. label unresolved details and proposed interpretations instead of inventing realistic evidence.
 
-The images are the primary art-direction source.
-The code is the implementation layer.
+The strongest approved visual source governs art direction. Generated images are proposals unless the user approves them.
 
 ---
 
-## 11. WHEN TO TRIGGER IMAGE GENERATION FIRST
+## 11. WHEN TO GENERATE A CONCEPT
 
-If image generation is available, strongly prefer generating image references first when the request is mainly about visual frontend quality.
+Generate a concept first only when the user asks for an image-first workflow or authorizes a new visual direction and no approved reference already governs the task. If reference research is needed, apply `design-reference-research` before generation.
 
-Trigger image-first workflow when the user asks for:
+Suitable requests include:
 - a beautiful hero section
 - a premium landing page
 - a creative website
@@ -37,10 +33,10 @@ Trigger image-first workflow when the user asks for:
 - a multi-section website concept
 - anything described mainly in visual terms
 
-Direct-code first is more acceptable only when:
+Do not generate a replacement when:
 - the task is mostly technical
 - the user wants a bug fix
-- the user already provides a precise design system
+- the user already provides a precise design system or approved screenshot
 - the task is mainly structural rather than visual
 
 ---
@@ -770,7 +766,7 @@ When the user asks for a website design in an image-to-code workflow:
 22. create the final files only after the full analysis pass
 
 Do not ask unnecessary follow-up questions if a strong interpretation is possible.
-Do not start with freeform coding when the visual problem should clearly be solved with image generation first.
+Do not start with freeform styling before the authoritative reference and design system have been extracted.
 Do not compress many sections into one unreadable image in Codex.
 Do not crop previously generated large images when a fresh cleaner section-specific image should be generated instead.
 
@@ -835,7 +831,7 @@ Generate website reference images that feel:
 - anti-generic
 - implementation-friendly
 
-For visual website work, the skill must first generate the image(s) itself, then deeply and cleanly analyze those generated image(s), then use them as the primary visual source, then build the frontend to match them closely.
+For visual website work, first identify and inspect the authoritative source. Generate concept images only when authorized; then treat them as proposals, analyze them deeply, and implement without overriding approved design or working behavior.
 
 Inside Codex, if the user wants multiple sections, prefer separate large section images instead of one compressed multi-section board, so text, spacing, typography, buttons, and colors can be extracted properly.
 

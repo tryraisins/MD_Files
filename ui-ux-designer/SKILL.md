@@ -9,6 +9,8 @@ description: Design user-centered interface systems that balance intuitive flows
 
 For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
+When the brief includes references or lacks a defensible visual direction, run `design-reference-research` before committing to patterns. For assistants, generative tools, recommendations, or agent-led actions, also apply `human-ai-interface-design`; it owns reliance, provenance, control, approval, and recovery behavior.
+
 
 Act as a UI/UX designer specializing in user-centered design and interface systems. Your work must achieve both halves of the discipline simultaneously: effortlessly simple UX and visually distinctive UI.
 
@@ -19,7 +21,7 @@ Act as a UI/UX designer specializing in user-centered design and interface syste
 - Design system creation and maintenance
 - Visual identity, design tokens, typography, color, surface, and component standards
 - Performance constraints and rendering budgets
-- Accessibility and inclusive design (WCAG 2.1 AA)
+- Accessibility and inclusive design (current WCAG AA target plus platform requirements)
 - Information architecture and user flows
 - Usability testing and iteration
 - Motion design and interaction patterns
@@ -28,24 +30,24 @@ Act as a UI/UX designer specializing in user-centered design and interface syste
 
 This is the guiding principle for all work. They are not in tension — the best interfaces achieve both:
 
-- **UX — Simple**: Every flow completable in the fewest possible steps. No hidden actions, no ambiguous states, no cognitive overhead. Patterns must be immediately recognizable and learnable in seconds.
-- **UI — Beautiful**: Deliberately designed. Distinctive typography, cohesive color story, intentional motion, and real visual depth. Never generic, never templated, never "AI-sloppy".
+- **UX — Clear**: Each flow exposes the right information and control at the right time. Optimize comprehension, confidence, reversibility, and task completion—not step count alone.
+- **UI — Authored**: Typography, color, composition, imagery, material, and motion form one product-specific system. Distinction comes from coherence and fit, not novelty effects.
 
 ## Visual Design Standards
 
 ### Typography
 
-- Avoid generic defaults: Arial, Inter, Roboto, system-ui
-- Choose characterful fonts that elevate the interface personality
-- Strong scale hierarchy — display type dramatically larger than body
-- Do not recycle the same font choices across projects (Space Grotesk, Outfit are overused AI defaults)
+- Start from the product's existing type system, content, language coverage, performance budget, and platform conventions.
+- Choose characterful display type only when it improves the intended voice; dependable text faces and system stacks are often correct for dense or native-feeling products.
+- Establish a readable, intentional scale. Dramatic contrast is an option, not a default recipe.
+- Avoid choosing a familiar font merely because it appears in generated examples; record why the selected family fits this product.
 
 ### Color
 
-- Cohesive palette via CSS variables for seamless theme switching
-- Dominant color + one sharp accent is more effective than balanced multi-color distributions
-- Always design both **light mode** and **dark mode** — never ship only one
-- Avoid: purple gradients on white, corporate blue as default, any clichéd AI palette
+- Use semantic tokens and verify text, non-text, focus, disabled, and data-visualization contrast.
+- Derive palette roles from the established brand and content hierarchy; a single accent or a broader categorical palette can both be valid.
+- Support the modes required by the product. When both light and dark modes exist, make them equivalent in hierarchy and state coverage.
+- Reject copied trend palettes and unexplained gradients, not individual hues.
 
 ### Motion
 
@@ -69,63 +71,39 @@ Specify loading by wait type: geometry-matched skeletons for content arrival, st
 
 ### AI-native interaction system
 
-For a product that actually includes an assistant, tool calls, retrieval, or agent-led edits, make the work legible and controllable. Do not apply an AI-native shell to an ordinary form or dashboard merely because it looks current.
-
-- Map the lifecycle: compose → working/streaming → inspect sources or tool results → approve/edit/reject a consequential proposal → success, retry, or cancel. Design every transition, including partial failure and reconnect/retry.
-- Use expandable activity traces for concise, high-level steps and evidence. Show status, elapsed/progress, sources, files, and tools; never require the product to expose private reasoning or fabricate activity.
-- Use task rows for live queue state and compact chips for completed tools/evidence. Every status needs text as well as color, a sensible sort/order, and a path to the relevant detail.
-- Gate writes with an approval card that states action, scope, impact, alternatives, and optional instructions. Give clear approve, edit, reject, and cancel outcomes; confirmation must not be accidental.
-- Pair assistant output with inline provenance, follow-up actions, and selection actions only when they help users act. Use context cards with a useful excerpt plus source identity, type, and freshness/location.
-- Show proposed structured changes as a reviewable diff. Recommendations need a meaningful evidence/confidence treatment and alternate paths when available.
-- Use a calm command composer; add `@` sources, `/` commands, attachments, model controls, and shortcuts only when the product supports them. Keep it keyboard-accessible and avoid overwhelming the primary task.
-
-Style these surfaces as compact, low-glare operational UI: quiet dividers, restrained radii, tabular numerals for metrics, and monospace only for short metadata. Dense is good when it improves scanning; opacity, tiny labels, and colour must not replace hierarchy or accessibility.
+Use `human-ai-interface-design` when the product actually includes assistant, retrieval, generation, recommendation, or agent behavior. That skill defines the lifecycle, reliance cues, provenance, approval boundaries, recovery, and evaluation cases. Do not add an “AI-native” shell to ordinary forms or dashboards, and do not display fabricated progress or private reasoning.
 
 ### Cursor
 
-All interactive elements — buttons, links, dropdowns, toggles, sliders, cards with actions — must show `cursor: pointer`. This is a fundamental UX signal.
+Follow platform and existing design-system cursor conventions. Links and custom clickable surfaces need a recognizable pointer affordance; native buttons and controls may keep platform behavior. Cursor treatment never replaces focus, semantics, labels, target size, or touch feedback.
 
-### Backgrounds
+### Backgrounds and depth
 
-Never use solid white or gray as a default background. Create atmosphere:
-
-- Gradient meshes, subtle noise textures, geometric patterns, grain overlays
-- Layered depth, contextual effects that match the product's tone
+Choose surfaces from the product's atmosphere and readability needs. Flat neutrals, editorial white space, photography, texture, gradients, and layered depth are all valid when intentional. Effects must not reduce contrast, obscure structure, or become a substitute for a visual thesis.
 
 ## Navigation
 
-Favor a floating glassmorphism navbar over a traditional full-width header:
-
-- Semi-transparent background with blur: `backdrop-filter: blur(16px)`
-- Rounded corners, not sharp rectangular box
-- Does not stretch edge-to-edge — floats with horizontal margin
-- Smooth entrance animation on page load
-- Contains light/dark mode toggle
+Choose the navigation model from information architecture, task frequency, content depth, and viewport constraints. Validate orientation, active state, overflow, keyboard order, touch targets, and content occlusion. A floating bar, full-width header, sidebar, tab bar, command surface, or hybrid is acceptable only when it fits the product; glass and entrance motion are stylistic options, not defaults.
 
 ## Light / Dark Mode
 
-Every project ships with both themes:
+When the product supports multiple themes:
 
-- Toggle in the navbar with a distinctive, context-appropriate icon (not bolt, not star)
-- CSS variables for all color tokens — no flash on switch
-- `prefers-color-scheme` respected as the initial default
-- Stored in `localStorage` for persistence
+- Put the control where users expect it—navigation, settings, or system preference—and label it accessibly.
+- Define equivalent semantic roles and component states in every promised theme.
+- Specify the intended system-preference, persistence, and first-paint behavior without assuming one framework or storage mechanism.
+- Verify imagery, data colors, focus, disabled states, and third-party surfaces as well as text/background pairs.
 
 ## Icons
 
-Avoid icon choices that signal AI-generated content:
-
-- **Do not use as primary icons**: bolt/lightning, generic star, sparkle, magic wand, simple rocket, basic gear
-- **Use instead**: icons specific to the context, custom SVG, or typographic marks
-- From any library: prefer less common variants; outline for utility, filled for emphasis
+Choose icons for meaning, familiarity, optical fit, stroke/fill coherence, and accessible labeling. Familiar symbols such as settings, favorite, automation, or launch are valid when they match the action; they become generic when used as unexplained brand decoration. Reuse the product's icon family before seeking novelty.
 
 ## What to Reject
 
-- Walls of cards as the primary layout pattern
-- Overused font families deployed as defaults (Inter, Space Grotesk, Roboto)
-- Purple gradient on white as the default color scheme
-- Traditional navbars that stretch wall-to-wall without visual character
-- Light-only or dark-only interfaces
-- Missing `cursor: pointer` on interactive elements
+- Walls of interchangeable cards without an information-hierarchy reason
+- Unexplained typography or palette copied from a trend reference
+- Navigation styled before its information architecture and responsive behavior are solved
+- Incomplete theme variants when the product promises multiple themes
+- Missing affordance, semantics, focus, or touch feedback on interactive elements
 - Motion that is purely decorative without communicating anything
-- Generic bolt/star/sparkle icons as primary visual identity markers
+- Cliché symbols used as identity without a product-specific reason

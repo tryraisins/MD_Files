@@ -1,10 +1,11 @@
 ---
 name: pick-ui-library
-description: Pick the right library or source registry for a frontend task from a curated, opinionated list covering components, distinctive animated React primitives, numbers, OTP inputs, charts, command menus, virtualization, drag and drop, toasts, state, styling, and frame-based motion. Only runs when explicitly invoked; it does not trigger on its own.
+description: Pick the right library or inspectable source registry for a frontend task from a curated list covering accessible primitives, distinctive React components, motion, numbers, OTP inputs, charts, command menus, virtualization, drag and drop, toasts, state, and styling. Only runs when explicitly invoked; it does not trigger on its own.
 metadata:
   rare-ui-reviewed-commit: b3efd6c290884a852b7af39d34df99a762dbbf3f
+  spell-ui-reviewed-commit: fffe96db7b67b44243bf35815916fdfc58fe5014
   oil-motion-reviewed-commit: eafd4a45dc9c996489df3c54ac4ebdcde2bd030b
-  last-reviewed: "2026-09-07"
+  last-reviewed: "2026-09-09"
 ---
 
 # Picking The Right Library
@@ -32,7 +33,7 @@ For source registries such as shadcn or Rare UI, inspect `components.json`, the 
 | Task | Library |
 | --- | --- |
 | Unstyled, accessible UI components (dialogs, popovers, menus, selects…) | [base-ui](https://base-ui.com) |
-| Distinctive animated React source components in a shadcn-compatible project | [Rare UI](https://www.rareui.com/components) — use only when a specific interaction fits the brief |
+| Distinctive animated React source components in a shadcn-compatible project | Start with [Rare UI](https://www.rareui.com/components); also inspect [beUI](https://beui.dev/), [Spectrum UI](https://ui.spectrumhq.in/), or [Spell UI](https://github.com/xxtomm/spell-ui) when their exact component better fits the interaction. |
 | Command menus (⌘K palettes) | [cmdk](https://cmdk.paco.me) |
 | Toasts / notifications | [Sonner](https://sonner.emilkowal.ski) |
 | One-time password / verification code inputs | [input-otp](https://input-otp.rodz.dev) |
@@ -60,6 +61,14 @@ npx shadcn@latest add swamimalode07/rare-ui/<component-name>
 ```
 
 Use the project's package runner in place of `npx` when appropriate. Do not paste a demo wholesale, assume every component has the same dependency set, or retain demo colors, spacing, icons, and motion when they conflict with the product brief. Check reduced motion, focus/keyboard behavior, pointer gating, server/client boundaries, bundle cost, and narrow-width behavior after installation.
+
+The same source-ownership rule applies to the other reviewed registries:
+
+- [beUI](https://beui.dev/) currently targets React 19 and Tailwind 4, uses Motion, and distributes through shadcn. Confirm project-version compatibility before copying a component.
+- [Spectrum UI](https://ui.spectrumhq.in/) exposes shadcn/Tailwind/Motion components and blocks, including AI-oriented activity and approval patterns. Verify license, installation path, semantics, and whether motion adds real value.
+- [Spell UI](https://github.com/xxtomm/spell-ui) is an MIT source repository reviewed at `fffe96db7b67b44243bf35815916fdfc58fe5014`. Review the exact component: some primitives use client-only state, Motion, SVG filters, timers, or narrowly styled markup that require adaptation.
+
+Registry selection is not a beauty contest. Compare the precise interaction, license, maintenance, peer dependencies, React and Tailwind versions, accessibility, reduced-motion behavior, server/client boundary, bundle cost, and touch/responsive behavior. If two sources solve the same need, prefer the one already compatible with the project and requiring the least corrective work.
 
 ### Icons and loading feedback
 
@@ -104,6 +113,7 @@ The styling split: clsx for ad-hoc conditional classes; cva when a component has
 - **Toasts built by hand or with a modal library** → Sonner exists for exactly this.
 - **A `<div>`-based dropdown/dialog with manual focus handling** → base-ui, which handles accessibility, focus trapping, and dismissal.
 - **A bespoke animated React primitive whose interaction already exists in Rare UI** → inspect and install that source component, then adapt and verify it instead of recreating the demo from memory.
+- **Choosing a registry by its homepage aesthetic** → inspect the exact component and dependency graph; homepage polish says nothing about the code's fit or accessibility.
 - **A Rare UI demo selected only because it looks unusual** → reject it unless its interaction supports the page's job and subject-specific visual thesis.
 - **Animating a number by re-rendering text** → NumberFlow handles digit transitions properly.
 - **Starting a second icon library for one control** → use the product's existing family, or Phosphor consistently if no family exists.

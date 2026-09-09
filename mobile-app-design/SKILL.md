@@ -16,13 +16,14 @@ Build mobile interfaces that respect the project’s existing stack and feel nat
 - Use `imagegen-frontend-mobile` when the deliverable is images or visual concepts only.
 - Use `animate-expo` when the task is specifically gesture, transition, haptic, or Reanimated implementation.
 - Use `ui-quality-baseline` for shared accessibility, state, token, and rendered-QA requirements.
+- Use `design-reference-research` when the user supplies mobile references or the product category needs a benchmark study. AppLlama is one optional source, not a prerequisite for evidence-led mobile design.
 - Use this skill for end-to-end mobile screen and flow design or implementation. Load [references/appllama-research.md](references/appllama-research.md) only when the Appllama MCP is connected or the user provides Appllama screen references.
 
 ## Workflow
 
 1. Inspect the repository, installed dependencies, navigation structure, design tokens, supported devices, and current screen behavior.
 2. Choose the dominant platform contract: iOS, Android, or deliberately neutral cross-platform. Do not mix platform conventions accidentally.
-3. Study relevant reference flows when available. Extract navigation grammar, hierarchy, control choices, spacing, and state behavior; do not copy a competitor’s pixels or branding.
+3. Study relevant reference flows when the design is not already fixed. Compare full sequences and at least one compact and one large supported viewport; extract navigation grammar, hierarchy, control choices, spacing, state behavior, and platform differences without copying a competitor’s pixels or branding.
 4. Define the full state cycle: loading, empty, populated, validation, pending action, success, recoverable error, offline or reconnect when relevant, and disabled permissions.
 5. Implement the smallest complete flow using the project’s existing primitives and state architecture.
 6. Run the screen in an iOS Simulator or Android emulator, exercise the whole flow, inspect screenshots and motion, fix defects, then verify on a release build and the slowest supported real device when performance is in scope.
@@ -36,6 +37,7 @@ Build mobile interfaces that respect the project’s existing stack and feel nat
 - Respect safe areas, the Dynamic Island, home indicator, gesture navigation, keyboard, and supported orientations. Never hard-code device inset values.
 - Keep tap targets at least 44 pt on iOS and 48 dp on Android; extend the hit area when the visual control is smaller.
 - Use the navigator’s native header and large-title behavior where it fits instead of rebuilding navigation chrome inside the screen.
+- Recheck the current [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines) for Apple-platform work instead of treating remembered values or screenshots as permanent rules.
 
 ## Navigation semantics
 
@@ -87,6 +89,7 @@ Exercise the complete flow, not a successful screenshot:
 - interrupted gestures, fast taps, and scroll extremes;
 - reduced motion and contrast;
 - release-build frame rate on representative hardware when performance is claimed.
+- compact and large supported phones, tablet or foldable states when supported, portrait and landscape where allowed, and split-view or multitasking when the platform exposes it.
 
 Static review and simulator screenshots do not prove real-device performance, haptics, store behavior, or production data integration. State those proof boundaries in the handoff.
 

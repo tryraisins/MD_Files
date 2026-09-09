@@ -30,6 +30,12 @@ Never present motion options as a menu. Make the call, state the reasoning in on
 4. **Reduced motion and hover gating ship with the animation**, not as a follow-up.
 5. **Cheapest tool that works.** Don't install a motion library for a fade.
 
+## Use motion references correctly
+
+When the user supplies a motion reference or the interaction has no established product precedent, use `design-reference-research`. Sources such as [60fps](https://60fps.design/), [Design Spells](https://designspells.com/), and [Landing Love](https://www.landing.love/) are useful for discovering interaction ideas, but a clip is not a timing specification.
+
+Inspect the full trigger, intermediate state, interruption, settled state, exit, input modality, and reduced-motion path. Rebuild the purpose and physical relationship using the project's tokens and constraints; do not trace another product's pixels or copy a showcase animation into high-frequency utility UI.
+
 ## The Build Sequence
 
 ### 1. Should this animate at all?

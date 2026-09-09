@@ -82,21 +82,16 @@ instead.
 
 ## 5. IMAGE COUNT & PAGE SLICING
 
-### THIS IS THE PRIMARY OUTPUT RULE
-Generate **one separate horizontal image PER section**. Always.
+### Implementation-readable output
+For a multi-section implementation reference, generate one readable horizontal image per agreed section.
 
-- never combine multiple sections in a single image
-- never return a single tall slice that contains the whole page
-- never return one "best" image and skip the rest
-- never replace several sections with one collage
+- do not combine implementation-critical sections in an unreadable collage;
+- allow a whole-page overview when the user asks for it, then add section-scale detail where needed;
+- do not omit agreed sections or generate filler sections solely to increase image count.
 
-If the request is ambiguous about section count, **default high**:
+If the request is ambiguous about section count, infer the smallest complete content sequence:
 - "hero" -> 1 image
-- "landing page" / "site template" -> default to 6 sections -> 6 images
-- "full website" -> default to 8 sections -> 8 images
-- "marketing site" -> default to 8 sections -> 8 images
-- "product page" -> default to 6 sections -> 6 images
-- "portfolio" -> default to 6 sections -> 6 images
+- landing, product, marketing, portfolio, and full-site requests differ; derive sections from the page job, real content, decision path, and required continuation or recovery.
 
 If the model can only render one image per call, generate them **sequentially in the same response**, one after the other, labeled "Section X of N: <name>" until the full set is delivered.
 

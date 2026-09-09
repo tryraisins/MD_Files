@@ -9,6 +9,8 @@ description: Build, scaffold, refactor, and troubleshoot ChatGPT Apps SDK applic
 
 For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
+Because these widgets mediate AI behavior, also apply `human-ai-interface-design` for expectation setting, provenance, user control, consequential approvals, failure recovery, and reliance-focused evaluation.
+
 
 ## Overview
 
@@ -199,7 +201,7 @@ Use `window.openai` for compatibility and extensions (file upload, modal, displa
 
 #### AI-native widget defaults
 
-When the app’s tool surface supports it, make agent work inspectable and reviewable inside the widget. Do not simulate an agent console for a simple read-only result.
+Apply `human-ai-interface-design` to the widget's full lifecycle. When the app’s tool surface supports it, make agent work inspectable and reviewable inside the widget. Do not simulate an agent console for a simple read-only result.
 
 - Render compact activity/task rows from actual tool notifications or structured state: readable status, elapsed/progress when supplied, real tool/source/file evidence, and error/retry/canceled states. Never expose private model reasoning or fabricate a running tool.
 - Use concise tool chips only as truthful evidence or navigation. Use a source/context card for a useful excerpt plus source identity, type, and freshness/location.

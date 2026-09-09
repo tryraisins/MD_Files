@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Reference Research"
+  short_description: "Research UI references into a distinct direction"
+  default_prompt: "Research relevant live interface references, extract patterns without copying them, and synthesize a product-specific design direction."

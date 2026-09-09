@@ -19,6 +19,15 @@ Before changing UI:
 4. Reuse established primitives when they meet the quality bar. Do not introduce a second component, icon, skeleton, or motion system for novelty.
 5. If there is no system, establish the smallest coherent token set needed for the work before styling individual elements.
 
+## Ground open-ended design in evidence
+
+When the visual direction is not already fixed, use `design-reference-research` before committing to a pattern. Compare functionally similar products and complete flows across relevant devices; extract hierarchy, navigation grammar, state behavior, and responsive transformations instead of copying pixels or averaging gallery trends.
+
+- Treat live products, gallery screenshots, editorial descriptions, and source-code registries as different evidence types.
+- A gallery can show that a pattern exists; it cannot prove usability, conversion, accessibility, performance, or adoption.
+- Keep a short rejection list so attractive but irrelevant patterns do not leak into the result.
+- Every major visual choice must trace to product content, a user need, a platform convention, or observed reference evidence—not merely “modern,” “premium,” or “clean.”
+
 ## Tokenize repeated decisions
 
 Create or reuse role-based tokens for:
@@ -82,6 +91,21 @@ Design real layout changes rather than scaled-down desktop screens.
 - Preserve the primary action. Secondary actions may shorten, hide nonessential decoration, move into an overflow menu, or change presentation on constrained screens.
 - Account for safe-area insets, browser chrome, virtual keyboards, dynamic viewport units, text zoom, localization, and installed-PWA display modes where relevant.
 - Verify both width and height constraints; a design that works at 390 by 844 may still fail at 390 by 667.
+- For full screens and pages, check at minimum a 320px small phone, a common 390px phone, tablet portrait and landscape, a 1280px compact desktop with limited height, a 1440px desktop, and a wide desktop. Add 200% zoom, large text, keyboard-only, touch/no-hover, and reduced motion.
+- Place breakpoints where the content or task changes, not merely where the CSS framework provides a token. Document what reorders, condenses, becomes a sheet, moves to overflow, or remains fixed.
+- Preserve logical source and focus order when grids re-span or visual order changes. A one-column collapse is not automatically the right mobile transformation.
+
+## Complete page and flow anatomy
+
+For page- or screen-level work, map entry, primary job, commitment, completion, escape, recovery, and next step before polishing individual sections.
+
+- Navigation exposes structure, current location, and a reliable way home. Its mobile form follows priority and task frequency rather than defaulting blindly to a hamburger.
+- Heroes or first task surfaces keep one dominant purpose, one primary action, and credible product evidence. Essential meaning must survive without animation or a desktop crop.
+- CTAs use outcome-specific verbs and place risk, price, scope, permission, or reversibility near the commitment.
+- Footers support continuation, support, required legal paths, and recovery; do not delete useful structure just to avoid a conventional footer.
+- 404, empty, error, offline, and permission states explain what happened and provide the best next action.
+- Bento and modular grids use spans to communicate hierarchy or relationships, keep logical DOM order, and transform intentionally on smaller screens.
+- Open Graph and share images are separate fixed-ratio artifacts with their own crop, type, fallback, and localization checks.
 
 ## Loading, skeletons, overlays, and timing buffers
 
@@ -141,6 +165,10 @@ Important components and flows include the states they can actually enter: idle,
 - Do not communicate state by color alone.
 - Dialogs and overlays trap focus when modal, close safely, restore focus, and respect Escape unless the operation cannot be dismissed.
 - Do not hide important content from older users, zoomed text, localization, or assistive technology just to preserve a screenshot-perfect layout.
+
+## AI-mediated interfaces
+
+When inference, generation, retrieval, or agentic action changes the user experience, also apply `human-ai-interface-design`. Expose capability limits, relevant provenance and freshness, editable output, partial failure, stop or cancel, approval before consequential actions, and recovery proportional to the side effect. Use deterministic controls for exact state, permissions, price, and irreversible commitment; do not turn every feature into chat.
 
 ## Anti-slop review
 

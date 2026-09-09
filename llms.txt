@@ -5,22 +5,24 @@ security-ownership-map: Sensitive-code ownership, concentration, and CODEOWNERS 
 markdown-management: Create, update, merge, split, rename, and audit Markdown or skill folders while preserving authority, links, anchors, provenance, and progressive disclosure.
 frontend-design: Compact anti-generic frontend design workflow adapted from Anthropic's current skill and subordinated to approved designs and narrower local aesthetics.
 ui-quality-baseline: Mandatory baseline for visible UI work covering tokens, typography, icons, responsive containment, loading states, purposeful motion, accessibility, and rendered QA.
+design-reference-research: Read-only-by-default research across live interfaces, galleries, flows, and source registries that produces evidence, a product-specific visual thesis, responsive transformations, and a rejection list before implementation.
+human-ai-interface-design: Trustworthy AI-product interaction guidance for expectations, appropriate reliance, provenance, uncertainty, user control, approvals, autonomy, recovery, and evaluation.
 design-taste-frontend: Default expressive local design system for distinctive landing pages, portfolios, and redesigns; detailed patterns live under references.
 design-taste-frontend-v1: Preserved original design-taste behavior for projects that explicitly depend on it.
-gpt-taste: Premium deterministic frontend design and GSAP motion guidance.
+gpt-taste: Explicit compatibility route that delegates current premium work to high-end-visual-design and retires the fixed AIDA, randomized-bento, and mandatory-GSAP recipe.
 image-to-code: Image-first frontend analysis and implementation workflow.
 imagegen-frontend-web: Image-generation-only workflow for premium website design references.
 imagegen-frontend-mobile: Image-generation-only workflow for premium mobile concepts and flows.
 mobile-app-design: Native mobile screen and flow design or implementation, with optional Appllama reference research; delegates motion-only and image-only work to their focused skills.
 brandkit: Image-generation-only workflow for visual identity systems and brand-kit boards.
 redesign-existing-projects: Audits and upgrades existing interfaces without breaking behavior.
-high-end-visual-design: Agency-style typography, layout, depth, and motion direction.
+high-end-visual-design: Evidence-led premium art direction built around a product-specific thesis, coherent system, restraint, responsive composition, and purposeful motion.
 minimalist-ui: Premium utilitarian minimalism with editorial typography and restrained depth.
 industrial-brutalist-ui: Raw mechanical interfaces, Swiss typography, and extreme scale contrast.
 stitch-design-taste: Semantic design guidance compatible with Google Stitch-style generation.
 emil-design-eng: UI polish, component details, and purposeful interaction motion.
 oil-motion: Specialized generated or captured frame-based interactive media workflow adapted from oil-oil/oil-motion.
-pick-ui-library: Chooses UI libraries from installed dependencies and project fit; can source a specific Rare UI component when appropriate.
+pick-ui-library: Chooses libraries from installed dependencies and project fit; treats Rare UI, beUI, Spectrum UI, and Spell UI as inspectable component-source registries.
 content-seo: Content and technical SEO workflow including IndexNow changed-URL notification and explicit receipt-versus-indexing proof boundaries.
 implement: End-to-end repository implementation command that defers to specific domain skills and preserves behavior.
 review: Evidence-first code and system review.

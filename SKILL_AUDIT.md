@@ -1,12 +1,12 @@
 # Skill Collection Audit
 
-Audit date: 2026-09-08
+Audit date: 2026-09-09
 
 ## Outcome
 
-- 81 top-level skill folders reviewed.
-- 81 of 81 pass the Agent Skills `skills-ref` reference validator.
-- 81 of 81 pass the repository Markdown audit with zero errors and zero warnings.
+- 83 top-level skill folders reviewed.
+- 83 of 83 pass the Agent Skills `skills-ref` reference validator.
+- 83 of 83 pass the repository Markdown audit with zero errors and zero warnings.
 - All skill folder names match their frontmatter `name` and use lowercase hyphenated identifiers.
 - Every main `SKILL.md` is below 500 lines; detailed material was moved to focused references where needed.
 - Repository-wide relative Markdown link checking reports zero unresolved targets.
@@ -20,11 +20,13 @@ Audit date: 2026-09-08
 - `agent-organizer` and `multi-agent-coordinator` were folded into `orchestration-specialists`. Unsupported performance promises were removed; bounded task ownership, dependency tracking, conflict avoidance, and evidence contracts were retained.
 - `NeetigyaShah/deep-research` became a progressively disclosed mode inside `research-analysis`; its standalone follow-up skill was omitted because the canonical mode already covers evidence-only follow-up.
 - AppLlama's research and app-design skills became one `mobile-app-design` skill. Existing `animate-expo`, `imagegen-frontend-mobile`, and `ui-quality-baseline` instructions remain authoritative for their narrower concerns.
+- The former fixed `gpt-taste` recipe was consolidated into the evidence-led `high-end-visual-design` workflow. `gpt-taste` remains only as an explicit compatibility route so existing prompts do not break.
 
 ### Kept separate
 
 - Focused command skills such as `implement`, `review`, `troubleshoot`, `cleanup`, `git`, and `finalize` remain distinct because their trigger and safety contracts are narrower than `engineering-specialists`.
 - Specialist visual directions remain distinct. An approved design, repository design system, or narrow aesthetic skill takes precedence over generic frontend guidance.
+- `design-reference-research` remains separate from implementation skills because it is read-only by default and produces an evidence ledger and decision brief; `human-ai-interface-design` remains separate because appropriate reliance, provenance, autonomy, approvals, and recovery are interaction-safety concerns rather than an aesthetic.
 - The four security skills remain separate because application implementation, best-practice review, threat modeling, and ownership analysis produce different artifacts.
 - `i-have-adhd` remains one explicit-only skill because its persistent conversation-output contract has no behavioral equivalent in the research, documentation, or implementation skills.
 
@@ -62,6 +64,10 @@ The new research and mobile integrations use the same progressive-disclosure pat
 
 - `research-analysis/references/deep-research.md`
 - `mobile-app-design/references/appllama-research.md`
+- `design-reference-research/references/source-atlas.md`
+- `design-reference-research/references/pattern-atlas.md`
+- `design-reference-research/references/responsive-matrix.md`
+- `human-ai-interface-design/references/lifecycle-and-patterns.md`
 
 ## Upstream review and incorporation
 
@@ -73,13 +79,16 @@ Reviewed repositories and revisions:
 - [Rare UI](https://github.com/swamimalode/rare-ui) at `b3efd6c290884a852b7af39d34df99a762dbbf3f`;
 - [Deep Research](https://github.com/NeetigyaShah/deep-research) at `201dc0e0366f1108ba94f0f422a9ccaecb733b21`;
 - [i-have-adhd](https://github.com/ayghri/i-have-adhd) at `58494af57962b2d7a996b4d419474380a299af5e`;
-- [AppLlama skills](https://github.com/Appllama/appllama-skills) at `dd5caaec3d5d50ad7fc0324da238119c6b7c3707`.
+- [AppLlama skills](https://github.com/Appllama/appllama-skills) at `dd5caaec3d5d50ad7fc0324da238119c6b7c3707`;
+- [Spell UI](https://github.com/xxtomm/spell-ui) at `fffe96db7b67b44243bf35815916fdfc58fe5014`.
 
 The Anthropic frontend guidance was adapted into a compact `frontend-design` entry point. OpenAI's current plugin repository was treated as format and progressive-disclosure reference material, not copied wholesale. Existing local specialist design and command behavior was retained wherever broader upstream guidance conflicted.
 
-Rare UI is incorporated into `pick-ui-library` as an inspectable shadcn-compatible source registry. It is never an automatic dependency. `oil-motion` is a separate specialist skill for generated or captured frame timelines, not ordinary component transitions.
+Rare UI, beUI, Spectrum UI, and Spell UI are incorporated into `pick-ui-library` as inspectable source registries. None is an automatic dependency. `oil-motion` is a separate specialist skill for generated or captured frame timelines, not ordinary component transitions.
 
-Deep Research extends the canonical research workflow instead of duplicating it. AppLlama's two related entry points are represented by one mobile implementation skill with optional MCP research. The ADHD-friendly response mode remains explicit-only. These boundaries are covered by routing evaluations for deep research, native mobile flows, Expo animation, mobile image generation, and ADHD mode.
+All 28 supplied UI sources were reviewed through text extraction where available and rendered checks at desktop and mobile widths. Their functions, adoption boundaries, and access limitations are preserved in the design-reference source atlas. Gallery screenshots are explicitly treated as discovery evidence, not proof of accessibility, performance, conversion, or production use.
+
+Deep Research extends the canonical research workflow instead of duplicating it. AppLlama's two related entry points are represented by one mobile implementation skill with optional MCP research. The ADHD-friendly response mode remains explicit-only. These boundaries are covered by routing evaluations for deep research, reference-led visual research, human-AI interaction, native mobile flows, Expo animation, mobile image generation, and ADHD mode.
 
 The official IndexNow protocol and LaunchIgniter submitter are covered in `content-seo/references/indexnow.md`, with submission receipt kept separate from crawling, indexing, and ranking evidence.
 
