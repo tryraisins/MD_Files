@@ -10,7 +10,7 @@ You do not need a global install. A new device needs:
 - internet access;
 - at least one supported agent folder: Codex (`~/.codex`), Claude (`~/.claude`), Gemini Antigravity (`~/.gemini/antigravity`), or Antigravity (`~/.antigravity`).
 
-Git is optional and is used only as a fallback when the GitHub API is rate-limited.
+Git is optional and is used as a fallback when GitHub API or raw-file downloads remain unavailable after automatic retries.
 
 ## Commands
 
@@ -55,7 +55,8 @@ npm pack --dry-run
 ## Notes
 
 - If no supported agent folder exists, the skills command exits without installing anything.
-- If GitHub API limits are reached, set `YEKNAL_GITHUB_TOKEN` or `GITHUB_TOKEN`, or install Git for the fallback clone.
+- Downloads use bounded retries for temporary network failures and GitHub `408`, `425`, `429`, and `5xx` responses. `Retry-After` is honored up to 10 seconds. After retry exhaustion, the command uses a shallow Git clone when Git is installed.
+- If GitHub API limits are reached, set `YEKNAL_GITHUB_TOKEN` or `GITHUB_TOKEN`. Install Git to enable the fallback clone for API limits or interrupted raw-file downloads.
 - Generated `yeknal-security.log`, `yeknal-security.json`, and `yeknal-security.sarif` files are local evidence and should not be committed.
 
 ## License

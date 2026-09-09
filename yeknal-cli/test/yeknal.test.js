@@ -88,7 +88,7 @@ test("removes stale managed folders but preserves expected and personal folders"
   });
 });
 
-test("uses git fallback only for GitHub API rate limits", () => {
+test("uses git fallback for exhausted transient GitHub transfer failures", () => {
   const coded = new Error("rate limited");
   coded.code = "GITHUB_RATE_LIMIT";
   assert.equal(yeknal.shouldUseGitCloneFallback(coded), true);
@@ -96,7 +96,15 @@ test("uses git fallback only for GitHub API rate limits", () => {
     yeknal.shouldUseGitCloneFallback(new Error("GitHub API rate limit exceeded.")),
     true,
   );
-  assert.equal(yeknal.shouldUseGitCloneFallback(new Error("network timeout")), false);
+
+  const unavailable = new Error("Failed to download file (502)");
+  unavailable.statusCode = 502;
+  assert.equal(yeknal.shouldUseGitCloneFallback(unavailable), true);
+
+  const malformedChunk = new Error("Parse Error: Invalid character in chunk size");
+  malformedChunk.code = "HPE_INVALID_CHUNK_SIZE";
+  assert.equal(yeknal.shouldUseGitCloneFallback(malformedChunk), true);
+  assert.equal(yeknal.shouldUseGitCloneFallback(new Error("not found")), false);
 });
 
 test("an interrupted download leaves no destination file", async () => {
@@ -105,10 +113,73 @@ test("an interrupted download leaves no destination file", async () => {
     await assert.rejects(
       yeknal.downloadUrlToFile("https://example.invalid/SKILL.md", destination, async () => {
         throw new Error("response aborted");
-      }),
+      }, { maxAttempts: 1 }),
       /response aborted/,
     );
     assert.equal(fs.existsSync(destination), false);
+  });
+});
+
+test("retries a transient 502 and writes only the successful response", async () => {
+  await withTempDir(async (directory) => {
+    const destination = path.join(directory, "skill", "SKILL.md");
+    let attempts = 0;
+    const waits = [];
+
+    await yeknal.downloadUrlToFile("https://example.invalid/SKILL.md", destination, async () => {
+      attempts += 1;
+      if (attempts < 3) {
+        return { statusCode: 502, body: Buffer.from("bad gateway"), headers: { "retry-after": "0" } };
+      }
+      return { statusCode: 200, body: Buffer.from("complete body\n"), headers: {} };
+    }, {
+      maxAttempts: 3,
+      wait: async (delayMs) => waits.push(delayMs),
+      onRetry: () => {},
+    });
+
+    assert.equal(attempts, 3);
+    assert.deepEqual(waits, [0, 0]);
+    assert.equal(await fsp.readFile(destination, "utf8"), "complete body\n");
+  });
+});
+
+test("retries malformed chunks and stops after retry exhaustion", async () => {
+  await withTempDir(async (directory) => {
+    const destination = path.join(directory, "skill", "SKILL.md");
+    let parserAttempts = 0;
+
+    await yeknal.downloadUrlToFile("https://example.invalid/SKILL.md", destination, async () => {
+      parserAttempts += 1;
+      if (parserAttempts === 1) {
+        const error = new Error("Parse Error: Invalid character in chunk size");
+        error.code = "HPE_INVALID_CHUNK_SIZE";
+        throw error;
+      }
+      return { statusCode: 200, body: Buffer.from("recovered\n"), headers: {} };
+    }, {
+      maxAttempts: 2,
+      wait: async () => {},
+      onRetry: () => {},
+    });
+
+    assert.equal(parserAttempts, 2);
+    assert.equal(await fsp.readFile(destination, "utf8"), "recovered\n");
+
+    let unavailableAttempts = 0;
+    await assert.rejects(
+      yeknal.downloadUrlToFile("https://example.invalid/unavailable.md", destination, async () => {
+        unavailableAttempts += 1;
+        return { statusCode: 503, body: Buffer.from("unavailable"), headers: {} };
+      }, {
+        maxAttempts: 2,
+        wait: async () => {},
+        onRetry: () => {},
+      }),
+      (error) => error.statusCode === 503,
+    );
+    assert.equal(unavailableAttempts, 2);
+    assert.equal(await fsp.readFile(destination, "utf8"), "recovered\n");
   });
 });
 

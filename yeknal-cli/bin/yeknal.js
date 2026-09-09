@@ -25,6 +25,10 @@ const BRANCH = "main";
 const RAW_BASE_URL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${BRANCH}`;
 const API_BASE = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}`;
 const GITHUB_TOKEN = process.env.YEKNAL_GITHUB_TOKEN || process.env.GITHUB_TOKEN || "";
+const REQUEST_TIMEOUT_MS = 30_000;
+const MAX_REQUEST_ATTEMPTS = 4;
+const RETRY_BASE_DELAY_MS = 500;
+const MAX_RETRY_DELAY_MS = 10_000;
 
 // SEO is source/reference material without a SKILL.md entry point.
 const EXCLUDED_SKILL_FOLDERS = new Set(["SEO"]);
@@ -45,6 +49,63 @@ function usage() {
 
 function isHttpSuccess(statusCode) {
   return typeof statusCode === "number" && statusCode >= 200 && statusCode < 300;
+}
+
+function isRetryableHttpStatus(statusCode) {
+  return statusCode === 408 || statusCode === 425 || statusCode === 429 ||
+    (typeof statusCode === "number" && statusCode >= 500 && statusCode < 600);
+}
+
+function isRetryableTransportError(error) {
+  if (!error) return false;
+
+  const code = String(error.code || "").toUpperCase();
+  if (
+    code.startsWith("HPE_") ||
+    ["ECONNABORTED", "ECONNREFUSED", "ECONNRESET", "EAI_AGAIN", "ENETDOWN", "ENETUNREACH", "EPIPE", "ESOCKETTIMEDOUT", "ETIMEDOUT"].includes(code)
+  ) {
+    return true;
+  }
+
+  const message = error.message ? error.message : String(error);
+  return /(?:parse error|invalid character in chunk size|response aborted|socket hang up|network timeout)/i.test(message);
+}
+
+function getRetryAfterMs(headers = {}, now = Date.now()) {
+  const value = headers["retry-after"] || headers["Retry-After"];
+  if (value === undefined) return null;
+
+  const seconds = Number(value);
+  if (Number.isFinite(seconds) && seconds >= 0) {
+    return Math.min(Math.round(seconds * 1000), MAX_RETRY_DELAY_MS);
+  }
+
+  const retryAt = Date.parse(value);
+  if (Number.isNaN(retryAt)) return null;
+  return Math.min(Math.max(0, retryAt - now), MAX_RETRY_DELAY_MS);
+}
+
+function getRetryDelayMs(attempt, headers = {}, random = Math.random) {
+  const retryAfterMs = getRetryAfterMs(headers);
+  if (retryAfterMs !== null) return retryAfterMs;
+
+  const exponentialDelay = Math.min(
+    RETRY_BASE_DELAY_MS * (2 ** Math.max(0, attempt - 1)),
+    MAX_RETRY_DELAY_MS,
+  );
+  return Math.round(exponentialDelay * (0.75 + (random() * 0.5)));
+}
+
+function createHttpResponseError(response, url, messagePrefix) {
+  const error = new Error(`${messagePrefix} (${response.statusCode}): ${url}`);
+  error.code = "HTTP_STATUS";
+  error.statusCode = response.statusCode;
+  error.headers = response.headers || {};
+  return error;
+}
+
+function waitForDelay(delayMs) {
+  return new Promise((resolve) => setTimeout(resolve, delayMs));
 }
 
 function getRequestHeaders(url) {
@@ -79,6 +140,7 @@ function requestBuffer(url, redirectsRemaining = 5) {
       url,
       {
         headers: getRequestHeaders(url),
+        timeout: REQUEST_TIMEOUT_MS,
       },
       (res) => {
         const statusCode = res.statusCode || 0;
@@ -102,25 +164,70 @@ function requestBuffer(url, redirectsRemaining = 5) {
           resolveOnce({
             statusCode,
             body: Buffer.concat(chunks),
+            headers: res.headers,
           });
         });
       },
     );
 
     req.on("error", rejectOnce);
+    req.on("timeout", () => {
+      const error = new Error(`Request timed out after ${REQUEST_TIMEOUT_MS}ms: ${url}`);
+      error.code = "ETIMEDOUT";
+      req.destroy(error);
+    });
   });
+}
+
+async function requestBufferWithRetry(url, requester = requestBuffer, options = {}) {
+  const maxAttempts = Number.isInteger(options.maxAttempts) && options.maxAttempts > 0
+    ? options.maxAttempts
+    : MAX_REQUEST_ATTEMPTS;
+  const wait = options.wait || waitForDelay;
+  const random = options.random || Math.random;
+  const onRetry = options.onRetry || (({ attempt, delayMs, error }) => {
+    process.stderr.write(
+      `\n  [retry ${attempt}/${maxAttempts - 1}] ${error.message}; retrying in ${delayMs}ms.\n`,
+    );
+  });
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      const response = await requester(url);
+      if (!isRetryableHttpStatus(response.statusCode) || attempt === maxAttempts) {
+        return response;
+      }
+
+      const error = createHttpResponseError(response, url, "GitHub request failed");
+      const delayMs = getRetryDelayMs(attempt, response.headers, random);
+      onRetry({ attempt, delayMs, error, url });
+      await wait(delayMs);
+    } catch (error) {
+      if (!isRetryableTransportError(error) || attempt === maxAttempts) {
+        throw error;
+      }
+
+      const delayMs = getRetryDelayMs(attempt, error.headers, random);
+      onRetry({ attempt, delayMs, error, url });
+      await wait(delayMs);
+    }
+  }
+
+  throw new Error(`Retry loop ended unexpectedly while requesting ${url}`);
 }
 
 function shouldUseGitCloneFallback(error) {
   const message = error && error.message ? error.message : String(error || "");
   return Boolean(
     (error && error.code === "GITHUB_RATE_LIMIT") ||
-      message.includes("GitHub API rate limit exceeded"),
+      message.includes("GitHub API rate limit exceeded") ||
+      isRetryableHttpStatus(error && error.statusCode) ||
+      isRetryableTransportError(error),
   );
 }
 
 async function fetchJson(url) {
-  const response = await requestBuffer(url);
+  const response = await requestBufferWithRetry(url);
   if (!isHttpSuccess(response.statusCode)) {
     const bodyText = response.body.toString("utf8");
     if (response.statusCode === 403 && bodyText.includes("API rate limit exceeded")) {
@@ -134,15 +241,17 @@ async function fetchJson(url) {
       error.code = "GITHUB_RATE_LIMIT";
       throw error;
     }
-    throw new Error(`GitHub API request failed (${response.statusCode}): ${url}\n${bodyText}`);
+    const error = createHttpResponseError(response, url, "GitHub API request failed");
+    error.message += `\n${bodyText}`;
+    throw error;
   }
   return JSON.parse(response.body.toString("utf8"));
 }
 
-async function downloadUrlToFile(url, localPath, requester = requestBuffer) {
-  const response = await requester(url);
+async function downloadUrlToFile(url, localPath, requester = requestBuffer, requestOptions = {}) {
+  const response = await requestBufferWithRetry(url, requester, requestOptions);
   if (!isHttpSuccess(response.statusCode)) {
-    throw new Error(`Failed to download file (${response.statusCode}): ${url}`);
+    throw createHttpResponseError(response, url, "Failed to download file");
   }
   await fsp.mkdir(path.dirname(localPath), { recursive: true });
   await fsp.writeFile(localPath, response.body);
@@ -365,6 +474,11 @@ async function stageSkillsFromGitClone(tempRoot) {
       throw new Error("No skill folders were discovered from the cloned repository.");
     }
 
+    // A raw-download fallback can follow a partially staged tree. Reset the
+    // private staging area so the clone is the sole source of installed files.
+    await fsp.rm(tempRoot, { recursive: true, force: true });
+    await fsp.mkdir(tempRoot, { recursive: true });
+
     for (const folder of skillFolders) {
       const sourceFolder = path.join(repoPath, folder);
       const destinationFolder = path.join(tempRoot, folder);
@@ -464,7 +578,7 @@ async function runSkillsCommand() {
         throw error;
       }
 
-      console.log("\n  GitHub API rate-limited. Falling back to git clone...");
+      console.log("\n  GitHub transfer remained unavailable after retries. Falling back to git clone...");
       console.log("  Cloning repository (this may take a moment)...");
       skillFolders = await stageSkillsFromGitClone(tempRoot);
       console.log(`  Clone complete. Found ${skillFolders.length} skill folder(s).`);
