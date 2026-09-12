@@ -78,6 +78,12 @@ Perform a thorough review of code, systems, or components with actionable findin
 
 When the request is to refactor, simplify, or clean up code, inspect dependency direction, duplication, dead imports/functions/branches, naming, cohesion, and test coverage before proposing edits. Separate safe mechanical cleanup from behavior-changing redesign. Give each finding a file/line, impact, confidence, and smallest safe fix. Do not remove code merely because it looks unused without checking exports, dynamic imports, configuration, tests, and runtime entry points.
 
+### Language simplification review
+
+For TypeScript, Python, and Go, look for defensive over-engineering that obscures a known contract: generic values propagated beyond a boundary, fake validation that ends in a cast, silent empty fallbacks, catch-all or swallowed errors, repeated parsing, needless coercion, one-use extraction helpers, pass-through layers, and abstractions without a real substitution or policy boundary.
+
+Do not flag real boundary validation, domain-specific normalization, idiomatic language error handling, framework-mandated interfaces, cancellation, retries, or deliberate public compatibility. A finding must name the actual contract, the observable risk or maintenance cost, and the smallest behavior-preserving simplification. Never recommend deleting a guard merely because it is defensive.
+
 ### Architecture Review
 
 - System design patterns and best practices

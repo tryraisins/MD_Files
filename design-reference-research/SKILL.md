@@ -33,6 +33,8 @@ Do not compare surfaces that merely share an aesthetic. A checkout should be com
 
 Use a gallery to discover examples, then follow through to the original product when a consequential claim depends on current behavior. A screenshot gallery does not prove usability, conversion, accessibility, performance, or production adoption.
 
+When the user asks for a reusable `DESIGN.md` or a repository's visual rules are unclear, trace the rendered surface back to its source of truth: tokens, global styles, component primitives, routes, and approved assets. Separate observed facts from inferred rules, contradictions, and missing evidence. Write only durable, product-specific rules; do not turn one incidental CSS value or screenshot quirk into a design-system requirement.
+
 ## Extract patterns before styling
 
 For every useful example, record:

@@ -1,6 +1,6 @@
 # Skill Collection Audit
 
-Audit date: 2026-09-09
+Audit date: 2026-09-12
 
 ## Outcome
 
@@ -21,6 +21,7 @@ Audit date: 2026-09-09
 - `NeetigyaShah/deep-research` became a progressively disclosed mode inside `research-analysis`; its standalone follow-up skill was omitted because the canonical mode already covers evidence-only follow-up.
 - AppLlama's research and app-design skills became one `mobile-app-design` skill. Existing `animate-expo`, `imagegen-frontend-mobile`, and `ui-quality-baseline` instructions remain authoritative for their narrower concerns.
 - The former fixed `gpt-taste` recipe was consolidated into the evidence-led `high-end-visual-design` workflow. `gpt-taste` remains only as an explicit compatibility route so existing prompts do not break.
+- `ibelick/ui-skills` was incorporated as focused method improvements: existing UI, design-research, and SEO entries now cover narrow-surface repair, durable `DESIGN.md` evidence, and complete page-metadata review without adding a second universal UI router. The TypeScript, Python, and Go anti-slop material is one language-aware simplification lens in `engineering-specialists` and `review`, not three duplicate language personas.
 
 ### Kept separate
 
@@ -81,12 +82,19 @@ Reviewed repositories and revisions:
 - [i-have-adhd](https://github.com/ayghri/i-have-adhd) at `58494af57962b2d7a996b4d419474380a299af5e`;
 - [AppLlama skills](https://github.com/Appllama/appllama-skills) at `dd5caaec3d5d50ad7fc0324da238119c6b7c3707`;
 - [Spell UI](https://github.com/xxtomm/spell-ui) at `fffe96db7b67b44243bf35815916fdfc58fe5014`.
+- [ui-skills](https://github.com/ibelick/ui-skills/tree/main/skills) at `f5dd1de9c0fc6c033a43dc3fd2a5be41366e9f43`.
+- [TypeScript Anti-Slop](https://gist.github.com/pipethedev/ff13d98a5b626f985708afb343723048) at `165357e91adc1367ef3ecccc9634bfe2e2d968c4`.
+- [Python Anti-Slop](https://gist.github.com/pipethedev/5707c47edd0d6994347adef72c533de9) at `313007ca4ce40384272320f2c984a651610969b9`.
+- [Go de-slop](https://gist.github.com/pipethedev/0bc97d0d4a13edafbad95a00ad8b7ffe) at `42f9a8e8f7006e3f377187841406ed37daa3276f`.
+- [CLAUDE.md](https://github.com/jbarbier/CLAUDE.md) at `02ddd29be403278cfa068ffd54e247bb1f5a1b9f`.
 
 The Anthropic frontend guidance was adapted into a compact `frontend-design` entry point. OpenAI's current plugin repository was treated as format and progressive-disclosure reference material, not copied wholesale. Existing local specialist design and command behavior was retained wherever broader upstream guidance conflicted.
 
 Rare UI, beUI, Spectrum UI, and Spell UI are incorporated into `pick-ui-library` as inspectable source registries. None is an automatic dependency. `oil-motion` is a separate specialist skill for generated or captured frame timelines, not ordinary component transitions.
 
-All 28 supplied UI sources were reviewed through text extraction where available and rendered checks at desktop and mobile widths. Their functions, adoption boundaries, and access limitations are preserved in the design-reference source atlas. Gallery screenshots are explicitly treated as discovery evidence, not proof of accessibility, performance, conversion, or production use.
+The original 28 supplied UI sources were reviewed through text extraction where available and rendered checks at desktop and mobile widths. Their functions, adoption boundaries, and access limitations are preserved in the design-reference source atlas. Gallery screenshots are explicitly treated as discovery evidence, not proof of accessibility, performance, conversion, or production use.
+
+The 2026-09-12 additions were independently adapted as concise local rules. They retain real validation, error handling, idiomatic framework conventions, project-specific contracts, and user authority; no source was imported as an overriding general workflow. The established `animate` skill already exceeds the reviewed motion-performance guidance and remains the canonical motion entry point.
 
 Deep Research extends the canonical research workflow instead of duplicating it. AppLlama's two related entry points are represented by one mobile implementation skill with optional MCP research. The ADHD-friendly response mode remains explicit-only. These boundaries are covered by routing evaluations for deep research, reference-led visual research, human-AI interaction, native mobile flows, Expo animation, mobile image generation, and ADHD mode.
 

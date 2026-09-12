@@ -102,7 +102,7 @@ Security scan checks use stable IDs and link to current `Security-Master.md` anc
 
 ## Upstream review
 
-The 2026-09-09 refresh reviewed:
+The 2026-09-12 refresh additionally reviewed:
 
 - `anthropics/skills` at `41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f`;
 - `openai/plugins` at `1e285826e604f66f7208f7ac4dba0fe8341d1f57`;
@@ -112,12 +112,19 @@ The 2026-09-09 refresh reviewed:
 - `ayghri/i-have-adhd` at `58494af57962b2d7a996b4d419474380a299af5e`;
 - `Appllama/appllama-skills` at `dd5caaec3d5d50ad7fc0324da238119c6b7c3707`;
 - `xxtomm/spell-ui` at `fffe96db7b67b44243bf35815916fdfc58fe5014`.
+- `ibelick/ui-skills` at `f5dd1de9c0fc6c033a43dc3fd2a5be41366e9f43`;
+- `pipethedev` TypeScript Anti-Slop gist at `165357e91adc1367ef3ecccc9634bfe2e2d968c4`;
+- `pipethedev` Python Anti-Slop gist at `313007ca4ce40384272320f2c984a651610969b9`;
+- `pipethedev` Go de-slop gist at `42f9a8e8f7006e3f377187841406ed37daa3276f`;
+- `jbarbier/CLAUDE.md` at `02ddd29be403278cfa068ffd54e247bb1f5a1b9f`.
 
 Upstream material is adapted selectively. Existing local specialist design and command instructions win where generic upstream guidance conflicts.
 
 Deep Research is incorporated as a mode of `research-analysis`; its separate follow-up entry point is unnecessary because the canonical mode already includes evidence-only follow-up. AppLlama's two upstream skills are consolidated into `mobile-app-design`, with MCP research instructions loaded only when that service is connected. The ADHD-friendly response contract remains one explicit-only skill because it changes conversation behavior rather than research, UI, or implementation behavior.
 
-The 28-source UI review is indexed in [`design-reference-research/references/source-atlas.md`](design-reference-research/references/source-atlas.md). It separates live-product evidence, galleries, motion clips, platform guidance, and source-code registries; rendered desktop/mobile checks and access limitations are recorded without treating attractive screenshots as usability proof.
+The UI review is indexed in [`design-reference-research/references/source-atlas.md`](design-reference-research/references/source-atlas.md). It separates live-product evidence, galleries, motion clips, platform guidance, and source-code registries; rendered desktop/mobile checks and access limitations are recorded without treating attractive screenshots as usability proof.
+
+The latest review selectively strengthens existing entries instead of adding duplicate bundles: `ui-quality-baseline`, `design-reference-research`, and `content-seo` cover UI repair, design-rule evidence, and page metadata; `engineering-specialists` and `review` add language-specific simplification checks for TypeScript, Python, and Go. Current `animate` already provides a stricter motion-performance contract, so the external motion checklist was reviewed without duplication. Guidance was independently adapted; no upstream instructions override repository, project, or user authority.
 
 ## Validation and releases
 

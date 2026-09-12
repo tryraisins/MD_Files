@@ -130,6 +130,22 @@
       "rationale": "An explicit supported-stack security review outranks generic review."
     },
     {
+      "id": "language-simplification",
+      "prompt": "Simplify this TypeScript service without removing real validation or changing its public behavior.",
+      "primary": "engineering-specialists",
+      "secondary": ["review"],
+      "mustNotLead": ["cleanup"],
+      "rationale": "Language-aware simplification preserves genuine trust-boundary work instead of treating a cleanup as generic deletion."
+    },
+    {
+      "id": "public-page-metadata",
+      "prompt": "Fix the canonical URL, Open Graph card, JSON-LD, and indexing metadata for this public page.",
+      "primary": "content-seo",
+      "secondary": [],
+      "mustNotLead": ["frontend-design"],
+      "rationale": "Metadata correctness and crawlability belong to the focused SEO workflow, not a visual-design route."
+    },
+    {
       "id": "threat-model",
       "prompt": "Threat model this repository and enumerate trust boundaries and abuse paths.",
       "primary": "security-threat-model",

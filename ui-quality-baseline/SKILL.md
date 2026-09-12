@@ -28,6 +28,12 @@ When the visual direction is not already fixed, use `design-reference-research` 
 - Keep a short rejection list so attractive but irrelevant patterns do not leak into the result.
 - Every major visual choice must trace to product content, a user need, a platform convention, or observed reference evidence—not merely “modern,” “premium,” or “clean.”
 
+## Repair the smallest real UI surface
+
+For a UI fix or improvement request, identify the affected route, component, state, and target viewport before styling. Reconstruct the local design system and working interaction first; record confirmed defects separately from preferences or unverified assumptions.
+
+Prioritize in this order: inaccessible or broken behavior, responsive and state failures, system inconsistency, hierarchy or task-flow weakness, then visual polish. Repair the governing token, primitive, layout constraint, or state contract when it explains multiple symptoms. Do not restyle every visible element, replace a working flow, or turn an evidence-backed repair into a broad redesign without scope.
+
 ## Tokenize repeated decisions
 
 Create or reuse role-based tokens for:

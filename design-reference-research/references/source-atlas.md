@@ -1,6 +1,6 @@
 # UI source atlas
 
-Reviewed 2026-09-09. Use this as routing guidance, not as a mandatory browse list. Recheck live sources when a task depends on current content.
+Reviewed 2026-09-12. Use this as routing guidance, not as a mandatory browse list. Recheck live sources when a task depends on current content.
 
 ## How the review was performed
 
@@ -56,6 +56,7 @@ All supplied URLs were attempted through a text-capable web reader and a rendere
 | [beUI](https://beui.dev/) | React 19/Tailwind 4 motion components and blocks distributed through shadcn. | Confirm project-version compatibility and avoid importing demo styling or gratuitous motion. |
 | [60fps](https://60fps.design/) | Motion clips and taxonomy across controls, gestures, onboarding, loading, success, empty state, and navigation. | A clip is inspiration, not a timing specification. Reproduce purpose and physics only after measuring the product context. |
 | [Design Spells](https://designspells.com/) | Small delightful details across mobile, desktop, interaction, skeuomorphism, error states, and motion. | Reserve delight for suitable frequency and tone; require a static and reduced-motion path. |
+| [ui-skills](https://github.com/ibelick/ui-skills/tree/main/skills) | Scoped UI baseline, evidence-led `DESIGN.md` creation, accessibility, metadata, and motion-performance repair workflows. Reviewed at `f5dd1de9c0fc6c033a43dc3fd2a5be41366e9f43`. | Use its focused audit method to improve an existing local skill; do not import a second universal UI baseline or treat its commands as project authority. |
 
 ## Human-AI interaction
 
