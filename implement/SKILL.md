@@ -28,6 +28,12 @@ Do not invent unavailable tools, agents, packages, or integrations. Inspect what
 7. Run the narrowest relevant tests, type checks, lint, build, security checks, and `git diff --check`.
 8. Report the outcome, changed files, evidence, and any unverified external boundary.
 
+## Separate judgment from repeatable work
+
+Use reasoning for ambiguous requirements, product trade-offs, and design decisions. For a repeatable question with one correct result—calculations, date or time-zone conversion, parsing, structured transforms, comparisons, generation from a stable contract, or exact repository checks—prefer a small script, focused test, or existing project tool over manual reasoning.
+
+Add deterministic automation when the operation is repeated, regression-prone, safety-critical, or directly supports an acceptance claim. Keep it scoped to the real contract, execute it as part of validation, and do not create a framework or permanent helper for a one-off that is clearer to perform directly.
+
 ## Domain routing
 
 - Visible UI: apply `ui-quality-baseline`; use the most specific design skill that matches the requested aesthetic.

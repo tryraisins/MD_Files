@@ -56,6 +56,7 @@ Search for inbound references with `rg` before a rename or deletion. A clean Mar
 - Preserve established spelling, terminology, capitalization, and product names. Define acronyms on first use when the audience needs it.
 - Distinguish fact, inference, recommendation, and unverified status. Never turn transport success, a build, or a static check into proof of runtime behavior.
 - Do not add generated badges, dates, versions, or status claims unless they have a maintained source.
+- Recheck commands, URLs, values, API shapes, and code snippets a reader is expected to copy. Use an existing script or a focused deterministic check for claims with one reproducible answer; label environment-dependent or unavailable checks as unverified rather than inferring success.
 
 ## Repository documentation workflow
 
@@ -76,8 +77,8 @@ For a folder collection of Agent Skills:
 1. Discover only top-level directories containing `SKILL.md` unless the repository declares another root.
 2. Require YAML frontmatter with `name` and `description`.
 3. Keep `name` lowercase, hyphenated, at most 64 characters, and identical to its parent folder.
-4. Make `description` state both capability and trigger context; keep it below 1024 characters.
-5. Keep the main `SKILL.md` below 500 lines and roughly below 5,000 tokens when practical. Move detailed variants into `references/` and deterministic work into `scripts/`.
+4. Make `description` the shortest discriminating statement of capability and trigger context. Do not list adjacent domains or exhaustively advertise every possible use; keep it below 1024 characters.
+5. Keep the main `SKILL.md` below 500 lines and roughly below 5,000 tokens when practical. For a skill with multiple modes, make its entry point a minimal router, then load detailed variants from `references/` and deterministic work from `scripts/` only when needed.
 6. Keep file references relative to the skill root and preferably one level deep.
 7. Merge only true behavioral duplicates. Preserve focused skills when they encode different roles, platforms, risk boundaries, design languages, or output contracts.
 8. When guidance conflicts, use this precedence:

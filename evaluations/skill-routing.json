@@ -146,6 +146,22 @@
       "rationale": "Metadata correctness and crawlability belong to the focused SEO workflow, not a visual-design route."
     },
     {
+      "id": "repeatable-acceptance-check",
+      "prompt": "Implement this CSV importer and make the duplicate, date, and totals checks deterministic so they can be rerun in CI.",
+      "primary": "implement",
+      "secondary": ["engineering-specialists"],
+      "mustNotLead": ["research-analysis"],
+      "rationale": "A scoped implementation should turn reproducible acceptance rules into executable checks while retaining judgment for product decisions."
+    },
+    {
+      "id": "skill-catalog-consolidation",
+      "prompt": "Consolidate these overlapping agent skills so their descriptions remain narrowly triggered and detailed modes are loaded only when relevant.",
+      "primary": "markdown-management",
+      "secondary": [],
+      "mustNotLead": ["engineering-specialists"],
+      "rationale": "Skill-catalog consolidation is a Markdown authority and progressive-disclosure task, not a generic engineering-persona request."
+    },
+    {
       "id": "threat-model",
       "prompt": "Threat model this repository and enumerate trust boundaries and abuse paths.",
       "primary": "security-threat-model",

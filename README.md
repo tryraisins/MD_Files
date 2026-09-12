@@ -116,7 +116,8 @@ The 2026-09-12 refresh additionally reviewed:
 - `pipethedev` TypeScript Anti-Slop gist at `165357e91adc1367ef3ecccc9634bfe2e2d968c4`;
 - `pipethedev` Python Anti-Slop gist at `313007ca4ce40384272320f2c984a651610969b9`;
 - `pipethedev` Go de-slop gist at `42f9a8e8f7006e3f377187841406ed37daa3276f`;
-- `jbarbier/CLAUDE.md` at `02ddd29be403278cfa068ffd54e247bb1f5a1b9f`.
+- `jbarbier/CLAUDE.md` at `02ddd29be403278cfa068ffd54e247bb1f5a1b9f`;
+- OpenAI's [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra), published 2026-09-11.
 
 Upstream material is adapted selectively. Existing local specialist design and command instructions win where generic upstream guidance conflicts.
 
@@ -124,7 +125,7 @@ Deep Research is incorporated as a mode of `research-analysis`; its separate fol
 
 The UI review is indexed in [`design-reference-research/references/source-atlas.md`](design-reference-research/references/source-atlas.md). It separates live-product evidence, galleries, motion clips, platform guidance, and source-code registries; rendered desktop/mobile checks and access limitations are recorded without treating attractive screenshots as usability proof.
 
-The latest review selectively strengthens existing entries instead of adding duplicate bundles: `ui-quality-baseline`, `design-reference-research`, and `content-seo` cover UI repair, design-rule evidence, and page metadata; `engineering-specialists` and `review` add language-specific simplification checks for TypeScript, Python, and Go. Current `animate` already provides a stricter motion-performance contract, so the external motion checklist was reviewed without duplication. Guidance was independently adapted; no upstream instructions override repository, project, or user authority.
+The latest review selectively strengthens existing entries instead of adding duplicate bundles: `ui-quality-baseline`, `design-reference-research`, and `content-seo` cover UI repair, design-rule evidence, and page metadata; `engineering-specialists` and `review` add language-specific simplification checks for TypeScript, Python, and Go; `implement` and `markdown-management` separate judgment from repeatable verification work, preserve short discriminating skill triggers, and route detail progressively. Current `animate` already provides a stricter motion-performance contract, so the external motion checklist was reviewed without duplication. Guidance was independently adapted; no upstream instructions override repository, project, or user authority.
 
 ## Validation and releases
 

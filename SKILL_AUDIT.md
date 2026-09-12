@@ -87,6 +87,7 @@ Reviewed repositories and revisions:
 - [Python Anti-Slop](https://gist.github.com/pipethedev/5707c47edd0d6994347adef72c533de9) at `313007ca4ce40384272320f2c984a651610969b9`.
 - [Go de-slop](https://gist.github.com/pipethedev/0bc97d0d4a13edafbad95a00ad8b7ffe) at `42f9a8e8f7006e3f377187841406ed37daa3276f`.
 - [CLAUDE.md](https://github.com/jbarbier/CLAUDE.md) at `02ddd29be403278cfa068ffd54e247bb1f5a1b9f`.
+- [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra), published 2026-09-11.
 
 The Anthropic frontend guidance was adapted into a compact `frontend-design` entry point. OpenAI's current plugin repository was treated as format and progressive-disclosure reference material, not copied wholesale. Existing local specialist design and command behavior was retained wherever broader upstream guidance conflicted.
 
@@ -94,7 +95,7 @@ Rare UI, beUI, Spectrum UI, and Spell UI are incorporated into `pick-ui-library`
 
 The original 28 supplied UI sources were reviewed through text extraction where available and rendered checks at desktop and mobile widths. Their functions, adoption boundaries, and access limitations are preserved in the design-reference source atlas. Gallery screenshots are explicitly treated as discovery evidence, not proof of accessibility, performance, conversion, or production use.
 
-The 2026-09-12 additions were independently adapted as concise local rules. They retain real validation, error handling, idiomatic framework conventions, project-specific contracts, and user authority; no source was imported as an overriding general workflow. The established `animate` skill already exceeds the reviewed motion-performance guidance and remains the canonical motion entry point.
+The 2026-09-12 additions were independently adapted as concise local rules. `implement` now routes repeatable, acceptance-critical operations to small executable checks, while `markdown-management` requires copyable examples and deterministic claims to be rechecked. The GPT-6 Astra guidance further tightens catalog maintenance: descriptions must be short and discriminating, multi-mode skills must route progressively, and instructions must not become generic itineraries that overconstrain more capable models. They retain real validation, error handling, idiomatic framework conventions, project-specific contracts, and user authority; no source was imported as an overriding general workflow. The established `animate` skill already exceeds the reviewed motion-performance guidance and remains the canonical motion entry point.
 
 Deep Research extends the canonical research workflow instead of duplicating it. AppLlama's two related entry points are represented by one mobile implementation skill with optional MCP research. The ADHD-friendly response mode remains explicit-only. These boundaries are covered by routing evaluations for deep research, reference-led visual research, human-AI interaction, native mobile flows, Expo animation, mobile image generation, and ADHD mode.
 
