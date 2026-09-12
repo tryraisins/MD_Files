@@ -1,6 +1,6 @@
 ---
 name: mobile-app-design
-description: Design and implement native-feeling mobile screens and flows, especially Expo or React Native apps. Use for navigation, native controls, screen states, accessibility, performance, and simulator-verified mobile UI; not for image-only concepts or motion-only changes.
+description: Design and implement native-feeling mobile screens and flows, especially Expo or React Native. Use for navigation, controls, states, accessibility, and performance.
 license: MIT
 metadata:
   upstream: https://github.com/Appllama/appllama-skills

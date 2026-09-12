@@ -1,6 +1,6 @@
 ---
 name: ui-quality-baseline
-description: Mandatory UI quality baseline for every design, redesign, design-to-code, frontend implementation, component edit, or visual review, including work as small as one button, badge, input, icon, loader, skeleton, or animation. Always use this skill whenever a task creates or changes visible interface code or mockups, even if the user does not explicitly ask for design-system consistency, responsiveness, loading states, motion, or accessibility.
+description: Apply shared visual, responsive, accessibility, state, and motion checks whenever creating, changing, or reviewing visible UI or mockups.
 ---
 
 # Universal UI Quality Baseline

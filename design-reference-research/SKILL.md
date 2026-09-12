@@ -1,6 +1,6 @@
 ---
 name: design-reference-research
-description: Research live interfaces, galleries, flows, and component sources, then synthesize evidence into a product-specific design direction. Use when a user supplies UI references, asks for inspiration or competitor-pattern research, or needs a non-generic visual direction before implementation; do not use for implementation-only work whose design is already fixed.
+description: Research interface references into an evidence ledger and implementation brief. Use before design or redesign when references or benchmark evidence should drive direction.
 ---
 
 # Design reference research

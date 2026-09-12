@@ -1,6 +1,6 @@
 ---
 name: cleanup
-description: Remove confirmed dead code, unused imports, redundant files, and structural clutter with reversible evidence. Use when the user explicitly requests code or project cleanup.
+description: Remove confirmed dead code, stale dependencies, or redundant configuration when the user asks to clean up or prune a project.
 ---
 
 # Cleanup

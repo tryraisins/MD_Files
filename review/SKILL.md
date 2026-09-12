@@ -1,6 +1,6 @@
 ---
 name: review
-description: Review code, systems, refactors, and maintainability for concrete defects, regressions, and risks with actionable evidence. Use when the user requests a code review, audit, or quality assessment.
+description: Review code or systems for concrete defects, regressions, and maintainability risks when the user requests an audit or quality assessment.
 ---
 
 # Review — Comprehensive Code Review

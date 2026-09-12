@@ -1,6 +1,6 @@
 ---
 name: research-analysis
-description: Unified workflow for research, discovery, comparison, source validation, and evidence-backed reports. Use for market, competitive, trend, data, or explicit deep-research requests that require multiple sources.
+description: Research, compare, validate sources, and produce evidence-backed reports. Use for market, competitive, trend, data, or explicit deep research.
 ---
 
 # Research and Analysis

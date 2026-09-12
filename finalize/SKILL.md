@@ -1,6 +1,6 @@
 ---
 name: finalize
-description: Run repository-appropriate documentation and quality gates, summarize the final diff, and perform only explicitly requested Git publication steps. Use when the user asks to finalize, prepare, commit, or publish completed work.
+description: Run final documentation and quality gates, summarize the diff, and perform requested Git publication. Use when preparing completed work for delivery.
 ---
 
 # Finalize

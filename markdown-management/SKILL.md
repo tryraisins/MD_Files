@@ -1,6 +1,6 @@
 ---
 name: markdown-management
-description: Create, reorganize, merge, update, and quality-check Markdown documentation without losing meaning, links, anchors, source authority, or repository conventions. Use for README and docs maintenance, Markdown migrations, documentation deduplication, skill-folder audits, SKILL.md authoring, changelog-adjacent updates, and large multi-file .md cleanup.
+description: Create, merge, update, or audit Markdown without losing meaning, links, authority, or repository conventions. Use for README, docs, and Agent Skill maintenance.
 compatibility: Works in any repository. The bundled audit script requires PowerShell 7 or Windows PowerShell 5.1.
 metadata:
   last-reviewed: "2026-09-07"

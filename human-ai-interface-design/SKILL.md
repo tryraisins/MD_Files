@@ -1,6 +1,6 @@
 ---
 name: human-ai-interface-design
-description: Design trustworthy interfaces for AI suggestions, generation, retrieval, copilots, and agents. Use when shaping AI product flows, provenance, uncertainty, review, approvals, autonomy, recovery, feedback, or long-running work; do not use for ordinary deterministic UI with no AI-mediated behavior.
+description: Design trustworthy AI-mediated interfaces. Use for suggestions, generation, retrieval, copilots, agents, provenance, uncertainty, approvals, autonomy, or recovery.
 ---
 
 # Human-AI interface design

@@ -1,6 +1,6 @@
 ---
 name: frontend-developer
-description: Build performant, accessible, visually distinctive web interfaces in the repository's installed React, Vue, or Angular stack. Use when implementing or repairing frontend components, state, styling, and browser behavior.
+description: Implement or repair accessible web interfaces in React, Vue, or Angular. Use when changing frontend components, state, styling, or browser behavior.
 ---
 
 # Frontend Developer

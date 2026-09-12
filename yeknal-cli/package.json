@@ -1,6 +1,6 @@
 {
   "name": "yeknal",
-  "version": "1.6.2",
+  "version": "2.0.0",
   "description": "Sync AI agent skills and run static security audits",
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "files": [
     "bin/",
+    "profiles.json",
     "README.md"
   ],
   "keywords": [

@@ -1,6 +1,6 @@
 ---
 name: redesign-existing-projects
-description: Audit and redesign an existing website or app without breaking its behavior, design authority, data flow, or platform assumptions. Use when the user requests a visual refresh, UX improvement, responsive repair, or removal of generic interface patterns in an existing product.
+description: Redesign an existing website or app without breaking behavior or data flow. Use for visual refreshes, UX improvements, responsive repair, or de-genericization.
 ---
 
 # Redesign an existing product

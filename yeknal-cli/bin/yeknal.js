@@ -11,6 +11,7 @@ const os = require("os");
 const path = require("path");
 const https = require("https");
 const { exec } = require("child_process");
+const SKILL_PROFILES = require("../profiles.json");
 
 const fsp = fs.promises;
 
@@ -33,6 +34,7 @@ const MAX_RETRY_DELAY_MS = 10_000;
 // SEO is source/reference material without a SKILL.md entry point.
 const EXCLUDED_SKILL_FOLDERS = new Set(["SEO"]);
 const MANAGED_SKILL_FOLDER_PREFIX = "yeknal-";
+const DEFAULT_SKILL_PROFILE = "core";
 
 const SECURITY_REPO_FOLDERS = [
   "application-security",
@@ -43,8 +45,121 @@ const SECURITY_REPO_FOLDERS = [
 
 function usage() {
   console.log("\nUsage:");
-  console.log("  npx yeknal security   Sync security skills + scan current project");
-  console.log("  npx yeknal skills     Sync all skill folders\n");
+  console.log("  npx yeknal skills [profile] [--profile name,...] [--skills name,...] [--project]");
+  console.log("  npx yeknal skills --all");
+  console.log("  npx yeknal profiles");
+  console.log("  npx yeknal security   Sync security skills + scan current project\n");
+}
+
+function splitOptionList(value) {
+  return String(value || "")
+    .split(",")
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+function parseSkillsCommandArgs(args) {
+  const options = {
+    profiles: [],
+    skills: [],
+    project: false,
+  };
+  let hasExplicitProfile = false;
+
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+
+    if (arg === "--project") {
+      options.project = true;
+      continue;
+    }
+    if (arg === "--all") {
+      options.profiles.push("all");
+      hasExplicitProfile = true;
+      continue;
+    }
+    if (arg === "--profile" || arg === "--skills") {
+      const value = args[index + 1];
+      if (!value || value.startsWith("--")) {
+        throw new Error(`${arg} requires a comma-separated value.`);
+      }
+      if (arg === "--profile") {
+        options.profiles.push(...splitOptionList(value));
+        hasExplicitProfile = true;
+      } else {
+        options.skills.push(...splitOptionList(value));
+      }
+      index += 1;
+      continue;
+    }
+    if (arg.startsWith("--profile=")) {
+      options.profiles.push(...splitOptionList(arg.slice("--profile=".length)));
+      hasExplicitProfile = true;
+      continue;
+    }
+    if (arg.startsWith("--skills=")) {
+      options.skills.push(...splitOptionList(arg.slice("--skills=".length)));
+      continue;
+    }
+    if (!arg.startsWith("-")) {
+      options.profiles.push(...splitOptionList(arg));
+      hasExplicitProfile = true;
+      continue;
+    }
+
+    throw new Error(`Unknown skills option "${arg}".`);
+  }
+
+  if (!hasExplicitProfile) {
+    options.profiles.push(DEFAULT_SKILL_PROFILE);
+  }
+
+  options.profiles = [...new Set(options.profiles)];
+  options.skills = [...new Set(options.skills)];
+  if (options.profiles.includes("all") && options.profiles.length > 1) {
+    throw new Error('The "all" profile cannot be combined with another profile.');
+  }
+  if (options.profiles.includes("all") && options.skills.length > 0) {
+    throw new Error('The "all" profile cannot be combined with named skills.');
+  }
+
+  return options;
+}
+
+function selectSkillFolders(availableFolders, options) {
+  const available = new Set(availableFolders);
+  if (options.profiles.includes("all")) {
+    return [...availableFolders];
+  }
+
+  const requested = new Set(options.skills);
+  for (const profileName of options.profiles) {
+    const profile = SKILL_PROFILES[profileName];
+    if (!profile) {
+      throw new Error(
+        `Unknown skill profile "${profileName}". Run "npx yeknal profiles" to list profiles.`,
+      );
+    }
+    for (const folder of profile.skills) {
+      requested.add(folder);
+    }
+  }
+
+  const missing = [...requested].filter((folder) => !available.has(folder));
+  if (missing.length > 0) {
+    throw new Error(`Requested skill folder(s) not found: ${missing.join(", ")}`);
+  }
+
+  return [...requested].sort((a, b) => a.localeCompare(b));
+}
+
+function runProfilesCommand() {
+  console.log("\nAvailable skill profiles:\n");
+  for (const [name, profile] of Object.entries(SKILL_PROFILES)) {
+    console.log(`  ${name.padEnd(18)} ${String(profile.skills.length).padStart(2)}  ${profile.description}`);
+  }
+  console.log("  all                *  Every skill in the current catalog (legacy/full install).\n");
+  console.log(`Default: ${DEFAULT_SKILL_PROFILE}. Profiles are exact sets; combine them with commas when needed.`);
 }
 
 function isHttpSuccess(statusCode) {
@@ -461,7 +576,7 @@ async function downloadSkillsFromGit(tempRoot, skillFolders, repoTree) {
   process.stdout.write(`\r  Downloaded ${total} skill folder(s).${" ".repeat(32)}\n`);
 }
 
-async function stageSkillsFromGitClone(tempRoot) {
+async function stageSkillsFromGitClone(tempRoot, options) {
   const cloneRoot = await fsp.mkdtemp(path.join(os.tmpdir(), "yeknal-repo-"));
   const repoPath = path.join(cloneRoot, "repo");
   const cloneUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO}.git`;
@@ -469,10 +584,11 @@ async function stageSkillsFromGitClone(tempRoot) {
 
   try {
     await execCommand(cloneCommand);
-    const skillFolders = await discoverLocalSkillFolders(repoPath);
-    if (skillFolders.length === 0) {
+    const availableFolders = await discoverLocalSkillFolders(repoPath);
+    if (availableFolders.length === 0) {
       throw new Error("No skill folders were discovered from the cloned repository.");
     }
+    const skillFolders = selectSkillFolders(availableFolders, options);
 
     // A raw-download fallback can follow a partially staged tree. Reset the
     // private staging area so the clone is the sole source of installed files.
@@ -538,10 +654,34 @@ async function resolveSkillTargets() {
   return targets;
 }
 
-async function runSkillsCommand() {
+async function resolveProjectSkillTarget(cwd = process.cwd(), runner = execCommand) {
+  let result;
+  try {
+    result = await runner("git rev-parse --show-toplevel", { cwd });
+  } catch {
+    throw new Error(
+      "Project skill installation requires the current directory to be inside a Git repository.",
+    );
+  }
+
+  const repoRoot = String(result.stdout || "").trim();
+  if (!repoRoot) {
+    throw new Error("Git did not return a repository root for project skill installation.");
+  }
+
+  return {
+    label: "Project",
+    parentPath: repoRoot,
+    skillsPath: path.join(repoRoot, ".agents", "skills"),
+  };
+}
+
+async function runSkillsCommand(options) {
   console.log("\nFetching available skill folders from GitHub...");
 
-  const targets = await resolveSkillTargets();
+  const targets = options.project
+    ? [await resolveProjectSkillTarget()]
+    : await resolveSkillTargets();
   if (targets.length === 0) {
     console.log("No supported parent folders found. Nothing to sync.");
     console.log("Expected one or more of:");
@@ -566,12 +706,13 @@ async function runSkillsCommand() {
       const repoTree = await fetchRepoTree();
       process.stdout.write(" done.\n");
 
-      skillFolders = discoverSkillFolders(repoTree);
-      if (skillFolders.length === 0) {
+      const availableFolders = discoverSkillFolders(repoTree);
+      if (availableFolders.length === 0) {
         throw new Error("No skill folders were discovered from the GitHub repository.");
       }
+      skillFolders = selectSkillFolders(availableFolders, options);
 
-      console.log(`  Found ${skillFolders.length} skill folder(s). Starting download...\n`);
+      console.log(`  Selected ${skillFolders.length} skill folder(s). Starting download...\n`);
       await downloadSkillsFromGit(tempRoot, skillFolders, repoTree);
     } catch (error) {
       if (!shouldUseGitCloneFallback(error)) {
@@ -580,13 +721,14 @@ async function runSkillsCommand() {
 
       console.log("\n  GitHub transfer remained unavailable after retries. Falling back to git clone...");
       console.log("  Cloning repository (this may take a moment)...");
-      skillFolders = await stageSkillsFromGitClone(tempRoot);
-      console.log(`  Clone complete. Found ${skillFolders.length} skill folder(s).`);
+      skillFolders = await stageSkillsFromGitClone(tempRoot, options);
+      console.log(`  Clone complete. Selected ${skillFolders.length} skill folder(s).`);
       sourceLabel = "git clone fallback";
     }
 
     console.log(`\nSkill folders to sync (${skillFolders.length}) via ${sourceLabel}:`);
     console.log(`  ${skillFolders.join(", ")}`);
+    console.log(`  Profiles: ${options.profiles.join(", ")}; scope: ${options.project ? "project" : "user"}`);
     console.log(`\nInstalled folders use the managed "${MANAGED_SKILL_FOLDER_PREFIX}" prefix.`);
 
     let hadFailure = false;
@@ -2639,7 +2781,12 @@ async function main() {
   }
 
   if (command === "skills") {
-    await runSkillsCommand();
+    await runSkillsCommand(parseSkillsCommandArgs(args.slice(1)));
+    return;
+  }
+
+  if (command === "profiles") {
+    runProfilesCommand();
     return;
   }
 
@@ -2661,7 +2808,9 @@ if (require.main === module) {
 }
 
 module.exports = {
+  DEFAULT_SKILL_PROFILE,
   SECURITY_RULES,
+  SKILL_PROFILES,
   checkResult,
   copyDirRecursive,
   discoverLocalSkillFolders,
@@ -2673,6 +2822,9 @@ module.exports = {
   generateSecuritySarif,
   getManagedSkillFolderName,
   listFilesForFolder,
+  parseSkillsCommandArgs,
   removeStaleManagedSkillFolders,
+  resolveProjectSkillTarget,
+  selectSkillFolders,
   shouldUseGitCloneFallback,
 };

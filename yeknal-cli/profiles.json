@@ -1,0 +1,139 @@
+{
+  "core": {
+    "description": "High-frequency process, reasoning, design, implementation, verification, and security workflows.",
+    "skills": [
+      "add-changelog",
+      "animate",
+      "application-security",
+      "brainstorm",
+      "cleanup",
+      "design-reference-research",
+      "engineering-specialists",
+      "finalize",
+      "frontend-design",
+      "frontend-developer",
+      "git",
+      "human-ai-interface-design",
+      "implement",
+      "markdown-management",
+      "mobile-app-design",
+      "orchestration-specialists",
+      "playwright",
+      "redesign-existing-projects",
+      "research-analysis",
+      "review",
+      "security-best-practices",
+      "security-ownership-map",
+      "security-threat-model",
+      "troubleshoot",
+      "ui-quality-baseline"
+    ]
+  },
+  "process": {
+    "description": "Optional delivery, GitHub, cleanup, exhaustive-output, and response-mode workflows beyond core.",
+    "skills": [
+      "dead-code-hunter",
+      "full-output-enforcement",
+      "gh-address-comments",
+      "gh-fix-ci",
+      "i-have-adhd",
+      "yeet"
+    ]
+  },
+  "design": {
+    "description": "Specialist visual styles, motion, prototyping, Figma, and image-led workflows beyond core design.",
+    "skills": [
+      "animate-expo",
+      "animation-vocabulary",
+      "apple-design",
+      "ask-sonner",
+      "brandkit",
+      "design-taste-frontend",
+      "design-taste-frontend-v1",
+      "emil-design-eng",
+      "figma-implement-design",
+      "find-animation-opportunities",
+      "gpt-taste",
+      "high-end-visual-design",
+      "image-to-code",
+      "imagegen-frontend-mobile",
+      "imagegen-frontend-web",
+      "improve-animations",
+      "industrial-brutalist-ui",
+      "minimalist-ui",
+      "oil-motion",
+      "pick-ui-library",
+      "prototype",
+      "review-animations",
+      "stitch-design-taste",
+      "ui-ux-designer"
+    ]
+  },
+  "security": {
+    "description": "Secure implementation, focused review, threat modeling, and sensitive-code ownership analysis.",
+    "skills": [
+      "application-security",
+      "security-best-practices",
+      "security-ownership-map",
+      "security-threat-model"
+    ]
+  },
+  "web": {
+    "description": "Specialist web app, framework, SEO, and production-error workflows beyond core.",
+    "skills": [
+      "chatgpt-apps",
+      "content-seo",
+      "develop-web-game",
+      "nextjs-developer",
+      "sentry"
+    ]
+  },
+  "platform": {
+    "description": "Platform-specific engineering and deployment workflows.",
+    "skills": [
+      "aspnet-core",
+      "cloudflare-deploy",
+      "netlify-deploy",
+      "render-deploy",
+      "vercel-deploy",
+      "winui-app",
+      "write-swift"
+    ]
+  },
+  "documents-media": {
+    "description": "Documents, spreadsheets, presentations, notebooks, images, audio, video, and screenshots.",
+    "skills": [
+      "doc",
+      "imagegen",
+      "jupyter-notebook",
+      "pdf",
+      "screenshot",
+      "slides",
+      "sora",
+      "speech",
+      "spreadsheet",
+      "transcribe"
+    ]
+  },
+  "productivity": {
+    "description": "Linear and Notion knowledge, meeting, research, and specification workflows.",
+    "skills": [
+      "linear",
+      "notion-knowledge-capture",
+      "notion-meeting-intelligence",
+      "notion-research-documentation",
+      "notion-spec-to-implementation"
+    ]
+  },
+  "openai": {
+    "description": "OpenAI documentation and generation workflows for images, video, speech, and transcription.",
+    "skills": [
+      "chatgpt-apps",
+      "imagegen",
+      "openai-docs",
+      "sora",
+      "speech",
+      "transcribe"
+    ]
+  }
+}

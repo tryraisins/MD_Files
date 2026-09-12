@@ -88,6 +88,89 @@ test("removes stale managed folders but preserves expected and personal folders"
   });
 });
 
+test("skills command defaults to core and parses project/profile selections", () => {
+  assert.deepEqual(yeknal.parseSkillsCommandArgs([]), {
+    profiles: ["core"],
+    skills: [],
+    project: false,
+  });
+  assert.deepEqual(
+    yeknal.parseSkillsCommandArgs(["--project", "--profile", "process,design", "--skills=nextjs-developer"]),
+    {
+      profiles: ["process", "design"],
+      skills: ["nextjs-developer"],
+      project: true,
+    },
+  );
+  assert.deepEqual(yeknal.parseSkillsCommandArgs(["--all"]), {
+    profiles: ["all"],
+    skills: [],
+    project: false,
+  });
+  assert.throws(
+    () => yeknal.parseSkillsCommandArgs(["--all", "design"]),
+    /cannot be combined/,
+  );
+  assert.throws(
+    () => yeknal.parseSkillsCommandArgs(["--all", "--skills", "nextjs-developer"]),
+    /cannot be combined/,
+  );
+});
+
+test("profiles reference real skills and keep core discovery under budget", async () => {
+  const repoRoot = path.join(__dirname, "..", "..");
+  const availableFolders = await yeknal.discoverLocalSkillFolders(repoRoot);
+  const available = new Set(availableFolders);
+
+  for (const [profileName, profile] of Object.entries(yeknal.SKILL_PROFILES)) {
+    assert.ok(profile.skills.length > 0, `${profileName} is empty`);
+    assert.equal(new Set(profile.skills).size, profile.skills.length, `${profileName} has duplicates`);
+    for (const skillName of profile.skills) {
+      assert.equal(available.has(skillName), true, `${profileName}: ${skillName}`);
+    }
+  }
+
+  const covered = new Set(
+    Object.values(yeknal.SKILL_PROFILES).flatMap((profile) => profile.skills),
+  );
+  assert.deepEqual(availableFolders.filter((skillName) => !covered.has(skillName)), []);
+
+  const coreMetadata = yeknal.SKILL_PROFILES.core.skills.map((skillName) => {
+    const skillFile = path.join(repoRoot, skillName, "SKILL.md");
+    const description = fs.readFileSync(skillFile, "utf8").match(/^description:\s*(.+)$/m)?.[1] || "";
+    return `- ${skillName}: ${description} (file: yeknal-${skillName}/SKILL.md)\n`;
+  }).join("");
+  assert.ok(coreMetadata.length <= 8_000, `core metadata is ${coreMetadata.length} characters`);
+
+  const selected = yeknal.selectSkillFolders(availableFolders, {
+    profiles: ["security"],
+    skills: ["nextjs-developer"],
+  });
+  assert.deepEqual(selected, [
+    "application-security",
+    "nextjs-developer",
+    "security-best-practices",
+    "security-ownership-map",
+    "security-threat-model",
+  ]);
+  assert.throws(
+    () => yeknal.selectSkillFolders(availableFolders, { profiles: ["missing"], skills: [] }),
+    /Unknown skill profile/,
+  );
+});
+
+test("project scope resolves to the repository .agents skills directory", async () => {
+  const target = await yeknal.resolveProjectSkillTarget("C:\\repo\\nested", async (command, options) => {
+    assert.equal(command, "git rev-parse --show-toplevel");
+    assert.equal(options.cwd, "C:\\repo\\nested");
+    return { stdout: "C:\\repo\n" };
+  });
+
+  assert.equal(target.label, "Project");
+  assert.equal(target.parentPath, "C:\\repo");
+  assert.equal(target.skillsPath, path.join("C:\\repo", ".agents", "skills"));
+});
+
 test("uses git fallback for exhausted transient GitHub transfer failures", () => {
   const coded = new Error("rate limited");
   coded.code = "GITHUB_RATE_LIMIT";
@@ -252,4 +335,15 @@ test("CLI help remains executable", () => {
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /npx yeknal security/);
   assert.match(result.stdout, /npx yeknal skills/);
+  assert.match(result.stdout, /npx yeknal profiles/);
+});
+
+test("CLI profiles command remains executable", () => {
+  const result = spawnSync(process.execPath, [path.join(__dirname, "..", "bin", "yeknal.js"), "profiles"], {
+    encoding: "utf8",
+  });
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /core\s+25/);
+  assert.match(result.stdout, /design\s+24/);
+  assert.match(result.stdout, /Default: core/);
 });

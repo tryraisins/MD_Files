@@ -1,6 +1,6 @@
 ---
 name: engineering-specialists
-description: Cross-stack engineering specialist guidance for frontend, backend, API, build, CLI, mobile, database, language, real-time, documentation, Git, microservices, and deployment work. Use when a task needs a focused engineering persona or implementation checklist across these domains.
+description: Route cross-stack implementation through focused engineering guidance. Use when work needs framework, language, API, data, build, CLI, realtime, or deployment expertise.
 ---
 
 # Engineering Specialists

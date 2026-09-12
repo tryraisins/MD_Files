@@ -1,6 +1,6 @@
 ---
 name: "security-best-practices"
-description: "Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks."
+description: "Review Python, JavaScript/TypeScript, or Go code for security best practices. Use only for explicit security review or secure-by-default coding requests."
 metadata:
   baseline: OWASP Top 10:2025 and OWASP ASVS 5.0
   openai-plugins-reviewed-commit: 1e285826e604f66f7208f7ac4dba0fe8341d1f57

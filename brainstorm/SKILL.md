@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: Structure divergent idea generation, compare viable approaches, and converge on evidence-backed options. Use when the user asks to brainstorm, explore alternatives, or shape an ambiguous concept.
+description: Generate and compare alternatives before implementation. Use for brainstorming, concept exploration, or ambiguous problem framing.
 ---
 
 # Brainstorm

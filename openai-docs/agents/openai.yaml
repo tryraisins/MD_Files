@@ -3,7 +3,7 @@ interface:
   short_description: "Reference official OpenAI docs, including upgrade guidance"
   icon_small: "./assets/openai-small.svg"
   icon_large: "./assets/openai.png"
-  default_prompt: "Look up official OpenAI docs, load relevant GPT-5.4 upgrade references when applicable, and answer with concise, cited guidance."
+  default_prompt: "Use current official OpenAI documentation and answer with concise, cited guidance; audit Astra prompts or skills only when relevant."
 
 dependencies:
   tools:

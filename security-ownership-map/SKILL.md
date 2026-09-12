@@ -1,6 +1,6 @@
 ---
 name: "security-ownership-map"
-description: "Analyze git repositories to build a security ownership topology (people-to-file), compute bus factor and sensitive-code ownership, and export CSV/JSON for graph databases and visualization. Trigger only when the user explicitly wants a security-oriented ownership or bus-factor analysis grounded in git history (for example: orphaned sensitive code, security maintainers, CODEOWNERS reality checks for risk, sensitive hotspots, or ownership clusters). Do not trigger for general maintainer lists or non-security ownership questions."
+description: "Map sensitive-code ownership and bus-factor risk from Git history. Use only for explicit security ownership, orphaned-code, or CODEOWNERS risk analysis."
 metadata:
   openai-plugins-reviewed-commit: 1e285826e604f66f7208f7ac4dba0fe8341d1f57
   last-reviewed: "2026-09-07"

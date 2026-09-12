@@ -12,6 +12,21 @@ Audit date: 2026-09-12
 - Repository-wide relative Markdown link checking reports zero unresolved targets.
 - The yeknal CLI parses successfully, and the final patch passes `git diff --check`.
 
+## Profile and routing architecture
+
+Version 2 separates the downloadable catalog from the always-discoverable set:
+
+- `core` contains 25 high-frequency skills spanning process/reasoning management, canonical design, implementation, browser verification, and all four security workflows;
+- `process`, `design`, `web`, `platform`, `documents-media`, `productivity`, and `openai` add specialist workflows beyond core; `security` is a standalone four-skill subset;
+- `all` preserves access to every current catalog skill without making full installation the default;
+- `--skills` adds exact named skills, while `--project` installs into the current Git repository's `.agents/skills` instead of user-level roots.
+
+Core descriptions were shortened and front-loaded so the complete core discovery metadata remains below Codex's documented 8,000-character fallback budget even after managed folder paths are represented. The default therefore keeps process and thought-management skills available without recreating the full-catalog routing pressure.
+
+Design is consolidated through canonical core routes rather than an oversized universal prompt. The core paths cover reference research, visual direction, shared UI quality, frontend implementation, redesign, mobile, human-AI interaction, and motion. Specialist aesthetics, Figma, prototyping, image-led generation, and motion-audit contracts remain in the `design` pack because they answer materially different requests.
+
+Security remains four focused skills in both core and the `security` pack. Combining their instructions would blur distinct authorization and deliverable boundaries between secure implementation, framework review, threat modeling, and ownership analysis.
+
 ## Consolidation decisions
 
 ### Merged
@@ -113,7 +128,7 @@ The old duplicate raw security prompt files and generated audit log were removed
 - prompt injection, unsafe tool output, memory poisoning, excessive agency, approval boundaries, and bounded agent execution;
 - replay, races, retries, exceptional conditions, logging, and incident response.
 
-The CLI now syncs all four security skills and reads the master baseline from `application-security`. Version `1.6.1` adds Codex `.system` collision avoidance on top of the stable security rule IDs, JSON and SARIF reports, interrupted-download handling, automated tests, CI validation, and the OIDC-ready npm release workflow.
+The CLI syncs all four security skills and reads the master baseline from `application-security`. Version `2.0.0` adds profile selection and repository-local `.agents/skills` installation on top of Codex `.system` collision avoidance, stable security rule IDs, JSON and SARIF reports, interrupted-download handling, automated tests, CI validation, and the OIDC-ready npm release workflow.
 
 ## Validation commands
 

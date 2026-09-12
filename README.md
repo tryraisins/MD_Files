@@ -4,7 +4,7 @@ A curated collection of reusable skill folders for AI coding agents. The collect
 
 ## Requirements
 
-`yeknal` does not need a global install. A new device needs Node.js with npm, internet access, and at least one supported agent folder:
+`yeknal` does not need a global install. A new device needs Node.js with npm and internet access. User-level sync detects these supported agent folders:
 
 - Codex: `~/.codex`
 - Claude: `~/.claude`
@@ -12,28 +12,65 @@ A curated collection of reusable skill folders for AI coding agents. The collect
 - Antigravity: `~/.antigravity`
 
 Git is optional and is used only if the GitHub download path is rate-limited.
+Project-level sync requires the current directory to be inside a Git repository.
 
 ## Quick start
 
 ```bash
 npx yeknal skills
+npx yeknal skills --project --profile design
+npx yeknal profiles
 npx yeknal security
 ```
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal skills` | Syncs every current top-level skill folder into detected local agent skill folders. |
+| `npx yeknal skills` | Syncs the 25-skill core profile into detected user-level agent folders. |
+| `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
+| `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
+| `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Adds exact skills to the default core profile in one repository. |
+| `npx yeknal skills --all` | Syncs all 83 skills for legacy or exhaustive setups. |
+| `npx yeknal profiles` | Lists available profiles and their sizes without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 
 ## Sync behavior
 
 - Skills are pulled from this repository on `main`.
+- Version 2 defaults to `core`; `all` preserves the former full-catalog behavior.
 - Installed folders use the managed `yeknal-` prefix; `frontend-design` becomes `yeknal-frontend-design`.
+- User scope syncs detected Codex, Claude, and Gemini/Antigravity skill folders. Project scope targets the current Git repository's `.agents/skills` folder, which Codex scans from the working directory up to the repository root.
+- Profiles are exact sets. Combine them with commas; a non-core project pack can be installed without duplicating a user-level core profile.
 - `npx yeknal security` installs `application-security`, `security-best-practices`, `security-ownership-map`, and `security-threat-model`.
 - `SEO` remains source/reference material and is not installed because it has no `SKILL.md` entry point.
 - Missing `skills` folders are created inside detected agent parent folders.
 - Managed `yeknal-*` folders are updated or removed as the repository changes.
 - Personal folders without the `yeknal-` prefix are left untouched.
+
+## Capability profiles
+
+The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 25 entries cover:
+
+- process and reasoning management: brainstorming, research, orchestration/context management, implementation, review, diagnosis, cleanup, Git, finalization, and documentation;
+- canonical design: reference research, visual direction, UI quality, frontend implementation, redesign, mobile, motion, and human-AI interaction;
+- security: secure implementation, focused framework review, threat modeling, and sensitive-code ownership;
+- browser-based verification through Playwright.
+
+Specialist packs add depth without forcing every style, platform, integration, or media workflow into every agent prompt:
+
+| Profile | Skills | Purpose |
+| --- | ---: | --- |
+| `core` | 25 | High-frequency process, design, implementation, verification, and security. |
+| `process` | 6 | Optional delivery, cleanup, GitHub, exhaustive-output, and response workflows beyond core. |
+| `design` | 24 | Specialist visual styles, motion, prototyping, Figma, and image-led work beyond core design. |
+| `security` | 4 | The four distinct security output contracts. |
+| `web` | 5 | Specialist web apps, frameworks, SEO, and production errors beyond core. |
+| `platform` | 7 | Platform-specific engineering and deployment. |
+| `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
+| `productivity` | 5 | Linear and Notion workflows. |
+| `openai` | 6 | OpenAI documentation and media-generation workflows. |
+| `all` | 83 | Every catalog entry; use when discovery cost is acceptable. |
+
+Design is consolidated at the routing layer rather than flattened into one oversized skill. `frontend-design`, `ui-quality-baseline`, `design-reference-research`, `redesign-existing-projects`, `mobile-app-design`, `human-ai-interface-design`, and `animate` provide the core paths; aesthetic systems and tool-specific workflows remain in the design pack because their triggers and output contracts differ. Security keeps four folders for the same reason: implementation, review, threat modeling, and ownership analysis are not interchangeable artifacts.
 
 ## Selection and precedence
 

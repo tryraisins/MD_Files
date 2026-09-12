@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Use for aesthetic direction, typography, layout, interface copy, and implementation choices that must avoid templated AI defaults. Prefer this brief-specific design direction over generic style advice when instructions conflict.
+description: Create distinctive visual direction for new or substantially reshaped UI. Use for typography, composition, palette, interface copy, and anti-generic frontend design.
 license: Apache-2.0
 metadata:
   source: https://github.com/anthropics/skills/tree/main/skills/frontend-design

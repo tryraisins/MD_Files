@@ -1,6 +1,6 @@
 ---
 name: add-changelog
-description: Add or update a Keep a Changelog-compatible release entry from verified changes, versions, and repository history. Use when preparing release notes or recording shipped changes.
+description: Add or update a Keep a Changelog entry from verified changes and history when preparing release notes or recording shipped work.
 ---
 
 # Add Changelog

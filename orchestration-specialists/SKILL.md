@@ -1,6 +1,6 @@
 ---
 name: orchestration-specialists
-description: Organize bounded multi-agent work, distribute independent tasks, manage context, synthesize evidence, engineer prompts, and design MCP tools. Use when work spans multiple agents, tools, prompts, or persistent project context.
+description: Organize bounded multi-agent and tool work. Use for task distribution, context management, evidence synthesis, prompt engineering, or MCP design.
 ---
 
 # Orchestration Specialists

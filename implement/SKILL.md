@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Implement a scoped feature or fix end to end while preserving repository architecture, behavior, and validation boundaries. Use when the user asks to build, change, add, or repair code rather than only review or explain it.
+description: Implement a scoped feature or fix end to end while preserving repository behavior. Use when the user asks to build, change, add, or repair code.
 ---
 
 # Implement

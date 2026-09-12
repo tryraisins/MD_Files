@@ -1,6 +1,6 @@
 ---
 name: application-security
-description: Design, review, audit, and harden web applications, APIs, cloud integrations, CI/CD, and AI-enabled systems using evidence-backed modern application-security practices. Use for authentication, authorization, tenant isolation, secrets, input/output handling, browser defenses, supply-chain integrity, uploads, SSRF, business-logic abuse, logging, incident response, and secure deployment.
+description: Design or harden application security across web, API, cloud, CI/CD, and AI systems. Use for secure implementation or broad AppSec analysis.
 metadata:
   baseline: OWASP Top 10:2025, OWASP ASVS 5.0, OWASP API Security Top 10:2023, OWASP LLM Top 10:2025
   openai-plugins-reviewed-commit: 1e285826e604f66f7208f7ac4dba0fe8341d1f57

@@ -1,6 +1,6 @@
 ---
 name: git
-description: Perform scoped Git status, diff, branch, commit, merge, and history operations while preserving unrelated work. Use when the user asks for a Git operation or repository-state investigation.
+description: Perform scoped Git operations while preserving unrelated work. Use for status, diff, branch, commit, merge, history, or push requests.
 ---
 
 # Git

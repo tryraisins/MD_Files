@@ -1,6 +1,6 @@
 ---
 name: troubleshoot
-description: Diagnose code, build, performance, deployment, or system failures from reproducible evidence and optionally apply a scoped fix. Use when the user reports an error, regression, failure, or unexplained behavior.
+description: Diagnose code, build, performance, deployment, or system failures from reproducible evidence when the user reports an error or regression.
 ---
 
 # Troubleshoot
