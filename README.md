@@ -28,7 +28,7 @@ npx yeknal security
 | `npx yeknal skills` | Syncs the 25-skill core profile into detected user-level agent folders. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
-| `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Adds exact skills to the default core profile in one repository. |
+| `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --all` | Syncs all 83 skills for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles and their sizes without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
@@ -39,7 +39,7 @@ npx yeknal security
 - Version 2 defaults to `core`; `all` preserves the former full-catalog behavior.
 - Installed folders use the managed `yeknal-` prefix; `frontend-design` becomes `yeknal-frontend-design`.
 - User scope syncs detected Codex, Claude, and Gemini/Antigravity skill folders. Project scope targets the current Git repository's `.agents/skills` folder, which Codex scans from the working directory up to the repository root.
-- Profiles are exact sets. Combine them with commas; a non-core project pack can be installed without duplicating a user-level core profile.
+- Profiles are exact sets. Combine them with commas; named `--skills` are also exact and do not add core implicitly, so project installs need not duplicate a user-level core profile.
 - `npx yeknal security` installs `application-security`, `security-best-practices`, `security-ownership-map`, and `security-threat-model`.
 - `SEO` remains source/reference material and is not installed because it has no `SKILL.md` entry point.
 - Missing `skills` folders are created inside detected agent parent folders.

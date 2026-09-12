@@ -107,6 +107,11 @@ test("skills command defaults to core and parses project/profile selections", ()
     skills: [],
     project: false,
   });
+  assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--skills", "nextjs-developer"]), {
+    profiles: [],
+    skills: ["nextjs-developer"],
+    project: true,
+  });
   assert.throws(
     () => yeknal.parseSkillsCommandArgs(["--all", "design"]),
     /cannot be combined/,

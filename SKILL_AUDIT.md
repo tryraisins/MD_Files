@@ -19,7 +19,7 @@ Version 2 separates the downloadable catalog from the always-discoverable set:
 - `core` contains 25 high-frequency skills spanning process/reasoning management, canonical design, implementation, browser verification, and all four security workflows;
 - `process`, `design`, `web`, `platform`, `documents-media`, `productivity`, and `openai` add specialist workflows beyond core; `security` is a standalone four-skill subset;
 - `all` preserves access to every current catalog skill without making full installation the default;
-- `--skills` adds exact named skills, while `--project` installs into the current Git repository's `.agents/skills` instead of user-level roots.
+- `--skills` installs exact named skills without adding core implicitly, while `--project` installs into the current Git repository's `.agents/skills` instead of user-level roots.
 
 Core descriptions were shortened and front-loaded so the complete core discovery metadata remains below Codex's documented 8,000-character fallback budget even after managed folder paths are represented. The default therefore keeps process and thought-management skills available without recreating the full-catalog routing pressure.
 
@@ -128,7 +128,7 @@ The old duplicate raw security prompt files and generated audit log were removed
 - prompt injection, unsafe tool output, memory poisoning, excessive agency, approval boundaries, and bounded agent execution;
 - replay, races, retries, exceptional conditions, logging, and incident response.
 
-The CLI syncs all four security skills and reads the master baseline from `application-security`. Version `2.0.0` adds profile selection and repository-local `.agents/skills` installation on top of Codex `.system` collision avoidance, stable security rule IDs, JSON and SARIF reports, interrupted-download handling, automated tests, CI validation, and the OIDC-ready npm release workflow.
+The CLI syncs all four security skills and reads the master baseline from `application-security`. Version `2.0.1` adds profile selection, exact named-skill selection, and repository-local `.agents/skills` installation on top of Codex `.system` collision avoidance, stable security rule IDs, JSON and SARIF reports, interrupted-download handling, automated tests, CI validation, and the OIDC-ready npm release workflow.
 
 ## Validation commands
 

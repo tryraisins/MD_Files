@@ -36,14 +36,14 @@ npx yeknal skills --project --profile design
 # Combine packs for one repository
 npx yeknal skills --project --profile core,web
 
-# Add named skills to the default core profile
+# Install only named skills in this repository
 npx yeknal skills --project --skills nextjs-developer,vercel-deploy
 
 # Preserve the pre-v2 full-catalog behavior
 npx yeknal skills --all
 ```
 
-Profiles are exact sets. Selecting `design` alone does not silently add `core`, which allows a user-level core install and a project-only specialist pack without duplicate skill names. `--skills` adds named skills to the selected profile, or to `core` when no profile was supplied. Run `npx yeknal profiles` to list current profiles and counts.
+Profiles are exact sets. Selecting `design` alone does not silently add `core`, which allows a user-level core install and a project-only specialist pack without duplicate skill names. `--skills` adds named skills to an explicitly selected profile, or installs only those names when no profile was supplied. Run `npx yeknal profiles` to list current profiles and counts.
 
 The command:
 

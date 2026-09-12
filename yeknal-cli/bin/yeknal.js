@@ -110,7 +110,7 @@ function parseSkillsCommandArgs(args) {
     throw new Error(`Unknown skills option "${arg}".`);
   }
 
-  if (!hasExplicitProfile) {
+  if (!hasExplicitProfile && options.skills.length === 0) {
     options.profiles.push(DEFAULT_SKILL_PROFILE);
   }
 
@@ -728,7 +728,10 @@ async function runSkillsCommand(options) {
 
     console.log(`\nSkill folders to sync (${skillFolders.length}) via ${sourceLabel}:`);
     console.log(`  ${skillFolders.join(", ")}`);
-    console.log(`  Profiles: ${options.profiles.join(", ")}; scope: ${options.project ? "project" : "user"}`);
+    const profileLabel = options.profiles.length > 0
+      ? options.profiles.join(", ")
+      : "none (named skills only)";
+    console.log(`  Profiles: ${profileLabel}; scope: ${options.project ? "project" : "user"}`);
     console.log(`\nInstalled folders use the managed "${MANAGED_SKILL_FOLDER_PREFIX}" prefix.`);
 
     let hadFailure = false;
