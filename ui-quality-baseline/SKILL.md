@@ -172,6 +172,17 @@ Important components and flows include the states they can actually enter: idle,
 - Dialogs and overlays trap focus when modal, close safely, restore focus, and respect Escape unless the operation cannot be dismissed.
 - Do not hide important content from older users, zoomed text, localization, or assistive technology just to preserve a screenshot-perfect layout.
 
+### Networked form submission and offline recovery
+
+Treat a remote form submission as an interruption-prone operation, not a one-way button click. For every new or materially changed form that sends data to a server or third-party service:
+
+- Keep the user's entered values when validation, network, timeout, or server errors occur. Do not reset, navigate to a success/thank-you state, or claim success until the server confirms it.
+- If the browser is known to be offline before the request begins, keep the values and say plainly that the form was not sent because there is no connection. Provide a clear retry path when connectivity returns.
+- `navigator.onLine` is only an advisory signal. If a request fails or its response is lost, retain the draft and explain that submission could not be confirmed; do not falsely guarantee that no server-side action happened. Make retry safe with the product's existing idempotency or duplicate-submission protections where an uncertain outcome matters.
+- Use field-level messages for validation and a separate, prominent form-level message for transport/server failures. The message must be readable without color alone and announced appropriately to assistive technology.
+- Preserve drafts beyond a re-render by default. Persist across refresh/navigation only when the product and sensitivity of the data justify it; never persist passwords, payment data, one-time codes, or other sensitive fields in browser storage without an explicit, secure design.
+- Test the real form after entering values with the network disabled: values remain intact, the UI clearly reports the unsent/uncertain result, no success transition occurs, and the retry behavior does not create duplicates. Record whether this browser-level check was completed or blocked.
+
 ## AI-mediated interfaces
 
 When inference, generation, retrieval, or agentic action changes the user experience, also apply `human-ai-interface-design`. Expose capability limits, relevant provenance and freshness, editable output, partial failure, stop or cancel, approval before consequential actions, and recovery proportional to the side effect. Use deterministic controls for exact state, permissions, price, and irreversible commitment; do not turn every feature into chat.
