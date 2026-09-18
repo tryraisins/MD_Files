@@ -10,6 +10,19 @@ A curated collection of reusable skill folders for AI coding agents. The collect
 - Claude: `~/.claude`
 - Gemini Antigravity: `~/.gemini/antigravity`
 - Antigravity: `~/.antigravity`
+- opencode: `~/.config/opencode`
+- Cursor: `~/.cursor`
+- Windsurf / Cascade: `~/.codeium/windsurf`
+- GitHub Copilot: `~/.copilot`
+- Gemini CLI: `~/.gemini`
+- Roo Code: `~/.roo`
+- Kiro: `~/.kiro`
+- Cline: `~/.cline`
+- OpenHands: `~/.openhands`
+- Amp: `~/.config/amp`
+- Shared Agent Skills standard: `~/.agents` (read by Cursor, opencode, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, Windsurf, Amp, and other compatible clients)
+
+A user-level folder is only used when it already exists. The shared `~/.agents/skills` location is the cross-agent Agent Skills standard and is the broadest single target, but per-harness folders are still used so each client picks up the managed `yeknal-*` skills directly. Harnesses that read more than one location can see the same skill from several paths; keep the shared location or the per-harness folders, not both, when a client requires unique skill names.
 
 Git is optional and is used only if the GitHub download path is rate-limited.
 Project-level sync requires the current directory to be inside a Git repository.
@@ -38,7 +51,7 @@ npx yeknal security
 - Skills are pulled from this repository on `main`.
 - Version 2 defaults to `core`; `all` preserves the former full-catalog behavior.
 - Installed folders use the managed `yeknal-` prefix; `frontend-design` becomes `yeknal-frontend-design`.
-- User scope syncs detected Codex, Claude, and Gemini/Antigravity skill folders. Project scope targets the current Git repository's `.agents/skills` folder, which Codex scans from the working directory up to the repository root.
+- User scope syncs every detected agent folder: Codex, Claude, Gemini Antigravity/Antigravity, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, Kiro, Cline, OpenHands, Amp, and the shared `~/.agents` standard. Project scope targets the current Git repository's `.agents/skills` folder, which Codex, Cursor, opencode, Roo Code, OpenHands, and other compatible clients scan from the working directory up to the repository root.
 - Profiles are exact sets. Combine them with commas; named `--skills` are also exact and do not add core implicitly, so project installs need not duplicate a user-level core profile.
 - `npx yeknal security` installs `application-security`, `security-best-practices`, `security-ownership-map`, and `security-threat-model`.
 - `SEO` remains source/reference material and is not installed because it has no `SKILL.md` entry point.

@@ -13,7 +13,17 @@ if (-not $Roots -or $Roots.Count -eq 0) {
     $Roots = @(
         (Join-Path $userRoot ".codex\skills"),
         (Join-Path $userRoot ".agents\skills"),
-        (Join-Path $userRoot ".claude\skills")
+        (Join-Path $userRoot ".claude\skills"),
+        (Join-Path $userRoot ".config\opencode\skills"),
+        (Join-Path $userRoot ".cursor\skills"),
+        (Join-Path $userRoot ".codeium\windsurf\skills"),
+        (Join-Path $userRoot ".copilot\skills"),
+        (Join-Path $userRoot ".gemini\skills"),
+        (Join-Path $userRoot ".roo\skills"),
+        (Join-Path $userRoot ".kiro\skills"),
+        (Join-Path $userRoot ".cline\skills"),
+        (Join-Path $userRoot ".openhands\skills"),
+        (Join-Path $userRoot ".config\amp\skills")
     )
 }
 

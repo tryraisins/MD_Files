@@ -607,26 +607,101 @@ async function stageSkillsFromGitClone(tempRoot, options) {
   }
 }
 
-async function resolveSkillTargets() {
-  const home = os.homedir();
-
-  const targetSpecs = [
+// User-level agent parents that read skills from a "skills" child folder.
+// Paths are documented by each harness; the shared ~/.agents location is the
+// cross-agent Agent Skills standard read by Cursor, opencode, Copilot, Gemini
+// CLI, Roo Code, OpenHands, Windsurf, Amp, and others.
+function getSkillTargetSpecs(home = os.homedir()) {
+  return [
     {
       label: "Gemini Antigravity",
       envVar: "YEKNAL_GEMINI_PARENT",
+      display: "~/.gemini/antigravity or ~/.antigravity",
       defaults: [path.join(home, ".gemini", "antigravity"), path.join(home, ".antigravity")],
     },
     {
       label: "Codex",
       envVar: "YEKNAL_CODEX_PARENT",
+      display: "~/.codex",
       defaults: [path.join(home, ".codex")],
     },
     {
       label: "Claude",
       envVar: "YEKNAL_CLAUDE_PARENT",
+      display: "~/.claude",
       defaults: [path.join(home, ".claude")],
     },
+    {
+      label: "opencode",
+      envVar: "YEKNAL_OPENCODE_PARENT",
+      display: "~/.config/opencode",
+      defaults: [path.join(home, ".config", "opencode")],
+    },
+    {
+      label: "Cursor",
+      envVar: "YEKNAL_CURSOR_PARENT",
+      display: "~/.cursor",
+      defaults: [path.join(home, ".cursor")],
+    },
+    {
+      label: "Windsurf",
+      envVar: "YEKNAL_WINDSURF_PARENT",
+      display: "~/.codeium/windsurf",
+      defaults: [path.join(home, ".codeium", "windsurf")],
+    },
+    {
+      label: "GitHub Copilot",
+      envVar: "YEKNAL_COPILOT_PARENT",
+      display: "~/.copilot",
+      defaults: [path.join(home, ".copilot")],
+    },
+    {
+      label: "Gemini CLI",
+      envVar: "YEKNAL_GEMINI_CLI_PARENT",
+      display: "~/.gemini",
+      defaults: [path.join(home, ".gemini")],
+    },
+    {
+      label: "Roo Code",
+      envVar: "YEKNAL_ROO_PARENT",
+      display: "~/.roo",
+      defaults: [path.join(home, ".roo")],
+    },
+    {
+      label: "Kiro",
+      envVar: "YEKNAL_KIRO_PARENT",
+      display: "~/.kiro",
+      defaults: [path.join(home, ".kiro")],
+    },
+    {
+      label: "Cline",
+      envVar: "YEKNAL_CLINE_PARENT",
+      display: "~/.cline",
+      defaults: [path.join(home, ".cline")],
+    },
+    {
+      label: "OpenHands",
+      envVar: "YEKNAL_OPENHANDS_PARENT",
+      display: "~/.openhands",
+      defaults: [path.join(home, ".openhands")],
+    },
+    {
+      label: "Amp",
+      envVar: "YEKNAL_AMP_PARENT",
+      display: "~/.config/amp",
+      defaults: [path.join(home, ".config", "amp")],
+    },
+    {
+      label: "Agents (shared standard)",
+      envVar: "YEKNAL_AGENTS_PARENT",
+      display: "~/.agents",
+      defaults: [path.join(home, ".agents")],
+    },
   ];
+}
+
+async function resolveSkillTargets() {
+  const targetSpecs = getSkillTargetSpecs();
 
   const seenParents = new Set();
   const targets = [];
@@ -685,9 +760,10 @@ async function runSkillsCommand(options) {
   if (targets.length === 0) {
     console.log("No supported parent folders found. Nothing to sync.");
     console.log("Expected one or more of:");
-    console.log("  ~/.gemini/antigravity or ~/.antigravity");
-    console.log("  ~/.codex");
-    console.log("  ~/.claude\n");
+    for (const spec of getSkillTargetSpecs()) {
+      console.log(`  ${spec.display}`);
+    }
+    console.log("");
     return;
   }
 
@@ -2824,10 +2900,12 @@ module.exports = {
   generateSecurityLog,
   generateSecuritySarif,
   getManagedSkillFolderName,
+  getSkillTargetSpecs,
   listFilesForFolder,
   parseSkillsCommandArgs,
   removeStaleManagedSkillFolders,
   resolveProjectSkillTarget,
+  resolveSkillTargets,
   selectSkillFolders,
   shouldUseGitCloneFallback,
 };

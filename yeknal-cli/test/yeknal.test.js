@@ -164,6 +164,88 @@ test("profiles reference real skills and keep core discovery under budget", asyn
   );
 });
 
+test("user targets cover opencode, Cursor, and other popular harnesses", async () => {
+  await withTempDir(async (directory) => {
+    const specs = yeknal.getSkillTargetSpecs(directory);
+    const byLabel = new Map(specs.map((spec) => [spec.label, spec]));
+
+    for (const label of [
+      "opencode",
+      "Cursor",
+      "Windsurf",
+      "GitHub Copilot",
+      "Gemini CLI",
+      "Roo Code",
+      "Kiro",
+      "Cline",
+      "OpenHands",
+      "Amp",
+      "Agents (shared standard)",
+    ]) {
+      assert.ok(byLabel.has(label), `missing target: ${label}`);
+    }
+
+    assert.deepEqual(byLabel.get("opencode").defaults, [path.join(directory, ".config", "opencode")]);
+    assert.deepEqual(byLabel.get("Cursor").defaults, [path.join(directory, ".cursor")]);
+    assert.deepEqual(byLabel.get("Windsurf").defaults, [path.join(directory, ".codeium", "windsurf")]);
+    assert.deepEqual(byLabel.get("GitHub Copilot").defaults, [path.join(directory, ".copilot")]);
+    assert.deepEqual(byLabel.get("Gemini CLI").defaults, [path.join(directory, ".gemini")]);
+    assert.deepEqual(byLabel.get("Roo Code").defaults, [path.join(directory, ".roo")]);
+    assert.deepEqual(byLabel.get("Kiro").defaults, [path.join(directory, ".kiro")]);
+    assert.deepEqual(byLabel.get("Cline").defaults, [path.join(directory, ".cline")]);
+    assert.deepEqual(byLabel.get("OpenHands").defaults, [path.join(directory, ".openhands")]);
+    assert.deepEqual(byLabel.get("Amp").defaults, [path.join(directory, ".config", "amp")]);
+    assert.deepEqual(byLabel.get("Agents (shared standard)").defaults, [path.join(directory, ".agents")]);
+  });
+});
+
+test("user targets resolve installed harness folders and ignore missing ones", async () => {
+  await withTempDir(async (directory) => {
+    const checked = {
+      YEKNAL_OPENCODE_PARENT: "opencode",
+      YEKNAL_CURSOR_PARENT: "Cursor",
+      YEKNAL_AGENTS_PARENT: "Agents (shared standard)",
+    };
+    const expected = new Map();
+    const savedEnv = {};
+
+    for (const spec of yeknal.getSkillTargetSpecs()) {
+      savedEnv[spec.envVar] = process.env[spec.envVar];
+      if (Object.prototype.hasOwnProperty.call(checked, spec.envVar)) {
+        const parentPath = path.join(directory, spec.envVar);
+        await fsp.mkdir(parentPath, { recursive: true });
+        process.env[spec.envVar] = parentPath;
+        expected.set(spec.label, {
+          parentPath: path.resolve(parentPath),
+          skillsPath: path.join(path.resolve(parentPath), "skills"),
+        });
+      } else {
+        process.env[spec.envVar] = path.join(directory, "missing", spec.envVar);
+      }
+    }
+
+    try {
+      const targets = await yeknal.resolveSkillTargets();
+      assert.deepEqual(
+        targets.map((target) => target.label).sort(),
+        [...expected.keys()].sort(),
+      );
+      for (const target of targets) {
+        assert.equal(target.parentPath, expected.get(target.label).parentPath);
+        assert.equal(target.skillsPath, expected.get(target.label).skillsPath);
+      }
+    } finally {
+      for (const [key, value] of Object.entries(savedEnv)) {
+        if (value === undefined) {
+          delete process.env[key];
+        } else {
+          process.env[key] = value;
+        }
+      }
+    }
+  });
+});
+
 test("project scope resolves to the repository .agents skills directory", async () => {
   const target = await yeknal.resolveProjectSkillTarget("C:\\repo\\nested", async (command, options) => {
     assert.equal(command, "git rev-parse --show-toplevel");

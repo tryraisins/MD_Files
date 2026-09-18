@@ -8,7 +8,7 @@ You do not need a global install. A new device needs:
 
 - Node.js with npm;
 - internet access;
-- for user-level sync, at least one supported agent folder: Codex (`~/.codex`), Claude (`~/.claude`), Gemini Antigravity (`~/.gemini/antigravity`), or Antigravity (`~/.antigravity`);
+- for user-level sync, at least one supported agent folder: Codex (`~/.codex`), Claude (`~/.claude`), Gemini Antigravity (`~/.gemini/antigravity`), Antigravity (`~/.antigravity`), opencode (`~/.config/opencode`), Cursor (`~/.cursor`), Windsurf/Cascade (`~/.codeium/windsurf`), GitHub Copilot (`~/.copilot`), Gemini CLI (`~/.gemini`), Roo Code (`~/.roo`), Kiro (`~/.kiro`), Cline (`~/.cline`), OpenHands (`~/.openhands`), Amp (`~/.config/amp`), or the shared Agent Skills standard (`~/.agents`);
 - for project sync, a current directory inside a Git repository.
 
 Git is optional and is used as a fallback when GitHub API or raw-file downloads remain unavailable after automatic retries.
@@ -51,7 +51,8 @@ The command:
 - updates and removes only managed `yeknal-*` folders;
 - preserves personal skill folders without that prefix;
 - on Codex, skips repository skills already supplied by `~/.codex/skills/.system`;
-- with `--project`, resolves the current Git root and syncs only that repository's `.agents/skills`; Codex discovers repository skills from the working directory up to the repository root;
+- installs into every detected user-level parent, including opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, Kiro, Cline, OpenHands, Amp, and the shared `~/.agents` standard; a client that reads more than one location can see the same skill from several paths, so keep either the shared `~/.agents` location or the per-harness folders when unique names are required;
+- with `--project`, resolves the current Git root and syncs only that repository's `.agents/skills`; Codex, Cursor, opencode, Roo Code, OpenHands, and other compatible clients discover repository skills from the working directory up to the repository root;
 - excludes `SEO`, which is reference material without a `SKILL.md`.
 
 Design and security are grouped without collapsing distinct outputs into one oversized prompt. Core contains the canonical design paths and all security paths. The `design` pack adds specialist aesthetics, motion, prototyping, Figma, and image-led workflows; the `security` pack remains four focused skills for implementation, review, threat modeling, and ownership analysis.
