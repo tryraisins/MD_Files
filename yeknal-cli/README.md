@@ -51,7 +51,7 @@ The command:
 - updates and removes only managed `yeknal-*` folders;
 - preserves personal skill folders without that prefix;
 - on Codex, skips repository skills already supplied by `~/.codex/skills/.system`;
-- installs into every detected user-level parent, including opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, Kiro, Cline, OpenHands, Amp, and the shared `~/.agents` standard; a client that reads more than one location can see the same skill from several paths, so keep either the shared `~/.agents` location or the per-harness folders when unique names are required;
+- installs into every detected user-level parent; when `~/.agents` is present it is preferred and the overlapping per-harness folders (Codex, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, and Amp) are skipped, while targets not configured to read `~/.agents` (Claude, Kiro, Cline, and the Antigravity folders) keep their own copy, so each client sees one copy of a managed `yeknal-*` skill;
 - with `--project`, resolves the current Git root and syncs only that repository's `.agents/skills`; Codex, Cursor, opencode, Roo Code, OpenHands, and other compatible clients discover repository skills from the working directory up to the repository root;
 - excludes `SEO`, which is reference material without a `SKILL.md`.
 

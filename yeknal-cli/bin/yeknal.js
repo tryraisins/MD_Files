@@ -608,9 +608,10 @@ async function stageSkillsFromGitClone(tempRoot, options) {
 }
 
 // User-level agent parents that read skills from a "skills" child folder.
-// Paths are documented by each harness; the shared ~/.agents location is the
-// cross-agent Agent Skills standard read by Cursor, opencode, Copilot, Gemini
-// CLI, Roo Code, OpenHands, Windsurf, Amp, and others.
+// Paths are documented by each harness. The shared ~/.agents location is the
+// cross-agent Agent Skills standard. Harnesses flagged sharedReads also discover
+// ~/.agents/skills, so a detected ~/.agents is preferred and those per-harness
+// folders are skipped to avoid the same skill appearing from several paths.
 function getSkillTargetSpecs(home = os.homedir()) {
   return [
     {
@@ -624,6 +625,7 @@ function getSkillTargetSpecs(home = os.homedir()) {
       envVar: "YEKNAL_CODEX_PARENT",
       display: "~/.codex",
       defaults: [path.join(home, ".codex")],
+      sharedReads: true,
     },
     {
       label: "Claude",
@@ -636,36 +638,42 @@ function getSkillTargetSpecs(home = os.homedir()) {
       envVar: "YEKNAL_OPENCODE_PARENT",
       display: "~/.config/opencode",
       defaults: [path.join(home, ".config", "opencode")],
+      sharedReads: true,
     },
     {
       label: "Cursor",
       envVar: "YEKNAL_CURSOR_PARENT",
       display: "~/.cursor",
       defaults: [path.join(home, ".cursor")],
+      sharedReads: true,
     },
     {
       label: "Windsurf",
       envVar: "YEKNAL_WINDSURF_PARENT",
       display: "~/.codeium/windsurf",
       defaults: [path.join(home, ".codeium", "windsurf")],
+      sharedReads: true,
     },
     {
       label: "GitHub Copilot",
       envVar: "YEKNAL_COPILOT_PARENT",
       display: "~/.copilot",
       defaults: [path.join(home, ".copilot")],
+      sharedReads: true,
     },
     {
       label: "Gemini CLI",
       envVar: "YEKNAL_GEMINI_CLI_PARENT",
       display: "~/.gemini",
       defaults: [path.join(home, ".gemini")],
+      sharedReads: true,
     },
     {
       label: "Roo Code",
       envVar: "YEKNAL_ROO_PARENT",
       display: "~/.roo",
       defaults: [path.join(home, ".roo")],
+      sharedReads: true,
     },
     {
       label: "Kiro",
@@ -684,23 +692,26 @@ function getSkillTargetSpecs(home = os.homedir()) {
       envVar: "YEKNAL_OPENHANDS_PARENT",
       display: "~/.openhands",
       defaults: [path.join(home, ".openhands")],
+      sharedReads: true,
     },
     {
       label: "Amp",
       envVar: "YEKNAL_AMP_PARENT",
       display: "~/.config/amp",
       defaults: [path.join(home, ".config", "amp")],
+      sharedReads: true,
     },
     {
       label: "Agents (shared standard)",
       envVar: "YEKNAL_AGENTS_PARENT",
       display: "~/.agents",
       defaults: [path.join(home, ".agents")],
+      shared: true,
     },
   ];
 }
 
-async function resolveSkillTargets() {
+async function collectSkillTargets() {
   const targetSpecs = getSkillTargetSpecs();
 
   const seenParents = new Set();
@@ -721,12 +732,33 @@ async function resolveSkillTargets() {
           label: spec.label,
           parentPath: candidateParent,
           skillsPath: path.join(candidateParent, "skills"),
+          shared: Boolean(spec.shared),
+          sharedReads: Boolean(spec.sharedReads),
         });
       }
     }
   }
 
   return targets;
+}
+
+// When the shared ~/.agents location exists, install there only and drop the
+// per-harness folders whose clients already discover ~/.agents/skills. Clients
+// that do not read ~/.agents (Claude, Kiro, Cline, Antigravity) keep their own copy.
+function applySharedPreference(targets) {
+  const hasSharedTarget = targets.some((target) => target.shared);
+  if (!hasSharedTarget) {
+    return { targets, skipped: [] };
+  }
+
+  return {
+    targets: targets.filter((target) => !target.sharedReads),
+    skipped: targets.filter((target) => target.sharedReads),
+  };
+}
+
+async function resolveSkillTargets() {
+  return applySharedPreference(await collectSkillTargets()).targets;
 }
 
 async function resolveProjectSkillTarget(cwd = process.cwd(), runner = execCommand) {
@@ -754,9 +786,15 @@ async function resolveProjectSkillTarget(cwd = process.cwd(), runner = execComma
 async function runSkillsCommand(options) {
   console.log("\nFetching available skill folders from GitHub...");
 
-  const targets = options.project
-    ? [await resolveProjectSkillTarget()]
-    : await resolveSkillTargets();
+  let targets;
+  let skippedTargets = [];
+  if (options.project) {
+    targets = [await resolveProjectSkillTarget()];
+  } else {
+    const resolved = applySharedPreference(await collectSkillTargets());
+    targets = resolved.targets;
+    skippedTargets = resolved.skipped;
+  }
   if (targets.length === 0) {
     console.log("No supported parent folders found. Nothing to sync.");
     console.log("Expected one or more of:");
@@ -770,6 +808,13 @@ async function runSkillsCommand(options) {
   console.log(`Detected ${targets.length} target parent folder(s):`);
   for (const target of targets) {
     console.log(`  - ${target.label}: ${target.parentPath}`);
+  }
+  if (skippedTargets.length > 0) {
+    console.log(
+      `  Shared ~/.agents detected; skipping per-harness locations it already covers: ${
+        skippedTargets.map((target) => target.label).join(", ")
+      }`,
+    );
   }
 
   const tempRoot = await fsp.mkdtemp(path.join(os.tmpdir(), "yeknal-skills-"));
@@ -2887,6 +2932,8 @@ if (require.main === module) {
 }
 
 module.exports = {
+  applySharedPreference,
+  collectSkillTargets,
   DEFAULT_SKILL_PROFILE,
   SECURITY_RULES,
   SKILL_PROFILES,

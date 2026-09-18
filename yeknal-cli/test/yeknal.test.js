@@ -199,50 +199,86 @@ test("user targets cover opencode, Cursor, and other popular harnesses", async (
   });
 });
 
-test("user targets resolve installed harness folders and ignore missing ones", async () => {
-  await withTempDir(async (directory) => {
-    const checked = {
-      YEKNAL_OPENCODE_PARENT: "opencode",
-      YEKNAL_CURSOR_PARENT: "Cursor",
-      YEKNAL_AGENTS_PARENT: "Agents (shared standard)",
-    };
-    const expected = new Map();
-    const savedEnv = {};
+async function withHarnessEnv(directory, existingEnvVars, run) {
+  const savedEnv = {};
+  const expected = new Map();
 
-    for (const spec of yeknal.getSkillTargetSpecs()) {
-      savedEnv[spec.envVar] = process.env[spec.envVar];
-      if (Object.prototype.hasOwnProperty.call(checked, spec.envVar)) {
-        const parentPath = path.join(directory, spec.envVar);
-        await fsp.mkdir(parentPath, { recursive: true });
-        process.env[spec.envVar] = parentPath;
-        expected.set(spec.label, {
-          parentPath: path.resolve(parentPath),
-          skillsPath: path.join(path.resolve(parentPath), "skills"),
-        });
+  for (const spec of yeknal.getSkillTargetSpecs()) {
+    savedEnv[spec.envVar] = process.env[spec.envVar];
+    if (existingEnvVars.includes(spec.envVar)) {
+      const parentPath = path.join(directory, spec.envVar);
+      await fsp.mkdir(parentPath, { recursive: true });
+      process.env[spec.envVar] = parentPath;
+      expected.set(spec.label, {
+        parentPath: path.resolve(parentPath),
+        skillsPath: path.join(path.resolve(parentPath), "skills"),
+      });
+    } else {
+      process.env[spec.envVar] = path.join(directory, "missing", spec.envVar);
+    }
+  }
+
+  try {
+    return await run(expected);
+  } finally {
+    for (const [key, value] of Object.entries(savedEnv)) {
+      if (value === undefined) {
+        delete process.env[key];
       } else {
-        process.env[spec.envVar] = path.join(directory, "missing", spec.envVar);
+        process.env[key] = value;
       }
     }
+  }
+}
 
-    try {
+test("prefers the shared ~/.agents location and skips harnesses that read it", async () => {
+  await withTempDir(async (directory) => {
+    await withHarnessEnv(directory, [
+      "YEKNAL_CODEX_PARENT",
+      "YEKNAL_OPENCODE_PARENT",
+      "YEKNAL_CURSOR_PARENT",
+      "YEKNAL_AGENTS_PARENT",
+      "YEKNAL_CLAUDE_PARENT",
+      "YEKNAL_KIRO_PARENT",
+      "YEKNAL_CLINE_PARENT",
+    ], async (expected) => {
       const targets = await yeknal.resolveSkillTargets();
       assert.deepEqual(
         targets.map((target) => target.label).sort(),
-        [...expected.keys()].sort(),
+        ["Agents (shared standard)", "Claude", "Cline", "Kiro"].sort(),
+      );
+
+      const shared = targets.find((target) => target.label === "Agents (shared standard)");
+      assert.equal(shared.shared, true);
+      assert.equal(shared.parentPath, expected.get("Agents (shared standard)").parentPath);
+      assert.equal(shared.skillsPath, expected.get("Agents (shared standard)").skillsPath);
+
+      const { skipped } = yeknal.applySharedPreference(await yeknal.collectSkillTargets());
+      assert.deepEqual(
+        skipped.map((target) => target.label).sort(),
+        ["Codex", "Cursor", "opencode"].sort(),
+      );
+    });
+  });
+});
+
+test("installs per-harness folders when the shared ~/.agents location is absent", async () => {
+  await withTempDir(async (directory) => {
+    await withHarnessEnv(directory, [
+      "YEKNAL_CODEX_PARENT",
+      "YEKNAL_OPENCODE_PARENT",
+      "YEKNAL_CURSOR_PARENT",
+    ], async (expected) => {
+      const targets = await yeknal.resolveSkillTargets();
+      assert.deepEqual(
+        targets.map((target) => target.label).sort(),
+        ["Codex", "Cursor", "opencode"].sort(),
       );
       for (const target of targets) {
         assert.equal(target.parentPath, expected.get(target.label).parentPath);
         assert.equal(target.skillsPath, expected.get(target.label).skillsPath);
       }
-    } finally {
-      for (const [key, value] of Object.entries(savedEnv)) {
-        if (value === undefined) {
-          delete process.env[key];
-        } else {
-          process.env[key] = value;
-        }
-      }
-    }
+    });
   });
 });
 
