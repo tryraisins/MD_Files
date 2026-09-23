@@ -770,6 +770,21 @@ async function resolveSkillTargets() {
   return applySharedPreference(await collectSkillTargets()).targets;
 }
 
+// A skipped target can still hold managed folders from an earlier sync. Remove
+// them so the client falls back to the preferred ~/.agents copy instead of
+// showing a stale duplicate. Personal (non-managed) folders are never touched.
+async function cleanSkippedManagedSkills(skippedTargets) {
+  const cleaned = [];
+  for (const target of skippedTargets) {
+    if (!(await isDirectory(target.skillsPath))) {
+      continue;
+    }
+    const removed = await removeStaleManagedSkillFolders(target.skillsPath, new Set());
+    cleaned.push({ label: target.label, skillsPath: target.skillsPath, removed });
+  }
+  return cleaned;
+}
+
 async function resolveProjectSkillTarget(cwd = process.cwd(), runner = execCommand) {
   let result;
   try {
@@ -944,6 +959,13 @@ async function runSkillsCommand(options) {
       process.exitCode = 1;
       console.error("\nSync completed with errors.");
     } else {
+      for (const entry of await cleanSkippedManagedSkills(skippedTargets)) {
+        for (const removedFolder of entry.removed) {
+          console.log(
+            `  [removed] ${entry.label}: stale managed skill ${removedFolder} (covered by ~/.agents)`,
+          );
+        }
+      }
       console.log("\nSkills sync completed successfully.");
     }
   } finally {
@@ -2965,6 +2987,7 @@ if (require.main === module) {
 
 module.exports = {
   applySharedPreference,
+  cleanSkippedManagedSkills,
   collectSkillTargets,
   DEFAULT_SKILL_PROFILE,
   SECURITY_RULES,

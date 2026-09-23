@@ -321,6 +321,28 @@ test("installs per-harness folders when the shared ~/.agents location is absent"
   });
 });
 
+test("cleans managed folders from skipped shared-reading targets", async () => {
+  await withTempDir(async (directory) => {
+    const codexSkills = path.join(directory, "codex", "skills");
+    const sharedSkills = path.join(directory, "agents", "skills");
+    await fsp.mkdir(path.join(codexSkills, "yeknal-stale"), { recursive: true });
+    await fsp.mkdir(path.join(codexSkills, "personal-skill"), { recursive: true });
+    await fsp.mkdir(path.join(sharedSkills, "yeknal-keep"), { recursive: true });
+
+    const cleaned = await yeknal.cleanSkippedManagedSkills([
+      { label: "Codex", skillsPath: codexSkills },
+      { label: "opencode", skillsPath: path.join(directory, "missing", "skills") },
+    ]);
+
+    assert.deepEqual(cleaned, [
+      { label: "Codex", skillsPath: codexSkills, removed: ["yeknal-stale"] },
+    ]);
+    assert.equal(fs.existsSync(path.join(codexSkills, "yeknal-stale")), false);
+    assert.equal(fs.existsSync(path.join(codexSkills, "personal-skill")), true);
+    assert.equal(fs.existsSync(path.join(sharedSkills, "yeknal-keep")), true);
+  });
+});
+
 test("project scope resolves to the repository .agents skills directory", async () => {
   const target = await yeknal.resolveProjectSkillTarget("C:\\repo\\nested", async (command, options) => {
     assert.equal(command, "git rev-parse --show-toplevel");
