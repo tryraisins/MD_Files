@@ -8,7 +8,7 @@ A curated collection of reusable skill folders for AI coding agents. The collect
 
 - Codex: `~/.codex`
 - Claude: `~/.claude`
-- Gemini Antigravity: `~/.gemini/antigravity`
+- Gemini Antigravity: `~/.gemini/config` or `~/.gemini/antigravity`
 - Antigravity: `~/.antigravity`
 - opencode: `~/.config/opencode`
 - Cursor: `~/.cursor`
@@ -22,7 +22,7 @@ A curated collection of reusable skill folders for AI coding agents. The collect
 - Amp: `~/.config/amp`
 - Shared Agent Skills standard: `~/.agents` (read by Cursor, opencode, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, Windsurf, Amp, and other compatible clients)
 
-A user-level folder is only used when it already exists. When `~/.agents` exists, sync installs there and skips the per-harness folders whose clients already read `~/.agents/skills` (Codex, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, and Amp); managed folders left in a skipped location are removed so the client stops showing a stale duplicate. Targets not configured to read `~/.agents` (Claude, Kiro, Cline, and the Antigravity folders) keep their own copy. Because opencode, Cursor, Amp, and Windsurf also read `~/.claude/skills`, they can still see a managed skill from both `~/.agents` and Claude's folder; that is the accepted trade-off while Claude Code is served.
+A user-level folder is only used when it already exists. When `~/.agents` exists, sync installs there and skips the per-harness folders whose clients already read `~/.agents/skills` (Codex, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, and Amp); managed folders left in a skipped location are removed so the client stops showing a stale duplicate. Targets not configured to read `~/.agents` (Claude, Kiro, Cline, and the Antigravity folders) keep their own copy. Because opencode, Cursor, Amp, and Windsurf also read `~/.claude/skills`, they can still see a managed skill from both `~/.agents` and Claude's folder. Use `npx yeknal skills --skip-claude` to also skip Claude Code's folder and clean its managed copies, preventing that duplicate. Personal folders are preserved.
 
 Git is optional and is used only if the GitHub download path is rate-limited.
 Project-level sync requires the current directory to be inside a Git repository.
@@ -31,6 +31,7 @@ Project-level sync requires the current directory to be inside a Git repository.
 
 ```bash
 npx yeknal skills
+npx yeknal skills --skip-claude
 npx yeknal skills --project --profile design
 npx yeknal skills --project --add --skills aspnet-core
 npx yeknal profiles
@@ -40,6 +41,7 @@ npx yeknal security
 | Command | Result |
 | --- | --- |
 | `npx yeknal skills` | Syncs the 26-skill core profile into detected user-level agent folders, including the task-time skill router. |
+| `npx yeknal skills --skip-claude` | Avoids duplicate managed skills in OpenCode and other Claude-compatible readers by skipping and cleaning managed copies from `~/.claude/skills`. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
 | `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |

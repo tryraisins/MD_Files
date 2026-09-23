@@ -8,7 +8,7 @@ You do not need a global install. A new device needs:
 
 - Node.js with npm;
 - internet access;
-- for user-level sync, at least one supported agent folder: Codex (`~/.codex`), Claude (`~/.claude`), Gemini Antigravity (`~/.gemini/antigravity`), Antigravity (`~/.antigravity`), opencode (`~/.config/opencode`), Cursor (`~/.cursor`), Windsurf/Cascade (`~/.codeium/windsurf`), GitHub Copilot (`~/.copilot`), Gemini CLI (`~/.gemini`), Roo Code (`~/.roo`), Kiro (`~/.kiro`), Cline (`~/.cline`), OpenHands (`~/.openhands`), Amp (`~/.config/amp`), or the shared Agent Skills standard (`~/.agents`);
+- for user-level sync, at least one supported agent folder: Codex (`~/.codex`), Claude (`~/.claude`), Gemini Antigravity (`~/.gemini/config` or `~/.gemini/antigravity`), Antigravity (`~/.antigravity`), opencode (`~/.config/opencode`), Cursor (`~/.cursor`), Windsurf/Cascade (`~/.codeium/windsurf`), GitHub Copilot (`~/.copilot`), Gemini CLI (`~/.gemini`), Roo Code (`~/.roo`), Kiro (`~/.kiro`), Cline (`~/.cline`), OpenHands (`~/.openhands`), Amp (`~/.config/amp`), or the shared Agent Skills standard (`~/.agents`);
 - for project sync, a current directory inside a Git repository.
 
 Git is optional and is used as a fallback when GitHub API or raw-file downloads remain unavailable after automatic retries.
@@ -17,6 +17,7 @@ Git is optional and is used as a fallback when GitHub API or raw-file downloads 
 
 ```bash
 npx yeknal skills
+npx yeknal skills --skip-claude
 npx yeknal skills --project --profile design
 npx yeknal profiles
 npx yeknal security
@@ -55,6 +56,7 @@ The command:
 - preserves personal skill folders without that prefix;
 - on Codex, skips repository skills already supplied by `~/.codex/skills/.system`;
 - installs into every detected user-level parent; when `~/.agents` is present it is preferred, the overlapping per-harness folders (Codex, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, and Amp) are skipped and their stale managed folders removed, while targets not configured to read `~/.agents` (Claude, Kiro, Cline, and the Antigravity folders) keep their own copy; clients that also read a kept folder (opencode, Cursor, Amp, and Windsurf read `~/.claude/skills`) can still see a managed skill twice;
+- `--skip-claude` opts out of the Claude target for user-level sync and removes only stale managed `yeknal-*` copies there; use it when OpenCode/Cursor/Amp/Windsurf should avoid also discovering the copy in `~/.claude/skills`;
 - with `--project`, resolves the current Git root and syncs only that repository's `.agents/skills`; Codex, Cursor, opencode, Roo Code, OpenHands, and other compatible clients discover repository skills from the working directory up to the repository root;
 - with `--project --add`, installs only missing selected managed skills and preserves other managed and personal project skills; this is the safe mode for task-time skill routing;
 - excludes `SEO`, which is reference material without a `SKILL.md`.

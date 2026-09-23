@@ -45,7 +45,7 @@ const SECURITY_REPO_FOLDERS = [
 
 function usage() {
   console.log("\nUsage:");
-  console.log("  npx yeknal skills [profile] [--profile name,...] [--skills name,...] [--project] [--add]");
+  console.log("  npx yeknal skills [profile] [--profile name,...] [--skills name,...] [--project] [--add] [--skip-claude]");
   console.log("  npx yeknal skills --all");
   console.log("  npx yeknal profiles");
   console.log("  npx yeknal security   Sync security skills + scan current project\n");
@@ -64,6 +64,7 @@ function parseSkillsCommandArgs(args) {
     skills: [],
     project: false,
     add: false,
+    skipClaude: false,
   };
   let hasExplicitProfile = false;
 
@@ -76,6 +77,10 @@ function parseSkillsCommandArgs(args) {
     }
     if (arg === "--add") {
       options.add = true;
+      continue;
+    }
+    if (arg === "--skip-claude") {
+      options.skipClaude = true;
       continue;
     }
     if (arg === "--all") {
@@ -120,6 +125,9 @@ function parseSkillsCommandArgs(args) {
   }
   if (options.add && !options.project) {
     throw new Error("--add can only be used with --project.");
+  }
+  if (options.skipClaude && options.project) {
+    throw new Error("--skip-claude can only be used with user-level skills sync.");
   }
 
   options.profiles = [...new Set(options.profiles)];
@@ -626,8 +634,12 @@ function getSkillTargetSpecs(home = os.homedir()) {
     {
       label: "Gemini Antigravity",
       envVar: "YEKNAL_GEMINI_PARENT",
-      display: "~/.gemini/antigravity or ~/.antigravity",
-      defaults: [path.join(home, ".gemini", "antigravity"), path.join(home, ".antigravity")],
+      display: "~/.gemini/config, ~/.gemini/antigravity, or ~/.antigravity",
+      defaults: [
+        path.join(home, ".gemini", "config"),
+        path.join(home, ".gemini", "antigravity"),
+        path.join(home, ".antigravity"),
+      ],
     },
     {
       label: "Codex",
@@ -754,20 +766,30 @@ async function collectSkillTargets() {
 // When the shared ~/.agents location exists, install there only and drop the
 // per-harness folders whose clients already discover ~/.agents/skills. Clients
 // that do not read ~/.agents (Claude, Kiro, Cline, Antigravity) keep their own copy.
-function applySharedPreference(targets) {
+function applySharedPreference(targets, options = {}) {
   const hasSharedTarget = targets.some((target) => target.shared);
-  if (!hasSharedTarget) {
+  if (!hasSharedTarget && !options.skipClaude) {
     return { targets, skipped: [] };
   }
 
+  const skippedClaude = options.skipClaude
+    ? targets.filter((target) => target.label === "Claude")
+    : [];
+  const skippedClaudeSet = new Set(skippedClaude);
+  const remainingTargets = targets.filter((target) => !skippedClaudeSet.has(target));
+  if (!hasSharedTarget) {
+    return { targets: remainingTargets, skipped: skippedClaude };
+  }
+
+  const skippedSharedReaders = remainingTargets.filter((target) => target.sharedReads);
   return {
-    targets: targets.filter((target) => !target.sharedReads),
-    skipped: targets.filter((target) => target.sharedReads),
+    targets: remainingTargets.filter((target) => !target.sharedReads),
+    skipped: [...skippedSharedReaders, ...skippedClaude],
   };
 }
 
-async function resolveSkillTargets() {
-  return applySharedPreference(await collectSkillTargets()).targets;
+async function resolveSkillTargets(options = {}) {
+  return applySharedPreference(await collectSkillTargets(), options).targets;
 }
 
 // A skipped target can still hold managed folders from an earlier sync. Remove
@@ -845,7 +867,7 @@ async function runSkillsCommand(options) {
   if (options.project) {
     targets = [await resolveProjectSkillTarget()];
   } else {
-    const resolved = applySharedPreference(await collectSkillTargets());
+    const resolved = applySharedPreference(await collectSkillTargets(), options);
     targets = resolved.targets;
     skippedTargets = resolved.skipped;
   }
@@ -865,7 +887,7 @@ async function runSkillsCommand(options) {
   }
   if (skippedTargets.length > 0) {
     console.log(
-      `  Shared ~/.agents detected; skipping per-harness locations it already covers: ${
+      `  Skipping selected user-level locations: ${
         skippedTargets.map((target) => target.label).join(", ")
       }`,
     );
@@ -962,7 +984,7 @@ async function runSkillsCommand(options) {
       for (const entry of await cleanSkippedManagedSkills(skippedTargets)) {
         for (const removedFolder of entry.removed) {
           console.log(
-            `  [removed] ${entry.label}: stale managed skill ${removedFolder} (covered by ~/.agents)`,
+            `  [removed] ${entry.label}: stale managed skill ${removedFolder} (target skipped)`,
           );
         }
       }

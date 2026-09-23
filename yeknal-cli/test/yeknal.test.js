@@ -119,6 +119,7 @@ test("skills command defaults to core and parses project/profile selections", ()
     skills: [],
     project: false,
     add: false,
+    skipClaude: false,
   });
   assert.deepEqual(
     yeknal.parseSkillsCommandArgs(["--project", "--profile", "process,design", "--skills=nextjs-developer"]),
@@ -127,6 +128,7 @@ test("skills command defaults to core and parses project/profile selections", ()
       skills: ["nextjs-developer"],
       project: true,
       add: false,
+      skipClaude: false,
     },
   );
   assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--add", "--skills", "nextjs-developer"]), {
@@ -134,22 +136,36 @@ test("skills command defaults to core and parses project/profile selections", ()
     skills: ["nextjs-developer"],
     project: true,
     add: true,
+    skipClaude: false,
   });
   assert.deepEqual(yeknal.parseSkillsCommandArgs(["--all"]), {
     profiles: ["all"],
     skills: [],
     project: false,
     add: false,
+    skipClaude: false,
   });
   assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--skills", "nextjs-developer"]), {
     profiles: [],
     skills: ["nextjs-developer"],
     project: true,
     add: false,
+    skipClaude: false,
+  });
+  assert.deepEqual(yeknal.parseSkillsCommandArgs(["--skip-claude"]), {
+    profiles: ["core"],
+    skills: [],
+    project: false,
+    add: false,
+    skipClaude: true,
   });
   assert.throws(
     () => yeknal.parseSkillsCommandArgs(["--add", "--skills", "nextjs-developer"]),
     /--add can only be used with --project/,
+  );
+  assert.throws(
+    () => yeknal.parseSkillsCommandArgs(["--project", "--skip-claude"]),
+    /--skip-claude can only be used with user-level skills sync/,
   );
   assert.throws(
     () => yeknal.parseSkillsCommandArgs(["--all", "design"]),
@@ -225,6 +241,11 @@ test("user targets cover opencode, Cursor, and other popular harnesses", async (
     }
 
     assert.deepEqual(byLabel.get("opencode").defaults, [path.join(directory, ".config", "opencode")]);
+    assert.deepEqual(byLabel.get("Gemini Antigravity").defaults, [
+      path.join(directory, ".gemini", "config"),
+      path.join(directory, ".gemini", "antigravity"),
+      path.join(directory, ".antigravity"),
+    ]);
     assert.deepEqual(byLabel.get("Cursor").defaults, [path.join(directory, ".cursor")]);
     assert.deepEqual(byLabel.get("Windsurf").defaults, [path.join(directory, ".codeium", "windsurf")]);
     assert.deepEqual(byLabel.get("GitHub Copilot").defaults, [path.join(directory, ".copilot")]);
@@ -296,6 +317,27 @@ test("prefers the shared ~/.agents location and skips harnesses that read it", a
       assert.deepEqual(
         skipped.map((target) => target.label).sort(),
         ["Codex", "Cursor", "opencode"].sort(),
+      );
+    });
+  });
+});
+
+test("--skip-claude removes the Claude target and schedules its stale managed skills for cleanup", async () => {
+  await withTempDir(async (directory) => {
+    await withHarnessEnv(directory, [
+      "YEKNAL_AGENTS_PARENT",
+      "YEKNAL_CLAUDE_PARENT",
+    ], async () => {
+      const targets = await yeknal.collectSkillTargets();
+      const resolved = yeknal.applySharedPreference(targets, { skipClaude: true });
+
+      assert.deepEqual(
+        resolved.targets.map((target) => target.label),
+        ["Agents (shared standard)"],
+      );
+      assert.deepEqual(
+        resolved.skipped.map((target) => target.label),
+        ["Claude"],
       );
     });
   });
@@ -520,6 +562,7 @@ test("CLI help remains executable", () => {
   assert.match(result.stdout, /npx yeknal security/);
   assert.match(result.stdout, /npx yeknal skills/);
   assert.match(result.stdout, /--project.*--add/);
+  assert.match(result.stdout, /--skip-claude/);
   assert.match(result.stdout, /npx yeknal profiles/);
 });
 
