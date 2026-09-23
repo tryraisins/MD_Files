@@ -45,7 +45,7 @@ const SECURITY_REPO_FOLDERS = [
 
 function usage() {
   console.log("\nUsage:");
-  console.log("  npx yeknal skills [profile] [--profile name,...] [--skills name,...] [--project]");
+  console.log("  npx yeknal skills [profile] [--profile name,...] [--skills name,...] [--project] [--add]");
   console.log("  npx yeknal skills --all");
   console.log("  npx yeknal profiles");
   console.log("  npx yeknal security   Sync security skills + scan current project\n");
@@ -63,6 +63,7 @@ function parseSkillsCommandArgs(args) {
     profiles: [],
     skills: [],
     project: false,
+    add: false,
   };
   let hasExplicitProfile = false;
 
@@ -71,6 +72,10 @@ function parseSkillsCommandArgs(args) {
 
     if (arg === "--project") {
       options.project = true;
+      continue;
+    }
+    if (arg === "--add") {
+      options.add = true;
       continue;
     }
     if (arg === "--all") {
@@ -112,6 +117,9 @@ function parseSkillsCommandArgs(args) {
 
   if (!hasExplicitProfile && options.skills.length === 0) {
     options.profiles.push(DEFAULT_SKILL_PROFILE);
+  }
+  if (options.add && !options.project) {
+    throw new Error("--add can only be used with --project.");
   }
 
   options.profiles = [...new Set(options.profiles)];
@@ -157,6 +165,7 @@ function runProfilesCommand() {
   console.log("\nAvailable skill profiles:\n");
   for (const [name, profile] of Object.entries(SKILL_PROFILES)) {
     console.log(`  ${name.padEnd(18)} ${String(profile.skills.length).padStart(2)}  ${profile.description}`);
+    console.log(`    Skills: ${profile.skills.join(", ")}`);
   }
   console.log("  all                *  Every skill in the current catalog (legacy/full install).\n");
   console.log(`Default: ${DEFAULT_SKILL_PROFILE}. Profiles are exact sets; combine them with commas when needed.`);
@@ -783,6 +792,36 @@ async function resolveProjectSkillTarget(cwd = process.cwd(), runner = execComma
   };
 }
 
+async function syncManagedSkills(targetSkillsPath, sourceRoot, skillFolders, options = {}) {
+  await fsp.mkdir(targetSkillsPath, { recursive: true });
+  const copied = [];
+  const kept = [];
+  let removed = [];
+
+  if (options.add) {
+    for (const folder of skillFolders) {
+      const destination = path.join(targetSkillsPath, getManagedSkillFolderName(folder));
+      if (await isDirectory(destination)) {
+        kept.push(folder);
+        continue;
+      }
+      await copyDirRecursive(path.join(sourceRoot, folder), destination);
+      copied.push(folder);
+    }
+    return { copied, kept, removed };
+  }
+
+  const expectedFolders = new Set(skillFolders.map((folder) => getManagedSkillFolderName(folder)));
+  removed = await removeStaleManagedSkillFolders(targetSkillsPath, expectedFolders);
+  for (const folder of skillFolders) {
+    const destination = path.join(targetSkillsPath, getManagedSkillFolderName(folder));
+    await fsp.rm(destination, { recursive: true, force: true });
+    await copyDirRecursive(path.join(sourceRoot, folder), destination);
+    copied.push(folder);
+  }
+  return { copied, kept, removed };
+}
+
 async function runSkillsCommand(options) {
   console.log("\nFetching available skill folders from GitHub...");
 
@@ -878,29 +917,22 @@ async function runSkillsCommand(options) {
             )}`,
           );
         }
-        let copiedCount = 0;
-        const expectedFolders = new Set(
-          syncSkillFolders.map((folder) => getManagedSkillFolderName(folder)),
-        );
-        const removedFolders = await removeStaleManagedSkillFolders(
+        const syncResult = await syncManagedSkills(
           target.skillsPath,
-          expectedFolders,
+          tempRoot,
+          syncSkillFolders,
+          { add: options.add },
         );
 
-        for (const removedFolder of removedFolders) {
+        for (const removedFolder of syncResult.removed) {
           console.log(`  [removed] ${target.label}: stale managed skill ${removedFolder}`);
         }
-
-        for (const folder of syncSkillFolders) {
-          const sourceFolder = path.join(tempRoot, folder);
-          const destinationFolder = path.join(target.skillsPath, getManagedSkillFolderName(folder));
-          await fsp.rm(destinationFolder, { recursive: true, force: true });
-          await copyDirRecursive(sourceFolder, destinationFolder);
-          copiedCount += 1;
+        for (const folder of syncResult.kept) {
+          console.log(`  [kept] ${target.label}: ${folder} is already installed`);
         }
 
         console.log(
-          `\n[ok] ${target.label}: synced ${copiedCount} folder(s) into ${target.skillsPath}`,
+          `\n[ok] ${target.label}: installed ${syncResult.copied.length} folder(s) into ${target.skillsPath}`,
         );
       } catch (error) {
         hadFailure = true;
@@ -2955,4 +2987,5 @@ module.exports = {
   resolveSkillTargets,
   selectSkillFolders,
   shouldUseGitCloneFallback,
+  syncManagedSkills,
 };

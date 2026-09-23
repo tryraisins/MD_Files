@@ -88,11 +88,37 @@ test("removes stale managed folders but preserves expected and personal folders"
   });
 });
 
+test("additive project skill sync installs missing skills without pruning or replacing existing skills", async () => {
+  await withTempDir(async (directory) => {
+    const source = path.join(directory, "source");
+    const target = path.join(directory, ".agents", "skills");
+    await fsp.mkdir(path.join(source, "new-skill"), { recursive: true });
+    await fsp.mkdir(path.join(target, "yeknal-existing"), { recursive: true });
+    await fsp.mkdir(path.join(target, "yeknal-older-project-skill"), { recursive: true });
+    await fsp.mkdir(path.join(target, "personal-skill"), { recursive: true });
+    await fsp.writeFile(path.join(source, "new-skill", "SKILL.md"), "new contents\n");
+    await fsp.writeFile(path.join(target, "yeknal-existing", "SKILL.md"), "local edits\n");
+
+    const result = await yeknal.syncManagedSkills(target, source, ["new-skill", "existing"], { add: true });
+
+    assert.deepEqual(result, {
+      copied: ["new-skill"],
+      kept: ["existing"],
+      removed: [],
+    });
+    assert.equal(await fsp.readFile(path.join(target, "yeknal-new-skill", "SKILL.md"), "utf8"), "new contents\n");
+    assert.equal(await fsp.readFile(path.join(target, "yeknal-existing", "SKILL.md"), "utf8"), "local edits\n");
+    assert.equal(fs.existsSync(path.join(target, "yeknal-older-project-skill")), true);
+    assert.equal(fs.existsSync(path.join(target, "personal-skill")), true);
+  });
+});
+
 test("skills command defaults to core and parses project/profile selections", () => {
   assert.deepEqual(yeknal.parseSkillsCommandArgs([]), {
     profiles: ["core"],
     skills: [],
     project: false,
+    add: false,
   });
   assert.deepEqual(
     yeknal.parseSkillsCommandArgs(["--project", "--profile", "process,design", "--skills=nextjs-developer"]),
@@ -100,18 +126,31 @@ test("skills command defaults to core and parses project/profile selections", ()
       profiles: ["process", "design"],
       skills: ["nextjs-developer"],
       project: true,
+      add: false,
     },
   );
+  assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--add", "--skills", "nextjs-developer"]), {
+    profiles: [],
+    skills: ["nextjs-developer"],
+    project: true,
+    add: true,
+  });
   assert.deepEqual(yeknal.parseSkillsCommandArgs(["--all"]), {
     profiles: ["all"],
     skills: [],
     project: false,
+    add: false,
   });
   assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--skills", "nextjs-developer"]), {
     profiles: [],
     skills: ["nextjs-developer"],
     project: true,
+    add: false,
   });
+  assert.throws(
+    () => yeknal.parseSkillsCommandArgs(["--add", "--skills", "nextjs-developer"]),
+    /--add can only be used with --project/,
+  );
   assert.throws(
     () => yeknal.parseSkillsCommandArgs(["--all", "design"]),
     /cannot be combined/,
@@ -458,6 +497,7 @@ test("CLI help remains executable", () => {
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /npx yeknal security/);
   assert.match(result.stdout, /npx yeknal skills/);
+  assert.match(result.stdout, /--project.*--add/);
   assert.match(result.stdout, /npx yeknal profiles/);
 });
 
@@ -466,7 +506,8 @@ test("CLI profiles command remains executable", () => {
     encoding: "utf8",
   });
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /core\s+25/);
+  assert.match(result.stdout, /core\s+26/);
   assert.match(result.stdout, /design\s+24/);
   assert.match(result.stdout, /Default: core/);
+  assert.match(result.stdout, /skill-router/);
 });

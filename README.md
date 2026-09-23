@@ -32,18 +32,20 @@ Project-level sync requires the current directory to be inside a Git repository.
 ```bash
 npx yeknal skills
 npx yeknal skills --project --profile design
+npx yeknal skills --project --add --skills aspnet-core
 npx yeknal profiles
 npx yeknal security
 ```
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal skills` | Syncs the 25-skill core profile into detected user-level agent folders. |
+| `npx yeknal skills` | Syncs the 26-skill core profile into detected user-level agent folders, including the task-time skill router. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
 | `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
-| `npx yeknal skills --all` | Syncs all 83 skills for legacy or exhaustive setups. |
-| `npx yeknal profiles` | Lists available profiles and their sizes without downloading skills. |
+| `npx yeknal skills --project --add --skills aspnet-core` | Adds missing skills to the current repository without deleting or replacing existing skills. |
+| `npx yeknal skills --all` | Syncs all 84 skills for legacy or exhaustive setups. |
+| `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 
 ## Sync behavior
@@ -53,6 +55,7 @@ npx yeknal security
 - Installed folders use the managed `yeknal-` prefix; `frontend-design` becomes `yeknal-frontend-design`.
 - User scope syncs every detected agent folder: Codex, Claude, Gemini Antigravity/Antigravity, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, Kiro, Cline, OpenHands, Amp, and the shared `~/.agents` standard. When `~/.agents` is present it is preferred and the overlapping per-harness folders are skipped. Project scope targets the current Git repository's `.agents/skills` folder, which Codex, Cursor, opencode, Roo Code, OpenHands, and other compatible clients scan from the working directory up to the repository root.
 - Profiles are exact sets. Combine them with commas; named `--skills` are also exact and do not add core implicitly, so project installs need not duplicate a user-level core profile.
+- Core includes `skill-router`: during a substantive task, Codex or OpenCode can spot when a specialist Yeknal skill is missing, select its exact catalog name, add it to the current Git project with `--project --add`, read the installed `SKILL.md`, and use it during that same task. It installs only task-relevant skills, not the entire catalog.
 - `npx yeknal security` installs `application-security`, `security-best-practices`, `security-ownership-map`, and `security-threat-model`.
 - `SEO` remains source/reference material and is not installed because it has no `SKILL.md` entry point.
 - Missing `skills` folders are created inside detected agent parent folders.

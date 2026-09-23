@@ -24,7 +24,7 @@ npx yeknal security
 
 ### `npx yeknal skills`
 
-Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2 defaults to the 25-skill `core` profile instead of installing all 83 folders. The core keeps high-frequency process and reasoning management, canonical design, browser verification, and all four security workflows available globally.
+Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2 defaults to the 26-skill `core` profile instead of installing all 84 folders. The core keeps high-frequency process and reasoning management, canonical design, browser verification, all four security workflows, and the task-time `skill-router` available globally.
 
 ```bash
 # Core profile in detected user-level agent folders
@@ -39,11 +39,14 @@ npx yeknal skills --project --profile core,web
 # Install only named skills in this repository
 npx yeknal skills --project --skills nextjs-developer,vercel-deploy
 
+# Add a missing task-specific skill without removing existing project skills
+npx yeknal skills --project --add --skills aspnet-core
+
 # Preserve the pre-v2 full-catalog behavior
 npx yeknal skills --all
 ```
 
-Profiles are exact sets. Selecting `design` alone does not silently add `core`, which allows a user-level core install and a project-only specialist pack without duplicate skill names. `--skills` adds named skills to an explicitly selected profile, or installs only those names when no profile was supplied. Run `npx yeknal profiles` to list current profiles and counts.
+Profiles are exact sets. Selecting `design` alone does not silently add `core`, which allows a user-level core install and a project-only specialist pack without duplicate skill names. `--skills` adds named skills to an explicitly selected profile, or installs only those names when no profile was supplied. Run `npx yeknal profiles` to list profiles, counts, and their skill names; task-time agents use this to select an exact catalog name.
 
 The command:
 
@@ -53,7 +56,14 @@ The command:
 - on Codex, skips repository skills already supplied by `~/.codex/skills/.system`;
 - installs into every detected user-level parent; when `~/.agents` is present it is preferred and the overlapping per-harness folders (Codex, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, and Amp) are skipped, while targets not configured to read `~/.agents` (Claude, Kiro, Cline, and the Antigravity folders) keep their own copy, so each client sees one copy of a managed `yeknal-*` skill;
 - with `--project`, resolves the current Git root and syncs only that repository's `.agents/skills`; Codex, Cursor, opencode, Roo Code, OpenHands, and other compatible clients discover repository skills from the working directory up to the repository root;
+- with `--project --add`, installs only missing selected managed skills and preserves other managed and personal project skills; this is the safe mode for task-time skill routing;
 - excludes `SEO`, which is reference material without a `SKILL.md`.
+
+### Task-time skill routing
+
+The `skill-router` skill is part of `core`. When an agent using that profile starts a substantive task, it checks whether a relevant specialist skill is already available. If one is missing, it can inspect `npx --yes yeknal@^2.2.0 profiles`, install the exact specialist into the current repository with `npx --yes yeknal@^2.2.0 skills --project --add --skills <skill-name>`, read the new `.agents/skills/yeknal-<skill-name>/SKILL.md`, and use it for the same task. This shared `.agents/skills` location is discovered by both Codex and OpenCode.
+
+The agent selects whether a task needs a skill; the CLI handles trusted catalog validation, download, and additive project installation. The router only installs a small, task-relevant set and does not download skills on every project open. If an installed skill should be available for future tasks in other projects too, run the normal user-scope `npx yeknal skills --skills <skill-name>` command instead.
 
 Design and security are grouped without collapsing distinct outputs into one oversized prompt. Core contains the canonical design paths and all security paths. The `design` pack adds specialist aesthetics, motion, prototyping, Figma, and image-led workflows; the `security` pack remains four focused skills for implementation, review, threat modeling, and ownership analysis.
 
