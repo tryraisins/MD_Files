@@ -194,8 +194,8 @@ Build RESTful API for user profile management with CRUD operations, avatar uploa
 **Goal**: Production-ready quality
 
 **Tasks**:
-- [ ] <mention-page url="...">Write unit tests</mention-page>
-- [ ] <mention-page url="...">Write integration tests</mention-page>
+- [ ] <mention-page url="...">Verify the complete API feature flow end to end, including relevant failure and recovery scenarios</mention-page>
+- [ ] <mention-page url="...">Save a repeatable verification command and E2E report or trace</mention-page>
 - [ ] <mention-page url="...">Performance testing</mention-page>
 - [ ] <mention-page url="...">Security audit</mention-page>
 - [ ] <mention-page url="...">API documentation</mention-page>
@@ -458,4 +458,3 @@ new_str: "
 - Easy navigation between all artifacts
 
 Perfect for: Feature implementation, API development, technical projects
-

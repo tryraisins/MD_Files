@@ -201,9 +201,11 @@ Focus: Connecting components
 ```
 Title: "Test: [What's being tested]"
 Examples:
-- "Test: Write unit tests for auth service"
-- "Test: E2E testing for checkout flow"
+- "Test: E2E testing for the complete authentication and recovery flow"
+- "Test: E2E testing for checkout, including payment failure recovery"
 - "Test: Performance testing for API"
+
+Prefer E2E tests as the sole testing mechanism. Do not write unit tests after implementation; if an isolated test is necessary, document its failure modes before writing the test code.
 
 Focus: Validation and quality assurance
 ```
@@ -438,4 +440,3 @@ Before finalizing tasks:
 ☐ Linked to spec/plan
 ☐ Proper sequencing
 ☐ Resources noted
-

@@ -571,7 +571,7 @@ test("CLI profiles command remains executable", () => {
     encoding: "utf8",
   });
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /core\s+26/);
+  assert.match(result.stdout, /core\s+27/);
   assert.match(result.stdout, /design\s+24/);
   assert.match(result.stdout, /Default: core/);
   assert.match(result.stdout, /skill-router/);

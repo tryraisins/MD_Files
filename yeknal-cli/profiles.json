@@ -27,7 +27,8 @@
       "security-threat-model",
       "skill-router",
       "troubleshoot",
-      "ui-quality-baseline"
+      "ui-quality-baseline",
+      "testing-strategy"
     ]
   },
   "process": {

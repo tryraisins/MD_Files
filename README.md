@@ -40,7 +40,7 @@ npx yeknal security
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal skills` | Syncs the 26-skill core profile into detected user-level agent folders, including the task-time skill router. |
+| `npx yeknal skills` | Syncs the 27-skill core profile into detected user-level agent folders, including the task-time skill router and testing strategy. |
 | `npx yeknal skills --skip-claude` | Avoids duplicate managed skills in OpenCode and other Claude-compatible readers by skipping and cleaning managed copies from `~/.claude/skills`. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
@@ -66,9 +66,9 @@ npx yeknal security
 
 ## Capability profiles
 
-The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 25 entries cover:
+The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 27 entries cover:
 
-- process and reasoning management: brainstorming, research, orchestration/context management, implementation, review, diagnosis, cleanup, Git, finalization, and documentation;
+- process and reasoning management: brainstorming, research, orchestration/context management, implementation, review, diagnosis, cleanup, Git, finalization, documentation, and testing strategy;
 - canonical design: reference research, visual direction, UI quality, frontend implementation, redesign, mobile, motion, and human-AI interaction;
 - security: secure implementation, focused framework review, threat modeling, and sensitive-code ownership;
 - browser-based verification through Playwright.

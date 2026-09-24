@@ -85,7 +85,7 @@ Example:
 ### Completed
 - Implemented user authentication API endpoints (login, logout, refresh)
 - Added JWT token generation and validation
-- Wrote unit tests for auth service (95% coverage)
+- Verified the authentication and recovery flow end to end; saved the rerunnable command and trace artifact
 
 ### In Progress
 - Frontend login form integration
@@ -455,4 +455,3 @@ Compares to target: [On schedule/Behind/Ahead]
 6. **Track decisions**: Document why, not just what
 7. **Be honest**: Report actual status, not optimistic status
 8. **Update in one place**: Keep implementation plan as source of truth
-
