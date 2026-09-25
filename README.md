@@ -40,7 +40,7 @@ npx yeknal security
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal skills` | Syncs the 27-skill core profile into detected user-level agent folders, including the task-time skill router and testing strategy. |
+| `npx yeknal skills` | Syncs the 28-skill core profile into detected user-level agent folders, including project continuity, the task-time skill router, and testing strategy. |
 | `npx yeknal skills --skip-claude` | Avoids duplicate managed skills in OpenCode and other Claude-compatible readers by skipping and cleaning managed copies from `~/.claude/skills`. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |

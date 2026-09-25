@@ -13,11 +13,12 @@ description: Run final documentation and quality gates, summarize the diff, and 
 ## Workflow Pipeline
 
 1. Inspect repository instructions, working-tree state, package manager, scripts, and changed files.
-2. Update affected Markdown through `markdown-management`; do not rewrite unrelated documentation.
-3. Run the repository's actual focused test, type, lint, and build commands. Never assume Bun, Next.js, or a script name.
-4. Run `git diff --check`, inspect the final diff, and distinguish new failures from baseline failures.
-5. Summarize changed behavior, validation evidence, and external proof still required.
-6. Stage, commit, or push only when explicitly requested, and only after confirming the exact files and destination.
+2. For substantial ongoing work, ensure the root `HANDOFF.md` reflects the verified current state and next action. Use `project-handoff` when available; skip it when continuity does not warrant a handoff.
+3. Update other affected Markdown through `markdown-management`; do not rewrite unrelated documentation.
+4. Run the repository's actual focused test, type, lint, and build commands. Never assume Bun, Next.js, or a script name.
+5. Run `git diff --check`, inspect the final diff, and distinguish new failures from baseline failures.
+6. Summarize changed behavior, validation evidence, and external proof still required.
+7. Stage, commit, or push only when explicitly requested, and only after confirming the exact files and destination.
 
 ## Arguments
 - `[commit-message]` - Custom commit message (optional)

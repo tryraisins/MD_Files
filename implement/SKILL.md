@@ -24,9 +24,10 @@ Do not invent unavailable tools, agents, packages, or integrations. Inspect what
 3. State the smallest change that satisfies the request and identify proof that must come from a browser, tenant, database, provider, or deployment.
 4. Implement the complete path. Preserve unrelated behavior and user changes.
 5. Strongly prefer end-to-end (E2E) tests as the sole testing mechanism, especially for complex behavior. Never write unit tests after writing the code they cover; if a unit test is genuinely necessary, write it before the implementation. If isolated testing is necessary, document concrete failure modes before writing the test or harness code. Produce a repeatable, verifiable artifact at the end of each E2E run. Apply `testing-strategy` when available.
-6. Update Markdown when commands, configuration, behavior, setup, failure modes, or proof boundaries changed. Use `markdown-management` for substantial documentation work.
-7. Run the narrowest relevant tests, type checks, lint, build, security checks, and `git diff --check`.
-8. Report the outcome, changed files, evidence, and any unverified external boundary.
+6. For substantial ongoing projects, read or update the repository-root `HANDOFF.md` when continuity would help. Use `project-handoff` when available; do not create one for trivial or disposable tasks.
+7. Update other Markdown when commands, configuration, behavior, setup, failure modes, or proof boundaries changed. Use `markdown-management` for substantial documentation work.
+8. Run the narrowest relevant tests, type checks, lint, build, security checks, and `git diff --check`.
+9. Report the outcome, changed files, evidence, and any unverified external boundary.
 
 ## Separate judgment from repeatable work
 
