@@ -46,7 +46,7 @@ npx yeknal security
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
 | `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills aspnet-core` | Adds missing skills to the current repository without deleting or replacing existing skills. |
-| `npx yeknal skills --all` | Syncs all 84 skills for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs all 86 skills for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 
@@ -66,7 +66,7 @@ npx yeknal security
 
 ## Capability profiles
 
-The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 27 entries cover:
+The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 28 entries cover:
 
 - process and reasoning management: brainstorming, research, orchestration/context management, implementation, review, diagnosis, cleanup, Git, finalization, documentation, and testing strategy;
 - canonical design: reference research, visual direction, UI quality, frontend implementation, redesign, mobile, motion, and human-AI interaction;
@@ -77,7 +77,7 @@ Specialist packs add depth without forcing every style, platform, integration, o
 
 | Profile | Skills | Purpose |
 | --- | ---: | --- |
-| `core` | 25 | High-frequency process, design, implementation, verification, and security. |
+| `core` | 28 | High-frequency process, design, implementation, verification, and security. |
 | `process` | 6 | Optional delivery, cleanup, GitHub, exhaustive-output, and response workflows beyond core. |
 | `design` | 24 | Specialist visual styles, motion, prototyping, Figma, and image-led work beyond core design. |
 | `security` | 4 | The four distinct security output contracts. |
@@ -86,7 +86,7 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
 | `productivity` | 5 | Linear and Notion workflows. |
 | `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 83 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 86 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `frontend-design`, `ui-quality-baseline`, `design-reference-research`, `redesign-existing-projects`, `mobile-app-design`, `human-ai-interface-design`, and `animate` provide the core paths; aesthetic systems and tool-specific workflows remain in the design pack because their triggers and output contracts differ. Security keeps four folders for the same reason: implementation, review, threat modeling, and ownership analysis are not interchangeable artifacts.
 
@@ -111,7 +111,7 @@ The consolidated routers are `engineering-specialists`, `orchestration-specialis
 - `human-ai-interface-design`: trustworthy AI suggestions, generation, retrieval, agents, approvals, provenance, recovery, and reliance-focused evaluation.
 - `design-taste-frontend` and `design-taste-frontend-v1`: detailed local design systems for expressive, non-templated interfaces.
 - `high-end-visual-design`, `minimalist-ui`, `industrial-brutalist-ui`, and `stitch-design-taste`: specialist art-direction and design-system workflows. `gpt-taste` remains an explicit compatibility route to current guidance.
-- `ui-quality-baseline`: accessibility, responsive containment, coherent tokens, truthful loading states, and rendered QA.
+- `ui-quality-baseline`: accessibility, responsive containment, coherent tokens, truthful loading states, rendered QA, and public-site launch checks for mobile layout, links, page metadata, contact actions, buttons, images, and not-found pages.
 - `mobile-app-design`: native mobile screen and flow implementation with optional Appllama reference research; it delegates motion-only work to `animate-expo` and image-only concepts to `imagegen-frontend-mobile`.
 - `emil-design-eng`, `animate`, `animate-expo`, and the animation review skills: interaction and motion craft.
 - `oil-motion`: a specialized workflow for generated or captured frame-based interactive media, adapted from `oil-oil/oil-motion`.
