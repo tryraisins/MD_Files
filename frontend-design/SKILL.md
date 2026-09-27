@@ -16,6 +16,8 @@ Approach the work as the design lead at a studio known for giving every client a
 
 Use `ui-quality-baseline` for tokens, responsive containment, accessibility, loading states, control geometry, and rendered verification. This skill owns the visual thesis. The baseline protects quality without flattening that thesis. An explicit brief, approved design, established brand, or platform convention wins when it conflicts with either skill.
 
+Before building, follow the baseline's `DESIGN.md` rule: create or update the project's authoritative design document with the thesis and reusable tokens, then keep implementation aligned with it.
+
 When the user supplies references or the brief lacks a defensible visual direction, use `design-reference-research` before choosing a thesis. For products with AI-generated, retrieved, or agent-executed behavior, also apply `human-ai-interface-design` to the interaction lifecycle; do not treat AI trust as a styling problem.
 
 ## Ground the design in the subject

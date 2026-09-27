@@ -19,6 +19,12 @@ Before changing UI:
 4. Reuse established primitives when they meet the quality bar. Do not introduce a second component, icon, skeleton, or motion system for novelty.
 5. If there is no system, establish the smallest coherent token set needed for the work before styling individual elements.
 
+## Keep the design system durable
+
+Before implementing a new interface or a substantial visual change, create or update a concise `DESIGN.md` at the project root and use it as the source of truth for the UI. If the project already has an authoritative design-system document, extend that instead of creating a competing file. For a narrowly scoped repair, read the existing document and update it only when the shared system changes.
+
+Record the visual thesis and reusable rules that implementation needs: role-based color values (including text and surfaces for each supported light or dark theme), font families and size/line-height roles, spacing scale, control geometry, radii, and component variants. Check text and controls against every surface where they appear. Keep the palette restrained, hierarchy clear, and equivalent buttons, cards, and inputs consistent through shared tokens or components. Give the page a clear focal point; add emphasis when hierarchy is too flat and remove competing detail when it feels crowded. Do not add arbitrary one-off values that bypass the documented system.
+
 ## Ground open-ended design in evidence
 
 When the visual direction is not already fixed, use `design-reference-research` before committing to a pattern. Compare functionally similar products and complete flows across relevant devices; extract hierarchy, navigation grammar, state behavior, and responsive transformations instead of copying pixels or averaging gallery trends.
@@ -107,6 +113,7 @@ For page- or screen-level work, map entry, primary job, commitment, completion, 
 
 - Navigation exposes structure, current location, and a reliable way home. Its mobile form follows priority and task frequency rather than defaulting blindly to a hamburger.
 - Heroes or first task surfaces keep one dominant purpose, one primary action, and credible product evidence. Essential meaning must survive without animation or a desktop crop.
+- On a public home page, state in one clear line what the product does. Give each page one visually dominant primary action; keep secondary actions visibly subordinate.
 - CTAs use outcome-specific verbs and place risk, price, scope, permission, or reversibility near the commitment.
 - Footers support continuation, support, required legal paths, and recovery; do not delete useful structure just to avoid a conventional footer.
 - 404, empty, error, offline, and permission states explain what happened and provide the best next action.
@@ -176,6 +183,7 @@ Motion explains hierarchy, feedback, spatial relationships, or state changes. Do
 - Make motion interruptible where users can reverse an action. Do not delay input until an entrance sequence finishes.
 - Gate hover motion behind hover-capable pointers.
 - Respect `prefers-reduced-motion` in code and design. Preserve comprehension with opacity or color when positional motion is removed.
+- Give modals, dropdowns, and tab changes a brief transition when it clarifies opening, closing, or selection. Keep it interruptible, skip it when it adds delay without information, and honor reduced motion.
 - Test under CPU and network load; animation that only looks smooth on an idle machine is not finished.
 
 ## States and accessibility
@@ -183,6 +191,7 @@ Motion explains hierarchy, feedback, spatial relationships, or state changes. Do
 Important components and flows include the states they can actually enter: idle, hover, focus, active, disabled, loading, empty, success, warning, error/retry, offline, and canceled where applicable.
 
 - Use semantic HTML, visible focus, keyboard access, sufficient contrast, readable status text, and live announcements for meaningful async changes.
+- Make hover, pressed, focus, and disabled feedback visible and consistent for each interactive control type. Verify text contrast on both light and dark surfaces when both are used.
 - Do not communicate state by color alone.
 - Dialogs and overlays trap focus when modal, close safely, restore focus, and respect Escape unless the operation cannot be dismissed.
 - Do not hide important content from older users, zoomed text, localization, or assistive technology just to preserve a screenshot-perfect layout.
@@ -231,5 +240,7 @@ Even when the task is only one button, badge, input, icon, loader, or skeleton:
 - Compare the implementation with the approved design or reference at representative desktop, tablet, mobile, and reduced-height viewports.
 - Check control geometry, rendered text centering, padding, line height, icon alignment, wrapping, truncation, and horizontal scroll.
 - Verify loading feedback against real async state and test success, failure, retry, and reduced motion.
+- Walk every critical user journey end to end in the running product (for example, sign-up or checkout when present). Check that visible buttons act, links reach valid destinations, and the same journey can be completed with a keyboard alone.
+- For a public launch, confirm the home page says what the product does in one clear line, each page has one dominant primary action, every page has an accurate title and description, the site has a working favicon, and no visible placeholder or template text remains.
 - Run relevant lint, type checks, tests, builds, and browser checks. A successful build is not visual proof.
 - Report what was verified, what failed, and what remains blocked without overclaiming.

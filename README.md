@@ -111,7 +111,7 @@ The consolidated routers are `engineering-specialists`, `orchestration-specialis
 - `human-ai-interface-design`: trustworthy AI suggestions, generation, retrieval, agents, approvals, provenance, recovery, and reliance-focused evaluation.
 - `design-taste-frontend` and `design-taste-frontend-v1`: detailed local design systems for expressive, non-templated interfaces.
 - `high-end-visual-design`, `minimalist-ui`, `industrial-brutalist-ui`, and `stitch-design-taste`: specialist art-direction and design-system workflows. `gpt-taste` remains an explicit compatibility route to current guidance.
-- `ui-quality-baseline`: accessibility, responsive containment, coherent tokens, truthful loading states, rendered QA, and public-site launch checks for mobile layout, links, page metadata, contact actions, buttons, images, and not-found pages.
+- `ui-quality-baseline`: the shared UI contract for all core agents, including a durable `DESIGN.md`, coherent tokens, accessible responsive layouts, complete interaction and loading states, end-to-end user-flow checks, rendered QA, and public-site launch checks for links, page metadata, favicon, buttons, and placeholder copy.
 - `mobile-app-design`: native mobile screen and flow implementation with optional Appllama reference research; it delegates motion-only work to `animate-expo` and image-only concepts to `imagegen-frontend-mobile`.
 - `emil-design-eng`, `animate`, `animate-expo`, and the animation review skills: interaction and motion craft.
 - `oil-motion`: a specialized workflow for generated or captured frame-based interactive media, adapted from `oil-oil/oil-motion`.
