@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-03
 Branch: main
-HEAD: 3036a3f (Route 1 migration pushed; working tree holds B6/C7/C8 pilot changes, uncommitted)
+HEAD: 0022f1e (all phases complete; working tree clean)
 
 ## Current Objective
 
@@ -19,10 +19,11 @@ Publish the Yeknal catalog on skills.sh under unique `yeknal-*` slugs (Route 1),
 - C9 complete: all 86 skills rewritten (length-neutral, originality/clarity), each `tools/parity.js` PASS and `skills-ref validate` OK.
 - C10 complete: MIT notices plus `metadata.source`/`source-commit` added to the 14 confirmed MIT derivatives; Credits sections added to README and npm README; `PROVENANCE.md` updated.
 - Phase D local gates all green: skills-ref 86/86, parity no fails, audit-skills 0/0, links 0, routing evals 0, CLI tests 22/22, `npx skills add . --list` = 52.
+- skills.sh: repo page lists all 52 slugs; the search index now returns `tryraisins/md_files/yeknal-*` with no `isDuplicate` flag.
 
 ## Current Task
 
-Finalize: Phase D local verification is green; re-check the skills.sh repo page and search index once ingestion catches up.
+Complete. All phases (Route 1 migration, provenance, parity tooling, all-86 rewrite, attribution) are done and verified.
 
 ## Relevant Files
 
@@ -82,8 +83,8 @@ Current results: 86/86 valid; parity PASS for the 3 pilots; audit-skills 0/0; li
 
 ## Next Actions
 
-1. Re-check the skills.sh repo page and search index; confirm no `isDuplicate` once indexed.
-2. Optional: create a Vercel-authed Pack for one-command core install.
+1. Optional: create a Vercel-authed Pack for a one-command core install.
+2. Optional: confirm the `ibelick/ui-skills` provenance mapping and add a notice if applicable.
 2. C10: add MIT notices + `metadata.source` for the derivatives in `PROVENANCE.md`; add README + npm README Credits sections.
 3. Commit the B6/C7/C8 batch (needs approval).
 4. Re-check skills.sh repo page + search index; confirm no `isDuplicate` once indexed.
