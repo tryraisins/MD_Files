@@ -1,13 +1,16 @@
 ---
 name: yeknal-redesign-existing-projects
 description: Redesign an existing website or app without breaking behavior or data flow. Use for visual refreshes, UX improvements, responsive repair, or de-genericization.
+metadata:
+  source: https://github.com/leonxlnx/taste-skill
+  source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
 ---
 
 # Redesign an existing product
 
-Improve the real product, not an imagined replacement. A redesign is successful when the interface becomes clearer, more coherent, more distinctive, and more robust while its required behavior still works.
+Improve the real product, not an imagined replacement. A redesign succeeds when the interface becomes clearer, more coherent, more distinctive, and more robust while its required behavior still works.
 
-Also apply `ui-quality-baseline`. Use `design-reference-research` when the redesign is reference-led or the current product lacks a defensible direction. Use `human-ai-interface-design` for real generation, recommendation, retrieval, copilot, or agent behavior.
+Also apply `yeknal-ui-quality-baseline`. Use `yeknal-design-reference-research` when the redesign is reference-led or the current product lacks a defensible direction. Use `yeknal-human-ai-interface-design` for real generation, recommendation, retrieval, copilot, or agent behavior.
 
 ## Preserve the contract
 
@@ -23,7 +26,7 @@ Do not replace working behavior with mock data, placeholders, dead controls, red
 
 ## Establish evidence before taste
 
-Capture the current product at representative viewports and states. Record confirmed defects separately from preferences and unknowns. If references are involved, compare functionally similar products and follow the evidence boundaries in `design-reference-research`; attractive screenshots do not prove usability or implementation quality.
+Capture the current product at representative viewports and states. Record confirmed defects separately from preferences and unknowns. If references are involved, compare functionally similar products and follow the evidence boundaries in `yeknal-design-reference-research`; attractive screenshots do not prove usability or implementation quality.
 
 Define:
 
@@ -49,7 +52,7 @@ Define:
 - Are exceptions meaningful, or are they accumulated one-off values?
 - Does the page have a product-specific signature, or could the brand and nouns be swapped without changing the design?
 
-Do not diagnose “slop” from one font, hue, card count, centered hero, or navigation style. Diagnose unsupported decisions, copied trend bundles, repetitive section grammar, weak content hierarchy, incoherent tokens, fake depth, gratuitous motion, and incomplete states.
+Do not diagnose "slop" from one font, hue, card count, centered hero, or navigation style. Diagnose unsupported decisions, copied trend bundles, repetitive section grammar, weak content hierarchy, incoherent tokens, fake depth, gratuitous motion, and incomplete states.
 
 ### Content and truthfulness
 
@@ -67,14 +70,14 @@ Do not diagnose “slop” from one font, hue, card count, centered hero, or nav
 
 ### Responsive and device behavior
 
-Use `design-reference-research/references/responsive-matrix.md`. Inspect small/common phones, tablet portrait/landscape, compact-height and standard desktop, wide desktop, zoom, keyboard, touch/no-hover, reduced motion, and product-specific safe-area, split-view, foldable, or virtual-keyboard conditions.
+Use `yeknal-design-reference-research/references/responsive-matrix.md`. Inspect small/common phones, tablet portrait/landscape, compact-height and standard desktop, wide desktop, zoom, keyboard, touch/no-hover, reduced motion, and product-specific safe-area, split-view, foldable, or virtual-keyboard conditions.
 
 For every region, decide explicitly what reflows, reorders, condenses, becomes progressive disclosure, changes navigation mode, scrolls intentionally, or can be omitted. Check long copy, translations, data extremes, image crops, sticky/fixed occlusion, and horizontal overflow.
 
 ### Motion and performance
 
 - Keep motion that communicates hierarchy, continuity, feedback, or state; remove motion whose only rationale is fashion.
-- Apply `animate` for interaction details. Define trigger, intermediate state, interruption, exit, reduced-motion path, and pointer/touch differences.
+- Apply `yeknal-animate` for interaction details. Define trigger, intermediate state, interruption, exit, reduced-motion path, and pointer/touch differences.
 - Measure before adding large images, filters, WebGL, video, custom fonts, scroll timelines, or a new animation dependency.
 - Preserve content availability and control responsiveness when motion or assets fail.
 
@@ -99,7 +102,7 @@ Fix the highest-impact root cause instead of restyling every symptom. Keep chang
 
 - Work in the installed stack and inspect dependencies before imports.
 - For React-compatible stacks, default to **Tailwind CSS (v4) + shadcn/ui** for the styling and component layer, setting them up when absent; for non-React stacks use the stack-appropriate equivalent. Apply the default at all times, not only when the project already uses them, and preserve an existing documented design system unless replacing it is explicitly in scope.
-- When a brief's interaction already exists as a [Rare UI](https://www.rareui.com/components) source component and the stack is React-compatible, install and adapt it through `pick-ui-library` before building custom. Keep its license notice in the copied source and add the required README credit linking to rareui.com.
+- When a brief's interaction already exists as a [Rare UI](https://www.rareui.com/components) source component and the stack is React-compatible, install and adapt it through `yeknal-pick-ui-library` before building custom. Keep its license notice in the copied source and add the required README credit linking to rareui.com.
 - Reuse components and semantic tokens; centralize new roles instead of scattering arbitrary values.
 - Preserve network contracts, state transitions, validation, analytics, side effects, and errors.
 - Keep source, generated assets, test artifacts, screenshots, and credentials separated for commit hygiene.

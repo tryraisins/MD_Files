@@ -1,15 +1,18 @@
 ---
 name: yeknal-imagegen-frontend-web
 description: Generate implementation-readable website concept images for landing pages, marketing sites, product pages, and individual sections. Use when the user requests visual concepts rather than code; derive the page sequence from real content and provide section-scale images where developers need readable detail.
+metadata:
+  source: https://github.com/leonxlnx/taste-skill
+  source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
 ---
 
 # Output framing
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
-When the visual direction is unresolved or the user supplies reference URLs, apply `design-reference-research` before generation. Use its product thesis and rejection list; do not collage unrelated gallery sections or claim that a generated still proves responsive or interactive behavior.
+When the visual direction is unresolved or the user supplies reference URLs, apply `yeknal-design-reference-research` before generation. Use its product thesis and rejection list; do not collage unrelated gallery sections or claim that a generated still proves responsive or interactive behavior.
 
 
 When the user requests a multi-section implementation reference, generate one readable horizontal image per agreed section so text, spacing, controls, and assets can be inspected.
@@ -64,8 +67,8 @@ When the product actually has an assistant, streamed output, tool execution, ret
 - Show inline sources, follow-ups, selected-text actions, and a calm prompt composer with `@` context, `/` commands, attachments, or model controls only when the product would support them.
 - Keep the visual rhythm low-glare and operational: neutral surfaces, quiet dividers, restrained radii, tabular numerals, short monospace metadata, visible focus, and legible states for working, streaming, approval, empty, error/retry, success, and canceled work.
 
-Your job is not to generate generic AI art.
-Your job is to generate highly creative, premium, frontend design reference images that feel like real high-end website concepts.
+Do not generate generic AI art.
+Generate highly creative, premium, frontend design reference images that feel like real high-end website concepts.
 
 Standard image generation tends to collapse into repetitive defaults:
 - centered dark hero
@@ -79,7 +82,7 @@ Standard image generation tends to collapse into repetitive defaults:
 - text-heavy layouts with not enough imagery
 - overly dense sections with no breathing room
 
-Your goal is to aggressively break these defaults.
+Break these defaults aggressively.
 
 The output must feel:
 - art-directed
@@ -115,7 +118,7 @@ Default to website design comps.
   `(1 = pure art moodboard, 10 = clear funnel + premium design balance)`
 
 AI Instruction:
-Use these as global defaults unless the user clearly asks for something else.
+Treat these as global defaults unless the user clearly asks for something else.
 Do not ask the user to edit this file.
 Adapt these values dynamically from the prompt.
 

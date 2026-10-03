@@ -10,7 +10,7 @@ metadata:
 
 ## Overview
 
-Use gh to locate failing PR checks, fetch GitHub Actions logs for actionable failures, summarize the failure snippet, then propose a fix plan and implement after explicit approval.
+Use `gh` to find failing PR checks, pull GitHub Actions logs for actionable failures, summarize the failure snippet, then propose a fix plan and implement it only after explicit approval.
 - If a plan-oriented skill (for example `create-plan`) is available, use it; otherwise draft a concise plan inline and request approval before implementing.
 
 Prereq: authenticate with the standard GitHub CLI once (for example, run `gh auth login`), then confirm with `gh auth status` (repo + workflow scopes are typically required).
@@ -47,15 +47,15 @@ Prereq: authenticate with the standard GitHub CLI once (for example, run `gh aut
      - If the run log says it is still in progress, fetch job logs directly:
        - `gh api "/repos/<owner>/<repo>/actions/jobs/<job_id>/logs" > "<path>"`
 4. Scope non-GitHub Actions checks.
-   - If `detailsUrl` is not a GitHub Actions run, label it as external and only report the URL.
+   - If `detailsUrl` is not a GitHub Actions run, label it as external and report the URL only.
    - Do not attempt Buildkite or other providers; keep the workflow lean.
 5. Summarize failures for the user.
-   - Provide the failing check name, run URL (if any), and a concise log snippet.
+   - Give the failing check name, the run URL (if any), and a concise log snippet.
    - Call out missing logs explicitly.
 6. Create a plan.
    - Use the `create-plan` skill to draft a concise plan and request approval.
 7. Implement after approval.
-   - Apply the approved plan, summarize diffs/tests, and ask about opening a PR.
+   - Apply the approved plan, summarize diffs and tests, and ask about opening a PR.
 8. Recheck status.
    - After changes, suggest re-running the relevant tests and `gh pr checks` to confirm.
 

@@ -7,7 +7,7 @@ description: Design trustworthy AI-mediated interfaces. Use for suggestions, gen
 
 Design for appropriate reliance: users should know what the system can do, what it did, what evidence it used, what remains uncertain, and how to correct or stop it.
 
-Also apply `ui-quality-baseline`. Use deterministic controls for exact state, permissions, prices, status, and irreversible commitments; a chat box is not a universal interface for AI.
+Also apply `yeknal-ui-quality-baseline`. Use deterministic controls for exact state, permissions, prices, status, and irreversible commitments; a chat box is not a universal interface for AI.
 
 ## Decide the system's role
 
@@ -63,7 +63,7 @@ Load [references/lifecycle-and-patterns.md](references/lifecycle-and-patterns.md
 
 ## Accessibility and inclusion
 
-Generated changes, suggestions, citations, warnings, voice interactions, and agent traces must be keyboard reachable and announced appropriately. Do not make voice, color, animation, hover, or drag the only path. Allow users to inspect generated alt text and other AI-authored accessibility content rather than silently trusting it.
+Generated changes, suggestions, citations, warnings, voice interactions, and agent traces must be keyboard reachable and announced appropriately. Do not make voice, color, animation, hover, or drag the only path. Let users inspect generated alt text and other AI-authored accessibility content rather than silently trusting it.
 
 Adapt explanation and control to user expertise without hiding auditability. Novices need wayfinders; experts need override and configuration; auditors need provenance and repeatability.
 

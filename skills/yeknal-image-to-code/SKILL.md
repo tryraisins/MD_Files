@@ -1,20 +1,23 @@
 ---
 name: yeknal-image-to-code
 description: Analyze approved or generated website reference images, extract their visual and responsive system, and implement the frontend faithfully. Use when the user provides a screenshot or explicitly wants an image-first concept-to-code workflow; never replace an approved reference with a newly generated design.
+metadata:
+  source: https://github.com/leonxlnx/taste-skill
+  source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
 ---
 
 # CORE DIRECTIVE: IMAGE-FIRST WEBSITE DESIGN TO CODE
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
 You are an elite web design art director and implementation strategist.
 
-Your job is not to generate generic website mockups.
-Your job is to generate premium, artistic, implementation-friendly website section references and then turn them into real frontend.
+Do not produce generic website mockups.
+Produce premium, artistic, implementation-friendly website section references, then turn them into real frontend.
 
-This skill is for:
+This skill serves:
 - hero sections
 - landing pages
 - marketing sites
@@ -26,8 +29,8 @@ This skill is for:
 - redesigns where visual quality matters
 
 Standard AI output tends to collapse into repetitive defaults:
-- one single giant compressed image for too many sections
-- text that becomes too small to read
+- one giant compressed image covering too many sections
+- text rendered too small to read
 - centered dark hero clichés
 - generic card spam
 - repeated left-text/right-image layouts
@@ -37,11 +40,11 @@ Standard AI output tends to collapse into repetitive defaults:
 - giant rounded section containers everywhere
 - too much visible information in the first screen
 - tiny pills, labels, tags, system markers, and fake interface jargon
-- nice-looking but unextractable designs
+- designs that look nice but cannot be extracted
 - generic coded reinterpretations after the image step
-- lazily generating too few images for too many sections
+- too few images generated for too many sections
 
-Your goal is to aggressively break these defaults.
+Break these defaults aggressively.
 
 ## Loading-State Implementation Default
 
@@ -63,7 +66,7 @@ The output must feel:
 Choose the source path from the request:
 
 1. **Approved or user-supplied reference:** inspect it directly and treat it as visual authority within repository and behavior constraints. Do not generate a replacement.
-2. **Explicit image-first concept request:** use `design-reference-research` when direction is unclear, generate the authorized concept, inspect it, then implement it.
+2. **Explicit image-first concept request:** use `yeknal-design-reference-research` when direction is unclear, generate the authorized concept, inspect it, then implement it.
 3. **Design already fixed in code/files:** preserve that system and use the reference only to resolve the requested delta.
 
 Do not begin freeform styling before extracting the reference's hierarchy, tokens, component anatomy, states, assets, and responsive transformations. Generated imagery is a proposal, not authority over an approved design or working behavior.
@@ -92,7 +95,7 @@ Do not begin freeform styling before extracting the reference's hierarchy, token
   `(1 = willing to add many micro-elements, 10 = aggressively reduce clutter and unnecessary UI chrome)`
 
 AI Instruction:
-Use these as defaults unless the user clearly wants something else.
+Treat these as defaults unless the user clearly wants something else.
 Adapt them to the prompt.
 
 Interpretation:
@@ -101,7 +104,7 @@ Interpretation:
 - If the user says “premium SaaS”, keep clarity high and art direction controlled.
 - If the user says “editorial”, allow stronger type and more asymmetry.
 - Keep sections breathable.
-- Prefer readability over squeezing too much into one image.
+- Favor readability over squeezing too much into one image.
 - In Codex, bias strongly toward larger, more analyzable section images.
 - If more images would improve extraction quality, generate more images.
 - Do not be lazy with image count.
@@ -147,9 +150,9 @@ If more images would improve:
 then generate more images.
 
 Strong rule:
-- it is better to generate too many clear images than too few compressed images
-- it is better to generate one clear image per section than one unreadable board for the whole site
-- it is better to create an extra detail image than to guess details later
+- better too many clear images than too few compressed ones
+- better one clear image per section than one unreadable board for the whole site
+- better an extra detail image now than guessing details later
 
 Never reduce image count just for convenience if that harms quality.
 
@@ -157,7 +160,7 @@ Never reduce image count just for convenience if that harms quality.
 
 ## 4. CODEX-SPECIFIC SECTION IMAGE RULE
 
-Inside Codex, do not compress too many website sections into one single image if that would make the text, spacing, buttons, or layout details too small to analyze properly.
+Inside Codex, do not compress too many website sections into one image if that makes the text, spacing, buttons, or layout details too small to analyze properly.
 
 In Codex, prefer separate large images per section.
 
@@ -190,7 +193,7 @@ Do not default to:
 
 If necessary, generate more images rather than shrinking everything.
 
-Outside Codex, this skill may still allow more compact multi-section composition when appropriate.
+Outside Codex, this skill may still allow a more compact multi-section composition when appropriate.
 Inside Codex, prioritize section clarity and extraction accuracy.
 
 ---
@@ -315,7 +318,7 @@ The analysis should feel:
 
 ## 9. DEEP IMAGE ANALYSIS REQUIREMENT
 
-Before implementing anything, deeply analyze the generated image(s).
+Before implementing anything, analyze the generated image(s) deeply.
 
 Do not just glance at them.
 Treat them like a design specification.

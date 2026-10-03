@@ -9,23 +9,23 @@ metadata:
 
 # Mobile app design
 
-Build mobile interfaces that respect the project’s existing stack and feel native on their target platforms. Preserve working behavior and established product design before applying this guidance.
+Build mobile interfaces that respect the project's existing stack and feel native on their target platforms. Preserve working behavior and the established product design before applying this guidance.
 
 ## Related-skill routing
 
-- Use `imagegen-frontend-mobile` when the deliverable is images or visual concepts only.
-- Use `animate-expo` when the task is specifically gesture, transition, haptic, or Reanimated implementation.
-- Use `ui-quality-baseline` for shared accessibility, state, token, and rendered-QA requirements.
-- Use `design-reference-research` when the user supplies mobile references or the product category needs a benchmark study. AppLlama is one optional source, not a prerequisite for evidence-led mobile design.
+- Use `yeknal-imagegen-frontend-mobile` when the deliverable is images or visual concepts only.
+- Use `yeknal-animate-expo` when the task is specifically gesture, transition, haptic, or Reanimated implementation.
+- Use `yeknal-ui-quality-baseline` for shared accessibility, state, token, and rendered-QA requirements.
+- Use `yeknal-design-reference-research` when the user supplies mobile references or the product category needs a benchmark study. AppLlama is one optional source, not a prerequisite for evidence-led mobile design.
 - Use this skill for end-to-end mobile screen and flow design or implementation. Load [references/appllama-research.md](references/appllama-research.md) only when the Appllama MCP is connected or the user provides Appllama screen references.
 
 ## Workflow
 
 1. Inspect the repository, installed dependencies, navigation structure, design tokens, supported devices, and current screen behavior.
 2. Choose the dominant platform contract: iOS, Android, or deliberately neutral cross-platform. Do not mix platform conventions accidentally.
-3. Study relevant reference flows when the design is not already fixed. Compare full sequences and at least one compact and one large supported viewport; extract navigation grammar, hierarchy, control choices, spacing, state behavior, and platform differences without copying a competitor’s pixels or branding.
+3. Study relevant reference flows when the design is not already fixed. Compare full sequences and at least one compact and one large supported viewport; extract navigation grammar, hierarchy, control choices, spacing, state behavior, and platform differences without copying a competitor's pixels or branding.
 4. Define the full state cycle: loading, empty, populated, validation, pending action, success, recoverable error, offline or reconnect when relevant, and disabled permissions.
-5. Implement the smallest complete flow using the project’s existing primitives and state architecture.
+5. Implement the smallest complete flow using the project's existing primitives and state architecture.
 6. Run the screen in an iOS Simulator or Android emulator, exercise the whole flow, inspect screenshots and motion, fix defects, then verify on a release build and the slowest supported real device when performance is in scope.
 
 ## Native fidelity
@@ -36,7 +36,7 @@ Build mobile interfaces that respect the project’s existing stack and feel nat
 - Use one icon family appropriate to the platform. Emoji belongs in content, not interface chrome.
 - Respect safe areas, the Dynamic Island, home indicator, gesture navigation, keyboard, and supported orientations. Never hard-code device inset values.
 - Keep tap targets at least 44 pt on iOS and 48 dp on Android; extend the hit area when the visual control is smaller.
-- Use the navigator’s native header and large-title behavior where it fits instead of rebuilding navigation chrome inside the screen.
+- Use the navigator's native header and large-title behavior where it fits instead of rebuilding navigation chrome inside the screen.
 - Recheck the current [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines) for Apple-platform work instead of treating remembered values or screenshots as permanent rules.
 
 ## Navigation semantics
@@ -63,17 +63,17 @@ Tabs are peers. Each tab keeps its own stack; switching tabs does not imply dept
 
 ## State and performance
 
-- Keep server state in the project’s query or cache layer, durable client state in its established small store, and ephemeral interaction state local to the component.
+- Keep server state in the project's query or cache layer, durable client state in its established small store, and ephemeral interaction state local to the component.
 - Reflect safe optimistic actions immediately, reconcile in the background, and roll back visibly on failure.
 - Virtualize lists that can grow and use stable keys. Right-size images, cache them with the installed image library, and use placeholders only when they improve continuity.
-- Avoid re-rendering React state on every gesture or scroll frame. Keep continuous animation on the UI runtime and delegate implementation detail to `animate-expo`.
+- Avoid re-rendering React state on every gesture or scroll frame. Keep continuous animation on the UI runtime and delegate implementation detail to `yeknal-animate-expo`.
 - Measure cold start, list performance, and transitions before adding memoization or replacing project architecture.
 
 ## Motion
 
 Use platform navigation motion by default. Frequent interactions such as scrolling, keyboard movement, tab changes, and Back should not receive ornamental animation. Press feedback should be immediate and subtle. Gestures must remain interruptible, preserve release velocity, respect Reduce Motion, and stay off the JavaScript thread.
 
-For implementation recipes and exact Reanimated behavior, use `animate-expo` instead of duplicating those instructions here.
+For implementation recipes and exact Reanimated behavior, use `yeknal-animate-expo` instead of duplicating those instructions here.
 
 ## Verification
 
@@ -97,4 +97,4 @@ Static review and simulator screenshots do not prove real-device performance, ha
 
 Adapted from [Appllama/appllama-skills](https://github.com/Appllama/appllama-skills) at commit `dd5caaec3d5d50ad7fc0324da238119c6b7c3707`.
 
-The two upstream skills were consolidated into this one capability. Detailed Reanimated guidance was not copied because `animate-expo` already owns it; image generation remains in `imagegen-frontend-mobile`; shared UI checks remain in `ui-quality-baseline`. Appllama research is optional and progressively disclosed rather than a requirement for all mobile work.
+The two upstream skills were consolidated into this one capability. Detailed Reanimated guidance was not copied because `yeknal-animate-expo` already owns it; image generation remains in `yeknal-imagegen-frontend-mobile`; shared UI checks remain in `yeknal-ui-quality-baseline`. Appllama research is optional and progressively disclosed rather than a requirement for all mobile work.

@@ -8,14 +8,14 @@ metadata:
 
 # Research & Documentation
 
-Pull relevant Notion pages, synthesize findings, and publish clear briefs or reports (with citations and links to sources).
+Pull the relevant Notion pages, synthesize the findings, and publish clear briefs or reports with citations and links back to sources.
 
 ## Quick start
 1) Find sources with `Notion:notion-search` using targeted queries; confirm scope with the user.
 2) Fetch pages via `Notion:notion-fetch`; note key sections and capture citations (`reference/citations.md`).
-3) Choose output format (brief, summary, comparison, comprehensive report) using `reference/format-selection-guide.md`.
+3) Choose the output format (brief, summary, comparison, comprehensive report) using `reference/format-selection-guide.md`.
 4) Draft in Notion with `Notion:notion-create-pages` using the matching template (quick, summary, comparison, comprehensive).
-5) Link sources and add a references/citations section; update as new info arrives with `Notion:notion-update-page`.
+5) Link the sources and add a references/citations section; refresh it as new info arrives with `Notion:notion-update-page`.
 
 ## Workflow
 ### 0) If any MCP call fails because Notion MCP is not connected, pause and set it up:
@@ -26,11 +26,11 @@ Pull relevant Notion pages, synthesize findings, and publish clear briefs or rep
 3. Log in with OAuth:
    - `codex mcp login notion`
 
-After successful login, the user will have to restart codex. You should finish your answer and tell them so when they try again they can continue with Step 1.
+After successful login, the user will have to restart codex. Finish your answer and tell them that, so their next attempt can continue with Step 1.
 
 ### 1) Gather sources
-- Search first (`Notion:notion-search`); refine queries, and ask the user to confirm if multiple results appear.
-- Fetch relevant pages (`Notion:notion-fetch`), skim for facts, metrics, claims, constraints, and dates.
+- Search first (`Notion:notion-search`); refine the queries, and ask the user to confirm when multiple results appear.
+- Fetch the relevant pages (`Notion:notion-fetch`) and skim for facts, metrics, claims, constraints, and dates.
 - Track each source URL/ID for later citation; prefer direct quotes for critical facts.
 
 ### 2) Select the format
@@ -41,18 +41,18 @@ After successful login, the user will have to restart codex. You should finish y
 - See `reference/format-selection-guide.md` for when to pick each.
 
 ### 3) Synthesize
-- Outline before writing; group findings by themes/questions.
-- Note evidence with source IDs; flag gaps or contradictions.
-- Keep user goal in view (decision, summary, plan, recommendation).
+- Outline before writing; group findings by theme or question.
+- Note evidence with source IDs; flag gaps and contradictions.
+- Keep the user's goal in view (decision, summary, plan, recommendation).
 
 ### 4) Create the doc
 - Pick the matching template in `reference/` (brief, summary, comparison, comprehensive) and adapt it.
-- Create the page with `Notion:notion-create-pages`; include title, summary, key findings, supporting evidence, and recommendations/next steps when relevant.
-- Add citations inline and a references section; link back to source pages.
+- Create the page with `Notion:notion-create-pages`; include title, summary, key findings, supporting evidence, and recommendations/next steps where relevant.
+- Add inline citations and a references section; link back to the source pages.
 
 ### 5) Finalize & handoff
 - Add highlights, risks, and open questions.
-- If the user needs follow-ups, create tasks or a checklist in the page; link any task database entries if applicable.
+- If the user needs follow-ups, create tasks or a checklist in the page; link any task-database entries if applicable.
 - Share a short changelog or status using `Notion:notion-update-page` when updating.
 
 ## References and examples

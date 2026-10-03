@@ -7,16 +7,16 @@ metadata:
 
 # Cloudflare Deploy
 
-Consolidated skill for building on the Cloudflare platform. Use decision trees below to find the right product, then load detailed references.
+A single consolidated skill for building on the Cloudflare platform. Use the decision trees below to locate the right product, then load the detailed references.
 
 ## Prerequisites
 
 - When sandboxing blocks the deployment network calls, rerun with `sandbox_permissions=require_escalated`.
-- The deployment might take a few minutes. Use appropriate timeout values.
+- A deployment might take a few minutes. Use appropriate timeout values.
 
 ## Authentication (Required Before Deploy)
 
-Verify auth before `wrangler deploy`, `wrangler pages deploy`, or `npm run deploy`:
+Confirm auth before `wrangler deploy`, `wrangler pages deploy`, or `npm run deploy`:
 
 ```bash
 npx wrangler whoami    # Shows account if authenticated
@@ -217,7 +217,7 @@ Need IaC? → pulumi/ (Pulumi), terraform/ (Terraform), or api/ (REST API)
 
 ### Escalated Network Access
 
-If deployment fails due to network issues (timeouts, DNS errors, connection resets), rerun the deploy with escalated permissions (use `sandbox_permissions=require_escalated`). The deploy requires escalated network access when sandbox networking blocks outbound requests.
+When a deployment fails because of network problems (timeouts, DNS errors, connection resets), rerun the deploy with escalated permissions (use `sandbox_permissions=require_escalated`). The deploy requires escalated network access whenever sandbox networking blocks outbound requests.
 
 Example guidance to the user:
 

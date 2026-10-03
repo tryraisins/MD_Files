@@ -14,7 +14,7 @@ metadata:
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
 
 A lookup skill. When invoked with a task ("I need toasts", "what should I use for drag and drop?"), match the task to the curated list below and recommend the library. These are deliberate, taste-driven picks — don't substitute alternatives outside this list unless the user asks for one or the task genuinely isn't covered.
@@ -47,7 +47,7 @@ For source registries such as shadcn or Rare UI, inspect `components.json`, the 
 | --- | --- |
 | General-purpose animation (springs, layout animations, enter/exit) | [motion](https://motion.dev) (Framer Motion) |
 | Complex scroll choreography and timelines | [GSAP](https://gsap.com) — only when CSS or Motion is not sufficient |
-| Generated/captured frame timelines controlled by scroll, pointer, drag, touch, orientation, audio, data, or state | `oil-motion` skill |
+| Generated/captured frame timelines controlled by scroll, pointer, drag, touch, orientation, audio, data, or state | `yeknal-oil-motion` skill |
 | Animating numbers (counters, prices, stats) | [NumberFlow](https://number-flow.barvian.me) |
 | Animated text components | [torph](https://torph.lochie.me/) |
 | 3D globes | [Cobe](https://cobe.vercel.app) |
@@ -132,4 +132,4 @@ The styling split: clsx for ad-hoc conditional classes; cva when a component has
 - **Rendering a 1,000+ row list directly** → Virtuoso before reaching for pagination hacks.
 - **A `useState`-per-component web of props for shared state** → zustand.
 - **Template-literal className ternaries three conditions deep** → clsx (or cva if it's variant-shaped).
-- **Using a generated video for an ordinary component transition** → CSS or Motion; reserve `oil-motion` for continuous frame-based visual change.
+- **Using a generated video for an ordinary component transition** → CSS or Motion; reserve `yeknal-oil-motion` for continuous frame-based visual change.

@@ -7,7 +7,7 @@ description: Review animation and motion code against a high craft bar derived f
 
 ## UI baseline integration
 
-Review against the motion and loading contract in `ui-quality-baseline`, even for one component. In addition to feel, check that animation is tied to truthful state, frequent actions remain instant or brief, pending controls keep their geometry, overlays are genuinely blocking and focus-safe, skeletons preserve final layout, hover motion is pointer-gated, reduced motion is implemented, and one primary motion system is used per surface.
+Review against the motion and loading contract in `yeknal-ui-quality-baseline`, even for one component. In addition to feel, check that animation is tied to truthful state, frequent actions remain instant or brief, pending controls keep their geometry, overlays are genuinely blocking and focus-safe, skeletons preserve final layout, hover motion is pointer-gated, reduced motion is implemented, and one primary motion system is used per surface.
 
 A specialized review skill. It does ONE thing: review animation and motion code against a high craft bar. It does not write features, fix unrelated bugs, or review non-motion code. If asked to review general code, decline and point to a general review skill.
 

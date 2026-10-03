@@ -11,15 +11,15 @@ metadata:
 ## When to use
 - Read or review PDF content where layout and visuals matter.
 - Create PDFs programmatically with reliable formatting.
-- Validate final rendering before delivery.
+- Validate the final rendering before delivery.
 
 ## Workflow
 1. Prefer visual review: render PDF pages to PNGs and inspect them.
-   - Use `pdftoppm` if available.
-   - If unavailable, install Poppler or ask the user to review the output locally.
-2. Use `reportlab` to generate PDFs when creating new documents.
+   - Use `pdftoppm` if it is available.
+   - If it is not, install Poppler or ask the user to review the output locally.
+2. Use `reportlab` to generate PDFs when you create new documents.
 3. Use `pdfplumber` (or `pypdf`) for text extraction and quick checks; do not rely on it for layout fidelity.
-4. After each meaningful update, re-render pages and verify alignment, spacing, and legibility.
+4. After each meaningful update, re-render the pages and verify alignment, spacing, and legibility.
 
 ## Temp and output conventions
 - Use `tmp/pdfs/` for intermediate files; delete when done.
@@ -46,7 +46,7 @@ brew install poppler
 sudo apt-get install -y poppler-utils
 ```
 
-If installation isn't possible in this environment, tell the user which dependency is missing and how to install it locally.
+If installation is not possible in this environment, tell the user which dependency is missing and how to install it locally.
 
 ## Environment
 No required environment variables.
@@ -66,4 +66,4 @@ pdftoppm -png $INPUT_PDF $OUTPUT_PREFIX
 ## Final checks
 - Do not deliver until the latest PNG inspection shows zero visual or formatting defects.
 - Confirm headers/footers, page numbering, and section transitions look polished.
-- Keep intermediate files organized or remove them after final approval.
+- Keep intermediate files organized, or remove them after final approval.

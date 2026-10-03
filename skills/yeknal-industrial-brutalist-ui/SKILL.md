@@ -1,32 +1,35 @@
 ---
 name: yeknal-industrial-brutalist-ui
 description: Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
+metadata:
+  source: https://github.com/leonxlnx/taste-skill
+  source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
 ---
 
 # SKILL: Industrial Brutalism & Tactical Telemetry UI
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
 
 ## 1. Skill Meta
 **Name:** Industrial Brutalism & Tactical Telemetry Interface Engineering
-**Description:** Advanced proficiency in architecting web interfaces that synthesize mid-century Swiss Typographic design, industrial manufacturing manuals, and retro-futuristic aerospace/military terminal interfaces. This discipline requires absolute mastery over rigid modular grids, extreme typographic scale contrast, purely utilitarian color palettes, and the programmatic simulation of analog degradation (halftones, CRT scanlines, bitmap dithering). The objective is to construct digital environments that project raw functionality, mechanical precision, and high data density, deliberately discarding conventional consumer UI patterns.
+**Description:** Advanced proficiency in architecting web interfaces that merge mid-century Swiss Typographic design, industrial manufacturing manuals, and retro-futuristic aerospace/military terminal interfaces. This discipline demands absolute mastery of rigid modular grids, extreme typographic scale contrast, purely utilitarian color palettes, and the programmatic simulation of analog degradation (halftones, CRT scanlines, bitmap dithering). The objective is to construct digital environments that project raw functionality, mechanical precision, and high data density while deliberately discarding conventional consumer UI patterns.
 
 ## 2. Visual Archetypes
-The design system operates by merging two distinct but highly compatible visual paradigms. **Pick ONE per project and commit to it. Do not alternate or mix both modes within the same interface.**
+The design system operates by fusing two distinct but highly compatible visual paradigms. **Pick ONE per project and commit to it. Do not alternate or mix both modes within the same interface.**
 
 ### 2.1 Swiss Industrial Print
-Derived from 1960s corporate identity systems and heavy machinery blueprints.
+Drawn from 1960s corporate identity systems and heavy machinery blueprints.
 *   **Characteristics:** High-contrast light modes (newsprint/off-white substrates). Reliance on monolithic, heavy sans-serif typography. Unforgiving structural grids outlined by visible dividing lines. Aggressive, asymmetric use of negative space punctuated by oversized, viewport-bleeding numerals or letterforms. Heavy use of primary red as an alert/accent color.
 
 ### 2.2 Tactical Telemetry & CRT Terminal
-Derived from classified military databases, legacy mainframes, and aerospace Heads-Up Displays (HUDs).
+Drawn from classified military databases, legacy mainframes, and aerospace Heads-Up Displays (HUDs).
 *   **Characteristics:** Dark mode exclusivity. High-density tabular data presentation. Absolute dominance of monospaced typography. Integration of technical framing devices (ASCII brackets, crosshairs). Application of simulated hardware limitations (phosphor glow, scanlines, low bit-depth rendering).
 
 ## 3. Typographic Architecture
-Typography is the primary structural and decorative infrastructure. Imagery is secondary. The system demands extreme variance in scale, weight, and spacing.
+Typography is the primary structural and decorative infrastructure; imagery is secondary. The system demands extreme variance in scale, weight, and spacing.
 
 ### 3.1 Macro-Typography (Structural Headers)
 *   **Classification:** Neo-Grotesque / Heavy Sans-Serif.
@@ -49,7 +52,7 @@ Typography is the primary structural and decorative infrastructure. Imagery is s
 ### 3.3 Textural Contrast (Artistic Disruption)
 *   **Classification:** High-Contrast Serif.
 *   **Optimal Web Fonts:** Playfair Display, EB Garamond, Times New Roman.
-*   **Implementation Parameters:** Used exceedingly sparingly. Must be subjected to heavy post-processing (halftone filters, 1-bit dithering) to degrade vector perfection and create textural juxtaposition against the clean sans-serifs.
+*   **Implementation Parameters:** Used exceedingly sparingly. Subject it to heavy post-processing (halftone filters, 1-bit dithering) to degrade vector perfection and create textural juxtaposition against the clean sans-serifs.
 
 ## 4. Color System
 The color architecture is uncompromising. Gradients, soft drop shadows, and modern translucency are strictly prohibited. Colors simulate physical media or primitive emissive displays.
@@ -76,7 +79,7 @@ The layout must appear mathematically engineered. It rejects conventional web pa
 *   **Geometry:** Absolute rejection of `border-radius`. All corners must be exactly 90 degrees to enforce mechanical rigidity.
 
 ## 6. UI Components and Symbology
-Standard web UI conventions are replaced with utilitarian, industrial graphic elements.
+Standard web UI conventions give way to utilitarian, industrial graphic elements.
 
 *   **Syntax Decoration:** Utilization of ASCII characters to frame data points.
     *   *Framing:* `[ DELIVERY SYSTEMS ]`, `< RE-IND >`
@@ -85,7 +88,7 @@ Standard web UI conventions are replaced with utilitarian, industrial graphic el
 *   **Technical Assets:** Integration of crosshairs (`+`) at grid intersections, repeating vertical lines (barcodes), thick horizontal warning stripes, and randomized string data (e.g., `REV 2.6`, `UNIT / D-01`) to simulate active mechanical processes.
 
 ## 7. Textural and Post-Processing Effects
-To prevent the design from appearing purely digital, simulated analog degradation is engineered into the frontend via CSS and SVG filters.
+To keep the design from reading as purely digital, simulated analog degradation is engineered into the frontend via CSS and SVG filters.
 
 *   **Halftone and 1-Bit Dithering:** Transforming continuous-tone images or large serif typography into dot-matrix patterns. Achieved via pre-processing or CSS `mix-blend-mode: multiply` overlays combined with SVG radial dot patterns.
 *   **CRT Scanlines:** For terminal interfaces, applying a `repeating-linear-gradient` to the background to simulate horizontal electron beam sweeps (e.g., `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)`).

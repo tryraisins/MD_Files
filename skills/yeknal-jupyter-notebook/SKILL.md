@@ -8,23 +8,18 @@ metadata:
 
 # Jupyter Notebook Skill
 
-Create clean, reproducible Jupyter notebooks for two primary modes:
-
-- Experiments and exploratory analysis
-- Tutorials and teaching-oriented walkthroughs
-
-Prefer the bundled templates and the helper script for consistent structure and fewer JSON mistakes.
+Build clean, reproducible Jupyter notebooks for two modes: experiments and exploratory analysis, or tutorials and teaching walkthroughs. Reach for the bundled templates and the helper script whenever structure and valid JSON matter, so hand-editing raw notebook files stays the exception.
 
 ## When to use
-- Create a new `.ipynb` notebook from scratch.
-- Convert rough notes or scripts into a structured notebook.
-- Refactor an existing notebook to be more reproducible and skimmable.
-- Build experiments or tutorials that will be read or re-run by other people.
+- Start a new `.ipynb` notebook from scratch.
+- Turn rough notes or scripts into a structured notebook.
+- Refactor an existing notebook so it is reproducible and skimmable.
+- Build an experiment or tutorial that other people will read or re-run.
 
 ## Decision tree
-- If the request is exploratory, analytical, or hypothesis-driven, choose `experiment`.
-- If the request is instructional, step-by-step, or audience-specific, choose `tutorial`.
-- If editing an existing notebook, treat it as a refactor: preserve intent and improve structure.
+- Choose `experiment` when the request is exploratory, analytical, or hypothesis-driven.
+- Choose `tutorial` when the request is instructional, step-by-step, or aimed at a specific audience.
+- Treat edits to an existing notebook as a refactor: keep the intent and improve the structure.
 
 ## Skill path (set once)
 
@@ -38,10 +33,10 @@ User-scoped skills install under `$CODEX_HOME/skills` (default: `~/.codex/skills
 ## Workflow
 1. Lock the intent.
 Identify the notebook kind: `experiment` or `tutorial`.
-Capture the objective, audience, and what "done" looks like.
+Write down the objective, the audience, and what "done" means.
 
 2. Scaffold from the template.
-Use the helper script to avoid hand-authoring raw notebook JSON.
+Run the helper script instead of authoring raw notebook JSON by hand.
 
 ```bash
 uv run --python 3.12 python "$JUPYTER_NOTEBOOK_CLI" \
@@ -58,23 +53,23 @@ uv run --python 3.12 python "$JUPYTER_NOTEBOOK_CLI" \
 ```
 
 3. Fill the notebook with small, runnable steps.
-Keep each code cell focused on one step.
-Add short markdown cells that explain the purpose and expected result.
-Avoid large, noisy outputs when a short summary works.
+Give each code cell one job.
+Precede it with a short markdown cell that states the purpose and the expected result.
+Keep outputs quiet: prefer a brief summary over a large dump.
 
 4. Apply the right pattern.
 For experiments, follow `references/experiment-patterns.md`.
 For tutorials, follow `references/tutorial-patterns.md`.
 
 5. Edit safely when working with existing notebooks.
-Preserve the notebook structure; avoid reordering cells unless it improves the top-to-bottom story.
-Prefer targeted edits over full rewrites.
-If you must edit raw JSON, review `references/notebook-structure.md` first.
+Keep the notebook structure intact; reorder cells only when it sharpens the top-to-bottom story.
+Make targeted edits rather than full rewrites.
+If you must touch raw JSON, read `references/notebook-structure.md` first.
 
 6. Validate the result.
 Run the notebook top-to-bottom when the environment allows.
-If execution is not possible, say so explicitly and call out how to validate locally.
-Use the final pass checklist in `references/quality-checklist.md`.
+If you cannot execute it, say so plainly and explain how to validate locally.
+Work through the final pass checklist in `references/quality-checklist.md`.
 
 ## Templates and helper script
 - Templates live in `assets/experiment-template.ipynb` and `assets/tutorial-template.ipynb`.

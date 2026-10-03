@@ -5,33 +5,32 @@ metadata:
   internal: true
 ---
 
-
 # Speech Generation Skill
 
-Generate spoken audio for the current project (narration, product demo voiceover, IVR prompts, accessibility reads). Defaults to `gpt-4o-mini-tts-2025-12-15` and built-in voices, and prefers the bundled CLI for deterministic, reproducible runs.
+Produce spoken audio for the current project: narration, product-demo voiceover, IVR prompts, accessibility reads. Default to `gpt-4o-mini-tts-2025-12-15` with built-in voices, and prefer the bundled CLI for deterministic, reproducible runs.
 
 ## When to use
-- Generate a single spoken clip from text
-- Generate a batch of prompts (many lines, many files)
+- Produce one spoken clip from text
+- Produce a batch of prompts: many lines, many files
 
 ## Decision tree (single vs batch)
-- If the user provides multiple lines/prompts or wants many outputs -> **batch**
-- Else -> **single**
+- Many lines/prompts or many desired outputs -> **batch**
+- Otherwise -> **single**
 
 ## Workflow
-1. Decide intent: single vs batch (see decision tree above).
-2. Collect inputs up front: exact text (verbatim), desired voice, delivery style, format, and any constraints.
-3. If batch: write a temporary JSONL under tmp/ (one job per line), run once, then delete the JSONL.
-4. Augment instructions into a short labeled spec without rewriting the input text.
+1. Pick the intent: single or batch (see the decision tree above).
+2. Collect inputs up front: the exact text (verbatim), the voice, the delivery style, the format, and any constraints.
+3. For batch work, write a temporary JSONL under tmp/ (one job per line), run it once, then delete the JSONL.
+4. Augment the instructions into a short labeled spec without rewriting the input text.
 5. Run the bundled CLI (`scripts/text_to_speech.py`) with sensible defaults (see references/cli.md).
-6. For important clips, validate: intelligibility, pacing, pronunciation, and adherence to constraints.
+6. For important clips, validate intelligibility, pacing, pronunciation, and adherence to constraints.
 7. Iterate with a single targeted change (voice, speed, or instructions), then re-check.
-8. Save/return final outputs and note the final text + instructions + flags used.
+8. Return the final outputs and note the final text, instructions, and flags used.
 
 ## Temp and output conventions
-- Use `tmp/speech/` for intermediate files (for example JSONL batches); delete when done.
+- Keep intermediate files in `tmp/speech/` (for example JSONL batches); delete them when done.
 - Write final artifacts under `output/speech/` when working in this repo.
-- Use `--out` or `--out-dir` to control output paths; keep filenames stable and descriptive.
+- Control output paths with `--out` or `--out-dir`; keep filenames stable and descriptive.
 
 ## Dependencies (install if missing)
 Prefer `uv` for dependency management.
@@ -46,7 +45,7 @@ python3 -m pip install openai
 ```
 
 ## Environment
-- `OPENAI_API_KEY` must be set for live API calls.
+- Live API calls require `OPENAI_API_KEY`.
 
 If the key is missing, give the user these steps:
 1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
@@ -54,27 +53,27 @@ If the key is missing, give the user these steps:
 3. Offer to guide them through setting the environment variable for their OS/shell if needed.
 - Never ask the user to paste the full key in chat. Ask them to set it locally and confirm when ready.
 
-If installation isn't possible in this environment, tell the user which dependency is missing and how to install it locally.
+If installation is not possible here, tell the user which dependency is missing and how to install it locally.
 
 ## Defaults & rules
-- Use `gpt-4o-mini-tts-2025-12-15` unless the user requests another model.
-- Default voice: `cedar`. If the user wants a brighter tone, prefer `marin`.
-- Built-in voices only. Custom voices are out of scope for this skill.
-- `instructions` are supported for GPT-4o mini TTS models, but not for `tts-1` or `tts-1-hd`.
-- Input length must be <= 4096 characters per request. Split longer text into chunks.
-- Enforce 50 requests/minute. The CLI caps `--rpm` at 50.
+- Use `gpt-4o-mini-tts-2025-12-15` unless the user asks for another model.
+- Default voice: `cedar`. For a brighter tone, prefer `marin`.
+- Built-in voices only; custom voices are out of scope for this skill.
+- `instructions` work with GPT-4o mini TTS models, but not with `tts-1` or `tts-1-hd`.
+- Cap each request at 4096 characters; split longer text into chunks.
+- Enforce 50 requests/minute; the CLI caps `--rpm` at 50.
 - Require `OPENAI_API_KEY` before any live API call.
-- Provide a clear disclosure to end users that the voice is AI-generated.
-- Use the OpenAI Python SDK (`openai` package) for all API calls; do not use raw HTTP.
-- Prefer the bundled CLI (`scripts/text_to_speech.py`) over writing new one-off scripts.
-- Never modify `scripts/text_to_speech.py`. If something is missing, ask the user before doing anything else.
+- Disclose clearly to end users that the voice is AI-generated.
+- Make every API call through the OpenAI Python SDK (`openai` package); do not use raw HTTP.
+- Prefer the bundled CLI (`scripts/text_to_speech.py`) over new one-off scripts.
+- Never modify `scripts/text_to_speech.py`. If something is missing, ask the user before anything else.
 
 ## Instruction augmentation
-Reformat user direction into a short, labeled spec. Only make implicit details explicit; do not invent new requirements.
+Reformat the user's direction into a short, labeled spec. Make only implicit details explicit; do not invent requirements.
 
 Quick clarification (augmentation vs invention):
 - If the user says "narration for a demo", you may add implied delivery constraints (clear, steady pacing, friendly tone).
-- Do not introduce a new persona, accent, or emotional style the user did not request.
+- Do not introduce a persona, accent, or emotional style the user did not ask for.
 
 Template (include only relevant lines):
 ```
@@ -89,9 +88,9 @@ Delivery: <cadence or rhythm notes>
 ```
 
 Augmentation rules:
-- Keep it short; add only details the user already implied or provided elsewhere.
+- Keep it short; add only details the user already implied or supplied.
 - Do not rewrite the input text.
-- If any critical detail is missing and blocks success, ask a question; otherwise proceed.
+- If a critical detail is missing and blocks success, ask; otherwise proceed.
 
 ## Examples
 
@@ -112,16 +111,16 @@ Emphasis: Stress "demo" and "show".
 ```
 
 ## Instructioning best practices (short list)
-- Structure directions as: affect -> tone -> pacing -> emotion -> pronunciation/pauses -> emphasis.
+- Order directions as affect, tone, pacing, emotion, pronunciation/pauses, then emphasis.
 - Keep 4 to 8 short lines; avoid conflicting guidance.
-- For names/acronyms, add pronunciation hints (e.g., "enunciate A-I") or supply a phonetic spelling in the text.
-- For edits/iterations, repeat invariants (e.g., "keep pacing steady") to reduce drift.
+- For names and acronyms, add pronunciation hints (for example "enunciate A-I") or a phonetic spelling in the text.
+- For edits and iterations, repeat invariants (for example "keep pacing steady") to reduce drift.
 - Iterate with single-change follow-ups.
 
 More principles: `references/prompting.md`. Copy/paste specs: `references/sample-prompts.md`.
 
 ## Guidance by use case
-Use these modules when the request is for a specific delivery style. They provide targeted defaults and templates.
+Use these modules when the request is for a specific delivery style; they provide targeted defaults and templates.
 - Narration / explainer: `references/narration.md`
 - Product demo / voiceover: `references/voiceover.md`
 - IVR / phone prompts: `references/ivr.md`
@@ -131,16 +130,16 @@ Use these modules when the request is for a specific delivery style. They provid
 - CLI commands + examples: `references/cli.md`
 - API parameter quick reference: `references/audio-api.md`
 - Instruction patterns + examples: `references/voice-directions.md`
-- If network approvals / sandbox settings are getting in the way: `references/codex-network.md`
+- If network approvals or sandbox settings get in the way: `references/codex-network.md`
 
 ## Reference map
-- **`references/cli.md`**: how to run speech generation/batches via `scripts/text_to_speech.py` (commands, flags, recipes).
-- **`references/audio-api.md`**: API parameters, limits, voice list.
+- **`references/cli.md`**: how to run speech generation and batches through `scripts/text_to_speech.py` (commands, flags, recipes).
+- **`references/audio-api.md`**: API parameters, limits, and the voice list.
 - **`references/voice-directions.md`**: instruction patterns and examples.
-- **`references/prompting.md`**: instruction best practices (structure, constraints, iteration patterns).
+- **`references/prompting.md`**: instruction best practices (structure, constraints, iteration).
 - **`references/sample-prompts.md`**: copy/paste instruction recipes (examples only; no extra theory).
-- **`references/narration.md`**: templates + defaults for narration and explainers.
-- **`references/voiceover.md`**: templates + defaults for product demo voiceovers.
-- **`references/ivr.md`**: templates + defaults for IVR/phone prompts.
-- **`references/accessibility.md`**: templates + defaults for accessibility reads.
-- **`references/codex-network.md`**: environment/sandbox/network-approval troubleshooting.
+- **`references/narration.md`**: templates and defaults for narration and explainers.
+- **`references/voiceover.md`**: templates and defaults for product-demo voiceover.
+- **`references/ivr.md`**: templates and defaults for IVR and phone prompts.
+- **`references/accessibility.md`**: templates and defaults for accessibility reads.
+- **`references/codex-network.md`**: environment, sandbox, and network-approval troubleshooting.

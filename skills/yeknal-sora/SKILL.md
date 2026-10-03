@@ -5,10 +5,9 @@ metadata:
   internal: true
 ---
 
-
 # Sora Video Generation Skill
 
-Creates or manages Sora video jobs for the current project (product demos, marketing spots, cinematic shots, social clips, UI mocks). Defaults to `sora-2` with structured prompt augmentation and prefers the bundled CLI for deterministic runs. Note: `$sora` is a skill tag in prompts, not a shell command.
+Create and manage Sora video jobs for the current project: product demos, marketing spots, cinematic shots, social clips, UI mocks. Default to `sora-2` with structured prompt augmentation, and prefer the bundled CLI for deterministic runs. Note: `$sora` is a skill tag in prompts, not a shell command.
 
 ## When to use
 - Generate a new video clip from a prompt
@@ -19,27 +18,27 @@ Creates or manages Sora video jobs for the current project (product demos, marke
 - Run a local multi-job queue now, or plan a true Batch API submission for offline rendering
 
 ## Decision tree
-- If the user has a short non-human reference clip they want to reuse across shots → `create-character`
-- If the user has a completed video and wants the next beat/continuation → `extend`
-- If the user has a completed video and wants a targeted change while preserving the shot → `edit`
-- If the user has a video id and wants status or assets → `status`, `poll`, or `download`
-- If the user needs many renders immediately inside Codex → `create-batch` (local fan-out, not the Batch API)
-- If the user needs many renders for offline processing or a studio pipeline → use the official Batch API flow described in `references/video-api.md`
-- Otherwise → `create` (or `create-and-poll` if they need a ready asset in one step)
+- A short non-human reference clip the user wants to reuse across shots -> `create-character`
+- A completed video where the user wants the next beat/continuation -> `extend`
+- A completed video where the user wants a targeted change while preserving the shot -> `edit`
+- A video id where the user wants status or assets -> `status`, `poll`, or `download`
+- Many renders needed immediately inside Codex -> `create-batch` (local fan-out, not the Batch API)
+- Many renders needed for offline processing or a studio pipeline -> use the official Batch API flow described in `references/video-api.md`
+- Anything else -> `create` (or `create-and-poll` when a ready asset is needed in one step)
 
 ## Workflow
-1. Decide intent: create vs create-character vs edit vs extend vs status/download vs local queue vs official Batch API.
+1. Decide the intent: create vs create-character vs edit vs extend vs status/download vs local queue vs official Batch API.
 2. Collect inputs: prompt, model, size, seconds, any image reference, and any character IDs.
-3. Prefer CLI augmentation flags (`--use-case`, `--scene`, `--camera`, etc.) instead of hand-writing a long structured prompt. If you already have a structured prompt file, pass `--no-augment`.
+3. Prefer CLI augmentation flags (`--use-case`, `--scene`, `--camera`, etc.) over hand-writing a long structured prompt. If you already have a structured prompt file, pass `--no-augment`.
 4. Run the bundled CLI (`scripts/sora.py`) with sensible defaults. For long prompts, prefer `--prompt-file` to avoid shell-escaping issues.
-5. For async jobs, poll until terminal status (or use `create-and-poll`).
-6. Download assets (video/thumbnail/spritesheet) and save them locally before URLs expire.
-7. If the user wants continuity across many shots, create character assets first, then reference them in later `create` calls.
-8. If the user wants to iterate on a completed shot, prefer `edit`; if they want the shot to continue in time, prefer `extend`.
-9. Use one targeted change per iteration.
+5. For async jobs, poll until a terminal status (or use `create-and-poll`).
+6. Download assets (video/thumbnail/spritesheet) and save them locally before the URLs expire.
+7. For continuity across many shots, create character assets first, then reference them in later `create` calls.
+8. To iterate on a completed shot, prefer `edit`; to continue the shot in time, prefer `extend`.
+9. Make one targeted change per iteration.
 
 ## Authentication
-- `OPENAI_API_KEY` must be set for live API calls.
+- Live API calls require `OPENAI_API_KEY`.
 
 If the key is missing, give the user these steps:
 1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
@@ -51,24 +50,24 @@ If the key is missing, give the user these steps:
 - Default model: `sora-2` (use `sora-2-pro` for higher fidelity).
 - Default size: `1280x720`.
 - Default seconds: `4` (allowed: `"4"`, `"8"`, `"12"`, `"16"`, `"20"`).
-- Always set size and seconds via API params; prose will not change them.
+- Always set size and seconds through API params; prose will not change them.
 - `sora-2-pro` is required for `1920x1080` and `1080x1920`.
 - Use up to two characters per generation.
 - Use the OpenAI Python SDK (`openai` package). If high-level SDK helpers lag the latest Sora guide, use low-level `client.post/get/delete` inside the official SDK rather than standalone HTTP code.
 - Require `OPENAI_API_KEY` before any live API call.
 - If uv cache permissions fail, set `UV_CACHE_DIR=/tmp/uv-cache`.
-- Input reference images must be jpg/png/webp and should match target size.
+- Input reference images must be jpg/png/webp and should match the target size.
 - JSON `input_reference` objects use either `file_id` or `image_url`; uploaded file paths use multipart.
 - Download URLs expire after about 1 hour; copy assets to your own storage.
 - Batch-generated videos remain downloadable for up to 24 hours after the batch completes.
 - `create-batch` in `scripts/sora.py` is a local concurrent queue, not the official Batch API.
 - Prefer the bundled CLI and **never modify** `scripts/sora.py` unless the user asks.
-- Sora can generate audio; if a user requests voiceover/audio, specify it explicitly in the `Audio:` and `Dialogue:` lines and keep it short.
+- Sora can generate audio; when a user requests voiceover/audio, state it explicitly in the `Audio:` and `Dialogue:` lines and keep it short.
 
 ## API limitations
 - Models are limited to `sora-2` and `sora-2-pro`.
 - API access to Sora models requires an organization-verified account.
-- Duration must be set via the `seconds` parameter and currently supports `4`, `8`, `12`, `16`, and `20`.
+- Duration is set through the `seconds` parameter and currently supports `4`, `8`, `12`, `16`, and `20`.
 - Character uploads currently work best with short `2`-`4` second non-human MP4s in `16:9` or `9:16`, at `720p`-`1080p`.
 - Extensions can add up to `20` seconds each, up to six times per source video, for a maximum total length of `120` seconds.
 - Extensions currently do not support characters or image references.
@@ -87,7 +86,7 @@ If the key is missing, give the user these steps:
 - Character uploads in this skill are for non-human subjects only.
 
 ## Prompt augmentation
-Reformat prompts into a structured, production-oriented spec. Only make implicit details explicit; do not invent new creative requirements.
+Reformat prompts into a structured, production-oriented spec. Make only implicit details explicit; do not invent new creative requirements.
 
 Template (include only relevant lines):
 ```
@@ -113,10 +112,10 @@ Avoid: <negative constraints>
 
 Augmentation rules:
 - Keep it short; add only details the user already implied or provided elsewhere.
-- For edits, explicitly list invariants ("same shot, change only X").
+- For edits, list invariants explicitly ("same shot, change only X").
 - For character-based shots, mention the character name verbatim in the prompt.
-- If any critical detail is missing and blocks success, ask a question; otherwise proceed.
-- If you pass a structured prompt file to the CLI, add `--no-augment` to avoid the tool re-wrapping it.
+- If a critical detail is missing and blocks success, ask a question; otherwise proceed.
+- If you pass a structured prompt file to the CLI, add `--no-augment` so the tool does not re-wrap it.
 
 ## Examples
 
@@ -141,13 +140,13 @@ Constraints: keep the subject and camera move unchanged
 Primary request: Mossy, a moss-covered teapot mascot, hurries through a lantern-lit market at dusk
 Camera: cinematic tracking shot, 35mm, shoulder height
 Lighting/mood: warm dusk practicals, soft haze
-Constraints: keep Mossy’s silhouette and moss texture consistent across the shot
+Constraints: keep Mossy's silhouette and moss texture consistent across the shot
 ```
 
 ## Prompting best practices (short list)
 - One main action + one camera move per shot.
 - Use counts or beats for timing ("two steps, pause, turn").
-- Keep text short and the camera locked-off for UI or on-screen text.
+- Keep text short and the camera locked off for UI or on-screen text.
 - Add a brief avoid line when artifacts appear (flicker, jitter, fast motion).
 - Shorter prompts are more creative; longer prompts are more controlled.
 - Put dialogue in a dedicated block; keep lines short for 4-8s clips.
@@ -157,7 +156,7 @@ Constraints: keep Mossy’s silhouette and moss texture consistent across the sh
 - Iterate with single-change follow-ups to preserve continuity.
 
 ## Guidance by asset type
-Use these modules when the request is for a specific artifact. They provide targeted templates and defaults.
+Use these modules when the request is for a specific artifact; they provide targeted templates and defaults.
 - Cinematic shots: `references/cinematic-shots.md`
 - Social ads: `references/social-ads.md`
 

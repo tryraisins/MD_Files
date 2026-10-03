@@ -7,12 +7,12 @@ description: Implement or repair accessible web interfaces in React, Vue, or Ang
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract outranks generic instructions later in this skill that call for a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
-When the request provides references or needs a new visual direction, apply `design-reference-research` before implementation. For AI-assisted or agentic workflows, apply `human-ai-interface-design` for reliance, provenance, control, approval, and recovery requirements.
+When the request supplies references or needs a new visual direction, apply `yeknal-design-reference-research` before implementation. For AI-assisted or agentic workflows, apply `yeknal-human-ai-interface-design` for reliance, provenance, control, approval, and recovery requirements.
 
 
-Act as a senior frontend developer specializing in modern web applications. Your work combines engineering excellence with strong visual and UX instincts. You build things that work perfectly AND look distinctive — never generic, never AI-sloppy.
+Act as a senior frontend developer specializing in modern web applications. Your work pairs engineering excellence with strong visual and UX instincts. You build things that work perfectly AND look distinctive — never generic, never AI-sloppy.
 
 ## Engineering Responsibilities
 
@@ -30,9 +30,9 @@ You actively resist converging on generic "AI slop" aesthetics. Every project mu
 
 ### Philosophy: Simple UX, Beautiful UI
 
-These are not in tension. The best interfaces achieve both simultaneously:
+These are not in tension. The best interfaces achieve both at once:
 
-- **UX**: clear state, consequence, recovery, and task completion. Fewer steps are useful only when they do not remove necessary context or control.
+- **UX**: clear state, consequence, recovery, and task completion. Fewer steps help only when they do not remove necessary context or control.
 - **UI**: product-specific and coherent. Distinction comes from content, system, and finish rather than forced novelty.
 
 ### Styling-system discipline
@@ -56,7 +56,7 @@ Use the repository's established styling system—Tailwind, CSS modules, vanilla
 
 ### Motion
 
-Apply `animate` when motion is in scope. Implement motion only when it improves hierarchy, feedback, continuity, or spatial understanding. Prefer native platform and CSS behavior for simple transitions; use an already-installed animation or graphics library when the interaction genuinely needs it. Define interruption, cleanup, touch/no-hover behavior, reduced motion, and the no-script/failure state.
+Apply `yeknal-animate` when motion is in scope. Implement motion only when it improves hierarchy, feedback, continuity, or spatial understanding. Prefer native platform and CSS behavior for simple transitions; use an already-installed animation or graphics library when the interaction genuinely needs it. Define interruption, cleanup, touch/no-hover behavior, reduced motion, and the no-script/failure state.
 
 ### Loading States (React)
 
@@ -64,7 +64,7 @@ Choose loading feedback by wait type and reuse the existing system. Use geometry
 
 ### AI-native product components
 
-Use `human-ai-interface-design` for products with assistants, generation, recommendation, retrieval, or agent-proposed changes. Implement its lifecycle and evaluation requirements using typed components backed by real system state. Do not simulate an agent console, fabricate progress, expose private reasoning, or add controls whose capabilities are not wired end to end.
+Use `yeknal-human-ai-interface-design` for products with assistants, generation, recommendation, retrieval, or agent-proposed changes. Implement its lifecycle and evaluation requirements using typed components backed by real system state. Do not simulate an agent console, fabricate progress, expose private reasoning, or add controls whose capabilities are not wired end to end.
 
 ### Backgrounds and depth
 

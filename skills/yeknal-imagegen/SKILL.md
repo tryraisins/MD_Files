@@ -8,7 +8,7 @@ metadata:
 
 # Image Generation Skill
 
-Generates or edits images for the current project (e.g., website assets, game assets, UI mockups, product mockups, wireframes, logo design, photorealistic images, infographics). Defaults to `gpt-image-1.5` and the OpenAI Image API, and prefers the bundled CLI for deterministic, reproducible runs.
+Create or edit images for the current project (for example website assets, game assets, UI mockups, product mockups, wireframes, logo design, photorealistic images, infographics). Default to `gpt-image-1.5` and the OpenAI Image API, and prefer the bundled CLI for deterministic, reproducible runs.
 
 ## When to use
 - Generate a new image (concept art, product shot, cover, website hero)
@@ -16,22 +16,22 @@ Generates or edits images for the current project (e.g., website assets, game as
 - Batch runs (many prompts, or many variants across prompts)
 
 ## Decision tree (generate vs edit vs batch)
-- If the user provides an input image (or says “edit/retouch/inpaint/mask/translate/localize/change only X”) → **edit**
+- If the user supplies an input image (or says “edit/retouch/inpaint/mask/translate/localize/change only X”) → **edit**
 - Else if the user needs many different prompts/assets → **generate-batch**
 - Else → **generate**
 
 ## Workflow
-1. Decide intent: generate vs edit vs batch (see decision tree above).
-2. Collect inputs up front: prompt(s), exact text (verbatim), constraints/avoid list, and any input image(s)/mask(s). For multi-image edits, label each input by index and role; for edits, list invariants explicitly.
+1. Decide the intent: generate vs edit vs batch (see the decision tree above).
+2. Collect the inputs first: prompt(s), exact text (verbatim), constraints/avoid list, and any input image(s)/mask(s). For multi-image edits, label each input by index and role; for edits, list the invariants explicitly.
 3. If batch: write a temporary JSONL under tmp/ (one job per line), run once, then delete the JSONL.
-4. Augment prompt into a short labeled spec (structure + constraints) without inventing new creative requirements.
+4. Augment the prompt into a short labeled spec (structure + constraints) without inventing new creative requirements.
 5. Run the bundled CLI (`scripts/image_gen.py`) with sensible defaults (see references/cli.md).
-6. For complex edits/generations, inspect outputs (open/view images) and validate: subject, style, composition, text accuracy, and invariants/avoid items.
-7. Iterate: make a single targeted change (prompt or mask), re-run, re-check.
-8. Save/return final outputs and note the final prompt + flags used.
+6. For complex edits or generations, inspect the outputs (open/view images) and validate subject, style, composition, text accuracy, and invariants/avoid items.
+7. Iterate: make one targeted change (prompt or mask), re-run, re-check.
+8. Save and return the final outputs, noting the final prompt and flags used.
 
 ## Temp and output conventions
-- Use `tmp/imagegen/` for intermediate files (for example JSONL batches); delete when done.
+- Use `tmp/imagegen/` for intermediate files (for example JSONL batches); delete them when done.
 - Write final artifacts under `output/imagegen/` when working in this repo.
 - Use `--out` or `--out-dir` to control output paths; keep filenames stable and descriptive.
 
@@ -63,13 +63,13 @@ If installation isn't possible in this environment, tell the user which dependen
 - Assume the user wants a new image unless they explicitly ask for an edit.
 - Require `OPENAI_API_KEY` before any live API call.
 - Use the OpenAI Python SDK (`openai` package) for all API calls; do not use raw HTTP.
-- If the user requests edits, use `client.images.edit(...)` and include input images (and mask if provided).
+- If the user requests edits, use `client.images.edit(...)` and include input images (and a mask if provided).
 - Prefer the bundled CLI (`scripts/image_gen.py`) over writing new one-off scripts.
 - Never modify `scripts/image_gen.py`. If something is missing, ask the user before doing anything else.
-- If the result isn’t clearly relevant or doesn’t satisfy constraints, iterate with small targeted prompt changes; only ask a question if a missing detail blocks success.
+- If the result isn’t clearly relevant or doesn’t satisfy the constraints, iterate with small targeted prompt changes; only ask a question when a missing detail blocks success.
 
 ## Prompt augmentation
-Reformat user prompts into a structured, production-oriented spec. Only make implicit details explicit; do not invent new requirements.
+Reformat user prompts into a structured, production-oriented spec. Make implicit details explicit only; do not invent new requirements.
 
 ## Use-case taxonomy (exact slugs)
 Classify each request into one of these buckets and keep the slug consistent across prompts and references.
@@ -95,8 +95,8 @@ Edit:
 - sketch-to-render — drawing/line art to photoreal render.
 
 Quick clarification (augmentation vs invention):
-- If the user says “a hero image for a landing page”, you may add *layout/composition constraints* that are implied by that use (e.g., “generous negative space on the right for headline text”).
-- Do not introduce new creative elements the user didn’t ask for (e.g., adding a mascot, changing the subject, inventing brand names/logos).
+- If the user says “a hero image for a landing page”, you may add *layout/composition constraints* implied by that use (for example, “generous negative space on the right for headline text”).
+- Do not introduce new creative elements the user didn’t ask for (for example, a mascot, a changed subject, or invented brand names/logos).
 
 Template (include only relevant lines):
 ```
@@ -119,10 +119,10 @@ Avoid: <negative constraints>
 
 Augmentation rules:
 - Keep it short; add only details the user already implied or provided elsewhere.
-- Always classify the request into a taxonomy slug above and tailor constraints/composition/quality to that bucket. Use the slug to find the matching example in `references/sample-prompts.md`.
-- If the user gives a broad request (e.g., "Generate images for this website"), use judgment to propose tasteful, context-appropriate assets and map each to a taxonomy slug.
-- For edits, explicitly list invariants ("change only X; keep Y unchanged").
-- If any critical detail is missing and blocks success, ask a question; otherwise proceed.
+- Always classify the request into one taxonomy slug above and tailor constraints/composition/quality to that bucket. Use the slug to find the matching example in `references/sample-prompts.md`.
+- If the user gives a broad request (for example, "Generate images for this website"), use judgment to propose tasteful, context-appropriate assets and map each to a taxonomy slug.
+- For edits, list the invariants explicitly ("change only X; keep Y unchanged").
+- If a critical detail is missing and blocks success, ask a question; otherwise proceed.
 
 ## Examples
 
@@ -146,10 +146,10 @@ Constraints: change only the background; keep the product and its edges unchange
 ```
 
 ## Prompting best practices (short list)
-- Structure prompt as scene -> subject -> details -> constraints.
-- Include intended use (ad, UI mock, infographic) to set the mode and polish level.
+- Structure the prompt as scene -> subject -> details -> constraints.
+- Include the intended use (ad, UI mock, infographic) to set the mode and polish level.
 - Use camera/composition language for photorealism.
-- Quote exact text and specify typography + placement.
+- Quote exact text and specify typography plus placement.
 - For tricky words, spell them letter-by-letter and require verbatim rendering.
 - For multi-image inputs, reference images by index and describe how to combine them.
 - For edits, repeat invariants every iteration to reduce drift.

@@ -5,9 +5,9 @@ description: Research interface references into an evidence ledger and implement
 
 # Design reference research
 
-Turn references into decisions, not a collage. This skill is read-only unless the user also asks for implementation.
+Convert references into decisions, not a collage. This skill is read-only unless the user also asks for implementation.
 
-Apply `ui-quality-baseline` to anything produced from the research. An approved design, established brand, repository design system, and working behavior outrank external inspiration.
+Apply `yeknal-ui-quality-baseline` to anything produced from the research. An approved design, an established brand, the repository design system, and working behavior all outrank external inspiration.
 
 ## Establish the comparison frame
 
@@ -20,20 +20,20 @@ Before browsing, identify or infer:
 - target widths, heights, orientations, and themes;
 - existing tokens, primitives, and behavior that must survive.
 
-Do not compare surfaces that merely share an aesthetic. A checkout should be compared with other commitment flows before it is compared with attractive landing pages.
+Do not compare surfaces that share only an aesthetic. A checkout belongs beside other commitment flows before it belongs beside attractive landing pages.
 
 ## Build a useful reference set
 
 1. Inspect the product's current interface and design system first.
 2. Choose references by functional similarity, audience, platform, and state complexity. Use [references/source-atlas.md](references/source-atlas.md) to route to the right libraries.
-3. Study at least three relevant examples when the source material allows it. Prefer a small varied set over dozens of near-identical trend examples.
-4. Capture evidence at the relevant desktop and mobile widths. For interactive work, inspect the trigger, transition, settled state, interruption, exit, and reduced-motion behavior—not one still frame.
+3. Study at least three relevant examples when the source material allows it. A small varied set beats dozens of near-identical trend examples.
+4. Capture evidence at the relevant desktop and mobile widths. For interactive work, inspect the trigger, transition, settled state, interruption, exit, and reduced-motion behavior—not a single still frame.
 5. Record each source's date, URL, access limitation, and whether it is a live product, gallery screenshot, editorial interpretation, or source-code registry.
-6. Stop when two consecutive references add no decision-relevant pattern and the required devices, states, and flow stages are covered. More browsing after saturation is noise.
+6. Stop when two consecutive references add no decision-relevant pattern and the required devices, states, and flow stages are covered. Further browsing past saturation is noise.
 
 Use a gallery to discover examples, then follow through to the original product when a consequential claim depends on current behavior. A screenshot gallery does not prove usability, conversion, accessibility, performance, or production adoption.
 
-When the user asks for a reusable `DESIGN.md` or a repository's visual rules are unclear, trace the rendered surface back to its source of truth: tokens, global styles, component primitives, routes, and approved assets. Separate observed facts from inferred rules, contradictions, and missing evidence. Write only durable, product-specific rules; do not turn one incidental CSS value or screenshot quirk into a design-system requirement.
+When the user asks for a reusable `DESIGN.md` or the repository's visual rules are unclear, trace the rendered surface back to its source of truth: tokens, global styles, component primitives, routes, and approved assets. Separate observed facts from inferred rules, contradictions, and missing evidence. Write only durable, product-specific rules; do not turn one incidental CSS value or screenshot quirk into a design-system requirement.
 
 ## Extract patterns before styling
 
@@ -69,7 +69,7 @@ Do not average the references into a fashionable middle. Produce one coherent th
 - explicit responsive transformations;
 - a short rejection list naming tempting patterns that do not fit.
 
-Every major decision must trace to one of four authorities: product content, user need, platform convention, or observed reference pattern. If the rationale is only “modern,” “premium,” or “looks cool,” the decision is not ready.
+Every major decision must trace to one of four authorities: product content, user need, platform convention, or observed reference pattern. If the rationale is only "modern," "premium," or "looks cool," the decision is not ready.
 
 ## Protect originality and product fit
 

@@ -5,11 +5,11 @@ description: Build multiple genuinely different versions of a UI piece you descr
 
 ## UI quality integration
 
-Apply `ui-quality-baseline` to every variant. Keep the prototype isolated, use realistic content and states, preserve accessible focus and touch targets, reuse product tokens, and verify responsive, loading, error, and reduced-motion behavior before comparing directions.
+Apply `yeknal-ui-quality-baseline` to every variant. Keep the prototype isolated, use realistic content and states, preserve accessible focus and touch targets, reuse product tokens, and verify responsive, loading, error, and reduced-motion behavior before comparing directions.
 
 # Prototyping Variants
 
-A divergence skill. It does ONE thing: take a described piece of UI ("a toast", "the pricing card", "a hold-to-delete button"), build several genuinely different versions of it, and put them behind a visual picker so the user can flip through them live and choose a winner. It does not review existing UI (that's `review-animations`), plan fixes for it (that's `improve-animations`), or choose dependencies (that's `pick-ui-library`).
+A divergence skill. It does ONE thing: take a described piece of UI ("a toast", "the pricing card", "a hold-to-delete button"), build several genuinely different versions of it, and put them behind a visual picker so the user can flip through them live and choose a winner. It does not review existing UI (that's `yeknal-review-animations`), plan fixes for it (that's `yeknal-improve-animations`), or choose dependencies (that's `yeknal-pick-ui-library`).
 
 ## Operating Posture
 

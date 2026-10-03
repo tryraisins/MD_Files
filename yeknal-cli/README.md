@@ -101,6 +101,10 @@ npm pack --dry-run
 - If GitHub API limits are reached, set `YEKNAL_GITHUB_TOKEN` or `GITHUB_TOKEN`. Install Git to enable the fallback clone for API limits or interrupted raw-file downloads.
 - Generated `yeknal-security.log`, `yeknal-security.json`, and `yeknal-security.sarif` files are local evidence and should not be committed.
 
+## Credits
+
+The skill catalog this CLI installs adapts and consolidates work from many upstream authors. See the repository [PROVENANCE.md](https://github.com/tryraisins/MD_Files/blob/main/PROVENANCE.md) for full source, license, and notice details. Principal upstreams include Anthropic, Leonxlnx (taste-skill), Emil Kowalski, Appllama, oil-oil, ayghri, NeetigyaShah, and the provider teams (Microsoft, Figma, OpenAI, Notion, Vercel, Cloudflare, Netlify, Render, Sentry, Linear, GitHub).
+
 ## License
 
 ISC

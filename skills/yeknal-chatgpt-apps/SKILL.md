@@ -9,9 +9,9 @@ metadata:
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
-Because these widgets mediate AI behavior, also apply `human-ai-interface-design` for expectation setting, provenance, user control, consequential approvals, failure recovery, and reliance-focused evaluation.
+Because these widgets mediate AI behavior, also apply `yeknal-human-ai-interface-design` for expectation setting, provenance, user control, consequential approvals, failure recovery, and reliance-focused evaluation.
 
 
 ## Overview
@@ -32,7 +32,7 @@ Use this skill to produce:
 
 ## Mandatory Docs-First Workflow
 
-Use `$openai-docs` first whenever building or changing a ChatGPT Apps SDK app.
+Use `$openai-docs` first whenever you build or change a ChatGPT Apps SDK app.
 
 1. Invoke `$openai-docs` (preferred) or call the OpenAI docs MCP server directly.
 2. Fetch current Apps SDK docs before writing code, especially (baseline pages):
@@ -47,7 +47,7 @@ Use `$openai-docs` first whenever building or changing a ChatGPT Apps SDK app.
    - `apps-sdk/deploy/submission`
    - `apps-sdk/app-submission-guidelines`
 5. Cite the docs URLs you used when explaining design choices or generated scaffolds.
-6. Prefer current docs guidance over older repo patterns when they differ, and call out compatibility aliases explicitly.
+6. Prefer current docs guidance over older repo patterns when they conflict, and call out compatibility aliases explicitly.
 7. If doc search times out or returns poor matches, fetch the canonical Apps SDK pages directly by URL and continue; do not let search failure block scaffolding.
 
 If `$openai-docs` is unavailable, use:
@@ -64,7 +64,7 @@ Read `references/window-openai-patterns.md` when the task needs ChatGPT-specific
 
 ## Prompt Guidance
 
-Use prompts that explicitly pair this skill with `$openai-docs` so the resulting scaffold is grounded in current docs.
+Use prompts that explicitly pair this skill with `$openai-docs` so the scaffold is grounded in current docs.
 
 Preferred prompt patterns:
 
@@ -169,7 +169,7 @@ Read `references/upstream-example-workflow.md` for the selection and adaptation 
 
 ### 2b. Use the Starter Script When a Low-Dependency Fallback Helps
 
-Use `scripts/scaffold_node_ext_apps.mjs` only when the user wants a quick, greenfield Node starter and a vanilla HTML widget is acceptable, and no upstream example is a better starting point.
+Use `scripts/scaffold_node_ext_apps.mjs` only when the user wants a quick, greenfield Node starter, a vanilla HTML widget is acceptable, and no upstream example is a better starting point.
 
 - Run it only after fetching current docs, then reconcile the generated files with the docs you fetched.
 - If you choose the script instead of an upstream example, say why the fallback is better for that request.
@@ -203,7 +203,7 @@ Use `window.openai` for compatibility and extensions (file upload, modal, displa
 
 #### AI-native widget defaults
 
-Apply `human-ai-interface-design` to the widget's full lifecycle. When the app’s tool surface supports it, make agent work inspectable and reviewable inside the widget. Do not simulate an agent console for a simple read-only result.
+Apply `yeknal-human-ai-interface-design` to the widget's full lifecycle. When the app’s tool surface supports it, make agent work inspectable and reviewable inside the widget. Do not simulate an agent console for a simple read-only result.
 
 - Render compact activity/task rows from actual tool notifications or structured state: readable status, elapsed/progress when supplied, real tool/source/file evidence, and error/retry/canceled states. Never expose private model reasoning or fabricate a running tool.
 - Use concise tool chips only as truthful evidence or navigation. Use a source/context card for a useful excerpt plus source identity, type, and freshness/location.

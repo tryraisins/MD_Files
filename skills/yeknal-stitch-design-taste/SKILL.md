@@ -1,13 +1,16 @@
 ---
 name: yeknal-stitch-design-taste
 description: Create or update a versioned DESIGN.md specification for Google Stitch-style screen generation from authoritative product evidence. Use when an AI design tool needs semantic guidance for tokens, components, content, responsive behavior, states, and motion intent without replacing the real design system.
+metadata:
+  source: https://github.com/leonxlnx/taste-skill
+  source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
 ---
 
 # Stitch design specification
 
-Translate a product's real design direction into precise, reviewable guidance that an AI screen generator can follow. `DESIGN.md` is a generation specification—not authority above approved design files, repository tokens, the running product, platform conventions, or accessibility requirements.
+Turn a product's real design direction into precise, reviewable guidance that an AI screen generator can follow. `DESIGN.md` is a generation specification—not authority above approved design files, repository tokens, the running product, platform conventions, or accessibility requirements.
 
-Also apply `ui-quality-baseline`. When references must be researched, apply `design-reference-research` first and retain its evidence boundaries and rejection list.
+Also apply `yeknal-ui-quality-baseline`. When references must be researched, apply `yeknal-design-reference-research` first and retain its evidence boundaries and rejection list.
 
 ## Establish authority and scope
 
@@ -55,7 +58,7 @@ Cover navigation, opening task or hero, content/evidence sequence, primary commi
 
 ### Responsive transformation
 
-Use `design-reference-research/references/responsive-matrix.md`. Specify, per region, what reflows, reorders, condenses, becomes progressive disclosure, changes navigation mode, scrolls intentionally, or is omitted with justification.
+Use `yeknal-design-reference-research/references/responsive-matrix.md`. Specify, per region, what reflows, reorders, condenses, becomes progressive disclosure, changes navigation mode, scrolls intentionally, or is omitted with justification.
 
 Include small/common phones, tablet portrait/landscape, compact-height and standard desktops, wide desktop, text zoom, keyboard, touch/no-hover, reduced motion, and any product-specific foldable, split-view, safe-area, or virtual-keyboard conditions. Do not prescribe a blind single-column collapse.
 

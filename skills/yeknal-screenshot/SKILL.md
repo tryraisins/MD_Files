@@ -5,20 +5,19 @@ metadata:
   internal: true
 ---
 
-
 # Screenshot Capture
 
-Follow these save-location rules every time:
+Apply these save-location rules every time:
 
-1) If the user specifies a path, save there.
-2) If the user asks for a screenshot without a path, save to the OS default screenshot location.
-3) If Codex needs a screenshot for its own inspection, save to the temp directory.
+1) Save to the user's specified path when they give one.
+2) With no path requested, save to the OS default screenshot location.
+3) When Codex needs a screenshot for its own inspection, save to the temp directory.
 
 ## Tool priority
 
-- Prefer tool-specific screenshot capabilities when available (for example: a Figma MCP/skill for Figma files, or Playwright/agent-browser tools for browsers and Electron apps).
-- Use this skill when explicitly asked, for whole-system desktop captures, or when a tool-specific capture cannot get what you need.
-- Otherwise, treat this skill as the default for desktop apps without a better-integrated capture tool.
+- Prefer a tool-specific screenshot capability when one is available (for example, a Figma MCP/skill for Figma files, or Playwright/agent-browser tools for browsers and Electron apps).
+- Use this skill when it is explicitly requested, for whole-system desktop captures, or when a tool-specific capture cannot get what you need.
+- Otherwise, treat this skill as the default for desktop apps that lack a better-integrated capture tool.
 
 ## macOS permission preflight (reduce repeated prompts)
 
@@ -125,7 +124,7 @@ bash <path-to-skill>/scripts/ensure_macos_permissions.sh && \
 python3 <path-to-skill>/scripts/take_screenshot.py --app "<App>" --mode temp
 ```
 
-- "The design from Figma is not matching what is implemented": use a Figma MCP/skill to capture the design first, then capture the running app with this skill (typically to temp) and compare the raw screenshots before any manipulation.
+- "The design from Figma is not matching what is implemented": capture the design first with a Figma MCP/skill, then capture the running app with this skill (typically to temp) and compare the raw screenshots before any manipulation.
 
 ### Multi-display behavior
 

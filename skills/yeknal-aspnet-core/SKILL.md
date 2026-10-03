@@ -9,9 +9,9 @@ metadata:
 
 ## Overview
 
-Choose the right ASP.NET Core application model, compose the host and request pipeline correctly, and implement features in the framework style Microsoft documents today.
+Pick the right ASP.NET Core application model, compose the host and request pipeline correctly, and implement features the way Microsoft documents them today.
 
-Load the smallest set of references that fits the task. Do not load every reference by default.
+Load only the references that fit the task. Do not load every reference by default.
 
 ## Workflow
 
@@ -28,16 +28,16 @@ Load the smallest set of references that fits the task. Do not load every refere
    - [references/security-and-identity.md](references/security-and-identity.md)
    - [references/realtime-grpc-and-background-work.md](references/realtime-grpc-and-background-work.md)
    - [references/testing-performance-and-operations.md](references/testing-performance-and-operations.md)
-6. Open [references/versioning-and-upgrades.md](references/versioning-and-upgrades.md) before introducing new platform APIs into an older solution or when migrating between major versions.
-7. Use [references/source-map.md](references/source-map.md) when you need the Microsoft Learn section that corresponds to a task not already covered by the focused references.
+6. Open [references/versioning-and-upgrades.md](references/versioning-and-upgrades.md) before introducing new platform APIs into an older solution or migrating between major versions.
+7. Use [references/source-map.md](references/source-map.md) when you need the Microsoft Learn section that matches a task the focused references do not cover.
 
 ## Default Operating Assumptions
 
 - Prefer the latest stable ASP.NET Core and .NET unless the repository or user request pins an older target.
 - As of March 2026, prefer .NET 10 / ASP.NET Core 10 for new production work. Treat ASP.NET Core 11 as preview unless the user explicitly asks for preview features.
-- Prefer `WebApplicationBuilder` and `WebApplication`. Avoid older `Startup` and `WebHost` patterns unless the codebase already uses them or the task is migration.
+- Prefer `WebApplicationBuilder` and `WebApplication`. Avoid older `Startup` and `WebHost` patterns unless the codebase already uses them or the task is a migration.
 - Prefer built-in DI, options/configuration, logging, ProblemDetails, OpenAPI, health checks, rate limiting, output caching, and Identity before adding third-party infrastructure.
-- Keep feature slices cohesive so the page, component, endpoint, controller, validation, service, data access, and tests are easy to trace.
+- Keep feature slices cohesive so the page, component, endpoint, controller, validation, service, data access, and tests stay easy to trace.
 - Respect the existing app model. Do not rewrite Razor Pages to MVC or controllers to Minimal APIs without a clear reason.
 
 ## Reference Guide
@@ -59,5 +59,5 @@ Load the smallest set of references that fits the task. Do not load every refere
 ## Execution Notes
 
 - When generating new code, start from the correct `dotnet new` template and keep the generated structure recognizable.
-- When editing an existing solution, follow the solution's conventions first and use these references to avoid framework misuse or outdated patterns.
+- When editing an existing solution, follow the solution's own conventions first and use these references to avoid framework misuse or outdated patterns.
 - When a task mentions "latest", verify the feature on Microsoft Learn or the ASP.NET Core docs repo before relying on memory.

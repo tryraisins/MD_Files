@@ -5,7 +5,7 @@ description: Guide to Sonner, the React toast library — install and wire up th
 
 ## UI quality integration
 
-Apply `ui-quality-baseline` to toast work. Keep the toaster mounted once, preserve stable layout, use truthful async state, provide readable status and keyboard access, respect reduced motion, and match the product's existing color, type, icon, and theme tokens.
+Apply `yeknal-ui-quality-baseline` to toast work. Mount the toaster exactly once, keep layout stable, reflect true async state, expose readable status with keyboard access, honor reduced motion, and match the product's existing color, type, icon, and theme tokens.
 
 # Working With Sonner
 
@@ -54,7 +54,7 @@ toast.success('Uploaded', { id });
 
 ## Styling — the escalation ladder
 
-Climb only as far as the change requires; jumping to the top rung too early is fine (it's the recommended end state), lingering in the middle is not.
+Climb only as far as the change requires; jumping straight to the top rung is fine (it's the recommended end state), lingering in the middle is not.
 
 1. **Defaults** — plus `richColors` on the Toaster for colorful success/error, `invert` to flip against the theme.
 2. **Inline tweaks** — `toastOptions={{ style: {…} }}` on the Toaster for all toasts, or `style` per `toast()` call.
@@ -69,16 +69,16 @@ Climb only as far as the change requires; jumping to the top rung too early is f
 
 | Symptom | Cause → fix |
 | --- | --- |
-| Toast never appears | No `<Toaster />` mounted, or it unmounted (conditional render, per-page placement). Mount one at the root. If calling from a server action: `toast()` is client-only — call it with the action's result on the client. |
-| Same toast appears twice | Two Toasters mounted (layout **and** page) — keep one. Or `toast()` fired in an effect under React StrictMode's dev double-invoke — fire from the event handler instead, or pass a stable `id` so the second call updates rather than duplicates. |
-| Tailwind/CSS classes have no effect | Default styles override them. Mark them `!important`, or use `unstyled` / headless (see the ladder above). |
-| Toasts render completely unstyled (common in Astro, view transitions) | Sonner's injected stylesheet was lost — import it explicitly in a layout: `import 'sonner/dist/styles.css'`. |
+| Toast never appears | No `<Toaster />` is mounted, or it unmounted (conditional render, per-page placement). Mount one at the root. From a server action, `toast()` is client-only — call it with the action's result on the client. |
+| Same toast appears twice | Two Toasters mounted (layout **and** page) — keep one. Or `toast()` fires in an effect under React StrictMode's dev double-invoke — fire from the event handler, or pass a stable `id` so the second call updates instead of duplicating. |
+| Tailwind/CSS classes have no effect | Default styles outrank them. Mark them `!important`, or switch to `unstyled` / headless (see the ladder above). |
+| Toasts render completely unstyled (common in Astro, view transitions) | Sonner's injected stylesheet went missing — import it explicitly in a layout: `import 'sonner/dist/styles.css'`. |
 | Unstyled inside Shadow DOM | Styles land in `document.head`, not the shadow root. Copy the style tag whose text includes `[data-sonner-toaster]` into the shadow root. |
-| Toast behind a modal/overlay, or clipped | An ancestor creates a stacking context (`transform`, `filter`, `overflow`) or the overlay out-z-indexes the toaster. Move `<Toaster />` to the document root, outside any dialog/portal container. |
+| Toast behind a modal/overlay, or clipped | An ancestor forms a stacking context (`transform`, `filter`, `overflow`), or the overlay out-z-indexes the toaster. Move `<Toaster />` to the document root, outside any dialog/portal container. |
 | Dark mode ignored | `theme` defaults to `'light'` — set `theme="system"` or pass the resolved theme (see Theme above). |
-| Success/error look gray, not green/red | That's the default. Add `richColors` to the Toaster. |
-| Toast never closes | `duration: Infinity`, `dismissible: false`, or a `toast.promise` whose promise never settles — the loading toast waits forever. |
-| `toast.promise` stuck on loading | It needs a promise (or a function returning one) as its first argument, and the promise must actually resolve/reject. |
+| Success/error look gray, not green/red | That's the default palette. Add `richColors` to the Toaster. |
+| Toast never closes | `duration: Infinity`, `dismissible: false`, or a `toast.promise` that never settles — the loading toast waits forever. |
+| `toast.promise` stuck on loading | Its first argument must be a promise (or a function returning one), and that promise must actually resolve or reject. |
 | Swipe-to-dismiss goes the wrong way / doesn't work | Directions derive from `position`. Override with `swipeDirections` on the Toaster. |
-| Toast shows up in every toaster | Multiple toasters need targeting: give each Toaster an `id` and pass `toasterId` in the `toast()` call. |
+| Toast shows up in every toaster | Multiple toasters must be targeted: give each Toaster an `id` and pass `toasterId` in the `toast()` call. |
 | Toasts too close to the screen edge on mobile | `offset` (desktop, default 32px) and `mobileOffset` (<600px, default 16px) — numbers, CSS strings, or per-side objects. |

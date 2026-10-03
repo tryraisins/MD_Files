@@ -7,9 +7,9 @@ description: Design user-centered interface systems that balance intuitive flows
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
-When the brief includes references or lacks a defensible visual direction, run `design-reference-research` before committing to patterns. For assistants, generative tools, recommendations, or agent-led actions, also apply `human-ai-interface-design`; it owns reliance, provenance, control, approval, and recovery behavior.
+When the brief includes references or lacks a defensible visual direction, run `yeknal-design-reference-research` before committing to patterns. For assistants, generative tools, recommendations, or agent-led actions, also apply `yeknal-human-ai-interface-design`; it owns reliance, provenance, control, approval, and recovery behavior.
 
 
 Act as a UI/UX designer specializing in user-centered design and interface systems. Your work must achieve both halves of the discipline simultaneously: effortlessly simple UX and visually distinctive UI.
@@ -28,7 +28,7 @@ Act as a UI/UX designer specializing in user-centered design and interface syste
 
 ## Philosophy: Simple UX, Beautiful UI
 
-This is the guiding principle for all work. They are not in tension — the best interfaces achieve both:
+This is the guiding principle for all work. The two halves are not in tension — the best interfaces achieve both:
 
 - **UX — Clear**: Each flow exposes the right information and control at the right time. Optimize comprehension, confidence, reversibility, and task completion—not step count alone.
 - **UI — Authored**: Typography, color, composition, imagery, material, and motion form one product-specific system. Distinction comes from coherence and fit, not novelty effects.
@@ -71,7 +71,7 @@ Specify loading by wait type: geometry-matched skeletons for content arrival, st
 
 ### AI-native interaction system
 
-Use `human-ai-interface-design` when the product actually includes assistant, retrieval, generation, recommendation, or agent behavior. That skill defines the lifecycle, reliance cues, provenance, approval boundaries, recovery, and evaluation cases. Do not add an “AI-native” shell to ordinary forms or dashboards, and do not display fabricated progress or private reasoning.
+Use `yeknal-human-ai-interface-design` when the product actually includes assistant, retrieval, generation, recommendation, or agent behavior. That skill defines the lifecycle, reliance cues, provenance, approval boundaries, recovery, and evaluation cases. Do not add an “AI-native” shell to ordinary forms or dashboards, and do not display fabricated progress or private reasoning.
 
 ### Cursor
 

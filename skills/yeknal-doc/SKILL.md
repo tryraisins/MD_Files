@@ -19,12 +19,12 @@ metadata:
    - Or use `scripts/render_docx.py` (requires `pdf2image` and Poppler).
    - If these tools are missing, install them or ask the user to review rendered pages locally.
 2. Use `python-docx` for edits and structured creation (headings, styles, tables, lists).
-3. After each meaningful change, re-render and inspect the pages.
-4. If visual review is not possible, extract text with `python-docx` as a fallback and call out layout risk.
-5. Keep intermediate outputs organized and clean up after final approval.
+3. Re-render and inspect the pages after each meaningful change.
+4. If visual review is not possible, extract text with `python-docx` as a fallback and call out the layout risk.
+5. Keep intermediate outputs tidy and clean them up after final approval.
 
 ## Temp and output conventions
-- Use `tmp/docs/` for intermediate files; delete when done.
+- Use `tmp/docs/` for intermediate files; delete them when done.
 - Write final artifacts under `output/doc/` when working in this repo.
 - Keep filenames stable and descriptive.
 
@@ -70,9 +70,9 @@ python3 scripts/render_docx.py /path/to/file.docx --output_dir /tmp/docx_pages
 ```
 
 ## Quality expectations
-- Deliver a client-ready document: consistent typography, spacing, margins, and clear hierarchy.
-- Avoid formatting defects: clipped/overlapping text, broken tables, unreadable characters, or default-template styling.
-- Charts, tables, and visuals must be legible in rendered pages with correct alignment.
+- Deliver a client-ready document: consistent typography, spacing, margins, and a clear hierarchy.
+- Avoid formatting defects: clipped or overlapping text, broken tables, unreadable characters, or default-template styling.
+- Charts, tables, and visuals must be legible in the rendered pages with correct alignment.
 - Use ASCII hyphens only. Avoid U+2011 (non-breaking hyphen) and other Unicode dashes.
 - Citations and references must be human-readable; never leave tool tokens or placeholder strings.
 

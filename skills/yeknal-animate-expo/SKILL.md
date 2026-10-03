@@ -5,7 +5,7 @@ description: Build animations in React Native and Expo, making the decisions in 
 
 ## UI quality integration
 
-Apply `ui-quality-baseline` to visible React Native surfaces as well: preserve platform conventions and existing behavior, keep touch targets accessible, reuse the app's tokens and primitives, and verify press, loading, error, reduced-motion, and slow-device states. Do not add motion to satisfy a quota.
+Apply `yeknal-ui-quality-baseline` to visible React Native surfaces as well: preserve platform conventions and existing behavior, keep touch targets accessible, reuse the app's tokens and primitives, and verify press, loading, error, reduced-motion, and slow-device states. Do not add motion to satisfy a quota.
 
 # Building Animations in Expo
 

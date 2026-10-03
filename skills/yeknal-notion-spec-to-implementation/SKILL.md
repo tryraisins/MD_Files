@@ -8,13 +8,13 @@ metadata:
 
 # Spec to Implementation
 
-Convert a Notion spec into linked implementation plans, tasks, and ongoing status updates.
+Turn a Notion spec into linked implementation plans, tasks, and ongoing status updates.
 
 ## Quick start
 1) Locate the spec with `Notion:notion-search`, then fetch it with `Notion:notion-fetch`.
 2) Parse requirements and ambiguities using `reference/spec-parsing.md`.
 3) Create a plan page with `Notion:notion-create-pages` (pick a template: quick vs. full).
-4) Find the task database, confirm schema, then create tasks with `Notion:notion-create-pages`.
+4) Find the task database, confirm its schema, then create tasks with `Notion:notion-create-pages`.
 5) Link spec ↔ plan ↔ tasks; keep status current with `Notion:notion-update-page`.
 
 ## Workflow
@@ -27,17 +27,17 @@ Convert a Notion spec into linked implementation plans, tasks, and ongoing statu
 3. Log in with OAuth:
    - `codex mcp login notion`
 
-After successful login, the user will have to restart codex. You should finish your answer and tell them so when they try again they can continue with Step 1.
+After successful login, the user will have to restart codex. Finish your answer and tell them that, so their next attempt can continue with Step 1.
 
 ### 1) Locate and read the spec
-- Search first (`Notion:notion-search`); if multiple hits, ask the user which to use.
+- Search first (`Notion:notion-search`); when multiple hits appear, ask the user which to use.
 - Fetch the page (`Notion:notion-fetch`) and scan for requirements, acceptance criteria, constraints, and priorities. See `reference/spec-parsing.md` for extraction patterns.
 - Capture gaps/assumptions in a clarifications block before proceeding.
 
 ### 2) Choose plan depth
 - Simple change → use `reference/quick-implementation-plan.md`.
 - Multi-phase feature/migration → use `reference/standard-implementation-plan.md`.
-- Create the plan via `Notion:notion-create-pages`, include: overview, linked spec, requirements summary, phases, dependencies/risks, and success criteria. Link back to the spec.
+- Create the plan via `Notion:notion-create-pages`, including: overview, linked spec, requirements summary, phases, dependencies/risks, and success criteria. Link back to the spec.
 
 ### 3) Create tasks
 - Find the task database (`Notion:notion-search` → `Notion:notion-fetch` to confirm the data source and required properties). Patterns in `reference/task-creation.md`.
@@ -46,13 +46,13 @@ After successful login, the user will have to restart codex. You should finish y
 - Create pages with `Notion:notion-create-pages` using the database’s `data_source_id`.
 
 ### 4) Link artifacts
-- Plan links to spec; tasks link to both plan and spec.
+- The plan links to the spec; each task links to both the plan and the spec.
 - Optionally update the spec with a short “Implementation” section pointing to the plan and tasks using `Notion:notion-update-page`.
 
 ### 5) Track progress
 - Use the cadence in `reference/progress-tracking.md`.
 - Post updates with `reference/progress-update-template.md`; close phases with `reference/milestone-summary-template.md`.
-- Keep checklists and status fields in plan/tasks in sync; note blockers and decisions.
+- Keep checklists and status fields in the plan/tasks in sync; note blockers and decisions.
 
 ## References and examples
 - `reference/` — parsing patterns, plan/task templates, progress cadence (e.g., `spec-parsing.md`, `standard-implementation-plan.md`, `task-creation.md`, `progress-tracking.md`).

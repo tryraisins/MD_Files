@@ -199,6 +199,17 @@ GitHub Actions validates skill structure, relative Markdown links, CLI tests, pa
 
 `evaluations/skill-routing.json` records high-value routing and precedence cases. CI validates the dataset and referenced skills; model-level activation scoring remains a separate behavioral evaluation boundary.
 
+## Credits
+
+This catalog adapts and consolidates work from many upstream authors. Full source, license, and notice details are in [`PROVENANCE.md`](PROVENANCE.md). Principal upstreams include:
+
+- Anthropic ([anthropics/skills](https://github.com/anthropics/skills), Apache-2.0) for `yeknal-frontend-design` and the document skills.
+- Leonxlnx ([leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill), MIT) for the taste-skill design derivatives.
+- Emil Kowalski ([emilkowalski/skills](https://github.com/emilkowalski/skills), MIT) for `yeknal-emil-design-eng` and the motion craft bar.
+- Appllama (MIT), [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) (MIT), [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) (MIT), and NeetigyaShah/deep-research (MIT).
+- Microsoft, Figma, OpenAI, Notion, Vercel, Cloudflare, Netlify, Render, Sentry, Linear, and GitHub for provider and platform skills.
+- Rare UI (MIT + Commons Clause + Attribution), referenced for component selection; not vendored. Any project that installs a Rare UI component must retain its notice and add a README credit linking to [rareui.com](https://www.rareui.com).
+
 ## License
 
 ISC. Imported or adapted skills retain their upstream license files where required.

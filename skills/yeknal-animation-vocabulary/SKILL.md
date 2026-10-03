@@ -5,7 +5,7 @@ description: Reverse-lookup glossary that turns a vague description of a web ani
 
 # Animation Vocabulary
 
-Turn a vague description of a motion or effect into the precise term, so the user knows what to ask for.
+Turn a loose description of a motion or effect into the precise term, so the user knows what to ask for.
 
 ## Quick Start
 

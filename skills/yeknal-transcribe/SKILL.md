@@ -5,27 +5,26 @@ metadata:
   internal: true
 ---
 
-
 # Audio Transcribe
 
-Transcribe audio using OpenAI, with optional speaker diarization when requested. Prefer the bundled CLI for deterministic, repeatable runs.
+Turn audio into text with OpenAI, adding speaker diarization only when asked. For deterministic, repeatable runs, use the bundled CLI.
 
 ## Workflow
-1. Collect inputs: audio file path(s), desired response format (text/json/diarized_json), optional language hint, and any known speaker references.
-2. Verify `OPENAI_API_KEY` is set. If missing, ask the user to set it locally (do not ask them to paste the key).
-3. Run the bundled `transcribe_diarize.py` CLI with sensible defaults (fast text transcription).
-4. Validate the output: transcription quality, speaker labels, and segment boundaries; iterate with a single targeted change if needed.
-5. Save outputs under `output/transcribe/` when working in this repo.
+1. Gather inputs: the audio path(s), the response format you want (text/json/diarized_json), an optional language hint, and any known speaker references.
+2. Confirm `OPENAI_API_KEY` is set. If it is missing, ask the user to export it locally; never ask them to paste the key.
+3. Run the bundled `transcribe_diarize.py` CLI with sensible defaults for fast text transcription.
+4. Check the result for transcription quality, speaker labels, and segment boundaries, then make one targeted change at a time if needed.
+5. When working in this repo, write results under `output/transcribe/`.
 
 ## Decision rules
-- Default to `gpt-4o-mini-transcribe` with `--response-format text` for fast transcription.
-- If the user wants speaker labels or diarization, use `--model gpt-4o-transcribe-diarize --response-format diarized_json`.
-- If audio is longer than ~30 seconds, keep `--chunking-strategy auto`.
-- Prompting is not supported for `gpt-4o-transcribe-diarize`.
+- Start with `gpt-4o-mini-transcribe` and `--response-format text` for fast transcription.
+- When the user wants speaker labels or diarization, run `--model gpt-4o-transcribe-diarize --response-format diarized_json`.
+- For audio longer than about 30 seconds, keep `--chunking-strategy auto`.
+- Prompting is unsupported for `gpt-4o-transcribe-diarize`.
 
 ## Output conventions
-- Use `output/transcribe/<job-id>/` for evaluation runs.
-- Use `--out-dir` for multiple files to avoid overwriting.
+- Put evaluation runs in `output/transcribe/<job-id>/`.
+- When handling several files, use `--out-dir` so outputs do not overwrite each other.
 
 ## Dependencies (install if missing)
 Prefer `uv` for dependency management.
@@ -39,8 +38,8 @@ python3 -m pip install openai
 ```
 
 ## Environment
-- `OPENAI_API_KEY` must be set for live API calls.
-- If the key is missing, instruct the user to create one in the OpenAI platform UI and export it in their shell.
+- Live API calls require `OPENAI_API_KEY`.
+- If the key is missing, tell the user to create one in the OpenAI platform UI and export it in their shell.
 - Never ask the user to paste the full key in chat.
 
 ## Skill path (set once)

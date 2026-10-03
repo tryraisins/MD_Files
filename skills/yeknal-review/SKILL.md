@@ -7,7 +7,7 @@ description: Review code or systems for concrete defects, regressions, and maint
 
 ## Purpose
 
-Perform a thorough review of code, systems, or components with actionable findings organized by severity and effort.
+Perform a thorough review of code, systems, or components, returning actionable findings organized by severity and effort.
 
 ## Usage
 

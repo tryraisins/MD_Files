@@ -9,13 +9,13 @@ metadata:
 
 # Application Security
 
-Protect the real system boundary and preserve working behavior. Security controls must be enforced by a trusted server or platform boundary; client state, hidden UI, generated instructions, tests, and documentation are evidence, not authorization.
+Defend the real system boundary while keeping existing behavior intact. Controls must be enforced at a trusted server or platform boundary; client state, hidden UI, generated instructions, tests, and documentation count as evidence, never authorization.
 
-Read [Security-Master.md](Security-Master.md) for the current control baseline and parameter guidance. Load framework-specific material from `security-best-practices` when the stack is supported. Use `security-threat-model` for a standalone repository-grounded threat model and `security-ownership-map` for ownership risk.
+Read [Security-Master.md](Security-Master.md) for the current control baseline and parameter guidance. Load framework-specific material from `yeknal-security-best-practices` when the stack is supported. Use `yeknal-security-threat-model` for a standalone repository-grounded threat model and `yeknal-security-ownership-map` for ownership risk.
 
 ## Start with scope and evidence
 
-1. Read governing repository instructions and security policy.
+1. Read the governing repository instructions and security policy.
 2. Identify the requested mode: design, review/report, implementation, or incident response. Review does not authorize fixes; implementation does not authorize deployment or disclosure.
 3. Map entry points, identities, trust boundaries, assets, sensitive operations, data stores, queues, webhooks, build pipelines, and external services.
 4. Separate confirmed behavior, source-backed inference, environmental assumptions, and proof gaps.
@@ -35,7 +35,7 @@ Read [Security-Master.md](Security-Master.md) for the current control baseline a
 
 Never request, print, log, commit, or place real credentials in prompts, commands, fixtures, screenshots, or generated reports.
 
-Before any temporary credential-bearing file is created:
+Before creating any temporary credential-bearing file:
 
 1. add the exact path or safe pattern to `.gitignore`;
 2. verify the ignore rule matches;

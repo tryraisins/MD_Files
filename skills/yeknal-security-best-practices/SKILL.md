@@ -11,35 +11,35 @@ metadata:
 
 ## Overview
 
-This skill provides a description of how to identify the language and frameworks used by the current context, and then to load information from this skill's references directory about the security best practices for this language and or frameworks.
+This skill explains how to identify the language and frameworks in the current context, then load the matching security best-practice guidance from this skill's references directory.
 
-This information, if present, can be used to write new secure by default code, or to passively detect major issues within existing code, or (if requested by the user) provide a vulnerability report and suggest fixes.
+With that information you can write secure-by-default code, passively detect major issues in existing code, or (when the user asks) produce a vulnerability report with suggested fixes.
 
 ## Workflow
 
-First read [the modern cross-stack baseline](references/modern-security-baseline.md). Then identify all languages and primary frameworks in scope. Include both frontend and backend when the application contains both.
+First read [the modern cross-stack baseline](references/modern-security-baseline.md). Then identify every language and primary framework in scope. Include both frontend and backend when the application contains both.
 
-Then check this skill's references directory to see if there are any relevant documentation for the language and or frameworks. Make sure you read ALL reference files which relate to the specific framework or language. The format of the filenames is `<language>-<framework>-<stack>-security.md`. You should also check if there is a `<language>-general-<stack>-security.md` which is agnostic to the framework you may be using.
+Next, check this skill's references directory for documentation that matches the language and frameworks. Read ALL reference files that relate to the specific framework or language. Filenames follow the format `<language>-<framework>-<stack>-security.md`. Also check for a `<language>-general-<stack>-security.md`, which is framework-agnostic.
 
-If working on a web application which includes a frontend and a backend, make sure you have checked for reference documents for BOTH the frontend and backend!
+If you are working on a web application with both a frontend and a backend, check for reference documents for BOTH.
 
-If you are asked to make a web app which will include both a frontend and backend, but the frontend framework is not specified, also check out `javascript-general-web-frontend-security.md`. It is important that you understand how to secure both the frontend and backend.
+If you are asked to build a web app that will include both a frontend and backend but the frontend framework is unspecified, also check `javascript-general-web-frontend-security.md`. Securing both sides matters.
 
 If no relevant framework file is available, use the cross-stack baseline and current primary documentation. Mark the missing specialized guidance rather than presenting remembered framework details as confirmed current.
 
-From there it can operate in a few ways.
+From there the skill operates in a few ways.
 
-1. The primary mode is to just use the information to write secure by default code from this point forward. This is useful for starting a new project or when writing new code.
+1. The primary mode is to apply the information to write secure-by-default code going forward. This suits a new project or new code.
 
-2. The secondary mode is to passively detect vulnerabilities while working in the project and writing code for the user. Critical or very important vulnerabilities or major issues going against security guidance can be flagged and the user can be told about them. This passive mode should focus on the largest impact vulnerabilities and secure defaults.
+2. The secondary mode is to passively detect vulnerabilities while working in the project and writing code for the user. Flag critical or very important vulnerabilities and major issues that contradict security guidance, and tell the user. This passive mode should focus on the highest-impact vulnerabilities and secure defaults.
 
-3. The user can ask for a security report or to improve the security of the codebase. In this case a full report should be produced describe anyways the project fails to follow security best practices guidance. The report should be prioritized and have clear sections of severity and urgency. Then offer to start working on fixes for these issues. See #fixes below.
+3. The user can ask for a security report or to improve the security of the codebase. In that case, produce a full report describing every way the project fails to follow security best-practice guidance. Prioritize the report and give it clear severity and urgency sections. Then offer to start on fixes. See Fixes below.
 
 ## Workflow Decision Tree
 
 - If the language/framework is unclear, inspect the repo to determine it and list your evidence.
 - If matching guidance exists in `references/`, load only the relevant files and follow their instructions.
-- If no matching guidance exists, consider if you know any well known security best practices for the chosen language and or frameworks, but if asked to generate a report, let the user know that concrete guidance is not available (you can still generate the report or detect for sure critical vulnerabilities)
+- If no matching guidance exists, consider whether you know well-known security best practices for the chosen language and frameworks; if asked to generate a report, tell the user that concrete guidance is not available (you can still generate the report or detect sure critical vulnerabilities).
 
 # Project-specific policy
 
@@ -47,39 +47,39 @@ Project policy can define environment, risk tolerance, accepted risk, and compen
 
 # Report Format
 
-When producing a report, you should write the report as a markdown file in `security_best_practices_report.md` or some other location if provided by the user. You can ask the user where they would like the report to be written to.
+When producing a report, write it as a markdown file at `security_best_practices_report.md` or another location the user provides. You can ask the user where they want it written.
 
-The report should have a short executive summary at the top.
+The report should open with a short executive summary.
 
-The report should be clearly delineated into multiple sections based on severity of the vulnerability. The report should focus on the most critical findings as these have the highest impact for the user. All findings should be noted with an numeric ID to make them easier to reference.
+Delineate the report into sections by vulnerability severity. Focus on the most critical findings because they have the highest impact. Give every finding a numeric ID so it is easy to reference.
 
-For critical findings include a one sentence impact statement.
+For critical findings include a one-sentence impact statement.
 
-Once the report is written, also report it to the user directly, although you may be less verbose. You can offer to explain any of the findings or the reasons behind the security best practices guidance if the user wants more info on any findings.
+After writing the report, also summarize it to the user directly, though you may be less verbose. Offer to explain any finding or the reasoning behind the security best-practice guidance.
 
-Important: When referencing code in the report, make sure to find and include line numbers for the code you are referencing.
+Important: When referencing code in the report, find and include line numbers for the code you reference.
 
 After you write the report file, summarize the findings to the user.
 
-Also tell the user where the final report was written to
+Also tell the user where the final report was written.
 
 # Fixes
 
 If the request was review-only, stop after the report. Implement fixes only when the user requested remediation or the active workflow already authorizes it.
 
-If you passively found a critical finding, notify the user and ask if they would like you to fix this finding.
+If you passively found a critical finding, notify the user and ask whether they want it fixed.
 
-When producing fixes, focus on fixing a single finding at a time. The fixes should have concise clear comments explaining that the new code is based on the specific security best practice, and perhaps a very short reason why it would be dangerous to not do it in this way.
+When producing fixes, fix a single finding at a time. Give each fix concise comments explaining that the new code follows the specific security best practice, and perhaps a very short reason why the alternative would be dangerous.
 
-Always consider if the changes you want to make will impact the functionality of the user's code. Consider if the changes may cause regressions with how the project works currently. It is often the case that insecure code is relied on for other reasons (and this is why insecure code lives on for so long). Avoid breaking the user's project as this may make them not want to apply security fixes in the future. It is better to write a well thought out, well informed by the rest of the project, fix, then a quick slapdash change.
+Always consider whether the changes will affect the user's code functionality and whether they may regress current behavior. Insecure code is often relied on for other reasons, which is why it survives so long. Avoid breaking the user's project, since that discourages future security fixes. A well-thought-out fix informed by the rest of the project beats a quick, slapdash change.
 
-Always follow any normal change or commit flow the user has configured. If making git commits, provide clear commit messages explaining this is to align with security best practices. Try to avoid bunching a number of unrelated findings into a single commit.
+Always follow any normal change or commit flow the user has configured. If you make git commits, write clear messages explaining that the change aligns with security best practices. Try not to bunch unrelated findings into one commit.
 
-Always follow any normal testing flows the user has configured (if any) to confirm that your changes are not introducing regressions. Consider the second order impacts the changes may have and inform the user before making them if there are any.
+Always follow any normal testing flows the user has configured (if any) to confirm the changes introduce no regressions. Consider second-order impacts and inform the user before making them.
 
 # General Security Advice
 
-Below is a few bits of secure coding advice that applies to almost any language or framework.
+Below is secure-coding advice that applies to almost any language or framework.
 
 ### Public identifiers do not provide authorization
 
@@ -87,4 +87,4 @@ Opaque identifiers can reduce enumeration and information leakage, but every obj
 
 ### A note on TLS
 
-Local HTTP development does not prove a production TLS issue when a trusted proxy terminates HTTPS. Verify the deployed boundary before reporting. Production session cookies should still be `Secure`; keep any local exception explicit and impossible to enable accidentally in production. Recommend HSTS only after HTTPS is verified for the intended host scope. Add `includeSubDomains` or preload only with deliberate operational approval because those choices can affect unrelated hosts and are difficult to reverse quickly.
+Local HTTP development does not prove a production TLS issue when a trusted proxy terminates HTTPS. Verify the deployed boundary before reporting. Production session cookies should still be `Secure`; keep any local exception explicit and impossible to enable accidentally in production. Recommend HSTS only after HTTPS is verified for the intended host scope. Add `includeSubDomains` or preload only with deliberate operational approval, because those choices can affect unrelated hosts and are difficult to reverse quickly.

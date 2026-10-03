@@ -9,18 +9,15 @@ metadata:
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
-
-
-Use this skill for WinUI 3 and Windows App SDK work that needs grounded setup guidance, app bootstrap, modern Windows UX decisions, or concrete implementation patterns.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over the generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
 ## Required Flow
 
 1. Classify the task as environment/setup, new-app bootstrap, design, implementation, review, or troubleshooting.
 2. If the task is about preparing a machine for WinUI, auditing readiness, or creating a brand new app, start with the bundled setup-and-scaffold flow in this skill before broader design, implementation, or troubleshooting work:
    - Pick the app name when the request is for a new app.
-   - Use the exact name the user gave when it is already a safe folder name.
-   - If the user did not give a name, derive a short PascalCase name from the request and state what you chose.
+   - Reuse the exact name the user gave when it is already a safe folder name.
+   - When the user gave no name, derive a short PascalCase name from the request and state what you chose.
    - Create the project in the user's current workspace unless they asked for another location.
    - Do not use `--force` unless the user explicitly asked to overwrite existing files.
    - Run the bundled WinGet configuration from the skill directory so the relative path stays exactly `config.yaml`:
@@ -37,13 +34,13 @@ winget configure -f config.yaml --accept-configuration-agreements --disable-inte
 dotnet new list winui
 ```
 
-   - For diagnostics-only environment requests, explain that the bundled bootstrap may change the machine and get confirmation before running it. If the user declines changes, use the manual verification guidance in `references/foundation-environment-audit-and-remediation.md` and summarize readiness under `present`, `missing`, `uncertain`, and `recommended optional tools`.
+   - For diagnostics-only environment requests, explain that the bundled bootstrap may change the machine and get confirmation before running it. If the user declines changes, follow the manual verification guidance in `references/foundation-environment-audit-and-remediation.md` and summarize readiness under `present`, `missing`, `uncertain`, and `recommended optional tools`.
    - For a brand new app, scaffold with `dotnet new winui -o <name>`. Add template options only when the user asked for them. Supported options: `-f|--framework net10.0|net9.0|net8.0`, `-slnx|--use-slnx`, `-cpm|--central-pkg-mgmt`, `-mvvm|--use-mvvm`, `-imt|--include-mvvm-toolkit`, `-un|--unpackaged`, `-nsf|--no-solution-file`, `--force`. Do not invent unsupported flags. If the user asks for packaged behavior, pass `--unpackaged false`. Otherwise keep the template default.
    - Verify a new scaffold by confirming the expected project file exists and running `dotnet build` against the generated `.csproj`.
    - Launch a newly scaffolded app through the correct path for its actual packaging model and confirm there is a real top-level window instead of relying only on the launcher process exit code.
 3. Read `references/_sections.md`, then load only the reference files that match the task.
 4. Make the packaging model explicit before creating or refactoring the app. Default to packaged for Store-like product workflows and Visual Studio deploy/F5 flows. Default to unpackaged when the user expects repeatable CLI build-and-run loops or direct `.exe` launches after each change.
-5. When the task is an opaque XAML compiler failure such as `MSB3073` or `XamlCompiler.exe`, read `references/foundation-template-first-recovery.md` and simplify back toward the current `dotnet new winui` scaffold for the chosen packaging model before inventing custom recovery structure.
+5. For an opaque XAML compiler failure such as `MSB3073` or `XamlCompiler.exe`, read `references/foundation-template-first-recovery.md` and simplify back toward the current `dotnet new winui` scaffold for the chosen packaging model before inventing custom recovery structure.
 6. For any work that creates or changes a WinUI app, make a complete but minimal edit set, then build the app and run it before responding to the user. Do this by default even when the user did not explicitly ask for verification. If a running app instance locks the output while more work remains, stop it, rebuild, relaunch, and continue verification. When the work is complete and launch verification succeeds, leave the final verified app instance running for the user unless they explicitly asked you not to.
 7. Treat launch verification as incomplete until the app shows objective success signals such as a responsive top-level window, expected window title, or other clear startup behavior. A spawned process by itself is not enough.
 8. Prefer Microsoft Learn for requirements, API expectations, and platform guidance.
@@ -81,11 +78,11 @@ dotnet new list winui
 
 ## Environment Rules
 
-- Do not guess whether the machine is ready for WinUI development. Verify it.
+- Never guess whether the machine is ready for WinUI development; verify it.
 - Use the bundled setup-and-scaffold flow in this skill for fresh setup, remediation, and first-project scaffolding instead of delegating to another skill.
 - Treat `config.yaml` in this skill directory as the bundled bootstrap source of truth.
 - Treat uncertain environment signals as uncertain, not as success.
-- If the task is audit-only and the user declines machine changes, use the manual verification guidance in `references/foundation-environment-audit-and-remediation.md` and keep uncertain signals explicit instead of implying success.
+- For an audit-only task where the user declines machine changes, follow the manual verification guidance in `references/foundation-environment-audit-and-remediation.md` and keep uncertain signals explicit instead of implying success.
 - If `config.yaml` is missing, say so clearly and fall back to the official Microsoft workflow instead of pretending the bundled path exists.
 - Keep environment readiness, packaging choice, and application startup verification as separate checks. Passing one does not prove the others.
 - Fail closed on ambiguous launch results. If the app did not clearly open, keep debugging.

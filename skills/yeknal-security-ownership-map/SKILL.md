@@ -10,7 +10,7 @@ metadata:
 
 ## Overview
 
-Build a bipartite graph of people and files from git history, then compute ownership risk and export graph artifacts for Neo4j/Gephi. Also build a file co-change graph (Jaccard similarity on shared commits) to cluster files by how they move together while ignoring large, noisy commits.
+Build a bipartite graph of people and files from git history, compute ownership risk, and export graph artifacts for Neo4j/Gephi. Also build a file co-change graph (Jaccard similarity over shared commits) to cluster files by how they move together, while ignoring large, noisy commits.
 
 ## Requirements
 
@@ -32,9 +32,9 @@ pip install networkx
 5. Query the outputs with `scripts/query_ownership.py` for bounded JSON slices.
 6. Persist and visualize (see `references/neo4j-import.md`).
 
-By default, the co-change graph ignores common “glue” files (lockfiles, `.github/*`, editor config) so clusters reflect actual code movement instead of shared infra edits. Override with `--cochange-exclude` or `--no-default-cochange-excludes`. Dependabot commits are excluded by default; override with `--no-default-author-excludes` or add patterns via `--author-exclude-regex`.
+By default, the co-change graph ignores common "glue" files (lockfiles, `.github/*`, editor config) so clusters reflect actual code movement instead of shared infra edits. Override with `--cochange-exclude` or `--no-default-cochange-excludes`. Dependabot commits are excluded by default; override with `--no-default-author-excludes` or add patterns via `--author-exclude-regex`.
 
-If you want to exclude Linux build glue like `Kbuild` from co-change clustering, pass:
+To exclude Linux build glue like `Kbuild` from co-change clustering, pass:
 
 ```bash
 python skills/skills/security-ownership-map/scripts/run_ownership_map.py \

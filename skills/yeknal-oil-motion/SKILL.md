@@ -11,9 +11,9 @@ metadata:
 
 # Oil Motion
 
-Build motion as a verified media timeline controlled by a continuous parameter. Lock the visual states first, create or capture the transition, process it deterministically, then connect the prepared asset to the browser interaction.
+Treat motion as a verified media timeline driven by one continuous parameter. Lock the visual states first, produce or capture the transition, process it deterministically, then wire the prepared asset to the browser interaction.
 
-This skill owns frame-based narrative or responsive media. Use `animate` for ordinary UI transitions, layout animation, springs, and component presence. Use `review-animations` for critique and `ui-quality-baseline` for the surrounding interface contract.
+This skill owns frame-based narrative or responsive media. Use `yeknal-animate` for ordinary UI transitions, layout animation, springs, and component presence. Use `yeknal-review-animations` for critique and `yeknal-ui-quality-baseline` for the surrounding interface contract.
 
 ## Gate the technique
 

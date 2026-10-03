@@ -8,7 +8,7 @@ metadata:
 
 # Markdown Management
 
-Manage Markdown as maintained product content, not as undifferentiated text. Preserve the reader's route through the documentation, the evidence behind claims, and links used by tools or people.
+Treat Markdown as maintained product content, not undifferentiated text. Preserve the reader's route through the documentation, the evidence behind claims, and links that tools or people depend on.
 
 ## Establish authority and scope
 
@@ -68,7 +68,7 @@ Search for inbound references with `rg` before a rename or deletion. A clean Mar
 6. Review the diff for accidental line-ending churn, generated files, secrets, placeholders, and unrelated prose changes.
 7. Report source truth, checks run, and any deployment or runtime proof still outstanding.
 
-Use `add-changelog` when the task is specifically a release-history entry. Use `doc` for DOCX documents. This skill owns Markdown and repository documentation.
+Use `yeknal-add-changelog` when the task is specifically a release-history entry. Use `yeknal-doc` for DOCX documents. This skill owns Markdown and repository documentation.
 
 ## Agent skill repositories
 

@@ -7,28 +7,27 @@ metadata:
 
 # Dead Code Hunter
 
-A skill that emulates ruff + vulture behavior to systematically detect and safely remove dead code — unused imports, variables, functions, classes, unreachable branches, and more — across Python, TypeScript, JavaScript, and related languages.
+Emulate ruff plus vulture to find and safely remove dead code — unused imports, variables, functions, classes, unreachable branches, and more — across Python, TypeScript, JavaScript, and related languages.
 
 ## Mental Model
 
-Think of yourself as two tools working in tandem:
+Think of two tools working together:
 
-- **ruff mode** — fast, opinionated linting. Flags unused imports (F401), redefined-but-unused names (F811), local variables assigned but never used (F841), and unreachable code after return/raise/continue (F702, W291). Acts on well-scoped, clear-cut cases.
-- **vulture mode** — deep dead code detection. Finds functions, classes, methods, and module-level variables that are defined but never called or referenced anywhere in the project. Requires cross-file analysis and whitelisting for false positives.
+- **ruff mode** — fast, opinionated linting. Flags unused imports (F401), redefined-but-unused names (F811), local variables assigned but never used (F841), and unreachable code after return/raise/continue (F702, W291). Applies to well-scoped, clear-cut cases.
+- **vulture mode** — deeper dead-code detection. Finds functions, classes, methods, and module-level variables that are defined but never called or referenced anywhere in the project. Needs cross-file analysis and whitelisting for false positives.
 
-Your job is to combine both lenses: catch the obvious quick wins (ruff-style) and do the deeper cross-file analysis (vulture-style).
+Combine both lenses: capture the obvious quick wins (ruff-style) and run the deeper cross-file analysis (vulture-style).
 
 ---
 
 ## Workflow
 
 ### Phase 1 — Scope & Inventory
-
-1. Ask (or infer from context) the target: a single file, a directory, or the whole project.
+1. Ask for, or infer from context, the target: a single file, a directory, or the whole project.
 2. Determine the primary language(s) in scope. Read `references/language-rules.md` for the language-specific detection patterns.
 3. Build a file inventory with `glob` / directory listing. Exclude:
    - `node_modules/`, `vendor/`, `.venv/`, `__pycache__/`, `dist/`, `build/`, `.git/`
-   - Test files (unless the user explicitly wants them included — test files share dead-code patterns but have higher false-positive risk)
+   - Test files (unless the user explicitly wants them included — test files share dead-code patterns but carry higher false-positive risk)
    - Auto-generated files (migrations, `.pb.go`, `*.generated.ts`, etc.)
 4. Report the scope to the user before scanning.
 
@@ -53,9 +52,9 @@ For each file, grep for:
 
 1. **Build a definition map**: scan every file for top-level and class-level definitions — functions, classes, methods, module-level constants/variables.
 2. **Build a usage map**: scan every file for references to those names (function calls, instantiations, attribute access, type annotations, decorator usage).
-3. **Diff the two maps**: definitions with zero usages are candidates.
+3. **Diff the two maps**: definitions with zero usages become candidates.
 4. **Apply false-positive filters** (see `references/false-positives.md`):
-   - Public API symbols (anything that could be imported by external consumers)
+   - Public API symbols (anything an external consumer could import)
    - Symbols in `__all__`
    - Entry points (`main`, CLI commands, route handlers, event handlers, FastAPI/Flask routes)
    - Names used via `getattr`, dynamic dispatch, serialization (`__fields__`, Pydantic models, Django models)
@@ -71,18 +70,18 @@ Classify each finding into one of three confidence tiers:
 
 | Tier | Meaning | Default action |
 |---|---|---|
-| 🔴 High | Definitively unused — safe to remove | Offer auto-fix |
-| 🟡 Medium | Likely unused, but cross-module or dynamic dispatch could be a factor | Show for user decision |
-| 🟠 Low | Possible dead code — needs human judgment (public API, magic method, reflection) | Flag only, don't touch |
+| High | Definitively unused — safe to remove | Offer auto-fix |
+| Medium | Likely unused, but cross-module use or dynamic dispatch could be a factor | Show for user decision |
+| Low | Possible dead code — needs human judgment (public API, magic method, reflection) | Flag only, don't touch |
 
 ### Phase 4 — Fix
 
-Only proceed to fix after the user reviews the report and confirms.
+Proceed to fix only after the user reviews the report and confirms.
 
 Fix modes:
 
-- **`--safe`** (default): Auto-remove only 🔴 High-confidence findings. Interactively prompt for 🟡 Medium.
-- **`--aggressive`**: Auto-remove 🔴 and 🟡 findings. Still skip 🟠 Low.
+- **`--safe`** (default): Auto-remove only High-confidence findings. Prompt interactively for Medium.
+- **`--aggressive`**: Auto-remove High and Medium findings. Still skip Low.
 - **`--dry-run`**: Show diffs, make no changes.
 
 For each fix:
@@ -103,7 +102,7 @@ Generated: <date>
 Scope: <N files scanned, N lines>
 
 ## Summary
-| Category | High 🔴 | Medium 🟡 | Low 🟠 |
+| Category | High | Medium | Low |
 |---|---|---|---|
 | Unused imports | X | X | X |
 | Unused variables | X | X | X |
@@ -116,7 +115,7 @@ Scope: <N files scanned, N lines>
 
 ## Findings
 
-### 🔴 High Confidence
+### High Confidence
 
 #### Unused Imports
 - `src/utils.py:3` — `import os` — `os` is never referenced in this file.
@@ -130,13 +129,13 @@ Scope: <N files scanned, N lines>
   Defined at: src/helpers.py:42
   Searched N files, 0 references found.
 
-### 🟡 Medium Confidence
+### Medium Confidence
 
 #### Unused Variables
 - `src/api.py:88` — `result = fetch_data()` — `result` assigned but only returned via a subsequent overwrite.
   > Note: may be intentional for side effects (e.g., caching call).
 
-### 🟠 Low Confidence (Review Manually)
+### Low Confidence (Review Manually)
 
 #### Potentially Unused Classes
 - `src/models.py:12` — `class LegacyResponse` — no direct instantiation found.
@@ -173,11 +172,11 @@ Scope: <N files scanned, N lines>
 
 ## Safety Rules
 
-These are non-negotiable — do not override even if the user asks for `--aggressive`:
+These are non-negotiable — do not override them even if the user asks for `--aggressive`:
 
 1. **Never remove `__all__` entries** without explicit user confirmation per entry.
 2. **Never remove type stubs** (`.pyi` files), protocol definitions, or abstract base class methods.
-3. **Never remove `__init__`, `__repr__`, `__str__`, `__eq__` or other dunder methods** without flagging them 🟠.
+3. **Never remove `__init__`, `__repr__`, `__str__`, `__eq__` or other dunder methods** without flagging them as Low confidence.
 4. **Never remove symbols exported from package `__init__.py`** without user confirmation.
 5. **Always show a diff** before applying any change.
 6. **Back up the file** (in memory, via a diff) before editing it. If something goes wrong, offer to restore.
@@ -194,16 +193,16 @@ Quick reference:
 - **TypeScript / JavaScript** — Handles `import { X }`, `import X from`, `require()`, unused `const`/`let`, unexported functions.
 - **Go** — Unused imports (compile error), unexported functions, dead constants.
 - **CSS / SCSS** — Unused class selectors (cross-referenced against JS/HTML template files).
-- **Other languages** — Best-effort grep-based analysis; flag with 🟠 Low confidence.
+- **Other languages** — Best-effort grep-based analysis; flag as Low confidence.
 
 ---
 
 ## Edge Cases & Gotchas
 
 - **Re-exports via barrel files** (`index.ts`, `__init__.py`): a symbol defined in `utils.ts` but re-exported from `index.ts` is NOT dead — check barrel files before flagging.
-- **Dynamic accesses** (`getattr(obj, name)`, `importlib.import_module`, `require(variable)`): these make static analysis unreliable — any symbol that could be accessed dynamically should be flagged 🟠 at most.
-- **Test frameworks**: pytest fixtures referenced only by parameter name injection will show zero grep hits — never flag `conftest.py` fixtures as dead.
+- **Dynamic accesses** (`getattr(obj, name)`, `importlib.import_module`, `require(variable)`): these make static analysis unreliable — any symbol that could be accessed dynamically should be flagged Low at most.
+- **Test frameworks**: pytest fixtures referenced only by parameter-name injection show zero grep hits — never flag `conftest.py` fixtures as dead.
 - **Decorators that register functions** (`@app.route`, `@celery.task`, `@click.command`, `@receiver`): the decorated function is live even if never called directly.
-- **`__init_subclass__`, `__class_getitem__`**: framework hooks, always 🟠.
-- **Single-underscore prefix** (`_name`): signals internal, but doesn't mean unused. Flag 🟡 at most.
-- **Double-underscore prefix** (`__name`): name-mangled, very high false positive rate. Flag 🟠 only.
+- **`__init_subclass__`, `__class_getitem__`**: framework hooks, always Low.
+- **Single-underscore prefix** (`_name`): signals internal, but doesn't mean unused. Flag Medium at most.
+- **Double-underscore prefix** (`__name`): name-mangled, very high false-positive rate. Flag Low only.

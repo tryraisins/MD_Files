@@ -7,17 +7,17 @@ metadata:
 
 # Deploy to Render
 
-Render supports **Git-backed** services and **prebuilt Docker image** services.
+Render runs both **Git-backed** services and **prebuilt Docker image** services.
 
-This skill covers **Git-backed** flows:
+This skill handles the **Git-backed** flows:
 1. **Blueprint Method** - Generate render.yaml for Infrastructure-as-Code deployments
 2. **Direct Creation** - Create services instantly via MCP tools
 
-Blueprints can also run a **prebuilt Docker image** by using `runtime: image`, but the `render.yaml` still must live in a Git repo.
+A Blueprint can also run a **prebuilt Docker image** by setting `runtime: image`, but the `render.yaml` must still live in a Git repo.
 
-If there is no Git remote, stop and ask the user to either:
-- Create/push a Git remote (can be minimal if only the Blueprint is needed), or
-- Use the Render Dashboard/API to deploy a prebuilt Docker image (MCP cannot create image-backed services).
+If no Git remote exists, stop and ask the user to either:
+- Create and push a Git remote (a minimal repo is enough if only the Blueprint is needed), or
+- Deploy a prebuilt Docker image through the Render Dashboard/API (MCP cannot create image-backed services).
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ If there is no Git remote, stop and ask the user to either:
 
 ## When to Use This Skill
 
-Activate this skill when users want to:
+Activate this skill when the user wants to:
 - Deploy an application to Render
 - Create a render.yaml Blueprint file
 - Set up Render deployment for their project
@@ -35,26 +35,26 @@ Activate this skill when users want to:
 
 ## Happy Path (New Users)
 
-Use this short prompt sequence before deep analysis to reduce friction:
+Use this short prompt sequence before any deep analysis, to reduce friction:
 1. Ask whether they want to deploy from a Git repo or a prebuilt Docker image.
-2. Ask whether Render should provision everything the app needs (based on what seems likely from the user's description) or only the app while they bring their own infra. If dependencies are unclear, ask a short follow-up to confirm whether they need a database, workers, cron, or other services.
+2. Ask whether Render should provision everything the app needs (based on what seems likely from their description) or only the app while they bring their own infrastructure. If dependencies are unclear, ask one short follow-up to confirm whether they need a database, workers, cron, or other services.
 
-Then proceed with the appropriate method below.
+Then move to the appropriate method below.
 
 ## Choose Your Source Path
 
 **Git Repo Path:** Required for both Blueprint and Direct Creation. The repo must be pushed to GitHub, GitLab, or Bitbucket.
 
-**Prebuilt Docker Image Path:** Supported by Render via image-backed services. This is **not** supported by MCP; use the Dashboard/API. Ask for:
+**Prebuilt Docker Image Path:** Supported by Render through image-backed services. This is **not** supported by MCP; use the Dashboard/API. Ask for:
 - Image URL (registry + tag)
 - Registry auth (if private)
 - Service type (web/worker) and port
 
-If the user chooses a Docker image, guide them to the Render Dashboard image deploy flow or ask them to add a Git remote (so you can use a Blueprint with `runtime: image`).
+If the user picks a Docker image, guide them to the Render Dashboard image deploy flow, or ask them to add a Git remote (so you can use a Blueprint with `runtime: image`).
 
 ## Choose Your Deployment Method (Git Repo)
 
-Both methods require a Git repository pushed to GitHub, GitLab, or Bitbucket. (If using `runtime: image`, the repo can be minimal and only contain `render.yaml`.)
+Both methods require a Git repository pushed to GitHub, GitLab, or Bitbucket. (With `runtime: image`, the repo can be minimal and hold only `render.yaml`.)
 
 | Method | Best For | Pros |
 |--------|----------|------|
@@ -63,7 +63,7 @@ Both methods require a Git repository pushed to GitHub, GitLab, or Bitbucket. (I
 
 ### Method Selection Heuristic
 
-Use this decision rule by default unless the user requests a specific method. Analyze the codebase first; only ask if deployment intent is unclear (e.g., DB, workers, cron).
+Apply this decision rule by default unless the user requests a specific method. Analyze the codebase first; only ask when deployment intent is unclear (e.g., DB, workers, cron).
 
 **Use Direct Creation (MCP) when ALL are true:**
 - Single service (one web app or one static site)
@@ -180,7 +180,7 @@ codex mcp add render --url https://mcp.render.com/mcp --bearer-token-env-var REN
 
 ### Other Tools
 
-If the user is on another AI app, direct them to the Render MCP docs for that tool's setup steps and install method.
+If the user is on another AI app, point them to the Render MCP docs for that tool's setup steps and install method.
 
 ### Workspace Selection
 
@@ -192,7 +192,7 @@ Set my Render workspace to [WORKSPACE_NAME]
 
 **5. Check Authentication (CLI fallback only)**
 
-If MCP isn't available, use the CLI instead and verify you can access your account:
+If MCP isn't available, use the CLI instead and verify you can access the account:
 ```bash
 # Check if user is logged in (use -o json for non-interactive mode)
 render whoami -o json
@@ -200,7 +200,7 @@ render whoami -o json
 
 If `render whoami` fails or returns empty data, the CLI is not authenticated. The CLI won't always prompt automatically, so explicitly prompt the user to authenticate:
 
-If neither is configured, ask user which method they prefer:
+If neither is configured, ask which method they prefer:
 - **API Key (CLI)**: `export RENDER_API_KEY="rnd_xxxxx"` (Get from https://dashboard.render.com/u/*/settings#api-keys)
 - **Login**: `render login` (Opens browser for OAuth)
 
@@ -221,9 +221,9 @@ To list available workspaces:
 list_workspaces()
 ```
 
-If user needs to switch workspaces, they must do so via Dashboard or CLI (`render workspace set`).
+If the user needs to switch workspaces, they must do so via Dashboard or CLI (`render workspace set`).
 
-Once prerequisites are met, proceed with deployment workflow.
+Once prerequisites are met, proceed with the deployment workflow.
 
 ---
 
@@ -233,7 +233,7 @@ Once prerequisites are met, proceed with deployment workflow.
 
 ### Step 1: Analyze Codebase
 
-Analyze the codebase to determine framework/runtime, build and start commands, required env vars, datastores, and port binding. Use the detailed checklists in [references/codebase-analysis.md](references/codebase-analysis.md).
+Inspect the codebase to determine framework/runtime, build and start commands, required env vars, datastores, and port binding. Use the detailed checklists in [references/codebase-analysis.md](references/codebase-analysis.md).
 
 ### Step 2: Generate render.yaml
 
@@ -324,9 +324,9 @@ git push origin main
 
 If there is no Git remote yet, stop here and guide the user to create a GitHub/GitLab/Bitbucket repo, add it as `origin`, and push before continuing.
 
-**Why this matters:** The Dashboard deeplink will read the render.yaml from your repository. If the file isn't merged and pushed, Render won't find the configuration and deployment will fail.
+**Why this matters:** The Dashboard deeplink reads the render.yaml from your repository. If the file isn't merged and pushed, Render won't find the configuration and deployment will fail.
 
-Verify the file is in your remote repository before proceeding to the next step.
+Verify the file is in your remote repository before moving to the next step.
 
 ### Step 5: Generate Deeplink
 
@@ -336,7 +336,7 @@ Get the Git repository URL:
 git remote get-url origin
 ```
 
-This will return a URL from your Git provider. **If the URL is SSH format, convert it to HTTPS:**
+This returns a URL from your Git provider. **If the URL is SSH format, convert it to HTTPS:**
 
 | SSH Format | HTTPS Format |
 |------------|--------------|
@@ -344,7 +344,7 @@ This will return a URL from your Git provider. **If the URL is SSH format, conve
 | `git@gitlab.com:user/repo.git` | `https://gitlab.com/user/repo` |
 | `git@bitbucket.org:user/repo.git` | `https://bitbucket.org/user/repo` |
 
-**Conversion pattern:** Replace `git@<host>:` with `https://<host>/` and remove `.git` suffix.
+**Conversion pattern:** Replace `git@<host>:` with `https://<host>/` and remove the `.git` suffix.
 
 Format the Dashboard deeplink using the HTTPS repository URL:
 ```
@@ -365,12 +365,12 @@ Provide the deeplink to the user with these instructions:
 1. **Verify render.yaml is merged** - Confirm the file exists in your repository on GitHub/GitLab/Bitbucket
 2. Click the deeplink to open Render Dashboard
 3. Complete Git provider OAuth if prompted
-4. Name the Blueprint (or use default from render.yaml)
+4. Name the Blueprint (or use the default from render.yaml)
 5. Fill in secret environment variables (marked with `sync: false`)
-6. Review services and databases configuration
+6. Review the services and databases configuration
 7. Click "Apply" to deploy
 
-The deployment will begin automatically. Users can monitor progress in the Render Dashboard.
+The deployment begins automatically. Users can monitor progress in the Render Dashboard.
 
 ### Step 7: Verify Deployment
 
@@ -395,7 +395,7 @@ get_metrics(
 )
 ```
 
-If errors are found, proceed to the **Post-deploy verification and basic triage** section below.
+If errors appear, go to the **Post-deploy verification and basic triage** section below.
 
 ---
 

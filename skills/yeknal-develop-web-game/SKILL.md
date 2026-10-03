@@ -22,17 +22,17 @@ User-scoped skills install under `$CODEX_HOME/skills` (default: `~/.codex/skills
 
 ## Workflow
 
-1. **Pick a goal.** Define a single feature or behavior to implement.
+1. **Pick a goal.** Define one feature or behavior to implement.
 2. **Implement small.** Make the smallest change that moves the game forward.
-3. **Ensure integration points.** Provide a single canvas and `window.render_game_to_text` so the test loop can read state.
+3. **Ensure integration points.** Provide one canvas and `window.render_game_to_text` so the test loop can read state.
 4. **Add `window.advanceTime(ms)`.** Strongly prefer a deterministic step hook so the Playwright script can advance frames reliably; without it, automated tests can be flaky.
-5. **Initialize progress.md.** If `progress.md` exists, read it first and confirm the original user prompt is recorded at the top (prefix with `Original prompt:`). Also note any TODOs and suggestions left by the previous agent. If missing, create it and write `Original prompt: <prompt>` at the top before appending updates.
-6. **Verify Playwright availability.** Ensure `playwright` is available (local dependency or global install). If unsure, check `npx` first.
-7. **Run the Playwright test script.** You must run `$WEB_GAME_CLIENT` after each meaningful change; do not invent a new client unless required.
+5. **Initialize progress.md.** If `progress.md` exists, read it first and confirm the original user prompt is recorded at the top (prefixed with `Original prompt:`). Note any TODOs and suggestions left by the previous agent. If missing, create it and write `Original prompt: <prompt>` at the top before appending updates.
+6. **Verify Playwright availability.** Make sure `playwright` is available (local dependency or global install). If unsure, check `npx` first.
+7. **Run the Playwright test script.** Run `$WEB_GAME_CLIENT` after every meaningful change; do not invent a new client unless required.
 8. **Use the payload reference.** Base actions on `$WEB_GAME_ACTIONS` to avoid guessing keys.
 9. **Inspect state.** Capture screenshots and text state after each burst.
-10. **Inspect screenshots.** Open the latest screenshot, verify expected visuals, fix any issues, and rerun the script. Repeat until correct.
-11. **Verify controls and state (multi-step focus).** Exhaustively exercise all important interactions. For each, think through the full multi-step sequence it implies (cause → intermediate states → outcome) and verify the entire chain works end-to-end. Confirm `render_game_to_text` reflects the same state shown on screen. If anything is off, fix and rerun.
+10. **Inspect screenshots.** Open the latest screenshot, verify the expected visuals, fix any issues, and rerun the script. Repeat until correct.
+11. **Verify controls and state (multi-step focus).** Exercise every important interaction exhaustively. For each one, think through the full multi-step sequence it implies (cause → intermediate states → outcome) and verify the entire chain end-to-end. Confirm `render_game_to_text` reflects the same state shown on screen. If anything is off, fix it and rerun.
     Examples of important interactions: move, jump, shoot/attack, interact/use, select/confirm/cancel in menus, pause/resume, restart, and any special abilities or puzzle actions defined by the request. Multi-step examples: shooting an enemy should reduce its health; when health reaches 0 it should disappear and update the score; collecting a key should unlock a door and allow level progression.
 12. **Check errors.** Review console errors and fix the first new issue before continuing.
 13. **Reset between scenarios.** Avoid cross-test state when validating distinct features.
@@ -57,7 +57,7 @@ Example actions (inline JSON):
 
 ## Test Checklist
 
-Test any new features added for the request and any areas your logic changes could affect. Identify issues, fix them, and re-run the tests to confirm they’re resolved.
+Test every new feature the request adds and every area your logic changes could affect. Identify issues, fix them, and re-run the tests to confirm they are resolved.
 
 Examples of things to test:
 - Primary movement/interaction inputs (e.g., move, jump, shoot, confirm/select).
@@ -72,7 +72,7 @@ Examples of things to test:
 - Latest screenshots from the Playwright run.
 - Latest `render_game_to_text` JSON output.
 - Console error logs (fix the first new error before continuing).
-You must actually open and visually inspect the latest screenshots after running the Playwright script, not just generate them. Ensure everything that should be visible on screen is actually visible. Go beyond the start screen and capture gameplay screenshots that cover all newly added features. Treat the screenshots as the source of truth; if something is missing, it is missing in the build. If you suspect a headless/WebGL capture issue, rerun the Playwright script in headed mode and re-check. Fix and rerun in a tight loop until the screenshots and text state look correct. Once fixes are verified, re-test all important interactions and controls, confirm they work, and ensure your changes did not introduce regressions. If they did, fix them and rerun everything in a loop until interactions, text state, and controls all work as expected. Be exhaustive in testing controls; broken games are not acceptable.
+Actually open and visually inspect the latest screenshots after running the Playwright script, not just generate them. Make sure everything that should be visible on screen is actually visible. Go beyond the start screen and capture gameplay screenshots that cover all newly added features. Treat the screenshots as the source of truth; if something is missing, it is missing in the build. If you suspect a headless/WebGL capture issue, rerun the Playwright script in headed mode and re-check. Fix and rerun in a tight loop until the screenshots and text state look correct. Once fixes are verified, re-test all important interactions and controls, confirm they work, and ensure your changes did not introduce regressions. If they did, fix them and rerun everything in a loop until interactions, text state, and controls all work as expected. Be exhaustive in testing controls; broken games are not acceptable.
 
 ## Core Game Guidelines
 
@@ -144,7 +144,7 @@ At the end of your work, leave TODOs and suggestions for the next agent in `prog
 
 ## Scripts
 
-- `$WEB_GAME_CLIENT` (installed default: `$CODEX_HOME/skills/develop-web-game/scripts/web_game_playwright_client.js`) — Playwright-based action loop with virtual-time stepping, screenshot capture, and console error buffering. You must pass an action burst via `--actions-file`, `--actions-json`, or `--click`.
+- `$WEB_GAME_CLIENT` (installed default: `$CODEX_HOME/skills/develop-web-game/scripts/web_game_playwright_client.js`) — Playwright-based action loop with virtual-time stepping, screenshot capture, and console error buffering. Pass an action burst via `--actions-file`, `--actions-json`, or `--click`.
 
 ## References
 

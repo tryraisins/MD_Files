@@ -1,13 +1,16 @@
 ---
 name: yeknal-design-taste-frontend-v1
 description: The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
+metadata:
+  source: https://github.com/leonxlnx/taste-skill
+  source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
 ---
 
 # High-Agency Frontend Skill
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
 
 ## 1. ACTIVE BASELINE CONFIGURATION
@@ -15,13 +18,13 @@ For every visible UI output, also apply the `ui-quality-baseline` skill. This is
 * MOTION_INTENSITY: 6 (1=Static/No movement, 10=Cinematic/Magic Physics)
 * VISUAL_DENSITY: 4 (1=Art Gallery/Airy, 10=Pilot Cockpit/Packed Data)
 
-**AI Instruction:** The standard baseline for all generations is strictly set to these values (8, 6, 4). Do not ask the user to edit this file. Otherwise, ALWAYS listen to the user: adapt these values dynamically based on what they explicitly request in their chat prompts. Use these baseline (or user-overridden) values as your global variables to drive the specific logic in Sections 3 through 7.
+**AI Instruction:** The default baseline for every generation is fixed at these values (8, 6, 4). Do not ask the user to edit this file. Otherwise, ALWAYS follow the user: adapt the values dynamically to whatever they explicitly ask for in their prompts. Treat these baseline (or user-overridden) values as global variables that drive the specific logic in Sections 3 through 7.
 
 ## 2. DEFAULT ARCHITECTURE & CONVENTIONS
-Unless the user explicitly specifies a different stack, adhere to these structural constraints to maintain consistency:
+Unless the user explicitly names a different stack, hold to these structural constraints so output stays consistent:
 
-* **DEPENDENCY VERIFICATION [MANDATORY]:** Before importing ANY 3rd party library (e.g. `framer-motion`, `lucide-react`, `zustand`), you MUST check `package.json`. If the package is missing, you MUST output the installation command (e.g. `npm install package-name`) before providing the code. **Never** assume a library exists.
-* **LOADING DEFAULT (React/Next.js):** Choose feedback by wait type and reuse the existing system: geometry-matched skeletons for content arrival, stable pending controls for actions, and focus-managed overlays only for genuinely blocking work. `thinking-orbs` is optional for a compatible visible assistant/process workflow, not a universal dependency. Tie feedback to real state, accessible status, `aria-busy`, reduced motion, and failure or retry handling.
+* **DEPENDENCY VERIFICATION [MANDATORY]:** Before importing ANY 3rd party library (e.g. `framer-motion`, `lucide-react`, `zustand`), you MUST check `package.json`. When a package is missing, you MUST output the installation command (e.g. `npm install package-name`) before showing the code. **Never** assume a library exists.
+* **LOADING DEFAULT (React/Next.js):** Match feedback to the wait and reuse the existing system: geometry-matched skeletons for content arrival, stable pending controls for actions, and focus-managed overlays only for genuinely blocking work. `thinking-orbs` is optional for a compatible visible assistant/process workflow, not a universal dependency. Tie feedback to real state, accessible status, `aria-busy`, reduced motion, and failure or retry handling.
 * **Framework & Interactivity:** React or Next.js. Default to Server Components (`RSC`). 
     * **RSC SAFETY:** Global state works ONLY in Client Components. In Next.js, wrap providers in a `"use client"` component.
     * **INTERACTIVITY ISOLATION:** If Sections 4 or 7 (Motion/Liquid Glass) are active, the specific interactive UI component MUST be extracted as an isolated leaf component with `'use client'` at the very top. Server Components must exclusively render static layouts.
@@ -39,7 +42,7 @@ Unless the user explicitly specifies a different stack, adhere to these structur
 
 
 ## 3. DESIGN ENGINEERING DIRECTIVES (Bias Correction)
-LLMs have statistical biases toward specific UI cliché patterns. Proactively construct premium interfaces using these engineered rules:
+LLMs carry statistical biases toward specific UI clichés. Proactively build premium interfaces with these engineered rules:
 
 **Rule 1: Deterministic Typography**
 * **Display/Headlines:** Default to `text-4xl md:text-6xl tracking-tighter leading-none`.
@@ -222,7 +225,7 @@ Implement these specific micro-animations when constructing Bento grids (e.g., R
 5. **The Contextual UI (Focus Mode):** A document view that animates a staggered highlight of a text block, followed by a "Float-in" of a floating action toolbar with micro-icons.
 
 ## 10. FINAL PRE-FLIGHT CHECK
-Evaluate your code against this matrix before outputting. This is the **last** filter you apply to your logic.
+Score your code against this matrix before outputting. This is the **last** filter you apply to your logic.
 - [ ] Is global state used appropriately to avoid deep prop-drilling rather than arbitrarily?
 - [ ] Is mobile layout collapse (`w-full`, `px-4`, `max-w-7xl mx-auto`) guaranteed for high-variance designs?
 - [ ] Do full-height sections safely use `min-h-[100dvh]` instead of the bugged `h-screen`?

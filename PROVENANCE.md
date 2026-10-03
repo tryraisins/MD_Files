@@ -36,9 +36,9 @@ Legend: **Explicit** = `metadata.source` in frontmatter. **Notice** = bundled `L
 | `yeknal-develop-web-game`, `yeknal-screenshot`, `yeknal-yeet` | packaged reference/openai | Apache-2.0 | `LICENSE.txt` |
 | `yeknal-security-best-practices`, `yeknal-security-ownership-map`, `yeknal-security-threat-model` | original workflow; incorporates openai/plugins review | Apache-2.0 | `LICENSE.txt` |
 
-## Derivatives missing a bundled notice (action: add MIT notice + credit)
+## Derivatives with MIT notices added
 
-These match upstream skill names published on skills.sh and are MIT-licensed upstream, but currently ship no notice file.
+These match upstream skill names published on skills.sh. They are MIT-licensed upstream, and each now bundles the upstream MIT notice plus `metadata.source` / `source-commit`.
 
 | Skill(s) | Upstream | License |
 | --- | --- | --- |
@@ -60,7 +60,7 @@ These match upstream skill names published on skills.sh and are MIT-licensed ups
 
 ## Actions
 
-1. Add a bundled MIT `LICENSE.txt` (upstream holder) plus a `metadata.source` entry to every skill in "Derivatives missing a bundled notice".
+1. Confirm the `ibelick/ui-skills` mapping; credit or drop accordingly (no notice added yet).
 2. Confirm the `ibelick/ui-skills` mapping; credit or drop accordingly.
 3. Keep the Rare UI attribution requirement visible wherever a Rare UI component can be installed.
 4. Expand the README and npm README Credits sections to summarize this file, and add a per-skill notice reference where a notice exists.

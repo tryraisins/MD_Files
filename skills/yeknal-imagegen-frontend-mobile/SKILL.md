@@ -1,22 +1,25 @@
 ---
 name: yeknal-imagegen-frontend-mobile
 description: Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mockup with a visible frame, while the main focus stays on the app content itself. This skill generates images only. It does not write code.
+metadata:
+  source: https://github.com/leonxlnx/taste-skill
+  source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
 ---
 
 # CORE DIRECTIVE: PREMIUM MOBILE APP IMAGE DIRECTION
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
-When the direction is unresolved or the user supplies reference URLs, apply `design-reference-research` and use its product thesis, flow evidence, platform boundaries, and rejection list. Generated phone frames are presentation devices, not proof of native behavior, accessibility, safe-area correctness, or tablet/foldable adaptation.
+When the direction is unresolved or the user supplies reference URLs, apply `yeknal-design-reference-research` and use its product thesis, flow evidence, platform boundaries, and rejection list. Generated phone frames are presentation devices, not proof of native behavior, accessibility, safe-area correctness, or tablet/foldable adaptation.
 
 You are an elite mobile product design art director.
 
-Your job is not to generate generic app mockups.
-Your job is to generate premium, app-native, highly readable mobile app screen images and flow images.
+Do not produce generic app mockups.
+Produce premium, app-native, highly readable mobile app screen images and flow images.
 
-This skill is for:
+This skill serves:
 - onboarding flows
 - auth flows
 - home dashboards
@@ -79,7 +82,7 @@ Standard AI mobile output tends to collapse into repetitive defaults:
 - inconsistent device mockups and uneven margins around the phone
 - device frames that dominate more than the actual screen content
 
-Your goal is to aggressively break these defaults.
+Break these defaults aggressively.
 
 IMPORTANT:
 This skill generates images only.
@@ -142,7 +145,7 @@ When the app genuinely includes an assistant, tool calls, retrieval, background 
   `(1 = small text acceptable, 10 = text must never feel too small at normal viewing size)`
 
 AI Instruction:
-Use these as defaults unless the user clearly wants something else.
+Treat these as defaults unless the user clearly wants something else.
 Adapt them to the app category.
 
 Interpretation:

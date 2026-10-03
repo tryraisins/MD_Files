@@ -5,13 +5,13 @@ description: Apply shared visual, responsive, accessibility, state, and motion c
 
 # Universal UI Quality Baseline
 
-Apply this contract automatically to every visible interface: a complete product, one screen, a redesign, a generated comp, or one small element. Do not wait for the user to repeat these requirements.
+Apply this contract automatically to every visible interface: a whole product, a single screen, a redesign, a generated comp, or one small element. Never wait for the user to restate these requirements.
 
-An explicit brief, approved design file, established brand, platform convention, and the current product's functional behavior remain authoritative. This baseline supplies the quality controls that briefs often leave implicit; it does not erase intentional exceptions.
+An explicit brief, an approved design file, an established brand, a platform convention, and the current product's functional behavior stay authoritative. This baseline supplies the quality controls briefs tend to leave implicit; it does not erase intentional exceptions.
 
 ## Start with the real context
 
-Before changing UI:
+Before touching UI:
 
 1. Inspect the current design system, component library, package manifest, global styles, tokens, breakpoints, icon source, motion utilities, and loading primitives.
 2. When redesigning, inventory current routes, states, roles, and behavior before moving or regrouping features.
@@ -27,7 +27,7 @@ Record the visual thesis and reusable rules that implementation needs: role-base
 
 ## Ground open-ended design in evidence
 
-When the visual direction is not already fixed, use `design-reference-research` before committing to a pattern. Compare functionally similar products and complete flows across relevant devices; extract hierarchy, navigation grammar, state behavior, and responsive transformations instead of copying pixels or averaging gallery trends.
+When the visual direction is not already fixed, use `yeknal-design-reference-research` before committing to a pattern. Compare functionally similar products and complete flows across relevant devices; extract hierarchy, navigation grammar, state behavior, and responsive transformations instead of copying pixels or averaging gallery trends.
 
 - Treat live products, gallery screenshots, editorial descriptions, and source-code registries as different evidence types.
 - A gallery can show that a pattern exists; it cannot prove usability, conversion, accessibility, performance, or adoption.
@@ -127,7 +127,7 @@ For a public multi-page website, audit the real routes and shared shell before c
 - Check every page at phone widths for horizontal overflow, clipped content, unusable controls, and layout that still assumes a desktop screen. A mobile menu is needed when the existing navigation cannot fit and remain usable; preserve its links, keyboard and touch behavior, expanded state, and close behavior.
 - Verify internal links, footer links, logo destinations, and calls to action against the actual route map. Remove navigation only when the destination is confirmed obsolete or intentionally unavailable; do not hide a broken destination by deleting useful information architecture.
 - Make the logo link to the site's home route. Use `tel:` and `mailto:` links for visible phone numbers and email addresses when they are intended as contact methods.
-- Ensure each public page has a distinct, accurate title and useful meta description, and that the site has a working favicon. Keep page metadata aligned with visible content; use `content-seo` for broader canonical, indexing, social-card, sitemap, or structured-data work.
+- Ensure each public page has a distinct, accurate title and useful meta description, and that the site has a working favicon. Keep page metadata aligned with visible content; use `yeknal-content-seo` for broader canonical, indexing, social-card, sitemap, or structured-data work.
 - Provide a deliberate not-found page with a useful route back into the site. Keep copyright dates current using the project's established convention; if generated dynamically, use a real date source and verify the rendered year.
 - Inspect visible copy for lorem ipsum, stale template instructions, and placeholder labels. Confirm each button performs its stated action and has a visible, accessible success or error result when its action can succeed or fail.
 - Check image dimensions and transfer size at rendered sizes. Resize oversized assets and prefer supported modern formats and responsive variants where the project supports them; retain appropriate quality, dimensions, and fallbacks rather than blindly recompressing every asset.
@@ -209,7 +209,7 @@ Treat a remote form submission as an interruption-prone operation, not a one-way
 
 ## AI-mediated interfaces
 
-When inference, generation, retrieval, or agentic action changes the user experience, also apply `human-ai-interface-design`. Expose capability limits, relevant provenance and freshness, editable output, partial failure, stop or cancel, approval before consequential actions, and recovery proportional to the side effect. Use deterministic controls for exact state, permissions, price, and irreversible commitment; do not turn every feature into chat.
+When inference, generation, retrieval, or agentic action changes the user experience, also apply `yeknal-human-ai-interface-design`. Expose capability limits, relevant provenance and freshness, editable output, partial failure, stop or cancel, approval before consequential actions, and recovery proportional to the side effect. Use deterministic controls for exact state, permissions, price, and irreversible commitment; do not turn every feature into chat.
 
 ## Anti-slop review
 

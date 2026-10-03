@@ -8,25 +8,25 @@ description: "Translate Figma nodes into production-ready code with 1:1 visual f
 
 ## Automatic UI Quality Contract
 
-For every visible UI output, also apply the `ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
 
 
 ## Overview
 
-This skill provides a structured workflow for translating Figma designs into production-ready code with pixel-perfect accuracy. It ensures consistent integration with the Figma MCP server, proper use of design tokens, and 1:1 visual parity with designs.
+This skill lays out a structured path for turning Figma designs into production-ready code with pixel-accurate fidelity. It keeps the Figma MCP server integration consistent, uses design tokens correctly, and drives toward 1:1 visual parity.
 
 ## Prerequisites
 
-- Figma MCP server must be connected and accessible
-- User must provide a Figma URL in the format: `https://figma.com/design/:fileKey/:fileName?node-id=1-2`
+- A connected, reachable Figma MCP server.
+- A Figma URL from the user in this shape: `https://figma.com/design/:fileKey/:fileName?node-id=1-2`
   - `:fileKey` is the file key
-  - `1-2` is the node ID (the specific component or frame to implement)
-- **OR** when using `figma-desktop` MCP: User can select a node directly in the Figma desktop app (no URL required)
-- Project should have an established design system or component library (preferred)
+  - `1-2` is the node ID (the component or frame to implement)
+- **OR**, with `figma-desktop` MCP, a node selected directly in the Figma desktop app (no URL needed).
+- Ideally, an established design system or component library in the project.
 
 ### MCP setup and troubleshooting
 
-If the Figma MCP is not connected, configure the server before implementation:
+If the Figma MCP is not connected, configure it before starting:
 
 ```toml
 [mcp_servers.figma]
@@ -35,7 +35,7 @@ bearer_token_env_var = "FIGMA_OAUTH_TOKEN"
 http_headers = { "X-Figma-Region" = "us-east-1" }
 ```
 
-Enable the remote MCP client (`[features].rmcp_client = true`), authenticate with `codex mcp login figma`, and restart Codex after configuration changes. Keep `FIGMA_OAUTH_TOKEN` out of source control. Read [references/figma-mcp-config.md](references/figma-mcp-config.md) for verification and troubleshooting, and [references/figma-tools-and-prompts.md](references/figma-tools-and-prompts.md) for the tool catalog and prompt patterns.
+Turn on the remote MCP client (`[features].rmcp_client = true`), authenticate with `codex mcp login figma`, and restart Codex after changing configuration. Keep `FIGMA_OAUTH_TOKEN` out of source control. Read [references/figma-mcp-config.md](references/figma-mcp-config.md) for verification and troubleshooting, and [references/figma-tools-and-prompts.md](references/figma-tools-and-prompts.md) for the tool catalog and prompt patterns.
 
 ## Required Workflow
 
@@ -52,13 +52,13 @@ If any MCP call fails because Figma MCP is not connected, pause and set it up:
 3. Log in with OAuth:
    - `codex mcp login figma`
 
-After successful login, the user will have to restart codex. You should finish your answer and tell them so when they try again they can continue with Step 1.
+After a successful login the user has to restart codex. Finish your answer and tell them that when they return they can pick up at Step 1.
 
 ### Step 1: Get Node ID
 
 #### Option A: Parse from Figma URL
 
-When the user provides a Figma URL, extract the file key and node ID to pass as arguments to MCP tools.
+When the user hands you a Figma URL, extract the file key and node ID to pass into the MCP tools.
 
 **URL format:** `https://figma.com/design/:fileKey/:fileName?node-id=1-2`
 
@@ -67,7 +67,7 @@ When the user provides a Figma URL, extract the file key and node ID to pass as 
 - **File key:** `:fileKey` (the segment after `/design/`)
 - **Node ID:** `1-2` (the value of the `node-id` query parameter)
 
-**Note:** When using the local desktop MCP (`figma-desktop`), `fileKey` is not passed as a parameter to tool calls. The server automatically uses the currently open file, so only `nodeId` is needed.
+**Note:** With the local desktop MCP (`figma-desktop`), `fileKey` is not passed to tool calls. The server uses whichever file is open, so you only need `nodeId`.
 
 **Example:**
 
@@ -77,9 +77,9 @@ When the user provides a Figma URL, extract the file key and node ID to pass as 
 
 #### Option B: Use Current Selection from Figma Desktop App (figma-desktop MCP only)
 
-When using the `figma-desktop` MCP and the user has NOT provided a URL, the tools automatically use the currently selected node from the open Figma file in the desktop app.
+When you're on the `figma-desktop` MCP and the user gave no URL, the tools use the node currently selected in the open Figma desktop file.
 
-**Note:** Selection-based prompting only works with the `figma-desktop` MCP server. The remote server requires a link to a frame or layer to extract context. The user must have the Figma desktop app open with a node selected.
+**Note:** Selection-based prompting works only with the `figma-desktop` MCP server. The remote server needs a link to a frame or layer before it can extract context. The Figma desktop app must be open with a node selected.
 
 ### Step 2: Fetch Design Context
 
@@ -89,7 +89,7 @@ Run `get_design_context` with the extracted file key and node ID.
 get_design_context(fileKey=":fileKey", nodeId="1-2")
 ```
 
-This provides the structured data including:
+This returns structured data including:
 
 - Layout properties (Auto Layout, constraints, sizing)
 - Typography specifications
@@ -111,15 +111,15 @@ Run `get_screenshot` with the same file key and node ID for a visual reference.
 get_screenshot(fileKey=":fileKey", nodeId="1-2")
 ```
 
-This screenshot serves as the source of truth for visual validation. Keep it accessible throughout implementation.
+This screenshot becomes the source of truth for visual validation. Keep it accessible throughout implementation.
 
 ### Step 4: Download Required Assets
 
-Download any assets (images, icons, SVGs) returned by the Figma MCP server.
+Download any assets (images, icons, SVGs) the Figma MCP server returns.
 
 **IMPORTANT:** Follow these asset rules:
 
-- If the Figma MCP server returns a `localhost` source for an image or SVG, use that source directly
+- If the Figma MCP server returns a `localhost` source for an image or SVG, use it as-is
 - DO NOT import or add new icon packages - all assets should come from the Figma payload
 - DO NOT use or create placeholders if a `localhost` source is provided
 - Assets are served through the Figma MCP server's built-in assets endpoint
@@ -130,7 +130,7 @@ Translate the Figma output into this project's framework, styles, and convention
 
 **Key principles:**
 
-- Treat the Figma MCP output (typically React + Tailwind) as a representation of design and behavior, not as final code style
+- Treat the Figma MCP output (typically React + Tailwind) as a description of design and behavior, not as final code style
 - Replace Tailwind utility classes with the project's preferred utilities or design system tokens
 - Reuse existing components (buttons, inputs, typography, icon wrappers) instead of duplicating functionality
 - Use the project's color system, typography scale, and spacing tokens consistently
@@ -138,19 +138,19 @@ Translate the Figma output into this project's framework, styles, and convention
 
 ### Step 6: Achieve 1:1 Visual Parity
 
-Strive for pixel-perfect visual parity with the Figma design.
+Aim for pixel-perfect visual parity with the Figma design.
 
 **Guidelines:**
 
 - Prioritize Figma fidelity to match designs exactly
 - Avoid hardcoded values - use design tokens from Figma where available
-- When conflicts arise between design system tokens and Figma specs, prefer design system tokens but adjust spacing or sizes minimally to match visuals
+- When design system tokens conflict with Figma specs, prefer the design system tokens but nudge spacing or sizes minimally to match the visuals
 - Follow WCAG requirements for accessibility
 - Add component documentation as needed
 
 ### Step 7: Validate Against Figma
 
-Before marking complete, validate the final UI against the Figma screenshot.
+Before calling the work complete, validate the final UI against the Figma screenshot.
 
 **Validation checklist:**
 
@@ -196,12 +196,12 @@ User says: "Implement this Figma button component: https://figma.com/design/kL9x
 2. Run `get_design_context(fileKey="kL9xQn2VwM8pYrTb4ZcHjF", nodeId="42-15")`
 3. Run `get_screenshot(fileKey="kL9xQn2VwM8pYrTb4ZcHjF", nodeId="42-15")` for visual reference
 4. Download any button icons from the assets endpoint
-5. Check if project has existing button component
-6. If yes, extend it with new variant; if no, create new component using project conventions
+5. Check whether the project already has a button component
+6. If yes, extend it with the new variant; if no, create a component using project conventions
 7. Map Figma colors to project design tokens (e.g., `primary-500`, `primary-hover`)
-8. Validate against screenshot for padding, border radius, typography
+8. Validate against the screenshot for padding, border radius, typography
 
-**Result:** Button component matching Figma design, integrated with project design system.
+**Result:** Button component matching the Figma design, integrated with the project design system.
 
 ### Example 2: Building a Dashboard Layout
 
@@ -215,29 +215,29 @@ User says: "Build this dashboard: https://figma.com/design/pR8mNv5KqXzGwY2JtCfL4
 4. Run `get_design_context(fileKey="pR8mNv5KqXzGwY2JtCfL4D", nodeId=":childNodeId")` for each major section
 5. Run `get_screenshot(fileKey="pR8mNv5KqXzGwY2JtCfL4D", nodeId="10-5")` for the full page
 6. Download all assets (logos, icons, charts)
-7. Build layout using project's layout primitives
+7. Build the layout with the project's layout primitives
 8. Implement each section using existing components where possible
 9. Validate responsive behavior against Figma constraints
 
-**Result:** Complete dashboard matching Figma design with responsive layout.
+**Result:** Complete dashboard matching the Figma design with a responsive layout.
 
 ## Best Practices
 
 ### Always Start with Context
 
-Never implement based on assumptions. Always fetch `get_design_context` and `get_screenshot` first.
+Never implement from assumptions. Fetch `get_design_context` and `get_screenshot` first.
 
 ### Incremental Validation
 
-Validate frequently during implementation, not just at the end. This catches issues early.
+Validate often during implementation, not only at the end. It catches issues early.
 
 ### Document Deviations
 
-If you must deviate from the Figma design (e.g., for accessibility or technical constraints), document why in code comments.
+If you must depart from the Figma design (say, for accessibility or technical limits), record why in code comments.
 
 ### Reuse Over Recreation
 
-Always check for existing components before creating new ones. Consistency across the codebase is more important than exact Figma replication.
+Always look for existing components before creating new ones. Consistency across the codebase matters more than exact Figma replication.
 
 ### Design System First
 
@@ -247,7 +247,7 @@ When in doubt, prefer the project's design system patterns over literal Figma tr
 
 ### Issue: Figma output is truncated
 
-**Cause:** The design is too complex or has too many nested layers to return in a single response.
+**Cause:** The design is too complex or has too many nested layers to return in one response.
 **Solution:** Use `get_metadata` to get the node structure, then fetch specific nodes individually with `get_design_context`.
 
 ### Issue: Design doesn't match after implementation
