@@ -8,7 +8,6 @@
       "skills": [
         "yeknal-add-changelog",
         "yeknal-brainstorm",
-        "yeknal-break-ui",
         "yeknal-cleanup",
         "yeknal-engineering-specialists",
         "yeknal-finalize",
@@ -74,8 +73,9 @@
     },
     {
       "title": "Verification",
-      "description": "Browser-based verification workflows.",
+      "description": "Adversarial and browser-based verification workflows.",
       "skills": [
+        "yeknal-break-ui",
         "yeknal-playwright"
       ]
     }
