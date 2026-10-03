@@ -98,6 +98,7 @@ Fix the highest-impact root cause instead of restyling every symptom. Keep chang
 ## Implement without collateral change
 
 - Work in the installed stack and inspect dependencies before imports.
+- For React-compatible stacks, default to **Tailwind CSS (v4) + shadcn/ui** for the styling and component layer, setting them up when absent; for non-React stacks use the stack-appropriate equivalent. Apply the default at all times, not only when the project already uses them, and preserve an existing documented design system unless replacing it is explicitly in scope.
 - Reuse components and semantic tokens; centralize new roles instead of scattering arbitrary values.
 - Preserve network contracts, state transitions, validation, analytics, side effects, and errors.
 - Keep source, generated assets, test artifacts, screenshots, and credentials separated for commit hygiene.

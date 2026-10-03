@@ -80,7 +80,8 @@ Treat empty and error states as directions. Explain what happened and what the u
 
 Libraries supply mechanics, not the visual thesis.
 
-- For shadcn-compatible React projects, inspect the existing registry and `components.json` before adding source components. Rare UI may be a useful source for unusual animated primitives; use `pick-ui-library` to evaluate and install only the component whose interaction matches the brief.
+- Default to **Tailwind CSS (v4) + shadcn/ui** for the styling and component layer whenever the current stack is React-compatible, setting them up when absent (`npx shadcn@latest init -d --base radix`). Apply this at all times, not only when the project already uses them. If the stack is not React-compatible (Vue, Svelte, Angular, plain HTML/CSS, a native app, or a design-tool file), do not force React or shadcn; use the stack-appropriate equivalent and note the deviation. An explicit brief, approved design, established brand, or documented design system wins over the default.
+- For React projects, inspect the existing registry and `components.json` before adding source components. Rare UI may be a useful source for unusual animated primitives; use `pick-ui-library` to evaluate and install only the component whose interaction matches the brief.
 - Use `animate` for ordinary product motion and `oil-motion` for generated, frame-based media controlled by scroll, pointer, drag, touch, orientation, audio, data, or component state.
 - Adapt imported components to the product's tokens, semantics, focus behavior, reduced-motion policy, bundle budget, and dependency strategy. Do not let a library's demo styling become the product identity.
 

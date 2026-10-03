@@ -17,7 +17,7 @@ Before changing UI:
 2. When redesigning, inventory current routes, states, roles, and behavior before moving or regrouping features.
 3. Treat approved design files as the visual authority and current code as the feature and behavior authority unless the user says otherwise.
 4. Reuse established primitives when they meet the quality bar. Do not introduce a second component, icon, skeleton, or motion system for novelty.
-5. If there is no system, establish the smallest coherent token set needed for the work before styling individual elements.
+5. If there is no system, establish the smallest coherent token set needed for the work before styling individual elements. For React-compatible stacks, default to **Tailwind CSS (v4) + shadcn/ui** (Radix base) as that foundation, setting them up when absent and whether or not the project already uses them; for non-React stacks use the stack-appropriate equivalent. An explicit brief, approved design, or documented system wins over the default.
 
 ## Keep the design system durable
 
