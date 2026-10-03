@@ -44,7 +44,6 @@ These match upstream skill names published on skills.sh. They are MIT-licensed u
 | --- | --- | --- |
 | `yeknal-design-taste-frontend`, `yeknal-design-taste-frontend-v1`, `yeknal-redesign-existing-projects`, `yeknal-high-end-visual-design`, `yeknal-minimalist-ui`, `yeknal-industrial-brutalist-ui`, `yeknal-stitch-design-taste`, `yeknal-gpt-taste`, `yeknal-full-output-enforcement`, `yeknal-image-to-code`, `yeknal-imagegen-frontend-web`, `yeknal-imagegen-frontend-mobile`, `yeknal-brandkit` | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) (Copyright 2026 Leonxlnx) | MIT |
 | `yeknal-emil-design-eng` | [emilkowalski/skills](https://github.com/emilkowalski/skills) (Copyright 2026 Emil Kowalski) | MIT |
-| `yeknal-ui-quality-baseline`, `yeknal-design-reference-research` | likely [ibelick/ui-skills](https://github.com/ibelick/ui-skills) (Copyright 2026 Julien Thibeaut) - verify mapping | MIT |
 
 ## Attribution-only (non-permissive or reference)
 
@@ -53,14 +52,14 @@ These match upstream skill names published on skills.sh. They are MIT-licensed u
 | `yeknal-pick-ui-library`, `yeknal-frontend-design`, `yeknal-redesign-existing-projects` | Rare UI (`swamimalode07/rare-ui`, MIT + Commons Clause + Attribution). Source is not vendored; any project that installs a Rare UI component must keep the notice in the copied source and add a README credit linking to rareui.com. |
 | `yeknal-animate`, `yeknal-animate-expo`, `yeknal-find-animation-opportunities`, `yeknal-improve-animations`, `yeknal-prototype`, `yeknal-review-animations` | Reference/inspiration: Emil Kowalski's design-engineering philosophy (animations.dev, emilkowal.ski). No source copied. |
 | `yeknal-design-reference-research` | Research reads live products/galleries; keeps source attribution in notes and must not present borrowed work as original. |
+| `yeknal-ui-quality-baseline`, `yeknal-design-reference-research` | Reviewed [ibelick/ui-skills](https://github.com/ibelick/ui-skills) (Julien Thibeaut) as a reference only; an 8-word shingle scan found no verbatim overlap, so no upstream notice is bundled. |
 
 ## Original skills (no upstream identified)
 
-`yeknal-add-changelog`, `yeknal-animate`, `yeknal-animate-expo`, `yeknal-animation-vocabulary`, `yeknal-apple-design`, `yeknal-application-security`, `yeknal-brainstorm`, `yeknal-cleanup`, `yeknal-content-seo`, `yeknal-dead-code-hunter`, `yeknal-engineering-specialists`, `yeknal-finalize`, `yeknal-frontend-developer`, `yeknal-git`, `yeknal-human-ai-interface-design`, `yeknal-implement`, `yeknal-markdown-management`, `yeknal-nextjs-developer`, `yeknal-orchestration-specialists`, `yeknal-project-handoff`, `yeknal-review`, `yeknal-skill-router`, `yeknal-testing-strategy`, `yeknal-troubleshoot`, `yeknal-ui-ux-designer`, `yeknal-write-swift` (Apple/Swift guidance is referenced, not copied).
+`yeknal-add-changelog`, `yeknal-animate`, `yeknal-animate-expo`, `yeknal-animation-vocabulary`, `yeknal-apple-design`, `yeknal-application-security`, `yeknal-brainstorm`, `yeknal-cleanup`, `yeknal-content-seo`, `yeknal-dead-code-hunter`, `yeknal-engineering-specialists`, `yeknal-finalize`, `yeknal-frontend-developer`, `yeknal-git`, `yeknal-human-ai-interface-design`, `yeknal-implement`, `yeknal-markdown-management`, `yeknal-nextjs-developer`, `yeknal-orchestration-specialists`, `yeknal-project-handoff`, `yeknal-review`, `yeknal-skill-router`, `yeknal-testing-strategy`, `yeknal-troubleshoot`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-ui-ux-designer`, `yeknal-write-swift` (Apple/Swift guidance is referenced, not copied).
 
 ## Actions
 
-1. Confirm the `ibelick/ui-skills` mapping; credit or drop accordingly (no notice added yet).
-2. Confirm the `ibelick/ui-skills` mapping; credit or drop accordingly.
-3. Keep the Rare UI attribution requirement visible wherever a Rare UI component can be installed.
-4. Expand the README and npm README Credits sections to summarize this file, and add a per-skill notice reference where a notice exists.
+1. Done: `ibelick/ui-skills` was reviewed as a reference only (no verbatim overlap); no upstream notice is required.
+2. Keep the Rare UI attribution requirement visible wherever a Rare UI component can be installed.
+3. Keep the README and npm README Credits sections aligned with this file when upstreams change.
