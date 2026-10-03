@@ -34,3 +34,4 @@ yeknal-orchestration-specialists: Bounded multi-agent, context, prompt, synthesi
 yeknal-engineering-specialists: Cross-stack specialist routing for implementation work.
 yeknal-research-analysis: Canonical evidence-backed research workflow, including a progressively disclosed deep-research mode with claim verification and saturation-based stopping.
 yeknal-i-have-adhd: Explicit-only persistent response mode with action-first structure, bounded steps, visible state, and evidence-based time estimates.
+yeknal-break-ui: Adversarial worst-case data stress test for a component or screen, reporting each break and its fix against the shared UI quality baseline.

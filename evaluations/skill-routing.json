@@ -192,6 +192,22 @@
       "secondary": [],
       "mustNotLead": ["yeknal-engineering-specialists"],
       "rationale": "The provider-specific deployment workflow owns the task."
+    },
+    {
+      "id": "break-ui-edge-cases",
+      "prompt": "Try the worst case on this member list: break it with long names, unbreakable emails, and missing fields, and show me what falls over.",
+      "primary": "yeknal-break-ui",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-redesign-existing-projects", "yeknal-emil-design-eng"],
+      "rationale": "Adversarial worst-case data stress testing is its own verification task, not a redesign or taste critique."
+    },
+    {
+      "id": "mobile-web-feels-native",
+      "prompt": "My web app works in Chrome but feels wrong on my phone: sticky hover states, the page zooms when I tap an input, and there is a gray flash on every tap.",
+      "primary": "yeknal-ui-quality-baseline",
+      "secondary": ["yeknal-mobile-app-design"],
+      "mustNotLead": ["yeknal-animate", "yeknal-animate-expo"],
+      "rationale": "These are platform-layer CSS and meta fixes owned by the shared baseline, not motion or React Native work."
     }
   ]
 }

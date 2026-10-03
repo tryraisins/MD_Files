@@ -44,6 +44,7 @@ These match upstream skill names published on skills.sh. They are MIT-licensed u
 | --- | --- | --- |
 | `yeknal-design-taste-frontend`, `yeknal-design-taste-frontend-v1`, `yeknal-redesign-existing-projects`, `yeknal-high-end-visual-design`, `yeknal-minimalist-ui`, `yeknal-industrial-brutalist-ui`, `yeknal-stitch-design-taste`, `yeknal-gpt-taste`, `yeknal-full-output-enforcement`, `yeknal-image-to-code`, `yeknal-imagegen-frontend-web`, `yeknal-imagegen-frontend-mobile`, `yeknal-brandkit` | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) (Copyright 2026 Leonxlnx) | MIT |
 | `yeknal-emil-design-eng` | [emilkowalski/skills](https://github.com/emilkowalski/skills) (Copyright 2026 Emil Kowalski) | MIT |
+| `yeknal-break-ui` | [emilkowalski/skills](https://github.com/emilkowalski/skills) (Copyright 2026 Emil Kowalski) | MIT |
 
 ## Attribution-only (non-permissive or reference)
 
@@ -51,6 +52,7 @@ These match upstream skill names published on skills.sh. They are MIT-licensed u
 | --- | --- |
 | `yeknal-pick-ui-library`, `yeknal-frontend-design`, `yeknal-redesign-existing-projects` | Rare UI (`swamimalode07/rare-ui`, MIT + Commons Clause + Attribution). Source is not vendored; any project that installs a Rare UI component must keep the notice in the copied source and add a README credit linking to rareui.com. |
 | `yeknal-animate`, `yeknal-animate-expo`, `yeknal-find-animation-opportunities`, `yeknal-improve-animations`, `yeknal-prototype`, `yeknal-review-animations` | Reference/inspiration: Emil Kowalski's design-engineering philosophy (animations.dev, emilkowal.ski). No source copied. |
+| `yeknal-mobile-app-design`, `yeknal-ui-quality-baseline` | Reference/inspiration: Emil Kowalski's mobile-native web guidance (emilkowal.ski, animations.dev). Adapted into the shared UI baseline's mobile web platform layer; no source copied. |
 | `yeknal-design-reference-research` | Research reads live products/galleries; keeps source attribution in notes and must not present borrowed work as original. |
 | `yeknal-ui-quality-baseline`, `yeknal-design-reference-research` | Reviewed [ibelick/ui-skills](https://github.com/ibelick/ui-skills) (Julien Thibeaut) as a reference only; an 8-word shingle scan found no verbatim overlap, so no upstream notice is bundled. |
 

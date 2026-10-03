@@ -15,7 +15,7 @@ Build mobile interfaces that respect the project's existing stack and feel nativ
 
 - Use `yeknal-imagegen-frontend-mobile` when the deliverable is images or visual concepts only.
 - Use `yeknal-animate-expo` when the task is specifically gesture, transition, haptic, or Reanimated implementation.
-- Use `yeknal-ui-quality-baseline` for shared accessibility, state, token, and rendered-QA requirements.
+- Use `yeknal-ui-quality-baseline` for shared accessibility, state, token, and rendered-QA requirements, including the mobile web platform layer (sticky hover, tap flash, dynamic viewport units, input zoom, overscroll, and safe areas) when the target is a responsive web app rather than native.
 - Use `yeknal-design-reference-research` when the user supplies mobile references or the product category needs a benchmark study. AppLlama is one optional source, not a prerequisite for evidence-led mobile design.
 - Use this skill for end-to-end mobile screen and flow design or implementation. Load [references/appllama-research.md](references/appllama-research.md) only when the Appllama MCP is connected or the user provides Appllama screen references.
 

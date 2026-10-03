@@ -42,19 +42,19 @@ npx yeknal security
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal skills` | Syncs the 28-skill core profile into detected user-level agent folders, including project continuity, the task-time skill router, and testing strategy. |
+| `npx yeknal skills` | Syncs the 29-skill core profile into detected user-level agent folders, including project continuity, the task-time skill router, and testing strategy. |
 | `npx yeknal skills --skip-claude` | Avoids duplicate managed skills in OpenCode and other Claude-compatible readers by skipping and cleaning managed copies from `~/.claude/skills`. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
 | `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills aspnet-core` | Adds missing skills to the current repository without deleting or replacing existing skills. |
-| `npx yeknal skills --all` | Syncs all 86 skills for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs all 87 skills for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 
 ### Install with skills.sh
 
-The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (52 skills); the remaining specialists stay installable with `npx yeknal skills` but are hidden from skills.sh discovery.
+The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (53 skills); the remaining specialists stay installable with `npx yeknal skills` but are hidden from skills.sh discovery.
 
 ```bash
 npx skills add tryraisins/MD_Files --list
@@ -77,7 +77,7 @@ npx skills add tryraisins/MD_Files --skill yeknal-frontend-design
 
 ## Capability profiles
 
-The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 28 entries cover:
+The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 29 entries cover:
 
 - process and reasoning management: brainstorming, research, orchestration/context management, implementation, review, diagnosis, cleanup, Git, finalization, documentation, and testing strategy;
 - canonical design: reference research, visual direction, UI quality, frontend implementation, redesign, mobile, motion, and human-AI interaction;
@@ -88,7 +88,7 @@ Specialist packs add depth without forcing every style, platform, integration, o
 
 | Profile | Skills | Purpose |
 | --- | ---: | --- |
-| `core` | 28 | High-frequency process, design, implementation, verification, and security. |
+| `core` | 29 | High-frequency process, design, implementation, verification, and security. |
 | `process` | 6 | Optional delivery, cleanup, GitHub, exhaustive-output, and response workflows beyond core. |
 | `design` | 24 | Specialist visual styles, motion, prototyping, Figma, and image-led work beyond core design. |
 | `security` | 4 | The four distinct security output contracts. |
@@ -97,7 +97,7 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
 | `productivity` | 5 | Linear and Notion workflows. |
 | `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 86 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 87 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects`, `yeknal-mobile-app-design`, `yeknal-human-ai-interface-design`, and `yeknal-animate` provide the core paths; aesthetic systems and tool-specific workflows remain in the design pack because their triggers and output contracts differ. Security keeps four folders for the same reason: implementation, review, threat modeling, and ownership analysis are not interchangeable artifacts.
 
@@ -122,9 +122,10 @@ The consolidated routers are `yeknal-engineering-specialists`, `yeknal-orchestra
 - `yeknal-human-ai-interface-design`: trustworthy AI suggestions, generation, retrieval, agents, approvals, provenance, recovery, and reliance-focused evaluation.
 - `yeknal-design-taste-frontend` and `yeknal-design-taste-frontend-v1`: detailed local design systems for expressive, non-templated interfaces.
 - `yeknal-high-end-visual-design`, `yeknal-minimalist-ui`, `yeknal-industrial-brutalist-ui`, and `yeknal-stitch-design-taste`: specialist art-direction and design-system workflows. `yeknal-gpt-taste` remains an explicit compatibility route to current guidance.
-- `yeknal-ui-quality-baseline`: the shared UI contract for all core agents, including a durable `DESIGN.md`, coherent tokens, accessible responsive layouts, complete interaction and loading states, end-to-end user-flow checks, rendered QA, and public-site launch checks for links, page metadata, favicon, buttons, and placeholder copy.
+- `yeknal-ui-quality-baseline`: the shared UI contract for all core agents, including a durable `DESIGN.md`, coherent tokens, accessible responsive layouts, complete interaction and loading states, a mobile web platform layer (sticky hover, tap flash, dynamic viewport units, input zoom, overscroll, safe areas, and real-hardware verification), end-to-end user-flow checks, rendered QA, and public-site launch checks for links, page metadata, favicon, buttons, and placeholder copy.
 - `yeknal-mobile-app-design`: native mobile screen and flow implementation with optional Appllama reference research; it delegates motion-only work to `yeknal-animate-expo` and image-only concepts to `yeknal-imagegen-frontend-mobile`.
 - `yeknal-emil-design-eng`, `yeknal-animate`, `yeknal-animate-expo`, and the animation review skills: interaction and motion craft.
+- `yeknal-break-ui`: adversarial worst-case data stress testing that renders demo and edge-case fixtures behind a dev-only toggle and reports each break with its fix; it complements the shared baseline's mobile web platform layer rather than duplicating it.
 - `yeknal-oil-motion`: a specialized workflow for generated or captured frame-based interactive media, adapted from `oil-oil/oil-motion`.
 - `yeknal-pick-ui-library`: dependency-aware component selection with Rare UI, beUI, Spectrum UI, and Spell UI treated as inspectable source registries, not default dependencies.
 
@@ -168,6 +169,11 @@ Security scan checks use stable IDs and link to current `Security-Master.md` anc
 
 ## Upstream review
 
+The 2026-10-03 refresh reviewed [emilkowalski/skills](https://github.com/emilkowalski/skills) at `e8a175de22ae1e49370fc144c1f3bb9aeedf988d`. The catalog already carried 12 of its 14 skills. Its two newest were incorporated without duplicating existing capability:
+
+- `break-ui` becomes `yeknal-break-ui`: an adversarial worst-case data stress test with a bundled worst-case catalog, added to core because it verifies the shared UI contract.
+- `mobile-native` is folded into the shared `yeknal-ui-quality-baseline` as the mobile web platform layer, and the mobile screen skill routes to it; no separate skill was created. Motion, gesture, and React Native work continue to route to `yeknal-animate` and `yeknal-animate-expo`.
+
 The 2026-09-12 refresh additionally reviewed:
 
 - `anthropics/skills` at `41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f`;
@@ -205,7 +211,7 @@ This catalog adapts and consolidates work from many upstream authors. Full sourc
 
 - Anthropic ([anthropics/skills](https://github.com/anthropics/skills), Apache-2.0) for `yeknal-frontend-design` and the document skills.
 - Leonxlnx ([leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill), MIT) for the taste-skill design derivatives.
-- Emil Kowalski ([emilkowalski/skills](https://github.com/emilkowalski/skills), MIT) for `yeknal-emil-design-eng` and the motion craft bar.
+- Emil Kowalski ([emilkowalski/skills](https://github.com/emilkowalski/skills), MIT) for `yeknal-emil-design-eng`, `yeknal-break-ui`, and the motion craft bar, with the mobile-native web guidance folded into `yeknal-ui-quality-baseline`.
 - Appllama (MIT), [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) (MIT), [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) (MIT), and NeetigyaShah/deep-research (MIT).
 - Microsoft, Figma, OpenAI, Notion, Vercel, Cloudflare, Netlify, Render, Sentry, Linear, and GitHub for provider and platform skills.
 - Rare UI (MIT + Commons Clause + Attribution), referenced for component selection; not vendored. Any project that installs a Rare UI component must retain its notice and add a README credit linking to [rareui.com](https://www.rareui.com).
