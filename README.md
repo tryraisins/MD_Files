@@ -162,7 +162,7 @@ The 2026-09-12 refresh additionally reviewed:
 - `anthropics/skills` at `41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f`;
 - `openai/plugins` at `1e285826e604f66f7208f7ac4dba0fe8341d1f57`;
 - `oil-oil/oil-motion` at `eafd4a45dc9c996489df3c54ac4ebdcde2bd030b`;
-- `swamimalode/rare-ui` at `b3efd6c290884a852b7af39d34df99a762dbbf3f`;
+- `swamimalode07/rare-ui` at `b3efd6c290884a852b7af39d34df99a762dbbf3f` (MIT + Commons Clause + Attribution; attribution and a visible rareui.com link are required when a component ships);
 - `NeetigyaShah/deep-research` at `201dc0e0366f1108ba94f0f422a9ccaecb733b21`;
 - `ayghri/i-have-adhd` at `58494af57962b2d7a996b4d419474380a299af5e`;
 - `Appllama/appllama-skills` at `dd5caaec3d5d50ad7fc0324da238119c6b7c3707`;
@@ -191,3 +191,5 @@ GitHub Actions validates skill structure, relative Markdown links, CLI tests, pa
 ## License
 
 ISC. Imported or adapted skills retain their upstream license files where required.
+
+Rare UI component source is not vendored in this catalog. Any project that installs a Rare UI component must keep its notice in the copied source and add a README credit linking to rareui.com (MIT + Commons Clause + Attribution).

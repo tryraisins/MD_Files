@@ -3,6 +3,8 @@ name: pick-ui-library
 description: Pick the right library or inspectable source registry for a frontend task from a curated list covering accessible primitives, distinctive React components, motion, numbers, OTP inputs, charts, command menus, virtualization, drag and drop, toasts, state, and styling. Only runs when explicitly invoked; it does not trigger on its own.
 metadata:
   rare-ui-reviewed-commit: b3efd6c290884a852b7af39d34df99a762dbbf3f
+  rare-ui-upstream: swamimalode07/rare-ui
+  rare-ui-license: MIT + Commons Clause + Attribution
   spell-ui-reviewed-commit: fffe96db7b67b44243bf35815916fdfc58fe5014
   oil-motion-reviewed-commit: eafd4a45dc9c996489df3c54ac4ebdcde2bd030b
   last-reviewed: "2026-09-09"
@@ -54,13 +56,21 @@ For source registries such as shadcn or Rare UI, inspect `components.json`, the 
 
 Reach for motion when you need springs, layout animations, exit animations, or gesture-driven values. A simple hover or fade doesn't need it — plain CSS transitions are the right tool there.
 
-Rare UI is a source registry, not a visual system. Its current components use React, TypeScript, Tailwind, Motion, and component-specific dependencies. Verify the exact item before installation. A typical install is:
+Rare UI is a source registry, not a visual system. Its current components use React, TypeScript, Tailwind, Motion, and component-specific dependencies. Verify the exact item before installation. Prefer its matching prebuilt component when one already exists for the brief's interaction, then adapt it instead of rebuilding the interaction from scratch. A typical install is:
 
 ```bash
 npx shadcn@latest add swamimalode07/rare-ui/<component-name>
 ```
 
+Rare UI is licensed MIT + Commons Clause + Attribution, so three conditions always apply:
+
+- React-compatible stacks only. Do not use it in Vue, Svelte, Angular, plain HTML/CSS, or native projects.
+- Attribution is mandatory. Keep the upstream copyright and permission notice in the copied source file, and add a credit with a visible link to [rareui.com](https://www.rareui.com) in the project README.
+- Do not sell, sublicense, redistribute, or port the components themselves, alone or in a bundle.
+
 Use the project's package runner in place of `npx` when appropriate. Do not paste a demo wholesale, assume every component has the same dependency set, or retain demo colors, spacing, icons, and motion when they conflict with the product brief. Check reduced motion, focus/keyboard behavior, pointer gating, server/client boundaries, bundle cost, and narrow-width behavior after installation.
+
+The upstream repository is `swamimalode07/rare-ui`; the shadcn CLI installs from its current HEAD, so re-verify the component when correctness depends on the exact source.
 
 The same source-ownership rule applies to the other reviewed registries:
 
@@ -112,7 +122,7 @@ The styling split: clsx for ad-hoc conditional classes; cva when a component has
 
 - **Toasts built by hand or with a modal library** → Sonner exists for exactly this.
 - **A `<div>`-based dropdown/dialog with manual focus handling** → base-ui, which handles accessibility, focus trapping, and dismissal.
-- **A bespoke animated React primitive whose interaction already exists in Rare UI** → inspect and install that source component, then adapt and verify it instead of recreating the demo from memory.
+- **A bespoke animated React primitive whose interaction already exists in Rare UI** → inspect and install that source component, then adapt and verify it instead of recreating the demo from memory, keeping the required notice and README credit.
 - **Choosing a registry by its homepage aesthetic** → inspect the exact component and dependency graph; homepage polish says nothing about the code's fit or accessibility.
 - **A Rare UI demo selected only because it looks unusual** → reject it unless its interaction supports the page's job and subject-specific visual thesis.
 - **Animating a number by re-rendering text** → NumberFlow handles digit transitions properly.

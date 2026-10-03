@@ -99,6 +99,7 @@ Fix the highest-impact root cause instead of restyling every symptom. Keep chang
 
 - Work in the installed stack and inspect dependencies before imports.
 - For React-compatible stacks, default to **Tailwind CSS (v4) + shadcn/ui** for the styling and component layer, setting them up when absent; for non-React stacks use the stack-appropriate equivalent. Apply the default at all times, not only when the project already uses them, and preserve an existing documented design system unless replacing it is explicitly in scope.
+- When a brief's interaction already exists as a [Rare UI](https://www.rareui.com/components) source component and the stack is React-compatible, install and adapt it through `pick-ui-library` before building custom. Keep its license notice in the copied source and add the required README credit linking to rareui.com.
 - Reuse components and semantic tokens; centralize new roles instead of scattering arbitrary values.
 - Preserve network contracts, state transitions, validation, analytics, side effects, and errors.
 - Keep source, generated assets, test artifacts, screenshots, and credentials separated for commit hygiene.

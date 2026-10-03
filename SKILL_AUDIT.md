@@ -92,7 +92,7 @@ Reviewed repositories and revisions:
 - [Anthropic skills](https://github.com/anthropics/skills) at `41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f`;
 - [OpenAI plugins](https://github.com/openai/plugins) at `1e285826e604f66f7208f7ac4dba0fe8341d1f57`;
 - [oil-motion](https://github.com/oil-oil/oil-motion) at `eafd4a45dc9c996489df3c54ac4ebdcde2bd030b`;
-- [Rare UI](https://github.com/swamimalode/rare-ui) at `b3efd6c290884a852b7af39d34df99a762dbbf3f`;
+- [Rare UI](https://github.com/swamimalode07/rare-ui) at `b3efd6c290884a852b7af39d34df99a762dbbf3f` (MIT + Commons Clause + Attribution);
 - [Deep Research](https://github.com/NeetigyaShah/deep-research) at `201dc0e0366f1108ba94f0f422a9ccaecb733b21`;
 - [i-have-adhd](https://github.com/ayghri/i-have-adhd) at `58494af57962b2d7a996b4d419474380a299af5e`;
 - [AppLlama skills](https://github.com/Appllama/appllama-skills) at `dd5caaec3d5d50ad7fc0324da238119c6b7c3707`;
@@ -106,7 +106,7 @@ Reviewed repositories and revisions:
 
 The Anthropic frontend guidance was adapted into a compact `frontend-design` entry point. OpenAI's current plugin repository was treated as format and progressive-disclosure reference material, not copied wholesale. Existing local specialist design and command behavior was retained wherever broader upstream guidance conflicted.
 
-Rare UI, beUI, Spectrum UI, and Spell UI are incorporated into `pick-ui-library` as inspectable source registries. None is an automatic dependency. `oil-motion` is a separate specialist skill for generated or captured frame timelines, not ordinary component transitions.
+Rare UI, beUI, Spectrum UI, and Spell UI are incorporated into `pick-ui-library` as inspectable source registries. Rare UI is a preferred prebuilt source for matching React interactions, gated by its mandatory attribution, README credit, React-only compatibility, and no-redistribution terms; the others remain optional. None is an automatic dependency. `oil-motion` is a separate specialist skill for generated or captured frame timelines, not ordinary component transitions.
 
 The original 28 supplied UI sources were reviewed through text extraction where available and rendered checks at desktop and mobile widths. Their functions, adoption boundaries, and access limitations are preserved in the design-reference source atlas. Gallery screenshots are explicitly treated as discovery evidence, not proof of accessibility, performance, conversion, or production use.
 
