@@ -31,20 +31,20 @@ Security remains four focused skills in both core and the `security` pack. Combi
 
 ### Merged
 
-- `document` and `update-docs` became `markdown-management`. The merged skill covers creation, updating, deduplication, splitting, renaming, link preservation, source authority, and skill-folder validation.
-- `agent-organizer` and `multi-agent-coordinator` were folded into `orchestration-specialists`. Unsupported performance promises were removed; bounded task ownership, dependency tracking, conflict avoidance, and evidence contracts were retained.
-- `NeetigyaShah/deep-research` became a progressively disclosed mode inside `research-analysis`; its standalone follow-up skill was omitted because the canonical mode already covers evidence-only follow-up.
-- AppLlama's research and app-design skills became one `mobile-app-design` skill. Existing `animate-expo`, `imagegen-frontend-mobile`, and `ui-quality-baseline` instructions remain authoritative for their narrower concerns.
-- The former fixed `gpt-taste` recipe was consolidated into the evidence-led `high-end-visual-design` workflow. `gpt-taste` remains only as an explicit compatibility route so existing prompts do not break.
-- `ibelick/ui-skills` was incorporated as focused method improvements: existing UI, design-research, and SEO entries now cover narrow-surface repair, durable `DESIGN.md` evidence, and complete page-metadata review without adding a second universal UI router. The TypeScript, Python, and Go anti-slop material is one language-aware simplification lens in `engineering-specialists` and `review`, not three duplicate language personas.
+- `document` and `update-docs` became `yeknal-markdown-management`. The merged skill covers creation, updating, deduplication, splitting, renaming, link preservation, source authority, and skill-folder validation.
+- `agent-organizer` and `multi-agent-coordinator` were folded into `yeknal-orchestration-specialists`. Unsupported performance promises were removed; bounded task ownership, dependency tracking, conflict avoidance, and evidence contracts were retained.
+- `NeetigyaShah/deep-research` became a progressively disclosed mode inside `yeknal-research-analysis`; its standalone follow-up skill was omitted because the canonical mode already covers evidence-only follow-up.
+- AppLlama's research and app-design skills became one `yeknal-mobile-app-design` skill. Existing `yeknal-animate-expo`, `yeknal-imagegen-frontend-mobile`, and `yeknal-ui-quality-baseline` instructions remain authoritative for their narrower concerns.
+- The former fixed `yeknal-gpt-taste` recipe was consolidated into the evidence-led `yeknal-high-end-visual-design` workflow. `yeknal-gpt-taste` remains only as an explicit compatibility route so existing prompts do not break.
+- `ibelick/ui-skills` was incorporated as focused method improvements: existing UI, design-research, and SEO entries now cover narrow-surface repair, durable `DESIGN.md` evidence, and complete page-metadata review without adding a second universal UI router. The TypeScript, Python, and Go anti-slop material is one language-aware simplification lens in `yeknal-engineering-specialists` and `yeknal-review`, not three duplicate language personas.
 
 ### Kept separate
 
-- Focused command skills such as `implement`, `review`, `troubleshoot`, `cleanup`, `git`, and `finalize` remain distinct because their trigger and safety contracts are narrower than `engineering-specialists`.
+- Focused command skills such as `yeknal-implement`, `yeknal-review`, `yeknal-troubleshoot`, `yeknal-cleanup`, `yeknal-git`, and `yeknal-finalize` remain distinct because their trigger and safety contracts are narrower than `yeknal-engineering-specialists`.
 - Specialist visual directions remain distinct. An approved design, repository design system, or narrow aesthetic skill takes precedence over generic frontend guidance.
-- `design-reference-research` remains separate from implementation skills because it is read-only by default and produces an evidence ledger and decision brief; `human-ai-interface-design` remains separate because appropriate reliance, provenance, autonomy, approvals, and recovery are interaction-safety concerns rather than an aesthetic.
+- `yeknal-design-reference-research` remains separate from implementation skills because it is read-only by default and produces an evidence ledger and decision brief; `yeknal-human-ai-interface-design` remains separate because appropriate reliance, provenance, autonomy, approvals, and recovery are interaction-safety concerns rather than an aesthetic.
 - The four security skills remain separate because application implementation, best-practice review, threat modeling, and ownership analysis produce different artifacts.
-- `i-have-adhd` remains one explicit-only skill because its persistent conversation-output contract has no behavioral equivalent in the research, documentation, or implementation skills.
+- `yeknal-i-have-adhd` remains one explicit-only skill because its persistent conversation-output contract has no behavioral equivalent in the research, documentation, or implementation skills.
 
 ## Naming repairs
 
@@ -52,18 +52,18 @@ The following folders were renamed to match their existing skill names:
 
 | Previous folder | Current folder |
 | --- | --- |
-| `Design` | `frontend-design` |
-| `Security` | `application-security` |
-| `brutalist-skill` | `industrial-brutalist-ui` |
-| `gpt-tasteskill` | `gpt-taste` |
-| `image-to-code-skill` | `image-to-code` |
-| `minimalist-skill` | `minimalist-ui` |
-| `output-skill` | `full-output-enforcement` |
-| `redesign-skill` | `redesign-existing-projects` |
-| `soft-skill` | `high-end-visual-design` |
-| `stitch-skill` | `stitch-design-taste` |
-| `taste-skill` | `design-taste-frontend` |
-| `taste-skill-v1` | `design-taste-frontend-v1` |
+| `Design` | `yeknal-frontend-design` |
+| `Security` | `yeknal-application-security` |
+| `brutalist-skill` | `yeknal-industrial-brutalist-ui` |
+| `gpt-tasteskill` | `yeknal-gpt-taste` |
+| `image-to-code-skill` | `yeknal-image-to-code` |
+| `minimalist-skill` | `yeknal-minimalist-ui` |
+| `output-skill` | `yeknal-full-output-enforcement` |
+| `redesign-skill` | `yeknal-redesign-existing-projects` |
+| `soft-skill` | `yeknal-high-end-visual-design` |
+| `stitch-skill` | `yeknal-stitch-design-taste` |
+| `taste-skill` | `yeknal-design-taste-frontend` |
+| `taste-skill-v1` | `yeknal-design-taste-frontend-v1` |
 
 ## Progressive disclosure
 
@@ -104,13 +104,13 @@ Reviewed repositories and revisions:
 - [CLAUDE.md](https://github.com/jbarbier/CLAUDE.md) at `02ddd29be403278cfa068ffd54e247bb1f5a1b9f`.
 - [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra), published 2026-09-11.
 
-The Anthropic frontend guidance was adapted into a compact `frontend-design` entry point. OpenAI's current plugin repository was treated as format and progressive-disclosure reference material, not copied wholesale. Existing local specialist design and command behavior was retained wherever broader upstream guidance conflicted.
+The Anthropic frontend guidance was adapted into a compact `yeknal-frontend-design` entry point. OpenAI's current plugin repository was treated as format and progressive-disclosure reference material, not copied wholesale. Existing local specialist design and command behavior was retained wherever broader upstream guidance conflicted.
 
-Rare UI, beUI, Spectrum UI, and Spell UI are incorporated into `pick-ui-library` as inspectable source registries. Rare UI is a preferred prebuilt source for matching React interactions, gated by its mandatory attribution, README credit, React-only compatibility, and no-redistribution terms; the others remain optional. None is an automatic dependency. `oil-motion` is a separate specialist skill for generated or captured frame timelines, not ordinary component transitions.
+Rare UI, beUI, Spectrum UI, and Spell UI are incorporated into `yeknal-pick-ui-library` as inspectable source registries. Rare UI is a preferred prebuilt source for matching React interactions, gated by its mandatory attribution, README credit, React-only compatibility, and no-redistribution terms; the others remain optional. None is an automatic dependency. `yeknal-oil-motion` is a separate specialist skill for generated or captured frame timelines, not ordinary component transitions.
 
 The original 28 supplied UI sources were reviewed through text extraction where available and rendered checks at desktop and mobile widths. Their functions, adoption boundaries, and access limitations are preserved in the design-reference source atlas. Gallery screenshots are explicitly treated as discovery evidence, not proof of accessibility, performance, conversion, or production use.
 
-The 2026-09-12 additions were independently adapted as concise local rules. `implement` now routes repeatable, acceptance-critical operations to small executable checks, while `markdown-management` requires copyable examples and deterministic claims to be rechecked. The GPT-6 Astra guidance further tightens catalog maintenance: descriptions must be short and discriminating, multi-mode skills must route progressively, and instructions must not become generic itineraries that overconstrain more capable models. They retain real validation, error handling, idiomatic framework conventions, project-specific contracts, and user authority; no source was imported as an overriding general workflow. The established `animate` skill already exceeds the reviewed motion-performance guidance and remains the canonical motion entry point.
+The 2026-09-12 additions were independently adapted as concise local rules. `yeknal-implement` now routes repeatable, acceptance-critical operations to small executable checks, while `yeknal-markdown-management` requires copyable examples and deterministic claims to be rechecked. The GPT-6 Astra guidance further tightens catalog maintenance: descriptions must be short and discriminating, multi-mode skills must route progressively, and instructions must not become generic itineraries that overconstrain more capable models. They retain real validation, error handling, idiomatic framework conventions, project-specific contracts, and user authority; no source was imported as an overriding general workflow. The established `yeknal-animate` skill already exceeds the reviewed motion-performance guidance and remains the canonical motion entry point.
 
 Deep Research extends the canonical research workflow instead of duplicating it. AppLlama's two related entry points are represented by one mobile implementation skill with optional MCP research. The ADHD-friendly response mode remains explicit-only. These boundaries are covered by routing evaluations for deep research, reference-led visual research, human-AI interaction, native mobile flows, Expo animation, mobile image generation, and ADHD mode.
 
@@ -118,7 +118,7 @@ The official IndexNow protocol and LaunchIgniter submitter are covered in `conte
 
 ## Security refresh
 
-The old duplicate raw security prompt files and generated audit log were removed. `application-security` and its reference baseline now cover:
+The old duplicate raw security prompt files and generated audit log were removed. `yeknal-application-security` and its reference baseline now cover:
 
 - OWASP Top 10:2025 and API Security Top 10 risks;
 - Argon2id password storage and safer session/CSRF defaults;
@@ -128,14 +128,14 @@ The old duplicate raw security prompt files and generated audit log were removed
 - prompt injection, unsafe tool output, memory poisoning, excessive agency, approval boundaries, and bounded agent execution;
 - replay, races, retries, exceptional conditions, logging, and incident response.
 
-The CLI syncs all four security skills and reads the master baseline from `application-security`. Version `2.0.1` adds profile selection, exact named-skill selection, and repository-local `.agents/skills` installation on top of Codex `.system` collision avoidance, stable security rule IDs, JSON and SARIF reports, interrupted-download handling, automated tests, CI validation, and the OIDC-ready npm release workflow.
+The CLI syncs all four security skills and reads the master baseline from `yeknal-application-security`. Version `2.0.1` adds profile selection, exact named-skill selection, and repository-local `.agents/skills` installation on top of Codex `.system` collision avoidance, stable security rule IDs, JSON and SARIF reports, interrupted-download handling, automated tests, CI validation, and the OIDC-ready npm release workflow.
 
 ## Validation commands
 
 ```powershell
-pwsh -NoProfile -File .\markdown-management\scripts\audit-skills.ps1 -Root .
-pwsh -NoProfile -File .\markdown-management\scripts\audit-markdown-links.ps1 -Root .
-skills-ref validate <each top-level skill folder>
+pwsh -NoProfile -File .\skills\yeknal-markdown-management\scripts\audit-skills.ps1 -Root .
+pwsh -NoProfile -File .\skills\yeknal-markdown-management\scripts\audit-markdown-links.ps1 -Root .
+skills-ref validate <each skill folder under skills/>
 npm test --prefix .\yeknal-cli
 git diff --check
 ```

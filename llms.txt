@@ -1,36 +1,36 @@
-application-security: Cross-stack secure-by-design guidance for authentication, authorization, sessions, APIs, supply chains, browser protections, and AI or agentic systems. Use for security-sensitive implementation and review.
-security-best-practices: Repository security review workflow grounded in the modern application-security baseline. Use for focused vulnerability and configuration audits.
-security-threat-model: Trust-boundary, asset, threat, and mitigation analysis including prompt injection, compromised tools, memory poisoning, and excessive agency. Use for threat modeling.
-security-ownership-map: Sensitive-code ownership, concentration, and CODEOWNERS comparison. Use for security stewardship and bus-factor analysis.
-markdown-management: Create, update, merge, split, rename, and audit Markdown or skill folders while preserving authority, links, anchors, provenance, and progressive disclosure.
-frontend-design: Compact anti-generic frontend design workflow adapted from Anthropic's current skill and subordinated to approved designs and narrower local aesthetics.
-ui-quality-baseline: Mandatory baseline for visible UI work covering tokens, typography, icons, responsive containment, loading states, purposeful motion, accessibility, and rendered QA.
-design-reference-research: Read-only-by-default research across live interfaces, galleries, flows, and source registries that produces evidence, a product-specific visual thesis, responsive transformations, and a rejection list before implementation.
-human-ai-interface-design: Trustworthy AI-product interaction guidance for expectations, appropriate reliance, provenance, uncertainty, user control, approvals, autonomy, recovery, and evaluation.
-design-taste-frontend: Default expressive local design system for distinctive landing pages, portfolios, and redesigns; detailed patterns live under references.
-design-taste-frontend-v1: Preserved original design-taste behavior for projects that explicitly depend on it.
-gpt-taste: Explicit compatibility route that delegates current premium work to high-end-visual-design and retires the fixed AIDA, randomized-bento, and mandatory-GSAP recipe.
-image-to-code: Image-first frontend analysis and implementation workflow.
-imagegen-frontend-web: Image-generation-only workflow for premium website design references.
-imagegen-frontend-mobile: Image-generation-only workflow for premium mobile concepts and flows.
-mobile-app-design: Native mobile screen and flow design or implementation, with optional Appllama reference research; delegates motion-only and image-only work to their focused skills.
-brandkit: Image-generation-only workflow for visual identity systems and brand-kit boards.
-redesign-existing-projects: Audits and upgrades existing interfaces without breaking behavior.
-high-end-visual-design: Evidence-led premium art direction built around a product-specific thesis, coherent system, restraint, responsive composition, and purposeful motion.
-minimalist-ui: Premium utilitarian minimalism with editorial typography and restrained depth.
-industrial-brutalist-ui: Raw mechanical interfaces, Swiss typography, and extreme scale contrast.
-stitch-design-taste: Semantic design guidance compatible with Google Stitch-style generation.
-emil-design-eng: UI polish, component details, and purposeful interaction motion.
-oil-motion: Specialized generated or captured frame-based interactive media workflow adapted from oil-oil/oil-motion.
-pick-ui-library: Chooses libraries from installed dependencies and project fit; treats Rare UI, beUI, Spectrum UI, and Spell UI as inspectable component-source registries.
-content-seo: Content and technical SEO workflow including IndexNow changed-URL notification and explicit receipt-versus-indexing proof boundaries.
-implement: End-to-end repository implementation command that defers to specific domain skills and preserves behavior.
-review: Evidence-first code and system review.
-troubleshoot: Reproduction-led diagnosis and scoped repair.
-cleanup: Evidence-led dead-code and project cleanup.
-git: Scoped, non-destructive Git operations that preserve unrelated work.
-finalize: Repository-appropriate documentation and quality gates with publication only when explicitly requested.
-orchestration-specialists: Bounded multi-agent, context, prompt, synthesis, and MCP coordination guidance.
-engineering-specialists: Cross-stack specialist routing for implementation work.
-research-analysis: Canonical evidence-backed research workflow, including a progressively disclosed deep-research mode with claim verification and saturation-based stopping.
-i-have-adhd: Explicit-only persistent response mode with action-first structure, bounded steps, visible state, and evidence-based time estimates.
+yeknal-application-security: Cross-stack secure-by-design guidance for authentication, authorization, sessions, APIs, supply chains, browser protections, and AI or agentic systems. Use for security-sensitive implementation and review.
+yeknal-security-best-practices: Repository security review workflow grounded in the modern application-security baseline. Use for focused vulnerability and configuration audits.
+yeknal-security-threat-model: Trust-boundary, asset, threat, and mitigation analysis including prompt injection, compromised tools, memory poisoning, and excessive agency. Use for threat modeling.
+yeknal-security-ownership-map: Sensitive-code ownership, concentration, and CODEOWNERS comparison. Use for security stewardship and bus-factor analysis.
+yeknal-markdown-management: Create, update, merge, split, rename, and audit Markdown or skill folders while preserving authority, links, anchors, provenance, and progressive disclosure.
+yeknal-frontend-design: Compact anti-generic frontend design workflow adapted from Anthropic's current skill and subordinated to approved designs and narrower local aesthetics.
+yeknal-ui-quality-baseline: Mandatory baseline for visible UI work covering tokens, typography, icons, responsive containment, loading states, purposeful motion, accessibility, and rendered QA.
+yeknal-design-reference-research: Read-only-by-default research across live interfaces, galleries, flows, and source registries that produces evidence, a product-specific visual thesis, responsive transformations, and a rejection list before implementation.
+yeknal-human-ai-interface-design: Trustworthy AI-product interaction guidance for expectations, appropriate reliance, provenance, uncertainty, user control, approvals, autonomy, recovery, and evaluation.
+yeknal-design-taste-frontend: Default expressive local design system for distinctive landing pages, portfolios, and redesigns; detailed patterns live under references.
+yeknal-design-taste-frontend-v1: Preserved original design-taste behavior for projects that explicitly depend on it.
+yeknal-gpt-taste: Explicit compatibility route that delegates current premium work to high-end-visual-design and retires the fixed AIDA, randomized-bento, and mandatory-GSAP recipe.
+yeknal-image-to-code: Image-first frontend analysis and implementation workflow.
+yeknal-imagegen-frontend-web: Image-generation-only workflow for premium website design references.
+yeknal-imagegen-frontend-mobile: Image-generation-only workflow for premium mobile concepts and flows.
+yeknal-mobile-app-design: Native mobile screen and flow design or implementation, with optional Appllama reference research; delegates motion-only and image-only work to their focused skills.
+yeknal-brandkit: Image-generation-only workflow for visual identity systems and brand-kit boards.
+yeknal-redesign-existing-projects: Audits and upgrades existing interfaces without breaking behavior.
+yeknal-high-end-visual-design: Evidence-led premium art direction built around a product-specific thesis, coherent system, restraint, responsive composition, and purposeful motion.
+yeknal-minimalist-ui: Premium utilitarian minimalism with editorial typography and restrained depth.
+yeknal-industrial-brutalist-ui: Raw mechanical interfaces, Swiss typography, and extreme scale contrast.
+yeknal-stitch-design-taste: Semantic design guidance compatible with Google Stitch-style generation.
+yeknal-emil-design-eng: UI polish, component details, and purposeful interaction motion.
+yeknal-oil-motion: Specialized generated or captured frame-based interactive media workflow adapted from oil-oil/oil-motion.
+yeknal-pick-ui-library: Chooses libraries from installed dependencies and project fit; treats Rare UI, beUI, Spectrum UI, and Spell UI as inspectable component-source registries.
+yeknal-content-seo: Content and technical SEO workflow including IndexNow changed-URL notification and explicit receipt-versus-indexing proof boundaries.
+yeknal-implement: End-to-end repository implementation command that defers to specific domain skills and preserves behavior.
+yeknal-review: Evidence-first code and system review.
+yeknal-troubleshoot: Reproduction-led diagnosis and scoped repair.
+yeknal-cleanup: Evidence-led dead-code and project cleanup.
+yeknal-git: Scoped, non-destructive Git operations that preserve unrelated work.
+yeknal-finalize: Repository-appropriate documentation and quality gates with publication only when explicitly requested.
+yeknal-orchestration-specialists: Bounded multi-agent, context, prompt, synthesis, and MCP coordination guidance.
+yeknal-engineering-specialists: Cross-stack specialist routing for implementation work.
+yeknal-research-analysis: Canonical evidence-backed research workflow, including a progressively disclosed deep-research mode with claim verification and saturation-based stopping.
+yeknal-i-have-adhd: Explicit-only persistent response mode with action-first structure, bounded steps, visible state, and evidence-based time estimates.

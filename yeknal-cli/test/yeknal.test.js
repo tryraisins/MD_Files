@@ -19,22 +19,22 @@ async function withTempDir(run) {
   }
 }
 
-test("discovers only top-level skill folders and excludes SEO", () => {
+test("discovers only catalog skill folders under skills/ and excludes non-skills", () => {
   const tree = [
-    { type: "tree", path: "alpha" },
-    { type: "blob", path: "alpha/SKILL.md" },
-    { type: "blob", path: "alpha/references/details.md" },
+    { type: "tree", path: "skills" },
+    { type: "tree", path: "skills/yeknal-alpha" },
+    { type: "blob", path: "skills/yeknal-alpha/SKILL.md" },
+    { type: "blob", path: "skills/yeknal-alpha/references/details.md" },
     { type: "tree", path: "notes" },
     { type: "blob", path: "notes/README.md" },
-    { type: "tree", path: "SEO" },
     { type: "blob", path: "SEO/SKILL.md" },
   ];
 
   assert.deepEqual(yeknal.discoverSkillFolders(tree), ["alpha"]);
   const files = yeknal.listFilesForFolder(tree, "alpha");
   assert.deepEqual(new Set(files), new Set([
-    "alpha/SKILL.md",
-    "alpha/references/details.md",
+    "skills/yeknal-alpha/SKILL.md",
+    "skills/yeknal-alpha/references/details.md",
   ]));
   assert.deepEqual(files, [...files].sort((a, b) => a.localeCompare(b)));
   assert.equal(yeknal.getManagedSkillFolderName("alpha"), "yeknal-alpha");
@@ -45,15 +45,14 @@ test("discovers and copies a staged local skill tree", async () => {
   await withTempDir(async (directory) => {
     const source = path.join(directory, "source");
     const target = path.join(directory, "target");
-    await fsp.mkdir(path.join(source, "alpha", "references"), { recursive: true });
-    await fsp.mkdir(path.join(source, "not-a-skill"), { recursive: true });
-    await fsp.mkdir(path.join(source, "SEO"), { recursive: true });
-    await fsp.writeFile(path.join(source, "alpha", "SKILL.md"), "---\nname: alpha\ndescription: Use for tests.\n---\n");
-    await fsp.writeFile(path.join(source, "alpha", "references", "details.md"), "details\n");
-    await fsp.writeFile(path.join(source, "SEO", "SKILL.md"), "ignored\n");
+    await fsp.mkdir(path.join(source, "skills", "yeknal-alpha", "references"), { recursive: true });
+    await fsp.mkdir(path.join(source, "skills", "not-a-skill"), { recursive: true });
+    await fsp.writeFile(path.join(source, "skills", "yeknal-alpha", "SKILL.md"), "---\nname: yeknal-alpha\ndescription: Use for tests.\n---\n");
+    await fsp.writeFile(path.join(source, "skills", "yeknal-alpha", "references", "details.md"), "details\n");
+    await fsp.writeFile(path.join(source, "skills", "not-a-skill", "README.md"), "ignored\n");
 
     assert.deepEqual(await yeknal.discoverLocalSkillFolders(source), ["alpha"]);
-    await yeknal.copyDirRecursive(path.join(source, "alpha"), target);
+    await yeknal.copyDirRecursive(path.join(source, "skills", "yeknal-alpha"), target);
     assert.equal(await fsp.readFile(path.join(target, "references", "details.md"), "utf8"), "details\n");
   });
 });
@@ -196,7 +195,7 @@ test("profiles reference real skills and keep core discovery under budget", asyn
   assert.deepEqual(availableFolders.filter((skillName) => !covered.has(skillName)), []);
 
   const coreMetadata = yeknal.SKILL_PROFILES.core.skills.map((skillName) => {
-    const skillFile = path.join(repoRoot, skillName, "SKILL.md");
+    const skillFile = path.join(repoRoot, "skills", `yeknal-${skillName}`, "SKILL.md");
     const description = fs.readFileSync(skillFile, "utf8").match(/^description:\s*(.+)$/m)?.[1] || "";
     return `- ${skillName}: ${description} (file: yeknal-${skillName}/SKILL.md)\n`;
   }).join("");
@@ -540,7 +539,7 @@ test("security reports expose stable rule IDs as text, JSON, and SARIF", () => {
 });
 
 test("every security rule links to a current Security-Master heading", () => {
-  const masterPath = path.join(__dirname, "..", "..", "application-security", "Security-Master.md");
+  const masterPath = path.join(__dirname, "..", "..", "skills", "yeknal-application-security", "Security-Master.md");
   const headings = new Set(
     fs.readFileSync(masterPath, "utf8")
       .split(/\r?\n/)

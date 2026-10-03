@@ -10,7 +10,7 @@ These instructions apply to work in this Agent Skills catalog. Preserve the cata
 - When isolated testing is necessary, first write down the concrete ways the system could fail; only then write the isolated test or harness code.
 - For this documentation/catalog repository, run the existing Markdown, skill, and CLI validation commands. Do not create unit tests after implementation to validate documentation edits.
 
-For the full reusable workflow, see [`testing-strategy/SKILL.md`](testing-strategy/SKILL.md).
+For the full reusable workflow, see [`skills/yeknal-testing-strategy/SKILL.md`](skills/yeknal-testing-strategy/SKILL.md).
 
 ## Frontend design stack defaults
 
@@ -41,5 +41,5 @@ current stack is React-compatible.
   `prefers-reduced-motion` and responsive containment intact.
 
 This default is carried by the distributed design skills
-(`frontend-design`, `redesign-existing-projects`, `ui-quality-baseline`) so that
+(`yeknal-frontend-design`, `yeknal-redesign-existing-projects`, `yeknal-ui-quality-baseline`) so that
 installs via `npx yeknal skills` inherit it across agents and harnesses.

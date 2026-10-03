@@ -4,193 +4,193 @@
     {
       "id": "redesign-existing-product",
       "prompt": "Redesign this existing dashboard without breaking its working filters or data flow.",
-      "primary": "redesign-existing-projects",
-      "secondary": ["ui-quality-baseline"],
-      "mustNotLead": ["frontend-design"],
+      "primary": "yeknal-redesign-existing-projects",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-frontend-design"],
       "rationale": "A redesign-specific workflow outranks generic visual direction."
     },
     {
       "id": "new-distinctive-landing-page",
       "prompt": "Build a distinctive new landing page from this product brief.",
-      "primary": "design-taste-frontend",
-      "secondary": ["ui-quality-baseline"],
-      "mustNotLead": ["frontend-design"],
+      "primary": "yeknal-design-taste-frontend",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-frontend-design"],
       "rationale": "The detailed local design system outranks the generic frontend design entry point."
     },
     {
       "id": "reference-led-design-research",
       "prompt": "Review these live product and gallery URLs, extract the useful UI patterns across desktop and mobile, and give me an original design direction before writing code.",
-      "primary": "design-reference-research",
-      "secondary": ["ui-quality-baseline"],
-      "mustNotLead": ["frontend-design"],
+      "primary": "yeknal-design-reference-research",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-frontend-design"],
       "rationale": "Reference synthesis is a read-only evidence task before implementation, not generic visual generation."
     },
     {
       "id": "human-ai-agent-interface",
       "prompt": "Design the review, provenance, approval, undo, and failure experience for an AI agent that proposes and applies record changes.",
-      "primary": "human-ai-interface-design",
-      "secondary": ["ui-quality-baseline", "application-security"],
-      "mustNotLead": ["ui-ux-designer"],
+      "primary": "yeknal-human-ai-interface-design",
+      "secondary": ["yeknal-ui-quality-baseline", "yeknal-application-security"],
+      "mustNotLead": ["yeknal-ui-ux-designer"],
       "rationale": "Appropriate reliance and consequential AI actions need the dedicated human-AI interaction contract."
     },
     {
       "id": "minimalist-art-direction",
       "prompt": "Create a restrained editorial interface with warm monochrome colors and almost no depth.",
-      "primary": "minimalist-ui",
-      "secondary": ["ui-quality-baseline"],
-      "mustNotLead": ["frontend-design"],
+      "primary": "yeknal-minimalist-ui",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-frontend-design"],
       "rationale": "An explicit aesthetic maps to the narrow visual skill."
     },
     {
       "id": "name-animation-effect",
       "prompt": "What is the animation called when a popover opens with a small bounce?",
-      "primary": "animation-vocabulary",
+      "primary": "yeknal-animation-vocabulary",
       "secondary": [],
-      "mustNotLead": ["animate"],
+      "mustNotLead": ["yeknal-animate"],
       "rationale": "The user wants terminology, not implementation."
     },
     {
       "id": "ordinary-interface-motion",
       "prompt": "Add an interruptible spring transition to this menu.",
-      "primary": "animate",
-      "secondary": ["ui-quality-baseline"],
-      "mustNotLead": ["oil-motion"],
+      "primary": "yeknal-animate",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-oil-motion"],
       "rationale": "Ordinary component motion should not invoke a frame-sequence pipeline."
     },
     {
       "id": "expo-animation",
       "prompt": "Fix the stuttering drag-to-dismiss animation in this Expo screen.",
-      "primary": "animate-expo",
-      "secondary": ["ui-quality-baseline"],
-      "mustNotLead": ["mobile-app-design", "imagegen-frontend-mobile"],
+      "primary": "yeknal-animate-expo",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-mobile-app-design", "yeknal-imagegen-frontend-mobile"],
       "rationale": "A motion-only React Native task belongs to the focused Expo animation skill."
     },
     {
       "id": "native-mobile-flow",
       "prompt": "Design and implement this Expo onboarding flow with native navigation, sheets, loading states, and dark mode.",
-      "primary": "mobile-app-design",
-      "secondary": ["ui-quality-baseline"],
-      "mustNotLead": ["imagegen-frontend-mobile", "engineering-specialists"],
+      "primary": "yeknal-mobile-app-design",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-imagegen-frontend-mobile", "yeknal-engineering-specialists"],
       "rationale": "End-to-end mobile screen and flow work is distinct from image-only concepts and generic engineering routing."
     },
     {
       "id": "mobile-concept-images",
       "prompt": "Generate polished image concepts for five screens of this mobile app; do not write code.",
-      "primary": "imagegen-frontend-mobile",
-      "secondary": ["ui-quality-baseline"],
-      "mustNotLead": ["mobile-app-design"],
+      "primary": "yeknal-imagegen-frontend-mobile",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-mobile-app-design"],
       "rationale": "The requested deliverable is image generation, not mobile implementation."
     },
     {
       "id": "frame-based-scroll-story",
       "prompt": "Build a scroll-controlled product transformation from 180 generated frames.",
-      "primary": "oil-motion",
-      "secondary": ["ui-quality-baseline"],
-      "mustNotLead": ["animate"],
+      "primary": "yeknal-oil-motion",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-animate"],
       "rationale": "Continuous generated-frame media belongs to oil-motion."
     },
     {
       "id": "markdown-consolidation",
       "prompt": "Merge these duplicate README files and preserve their links and authoritative instructions.",
-      "primary": "markdown-management",
+      "primary": "yeknal-markdown-management",
       "secondary": [],
-      "mustNotLead": ["add-changelog"],
+      "mustNotLead": ["yeknal-add-changelog"],
       "rationale": "General Markdown consolidation is not a release-history task."
     },
     {
       "id": "deep-research-request",
       "prompt": "Perform deep research on this market, verify every important claim, preserve the evidence, and identify remaining gaps.",
-      "primary": "research-analysis",
-      "secondary": ["orchestration-specialists"],
+      "primary": "yeknal-research-analysis",
+      "secondary": ["yeknal-orchestration-specialists"],
       "mustNotLead": [],
       "rationale": "Deep research is a rigorous mode inside the canonical research skill rather than a duplicate entry point."
     },
     {
       "id": "adhd-output-mode",
       "prompt": "Use ADHD mode for the rest of this conversation and keep each step easy to act on.",
-      "primary": "i-have-adhd",
+      "primary": "yeknal-i-have-adhd",
       "secondary": [],
-      "mustNotLead": ["full-output-enforcement"],
+      "mustNotLead": ["yeknal-full-output-enforcement"],
       "rationale": "The user explicitly requested the persistent ADHD-friendly response contract."
     },
     {
       "id": "release-notes",
       "prompt": "Add the verified changes for version 2.3.0 to the changelog.",
-      "primary": "add-changelog",
-      "secondary": ["markdown-management"],
+      "primary": "yeknal-add-changelog",
+      "secondary": ["yeknal-markdown-management"],
       "mustNotLead": [],
       "rationale": "The focused changelog command owns the task."
     },
     {
       "id": "javascript-security-review",
       "prompt": "Perform a security best-practices review of this Express service.",
-      "primary": "security-best-practices",
-      "secondary": ["application-security"],
-      "mustNotLead": ["review"],
+      "primary": "yeknal-security-best-practices",
+      "secondary": ["yeknal-application-security"],
+      "mustNotLead": ["yeknal-review"],
       "rationale": "An explicit supported-stack security review outranks generic review."
     },
     {
       "id": "language-simplification",
       "prompt": "Simplify this TypeScript service without removing real validation or changing its public behavior.",
-      "primary": "engineering-specialists",
-      "secondary": ["review"],
-      "mustNotLead": ["cleanup"],
+      "primary": "yeknal-engineering-specialists",
+      "secondary": ["yeknal-review"],
+      "mustNotLead": ["yeknal-cleanup"],
       "rationale": "Language-aware simplification preserves genuine trust-boundary work instead of treating a cleanup as generic deletion."
     },
     {
       "id": "public-page-metadata",
       "prompt": "Fix the canonical URL, Open Graph card, JSON-LD, and indexing metadata for this public page.",
-      "primary": "content-seo",
+      "primary": "yeknal-content-seo",
       "secondary": [],
-      "mustNotLead": ["frontend-design"],
+      "mustNotLead": ["yeknal-frontend-design"],
       "rationale": "Metadata correctness and crawlability belong to the focused SEO workflow, not a visual-design route."
     },
     {
       "id": "repeatable-acceptance-check",
       "prompt": "Implement this CSV importer and make the duplicate, date, and totals checks deterministic so they can be rerun in CI.",
-      "primary": "implement",
-      "secondary": ["engineering-specialists"],
-      "mustNotLead": ["research-analysis"],
+      "primary": "yeknal-implement",
+      "secondary": ["yeknal-engineering-specialists"],
+      "mustNotLead": ["yeknal-research-analysis"],
       "rationale": "A scoped implementation should turn reproducible acceptance rules into executable checks while retaining judgment for product decisions."
     },
     {
       "id": "skill-catalog-consolidation",
       "prompt": "Consolidate these overlapping agent skills so their descriptions remain narrowly triggered and detailed modes are loaded only when relevant.",
-      "primary": "markdown-management",
+      "primary": "yeknal-markdown-management",
       "secondary": [],
-      "mustNotLead": ["engineering-specialists"],
+      "mustNotLead": ["yeknal-engineering-specialists"],
       "rationale": "Skill-catalog consolidation is a Markdown authority and progressive-disclosure task, not a generic engineering-persona request."
     },
     {
       "id": "threat-model",
       "prompt": "Threat model this repository and enumerate trust boundaries and abuse paths.",
-      "primary": "security-threat-model",
-      "secondary": ["application-security"],
-      "mustNotLead": ["review"],
+      "primary": "yeknal-security-threat-model",
+      "secondary": ["yeknal-application-security"],
+      "mustNotLead": ["yeknal-review"],
       "rationale": "Threat modeling produces a distinct artifact."
     },
     {
       "id": "unused-code-audit",
       "prompt": "Find every unused import and unreachable function in this TypeScript project.",
-      "primary": "dead-code-hunter",
+      "primary": "yeknal-dead-code-hunter",
       "secondary": [],
-      "mustNotLead": ["cleanup"],
+      "mustNotLead": ["yeknal-cleanup"],
       "rationale": "The dead-code specialist is narrower than general cleanup."
     },
     {
       "id": "nextjs-feature",
       "prompt": "Implement an authenticated Next.js route and its responsive client form.",
-      "primary": "nextjs-developer",
-      "secondary": ["application-security", "ui-quality-baseline"],
-      "mustNotLead": ["engineering-specialists"],
+      "primary": "yeknal-nextjs-developer",
+      "secondary": ["yeknal-application-security", "yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-engineering-specialists"],
       "rationale": "The framework skill leads while shared security and UI baselines supplement it."
     },
     {
       "id": "netlify-deployment",
       "prompt": "Deploy this application to Netlify and return the production URL.",
-      "primary": "netlify-deploy",
+      "primary": "yeknal-netlify-deploy",
       "secondary": [],
-      "mustNotLead": ["engineering-specialists"],
+      "mustNotLead": ["yeknal-engineering-specialists"],
       "rationale": "The provider-specific deployment workflow owns the task."
     }
   ]

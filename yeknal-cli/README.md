@@ -25,7 +25,7 @@ npx yeknal security
 
 ### `npx yeknal skills`
 
-Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2 defaults to the 28-skill `core` profile instead of installing all 84 folders. The core keeps high-frequency process and reasoning management, project continuity, canonical design, browser verification, testing strategy, all four security workflows, and the task-time `skill-router` available globally.
+Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2 defaults to the 28-skill `core` profile instead of installing all 84 folders. The core keeps high-frequency process and reasoning management, project continuity, canonical design, browser verification, testing strategy, all four security workflows, and the task-time `yeknal-skill-router` available globally.
 
 ```bash
 # Core profile in detected user-level agent folders
@@ -63,7 +63,7 @@ The command:
 
 ### Task-time skill routing
 
-The `skill-router` skill is part of `core`. When an agent using that profile starts a substantive task, it checks whether a relevant specialist skill is already available. If one is missing, it can inspect `npx --yes yeknal@^2.2.0 profiles`, install the exact specialist into the current repository with `npx --yes yeknal@^2.2.0 skills --project --add --skills <skill-name>`, read the new `.agents/skills/yeknal-<skill-name>/SKILL.md`, and use it for the same task. This shared `.agents/skills` location is discovered by both Codex and OpenCode.
+The `yeknal-skill-router` skill is part of `core`. When an agent using that profile starts a substantive task, it checks whether a relevant specialist skill is already available. If one is missing, it can inspect `npx --yes yeknal@^2.2.0 profiles`, install the exact specialist into the current repository with `npx --yes yeknal@^2.2.0 skills --project --add --skills <skill-name>`, read the new `.agents/skills/yeknal-<skill-name>/SKILL.md`, and use it for the same task. This shared `.agents/skills` location is discovered by both Codex and OpenCode.
 
 The agent selects whether a task needs a skill; the CLI handles trusted catalog validation, download, and additive project installation. The router only installs a small, task-relevant set and does not download skills on every project open. If an installed skill should be available for future tasks in other projects too, run the normal user-scope `npx yeknal skills --skills <skill-name>` command instead.
 
@@ -77,8 +77,8 @@ Lists the built-in `core`, `process`, `design`, `security`, `web`, `platform`, `
 
 This command:
 
-1. downloads `application-security/Security-Master.md` temporarily;
-2. syncs `application-security`, `security-best-practices`, `security-ownership-map`, and `security-threat-model`;
+1. downloads `skills/yeknal-application-security/Security-Master.md` temporarily;
+2. syncs `yeknal-application-security`, `yeknal-security-best-practices`, `yeknal-security-ownership-map`, and `yeknal-security-threat-model`;
 3. scans the current project;
 4. writes `yeknal-security.log`, `yeknal-security.json`, and `yeknal-security.sarif`, then removes the temporary master file.
 

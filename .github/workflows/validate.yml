@@ -37,7 +37,7 @@ jobs:
       - name: Validate every Agent Skill
         shell: pwsh
         run: |
-          $skills = Get-ChildItem -LiteralPath . -Directory |
+          $skills = Get-ChildItem -LiteralPath .\skills -Directory |
             Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'SKILL.md') }
           foreach ($skill in $skills) {
             skills-ref validate $skill.FullName
@@ -50,9 +50,9 @@ jobs:
       - name: Run Markdown audits
         shell: pwsh
         run: |
-          ./markdown-management/scripts/audit-skills.ps1 -Root .
-          ./markdown-management/scripts/audit-markdown-links.ps1 -Root .
-          ./markdown-management/scripts/validate-routing-evals.ps1 -Root .
+          ./skills/yeknal-markdown-management/scripts/audit-skills.ps1 -Root .
+          ./skills/yeknal-markdown-management/scripts/audit-markdown-links.ps1 -Root .
+          ./skills/yeknal-markdown-management/scripts/validate-routing-evals.ps1 -Root .
 
       - name: Test yeknal CLI
         working-directory: yeknal-cli

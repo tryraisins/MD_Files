@@ -1,0 +1,82 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Process & reasoning",
+      "description": "Planning, implementation, review, diagnosis, cleanup, Git, documentation, and testing workflows.",
+      "skills": [
+        "yeknal-add-changelog",
+        "yeknal-brainstorm",
+        "yeknal-cleanup",
+        "yeknal-engineering-specialists",
+        "yeknal-finalize",
+        "yeknal-git",
+        "yeknal-implement",
+        "yeknal-markdown-management",
+        "yeknal-orchestration-specialists",
+        "yeknal-project-handoff",
+        "yeknal-research-analysis",
+        "yeknal-review",
+        "yeknal-skill-router",
+        "yeknal-testing-strategy",
+        "yeknal-troubleshoot"
+      ]
+    },
+    {
+      "title": "Design & UI",
+      "description": "Visual direction, design systems, UI quality, motion, mobile, and image-led workflows.",
+      "skills": [
+        "yeknal-animate",
+        "yeknal-design-reference-research",
+        "yeknal-frontend-design",
+        "yeknal-frontend-developer",
+        "yeknal-human-ai-interface-design",
+        "yeknal-mobile-app-design",
+        "yeknal-redesign-existing-projects",
+        "yeknal-ui-quality-baseline",
+        "yeknal-animate-expo",
+        "yeknal-animation-vocabulary",
+        "yeknal-apple-design",
+        "yeknal-ask-sonner",
+        "yeknal-brandkit",
+        "yeknal-design-taste-frontend",
+        "yeknal-design-taste-frontend-v1",
+        "yeknal-emil-design-eng",
+        "yeknal-figma-implement-design",
+        "yeknal-find-animation-opportunities",
+        "yeknal-gpt-taste",
+        "yeknal-high-end-visual-design",
+        "yeknal-image-to-code",
+        "yeknal-imagegen-frontend-mobile",
+        "yeknal-imagegen-frontend-web",
+        "yeknal-improve-animations",
+        "yeknal-industrial-brutalist-ui",
+        "yeknal-minimalist-ui",
+        "yeknal-oil-motion",
+        "yeknal-pick-ui-library",
+        "yeknal-prototype",
+        "yeknal-review-animations",
+        "yeknal-stitch-design-taste",
+        "yeknal-ui-ux-designer"
+      ]
+    },
+    {
+      "title": "Security",
+      "description": "Secure implementation, focused review, threat modeling, and sensitive-code ownership analysis.",
+      "skills": [
+        "yeknal-application-security",
+        "yeknal-security-best-practices",
+        "yeknal-security-ownership-map",
+        "yeknal-security-threat-model"
+      ]
+    },
+    {
+      "title": "Verification",
+      "description": "Browser-based verification workflows.",
+      "skills": [
+        "yeknal-playwright"
+      ]
+    }
+  ]
+}

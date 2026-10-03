@@ -34,6 +34,8 @@ const MAX_RETRY_DELAY_MS = 10_000;
 // SEO is source/reference material without a SKILL.md entry point.
 const EXCLUDED_SKILL_FOLDERS = new Set(["SEO"]);
 const MANAGED_SKILL_FOLDER_PREFIX = "yeknal-";
+// Canonical location for skill folders inside the repository.
+const SKILLS_DIR = "skills";
 const DEFAULT_SKILL_PROFILE = "core";
 
 const SECURITY_REPO_FOLDERS = [
@@ -401,38 +403,30 @@ async function fetchRepoTree() {
   return data.tree;
 }
 
+function toSkillBaseName(folderName) {
+  return folderName.startsWith(MANAGED_SKILL_FOLDER_PREFIX)
+    ? folderName.slice(MANAGED_SKILL_FOLDER_PREFIX.length)
+    : folderName;
+}
+
 function discoverSkillFolders(repoTree) {
-  const topLevelDirs = new Set();
   const dirsWithSkill = new Set();
 
   for (const entry of repoTree) {
-    if (entry.type === "tree" && typeof entry.path === "string" && !entry.path.includes("/")) {
-      if (!EXCLUDED_SKILL_FOLDERS.has(entry.path)) {
-        topLevelDirs.add(entry.path);
-      }
+    if (entry.type !== "blob" || typeof entry.path !== "string") {
       continue;
     }
-
-    if (entry.type === "blob" && typeof entry.path === "string") {
-      const parts = entry.path.split("/");
-      if (parts.length === 2 && parts[1] === "SKILL.md" && !EXCLUDED_SKILL_FOLDERS.has(parts[0])) {
-        dirsWithSkill.add(parts[0]);
-      }
+    const parts = entry.path.split("/");
+    if (parts.length !== 3 || parts[0] !== SKILLS_DIR || parts[2] !== "SKILL.md") {
+      continue;
+    }
+    const baseName = toSkillBaseName(parts[1]);
+    if (!EXCLUDED_SKILL_FOLDERS.has(baseName)) {
+      dirsWithSkill.add(baseName);
     }
   }
 
-  return Array.from(topLevelDirs)
-    .filter((dir) => dirsWithSkill.has(dir))
-    .sort((a, b) => a.localeCompare(b));
-}
-
-function listFilesForFolder(repoTree, folderName) {
-  const prefix = `${folderName}/`;
-  return repoTree
-    .filter((entry) => entry.type === "blob" && typeof entry.path === "string")
-    .map((entry) => entry.path)
-    .filter((repoPath) => repoPath.startsWith(prefix))
-    .sort((a, b) => a.localeCompare(b));
+  return Array.from(dirsWithSkill).sort((a, b) => a.localeCompare(b));
 }
 
 function getManagedSkillFolderName(folderName) {
@@ -440,6 +434,19 @@ function getManagedSkillFolderName(folderName) {
     return folderName;
   }
   return `${MANAGED_SKILL_FOLDER_PREFIX}${folderName}`;
+}
+
+function repoSkillPrefix(folderName) {
+  return `${SKILLS_DIR}/${getManagedSkillFolderName(folderName)}/`;
+}
+
+function listFilesForFolder(repoTree, folderName) {
+  const prefix = repoSkillPrefix(folderName);
+  return repoTree
+    .filter((entry) => entry.type === "blob" && typeof entry.path === "string")
+    .map((entry) => entry.path)
+    .filter((repoPath) => repoPath.startsWith(prefix))
+    .sort((a, b) => a.localeCompare(b));
 }
 
 function buildRawFileUrl(repoFilePath) {
@@ -525,26 +532,26 @@ async function fileExists(filePath) {
 }
 
 async function discoverLocalSkillFolders(sourceRoot) {
-  const entries = await fsp.readdir(sourceRoot, { withFileTypes: true });
+  const skillsPath = path.join(sourceRoot, SKILLS_DIR);
+  const scanRoot = (await isDirectory(skillsPath)) ? skillsPath : sourceRoot;
+  const usePrefix = scanRoot === skillsPath;
+  const entries = await fsp.readdir(scanRoot, { withFileTypes: true });
   const folders = [];
 
   for (const entry of entries) {
     if (!entry.isDirectory()) {
       continue;
     }
-    const folderName = entry.name;
+    if (usePrefix && !entry.name.startsWith(MANAGED_SKILL_FOLDER_PREFIX)) {
+      continue;
+    }
+    const folderName = usePrefix ? toSkillBaseName(entry.name) : entry.name;
     if (EXCLUDED_SKILL_FOLDERS.has(folderName)) {
       continue;
     }
 
-    const skillFilePath = path.join(sourceRoot, folderName, "SKILL.md");
-    if (await isDirectory(path.join(sourceRoot, folderName))) {
-      try {
-        await fsp.access(skillFilePath, fs.constants.F_OK);
-        folders.push(folderName);
-      } catch {
-        // not a skill folder
-      }
+    if (await fileExists(path.join(scanRoot, entry.name, "SKILL.md"))) {
+      folders.push(folderName);
     }
   }
 
@@ -581,11 +588,12 @@ async function downloadSkillsFromGit(tempRoot, skillFolders, repoTree) {
     process.stdout.write(`\r  Downloading skills... (${i + 1}/${total}) ${folder.padEnd(32)}`);
 
     const localFolder = path.join(tempRoot, folder);
+    const prefix = repoSkillPrefix(folder);
     const folderFiles = listFilesForFolder(repoTree, folder);
 
     await fsp.mkdir(localFolder, { recursive: true });
     for (const repoPath of folderFiles) {
-      const relativePath = repoPath.slice(folder.length + 1);
+      const relativePath = repoPath.slice(prefix.length);
       const destinationPath = path.join(localFolder, relativePath);
       await downloadUrlToFile(buildRawFileUrl(repoPath), destinationPath);
     }
@@ -613,7 +621,7 @@ async function stageSkillsFromGitClone(tempRoot, options) {
     await fsp.mkdir(tempRoot, { recursive: true });
 
     for (const folder of skillFolders) {
-      const sourceFolder = path.join(repoPath, folder);
+      const sourceFolder = path.join(repoPath, SKILLS_DIR, getManagedSkillFolderName(folder));
       const destinationFolder = path.join(tempRoot, folder);
       await copyDirRecursive(sourceFolder, destinationFolder);
     }
@@ -1166,7 +1174,7 @@ async function safeReadFile(filePath) {
   }
 }
 
-const SECURITY_MASTER_URL = "https://github.com/tryraisins/MD_Files/blob/main/application-security/Security-Master.md";
+const SECURITY_MASTER_URL = "https://github.com/tryraisins/MD_Files/blob/main/skills/yeknal-application-security/Security-Master.md";
 
 const SECURITY_RULES = {
   ".gitignore exists": { id: "SEC-001", reference: "#secrets-and-workloads" },
@@ -2645,7 +2653,7 @@ function generateSecurityLog(results) {
   lines.push(`Issues:          ${results.totalIssues}`);
   lines.push(`Warnings:        ${results.totalWarnings}`);
   lines.push("");
-  lines.push("Based on: Security-Master.md + application-security/SKILL.md (yeknal security guidelines)");
+  lines.push("Based on: Security-Master.md + skills/yeknal-application-security/SKILL.md (yeknal security guidelines)");
   lines.push(`Reference: ${SECURITY_MASTER_URL}`);
   lines.push("");
 
@@ -2838,7 +2846,7 @@ async function syncSecuritySkills(targets) {
       try {
         await execCommand(`git clone --depth 1 --branch ${BRANCH} ${cloneUrl} "${repoPath}"`);
         for (const folder of SECURITY_REPO_FOLDERS) {
-          const src = path.join(repoPath, folder);
+          const src = path.join(repoPath, SKILLS_DIR, getManagedSkillFolderName(folder));
           if (await isDirectory(src)) {
             await copyDirRecursive(src, path.join(tempRoot, folder));
           }
@@ -2848,9 +2856,10 @@ async function syncSecuritySkills(targets) {
       }
     } else {
       for (const folder of SECURITY_REPO_FOLDERS) {
+        const prefix = repoSkillPrefix(folder);
         const files = listFilesForFolder(repoTree, folder);
         for (const repoPath of files) {
-          const relativePath = repoPath.slice(folder.length + 1);
+          const relativePath = repoPath.slice(prefix.length);
           const destPath = path.join(tempRoot, folder, relativePath);
           await downloadUrlToFile(buildRawFileUrl(repoPath), destPath);
         }
@@ -2894,7 +2903,7 @@ async function runSecurityCommand() {
   console.log("  ===============\n");
 
   // Step 1: Download Security-Master.md to current directory
-  const masterUrl = `${RAW_BASE_URL}/application-security/Security-Master.md`;
+  const masterUrl = `${RAW_BASE_URL}/${SKILLS_DIR}/${getManagedSkillFolderName("application-security")}/Security-Master.md`;
   const masterDest = path.join(projectDir, "Security-Master.md");
   console.log("  Downloading Security-Master.md...");
   try {
