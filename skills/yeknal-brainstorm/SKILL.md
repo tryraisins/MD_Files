@@ -5,45 +5,43 @@ description: Generate and compare alternatives before implementation. Use for br
 
 # Brainstorm
 
-## Usage
+Explore several genuinely different options before committing to implementation.
+
+## Invocation
+
 ```
 /brainstorm [topic] [--format json|markdown|mindmap] [--depth shallow|deep|comprehensive] [--export <path>]
 ```
 
-## Auto-Persona Activation
-- **Mentor**: Educational guidance and knowledge transfer
-- **Architect**: Systems thinking and scalable solutions
-- **Analyzer**: Evidence-based investigation and pattern recognition
-
-## Tool integration
-
-- Use repository search and current primary sources when facts or constraints need verification.
-- Use structured comparison only when it materially clarifies tradeoffs; do not invent unavailable tools or agents.
-
 ## Arguments
-- `[topic]` - Subject or problem to brainstorm about
-- `--format` - Output format (json, markdown, mindmap)
-- `--depth` - Analysis depth level
-  - `shallow`: Quick ideas and initial concepts
-  - `deep`: Detailed analysis with pros/cons
-  - `comprehensive`: Full analysis with implementation roadmap
-- `--export <path>` - Save results to specified file
+
+- `[topic]` - the subject or problem to explore.
+- `--format` - output shape: `json`, `markdown`, or `mindmap`.
+- `--depth` - how far to push:
+  - `shallow`: quick divergent ideas.
+  - `deep`: detailed analysis with pros and cons.
+  - `comprehensive`: full analysis plus an implementation roadmap.
+- `--export <path>` - write the result to a file.
+
+## Method
+
+1. Restate the problem and the constraints that actually bound it.
+2. Generate options from distinct angles; avoid variations of one idea.
+3. Compare them on effort, impact, risk, and reversibility. Verify facts against repository search or primary sources instead of guessing.
+4. Recommend a direction and name the tradeoff it accepts.
 
 ## Examples
+
 ```bash
-# Quick brainstorm on user experience
 /brainstorm "improving user onboarding" --depth shallow
-
-# Comprehensive analysis with export
 /brainstorm "microservices architecture" --depth comprehensive --export ./brainstorm-results.md
-
-# Technical solution exploration
 /brainstorm "performance optimization strategies" --format json --depth deep
 ```
 
-## Output Structure
-- **Problem Analysis**: Current situation and challenges
-- **Idea Categories**: Organized solution concepts
-- **Implementation Approaches**: Practical next steps
-- **Risk Assessment**: Potential challenges and mitigation
-- **Priority Matrix**: Ranked recommendations with effort/impact analysis
+## Output
+
+- Problem analysis: current state and constraints.
+- Idea categories: distinct solution concepts.
+- Implementation approaches: practical next steps.
+- Risk assessment: likely problems and how to mitigate them.
+- Priority matrix: ranked recommendations by effort and impact.

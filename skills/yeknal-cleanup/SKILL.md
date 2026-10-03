@@ -5,34 +5,34 @@ description: Remove confirmed dead code, stale dependencies, or redundant config
 
 # Cleanup
 
-# /cleanup - Code and Project Cleanup
+Remove what is provably unused and leave everything still in use intact.
 
-## Purpose
-Systematically clean up code, remove dead code, optimize imports, and improve project structure.
+## Invocation
 
-## Usage
 ```
 /cleanup [target] [--type code|imports|files|all] [--safe|--aggressive]
 ```
 
 ## Arguments
-- `target` - Files, directories, or entire project to clean
-- `--type` - Cleanup type (code, imports, files, all)
-- `--safe` - Conservative cleanup (default)
-- `--aggressive` - More thorough cleanup with higher risk
-- `--dry-run` - Preview changes without applying them
+
+- `target` - files, directories, or the whole project.
+- `--type` - what to clean: `code`, `imports`, `files`, or `all`.
+- `--safe` - conservative cleanup (default).
+- `--aggressive` - broader cleanup with more risk.
+- `--dry-run` - show the plan without changing anything.
 
 ## Execution
-1. Analyze target for cleanup opportunities
-2. Identify dead code, unused imports, and redundant files
-3. Create cleanup plan with risk assessment
-4. Execute cleanup operations with appropriate safety measures
-5. Validate changes and report cleanup results
+
+1. Analyze the target for cleanup candidates.
+2. Find dead code, unused imports, and redundant files.
+3. Produce a cleanup plan with a risk note for each item.
+4. Apply only what the chosen mode allows.
+5. Validate and report what changed.
 
 ## Evidence and safety
 
-- Search the complete in-scope call graph and configuration before declaring code or files unused.
+- Before calling anything unused, search the whole in-scope call graph and configuration.
 - Treat dynamic imports, reflection, generated entry points, framework conventions, deployment manifests, and external consumers as possible references.
-- Prefer a dry run or an explicit candidate list for material deletion.
-- Preserve unrelated working-tree changes and use the repository's tests, type checks, build, and `git diff --check` after cleanup.
-- State what was removed and whether recovery is possible.
+- Prefer a dry run or an explicit candidate list before material deletion.
+- Preserve unrelated working-tree changes; after cleanup run the repository's tests, type checks, build, and `git diff --check`.
+- State what was removed and whether it can be recovered.

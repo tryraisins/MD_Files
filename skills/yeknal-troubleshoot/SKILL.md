@@ -5,32 +5,32 @@ description: Diagnose code, build, performance, deployment, or system failures f
 
 # Troubleshoot
 
-Issue Diagnosis and Resolution
+Find the real cause from reproducible evidence, then fix only what the user asked to fix.
 
-## Purpose
-Systematically diagnose and resolve issues in code, builds, deployments, or system behavior.
+## Invocation
 
-## Usage
 ```
 /troubleshoot [issue] [--type bug|build|performance|deployment] [--trace] [--fix]
 ```
 
 ## Arguments
-- `issue` - Description of the problem or error message
-- `--type` - Issue category (bug, build, performance, deployment)
-- `--trace` - Enable detailed tracing and logging
-- `--fix` - Automatically apply fixes when safe
+
+- `issue` - the problem or error message.
+- `--type` - category: `bug`, `build`, `performance`, or `deployment`.
+- `--trace` - add detailed tracing and logging.
+- `--fix` - apply safe fixes automatically.
 
 ## Execution
-1. Analyze issue description and gather initial context
-2. Identify potential root causes and investigation paths
-3. Execute systematic debugging and diagnosis
-4. Propose and validate solution approaches
-5. Apply fixes and verify resolution
+
+1. Read the issue and gather initial context.
+2. List candidate root causes and the investigation path for each.
+3. Debug systematically against the reproduction.
+4. Propose a fix and validate it.
+5. Apply the fix and confirm the resolution.
 
 ## Evidence rules
 
-- Reproduce or obtain the exact error, inputs, environment, and boundary where it occurs.
+- Reproduce, or obtain the exact error, inputs, environment, and boundary where it occurs.
 - Separate correlation from root cause and test the cheapest discriminating hypothesis first.
 - Do not change code during a diagnosis-only request.
 - When a fix is requested, keep it scoped and rerun the reproduction plus relevant regression checks.

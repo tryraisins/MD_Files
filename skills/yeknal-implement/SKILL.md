@@ -9,39 +9,39 @@ Turn a requested behavior into the smallest complete, verified repository change
 
 ## Precedence
 
-1. The user's explicit requirements and approved design or specification.
+1. The user's explicit requirements and any approved design or specification.
 2. Repository instructions, architecture, package manager, versions, and existing patterns.
 3. A narrow specialist skill for the affected domain or command.
-4. Shared baselines such as `ui-quality-baseline`, `application-security`, and `markdown-management`.
-5. This generic implementation workflow.
+4. Shared baselines such as `yeknal-ui-quality-baseline`, `yeknal-application-security`, and `yeknal-markdown-management`.
+5. This generic workflow.
 
-Do not invent unavailable tools, agents, packages, or integrations. Inspect what is actually installed before relying on it.
+Do not invent tools, agents, packages, or integrations. Inspect what is actually installed before relying on it.
 
 ## Workflow
 
 1. Read the relevant source, tests, configuration, documentation, and working-tree state.
 2. Trace the existing end-to-end path: input, state, data flow, authorization, validation, side effects, errors, and rendered output.
-3. State the smallest change that satisfies the request and identify proof that must come from a browser, tenant, database, provider, or deployment.
-4. Implement the complete path. Preserve unrelated behavior and user changes.
-5. Strongly prefer end-to-end (E2E) tests as the sole testing mechanism, especially for complex behavior. Never write unit tests after writing the code they cover; if a unit test is genuinely necessary, write it before the implementation. If isolated testing is necessary, document concrete failure modes before writing the test or harness code. Produce a repeatable, verifiable artifact at the end of each E2E run. Apply `testing-strategy` when available.
-6. For substantial ongoing projects, read or update the repository-root `HANDOFF.md` when continuity would help. Use `project-handoff` when available; do not create one for trivial or disposable tasks.
-7. Update other Markdown when commands, configuration, behavior, setup, failure modes, or proof boundaries changed. Use `markdown-management` for substantial documentation work.
+3. State the smallest change that satisfies the request and name the proof that must come from a browser, tenant, database, provider, or deployment.
+4. Implement the full path. Preserve unrelated behavior and user changes.
+5. Prefer end-to-end (E2E) tests as the sole mechanism, especially for complex behavior. Never write a unit test after the code it covers; if one is genuinely needed, write it before the implementation. If isolated testing is necessary, document concrete failure modes before writing the test or harness. End each E2E run with a repeatable, verifiable artifact. Apply `yeknal-testing-strategy` when available.
+6. For substantial ongoing projects, read or update the repository-root `HANDOFF.md` when continuity helps. Use `yeknal-project-handoff` when available; skip it for trivial or disposable tasks.
+7. Update other Markdown when commands, configuration, behavior, setup, failure modes, or proof boundaries change. Use `yeknal-markdown-management` for substantial documentation work.
 8. Run the narrowest relevant tests, type checks, lint, build, security checks, and `git diff --check`.
 9. Report the outcome, changed files, evidence, and any unverified external boundary.
 
 ## Separate judgment from repeatable work
 
-Use reasoning for ambiguous requirements, product trade-offs, and design decisions. For a repeatable question with one correct result—calculations, date or time-zone conversion, parsing, structured transforms, comparisons, generation from a stable contract, or exact repository checks—prefer a small script, focused test, or existing project tool over manual reasoning.
+Use reasoning for ambiguous requirements, product tradeoffs, and design decisions. For a repeatable question with one correct result - calculations, date or timezone conversion, parsing, structured transforms, comparisons, generation from a stable contract, or exact repository checks - prefer a small script, focused test, or existing project tool over manual reasoning.
 
-Add deterministic automation when the operation is repeated, regression-prone, safety-critical, or directly supports an acceptance claim. Keep it scoped to the real contract, execute it as part of validation, and do not create a framework or permanent helper for a one-off that is clearer to perform directly.
+Add deterministic automation when an operation is repeated, regression-prone, safety-critical, or directly supports an acceptance claim. Keep it scoped to the real contract, run it as part of validation, and do not build a framework or permanent helper for a one-off that is clearer done directly.
 
 ## Domain routing
 
-- Visible UI: apply `ui-quality-baseline`; use the most specific design skill that matches the requested aesthetic.
+- Visible UI: apply `yeknal-ui-quality-baseline`; use the most specific design skill for the requested aesthetic.
 - Framework or language work: use the relevant frontend, backend, Next.js, TypeScript, Python, Rust, SQL, mobile, or other specialist.
-- Authentication, authorization, untrusted input, secrets, dependencies, or agent/tool boundaries: apply `application-security` and the appropriate security review skill.
-- Deployment or provider configuration: use the provider-specific skill and distinguish local validation from live deployment proof.
-- Motion: use ordinary CSS or a project dependency for interface transitions; use `oil-motion` only for deliberate frame-based interactive media.
+- Authentication, authorization, untrusted input, secrets, dependencies, or agent/tool boundaries: apply `yeknal-application-security` and the appropriate security review skill.
+- Deployment or provider configuration: use the provider-specific skill and separate local validation from live deployment proof.
+- Motion: use ordinary CSS or a project dependency for interface transitions; use `yeknal-oil-motion` only for deliberate frame-based interactive media.
 
 ## UI states
 
@@ -58,6 +58,6 @@ Never add a loading or animation package by default.
 
 - Do not replace a working path with placeholders, mock data, redirects, or cosmetic approximations.
 - Do not change data contracts, dependencies, authentication, storage, or deployment behavior silently.
-- Do not claim that static analysis proves runtime, browser, tenant, database, payment, or production behavior.
-- Do not estimate completion time unless the user asks for an estimate.
+- Do not claim static analysis proves runtime, browser, tenant, database, payment, or production behavior.
+- Do not estimate completion time unless the user asks.
 - Do not commit or push unless the user requested it.

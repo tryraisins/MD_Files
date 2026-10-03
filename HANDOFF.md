@@ -16,10 +16,11 @@ Publish the Yeknal catalog on skills.sh under unique `yeknal-*` slugs (Route 1),
 - C7 rewrite tooling complete: `tools/skill-inventory.js`, `tools/parity.js` (capture/check/check-all), `tools/rewrite-standard.md`; 86 baselines captured in `rewrite-parity/baselines/`.
 - C8 pilot complete: `yeknal-skill-router`, `yeknal-frontend-design`, `yeknal-security-threat-model` rewritten; all pass `tools/parity.js` and `skills-ref validate`; `audit-skills.ps1` 0 errors/0 warnings; link audit 0 unresolved.
 - Side task: all 52 published skills installed via telemetry to fill the repo page (page listing still cached at time of writing).
+- C9 in progress: 15 of 86 skills rewritten (3 pilots + 12 process/routing originals); each passes `tools/parity.js` and `skills-ref validate`.
 
 ## Current Task
 
-Awaiting sign-off on the pilot voice/structure and the parity standard before batching the remaining 83 rewrites (C9). Then attribution (C10).
+Continue C9: rewrite the remaining 71 skills (length-neutral, originality/clarity) under the parity gate, then C10 attribution.
 
 ## Relevant Files
 
@@ -79,7 +80,7 @@ Current results: 86/86 valid; parity PASS for the 3 pilots; audit-skills 0/0; li
 
 ## Next Actions
 
-1. Get pilot sign-off, then batch-rewrite the remaining 83 (C9) with `tools/parity.js check <skill>` after each.
+1. Continue C9: rewrite the remaining 71 skills, running `tools/parity.js check <skill>` after each.
 2. C10: add MIT notices + `metadata.source` for the derivatives in `PROVENANCE.md`; add README + npm README Credits sections.
 3. Commit the B6/C7/C8 batch (needs approval).
 4. Re-check skills.sh repo page + search index; confirm no `isDuplicate` once indexed.
