@@ -1,0 +1,25 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Content and SEO",
+    "Workflow",
+    "Rules",
+    "Metadata review"
+  ],
+  "backticks": [
+    "200",
+    "202"
+  ],
+  "links": [
+    "references/indexnow.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "references/indexnow.md"
+  ]
+}

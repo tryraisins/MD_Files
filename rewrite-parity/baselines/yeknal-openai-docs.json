@@ -1,0 +1,42 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "OpenAI Docs",
+    "Quick start",
+    "OpenAI product snapshots",
+    "If the documentation tool is missing",
+    "Workflow",
+    "Reference map",
+    "Quality rules",
+    "Tooling notes"
+  ],
+  "backticks": [
+    "mcp__openaiDeveloperDocs__search_openai_docs",
+    "mcp__openaiDeveloperDocs__fetch_openai_doc",
+    "mcp__openaiDeveloperDocs__list_openai_docs",
+    "references/",
+    "references/latest-model.md",
+    "references/upgrading-to-gpt-5p4.md",
+    "references/gpt-5p4-prompting-guide.md",
+    "anchor",
+    "developers.openai.com",
+    "platform.openai.com",
+    "learn.chatgpt.com"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/openai-small.svg",
+    "assets/openai.png",
+    "references/gpt-5p4-prompting-guide.md",
+    "references/latest-model.md",
+    "references/upgrading-to-gpt-5p4.md"
+  ]
+}

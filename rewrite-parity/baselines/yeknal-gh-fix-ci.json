@@ -1,0 +1,47 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Gh Pr Checks Plan Fix",
+    "Overview",
+    "Inputs",
+    "Quick start",
+    "Workflow",
+    "Bundled Resources",
+    "scripts/inspect_pr_checks.py"
+  ],
+  "backticks": [
+    "gh",
+    "create-plan",
+    "gh auth login",
+    "gh auth status",
+    "repo",
+    ".",
+    "pr",
+    "python \"<path-to-skill>/scripts/inspect_pr_checks.py\" --repo \".\" --pr \"<number-or-url>\"",
+    "--json",
+    "gh pr view --json number,url",
+    "gh pr checks <pr> --json name,state,bucket,link,startedAt,completedAt,workflow",
+    "detailsUrl",
+    "gh run view <run_id> --json name,workflowName,conclusion,status,url,event,headBranch,headSha",
+    "gh run view <run_id> --log",
+    "gh api \"/repos/<owner>/<repo>/actions/jobs/<job_id>/logs\" > \"<path>\"",
+    "gh pr checks",
+    "python \"<path-to-skill>/scripts/inspect_pr_checks.py\" --repo \".\" --pr \"123\"",
+    "python \"<path-to-skill>/scripts/inspect_pr_checks.py\" --repo \".\" --pr \"https://github.com/org/repo/pull/123\" --json",
+    "python \"<path-to-skill>/scripts/inspect_pr_checks.py\" --repo \".\" --max-lines 200 --context 40"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/github-small.svg",
+    "assets/github.png",
+    "scripts/inspect_pr_checks.py"
+  ]
+}

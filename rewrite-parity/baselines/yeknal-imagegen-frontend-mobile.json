@@ -1,0 +1,55 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "CORE DIRECTIVE: PREMIUM MOBILE APP IMAGE DIRECTION",
+    "Automatic UI Quality Contract",
+    "AI-NATIVE MOBILE FLOW DEFAULT",
+    "1. ACTIVE BASELINE CONFIGURATION",
+    "2. PLATFORM MODE RULE",
+    "iOS-native premium",
+    "Android-native premium",
+    "Cross-platform premium neutral",
+    "3. MANDATORY SCREEN-FIRST RULE",
+    "4. GENERATE ENOUGH SCREENS RULE",
+    "5. DO NOT CROP OLD IMAGES RULE",
+    "6. APP DESIGN BIBLE RULE",
+    "7. MULTI-SCREEN CONSISTENCY RULE",
+    "Detailed mobile art-direction reference"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "design-reference-research",
+    "@",
+    "/",
+    "(1 = rigid / standard, 10 = highly art-directed / varied)",
+    "(1 = airy / calm, 10 = dense / packed)",
+    "(1 = safe utility UI, 10 = bold premium mobile statement)",
+    "(1 = generic phone UI, 10 = strongly app-native)",
+    "(1 = repeated screen templates, 10 = clearly differentiated screen rhythm)",
+    "(1 = minimal screens, 10 = generate as many screens and detail views as needed)",
+    "(1 = tight, 10 = spacious and breathable)",
+    "(1 = loose vibe, 10 = highly readable, structured, and clean)",
+    "(1 = minimal image involvement, 10 = strongly art-directed imagery and creative visual treatments)",
+    "(1 = perfectly flat, 10 = rich tactile/noisy/textured surfaces)",
+    "(1 = random or muddy color use, 10 = always clean, controlled, premium palette logic)",
+    "(1 = acceptable to look standard, 10 = must feel distinct and specific)",
+    "(1 = forced minimalism only, 10 = allowed to be richer and more layered as long as it stays clean)",
+    "(1 = loose screen relationship, 10 = one clear product system across all images)",
+    "(1 = random screen set, 10 = clearly logical app progression)",
+    "(1 = sloppy device presentation, 10 = clean, even, premium device framing)",
+    "(1 = text may become decorative/small, 10 = text must stay clearly readable)",
+    "(1 = device frame dominates, 10 = device frame supports the screen but content remains the hero)",
+    "(1 = small text acceptable, 10 = text must never feel too small at normal viewing size)"
+  ],
+  "links": [
+    "references/mobile-art-direction-system.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "references/mobile-art-direction-system.md"
+  ]
+}

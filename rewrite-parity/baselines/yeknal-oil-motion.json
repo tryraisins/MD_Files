@@ -1,0 +1,44 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "license",
+    "compatibility",
+    "metadata"
+  ],
+  "headings": [
+    "Oil Motion",
+    "Gate the technique",
+    "Concept contract",
+    "Pipeline",
+    "1. Lock key frames",
+    "2. Run a pilot",
+    "3. Process deterministically",
+    "4. Connect the controller",
+    "5. Build loading and fallback states",
+    "Verification",
+    "Deliverables",
+    "Sources and local adaptation"
+  ],
+  "backticks": [
+    "animate",
+    "review-animations",
+    "ui-quality-baseline",
+    "Purpose",
+    "Subject invariants",
+    "Key states",
+    "Input",
+    "Parameter space",
+    "Playback",
+    "Background ownership",
+    "Display budget",
+    "Accessibility",
+    "prefers-reduced-motion"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "LICENSE.txt"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Troubleshoot",
+    "Purpose",
+    "Usage",
+    "Arguments",
+    "Execution",
+    "Evidence rules"
+  ],
+  "backticks": [
+    "issue",
+    "--type",
+    "--trace",
+    "--fix"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 2,
+  "resources": []
+}

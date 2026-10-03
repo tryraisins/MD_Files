@@ -1,0 +1,46 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "CORE DIRECTIVE: IMAGE-FIRST WEBSITE DESIGN TO CODE",
+    "Automatic UI Quality Contract",
+    "Loading-State Implementation Default",
+    "1. ACTIVE BASELINE CONFIGURATION",
+    "2. REFERENCE-FIRST RULE",
+    "3. GENERATE ENOUGH IMAGES RULE",
+    "4. CODEX-SPECIFIC SECTION IMAGE RULE",
+    "5. DO NOT CROP OLD IMAGES RULE",
+    "6. FRESH RE-GENERATION RULE",
+    "7. OPTIONAL DETAIL / EXTRACTION IMAGE RULE",
+    "8. CLEAN ANALYSIS STANDARD",
+    "9. DEEP IMAGE ANALYSIS REQUIREMENT",
+    "9A. AI-NATIVE PRODUCT REFERENCE EXTRACTION",
+    "Detailed implementation and extraction reference"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "thinking-orbs",
+    "design-reference-research",
+    "(1 = rigid / conventional, 10 = highly art-directed / asymmetric)",
+    "(1 = airy / calm, 10 = dense / packed)",
+    "(1 = safe commercial, 10 = bold creative statement)",
+    "(1 = loose moodboard, 10 = highly buildable UI reference)",
+    "(1 = mostly typographic, 10 = strongly image-led when appropriate)",
+    "(1 = compact / tight, 10 = spacious / breathable)",
+    "(1 = broad vibe only, 10 = deep extraction of design details)",
+    "(1 = minimal image count, 10 = generate as many images as needed for excellent extraction)",
+    "(1 = willing to add many micro-elements, 10 = aggressively reduce clutter and unnecessary UI chrome)",
+    "@",
+    "/"
+  ],
+  "links": [
+    "references/implementation-and-extraction.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "references/implementation-and-extraction.md"
+  ]
+}

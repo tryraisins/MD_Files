@@ -1,0 +1,35 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Stitch design specification",
+    "Establish authority and scope",
+    "Define the product-specific system",
+    "Direction",
+    "Tokens",
+    "Components and content",
+    "Complete screen and flow anatomy",
+    "Responsive transformation",
+    "Motion intent",
+    "Required DESIGN.md structure",
+    "Quality gate"
+  ],
+  "backticks": [
+    "DESIGN.md",
+    "ui-quality-baseline",
+    "design-reference-research",
+    "design-reference-research/references/responsive-matrix.md"
+  ],
+  "links": [
+    "DESIGN.md"
+  ],
+  "thresholds": [
+    "60fps"
+  ],
+  "codeFences": 0,
+  "resources": [
+    "DESIGN.md"
+  ]
+}

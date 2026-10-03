@@ -1,0 +1,35 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "UI/UX Designer",
+    "Automatic UI Quality Contract",
+    "Core Responsibilities",
+    "Philosophy: Simple UX, Beautiful UI",
+    "Visual Design Standards",
+    "Typography",
+    "Color",
+    "Motion",
+    "Loading Feedback",
+    "Design-system craft",
+    "AI-native interaction system",
+    "Cursor",
+    "Backgrounds and depth",
+    "Navigation",
+    "Light / Dark Mode",
+    "Icons",
+    "What to Reject"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "design-reference-research",
+    "human-ai-interface-design",
+    "thinking-orbs"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

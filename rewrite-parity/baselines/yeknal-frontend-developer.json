@@ -1,0 +1,40 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Frontend Developer",
+    "Automatic UI Quality Contract",
+    "Engineering Responsibilities",
+    "Frontend Aesthetics — Non-Negotiable",
+    "Philosophy: Simple UX, Beautiful UI",
+    "Styling-system discipline",
+    "Typography",
+    "Color & Theme",
+    "Motion",
+    "Loading States (React)",
+    "AI-native product components",
+    "Backgrounds and depth",
+    "Cursor",
+    "Icons",
+    "Navigation implementation",
+    "Light / Dark Mode",
+    "What to Avoid"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "design-reference-research",
+    "human-ai-interface-design",
+    "animate",
+    "thinking-orbs",
+    "aria-busy",
+    "cursor-pointer",
+    "dark",
+    "localStorage"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

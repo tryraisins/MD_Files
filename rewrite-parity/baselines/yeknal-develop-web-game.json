@@ -1,0 +1,57 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Develop Web Game",
+    "Skill paths (set once)",
+    "Workflow",
+    "Test Checklist",
+    "Test Artifacts to Review",
+    "Core Game Guidelines",
+    "Canvas + Layout",
+    "Visuals",
+    "Text State Output (render_game_to_text)",
+    "Time Stepping Hook",
+    "Fullscreen Toggle",
+    "Progress Tracking",
+    "Playwright Prerequisites",
+    "Scripts",
+    "References"
+  ],
+  "backticks": [
+    "$CODEX_HOME/skills",
+    "~/.codex/skills",
+    "window.render_game_to_text",
+    "window.advanceTime(ms)",
+    "progress.md",
+    "Original prompt:",
+    "Original prompt: <prompt>",
+    "playwright",
+    "npx",
+    "$WEB_GAME_CLIENT",
+    "$WEB_GAME_ACTIONS",
+    "render_game_to_text",
+    "f",
+    "Esc",
+    "@playwright/test",
+    "$CODEX_HOME/skills/develop-web-game/scripts/web_game_playwright_client.js",
+    "--actions-file",
+    "--actions-json",
+    "--click",
+    "$CODEX_HOME/skills/develop-web-game/references/action_payloads.json"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 10,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/game-small.svg",
+    "assets/game.png",
+    "references/action_payloads.json",
+    "scripts/web_game_playwright_client.js"
+  ]
+}

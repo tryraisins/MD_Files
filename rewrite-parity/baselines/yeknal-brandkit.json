@@ -1,0 +1,32 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "BRANDKIT IMAGE GENERATION SKILL",
+    "REFERENCE STYLE DNA",
+    "CORE PRINCIPLE",
+    "DEFAULT OUTPUT",
+    "BRAND STRATEGY FIRST",
+    "LOGO GENERATION STANDARD",
+    "Detailed brand-system reference"
+  ],
+  "backticks": [
+    "3 × 3",
+    "4:3",
+    "16:10",
+    "2 × 3",
+    "2 × 2",
+    "1 × 3",
+    "4 × 2"
+  ],
+  "links": [
+    "references/brand-system-and-prompts.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "references/brand-system-and-prompts.md"
+  ]
+}

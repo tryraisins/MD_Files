@@ -1,0 +1,53 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Application Security",
+    "Start with scope and evidence",
+    "Non-negotiable invariants",
+    "Credential safety",
+    "Authentication and sessions",
+    "APIs and business logic",
+    "Browser and frontend",
+    "Data, files, and infrastructure",
+    "Supply chain and build integrity",
+    "AI and agentic systems",
+    "Audit method",
+    "Report contract"
+  ],
+  "backticks": [
+    "security-best-practices",
+    "security-threat-model",
+    "security-ownership-map",
+    ".gitignore",
+    "Secure",
+    "HttpOnly",
+    "SameSite=Lax",
+    "Strict",
+    "None",
+    "429",
+    "frame-ancestors",
+    "X-Frame-Options",
+    "X-Content-Type-Options: nosniff",
+    "Referrer-Policy",
+    "Permissions-Policy",
+    "includeSubDomains",
+    "preload",
+    "X-XSS-Protection: 1; mode=block",
+    "0",
+    "npm ci",
+    "pnpm --frozen-lockfile",
+    "yarn --immutable"
+  ],
+  "links": [
+    "Security-Master.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "Security-Master.md"
+  ]
+}

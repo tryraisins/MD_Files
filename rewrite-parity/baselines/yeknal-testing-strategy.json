@@ -1,0 +1,17 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Testing Strategy",
+    "Default approach",
+    "Testing a system in isolation",
+    "Workflow"
+  ],
+  "backticks": [],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

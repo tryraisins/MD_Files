@@ -1,0 +1,38 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Picking The Right Library",
+    "Automatic UI Quality Contract",
+    "How to use this",
+    "The list",
+    "UI components & primitives",
+    "Motion & visuals",
+    "Icons and loading feedback",
+    "Charts",
+    "Interaction & performance",
+    "State & styling",
+    "Common mismatches to catch"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "package.json",
+    "components.json",
+    "oil-motion",
+    "npx",
+    "swamimalode07/rare-ui",
+    "fffe96db7b67b44243bf35815916fdfc58fe5014",
+    "thinking-orbs",
+    "className",
+    "<div>",
+    "react-loading-skeleton",
+    "useState"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 2,
+  "resources": []
+}

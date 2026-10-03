@@ -1,0 +1,63 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Improving Animations",
+    "UI baseline integration",
+    "Operating Posture",
+    "Hard Rules",
+    "Workflow",
+    "Phase 1 — Recon (always first)",
+    "Phase 2 — Audit (parallel)",
+    "Phase 3 — Vet, prioritize, confirm",
+    "Phase 4 — Write plans",
+    "Invocation Variants",
+    "Tone"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "review-animations",
+    "ease-in",
+    "plans/",
+    "animation-plans/",
+    "improve-animations execute <plan>",
+    "--ease-*",
+    "--duration-*",
+    "transition",
+    "animate",
+    "animation",
+    "@keyframes",
+    "motion.",
+    "animate={",
+    "useSpring",
+    "transition: all",
+    "scale(0)",
+    "prefers-reduced-motion",
+    "transform-origin",
+    "standard",
+    "quick",
+    "deep",
+    "transform-origin: center",
+    "NNN-short-slug.md",
+    "git rev-parse --short HEAD",
+    "plans/README.md",
+    "performance",
+    "accessibility",
+    "easing",
+    "plan <description>",
+    "execute <plan>",
+    "reconcile"
+  ],
+  "links": [
+    "AUDIT.md",
+    "PLAN-TEMPLATE.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "AUDIT.md",
+    "PLAN-TEMPLATE.md"
+  ]
+}

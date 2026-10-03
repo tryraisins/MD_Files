@@ -1,0 +1,44 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Review — Comprehensive Code Review",
+    "Purpose",
+    "Usage",
+    "Auto-Persona Activation",
+    "Tool integration",
+    "Arguments",
+    "Review Categories",
+    "Security Review",
+    "Performance Review",
+    "Quality Review",
+    "Refactoring and dead-code review",
+    "Language simplification review",
+    "Architecture Review",
+    "Examples",
+    "Security-focused review",
+    "Performance analysis with metrics",
+    "Comprehensive quality review",
+    "Full system architecture review",
+    "Output Includes"
+  ],
+  "backticks": [
+    "[target]",
+    "--focus",
+    "security",
+    "performance",
+    "quality",
+    "architecture",
+    "--format",
+    "report",
+    "checklist",
+    "metrics",
+    "--export <path>"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 4,
+  "resources": []
+}

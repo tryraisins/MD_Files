@@ -2,98 +2,89 @@
 
 Last updated: 2026-10-03
 Branch: main
-HEAD: e3a1561 (working tree has the uncommitted Route 1 migration)
+HEAD: 3036a3f (Route 1 migration pushed; working tree holds B6/C7/C8 pilot changes, uncommitted)
 
 ## Current Objective
 
-Publish the Yeknal skills catalog on skills.sh under unique `yeknal-*` slugs (Route 1: canonical `skills/yeknal-<base>/`), starting with 52 published skills and 34 hidden, then re-author all 86 skills as original, more efficient works with full upstream credit, preserving every current capability and reference.
+Publish the Yeknal catalog on skills.sh under unique `yeknal-*` slugs (Route 1), then re-author all 86 skills as original, more efficient works with full upstream credit, preserving every capability and reference.
 
 ## Current State
 
-- Pre-flight passed: `skills-ref validate` accepts boolean `metadata.internal: true`, and the `skills` CLI hides `internal` skills by default (shows them with `INSTALL_SKILLS`/`INSTALL_INTERNAL_SKILLS=1`).
-- All 86 skill folders moved `git mv <base>/` -> `skills/yeknal-<base>/`; each frontmatter `name:` rewritten to `yeknal-<base>`; 34 held-back skills tagged `metadata.internal: true`.
-- Published set = `core` (28) ∪ `design` (24) = 52. Hidden = 34.
-- All 86 validate with `skills-ref validate` (use `PYTHONUTF8=1` on Windows; local Python defaults to cp1252).
-- `yeknal` CLI repointed: discovery/download now read `skills/yeknal-<base>/`; internal identifiers stay base-named so `--skills frontend-design`, `profiles.json`, and flags are unchanged. All 22 CLI tests pass.
-- Docs normalized to `yeknal-*` names (README, AGENTS.md, SKILL_AUDIT.md, yeknal-cli/README.md backticks; llms.txt line prefixes; evaluations/skill-routing.json). Markdown link audit: 0 unresolved across 574 files.
-- `skills.sh.json` created (4 groupings, all 52 slugs). README has the skills.sh badge + install section.
+- Phase A complete and pushed (`3036a3f`): all 86 skills under `skills/yeknal-<base>/`, frontmatter names prefixed, 34 held-back skills `metadata.internal: true`, published set = core ∪ design = 52. `skills-ref validate` 86/86; CLI tests 22/22; `npx skills add tryraisins/MD_Files --list` finds exactly 52 with zero non-prefixed.
+- skills.sh probe (B5): repo page `https://www.skills.sh/tryraisins/md_files` exists and lists installed skills; snapshot endpoint returns `yeknal-frontend-design` files; **no duplicate/fork markers** on the adapted skill. Search index for `tryraisins` still lags (count 0), consistent with known ingestion lag (vercel-labs/skills issue #1242).
+- B6 provenance audit complete: `PROVENANCE.md` records explicit sources, bundled notices, the MIT derivative set missing notices (leonxlnx/taste-skill, emilkowalski, ibelick/ui-skills), and Rare UI attribution.
+- C7 rewrite tooling complete: `tools/skill-inventory.js`, `tools/parity.js` (capture/check/check-all), `tools/rewrite-standard.md`; 86 baselines captured in `rewrite-parity/baselines/`.
+- C8 pilot complete: `yeknal-skill-router`, `yeknal-frontend-design`, `yeknal-security-threat-model` rewritten; all pass `tools/parity.js` and `skills-ref validate`; `audit-skills.ps1` 0 errors/0 warnings; link audit 0 unresolved.
+- Side task: all 52 published skills installed via telemetry to fill the repo page (page listing still cached at time of writing).
 
 ## Current Task
 
-Phase A4 is essentially complete but uncommitted. Next: commit/push (user decision), then run the skills.sh duplicate probe (Phase B5), then the provenance/license audit (B6), then the capability-preserving rewrite program (C7-C10: pilot 3, then batch 83).
+Awaiting sign-off on the pilot voice/structure and the parity standard before batching the remaining 83 rewrites (C9). Then attribution (C10).
 
 ## Relevant Files
 
-- `skills/yeknal-<base>/SKILL.md` - canonical skill locations (86).
-- `yeknal-cli/bin/yeknal.js` - discovery/paths repointed to `skills/`; `SKILLS_DIR`, `toSkillBaseName`, `repoSkillPrefix`.
-- `yeknal-cli/test/yeknal.test.js` - updated for `skills/` layout.
-- `yeknal-cli/profiles.json` - unchanged (base names); published = core ∪ design.
-- `.github/workflows/validate.yml` - validates `skills/*`; audit script paths under `skills/yeknal-markdown-management/scripts/`.
-- `skills/yeknal-markdown-management/scripts/*.ps1` - `audit-skills` and `validate-routing-evals` now scan `skills/` (and accept base or `yeknal-` names).
-- `skills.sh.json`, `README.md`, `AGENTS.md`, `SKILL_AUDIT.md`, `llms.txt`, `evaluations/skill-routing.json`.
-- Migration/report artifacts live outside the repo: `C:\Users\nubiaville\Desktop\Projects 2026\yeknal-skills-mapping.json` (base -> prefixed -> hidden).
+- `skills/yeknal-<base>/SKILL.md` - canonical skills.
+- `skills.sh.json` - repo-page groupings (52 slugs).
+- `PROVENANCE.md` - provenance/license ledger.
+- `tools/skill-inventory.js`, `tools/parity.js`, `tools/rewrite-standard.md` - rewrite gate.
+- `rewrite-parity/baselines/<skill>.json` - pre-rewrite capability inventories (86).
+- `rewrite-parity/<skill>.md` - parity reports.
+- `yeknal-cli/bin/yeknal.js`, `yeknal-cli/test/yeknal.test.js`, `.github/workflows/validate.yml` - repointed for `skills/`.
+- `HANDOFF.md` (this file).
 
 ## Recent Changes
 
-- Migrated all 86 skills into `skills/yeknal-<base>/`; prefixed names; tagged 34 internal.
-- Repointed the yeknal CLI and its tests (22 pass).
-- Updated CI, audit scripts, docs, dataset, and added `skills.sh.json` + README badge/section.
+- Added `tools/` parity tooling and captured baselines.
+- Rewrote the 3 pilot skills; added `PROVENANCE.md`.
+- Installed all 52 published skills (telemetry) as an optional repo-page fill.
 
 ## Decisions and Reasoning
 
-- Route 1 (canonical `skills/yeknal-*`) over a mirror: single source of truth, no permanent generator.
-- R1a: all 86 under `skills/`; the 34 unpublished are hidden via `metadata.internal: true` (verified the CLI honors it).
-- Source kept spec-valid: `name` must equal parent dir, so folders and `name:` moved together.
-- yeknal keeps base-name identifiers internally; only path construction adds the prefix, so commands do not change.
-- Full rewrite of all 86 for originality + efficiency is planned, with a per-skill capability-parity gate; pilot 3 first.
+- Parity gate: `fmKeys`, `backticks`, `links`, `thresholds`, `resources` are strict; `headings` are advisory (labels, not capabilities). Backticked tokens treat `x` and `yeknal-x` as equivalent because C normalizes sibling references.
+- Upstreams are MIT/Apache-2.0 (notice-required, permissive); Rare UI is the only non-permissive case (attribution + Commons Clause), and its source is not vendored.
+- Keep `metadata.internal` to hold back the 34 unpublished skills.
 
 ## Failed Approaches / Do Not Repeat
 
-- Do not validate locally without `PYTHONUTF8=1`; Windows Python cp1252 decoding raises false `UnicodeDecodeError` on UTF-8 SKILL.md files.
-- Do not run `skills-ref validate` over 86 skills in one interactive shell without a raised timeout (Python startup makes it ~2 min).
-- `pwsh` (PowerShell 7) is not installed locally; `audit-markdown-links.ps1` uses `[IO.Path]::GetRelativePath` (.NET Core), so it cannot run under Windows PowerShell 5.1. CI runs it on ubuntu-latest.
+- Local `skills-ref` needs `PYTHONUTF8=1` (Windows cp1252 decode errors otherwise).
+- `pwsh` is absent locally; `audit-markdown-links.ps1` needs PowerShell 7 (use the temp Node link checker locally; CI uses pwsh).
+- Do not include `<skill-name>` only inside a code fence; the parity inventory captures backticked tokens, so keep referenced placeholders backticked.
 
 ## Known Issues
 
-- Nothing is committed yet; the entire migration is in the working tree.
-- The skills.sh duplicate probe cannot run until the repo is pushed (needs GitHub telemetry).
-- Skill bodies still reference sibling skills by base names; intentional for now, fixed during the C rewrite.
-- `skills.sh.json` groups the 52 published slugs; if skills.sh's repo crawl ignores `metadata.internal`, the 34 hidden skills could still surface (fallback: move them to a non-discovered `catalog/` dir, R1b).
+- skills.sh search index has not ingested `tryraisins` yet; `isDuplicate` cannot be fully confirmed until it does.
+- The repo page listing is cached and may lag new installs.
+- Pilot rewrites are similar length to originals; deeper efficiency trimming is a batch-time decision.
 
 ## Important Constraints
 
-- `npx yeknal skills`, `--profile`, `--skills`, `--project`, `--add`, `--skip-claude`, `--all`, and `profiles` must keep working with base names.
-- Every skill must keep `name` == folder and pass `skills-ref validate`.
-- No capability or reference may be lost in the rewrite; the parity report is the gate.
-- Preserve upstream copyright/license notices; add credit in README + npm README + per-skill NOTICE.
+- No capability/reference loss: `tools/parity.js check-all` must pass.
+- `name` == folder; `skills-ref validate` must pass.
+- Preserve upstream notices; add the missing MIT notices (C10).
+- `npx yeknal` commands, profiles, and flags unchanged.
 
 ## Commands and Tests
 
 ```powershell
-# validate all skills (Windows: force UTF-8)
 $env:PYTHONUTF8="1"; Get-ChildItem .\skills -Directory | ForEach-Object { skills-ref validate $_.FullName }
-# repo audits (PowerShell 7)
+node tools/parity.js check-all
 ./skills/yeknal-markdown-management/scripts/audit-skills.ps1 -Root .
 ./skills/yeknal-markdown-management/scripts/audit-markdown-links.ps1 -Root .
 ./skills/yeknal-markdown-management/scripts/validate-routing-evals.ps1 -Root .
-# CLI
 npm test --prefix .\yeknal-cli
-# skills.sh discovery (local source)
 npx skills add . --list
 ```
 
-Current results: 86/86 skills valid; audit-skills 0 errors/0 warnings; markdown links 0 unresolved; routing evals 0 errors; 22/22 CLI tests pass.
+Current results: 86/86 valid; parity PASS for the 3 pilots; audit-skills 0/0; links 0 unresolved; routing evals 0 errors; CLI tests 22/22; `skills add --list` = 52.
 
 ## Next Actions
 
-1. Commit the migration (needs explicit user approval) and push to `main`.
-2. B5: probe skills.sh (install one adapted + one original skill, read `isDuplicate`) to calibrate rewrite depth.
-3. B6: provenance + license audit across 86.
-4. C7: rewrite standard + capability-inventory script + `rewrite-parity/<skill>.md` gate.
-5. C8: pilot `yeknal-skill-router`, `yeknal-frontend-design`, `yeknal-security-threat-model`.
-6. C9/C10: batch the remaining 83; add README/npm credits and per-skill NOTICE.
+1. Get pilot sign-off, then batch-rewrite the remaining 83 (C9) with `tools/parity.js check <skill>` after each.
+2. C10: add MIT notices + `metadata.source` for the derivatives in `PROVENANCE.md`; add README + npm README Credits sections.
+3. Commit the B6/C7/C8 batch (needs approval).
+4. Re-check skills.sh repo page + search index; confirm no `isDuplicate` once indexed.
 
 ## Verification
 
-- Local: all 86 valid, audits clean, 22 CLI tests pass, link audit clean, `npx skills add . --list` returns the published set.
-- Pending: remote `npx skills add tryraisins/MD_Files --list` after push; skills.sh repo page + duplicate status; parity reports; credits present.
+- Local: parity PASS (3 pilots), skills-ref 86/86, audit-skills 0/0, links 0, routing 0, CLI 22/22, `skills add --list` 52.
+- Pending: batch parity reports; credits present; skills.sh search/duplicate confirmation.

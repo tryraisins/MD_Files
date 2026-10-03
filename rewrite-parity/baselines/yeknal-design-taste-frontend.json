@@ -1,0 +1,40 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Design taste for frontend",
+    "Read the product before designing",
+    "Use references as evidence",
+    "Choose the system before the composition",
+    "Compose the complete page",
+    "Build a coherent visual language",
+    "Typography",
+    "Color and material",
+    "Components and iconography",
+    "Content and assets",
+    "Plan responsive transformation",
+    "Use motion as information",
+    "Implementation discipline",
+    "Rendered pre-flight",
+    "Optional technique reference"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "design-reference-research",
+    "human-ai-interface-design",
+    "high-end-visual-design",
+    "design-reference-research/references/responsive-matrix.md",
+    "animate",
+    "dvh"
+  ],
+  "links": [
+    "references/patterns-redesign-and-sources.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "references/patterns-redesign-and-sources.md"
+  ]
+}

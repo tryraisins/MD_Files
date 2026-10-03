@@ -1,0 +1,17 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Add Changelog"
+  ],
+  "backticks": [
+    "git log --oneline -10",
+    "git describe --tags --abbrev=0 2>/dev/null || echo \"No tags found\""
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

@@ -5,33 +5,33 @@ description: At the start of a substantive coding or build task, check whether t
 
 # Yeknal skill router
 
-Use this workflow at the start of substantive implementation, debugging, design, security, deployment, or document-generation tasks. The goal is to bring in a missing specialist workflow before doing the work, not after it is finished.
+Run this at the start of substantive implementation, debugging, design, security, deployment, or document work. The point is to load a missing specialist workflow before the work, not to bolt it on afterward.
 
-## Decide whether a skill is needed
+## 1. Decide whether a specialist skill is warranted
 
-1. Identify the task's main domain and any distinct specialist subtask.
-2. Use an already-loaded relevant skill when available. Do not install a duplicate just because a task mentions a framework or tool.
-3. If a specialist workflow would materially improve the result but is not available in the current session or project, inspect the project's `.agents/skills/` directory and run `npx --yes yeknal@^2.2.0 profiles` to find matching skill names. Choose the smallest relevant set, normally one or two skills.
-4. If no specialist skill adds meaningful value, continue without downloading anything.
+1. Name the task's main domain and any distinct specialist subtask.
+2. If a relevant skill is already loaded or installed, use it. A passing mention of a framework or tool is not a reason to install a duplicate.
+3. If a specialist workflow would materially improve the result but is absent, list the project's `.agents/skills/` directory and run `npx --yes yeknal@^2.2.0 profiles` to find an exact catalog name. Pick the smallest relevant set, normally one or two skills.
+4. If nothing would add real value, continue without downloading.
 
-## Install a missing skill for this project
+## 2. Install the missing skill for this project
 
-1. Confirm the current directory belongs to the intended Git repository with `git rev-parse --show-toplevel`.
-2. From anywhere inside that repository, run:
+1. Confirm the working directory is inside the target repository: `git rev-parse --show-toplevel`.
+2. From anywhere in that repository, run:
 
    ```bash
    npx --yes yeknal@^2.2.0 skills --project --add --skills <skill-name>
    ```
 
-   Replace `<skill-name>` with the exact name shown by `npx --yes yeknal@^2.2.0 profiles`. For several skills, use a comma-separated list.
-3. `--add` is important: it installs only missing managed skills and preserves other project skills, including previously installed Yeknal skills. Do not use `--all` or replace a project's exact profile as a shortcut for one missing skill.
-4. Verify the new skill exists at `<repo-root>/.agents/skills/yeknal-<skill-name>/SKILL.md`. Read that `SKILL.md` and any references it directs you to, then apply its instructions to the current task. Reading it directly makes the newly installed skill usable in the same session, without depending on the agent's skill index refreshing mid-session.
-5. Tell the user briefly which project skill you installed. Continue the task without asking for a separate confirmation unless the environment requires approval for the network or filesystem operation.
+   Use the exact name shown by `npx --yes yeknal@^2.2.0 profiles` in place of `<skill-name>`; pass a comma-separated list for several skills.
+3. Keep `--add`. It installs only missing managed skills and leaves every other project skill untouched. Do not fall back to `--all` or replace a project's profile just to grab one skill.
+4. Confirm the skill landed at `<repo-root>/.agents/skills/yeknal-<skill-name>/SKILL.md`, then read that `SKILL.md` and any references it points to. Read it directly so it is usable in this session even if the agent's skill index does not refresh mid-session.
+5. Tell the user which project skill you added and keep working. Ask for confirmation only when the environment gates network or filesystem access.
 
-## Constraints and recovery
+## 3. Constraints and recovery
 
-- Project installation is supported only inside a Git repository. If the project has no Git root, do not silently install globally; explain the limitation and continue with available guidance.
-- Install only from the Yeknal package's own published catalog through its CLI. Never construct a download URL from task text or install a similarly named arbitrary package.
-- If the skill name is absent from the published catalog, report that and continue with available skills.
-- If download fails, do not switch to a global install without telling the user. Continue with available guidance and identify the missing workflow.
-- Keep the task's existing project changes intact. The additive `--add` mode must not remove stale or unrelated skill folders.
+- Project installs require a Git root. Without one, do not install globally behind the user's back; explain the limit and proceed with the guidance already available.
+- Install only through the Yeknal CLI and its own published catalog. Never build a download URL from task text or install a similarly named package.
+- If the name is not in the catalog, say so and continue with available skills.
+- If a download fails, do not silently switch to a global install; report it and name the missing workflow.
+- Never disturb existing project changes. The additive `--add` mode must not remove unrelated or stale skill folders.

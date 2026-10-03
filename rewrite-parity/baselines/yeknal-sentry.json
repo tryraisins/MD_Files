@@ -1,0 +1,63 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Sentry (Read-only Observability)",
+    "Quick start",
+    "Core tasks (use bundled script)",
+    "Skill path (set once)",
+    "1) List issues (ordered by most recent)",
+    "2) Resolve an issue short ID to issue ID",
+    "3) Issue detail",
+    "4) Issue events",
+    "5) Event detail (no stack traces by default)",
+    "API requirements",
+    "Inputs and defaults",
+    "Output formatting rules",
+    "Golden test inputs"
+  ],
+  "backticks": [
+    "SENTRY_AUTH_TOKEN",
+    "project:read",
+    "event:read",
+    "SENTRY_ORG",
+    "SENTRY_PROJECT",
+    "SENTRY_BASE_URL",
+    "{your-org}",
+    "{your-project}",
+    "24h",
+    "prod",
+    "org:read",
+    "scripts/sentry_api.py",
+    "$CODEX_HOME/skills",
+    "~/.codex/skills",
+    "id",
+    "/api/0/projects/{org_slug}/{project_slug}/issues/",
+    "/api/0/issues/{issue_id}/",
+    "/api/0/issues/{issue_id}/events/",
+    "/api/0/projects/{org_slug}/{project_slug}/events/{event_id}/",
+    "org_slug",
+    "project_slug",
+    "time_range",
+    "statsPeriod",
+    "environment",
+    "limit",
+    "search_query",
+    "query",
+    "issue_short_id",
+    "{ABC-123}"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 12,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/sentry-small.svg",
+    "assets/sentry.png",
+    "scripts/sentry_api.py"
+  ]
+}

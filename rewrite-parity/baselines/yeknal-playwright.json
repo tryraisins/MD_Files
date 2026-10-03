@@ -1,0 +1,60 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Playwright Browser Automation",
+    "Persistent interactive mode",
+    "Prerequisite check (required)",
+    "Verify Node/npm are installed",
+    "If missing, install Node.js/npm, then:",
+    "Skill path (set once)",
+    "Quick start",
+    "Core workflow",
+    "When to snapshot again",
+    "Recommended patterns",
+    "Form fill and submit",
+    "Debug a UI flow with traces",
+    "...interactions...",
+    "Multi-tab work",
+    "Wrapper script",
+    "References",
+    "Guardrails"
+  ],
+  "backticks": [
+    "playwright-cli",
+    "@playwright/test",
+    "js_repl",
+    "browser",
+    "context",
+    "page",
+    "electronApp",
+    "appWindow",
+    "npx",
+    "$CODEX_HOME/skills",
+    "~/.codex/skills",
+    "npx --package @playwright/cli playwright-cli",
+    "references/cli.md",
+    "references/workflows.md",
+    "e12",
+    "eval",
+    "run-code",
+    "eX",
+    "--headed",
+    "output/playwright/"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 20,
+  "resources": [
+    "LICENSE.txt",
+    "NOTICE.txt",
+    "agents/openai.yaml",
+    "assets/playwright-small.svg",
+    "assets/playwright.png",
+    "references/cli.md",
+    "references/workflows.md",
+    "scripts/playwright_cli.sh"
+  ]
+}

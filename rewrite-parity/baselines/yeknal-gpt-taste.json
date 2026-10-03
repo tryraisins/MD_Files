@@ -1,0 +1,20 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "GPT Taste compatibility route"
+  ],
+  "backticks": [
+    "gpt-taste",
+    "high-end-visual-design",
+    "design-taste-frontend",
+    "ui-quality-baseline",
+    "design-reference-research"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

@@ -1,0 +1,54 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Output framing",
+    "Automatic UI Quality Contract",
+    "HERO COMPOSITION BIAS — READ FIRST",
+    "CORE DIRECTIVE: AWWWARDS-LEVEL IMAGE ART DIRECTION",
+    "Loading-State Handoff",
+    "AI-Native Product Reference Default",
+    "1. ACTIVE BASELINE CONFIGURATION",
+    "Brief-to-direction mapping",
+    "2. THE COMBINATORIAL VARIATION ENGINE",
+    "Theme Paradigm",
+    "Background Character",
+    "Typography Character",
+    "Hero Architecture",
+    "Section System",
+    "Signature Component Set",
+    "Motion-Implied Language",
+    "Composition Anchor (per-section)",
+    "Background Mode (per-section)",
+    "CTA Variation",
+    "Hero Scale (per-page)",
+    "Narrative / Concept Spine",
+    "Second-Read Moment",
+    "Detailed web art-direction reference"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "design-reference-research",
+    "thinking-orbs",
+    "@",
+    "/",
+    "(1 = rigid / symmetrical, 10 = artsy / asymmetric)",
+    "(1 = airy / gallery-like, 10 = packed / intense)",
+    "(1 = safe commercial, 10 = bold creative statement)",
+    "(1 = loose moodboard, 10 = very codeable UI reference)",
+    "(1 = mostly typographic, 10 = strongly image-led)",
+    "(1 = compact / tight, 10 = very spacious / breathable)",
+    "(1 = same anchor repeats, 10 = bold composition variety across sections)",
+    "(1 = pure art moodboard, 10 = clear funnel + premium design balance)"
+  ],
+  "links": [
+    "references/web-art-direction-system.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "references/web-art-direction-system.md"
+  ]
+}

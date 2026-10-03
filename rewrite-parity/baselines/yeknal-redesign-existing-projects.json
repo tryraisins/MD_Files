@@ -1,0 +1,35 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Redesign an existing product",
+    "Preserve the contract",
+    "Establish evidence before taste",
+    "Audit the experience",
+    "Structure and user flow",
+    "Visual system",
+    "Content and truthfulness",
+    "Components and states",
+    "Responsive and device behavior",
+    "Motion and performance",
+    "Accessibility",
+    "Plan changes by coherence and risk",
+    "Implement without collateral change",
+    "Rendered validation",
+    "Deliverable"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "design-reference-research",
+    "human-ai-interface-design",
+    "design-reference-research/references/responsive-matrix.md",
+    "animate",
+    "pick-ui-library"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

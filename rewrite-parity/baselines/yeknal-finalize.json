@@ -1,0 +1,34 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Finalize",
+    "Usage",
+    "Workflow Pipeline",
+    "Arguments",
+    "Examples",
+    "Full workflow with custom message",
+    "Skip some steps",
+    "Dry run to see what would happen",
+    "Commit locally only"
+  ],
+  "backticks": [
+    "HANDOFF.md",
+    "project-handoff",
+    "markdown-management",
+    "git diff --check",
+    "[commit-message]",
+    "--skip-docs",
+    "--skip-lint",
+    "--skip-types",
+    "--skip-build",
+    "--dry-run",
+    "--no-push"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 4,
+  "resources": []
+}

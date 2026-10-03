@@ -1,0 +1,29 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "PR Comment Handler",
+    "1) Inspect comments needing attention",
+    "2) Ask the user for clarification",
+    "3) If user chooses comments"
+  ],
+  "backticks": [
+    "gh",
+    "gh auth login",
+    "gh auth status",
+    "sandbox_permissions=require_escalated"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/github-small.svg",
+    "assets/github.png",
+    "scripts/fetch_comments.py"
+  ]
+}

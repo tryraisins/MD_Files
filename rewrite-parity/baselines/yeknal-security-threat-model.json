@@ -1,0 +1,42 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Threat Model Source Code Repo",
+    "Quick start",
+    "Workflow",
+    "1) Scope and extract the system model",
+    "2) Derive boundaries, assets, and entry points",
+    "3) Calibrate assets and attacker capabilities",
+    "4) Enumerate threats as abuse paths",
+    "5) Prioritize with explicit likelihood and impact reasoning",
+    "6) Validate service context and assumptions with the user",
+    "7) Recommend mitigations and focus paths",
+    "8) Run a quality check before finalizing",
+    "Risk prioritization guidance (illustrative, not exhaustive)",
+    "Adversarial Audit Extension",
+    "Attacker profiles to enumerate",
+    "Advanced threat categories to actively probe",
+    "Required output additions for adversarial audits",
+    "Adversarial mindset rules",
+    "References"
+  ],
+  "backticks": [
+    "references/prompt-template.md",
+    "<repo-or-dir-name>-threat-model.md",
+    "none",
+    "references/security-controls-and-assets.md"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "references/prompt-template.md",
+    "references/security-controls-and-assets.md"
+  ]
+}

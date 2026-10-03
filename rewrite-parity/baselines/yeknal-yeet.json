@@ -1,0 +1,36 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Prerequisites",
+    "Naming conventions",
+    "Workflow"
+  ],
+  "backticks": [
+    "gh",
+    "gh --version",
+    "gh auth status",
+    "gh auth login",
+    "codex/{description}",
+    "{description}",
+    "[codex] {description}",
+    "git checkout -b \"codex/{description}\"",
+    "git status -sb",
+    "git add -A",
+    "git commit -m \"{description}\"",
+    "git push -u origin $(git branch --show-current)",
+    "GH_PROMPT_DISABLED=1 GIT_TERMINAL_PROMPT=0 gh pr create --draft --fill --head $(git branch --show-current)"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/yeet-small.svg",
+    "assets/yeet.png"
+  ]
+}

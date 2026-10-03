@@ -1,0 +1,26 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Yeknal skill router",
+    "Decide whether a skill is needed",
+    "Install a missing skill for this project",
+    "Constraints and recovery"
+  ],
+  "backticks": [
+    ".agents/skills/",
+    "npx --yes yeknal@^2.2.0 profiles",
+    "git rev-parse --show-toplevel",
+    "<skill-name>",
+    "--add",
+    "--all",
+    "<repo-root>/.agents/skills/yeknal-<skill-name>/SKILL.md",
+    "SKILL.md"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

@@ -1,0 +1,33 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Design reference research",
+    "Establish the comparison frame",
+    "Build a useful reference set",
+    "Extract patterns before styling",
+    "Synthesize a direction",
+    "Protect originality and product fit",
+    "Required research output"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "DESIGN.md",
+    "UNVERIFIED"
+  ],
+  "links": [
+    "references/source-atlas.md",
+    "references/pattern-atlas.md",
+    "references/responsive-matrix.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "agents/openai.yaml",
+    "references/pattern-atlas.md",
+    "references/responsive-matrix.md",
+    "references/source-atlas.md"
+  ]
+}

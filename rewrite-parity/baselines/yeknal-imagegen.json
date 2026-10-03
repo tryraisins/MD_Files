@@ -1,0 +1,59 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Image Generation Skill",
+    "When to use",
+    "Decision tree (generate vs edit vs batch)",
+    "Workflow",
+    "Temp and output conventions",
+    "Dependencies (install if missing)",
+    "Environment",
+    "Defaults & rules",
+    "Prompt augmentation",
+    "Use-case taxonomy (exact slugs)",
+    "Examples",
+    "Generation example (hero image)",
+    "Edit example (invariants)",
+    "Prompting best practices (short list)",
+    "Guidance by asset type",
+    "CLI + environment notes",
+    "Reference map"
+  ],
+  "backticks": [
+    "scripts/image_gen.py",
+    "OPENAI_API_KEY",
+    "gpt-image-1.5",
+    "tmp/imagegen/",
+    "output/imagegen/",
+    "--out",
+    "--out-dir",
+    "uv",
+    "gpt-image-1-mini",
+    "openai",
+    "client.images.edit(...)",
+    "references/sample-prompts.md",
+    "references/prompting.md",
+    "references/cli.md",
+    "references/image-api.md",
+    "references/codex-network.md"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 10,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/imagegen-small.svg",
+    "assets/imagegen.png",
+    "references/cli.md",
+    "references/codex-network.md",
+    "references/image-api.md",
+    "references/prompting.md",
+    "references/sample-prompts.md",
+    "scripts/image_gen.py"
+  ]
+}

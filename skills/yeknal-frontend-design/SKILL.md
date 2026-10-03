@@ -10,89 +10,89 @@ metadata:
 
 # Frontend Design
 
-Approach the work as the design lead at a studio known for giving every client a distinct visual identity. Make deliberate choices about palette, typography, layout, copy, and interaction that grow from the brief instead of from a reusable aesthetic template.
+Work as the design lead of a studio whose reputation rests on giving each client a look no one else could wear. Every choice of palette, type, layout, copy, and motion should be traceable to the brief, not to a template you could reuse unchanged on the next project.
 
-## Apply the shared quality floor
+## Start from the shared quality floor
 
-Use `ui-quality-baseline` for tokens, responsive containment, accessibility, loading states, control geometry, and rendered verification. This skill owns the visual thesis. The baseline protects quality without flattening that thesis. An explicit brief, approved design, established brand, or platform convention wins when it conflicts with either skill.
+`ui-quality-baseline` owns tokens, responsive containment, accessibility, loading states, control geometry, and rendered verification. This skill owns the visual thesis; the baseline keeps that thesis from becoming sloppy without flattening it. An explicit brief, approved design, established brand, or platform convention outranks both.
 
-Before building, follow the baseline's `DESIGN.md` rule: create or update the project's authoritative design document with the thesis and reusable tokens, then keep implementation aligned with it.
+Follow the baseline's `DESIGN.md` rule: settle the project's authoritative design document (thesis plus reusable tokens) before you build, and keep the implementation honest to it.
 
-When the user supplies references or the brief lacks a defensible visual direction, use `design-reference-research` before choosing a thesis. For products with AI-generated, retrieved, or agent-executed behavior, also apply `human-ai-interface-design` to the interaction lifecycle; do not treat AI trust as a styling problem.
+Bring in `design-reference-research` when the user supplies references or the brief has no defensible direction yet. For anything with AI-generated, retrieved, or agent-executed behavior, also apply `human-ai-interface-design`; AI trust is an interaction problem, not a styling problem.
 
-## Ground the design in the subject
+## Ground the work in the subject
 
-Identify the product, audience, primary job, and subject-specific visual language before designing. If the brief omits one of these, infer a concrete proposal from available context and confirm only decisions that would materially change the result.
+Before designing, pin down the product, its audience, its primary job, and the visual language that world already carries. Fill gaps with a concrete proposal drawn from context, and check with the user only where the choice would materially change the outcome.
 
-Use the industry's materials, tools, environments, language, and information patterns as design inputs. A toy, an editorial archive, and an analyst console should not inherit the same visual system.
+Mine the industry's materials, tools, environments, vocabulary, and information patterns. A toy, an editorial archive, and an analyst console should never share one visual system.
 
 ## Design principles
 
-- Open with the most characteristic thing in the subject's world: a headline, image, working demo, tool, artifact, or interaction. A large metric plus gradient accent is a default, not a universal hero.
-- Let typography carry personality. Use one family or a clearly differentiated pair, an intentional scale, appropriate line height, and line lengths generally below 80 characters.
-- Avoid the common generated pattern of styling one phrase in every headline, all-caps eyebrows, ornamental labels, and repeated numbered markers when the content is not a sequence.
-- Make borders, dividers, numbering, labels, and containers encode structure. Do not add them merely to fill space.
-- Spend boldness in one place. Keep surrounding elements disciplined enough that the memorable element remains legible.
-- Use motion for feedback, spatial continuity, state, or a single deliberate narrative moment. Scattered fade-and-slide entrances and hover effects on every card are template defaults.
+- Lead with the most characteristic thing in the subject's world: a headline, an image, a working demo, a tool, an artifact, an interaction. A big number over a gradient accent is one option, not the universal hero.
+- Let type carry personality: one family or a clearly separated pair, a deliberate scale, sane line height, and line lengths generally under 80 characters.
+- Skip the generated tells: a highlight color on one phrase per headline, all-caps eyebrows, ornamental labels, and numbered markers on content that is not a sequence.
+- Make every border, divider, number, label, and container encode real structure. If it only fills space, remove it.
+- Spend boldness once. Everything around the memorable element stays quiet enough that it reads.
+- Use motion for feedback, spatial continuity, state, or one deliberate narrative beat. Fade-and-slide entrances and hover effects on every card are defaults, not decisions.
 
-## Detect and replace generic defaults
+## Replace generic defaults
 
-Treat these as legitimate choices only when the brief earns them:
+These are fine only when the brief earns them:
 
-- warm cream, high-contrast serif, and terracotta as an automatic editorial palette;
-- near-black with acid green or vermilion as automatic technical sophistication;
-- dense broadsheet columns, hairline rules, and square corners regardless of content;
+- warm cream, high-contrast serif, and terracotta as the automatic editorial palette;
+- near-black with acid green or vermilion as shorthand for technical sophistication;
+- broadsheet columns, hairline rules, and square corners regardless of content;
 - identical rounded cards, one radius everywhere, soft shadows, and decorative gradient washes;
-- tracked all-caps eyebrows, middle-dot metadata, spaced em-dash labels, tinted near-black, and monospace used only to imply technical depth;
-- a centered badge above every heading or a decorative arrow appended to every link.
+- tracked all-caps eyebrows, middle-dot metadata, spaced em-dash labels, tinted near-black, and monospace used only to signal depth;
+- a centered badge over every heading or a decorative arrow after every link.
 
-When the brief explicitly requests one of these, follow it. Otherwise, use the free design axes for choices tied to this subject rather than swapping one stock trend for another.
+If the brief asks for one, do it. Otherwise choose along the free design axes for this subject instead of trading one stock trend for another.
 
 ## Plan, critique, then build
 
-Before implementation, write a compact design plan:
+Write a compact plan before code:
 
-1. `Subject`: product, audience, primary job, and relevant vernacular.
-2. `Visual thesis`: one sentence explaining the distinctive idea.
-3. `Evidence`: the functional reference pattern adopted, what was deliberately rejected, and any access or proof limit.
-4. `Color`: the role-named colors and values the product actually needs, including state and data roles.
-5. `Type`: families, roles, scale, and line-length intent.
-6. `Layout`: one or two short ASCII wireframes when structure is not already fixed, including the mobile transformation.
-7. `Interaction`: the one or two moments where motion or feedback materially helps.
+1. `Subject` - product, audience, primary job, vernacular.
+2. `Visual thesis` - one sentence for the distinctive idea.
+3. `Evidence` - the reference pattern adopted, what you rejected, and any access or proof limit.
+4. `Color` - the role-named values the product actually needs, including state and data roles.
+5. `Type` - families, roles, scale, and line-length intent.
+6. `Layout` - one or two short ASCII wireframes when structure is open, plus the mobile transformation.
+7. `Interaction` - the one or two moments where motion or feedback earns its place.
 
-Critique the plan against the brief before writing code. Replace any decision that could be reused unchanged for several unrelated products. State only the material revision, then implement.
+Critique the plan against the brief first. Rewrite any decision you could reuse unchanged on unrelated products. State only the material revision, then implement.
 
-During implementation:
+While building:
 
 - preserve existing behavior, routes, states, data flow, and accessibility unless the brief changes them;
-- reuse the project's design system and component contracts where they meet the quality bar;
-- keep CSS specificity and cascade behavior legible so global and component styles do not silently cancel each other;
-- use real content when possible; vague placeholder copy makes a design feel as templated as generic styling;
-- render and inspect representative desktop, tablet, mobile, reduced-height, and reduced-motion states.
+- reuse the project design system and component contracts when they clear the quality bar;
+- keep CSS specificity and cascade legible so global and component styles do not quietly cancel each other;
+- use real content; placeholder copy reads as templated as generic styling;
+- render and inspect desktop, tablet, mobile, reduced-height, and reduced-motion states.
 
 ## Interface writing
 
-Write from the user's perspective with plain, active language. Name actions by their outcome and keep the same term through the flow: `Publish` should lead to `Published`, not a differently named confirmation.
+Write from the user's point of view in plain, active language. Name an action for its outcome and keep the term through the flow: `Publish` leads to `Published`, never a differently named confirmation.
 
-Treat empty and error states as directions. Explain what happened and what the user can do next. Avoid apologies, vague failure messages, decorative microcopy, and implementation jargon.
+Treat empty and error states as directions: say what happened and what to do next. Cut apologies, vague failures, decorative microcopy, and implementation jargon.
 
 ## Component and motion libraries
 
-Libraries supply mechanics, not the visual thesis.
+Libraries give you mechanics, not a thesis.
 
-- Default to **Tailwind CSS (v4) + shadcn/ui** for the styling and component layer whenever the current stack is React-compatible, setting them up when absent (`npx shadcn@latest init -d --base radix`). Apply this at all times, not only when the project already uses them. If the stack is not React-compatible (Vue, Svelte, Angular, plain HTML/CSS, a native app, or a design-tool file), do not force React or shadcn; use the stack-appropriate equivalent and note the deviation. An explicit brief, approved design, established brand, or documented design system wins over the default.
-- For React projects, inspect the existing registry and `components.json` before adding source components. When the brief's interaction already exists as a [Rare UI](https://www.rareui.com/components) component, install that prebuilt source through `pick-ui-library` and adapt it instead of rebuilding the interaction. Rare UI requires attribution: keep its notice in the copied source file and add a README credit linking to rareui.com.
-- Use `animate` for ordinary product motion and `oil-motion` for generated, frame-based media controlled by scroll, pointer, drag, touch, orientation, audio, data, or component state.
-- Adapt imported components to the product's tokens, semantics, focus behavior, reduced-motion policy, bundle budget, and dependency strategy. Do not let a library's demo styling become the product identity.
+- Default to **Tailwind CSS (v4) + shadcn/ui** for styling and components whenever the stack is React-compatible, and set them up when absent (`npx shadcn@latest init -d --base radix`). Do this even when neither is present. If the stack is not React-compatible (Vue, Svelte, Angular, plain HTML/CSS, native, or a design-tool file), use the stack's equivalent and note the deviation instead of forcing React. An explicit brief, approved design, brand, or documented design system wins over this default.
+- On React projects, read the existing registry and `components.json` before adding source components. When the interaction already exists as a [Rare UI](https://www.rareui.com/components) component, install it through `pick-ui-library` and adapt it rather than rebuilding. Rare UI needs attribution: keep its notice in the copied source and add a README credit linking to rareui.com.
+- Use `animate` for ordinary product motion and `oil-motion` for generated, frame-based media driven by scroll, pointer, drag, touch, orientation, audio, data, or component state.
+- Adapt imported components to the product's tokens, semantics, focus behavior, reduced-motion policy, bundle budget, and dependency strategy. A library's demo styling is not the product identity.
 
 ## Final critique
 
-Before handoff, ask:
+Before handoff:
 
-- Could the visual thesis belong to a different product with only the logo changed?
-- Is every structural and decorative device carrying information or reinforcing the subject?
-- Is there one clear memorable idea rather than many competing effects?
-- Do copy, loading, empty, error, and success states sound like the same product?
-- Does the rendered result remain usable with keyboard, touch, zoom, narrow width, low height, slow network, and reduced motion?
+- Could the thesis belong to another product with only the logo swapped?
+- Does every structural and decorative device carry information or reinforce the subject?
+- Is there one memorable idea rather than several competing effects?
+- Do copy, loading, empty, error, and success states sound like one product?
+- Does it hold up with keyboard, touch, zoom, narrow width, low height, slow network, and reduced motion?
 
-Remove one nonessential flourish after the first complete pass. Report what was rendered and verified separately from what was inferred from code.
+Remove one nonessential flourish after the first pass. Separate what you actually rendered and verified from what you inferred from code.

@@ -1,0 +1,23 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Engineering Specialists",
+    "Specialist routing",
+    "Engineering workflow",
+    "Keep language code direct",
+    "Non-negotiables"
+  ],
+  "backticks": [
+    "unknown",
+    "Any",
+    "any",
+    "interface{}"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

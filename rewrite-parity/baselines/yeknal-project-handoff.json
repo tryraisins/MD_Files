@@ -1,0 +1,30 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Project Handoff",
+    "Start or resume work",
+    "Decide whether to maintain one",
+    "Update at meaningful transitions",
+    "Suggested structure",
+    "Current Objective",
+    "Current State",
+    "Current Task",
+    "Relevant Files",
+    "Decisions and Constraints",
+    "Known Issues / Failed Approaches",
+    "Commands and Verification",
+    "Next Actions",
+    "Keep it safe and trustworthy"
+  ],
+  "backticks": [
+    "AGENTS.md",
+    "HANDOFF.md"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 2,
+  "resources": []
+}

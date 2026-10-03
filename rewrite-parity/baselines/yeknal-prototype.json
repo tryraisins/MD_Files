@@ -1,0 +1,48 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "UI quality integration",
+    "Prototyping Variants",
+    "Operating Posture",
+    "Hard Rules",
+    "Workflow",
+    "Phase 1 — Scope",
+    "Phase 2 — Recon",
+    "Phase 3 — Choose directions",
+    "Phase 4 — Build the picker harness",
+    "Phase 5 — Verify and hand off",
+    "Phase 6 — Promote on selection",
+    "Invocation Variants",
+    "Tone"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "review-animations",
+    "improve-animations",
+    "pick-ui-library",
+    "ease-out",
+    "ease-in",
+    "transform-origin",
+    "transform",
+    "opacity",
+    "/prototypes/<slug>",
+    "<description>",
+    "<description> x5",
+    "riff <variant>",
+    "keep <variant>",
+    "keep <variant>, leave the picker"
+  ],
+  "links": [
+    "PICKER.md"
+  ],
+  "thresholds": [
+    "300ms"
+  ],
+  "codeFences": 0,
+  "resources": [
+    "PICKER.md"
+  ]
+}

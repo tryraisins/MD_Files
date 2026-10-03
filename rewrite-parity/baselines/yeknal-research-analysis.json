@@ -1,0 +1,23 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Research and Analysis",
+    "Choose the depth",
+    "Choose the lens",
+    "Workflow",
+    "Integrity rules"
+  ],
+  "backticks": [],
+  "links": [
+    "references/deep-research.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "LICENSE.deep-research.txt",
+    "references/deep-research.md"
+  ]
+}

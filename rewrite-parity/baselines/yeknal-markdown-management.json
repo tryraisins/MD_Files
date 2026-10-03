@@ -1,0 +1,52 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "compatibility",
+    "metadata"
+  ],
+  "headings": [
+    "Markdown Management",
+    "Establish authority and scope",
+    "Choose the smallest operation",
+    "Merge without losing behavior",
+    "Markdown quality rules",
+    "Repository documentation workflow",
+    "Agent skill repositories",
+    "Verification",
+    "Handoff"
+  ],
+  "backticks": [
+    "Create",
+    "Update",
+    "Merge",
+    "Split",
+    "Rename",
+    "Audit",
+    "rg",
+    "rg --files -g \"*.md\"",
+    "add-changelog",
+    "doc",
+    "SKILL.md",
+    "name",
+    "description",
+    "references/",
+    "scripts/",
+    "skills-ref validate"
+  ],
+  "links": [],
+  "thresholds": [
+    "64 characters",
+    "1024 characters",
+    "500 lines"
+  ],
+  "codeFences": 10,
+  "resources": [
+    "references/installed-skill-conflict-resolution.md",
+    "references/markdown-review-checklist.md",
+    "scripts/audit-installed-skill-conflicts.ps1",
+    "scripts/audit-markdown-links.ps1",
+    "scripts/audit-skills.ps1",
+    "scripts/validate-routing-evals.ps1"
+  ]
+}

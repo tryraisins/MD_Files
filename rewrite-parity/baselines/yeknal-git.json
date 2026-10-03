@@ -1,0 +1,27 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Git",
+    "/git - Git Operations",
+    "Purpose",
+    "Usage",
+    "Arguments",
+    "Execution",
+    "Safety rules"
+  ],
+  "backticks": [
+    "operation",
+    "args",
+    "--smart-commit",
+    "--branch-strategy",
+    "--interactive",
+    "git status"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 2,
+  "resources": []
+}

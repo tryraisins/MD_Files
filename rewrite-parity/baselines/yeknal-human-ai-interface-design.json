@@ -1,0 +1,29 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Human-AI interface design",
+    "Decide the system's role",
+    "Design the complete lifecycle",
+    "Calibrate trust",
+    "Preserve control and agency",
+    "Make failure a designed state",
+    "Accessibility and inclusion",
+    "Required design output",
+    "Source note"
+  ],
+  "backticks": [
+    "ui-quality-baseline"
+  ],
+  "links": [
+    "references/lifecycle-and-patterns.md"
+  ],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "agents/openai.yaml",
+    "references/lifecycle-and-patterns.md"
+  ]
+}

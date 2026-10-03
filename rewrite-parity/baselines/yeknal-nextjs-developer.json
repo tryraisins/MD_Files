@@ -1,0 +1,26 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Next.js Developer",
+    "Workflow",
+    "Rendering and data",
+    "UI and motion",
+    "AI-enabled features",
+    "Guardrails"
+  ],
+  "backticks": [
+    "package.json",
+    "ui-quality-baseline",
+    "aria-busy",
+    "oil-motion",
+    "application-security"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

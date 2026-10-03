@@ -1,0 +1,35 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Animation Vocabulary",
+    "Quick Start",
+    "Instructions",
+    "Examples",
+    "Glossary",
+    "Entrances & Exits — how elements appear and disappear",
+    "Sequencing & Timing — coordinating multiple elements or moments",
+    "Movement & Transforms — changing an element's position, size, or angle",
+    "Transitions Between States — connecting one state, view, or element to another",
+    "Scroll — motion tied to scrolling or navigating between views",
+    "Feedback & Interaction — responding to the user's actions",
+    "Easing — how speed changes over an animation",
+    "Spring Animations — physics-based motion as an alternative to fixed-duration easing",
+    "Looping & Ambient Motion — animations that run on their own",
+    "Polish & Effects — the small touches that separate good from great",
+    "Performance — what keeps motion smooth instead of stuttering",
+    "Principles to Know — concepts that guide when and how to animate"
+  ],
+  "backticks": [
+    "/vocabulary"
+  ],
+  "links": [],
+  "thresholds": [
+    "60fps",
+    "120fps"
+  ],
+  "codeFences": 8,
+  "resources": []
+}

@@ -1,0 +1,41 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "DOCX Skill",
+    "When to use",
+    "Workflow",
+    "Temp and output conventions",
+    "Dependencies (install if missing)",
+    "macOS (Homebrew)",
+    "Ubuntu/Debian",
+    "Environment",
+    "Rendering commands",
+    "Quality expectations",
+    "Final checks"
+  ],
+  "backticks": [
+    ".docx",
+    "python-docx",
+    "scripts/render_docx.py",
+    "soffice",
+    "pdftoppm",
+    "pdf2image",
+    "tmp/docs/",
+    "output/doc/",
+    "uv"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 12,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/doc-small.svg",
+    "assets/doc.png",
+    "scripts/render_docx.py"
+  ]
+}

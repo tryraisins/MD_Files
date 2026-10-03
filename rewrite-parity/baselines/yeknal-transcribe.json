@@ -1,0 +1,45 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Audio Transcribe",
+    "Workflow",
+    "Decision rules",
+    "Output conventions",
+    "Dependencies (install if missing)",
+    "Environment",
+    "Skill path (set once)",
+    "CLI quick start",
+    "Reference map"
+  ],
+  "backticks": [
+    "OPENAI_API_KEY",
+    "transcribe_diarize.py",
+    "output/transcribe/",
+    "gpt-4o-mini-transcribe",
+    "--response-format text",
+    "--model gpt-4o-transcribe-diarize --response-format diarized_json",
+    "--chunking-strategy auto",
+    "gpt-4o-transcribe-diarize",
+    "output/transcribe/<job-id>/",
+    "--out-dir",
+    "uv",
+    "$CODEX_HOME/skills",
+    "~/.codex/skills",
+    "references/api.md"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 12,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/transcribe-small.svg",
+    "assets/transcribe.png",
+    "references/api.md",
+    "scripts/transcribe_diarize.py"
+  ]
+}

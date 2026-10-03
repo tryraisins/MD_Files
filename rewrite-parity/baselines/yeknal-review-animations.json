@@ -1,0 +1,63 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Reviewing Animations",
+    "UI baseline integration",
+    "Operating Posture",
+    "The Ten Non-Negotiable Standards",
+    "Aggressive Escalation Triggers",
+    "Remedial Preference Hierarchy",
+    "Required Output Format",
+    "Part 1 — Findings table (REQUIRED)",
+    "Part 2 — Verdict (REQUIRED)",
+    "Guidelines"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "ease-out",
+    "ease-in",
+    "transform-origin",
+    "scale(0)",
+    "scale(0.9–0.97)",
+    "transform",
+    "opacity",
+    "width",
+    "height",
+    "margin",
+    "padding",
+    "top",
+    "left",
+    "x",
+    "y",
+    "scale",
+    "prefers-reduced-motion",
+    "@media (hover: hover) and (pointer: fine)",
+    "transition: all",
+    "transform-origin: center",
+    ":hover",
+    "scale(0.95)",
+    "@starting-style",
+    "transition: all 300ms",
+    "transition: transform 200ms ease-out",
+    "all",
+    "transform: scale(0)",
+    "transform: scale(0.95); opacity: 0",
+    "var(--transform-origin)",
+    "file:line"
+  ],
+  "links": [
+    "STANDARDS.md"
+  ],
+  "thresholds": [
+    "300ms",
+    "80ms",
+    "200ms"
+  ],
+  "codeFences": 0,
+  "resources": [
+    "STANDARDS.md"
+  ]
+}

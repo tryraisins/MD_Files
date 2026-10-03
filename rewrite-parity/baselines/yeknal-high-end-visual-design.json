@@ -1,0 +1,24 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "High-end visual design",
+    "Ground the art direction",
+    "Build a visual system, not a mood board",
+    "Compose the whole experience",
+    "Choreograph motion",
+    "Responsive art direction",
+    "Implementation discipline",
+    "Final critique"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "design-reference-research"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

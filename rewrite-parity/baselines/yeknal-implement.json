@@ -1,0 +1,30 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Implement",
+    "Precedence",
+    "Workflow",
+    "Separate judgment from repeatable work",
+    "Domain routing",
+    "UI states",
+    "Guardrails"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "application-security",
+    "markdown-management",
+    "testing-strategy",
+    "HANDOFF.md",
+    "project-handoff",
+    "git diff --check",
+    "oil-motion",
+    "aria-busy"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": []
+}

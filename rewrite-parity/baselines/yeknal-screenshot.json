@@ -1,0 +1,56 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Screenshot Capture",
+    "Tool priority",
+    "macOS permission preflight (reduce repeated prompts)",
+    "macOS and Linux (Python helper)",
+    "Workflow examples",
+    "Multi-display behavior",
+    "Linux prerequisites and selection logic",
+    "Windows (PowerShell helper)",
+    "Direct OS commands (fallbacks)",
+    "macOS",
+    "Linux",
+    "Error handling"
+  ],
+  "backticks": [
+    "$TMPDIR/codex-swift-module-cache",
+    "--app",
+    "-w<windowId>",
+    "-d<display>",
+    "--region",
+    "scrot",
+    "gnome-screenshot",
+    "import",
+    "--window-name",
+    "--list-windows",
+    "--active-window",
+    "--window-id",
+    "bash <path-to-skill>/scripts/ensure_macos_permissions.sh",
+    "ModuleCache",
+    "--list-windows --app \"AppName\"",
+    "command -v scrot",
+    "command -v gnome-screenshot",
+    "command -v import"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 64,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/screenshot-small.svg",
+    "assets/screenshot.png",
+    "scripts/ensure_macos_permissions.sh",
+    "scripts/macos_display_info.swift",
+    "scripts/macos_permissions.swift",
+    "scripts/macos_window_info.swift",
+    "scripts/take_screenshot.ps1",
+    "scripts/take_screenshot.py"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Design Engineering",
+    "Automatic UI Quality Contract",
+    "Initial Response",
+    "Core Philosophy",
+    "Taste is trained, not innate",
+    "Unseen details compound",
+    "Beauty is leverage",
+    "Loading is feedback, not decoration",
+    "Review Format (Required)",
+    "The Animation Decision Framework",
+    "1. Should this animate at all?",
+    "2. What is the purpose?",
+    "3. What easing should it use?",
+    "4. How fast should it be?",
+    "Perceived performance",
+    "Spring Animations",
+    "When to use springs",
+    "Spring-based mouse interactions",
+    "Spring configuration",
+    "Interruptibility advantage",
+    "Detailed component and motion craft"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "thinking-orbs",
+    "transition: all 300ms",
+    "transition: transform 200ms ease-out",
+    "all",
+    "transform: scale(0)",
+    "transform: scale(0.95); opacity: 0",
+    "ease-in",
+    "ease-out",
+    ":active",
+    "transform: scale(0.97)",
+    "transform-origin: center",
+    "transform-origin: var(--transform-origin)",
+    "useSpring"
+  ],
+  "links": [
+    "references/component-motion-craft.md"
+  ],
+  "thresholds": [
+    "300ms",
+    "200ms",
+    "160ms",
+    "250ms",
+    "500ms",
+    "180ms",
+    "400ms"
+  ],
+  "codeFences": 10,
+  "resources": [
+    "references/component-motion-craft.md"
+  ]
+}

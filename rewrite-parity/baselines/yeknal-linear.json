@@ -1,0 +1,59 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Linear",
+    "Overview",
+    "Prerequisites",
+    "Required Workflow",
+    "Step 0: Set up Linear MCP (if not already configured)",
+    "Step 1",
+    "Step 2",
+    "Step 3",
+    "Step 4",
+    "Available Tools",
+    "Practical Workflows",
+    "Tips for Maximum Productivity",
+    "Troubleshooting"
+  ],
+  "backticks": [
+    "codex mcp add linear --url https://mcp.linear.app/mcp",
+    "[features] rmcp_client = true",
+    "config.toml",
+    "codex --enable rmcp_client",
+    "codex mcp login linear",
+    "list_issues",
+    "get_issue",
+    "create_issue",
+    "update_issue",
+    "list_my_issues",
+    "list_issue_statuses",
+    "list_issue_labels",
+    "create_issue_label",
+    "list_projects",
+    "get_project",
+    "create_project",
+    "update_project",
+    "list_teams",
+    "get_team",
+    "list_users",
+    "list_documents",
+    "get_document",
+    "search_documentation",
+    "list_comments",
+    "create_comment",
+    "list_cycles"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 2,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/linear-small.svg",
+    "assets/linear.png"
+  ]
+}

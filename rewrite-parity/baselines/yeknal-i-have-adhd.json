@@ -1,0 +1,26 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "license",
+    "metadata"
+  ],
+  "headings": [
+    "ADHD-friendly output",
+    "Response contract",
+    "Time and uncertainty",
+    "Preserve the answer",
+    "Pre-send check",
+    "Provenance and adaptation"
+  ],
+  "backticks": [
+    "58494af57962b2d7a996b4d419474380a299af5e"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 0,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml"
+  ]
+}

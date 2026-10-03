@@ -1,0 +1,55 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Jupyter Notebook Skill",
+    "When to use",
+    "Decision tree",
+    "Skill path (set once)",
+    "Workflow",
+    "Templates and helper script",
+    "Temp and output conventions",
+    "Dependencies (install only when needed)",
+    "Environment",
+    "Reference map"
+  ],
+  "backticks": [
+    ".ipynb",
+    "new_notebook.py",
+    "experiment",
+    "tutorial",
+    "$CODEX_HOME/skills",
+    "~/.codex/skills",
+    "references/experiment-patterns.md",
+    "references/tutorial-patterns.md",
+    "references/notebook-structure.md",
+    "references/quality-checklist.md",
+    "assets/experiment-template.ipynb",
+    "assets/tutorial-template.ipynb",
+    "$JUPYTER_NOTEBOOK_CLI",
+    "$CODEX_HOME/skills/jupyter-notebook/scripts/new_notebook.py",
+    "tmp/jupyter-notebook/",
+    "output/jupyter-notebook/",
+    "ablation-temperature.ipynb",
+    "uv"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 8,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/experiment-template.ipynb",
+    "assets/jupyter-small.svg",
+    "assets/jupyter.png",
+    "assets/tutorial-template.ipynb",
+    "references/experiment-patterns.md",
+    "references/notebook-structure.md",
+    "references/quality-checklist.md",
+    "references/tutorial-patterns.md",
+    "scripts/new_notebook.py"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Full-Output Enforcement",
+    "Baseline",
+    "Banned Output Patterns",
+    "Execution Process",
+    "Handling Long Outputs",
+    "Quick Check"
+  ],
+  "backticks": [
+    "// ...",
+    "// rest of code",
+    "// implement here",
+    "// TODO",
+    "/* ... */",
+    "// similar to above",
+    "// continue pattern",
+    "// add more as needed",
+    "..."
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 2,
+  "resources": []
+}

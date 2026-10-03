@@ -1,0 +1,48 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "license",
+    "metadata"
+  ],
+  "headings": [
+    "Frontend Design",
+    "Apply the shared quality floor",
+    "Ground the design in the subject",
+    "Design principles",
+    "Detect and replace generic defaults",
+    "Plan, critique, then build",
+    "Interface writing",
+    "Component and motion libraries",
+    "Final critique"
+  ],
+  "backticks": [
+    "ui-quality-baseline",
+    "DESIGN.md",
+    "design-reference-research",
+    "human-ai-interface-design",
+    "Subject",
+    "Visual thesis",
+    "Evidence",
+    "Color",
+    "Type",
+    "Layout",
+    "Interaction",
+    "Publish",
+    "Published",
+    "npx shadcn@latest init -d --base radix",
+    "components.json",
+    "pick-ui-library",
+    "animate",
+    "oil-motion"
+  ],
+  "links": [],
+  "thresholds": [
+    "80 characters"
+  ],
+  "codeFences": 0,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml"
+  ]
+}

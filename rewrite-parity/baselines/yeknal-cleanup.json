@@ -1,0 +1,27 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Cleanup",
+    "/cleanup - Code and Project Cleanup",
+    "Purpose",
+    "Usage",
+    "Arguments",
+    "Execution",
+    "Evidence and safety"
+  ],
+  "backticks": [
+    "target",
+    "--type",
+    "--safe",
+    "--aggressive",
+    "--dry-run",
+    "git diff --check"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 2,
+  "resources": []
+}

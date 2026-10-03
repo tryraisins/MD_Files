@@ -1,0 +1,37 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "PDF Skill",
+    "When to use",
+    "Workflow",
+    "Temp and output conventions",
+    "Dependencies (install if missing)",
+    "macOS (Homebrew)",
+    "Ubuntu/Debian",
+    "Environment",
+    "Rendering command",
+    "Quality expectations",
+    "Final checks"
+  ],
+  "backticks": [
+    "reportlab",
+    "pdfplumber",
+    "pypdf",
+    "pdftoppm",
+    "tmp/pdfs/",
+    "output/pdf/",
+    "uv"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 8,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/pdf.png"
+  ]
+}

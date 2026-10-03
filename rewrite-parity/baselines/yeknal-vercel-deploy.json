@@ -1,0 +1,39 @@
+{
+  "fmKeys": [
+    "name",
+    "description",
+    "metadata"
+  ],
+  "headings": [
+    "Vercel Deploy",
+    "Prerequisites",
+    "Quick Start",
+    "Fallback (No Auth)",
+    "Deploy current directory",
+    "Deploy specific project",
+    "Deploy existing tarball",
+    "Production Deploys",
+    "Output",
+    "Troubleshooting",
+    "Escalated Network Access"
+  ],
+  "backticks": [
+    "command -v vercel",
+    "sandbox_permissions=require_escalated",
+    "vercel",
+    "previewUrl",
+    "claimUrl"
+  ],
+  "links": [],
+  "thresholds": [
+    "600000ms"
+  ],
+  "codeFences": 10,
+  "resources": [
+    "LICENSE.txt",
+    "agents/openai.yaml",
+    "assets/vercel-small.svg",
+    "assets/vercel.png",
+    "scripts/deploy.sh"
+  ]
+}

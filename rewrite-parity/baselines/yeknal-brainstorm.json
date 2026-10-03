@@ -1,0 +1,31 @@
+{
+  "fmKeys": [
+    "name",
+    "description"
+  ],
+  "headings": [
+    "Brainstorm",
+    "Usage",
+    "Auto-Persona Activation",
+    "Tool integration",
+    "Arguments",
+    "Examples",
+    "Quick brainstorm on user experience",
+    "Comprehensive analysis with export",
+    "Technical solution exploration",
+    "Output Structure"
+  ],
+  "backticks": [
+    "[topic]",
+    "--format",
+    "--depth",
+    "shallow",
+    "deep",
+    "comprehensive",
+    "--export <path>"
+  ],
+  "links": [],
+  "thresholds": [],
+  "codeFences": 4,
+  "resources": []
+}
