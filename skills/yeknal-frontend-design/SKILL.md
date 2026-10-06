@@ -74,6 +74,8 @@ While building:
 
 Write from the user's point of view in plain, active language. Name an action for its outcome and keep the term through the flow: `Publish` leads to `Published`, never a differently named confirmation.
 
+Never use staccato sentences in interface prose, design rationale, or handoff notes. Avoid strings of clipped fragments and one-line paragraphs; connect related thoughts into complete sentences with a natural rhythm. Keep control labels, headings, and status messages concise when the interface calls for it, but do not make longer copy choppy just to sound punchy.
+
 Treat empty and error states as directions: say what happened and what to do next. Cut apologies, vague failures, decorative microcopy, and implementation jargon.
 
 ## Component and motion libraries

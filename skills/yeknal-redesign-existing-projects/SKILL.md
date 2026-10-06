@@ -57,6 +57,7 @@ Do not diagnose "slop" from one font, hue, card count, centered hero, or navigat
 ### Content and truthfulness
 
 - Replace vague generated copy with specific, product-grounded language.
+- Never use staccato sentences in interface prose, redesign rationale, or handoff notes. Connect related ideas in complete sentences with a natural rhythm, and avoid runs of clipped fragments or one-line paragraphs; concise control labels and status messages may remain brief when the interface requires it.
 - Use real approved assets and data when available. Label fixtures and placeholders; never invent realistic people, dates, metrics, testimonials, client logos, or contact details to make a mockup appear live.
 - Keep CTA labels consistent with their actual consequence. Do not hide cost, prerequisites, destructive impact, or unavailable capability.
 - Include required legal, privacy, status, attribution, and recovery content based on product scope—not as universal boilerplate.

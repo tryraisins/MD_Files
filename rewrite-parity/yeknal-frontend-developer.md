@@ -6,7 +6,9 @@
 - baseline 2, current 2, missing 0, added 0
 
 ## headings (advisory)
-- baseline 17, current 17, missing 0, added 0
+- baseline 17, current 18, missing 0, added 1
+- added:
+  - Interface copy
 
 ## backticks (error)
 - baseline 9, current 9, missing 0, added 0

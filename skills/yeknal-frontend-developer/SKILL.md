@@ -46,6 +46,12 @@ Use the repository's established styling system—Tailwind, CSS modules, vanilla
 - Use a display/body pairing or dramatic hero contrast only when the content hierarchy warrants it.
 - Do not copy a fashionable family from a reference without documenting why it fits.
 
+### Interface copy
+
+- Never use staccato sentences in interface prose, implementation explanations, or handoff notes. Write complete, naturally flowing sentences, connect related thoughts, and avoid strings of clipped fragments or one-line paragraphs.
+- Keep control labels, headings, and status messages as short as usability requires; concise UI text is not a reason to make explanatory copy choppy.
+- Before handoff, read visible copy and explanatory text aloud or as a continuous passage, then smooth abrupt fragments that interrupt its natural rhythm.
+
 ### Color & Theme
 
 - Commit to a cohesive palette using CSS variables for consistency
