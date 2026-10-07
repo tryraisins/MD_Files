@@ -79,11 +79,10 @@ Current results: 87/87 valid; audit-skills 0/0; links 0 unresolved; routing eval
 
 ## Next Actions
 
-1. Confirm the skills.sh listing reflects the published catalog after push.
-2. Optional: create a Vercel-authed Pack for a one-command core install.
+1. Optional: create a Vercel-authed Pack for a one-command core install.
 
 ## Verification
 
 - Local: skills-ref valid (incl. break-ui), audit-skills 0/0 at 87, links 0, routing 26/0, CLI 22/22, counts aligned (core 29, design 24, all 87, published 53).
 - 2026-10-07 design-skill update: skills-ref validate passed for all 87 skills; audit-skills 0 errors / 0 warnings; routing evals 26 cases / 0 errors; CLI tests 22/22; `git diff --check` passed.
-- Pending: post-push skills.sh listing.
+- Post-push: skills.sh lists the catalog's 53 published skills, including `yeknal-ui-quality-baseline` and `yeknal-ui-ux-designer`.
