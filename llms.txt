@@ -23,7 +23,7 @@ yeknal-stitch-design-taste: Semantic design guidance compatible with Google Stit
 yeknal-emil-design-eng: UI polish, component details, and purposeful interaction motion.
 yeknal-oil-motion: Specialized generated or captured frame-based interactive media workflow adapted from oil-oil/oil-motion.
 yeknal-pick-ui-library: Chooses libraries from installed dependencies and project fit; treats Rare UI, beUI, Spectrum UI, and Spell UI as inspectable component-source registries.
-yeknal-content-seo: Content and technical SEO workflow including IndexNow changed-URL notification and explicit receipt-versus-indexing proof boundaries.
+yeknal-content-seo: Content and technical SEO, including IndexNow change notification and a conditional AI-readable brand facts page when branded-search work finds a real information gap; makes no AI Overview or ranking guarantees.
 yeknal-implement: End-to-end repository implementation command that defers to specific domain skills and preserves behavior.
 yeknal-review: Evidence-first code and system review.
 yeknal-troubleshoot: Reproduction-led diagnosis and scoped repair.

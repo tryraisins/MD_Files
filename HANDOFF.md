@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-07
 Branch: main
-HEAD: a3d907b (review/troubleshoot/domain-modeling update)
+HEAD: 8633ec6 (base before SEO AI-search guidance update)
 
 ## Current Objective
 
@@ -21,11 +21,12 @@ Maintain the published Yeknal catalog on skills.sh under unique `yeknal-*` slugs
 - Published CLI patch release `2.3.2`; verified the latest npm tag and downloaded CLI profile output includes `test-audit` in core.
 - **2026-10-07**: strengthened standards/spec reviews and deep-diagnosis guidance; added public `yeknal-domain-modeling` to the optional `process` profile. Core remains 31; process is 7; catalog is 89 with 54 published.
 - Published `yeknal@2.3.3`; verified the latest npm version and downloaded CLI profile output includes `domain-modeling` in `process`.
+- **2026-10-07**: added a conditional, evidence-bound AI-readable brand page check and SEO content-safety guidance to `yeknal-content-seo`; updated routing coverage.
 - Local gates all green after the refresh: skills-ref valid, audit-skills 0/0 at 87 skills, 0 unresolved links, routing evals 26 cases 0 errors, CLI tests 22/22.
 
 ## Current Task
 
-Complete. Updated `yeknal-review` and `yeknal-troubleshoot`, added public `yeknal-domain-modeling` to the optional process profile, and published `yeknal@2.3.3`.
+Validate and push the SEO skill update. Google documents no special AI Overview optimization; page creation is conditional on a real branded-search information gap.
 
 ## Relevant Files
 
@@ -37,6 +38,7 @@ Complete. Updated `yeknal-review` and `yeknal-troubleshoot`, added public `yekna
 - `skills/yeknal-domain-modeling/SKILL.md` - opt-in glossary and ADR workflow.
 - `skills/yeknal-review/SKILL.md` - independent standards/spec review axes.
 - `skills/yeknal-troubleshoot/SKILL.md` - reproduction-led fast and deep diagnosis paths.
+- `skills/yeknal-content-seo/SKILL.md` - SEO workflow, AI-search page check, and content safeguards.
 - `skills.sh.json` - repo-page groupings (54 slugs).
 - `yeknal-cli/profiles.json` - profiles; core 31 and optional process 7, including domain modeling.
 - `PROVENANCE.md` - provenance/license ledger.
@@ -51,6 +53,7 @@ Complete. Updated `yeknal-review` and `yeknal-troubleshoot`, added public `yekna
 - 2026-10-07: added `ui-ux-designer` to the CLI core profile; updated the core count in repository and CLI documentation.
 - 2026-10-07: added `test-audit` to the default CLI core; updated catalog/profile counts and prepared `yeknal@2.3.2`.
 - 2026-10-07: updated `yeknal-review` and `yeknal-troubleshoot`; added public `yeknal-domain-modeling` to the optional process profile; published CLI patch release `2.3.3`.
+- 2026-10-07: reviewed the supplied Opus/ChatSEO SEO workflow; added a conditional brand-information page check, article-derived safeguards, and Google AI Overview proof boundaries to `yeknal-content-seo`.
 
 ## Decisions and Reasoning
 
@@ -101,4 +104,5 @@ Previous verified results: 87/87 valid; audit-skills 0/0; links 0 unresolved; ro
 - 2026-10-07 design-skill update: skills-ref validate passed for all 87 skills; audit-skills 0 errors / 0 warnings; routing evals 26 cases / 0 errors; CLI tests 22/22; `git diff --check` passed.
 - Post-push before the latest addition: skills.sh listed 53 published skills, including `yeknal-ui-quality-baseline` and `yeknal-ui-ux-designer`.
 - Previous test-audit update: all 88 skills passed `skills-ref`; catalog audit reported 0 errors / 0 warnings; routing evaluations reported 26 cases / 0 errors; CLI tests passed 22/22; `yeknal@2.3.2` was published and verified.
-- Current review/domain-modeling update: all 89 skills pass `skills-ref`; catalog audit reports 0 errors / 0 warnings; routing evaluations report 27 cases / 0 errors; CLI tests pass 22/22; CLI reports process 7 including `domain-modeling`; `npx skills add . --list` finds 54 published skills; `npm pack --dry-run` passes. Published `yeknal@2.3.3`; verified npm's latest version and `npx --yes yeknal@2.3.3 profiles`. The skills.sh page still showed 53 at last check; indexing refresh is pending.
+- Previous review/domain-modeling update: all 89 skills passed `skills-ref`; catalog audit reported 0 errors / 0 warnings; routing evaluations reported 27 cases / 0 errors; CLI tests passed 22/22; `yeknal@2.3.3` was published and verified. The skills.sh page still showed 53 at last check; indexing refresh is pending.
+- Current SEO skill update: `skills-ref validate` passed for `yeknal-content-seo`; catalog audit reports 0 errors / 0 warnings; routing evaluations report 28 cases / 0 errors; CLI tests pass 22/22; local skills.sh discovery lists 54 published skills; `git diff --check` passes. GitHub publication pending.

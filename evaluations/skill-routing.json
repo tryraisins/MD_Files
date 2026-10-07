@@ -154,6 +154,14 @@
       "rationale": "Metadata correctness and crawlability belong to the focused SEO workflow, not a visual-design route."
     },
     {
+      "id": "branded-ai-search-visibility",
+      "prompt": "Improve how people and AI search systems find accurate information about our company for branded searches. Check whether we need a public brand facts page, but don't invent claims or promise AI Overview placement.",
+      "primary": "yeknal-content-seo",
+      "secondary": [],
+      "mustNotLead": ["yeknal-frontend-design"],
+      "rationale": "This is an evidence-led SEO audit of branded information and AI visibility, not a request for a visual redesign or a guaranteed AI-search placement."
+    },
+    {
       "id": "repeatable-acceptance-check",
       "prompt": "Implement this CSV importer and make the duplicate, date, and totals checks deterministic so they can be rerun in CI.",
       "primary": "yeknal-implement",

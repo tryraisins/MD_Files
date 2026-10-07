@@ -167,7 +167,7 @@ Security scan checks use stable IDs and link to current `Security-Master.md` anc
 
 ### SEO discovery
 
-`yeknal-content-seo` includes an IndexNow workflow for changed-URL notification. It treats LaunchIgniter's submitter as an optional manual helper and keeps receipt, crawling, indexing, and ranking as separate proof boundaries.
+`yeknal-content-seo` includes an IndexNow workflow for changed-URL notification and conditionally evaluates whether a public AI-readable brand facts page fills a real search-information gap. It does not claim such a page or `/llms.txt` improves AI Overview placement. The skill treats submission, crawling, indexing, ranking, and AI citations as separate proof boundaries.
 
 ## Upstream review
 
