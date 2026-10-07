@@ -266,3 +266,16 @@ Even when the task is only one button, badge, input, icon, loader, or skeleton:
 - For a public launch, confirm the home page says what the product does in one clear line, each page has one dominant primary action, every page has an accurate title and description, the site has a working favicon, and no visible placeholder or template text remains.
 - Run relevant lint, type checks, tests, builds, and browser checks. A successful build is not visual proof.
 - Report what was verified, what failed, and what remains blocked without overclaiming.
+
+### Public launch sign-off
+
+Before calling a public website launch-ready, consolidate applicable checks into a short route-by-route sign-off. Mark each item **verified**, **failed**, or **blocked** and include evidence or the blocker; omit items that do not apply rather than inventing work to satisfy the list.
+
+- Home-page purpose and page-level primary actions are clear.
+- Routes, navigation, links, and visible actions work, including the core journey from start to finish.
+- Responsive containment, mobile navigation where needed, enlarged-text layout, and keyboard completion have been checked.
+- Loading, empty, error, form, success, disabled, and transition behavior has been checked where those states exist.
+- Page titles and descriptions, favicon, and visible copy have been checked; no placeholder or template text remains.
+- Relevant automated checks and rendered browser verification have been run, with any unavailable device or production checks called out explicitly.
+
+For broader crawlability and metadata review, follow `yeknal-content-seo`; this sign-off does not replace its canonical, indexing, social-card, sitemap, or structured-data checks.

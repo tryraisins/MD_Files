@@ -1,8 +1,8 @@
 # Project Handoff
 
-Last updated: 2026-10-03
+Last updated: 2026-10-07
 Branch: main
-HEAD: 0022f1e (all phases complete; working tree clean)
+HEAD: d87a937 (base before 2026-10-07 design-skill updates)
 
 ## Current Objective
 
@@ -19,12 +19,14 @@ Maintain the published Yeknal catalog on skills.sh under unique `yeknal-*` slugs
 
 ## Current Task
 
-Complete and verified. The 2026-10-03 Emil refresh is done; commit is pending owner approval.
+Complete. Added a practical usability-testing workflow and a concise public launch sign-off to the design-related skills; validation passed. Push the changes so skills.sh can pick up the catalog updates.
 
 ## Relevant Files
 
 - `skills/yeknal-<base>/SKILL.md` - canonical skills.
 - `skills/yeknal-break-ui/` - new skill (`SKILL.md`, `CATALOG.md`, `LICENSE.txt`).
+- `skills/yeknal-ui-ux-designer/SKILL.md` - user-centered design and usability research guidance.
+- `skills/yeknal-ui-quality-baseline/SKILL.md` - shared UI implementation and verification contract.
 - `skills.sh.json` - repo-page groupings (53 slugs).
 - `yeknal-cli/profiles.json` - profiles; core now 29.
 - `PROVENANCE.md` - provenance/license ledger.
@@ -35,6 +37,7 @@ Complete and verified. The 2026-10-03 Emil refresh is done; commit is pending ow
 ## Recent Changes
 
 - 2026-10-03: added `yeknal-break-ui`; added mobile web platform layer to `yeknal-ui-quality-baseline`; refreshed README/PROVENANCE/llms/profiles/eval counts.
+- 2026-10-07: added practical usability-testing steps to `yeknal-ui-ux-designer` and a status-based public launch sign-off to `yeknal-ui-quality-baseline`.
 
 ## Decisions and Reasoning
 
@@ -76,11 +79,11 @@ Current results: 87/87 valid; audit-skills 0/0; links 0 unresolved; routing eval
 
 ## Next Actions
 
-1. Commit the 2026-10-03 Emil refresh (needs approval).
-2. Optional: confirm the skills.sh repo page/search index reflects 53 slugs after push.
-3. Optional: create a Vercel-authed Pack for a one-command core install.
+1. Confirm the skills.sh listing reflects the published catalog after push.
+2. Optional: create a Vercel-authed Pack for a one-command core install.
 
 ## Verification
 
 - Local: skills-ref valid (incl. break-ui), audit-skills 0/0 at 87, links 0, routing 26/0, CLI 22/22, counts aligned (core 29, design 24, all 87, published 53).
-- Pending: post-push skills.sh listing; owner commit approval.
+- 2026-10-07 design-skill update: skills-ref validate passed for all 87 skills; audit-skills 0 errors / 0 warnings; routing evals 26 cases / 0 errors; CLI tests 22/22; `git diff --check` passed.
+- Pending: post-push skills.sh listing.
