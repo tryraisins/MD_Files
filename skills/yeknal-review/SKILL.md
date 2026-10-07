@@ -45,6 +45,19 @@ Perform a thorough review of code, systems, or components, returning actionable 
 
 ## Review Categories
 
+### Review the change on two independent axes
+
+For a branch, pull request, or working-tree change, establish the comparison point and inspect the complete relevant diff before judging it. Verify the requested base or target resolves; for branch comparisons, use the merge base so unrelated target-branch changes are not attributed to the reviewed work. Include the commit range and originating requirement when available.
+
+Report these axes separately so a strong result on one cannot conceal a failure on the other:
+
+- **Standards**: does the change follow repository instructions, documented coding standards, established architecture, and relevant language or platform conventions? Name the rule and its source. Use smells as evidence-led heuristics, not automatic violations, and let explicit repository conventions take precedence.
+- **Spec**: does the change implement the requested behavior and acceptance criteria? Trace each important requirement to the changed behavior. Call out missing, partial, incorrect, or unrequested behavior with the relevant requirement as evidence.
+
+Find the specification in the user's supplied brief, referenced issue, or relevant repository spec. If none is available, say the spec axis could not be verified; do not invent requirements. For a review of a single file or system rather than a diff, apply the same distinction to the requested contract and the repository's standards.
+
+Keep findings ordered by severity within each axis. Each finding needs a precise file and line, observable impact, evidence, and the smallest appropriate correction. Do not merge or average the two axis results into a single score. If an axis has no supported findings, say so. Existing categories below remain available as focused lenses and do not replace either axis.
+
 ### Security Review
 
 - Vulnerability scanning and threat analysis

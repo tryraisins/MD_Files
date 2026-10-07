@@ -19,13 +19,16 @@ Git is optional and is used as a fallback when GitHub API or raw-file downloads 
 npx yeknal skills
 npx yeknal skills --skip-claude
 npx yeknal skills --project --profile design
+
+# Opt-in domain modeling and process workflows
+npx yeknal skills --project --profile process
 npx yeknal profiles
 npx yeknal security
 ```
 
 ### `npx yeknal skills`
 
-Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2 defaults to the 31-skill `core` profile instead of installing all 88 folders. The core keeps high-frequency process and reasoning management, project continuity, canonical design, test auditing and planning, browser verification, all four security workflows, and the task-time `yeknal-skill-router` available globally.
+Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2 defaults to the 31-skill `core` profile instead of installing all 89 folders. The core keeps high-frequency process and reasoning management, project continuity, canonical design, test auditing and planning, browser verification, all four security workflows, and the task-time `yeknal-skill-router` available globally. The optional `process` profile includes `yeknal-domain-modeling` for deliberate glossary and ADR work.
 
 ```bash
 # Core profile in detected user-level agent folders

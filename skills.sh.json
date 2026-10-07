@@ -4,11 +4,12 @@
   "groupings": [
     {
       "title": "Process & reasoning",
-      "description": "Planning, implementation, review, diagnosis, cleanup, Git, documentation, and testing workflows.",
+      "description": "Planning, implementation, review, diagnosis, domain modeling, cleanup, Git, documentation, and testing workflows.",
       "skills": [
         "yeknal-add-changelog",
         "yeknal-brainstorm",
         "yeknal-cleanup",
+        "yeknal-domain-modeling",
         "yeknal-engineering-specialists",
         "yeknal-finalize",
         "yeknal-git",

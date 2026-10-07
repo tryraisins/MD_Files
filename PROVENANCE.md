@@ -56,6 +56,7 @@ These match upstream skill names published on skills.sh. They are MIT-licensed u
 | `yeknal-design-reference-research` | Research reads live products/galleries; keeps source attribution in notes and must not present borrowed work as original. |
 | `yeknal-ui-quality-baseline`, `yeknal-design-reference-research` | Reviewed [ibelick/ui-skills](https://github.com/ibelick/ui-skills) (Julien Thibeaut) as a reference only; an 8-word shingle scan found no verbatim overlap, so no upstream notice is bundled. |
 | `yeknal-test-audit` | Adapted independently from the audit concepts in [openclaw/openclaw test-audit](https://github.com/openclaw/openclaw/blob/main/.agents/skills/test-audit/SKILL.md); no source text copied. |
+| `yeknal-domain-modeling` | Adapted independently from [mattpocock/skills domain-modeling](https://github.com/mattpocock/skills/blob/f3fc5632f401156837ee3872f14fe33ccf1024ea/skills/engineering/domain-modeling/SKILL.md) at `f3fc5632f401156837ee3872f14fe33ccf1024ea` (MIT); no source text copied. |
 
 ## Original skills (no upstream identified)
 

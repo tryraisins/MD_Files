@@ -98,6 +98,14 @@
       "rationale": "General Markdown consolidation is not a release-history task."
     },
     {
+      "id": "domain-modeling-glossary-and-adr",
+      "prompt": "Our product and code use 'account' and 'customer' inconsistently. Help resolve what these terms mean, update the glossary after we agree, and record the durable storage tradeoff as an ADR.",
+      "primary": "yeknal-domain-modeling",
+      "secondary": ["yeknal-markdown-management"],
+      "mustNotLead": ["yeknal-brainstorm"],
+      "rationale": "The request is to resolve and persist domain language and a durable decision, not just explore options or perform generic Markdown maintenance."
+    },
+    {
       "id": "deep-research-request",
       "prompt": "Perform deep research on this market, verify every important claim, preserve the evidence, and identify remaining gaps.",
       "primary": "yeknal-research-analysis",

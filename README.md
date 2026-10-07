@@ -45,16 +45,17 @@ npx yeknal security
 | `npx yeknal skills` | Syncs the 31-skill core profile into detected user-level agent folders, including the shared UI quality baseline, UI/UX design, test auditing, project continuity, the task-time skill router, and testing strategy. |
 | `npx yeknal skills --skip-claude` | Avoids duplicate managed skills in OpenCode and other Claude-compatible readers by skipping and cleaning managed copies from `~/.claude/skills`. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
+| `npx yeknal skills --project --profile process` | Syncs the optional process and domain-modeling workflows into the current repository. |
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
 | `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills aspnet-core` | Adds missing skills to the current repository without deleting or replacing existing skills. |
-| `npx yeknal skills --all` | Syncs all 88 skills for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs all 89 skills for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 
 ### Install with skills.sh
 
-The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (53 skills); the remaining specialists stay installable with `npx yeknal skills` but are hidden from skills.sh discovery.
+The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (54 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
 
 ```bash
 npx skills add tryraisins/MD_Files --list
@@ -89,7 +90,7 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | Profile | Skills | Purpose |
 | --- | ---: | --- |
 | `core` | 31 | High-frequency process, design, implementation, verification, and security. |
-| `process` | 6 | Optional delivery, cleanup, GitHub, exhaustive-output, and response workflows beyond core. |
+| `process` | 7 | Optional domain modeling, delivery, cleanup, GitHub, exhaustive-output, and response workflows beyond core. |
 | `design` | 24 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
 | `security` | 4 | The four distinct security output contracts. |
 | `web` | 5 | Specialist web apps, frameworks, SEO, and production errors beyond core. |
@@ -97,7 +98,7 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
 | `productivity` | 5 | Linear and Notion workflows. |
 | `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 88 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 89 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects`, `yeknal-mobile-app-design`, `yeknal-human-ai-interface-design`, and `yeknal-animate` provide the core paths; aesthetic systems and tool-specific workflows remain in the design pack because their triggers and output contracts differ. Security keeps four folders for the same reason: implementation, review, threat modeling, and ownership analysis are not interchangeable artifacts.
 
@@ -138,6 +139,7 @@ The consolidated routers are `yeknal-engineering-specialists`, `yeknal-orchestra
 
 - `yeknal-markdown-management`: create, update, merge, split, rename, and audit Markdown and skill folders without losing authority, links, anchors, or provenance.
 - `yeknal-implement`, `yeknal-review`, `yeknal-troubleshoot`, `yeknal-cleanup`, `yeknal-git`, `yeknal-finalize`, and `yeknal-add-changelog`: focused command workflows that defer to repository evidence and specialist skills.
+- `yeknal-domain-modeling`: opt-in glossary and ADR practice for resolving domain language and recording only durable, consequential decisions.
 
 Run the local structural audit with:
 
@@ -173,6 +175,8 @@ The 2026-10-03 refresh reviewed [emilkowalski/skills](https://github.com/emilkow
 
 - `break-ui` becomes `yeknal-break-ui`: an adversarial worst-case data stress test with a bundled worst-case catalog, added to core because it verifies the shared UI contract.
 - `mobile-native` is folded into the shared `yeknal-ui-quality-baseline` as the mobile web platform layer, and the mobile screen skill routes to it; no separate skill was created. Motion, gesture, and React Native work continue to route to `yeknal-animate` and `yeknal-animate-expo`.
+
+The 2026-10-07 workflow review examined [mattpocock/skills](https://github.com/mattpocock/skills) at `f3fc5632f401156837ee3872f14fe33ccf1024ea`. Its domain-modeling practice informed `yeknal-domain-modeling`, an independently written glossary/ADR workflow with no source text copied.
 
 The 2026-09-12 refresh additionally reviewed:
 

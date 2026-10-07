@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-07
 Branch: main
-HEAD: ff5a869 (test-audit skill and core-profile update)
+HEAD: ba0ff4c (base before review/troubleshoot/domain-modeling updates)
 
 ## Current Objective
 
@@ -19,11 +19,12 @@ Maintain the published Yeknal catalog on skills.sh under unique `yeknal-*` slugs
 - Published CLI patch release `2.3.1`; verified npm's latest tag and the downloaded CLI profile output.
 - **2026-10-07**: added internal `yeknal-test-audit`, linked it from `yeknal-testing-strategy`, and included it in the default CLI core. Core now has 31 skills; catalog has 88.
 - Published CLI patch release `2.3.2`; verified the latest npm tag and downloaded CLI profile output includes `test-audit` in core.
+- **2026-10-07**: strengthened standards/spec reviews and deep-diagnosis guidance; added public `yeknal-domain-modeling` to the optional `process` profile. Core remains 31; process is 7; catalog is 89 with 54 published.
 - Local gates all green after the refresh: skills-ref valid, audit-skills 0/0 at 87 skills, 0 unresolved links, routing evals 26 cases 0 errors, CLI tests 22/22.
 
 ## Current Task
 
-Complete. Added internal `yeknal-test-audit` to the default CLI core, published `yeknal@2.3.2`, and verified the installed CLI profile output.
+Changes and local validation complete. Push the review/troubleshoot refinements and opt-in domain-modeling skill, then publish and verify CLI package `2.3.3`.
 
 ## Relevant Files
 
@@ -32,8 +33,11 @@ Complete. Added internal `yeknal-test-audit` to the default CLI core, published 
 - `skills/yeknal-ui-ux-designer/SKILL.md` - user-centered design and usability research guidance.
 - `skills/yeknal-ui-quality-baseline/SKILL.md` - shared UI implementation and verification contract.
 - `skills/yeknal-test-audit/SKILL.md` - test value audit and evidence-led cleanup workflow.
-- `skills.sh.json` - repo-page groupings (53 slugs).
-- `yeknal-cli/profiles.json` - profiles; core now 31 and includes the test-audit skill.
+- `skills/yeknal-domain-modeling/SKILL.md` - opt-in glossary and ADR workflow.
+- `skills/yeknal-review/SKILL.md` - independent standards/spec review axes.
+- `skills/yeknal-troubleshoot/SKILL.md` - reproduction-led fast and deep diagnosis paths.
+- `skills.sh.json` - repo-page groupings (54 slugs).
+- `yeknal-cli/profiles.json` - profiles; core 31 and optional process 7, including domain modeling.
 - `PROVENANCE.md` - provenance/license ledger.
 - `tools/skill-inventory.js`, `tools/parity.js`, `tools/rewrite-standard.md` - rewrite gate.
 - `rewrite-parity/baselines/<skill>.json` - pre-rewrite capability inventories.
@@ -45,6 +49,7 @@ Complete. Added internal `yeknal-test-audit` to the default CLI core, published 
 - 2026-10-07: added practical usability-testing steps to `yeknal-ui-ux-designer` and a status-based public launch sign-off to `yeknal-ui-quality-baseline`.
 - 2026-10-07: added `ui-ux-designer` to the CLI core profile; updated the core count in repository and CLI documentation.
 - 2026-10-07: added `test-audit` to the default CLI core; updated catalog/profile counts and prepared `yeknal@2.3.2`.
+- 2026-10-07: updated `yeknal-review` and `yeknal-troubleshoot`; added public `yeknal-domain-modeling` to the optional process profile; prepared CLI patch release `2.3.3`.
 
 ## Decisions and Reasoning
 
@@ -93,4 +98,5 @@ Previous verified results: 87/87 valid; audit-skills 0/0; links 0 unresolved; ro
 - Local: previous design/CLI release validation passed at core 30 and catalog 87.
 - 2026-10-07 design-skill update: skills-ref validate passed for all 87 skills; audit-skills 0 errors / 0 warnings; routing evals 26 cases / 0 errors; CLI tests 22/22; `git diff --check` passed.
 - Post-push: skills.sh lists the catalog's 53 published skills, including `yeknal-ui-quality-baseline` and `yeknal-ui-ux-designer`.
-- Current test-audit update: all 88 skills pass `skills-ref`; catalog audit reports 0 errors / 0 warnings; routing evaluations report 26 cases / 0 errors; CLI tests pass 22/22; `node .\bin\yeknal.js profiles` reports core 31 including `test-audit`; `npm pack --dry-run` passes. Published `yeknal@2.3.2`; verified npm's latest tag and `npx --yes yeknal@2.3.2 profiles` includes `test-audit` under core.
+- Previous test-audit update: all 88 skills passed `skills-ref`; catalog audit reported 0 errors / 0 warnings; routing evaluations reported 26 cases / 0 errors; CLI tests passed 22/22; `yeknal@2.3.2` was published and verified.
+- Current review/domain-modeling update: all 89 skills pass `skills-ref`; catalog audit reports 0 errors / 0 warnings; routing evaluations report 27 cases / 0 errors; CLI tests pass 22/22; CLI reports process 7 including `domain-modeling`; `npx skills add . --list` finds 54 published skills; `npm pack --dry-run` passes. Pending Git and npm publication.
