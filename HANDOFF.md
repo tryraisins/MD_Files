@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-07
 Branch: main
-HEAD: ba0ff4c (base before review/troubleshoot/domain-modeling updates)
+HEAD: a3d907b (review/troubleshoot/domain-modeling update)
 
 ## Current Objective
 
@@ -20,11 +20,12 @@ Maintain the published Yeknal catalog on skills.sh under unique `yeknal-*` slugs
 - **2026-10-07**: added internal `yeknal-test-audit`, linked it from `yeknal-testing-strategy`, and included it in the default CLI core. Core now has 31 skills; catalog has 88.
 - Published CLI patch release `2.3.2`; verified the latest npm tag and downloaded CLI profile output includes `test-audit` in core.
 - **2026-10-07**: strengthened standards/spec reviews and deep-diagnosis guidance; added public `yeknal-domain-modeling` to the optional `process` profile. Core remains 31; process is 7; catalog is 89 with 54 published.
+- Published `yeknal@2.3.3`; verified the latest npm version and downloaded CLI profile output includes `domain-modeling` in `process`.
 - Local gates all green after the refresh: skills-ref valid, audit-skills 0/0 at 87 skills, 0 unresolved links, routing evals 26 cases 0 errors, CLI tests 22/22.
 
 ## Current Task
 
-Changes and local validation complete. Push the review/troubleshoot refinements and opt-in domain-modeling skill, then publish and verify CLI package `2.3.3`.
+Complete. Updated `yeknal-review` and `yeknal-troubleshoot`, added public `yeknal-domain-modeling` to the optional process profile, and published `yeknal@2.3.3`.
 
 ## Relevant Files
 
@@ -49,7 +50,7 @@ Changes and local validation complete. Push the review/troubleshoot refinements 
 - 2026-10-07: added practical usability-testing steps to `yeknal-ui-ux-designer` and a status-based public launch sign-off to `yeknal-ui-quality-baseline`.
 - 2026-10-07: added `ui-ux-designer` to the CLI core profile; updated the core count in repository and CLI documentation.
 - 2026-10-07: added `test-audit` to the default CLI core; updated catalog/profile counts and prepared `yeknal@2.3.2`.
-- 2026-10-07: updated `yeknal-review` and `yeknal-troubleshoot`; added public `yeknal-domain-modeling` to the optional process profile; prepared CLI patch release `2.3.3`.
+- 2026-10-07: updated `yeknal-review` and `yeknal-troubleshoot`; added public `yeknal-domain-modeling` to the optional process profile; published CLI patch release `2.3.3`.
 
 ## Decisions and Reasoning
 
@@ -91,12 +92,13 @@ Previous verified results: 87/87 valid; audit-skills 0/0; links 0 unresolved; ro
 
 ## Next Actions
 
-1. Optional: create a Vercel-authed Pack for a one-command core install.
+1. Recheck the skills.sh listing after its index refresh; the local catalog now contains 54 public slugs.
+2. Optional: create a Vercel-authed Pack for a one-command core install.
 
 ## Verification
 
 - Local: previous design/CLI release validation passed at core 30 and catalog 87.
 - 2026-10-07 design-skill update: skills-ref validate passed for all 87 skills; audit-skills 0 errors / 0 warnings; routing evals 26 cases / 0 errors; CLI tests 22/22; `git diff --check` passed.
-- Post-push: skills.sh lists the catalog's 53 published skills, including `yeknal-ui-quality-baseline` and `yeknal-ui-ux-designer`.
+- Post-push before the latest addition: skills.sh listed 53 published skills, including `yeknal-ui-quality-baseline` and `yeknal-ui-ux-designer`.
 - Previous test-audit update: all 88 skills passed `skills-ref`; catalog audit reported 0 errors / 0 warnings; routing evaluations reported 26 cases / 0 errors; CLI tests passed 22/22; `yeknal@2.3.2` was published and verified.
-- Current review/domain-modeling update: all 89 skills pass `skills-ref`; catalog audit reports 0 errors / 0 warnings; routing evaluations report 27 cases / 0 errors; CLI tests pass 22/22; CLI reports process 7 including `domain-modeling`; `npx skills add . --list` finds 54 published skills; `npm pack --dry-run` passes. Pending Git and npm publication.
+- Current review/domain-modeling update: all 89 skills pass `skills-ref`; catalog audit reports 0 errors / 0 warnings; routing evaluations report 27 cases / 0 errors; CLI tests pass 22/22; CLI reports process 7 including `domain-modeling`; `npx skills add . --list` finds 54 published skills; `npm pack --dry-run` passes. Published `yeknal@2.3.3`; verified npm's latest version and `npx --yes yeknal@2.3.3 profiles`. The skills.sh page still showed 53 at last check; indexing refresh is pending.
