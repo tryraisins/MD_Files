@@ -42,7 +42,7 @@ npx yeknal security
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal skills` | Syncs the 29-skill core profile into detected user-level agent folders, including project continuity, the task-time skill router, and testing strategy. |
+| `npx yeknal skills` | Syncs the 30-skill core profile into detected user-level agent folders, including the shared UI quality baseline, UI/UX design, project continuity, the task-time skill router, and testing strategy. |
 | `npx yeknal skills --skip-claude` | Avoids duplicate managed skills in OpenCode and other Claude-compatible readers by skipping and cleaning managed copies from `~/.claude/skills`. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
@@ -77,7 +77,7 @@ npx skills add tryraisins/MD_Files --skill yeknal-frontend-design
 
 ## Capability profiles
 
-The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 29 entries cover:
+The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 30 entries cover:
 
 - process and reasoning management: brainstorming, research, orchestration/context management, implementation, review, diagnosis, cleanup, Git, finalization, documentation, and testing strategy;
 - canonical design: reference research, visual direction, UI quality, frontend implementation, redesign, mobile, motion, and human-AI interaction;
@@ -88,9 +88,9 @@ Specialist packs add depth without forcing every style, platform, integration, o
 
 | Profile | Skills | Purpose |
 | --- | ---: | --- |
-| `core` | 29 | High-frequency process, design, implementation, verification, and security. |
+| `core` | 30 | High-frequency process, design, implementation, verification, and security. |
 | `process` | 6 | Optional delivery, cleanup, GitHub, exhaustive-output, and response workflows beyond core. |
-| `design` | 24 | Specialist visual styles, motion, prototyping, Figma, and image-led work beyond core design. |
+| `design` | 24 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
 | `security` | 4 | The four distinct security output contracts. |
 | `web` | 5 | Specialist web apps, frameworks, SEO, and production errors beyond core. |
 | `platform` | 7 | Platform-specific engineering and deployment. |
