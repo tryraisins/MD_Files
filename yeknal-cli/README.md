@@ -25,7 +25,7 @@ npx yeknal security
 
 ### `npx yeknal skills`
 
-Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2 defaults to the 30-skill `core` profile instead of installing all 87 folders. The core keeps high-frequency process and reasoning management, project continuity, canonical design including the UI/UX designer skill, browser verification, testing strategy, all four security workflows, and the task-time `yeknal-skill-router` available globally.
+Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2 defaults to the 31-skill `core` profile instead of installing all 88 folders. The core keeps high-frequency process and reasoning management, project continuity, canonical design, test auditing and planning, browser verification, all four security workflows, and the task-time `yeknal-skill-router` available globally.
 
 ```bash
 # Core profile in detected user-level agent folders

@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-07
 Branch: main
-HEAD: ee1f99c (core-profile update)
+HEAD: 2868302 (base before test-audit skill)
 
 ## Current Objective
 
@@ -17,11 +17,12 @@ Maintain the published Yeknal catalog on skills.sh under unique `yeknal-*` slugs
 - **2026-10-03 Emil refresh**: reviewed `emilkowalski/skills` at `e8a175de22ae1e49370fc144c1f3bb9aeedf988d`. Catalog already carried 12/14. Added `yeknal-break-ui` (new core skill, adapted with bundled `CATALOG.md` + MIT `LICENSE.txt`); folded `mobile-native` into `yeknal-ui-quality-baseline` as the mobile web platform layer (no new skill). Registered in `skills.sh.json`, `profiles.json` core, `llms.txt`, `PROVENANCE.md`, `README.md`, and two new routing eval cases. Counts now core 29, design 24, published 53, catalog 87.
 - **2026-10-07**: added `yeknal-ui-ux-designer` to the CLI's default `core` profile. Core now has 30 skills; both it and `yeknal-ui-quality-baseline` are included by default.
 - Published CLI patch release `2.3.1`; verified npm's latest tag and the downloaded CLI profile output.
+- **2026-10-07**: added internal `yeknal-test-audit`, linked it from `yeknal-testing-strategy`, and included it in the default CLI core. Core now has 31 skills; catalog has 88.
 - Local gates all green after the refresh: skills-ref valid, audit-skills 0/0 at 87 skills, 0 unresolved links, routing evals 26 cases 0 errors, CLI tests 22/22.
 
 ## Current Task
 
-Complete. Added `yeknal-ui-ux-designer` to the CLI's default `core` profile, updated the documented count to 30, and published `yeknal@2.3.1`.
+Validation passed. Added the focused test-audit skill to CLI core defaults and prepared `yeknal@2.3.2`; push and publish the CLI package.
 
 ## Relevant Files
 
@@ -29,8 +30,9 @@ Complete. Added `yeknal-ui-ux-designer` to the CLI's default `core` profile, upd
 - `skills/yeknal-break-ui/` - new skill (`SKILL.md`, `CATALOG.md`, `LICENSE.txt`).
 - `skills/yeknal-ui-ux-designer/SKILL.md` - user-centered design and usability research guidance.
 - `skills/yeknal-ui-quality-baseline/SKILL.md` - shared UI implementation and verification contract.
+- `skills/yeknal-test-audit/SKILL.md` - test value audit and evidence-led cleanup workflow.
 - `skills.sh.json` - repo-page groupings (53 slugs).
-- `yeknal-cli/profiles.json` - profiles; core now 30 and includes both UI design skills.
+- `yeknal-cli/profiles.json` - profiles; core now 31 and includes the test-audit skill.
 - `PROVENANCE.md` - provenance/license ledger.
 - `tools/skill-inventory.js`, `tools/parity.js`, `tools/rewrite-standard.md` - rewrite gate.
 - `rewrite-parity/baselines/<skill>.json` - pre-rewrite capability inventories.
@@ -41,6 +43,7 @@ Complete. Added `yeknal-ui-ux-designer` to the CLI's default `core` profile, upd
 - 2026-10-03: added `yeknal-break-ui`; added mobile web platform layer to `yeknal-ui-quality-baseline`; refreshed README/PROVENANCE/llms/profiles/eval counts.
 - 2026-10-07: added practical usability-testing steps to `yeknal-ui-ux-designer` and a status-based public launch sign-off to `yeknal-ui-quality-baseline`.
 - 2026-10-07: added `ui-ux-designer` to the CLI core profile; updated the core count in repository and CLI documentation.
+- 2026-10-07: added `test-audit` to the default CLI core; updated catalog/profile counts and prepared `yeknal@2.3.2`.
 
 ## Decisions and Reasoning
 
@@ -78,7 +81,7 @@ npm test --prefix .\yeknal-cli
 npx skills add . --list
 ```
 
-Current results before this profile update: 87/87 valid; audit-skills 0/0; links 0 unresolved; routing evals 26 cases/0 errors; CLI tests 22/22; catalog 87, core 29, design 24, published 53.
+Previous verified results: 87/87 valid; audit-skills 0/0; links 0 unresolved; routing evals 26 cases/0 errors; CLI tests 22/22; catalog 87, core 29, design 24, published 53.
 
 ## Next Actions
 
@@ -86,7 +89,7 @@ Current results before this profile update: 87/87 valid; audit-skills 0/0; links
 
 ## Verification
 
-- Local: skills-ref valid (incl. break-ui), audit-skills 0/0 at 87, links 0, routing 26/0, CLI 22/22, counts aligned (core 29, design 24, all 87, published 53) before the latest profile update.
+- Local: previous design/CLI release validation passed at core 30 and catalog 87.
 - 2026-10-07 design-skill update: skills-ref validate passed for all 87 skills; audit-skills 0 errors / 0 warnings; routing evals 26 cases / 0 errors; CLI tests 22/22; `git diff --check` passed.
 - Post-push: skills.sh lists the catalog's 53 published skills, including `yeknal-ui-quality-baseline` and `yeknal-ui-ux-designer`.
-- CLI core update: `npm test` passed (22/22); direct CLI profile listing reports core 30 with both UI skills; `npm pack --dry-run` includes the updated profile and package README. Published `yeknal@2.3.1`; verified npm's latest version and `npx --yes yeknal@2.3.1 profiles` output.
+- Current test-audit update: all 88 skills pass `skills-ref`; catalog audit reports 0 errors / 0 warnings; routing evaluations report 26 cases / 0 errors; CLI tests pass 22/22; `node .\bin\yeknal.js profiles` reports core 31 including `test-audit`; `npm pack --dry-run` passes. Pending package publication and npm verification.

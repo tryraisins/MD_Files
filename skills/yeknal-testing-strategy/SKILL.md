@@ -26,3 +26,5 @@ When isolated testing is unavoidable, first write down the concrete ways the sys
 3. If a unit test is proposed, justify it and write it before the code it covers.
 4. If E2E cannot reach a boundary, document failure modes first, then write the isolated check.
 5. Run the checks, keep a repeatable artifact for E2E runs, and report exactly what was verified and what remains unverified.
+
+When reviewing, consolidating, or removing existing tests, also apply `yeknal-test-audit`; it owns the evidence bar for test value and deletion. This does not replace the repository's test-planning or validation requirements.

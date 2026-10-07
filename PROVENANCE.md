@@ -55,6 +55,7 @@ These match upstream skill names published on skills.sh. They are MIT-licensed u
 | `yeknal-mobile-app-design`, `yeknal-ui-quality-baseline` | Reference/inspiration: Emil Kowalski's mobile-native web guidance (emilkowal.ski, animations.dev). Adapted into the shared UI baseline's mobile web platform layer; no source copied. |
 | `yeknal-design-reference-research` | Research reads live products/galleries; keeps source attribution in notes and must not present borrowed work as original. |
 | `yeknal-ui-quality-baseline`, `yeknal-design-reference-research` | Reviewed [ibelick/ui-skills](https://github.com/ibelick/ui-skills) (Julien Thibeaut) as a reference only; an 8-word shingle scan found no verbatim overlap, so no upstream notice is bundled. |
+| `yeknal-test-audit` | Adapted independently from the audit concepts in [openclaw/openclaw test-audit](https://github.com/openclaw/openclaw/blob/main/.agents/skills/test-audit/SKILL.md); no source text copied. |
 
 ## Original skills (no upstream identified)
 
