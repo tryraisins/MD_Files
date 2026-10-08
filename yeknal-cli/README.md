@@ -28,7 +28,7 @@ npx yeknal security
 
 ### `npx yeknal skills`
 
-Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2 defaults to the 31-skill `core` profile instead of installing all 89 folders. The core keeps high-frequency process and reasoning management, project continuity, canonical design, test auditing and planning, browser verification, all four security workflows, and the task-time `yeknal-skill-router` available globally. The optional `process` profile includes `yeknal-domain-modeling` for deliberate glossary and ADR work.
+Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. The repository's core profile now has 37 skills rather than all 89 folders. The published CLI 2.3.3 still bundles the previous 31-skill profile; the new default takes effect with the next CLI release. The updated core keeps high-frequency process and reasoning management, project continuity, canonical UI/UX design, common motion design and review workflows, test auditing and planning, browser verification, all four security workflows, and the task-time `yeknal-skill-router` available globally. The optional `process` profile includes `yeknal-domain-modeling` for deliberate glossary and ADR work.
 
 ```bash
 # Core profile in detected user-level agent folders
@@ -70,7 +70,7 @@ The `yeknal-skill-router` skill is part of `core`. When an agent using that prof
 
 The agent selects whether a task needs a skill; the CLI handles trusted catalog validation, download, and additive project installation. The router only installs a small, task-relevant set and does not download skills on every project open. If an installed skill should be available for future tasks in other projects too, run the normal user-scope `npx yeknal skills --skills <skill-name>` command instead.
 
-Design and security are grouped without collapsing distinct outputs into one oversized prompt. Core contains the canonical design paths and all security paths. The `design` pack adds specialist aesthetics, motion, prototyping, Figma, and image-led workflows; the `security` pack remains four focused skills for implementation, review, threat modeling, and ownership analysis.
+Design and security are grouped without collapsing distinct outputs into one oversized prompt. Core contains canonical UI/UX guidance and shared motion workflows; the `design` pack adds specialist aesthetics, prototyping, Figma, and image-led workflows, plus the same motion skills for exact profile installs. The task-time router can still add any missing task-specific specialist. The `security` pack remains four focused skills for implementation, review, threat modeling, and ownership analysis.
 
 ### `npx yeknal profiles`
 

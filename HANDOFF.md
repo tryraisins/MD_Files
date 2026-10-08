@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-08
 Branch: main
-HEAD: d1af780 (record SEO AI guidance update; current UX/accessibility changes are uncommitted)
+HEAD: current profile expansion follows `f23a024`; see `git log -1` for its commit
 
 ## Current Objective
 
@@ -25,10 +25,11 @@ Maintain the published Yeknal catalog on skills.sh under unique `yeknal-*` slugs
 - Pushed SEO skill update in `da69324`; Google AI Overview guidance is explicitly non-guaranteed and the new brand page is conditional on a documented gap.
 - **2026-10-08**: applied original guidance inspired by Irene Pereyra's *Universal Principles of UX* to the shared baseline and UX designer skill. Catalog/profile counts remain unchanged. Local checks pass: both edited skills valid, parity preserved, catalog audit 0/0 across 89 skills, 1,053 relative links resolved, 28 routing cases valid, CLI tests 22/22.
 - **2026-10-08 accessibility update**: synthesized the supplied *Accessible Design Reference & Specification Book* into shared behavior rules, one conditional accessibility reference, and UX research/handoff guidance. Added small native checks and aligned existing motion guidance with the shared removal/reduction/replacement policy. No new skills or profile changes.
+- **2026-10-08 core profile expansion**: added `animate-expo`, `apple-design`, `emil-design-eng`, `find-animation-opportunities`, `improve-animations`, and `review-animations` to core. Core is now 37 skills; the design profile remains available for exact specialist installs. The task-time router still installs any other relevant missing specialist into a project. Source profile and docs are updated; npm `yeknal@2.3.3` still has the old profile until a new CLI release is published.
 
 ## Current Task
 
-Complete locally. The prior UX book updates remain intact. The accessibility update adds typography/override checks, gesture alternatives, form semantics, media and dynamic feedback rules, accessible participant research, and behavioral handoff notes. Detailed standards and verification live in the baseline's conditional reference; motion specialists share one consistent policy. Updated provenance and the two affected parity reports. No commit, push, release, or installed-skill sync performed.
+Update the default core profile with six motion specialists while preserving task-time routing for other specialists. Source files and documentation now report core 37. No npm release or installed-skill sync performed; the published CLI remains at 2.3.3 until a versioned release is authorized and published.
 
 ## Relevant Files
 
@@ -45,7 +46,7 @@ Complete locally. The prior UX book updates remain intact. The accessibility upd
 - `skills/yeknal-troubleshoot/SKILL.md` - reproduction-led fast and deep diagnosis paths.
 - `skills/yeknal-content-seo/SKILL.md` - SEO workflow, AI-search page check, and content safeguards.
 - `skills.sh.json` - repo-page groupings (54 slugs).
-- `yeknal-cli/profiles.json` - profiles; core 31 and optional process 7, including domain modeling.
+- `yeknal-cli/profiles.json` - profiles; core 37 and optional process 7, including domain modeling.
 - `PROVENANCE.md` - provenance/license ledger.
 - `tools/skill-inventory.js`, `tools/parity.js`, `tools/rewrite-standard.md` - rewrite gate.
 - `rewrite-parity/baselines/<skill>.json` - pre-rewrite capability inventories.
@@ -54,6 +55,7 @@ Complete locally. The prior UX book updates remain intact. The accessibility upd
 ## Recent Changes
 
 - 2026-10-08: kept shared accessibility behavior in the baseline, detailed checks in one reference, and participant/handoff decisions in the UX designer skill. Existing frontend and redesign integrations inherit the shared rules. Replaced conflicting motion statements that required animation under reduced motion; preserved platform examples and existing capabilities.
+- 2026-10-08: moved six common motion specialists into core so default installs include `animate-expo`, `apple-design`, `emil-design-eng`, `find-animation-opportunities`, `improve-animations`, and `review-animations`. Updated profile counts and clarified that the router remains available for other task-specific skills.
 - 2026-10-08: kept shared interaction rules in the baseline and research/decision guidance in the UX designer skill. Existing frontend, redesign, mobile, and motion integrations inherit the baseline without duplicated instructions or a new skill.
 - 2026-10-03: added `yeknal-break-ui`; added mobile web platform layer to `yeknal-ui-quality-baseline`; refreshed README/PROVENANCE/llms/profiles/eval counts.
 - 2026-10-07: added practical usability-testing steps to `yeknal-ui-ux-designer` and a status-based public launch sign-off to `yeknal-ui-quality-baseline`.
@@ -104,12 +106,13 @@ Previous verified results: 87/87 valid; audit-skills 0/0; links 0 unresolved; ro
 
 ## Next Actions
 
-1. If publication is requested, commit the scoped UX/accessibility skills and reference, provenance, handoff, and two parity reports, then publish/sync through the established workflow. No profile or CLI version change is needed for these skill-only edits.
+1. Publish a new `yeknal-cli` patch release when authorized; `npx yeknal skills` reads the bundled profile from the published CLI, currently `2.3.3`.
 2. The skills.sh listing previously lagged the 54 local public slugs; recheck when publishing.
 
 ## Verification
 
 - 2026-10-08 accessibility update: all 10 affected skills passed `skills-ref validate`; full parity check passed; catalog audit found 0 errors/warnings across 89 skills; all 1,054 relative links resolved; routing evaluations passed 28 cases; CLI tests passed 22/22; `git diff --check` passed. Reviewed ownership and removed conflicting reduced-motion wording. Unrelated reports regenerated by the full parity check were restored to their initial clean state. These checks validate catalog structure and packaging, not downstream accessibility or usability outcomes.
+- 2026-10-08 core profile expansion: CLI profile listing confirms 37 core skills and includes all six requested motion specialists; the router instructions confirm task-time additive fetching remains available for other relevant skills. `git diff --check` passed. Published CLI profile remains unchanged until a new npm release.
 - 2026-10-08 UX update: targeted `skills-ref validate` passed for both edited skills; full parity check passed; skill audit found 0 errors/warnings across 89 skills; all 1,053 relative Markdown links resolved; routing evaluations passed 28 cases; existing CLI tests passed 22/22; `git diff --check` passed. These are catalog/packaging checks, not a claim of improved usability measured in a downstream product.
 - Local: previous design/CLI release validation passed at core 30 and catalog 87.
 - 2026-10-07 design-skill update: skills-ref validate passed for all 87 skills; audit-skills 0 errors / 0 warnings; routing evals 26 cases / 0 errors; CLI tests 22/22; `git diff --check` passed.
