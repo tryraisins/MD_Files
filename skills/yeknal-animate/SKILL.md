@@ -155,7 +155,7 @@ Ships with the animation, every time.
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  .element { animation: fade 0.2s ease; } /* keep opacity/color, drop transform-based motion */
+  .element { animation: fade 0.2s ease; } /* optional gentle replacement; removal may be more appropriate */
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -167,7 +167,7 @@ Ships with the animation, every time.
 const reduce = useReducedMotion();
 const closedX = reduce ? 0 : '-100%';
 ```
-Reduced motion means **fewer and gentler** animations, not zero: keep transitions that aid comprehension, and remove movement and position changes.
+Choose removal, reduction, or replacement according to the effect and the user's preference. The media query detects that preference; it does not automatically pause video or freeze animations. Follow the baseline's static-presentation and user-control rules, and verify that interrupted entrances or scroll reveals leave essential content visible.
 
 ## Recipes
 
@@ -190,7 +190,7 @@ Self-check before you finish. Each of these is an automatic block in `yeknal-rev
 | Animating `width`/`height`/`margin`/`padding`/`top`/`left` | `transform` / `opacity` |
 | Motion `x`/`y`/`scale` props under load | Full `transform` string |
 | Ungated `:hover` motion | `@media (hover: hover) and (pointer: fine)` |
-| Missing `prefers-reduced-motion` | Gentler variant, not zero |
+| Missing `prefers-reduced-motion` | Apply the shared reduced-motion policy |
 | Everything entering at once | 30–80ms stagger |
 
 ## Output

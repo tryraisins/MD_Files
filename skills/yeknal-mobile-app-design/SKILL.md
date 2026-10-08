@@ -33,6 +33,7 @@ Build mobile interfaces that respect the project's existing stack and feel nativ
 - Prefer native controls or faithful project wrappers for switches, sliders, segmented controls, menus, date or media pickers, sheets, share actions, and context menus.
 - Use semantic platform colors and verify light and dark modes. Resolve semantic colors to plain values before passing them into animation code.
 - Follow the platform type scale, allow text scaling, use tabular numerals for counts and prices, and make useful data selectable.
+- Expose custom controls through the platform's accessibility roles, labels, values, and actions; keep the accessible name aligned with the visible label for voice input.
 - Use one icon family appropriate to the platform. Emoji belongs in content, not interface chrome.
 - Respect safe areas, the Dynamic Island, home indicator, gesture navigation, keyboard, and supported orientations. Never hard-code device inset values.
 - Keep tap targets at least 44 pt on iOS and 48 dp on Android; extend the hit area when the visual control is smaller.
@@ -85,7 +86,7 @@ Exercise the complete flow, not a successful screenshot:
 - keyboard appearance and dismissal;
 - loading, long content, empty, error, offline, and rapid-input states;
 - light and dark themes;
-- large text and screen-reader labels;
+- large and bold text settings, screen-reader navigation and activation, and voice input where relevant;
 - interrupted gestures, fast taps, and scroll extremes;
 - reduced motion and contrast;
 - release-build frame rate on representative hardware when performance is claimed.

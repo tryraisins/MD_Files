@@ -173,7 +173,7 @@ const reduce = useReducedMotion();
 const closedX = reduce ? 0 : '-100%';
 ```
 
-Reduced motion means fewer and gentler animations, not zero — keep transitions that aid comprehension, remove movement/position changes.
+Review against the shared reduced-motion policy: effects may be removed, reduced, or replaced, and essential content must remain available without movement.
 
 ## Debugging (recommend in reviews when feel is uncertain)
 

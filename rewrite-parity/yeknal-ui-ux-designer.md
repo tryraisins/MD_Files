@@ -6,7 +6,11 @@
 - baseline 2, current 2, missing 0, added 0
 
 ## headings (advisory)
-- baseline 17, current 17, missing 0, added 0
+- baseline 17, current 20, missing 0, added 3
+- added:
+  - Accessibility in the design handoff
+  - Ground the UX decision
+  - Usability testing and iteration
 
 ## backticks (error)
 - baseline 4, current 4, missing 0, added 0

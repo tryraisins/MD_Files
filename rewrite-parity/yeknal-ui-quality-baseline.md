@@ -6,9 +6,11 @@
 - baseline 2, current 2, missing 0, added 0
 
 ## headings (advisory)
-- baseline 25, current 26, missing 0, added 1
+- baseline 25, current 28, missing 0, added 3
 - added:
   - Mobile web platform layer
+  - Public launch sign-off
+  - Respect choice and attention
 
 ## backticks (error)
 - baseline 21, current 52, missing 0, added 31
@@ -46,7 +48,9 @@
   - viewport-fit=cover
 
 ## links (error)
-- baseline 0, current 0, missing 0, added 0
+- baseline 0, current 1, missing 0, added 1
+- added:
+  - references/accessibility-design.md
 
 ## thresholds (error)
 - baseline 8, current 10, missing 0, added 2
@@ -55,6 +59,8 @@
   - 16px
 
 ## resources (error)
-- baseline 0, current 0, missing 0, added 0
+- baseline 0, current 1, missing 0, added 1
+- added:
+  - references/accessibility-design.md
 
 Result: PASS (no capability items missing).

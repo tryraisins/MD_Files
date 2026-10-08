@@ -203,7 +203,7 @@ Three rules for combining senses (from *Designing Audio-Haptic Experiences*):
 
 ## 14. Reduced motion & accessibility
 
-Reduced motion doesn't mean *no* feedback — it means a gentler, non-vestibular equivalent. Respond to three independent signals and bake them into your components:
+Preserve feedback under reduced motion through static or gentler, non-vestibular equivalents, following the shared policy. Respond to three independent signals and bake them into your components:
 
 - **`prefers-reduced-motion: reduce`** — replace slides/springs/parallax with short opacity **cross-fades or static transitions**. Drop elastic/overshoot. Keep opacity/color changes that aid comprehension.
 - **`prefers-reduced-transparency: reduce`** — make translucent surfaces frostier/solid: raise background opacity, drop the blur.

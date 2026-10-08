@@ -27,11 +27,25 @@ Act as a UI/UX designer specializing in user-centered design and interface syste
 - Moderated usability sessions and synthesis of observed task friction
 - Motion design and interaction patterns
 
+### Ground the UX decision
+
+Define the task, intended outcome, and consequential unknowns before choosing a solution. Use existing evidence first and scale further research to the decision's uncertainty and risk. Keep observations, assumptions, and hypotheses distinct. Personas should summarize supported goals, constraints, and behavior; label provisional profiles instead of inventing biographies or treating demographics as proof of ability.
+
+Consider both first-time and experienced use: novices may need explanation, while frequent users may need efficient paths without repeated onboarding. For broader flows, distinguish the in-product steps from the surrounding journey, including relevant support or offline touchpoints. Use the smallest map that reveals a consequential gap.
+
 ### Usability testing and iteration
 
 For a new or materially changed flow, validate the design with people who resemble its intended users when access is practical. Give each participant a realistic task, let them proceed without coaching, and observe where they hesitate, misunderstand labels, take an unintended path, or fail to finish. Record task outcome and concrete observations separately from interpretation; prioritize changes by impact on comprehension, confidence, and task completion, then recheck the changed flow.
 
+Include relevant disabled participants and people who use assistive technology. Make recruitment, consent, session tools, and participation formats accessible; ask about preferred accommodations and allow setup time. Let participants use their familiar tools where practical, and treat a blocked task as an interface finding rather than dismissing it as an outlier.
+
 Use a small number of focused sessions to uncover friction, not to claim statistical validation. If representative participants are unavailable, do a clearly labeled proxy walkthrough and pair it with the running-product end-to-end and keyboard checks in `yeknal-ui-quality-baseline`. Do not present proxy feedback or automated test results as observed user research.
+
+For substantial flows, include a concise recommendation for learning after launch: the unresolved assumption, existing feedback or task-outcome evidence to review, and an owner or review point when known. Combine observed behavior with user feedback; conversion alone cannot establish satisfaction or causation. Keep monitoring, new telemetry, and scheduled follow-up within the user's authorized scope.
+
+### Accessibility in the design handoff
+
+For affected components and flows, capture behavior the mockup cannot show in the authoritative design file or linked specification: semantic structure and reading order, keyboard focus order and transitions, accessible names and error relationships, announcement priority, and image or media alternatives. Resolve uncertain behavior with implementation early. Use `yeknal-ui-quality-baseline` and its accessibility reference for the technical checks instead of repeating them here; recheck those decisions in the running interface.
 
 ## Philosophy: Simple UX, Beautiful UI
 
@@ -39,6 +53,8 @@ This is the guiding principle for all work. The two halves are not in tension �
 
 - **UX — Clear**: Each flow exposes the right information and control at the right time. Optimize comprehension, confidence, reversibility, and task completion—not step count alone.
 - **UI — Authored**: Typography, color, composition, imagery, material, and motion form one product-specific system. Distinction comes from coherence and fit, not novelty effects.
+
+When simplicity, familiarity, expressiveness, or speed conflict, explain the choice through the user's task and its consequences. Removing a control can transfer effort to the user; preserve necessary complexity and make it understandable. Break conventions only when the benefit outweighs the learning cost.
 
 ## Visual Design Standards
 

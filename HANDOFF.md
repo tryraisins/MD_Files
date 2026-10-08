@@ -1,8 +1,8 @@
 # Project Handoff
 
-Last updated: 2026-10-07
+Last updated: 2026-10-08
 Branch: main
-HEAD: da69324 (SEO AI-search guidance update)
+HEAD: d1af780 (record SEO AI guidance update; current UX/accessibility changes are uncommitted)
 
 ## Current Objective
 
@@ -23,11 +23,12 @@ Maintain the published Yeknal catalog on skills.sh under unique `yeknal-*` slugs
 - Published `yeknal@2.3.3`; verified the latest npm version and downloaded CLI profile output includes `domain-modeling` in `process`.
 - **2026-10-07**: added a conditional, evidence-bound AI-readable brand page check and SEO content-safety guidance to `yeknal-content-seo`; updated routing coverage.
 - Pushed SEO skill update in `da69324`; Google AI Overview guidance is explicitly non-guaranteed and the new brand page is conditional on a documented gap.
-- Local gates all green after the refresh: skills-ref valid, audit-skills 0/0 at 87 skills, 0 unresolved links, routing evals 26 cases 0 errors, CLI tests 22/22.
+- **2026-10-08**: applied original guidance inspired by Irene Pereyra's *Universal Principles of UX* to the shared baseline and UX designer skill. Catalog/profile counts remain unchanged. Local checks pass: both edited skills valid, parity preserved, catalog audit 0/0 across 89 skills, 1,053 relative links resolved, 28 routing cases valid, CLI tests 22/22.
+- **2026-10-08 accessibility update**: synthesized the supplied *Accessible Design Reference & Specification Book* into shared behavior rules, one conditional accessibility reference, and UX research/handoff guidance. Added small native checks and aligned existing motion guidance with the shared removal/reduction/replacement policy. No new skills or profile changes.
 
 ## Current Task
 
-Complete. Updated and pushed `yeknal-content-seo` with an evidence-bound conditional AI-readable brand-page check and safeguards based on the supplied SEO article.
+Complete locally. The prior UX book updates remain intact. The accessibility update adds typography/override checks, gesture alternatives, form semantics, media and dynamic feedback rules, accessible participant research, and behavioral handoff notes. Detailed standards and verification live in the baseline's conditional reference; motion specialists share one consistent policy. Updated provenance and the two affected parity reports. No commit, push, release, or installed-skill sync performed.
 
 ## Relevant Files
 
@@ -35,6 +36,9 @@ Complete. Updated and pushed `yeknal-content-seo` with an evidence-bound conditi
 - `skills/yeknal-break-ui/` - new skill (`SKILL.md`, `CATALOG.md`, `LICENSE.txt`).
 - `skills/yeknal-ui-ux-designer/SKILL.md` - user-centered design and usability research guidance.
 - `skills/yeknal-ui-quality-baseline/SKILL.md` - shared UI implementation and verification contract.
+- `skills/yeknal-ui-quality-baseline/references/accessibility-design.md` - conditional text, input, media, announcement, and assistive-technology checks with primary sources.
+- `skills/yeknal-mobile-app-design/SKILL.md` - platform accessibility semantics and native setting/navigation checks.
+- Motion consistency changes: `yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-find-animation-opportunities`, `yeknal-review-animations` and its standards, `yeknal-improve-animations` audit, and `yeknal-emil-design-eng` motion reference.
 - `skills/yeknal-test-audit/SKILL.md` - test value audit and evidence-led cleanup workflow.
 - `skills/yeknal-domain-modeling/SKILL.md` - opt-in glossary and ADR workflow.
 - `skills/yeknal-review/SKILL.md` - independent standards/spec review axes.
@@ -49,6 +53,8 @@ Complete. Updated and pushed `yeknal-content-seo` with an evidence-bound conditi
 
 ## Recent Changes
 
+- 2026-10-08: kept shared accessibility behavior in the baseline, detailed checks in one reference, and participant/handoff decisions in the UX designer skill. Existing frontend and redesign integrations inherit the shared rules. Replaced conflicting motion statements that required animation under reduced motion; preserved platform examples and existing capabilities.
+- 2026-10-08: kept shared interaction rules in the baseline and research/decision guidance in the UX designer skill. Existing frontend, redesign, mobile, and motion integrations inherit the baseline without duplicated instructions or a new skill.
 - 2026-10-03: added `yeknal-break-ui`; added mobile web platform layer to `yeknal-ui-quality-baseline`; refreshed README/PROVENANCE/llms/profiles/eval counts.
 - 2026-10-07: added practical usability-testing steps to `yeknal-ui-ux-designer` and a status-based public launch sign-off to `yeknal-ui-quality-baseline`.
 - 2026-10-07: added `ui-ux-designer` to the CLI core profile; updated the core count in repository and CLI documentation.
@@ -58,6 +64,8 @@ Complete. Updated and pushed `yeknal-content-seo` with an evidence-bound conditi
 
 ## Decisions and Reasoning
 
+- Both books are reference inputs for independent synthesis, credited in `PROVENANCE.md`; no book text, PDF/EPUB, or illustrations are bundled. Existing feedback, recovery, and testing rules were extended only where the review found a gap. Book claims dismissing metrics or research were not adopted. Learning after launch is a handoff recommendation, not permission to install telemetry or start monitoring.
+- Accessibility requirements use linked W3C guidance; spacing overrides are not authored defaults, the 44 CSS pixel touch policy is distinct from AA minimums, and reduced-motion preferences require an implemented response. Keep detailed guidance conditional and scoped to the affected UI; automated validation does not establish accessibility conformance in a downstream product.
 - Parity gate: `fmKeys`, `backticks`, `links`, `thresholds`, `resources` strict; `headings` advisory. Backticked `x` and `yeknal-x` are equivalent.
 - Keep `break-ui` in core (published) because it verifies the shared UI contract; fold `mobile-native` into the baseline instead of creating a near-duplicate skill, per the "avoid convolution" preference.
 - `break-ui` is a distinct verification task, so it stays separate from redesign, taste, and motion skills; the mobile platform layer assigns to the CTA/state/typography/safe-area guidance already in the baseline.
@@ -66,7 +74,7 @@ Complete. Updated and pushed `yeknal-content-seo` with an evidence-bound conditi
 ## Failed Approaches / Do Not Repeat
 
 - Local `skills-ref` needs `PYTHONUTF8=1` (Windows cp1252 decode errors otherwise).
-- `pwsh` is absent locally; `audit-markdown-links.ps1` needs PowerShell 7 (its `Path.GetRelativePath` call fails on Windows PowerShell 5.1). Use the temp Node/inline link checker locally; CI uses pwsh.
+- `audit-markdown-links.ps1` needs PowerShell 7 because `Path.GetRelativePath` fails on Windows PowerShell 5.1. Bundled `pwsh` is now available through `Get-Command pwsh`; use it locally.
 - `audit-skills.ps1` runs under Windows PowerShell 5.1 fine.
 - Do not include `<skill-name>` only inside a code fence; the parity inventory captures backticked tokens.
 
@@ -96,14 +104,16 @@ Previous verified results: 87/87 valid; audit-skills 0/0; links 0 unresolved; ro
 
 ## Next Actions
 
-1. Recheck the skills.sh listing after its index refresh; the local catalog now contains 54 public slugs.
-2. Optional: create a Vercel-authed Pack for a one-command core install.
+1. If publication is requested, commit the scoped UX/accessibility skills and reference, provenance, handoff, and two parity reports, then publish/sync through the established workflow. No profile or CLI version change is needed for these skill-only edits.
+2. The skills.sh listing previously lagged the 54 local public slugs; recheck when publishing.
 
 ## Verification
 
+- 2026-10-08 accessibility update: all 10 affected skills passed `skills-ref validate`; full parity check passed; catalog audit found 0 errors/warnings across 89 skills; all 1,054 relative links resolved; routing evaluations passed 28 cases; CLI tests passed 22/22; `git diff --check` passed. Reviewed ownership and removed conflicting reduced-motion wording. Unrelated reports regenerated by the full parity check were restored to their initial clean state. These checks validate catalog structure and packaging, not downstream accessibility or usability outcomes.
+- 2026-10-08 UX update: targeted `skills-ref validate` passed for both edited skills; full parity check passed; skill audit found 0 errors/warnings across 89 skills; all 1,053 relative Markdown links resolved; routing evaluations passed 28 cases; existing CLI tests passed 22/22; `git diff --check` passed. These are catalog/packaging checks, not a claim of improved usability measured in a downstream product.
 - Local: previous design/CLI release validation passed at core 30 and catalog 87.
 - 2026-10-07 design-skill update: skills-ref validate passed for all 87 skills; audit-skills 0 errors / 0 warnings; routing evals 26 cases / 0 errors; CLI tests 22/22; `git diff --check` passed.
 - Post-push before the latest addition: skills.sh listed 53 published skills, including `yeknal-ui-quality-baseline` and `yeknal-ui-ux-designer`.
 - Previous test-audit update: all 88 skills passed `skills-ref`; catalog audit reported 0 errors / 0 warnings; routing evaluations reported 26 cases / 0 errors; CLI tests passed 22/22; `yeknal@2.3.2` was published and verified.
 - Previous review/domain-modeling update: all 89 skills passed `skills-ref`; catalog audit reported 0 errors / 0 warnings; routing evaluations reported 27 cases / 0 errors; CLI tests passed 22/22; `yeknal@2.3.3` was published and verified. The skills.sh page still showed 53 at last check; indexing refresh is pending.
-- Current SEO skill update: targeted `skills-ref validate` passed; catalog audit reports 0 errors / 0 warnings across 89 skills; routing evaluations report 28 cases / 0 errors; CLI tests pass 22/22; local skills.sh discovery lists 54 published skills; `git diff --check` passes. Commit `da69324` is pushed to `main`.
+- Previous SEO skill update: targeted `skills-ref validate` passed; catalog audit reports 0 errors / 0 warnings across 89 skills; routing evaluations report 28 cases / 0 errors; CLI tests pass 22/22; local skills.sh discovery lists 54 published skills; `git diff --check` passes. Commit `da69324` is pushed to `main`.

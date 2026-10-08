@@ -90,7 +90,7 @@ Hunt for: `transition: all`, animated layout properties, Framer Motion shorthand
 }
 ```
 
-Reduced motion means fewer and gentler animations, **not zero** — keep transitions that aid comprehension, remove position changes. In JS: `useReducedMotion()` and branch transform values.
+Audit removal, reduction, or replacement against the shared reduced-motion policy, including access to essential content when motion is disabled. In JS: `useReducedMotion()` and branch transform values.
 
 Hunt for: movement with no `prefers-reduced-motion` handling, ungated `:hover` motion, reduced-motion implementations that nuke all feedback.
 

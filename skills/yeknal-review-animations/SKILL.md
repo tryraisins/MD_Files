@@ -37,7 +37,7 @@ Every animation in the diff is measured against these. A violation is a finding.
 
 7. **GPU-only properties.** Animate `transform` and `opacity` only. Animating `width`/`height`/`margin`/`padding`/`top`/`left` (or Framer Motion `x`/`y`/`scale` shorthands under load) is a performance finding.
 
-8. **Accessibility.** `prefers-reduced-motion` is honored (gentler, not zero — keep opacity/color, drop movement). Hover animations are gated behind `@media (hover: hover) and (pointer: fine)`.
+8. **Accessibility.** `prefers-reduced-motion` follows the shared policy for removal, reduction, or replacement while preserving essential content. Hover animations are gated behind `@media (hover: hover) and (pointer: fine)`.
 
 9. **Asymmetric enter/exit.** Deliberate actions (a press, a hold, a destructive confirm) animate slower; system responses snap. Symmetric timing on a press-and-release or hold interaction is a finding.
 

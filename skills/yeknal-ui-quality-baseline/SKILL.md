@@ -19,6 +19,8 @@ Before touching UI:
 4. Reuse established primitives when they meet the quality bar. Do not introduce a second component, icon, skeleton, or motion system for novelty.
 5. If there is no system, establish the smallest coherent token set needed for the work before styling individual elements. For React-compatible stacks, default to **Tailwind CSS (v4) + shadcn/ui** (Radix base) as that foundation, setting them up when absent and whether or not the project already uses them; for non-React stacks use the stack-appropriate equivalent. An explicit brief, approved design, or documented system wins over the default.
 
+For the affected task, consider familiarity, digital literacy, input ability, divided attention, and connectivity where they change the interaction. Viewport size alone does not describe the user's context.
+
 ## Keep the design system durable
 
 Before implementing a new interface or a substantial visual change, create or update a concise `DESIGN.md` at the project root and use it as the source of truth for the UI. If the project already has an authoritative design-system document, extend that instead of creating a competing file. For a narrowly scoped repair, read the existing document and update it only when the shared system changes.
@@ -59,7 +61,7 @@ Equivalent components must use the same tokens. A one-off component must inherit
 
 - Use a spacing scale instead of unrelated pixel values. Like elements share the same horizontal and vertical padding.
 - Keep container padding visually balanced. Make optical corrections deliberately and document them in the component primitive, not as scattered per-instance offsets.
-- Separate touch-target size from visible icon size. Interactive targets are at least 44 by 44 CSS pixels on touch surfaces unless the platform's stronger rule applies.
+- Separate touch-target size from visible icon size. Interactive targets are at least 44 by 44 CSS pixels on touch surfaces unless the platform's stronger rule applies. This is the catalog's touch usability policy; distinguish it from a standard's minimum when reporting conformance.
 - Use a small, intentional radius scale. Controls, cards, dialogs, and pills should not all have the same radius, and every rectangle must not become a rounded card.
 - Avoid cards inside cards when grouping, whitespace, dividers, or typography can communicate structure.
 - Use borders, shadows, and elevation consistently by semantic role rather than decoration.
@@ -82,6 +84,7 @@ Buttons, badges, pills, chips, segmented controls, tabs, navigation items, avata
 - Use a concise weight hierarchy: regular body copy, medium or semibold controls, and semibold or bold headings as the typeface requires.
 - Equivalent labels use the same family, size, weight, letter spacing, casing, and line height.
 - Use tabular numerals for frequently compared operational values.
+- Check the selected face at its rendered size for distinguishable letters and numbers, useful reading width, and comfortable line spacing in the supported languages. Font-size floors and font categories alone do not prove legibility.
 - Implement responsive type with `clamp()`, media queries, or container queries. Do not let text determine or break the control's target size.
 - For constrained controls, shorten secondary copy or move secondary actions before shrinking important text. Do not reduce control labels below 11px.
 
@@ -103,7 +106,7 @@ Design real layout changes rather than scaled-down desktop screens.
 - Preserve the primary action. Secondary actions may shorten, hide nonessential decoration, move into an overflow menu, or change presentation on constrained screens.
 - Account for safe-area insets, browser chrome, virtual keyboards, dynamic viewport units, text zoom, localization, and installed-PWA display modes where relevant.
 - Verify both width and height constraints; a design that works at 390 by 844 may still fail at 390 by 667.
-- For full screens and pages, check at minimum a 320px small phone, a common 390px phone, tablet portrait and landscape, a 1280px compact desktop with limited height, a 1440px desktop, and a wide desktop. Add 200% zoom, large text, keyboard-only, touch/no-hover, and reduced motion.
+- For full screens and pages, check at minimum a 320px small phone, a common 390px phone, tablet portrait and landscape, a 1280px compact desktop with limited height, a 1440px desktop, and a wide desktop. Add 200% text resizing, reflow at 400% browser zoom from a 1280px viewport, user text-spacing overrides, keyboard-only, touch/no-hover, and reduced motion. Preserve functionality and access to full text; contain necessary two-dimensional content such as tables or maps within its own region.
 - Place breakpoints where the content or task changes, not merely where the CSS framework provides a token. Document what reorders, condenses, becomes a sheet, moves to overflow, or remains fixed.
 - Preserve logical source and focus order when grids re-span or visual order changes. A one-column collapse is not automatically the right mobile transformation.
 
@@ -132,6 +135,7 @@ For a web app that will be used on a phone, ship these before the first componen
 
 For page- or screen-level work, map entry, primary job, commitment, completion, escape, recovery, and next step before polishing individual sections.
 
+- Include likely entry from search, shared links, bookmarks, or notifications. Interior pages must explain their purpose and current location without requiring a visit to the home page; preserve the intended destination through sign-in where applicable.
 - Navigation exposes structure, current location, and a reliable way home. Its mobile form follows priority and task frequency rather than defaulting blindly to a hamburger.
 - Heroes or first task surfaces keep one dominant purpose, one primary action, and credible product evidence. Essential meaning must survive without animation or a desktop crop.
 - On a public home page, state in one clear line what the product does. Give each page one visually dominant primary action; keep secondary actions visibly subordinate.
@@ -140,6 +144,12 @@ For page- or screen-level work, map entry, primary job, commitment, completion, 
 - 404, empty, error, offline, and permission states explain what happened and provide the best next action.
 - Bento and modular grids use spans to communicate hierarchy or relationships, keep logical DOM order, and transform intentionally on smaller screens.
 - Open Graph and share images are separate fixed-ratio artifacts with their own crop, type, fallback, and localization checks.
+
+### Respect choice and attention
+
+Persuasion must leave the user informed and able to decline. Avoid invented urgency, concealed costs, misleading defaults, and needless obstacles to cancellation or refusal. Add confirmation or review when the consequence warrants it; keep routine, reversible actions fluid.
+
+Interrupt only for information that is actionable and time-sensitive or requires a decision before continuing. Keep routine feedback in the flow and make optional notifications controllable. Ask only for input needed for the task, reuse known values when appropriate, and accept equivalent valid formats without weakening validation.
 
 ### Public website launch checks
 
@@ -204,7 +214,7 @@ Motion explains hierarchy, feedback, spatial relationships, or state changes. Do
 - Avoid `ease-in` for user-triggered entrances. Use project tokens, a crisp ease-out, or tuned spring behavior.
 - Make motion interruptible where users can reverse an action. Do not delay input until an entrance sequence finishes.
 - Gate hover motion behind hover-capable pointers.
-- Respect `prefers-reduced-motion` in code and design. Preserve comprehension with opacity or color when positional motion is removed.
+- Respect `prefers-reduced-motion` in code and design. Remove, reduce, or replace effects according to their purpose; essential content and controls must remain available in a meaningful static presentation. Opacity or color can preserve comprehension when positional motion is removed.
 - Give modals, dropdowns, and tab changes a brief transition when it clarifies opening, closing, or selection. Keep it interruptible, skip it when it adds delay without information, and honor reduced motion.
 - Test under CPU and network load; animation that only looks smooth on an idle machine is not finished.
 
@@ -212,9 +222,15 @@ Motion explains hierarchy, feedback, spatial relationships, or state changes. Do
 
 Important components and flows include the states they can actually enter: idle, hover, focus, active, disabled, loading, empty, success, warning, error/retry, offline, and canceled where applicable.
 
-- Use semantic HTML, visible focus, keyboard access, sufficient contrast, readable status text, and live announcements for meaningful async changes.
+For detailed text-override checks, new or materially changed forms, gesture controls, media, or live content, and accessibility reviews, read [Accessibility design checks](references/accessibility-design.md). Apply only the relevant sections; it supplies implementation and verification detail for the shared rules below.
+
+- Use semantic HTML, visible focus, keyboard access, sufficient contrast, and readable status text. Distinguish content reading order from keyboard focus order; ordinary text does not need to become a Tab stop.
 - Make hover, pressed, focus, and disabled feedback visible and consistent for each interactive control type. Verify text contrast on both light and dark surfaces when both are used.
 - Do not communicate state by color alone.
+- Keep essential actions discoverable without hover or a hidden gesture. Custom dragging and complex pointer gestures need an equivalent tap/click path as well as keyboard access unless the gesture is essential.
+- Give forms persistent, programmatically associated labels, appropriate autocomplete, and associated instructions and errors. Avoid unnecessary time limits; when a limit is required, provide warning and adjustment or extension where applicable.
+- Announce meaningful async results with urgency appropriate to the message, preserve focus during routine updates, and avoid repeated announcements. Provide user control over automatic motion or live updates when required, and keep actionable messages available long enough to use.
+- Specify an image's information or function, or mark it decorative; make complex charts available through an appropriate text or data equivalent. For media, provide the captions, descriptions, alternatives, and playback controls required by its content and conformance target.
 - Dialogs and overlays trap focus when modal, close safely, restore focus, and respect Escape unless the operation cannot be dismissed.
 - Do not hide important content from older users, zoomed text, localization, or assistive technology just to preserve a screenshot-perfect layout.
 
@@ -262,7 +278,8 @@ Even when the task is only one button, badge, input, icon, loader, or skeleton:
 - Compare the implementation with the approved design or reference at representative desktop, tablet, mobile, and reduced-height viewports.
 - Check control geometry, rendered text centering, padding, line height, icon alignment, wrapping, truncation, and horizontal scroll.
 - Verify loading feedback against real async state and test success, failure, retry, and reduced motion.
-- Walk every critical user journey end to end in the running product (for example, sign-up or checkout when present). Check that visible buttons act, links reach valid destinations, and the same journey can be completed with a keyboard alone.
+- Walk every critical user journey end to end in the running product (for example, sign-up or checkout when present), including applicable direct-entry and sign-in-return paths. Check that visible buttons act, links reach valid destinations, and the same journey can be completed with a keyboard alone.
+- For new or materially changed flows, exercise relevant screen-reader and system-setting behavior in the running interface; use the reference's scoped checks and record the tested browser/device/tool combination. Automated scans, screenshots, and simulations alone do not establish accessibility conformance or observed usability.
 - For a public launch, confirm the home page says what the product does in one clear line, each page has one dominant primary action, every page has an accurate title and description, the site has a working favicon, and no visible placeholder or template text remains.
 - Run relevant lint, type checks, tests, builds, and browser checks. A successful build is not visual proof.
 - Report what was verified, what failed, and what remains blocked without overclaiming.

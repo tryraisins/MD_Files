@@ -330,7 +330,7 @@ element.animate([{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0 0)'
 
 ### prefers-reduced-motion
 
-Animations can cause motion sickness. Reduced motion means fewer and gentler animations, not zero. Keep opacity and color transitions that aid comprehension. Remove movement and position animations.
+Follow the shared reduced-motion policy. Remove nonessential effects where appropriate; retain gentle opacity or color transitions only when they aid comprehension without discomfort.
 
 ```css
 @media (prefers-reduced-motion: reduce) {

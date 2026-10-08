@@ -195,7 +195,7 @@ const y = useSharedValue(reduced ? 0 : SHEET_HEIGHT);
 withSpring(0, { duration: 300, dampingRatio: 0.8, reduceMotion: ReduceMotion.System });
 ```
 
-Reduced motion means **fewer and gentler**, not zero: keep opacity and color changes that explain a state change, drop translation, scale, parallax and overshoot. Screen transitions become `animation: 'fade'`.
+Follow the shared reduced-motion policy: preserve meaning while removing, reducing, or replacing effects. Screen transitions can use `animation: 'fade'` when appropriate; a static transition is also valid.
 
 **Text scales.** `allowFontScaling` is on by default, so any height you measured at default type size is wrong at 200%. Never animate to a hardcoded height — measure with `onLayout`, or animate a transform instead.
 
