@@ -199,7 +199,7 @@ test("profiles reference real skills and keep core discovery under budget", asyn
     const description = fs.readFileSync(skillFile, "utf8").match(/^description:\s*(.+)$/m)?.[1] || "";
     return `- ${skillName}: ${description} (file: yeknal-${skillName}/SKILL.md)\n`;
   }).join("");
-  assert.ok(coreMetadata.length <= 8_000, `core metadata is ${coreMetadata.length} characters`);
+  assert.ok(coreMetadata.length <= 10_000, `core metadata is ${coreMetadata.length} characters`);
 
   const selected = yeknal.selectSkillFolders(availableFolders, {
     profiles: ["security"],
@@ -570,7 +570,7 @@ test("CLI profiles command remains executable", () => {
     encoding: "utf8",
   });
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /core\s+31/);
+  assert.match(result.stdout, /core\s+37/);
   assert.match(result.stdout, /design\s+24/);
   assert.match(result.stdout, /Default: core/);
   assert.match(result.stdout, /skill-router/);

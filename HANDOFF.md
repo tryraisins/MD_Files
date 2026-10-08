@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-08
 Branch: main
-HEAD: current profile expansion follows `f23a024`; see `git log -1` for its commit
+HEAD: `7861164` (profile expansion; release preparation in progress)
 
 ## Current Objective
 
@@ -25,11 +25,11 @@ Maintain the published Yeknal catalog on skills.sh under unique `yeknal-*` slugs
 - Pushed SEO skill update in `da69324`; Google AI Overview guidance is explicitly non-guaranteed and the new brand page is conditional on a documented gap.
 - **2026-10-08**: applied original guidance inspired by Irene Pereyra's *Universal Principles of UX* to the shared baseline and UX designer skill. Catalog/profile counts remain unchanged. Local checks pass: both edited skills valid, parity preserved, catalog audit 0/0 across 89 skills, 1,053 relative links resolved, 28 routing cases valid, CLI tests 22/22.
 - **2026-10-08 accessibility update**: synthesized the supplied *Accessible Design Reference & Specification Book* into shared behavior rules, one conditional accessibility reference, and UX research/handoff guidance. Added small native checks and aligned existing motion guidance with the shared removal/reduction/replacement policy. No new skills or profile changes.
-- **2026-10-08 core profile expansion**: added `animate-expo`, `apple-design`, `emil-design-eng`, `find-animation-opportunities`, `improve-animations`, and `review-animations` to core. Core is now 37 skills; the design profile remains available for exact specialist installs. The task-time router still installs any other relevant missing specialist into a project. Source profile and docs are updated; npm `yeknal@2.3.3` still has the old profile until a new CLI release is published.
+- **2026-10-08 core profile expansion**: added `animate-expo`, `apple-design`, `emil-design-eng`, `find-animation-opportunities`, `improve-animations`, and `review-animations` to core. Core is now 37 skills; the design profile remains available for exact specialist installs. The task-time router still installs any other relevant missing specialist into a project. Preparing `yeknal@2.3.4` to deliver this default to npm users.
 
 ## Current Task
 
-Update the default core profile with six motion specialists while preserving task-time routing for other specialists. Source files and documentation now report core 37. No npm release or installed-skill sync performed; the published CLI remains at 2.3.3 until a versioned release is authorized and published.
+Release `yeknal@2.3.4` with the 37-skill default core profile. Package version is bumped locally; validation is green. Commit/push, GitHub release, npm publication, and post-release verification remain.
 
 ## Relevant Files
 
@@ -66,6 +66,7 @@ Update the default core profile with six motion specialists while preserving tas
 
 ## Decisions and Reasoning
 
+- The six requested motion specialists are now in core. The existing discovery-metadata ceiling was 8,000 characters; core now uses 9,642, so the explicit ceiling is 10,000 to retain a bounded profile while accommodating these workflows. If it grows further, reconsider profile membership instead of routinely raising the limit.
 - Both books are reference inputs for independent synthesis, credited in `PROVENANCE.md`; no book text, PDF/EPUB, or illustrations are bundled. Existing feedback, recovery, and testing rules were extended only where the review found a gap. Book claims dismissing metrics or research were not adopted. Learning after launch is a handoff recommendation, not permission to install telemetry or start monitoring.
 - Accessibility requirements use linked W3C guidance; spacing overrides are not authored defaults, the 44 CSS pixel touch policy is distinct from AA minimums, and reduced-motion preferences require an implemented response. Keep detailed guidance conditional and scoped to the affected UI; automated validation does not establish accessibility conformance in a downstream product.
 - Parity gate: `fmKeys`, `backticks`, `links`, `thresholds`, `resources` strict; `headings` advisory. Backticked `x` and `yeknal-x` are equivalent.
@@ -106,13 +107,14 @@ Previous verified results: 87/87 valid; audit-skills 0/0; links 0 unresolved; ro
 
 ## Next Actions
 
-1. Publish a new `yeknal-cli` patch release when authorized; `npx yeknal skills` reads the bundled profile from the published CLI, currently `2.3.3`.
-2. The skills.sh listing previously lagged the 54 local public slugs; recheck when publishing.
+1. Commit and push the versioned CLI, create/push `v2.3.4`, and publish the GitHub release. Manually publish npm because the trusted-publishing variable is not configured.
+2. Verify npm latest/version/shasum and downloaded profile output; then record release evidence here.
 
 ## Verification
 
 - 2026-10-08 accessibility update: all 10 affected skills passed `skills-ref validate`; full parity check passed; catalog audit found 0 errors/warnings across 89 skills; all 1,054 relative links resolved; routing evaluations passed 28 cases; CLI tests passed 22/22; `git diff --check` passed. Reviewed ownership and removed conflicting reduced-motion wording. Unrelated reports regenerated by the full parity check were restored to their initial clean state. These checks validate catalog structure and packaging, not downstream accessibility or usability outcomes.
-- 2026-10-08 core profile expansion: CLI profile listing confirms 37 core skills and includes all six requested motion specialists; the router instructions confirm task-time additive fetching remains available for other relevant skills. `git diff --check` passed. Published CLI profile remains unchanged until a new npm release.
+- 2026-10-08 core profile expansion: local CLI profile listing confirms 37 core skills and includes all six requested motion specialists; the router instructions confirm task-time additive fetching remains available for other relevant skills. `git diff --check` passed.
+- 2026-10-08 `yeknal@2.3.4` preparation: `npm test` 22/22, `npm pack --dry-run` succeeded (package includes `profiles.json`, shasum `8f9b844fccd488b8eb4464af99ea35e4a0adb135`), all 89 skills validated, catalog audit 0 errors/0 warnings, 1,054 relative links resolved, routing evaluation 28 cases/0 errors, core metadata 9,642/10,000 characters, `git diff --check` passed. GitHub trusted-publishing variable is absent; use authenticated local npm publication after creating the GitHub release.
 - 2026-10-08 UX update: targeted `skills-ref validate` passed for both edited skills; full parity check passed; skill audit found 0 errors/warnings across 89 skills; all 1,053 relative Markdown links resolved; routing evaluations passed 28 cases; existing CLI tests passed 22/22; `git diff --check` passed. These are catalog/packaging checks, not a claim of improved usability measured in a downstream product.
 - Local: previous design/CLI release validation passed at core 30 and catalog 87.
 - 2026-10-07 design-skill update: skills-ref validate passed for all 87 skills; audit-skills 0 errors / 0 warnings; routing evals 26 cases / 0 errors; CLI tests 22/22; `git diff --check` passed.

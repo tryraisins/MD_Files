@@ -53,7 +53,7 @@ npx yeknal security
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 
-The repository's `core` profile now contains 37 skills. Published CLI `yeknal@2.3.3` still bundles the previous 31-skill profile; the updated default takes effect with the next CLI release.
+`yeknal@2.3.4` defaults to the updated 37-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
 
 ### Install with skills.sh
 
