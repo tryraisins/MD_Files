@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-09
 Branch: main
-HEAD: see git log; preparing authorized Yeknal 2.4.0 source/catalog release commits
+HEAD: see git log; released source edf3ec6, catalog/tag e769323
 
 ## Current Objective
 
@@ -12,7 +12,10 @@ user explicitly authorized commit, push, and deployment/publication on 2026-10-0
 
 ## Current State
 
-- CLI 2.4.0 is prepared locally; npm latest was verified as 2.3.4 before release.
+- CLI 2.4.0 is published as npm latest and GitHub release v2.4.0. Source commit
+  edf3ec64781c24428e87cb869225a4bab077619c; catalog/release commit
+  e7693236a65293171456c4f77dcf08908b1d717c. Release validation passed:
+  https://github.com/tryraisins/MD_Files/actions/runs/37994702565.
 - Catalog contains 89 Markdown skills, 54 public slugs, and the unchanged 37-skill
   manual core profile. Markdown folders remain authoritative; preserve licenses,
   unique yeknal names, supporting files, and published/manual profile behavior.
@@ -106,6 +109,16 @@ can consume account usage. E2E/public/actual-agent final evidence follows below.
   and temp/yeknal-agent-flow-2zvZtl/report.json under the same OS temp directory.
   Bootstrap-only autonomous search/load remained unverified even with documented
   per-run skill disabling. Do not infer it from command E2E or native skill use.
+- Post-push public retrieval and offline reuse passed for immutable source edf3ec6:
+  C:/Users/NUBIAV~1/AppData/Local/Temp/yeknal-public-flow-rxfI56/report.json.
+- npm latest 2.4.0 verified; registry and local package SHA-1 both
+  50a07e0949e4d86e19015dad4ede293b806d0d4f. Fresh npm-cache published-package
+  setup/repeat/remove and offline search passed:
+  C:/Users/NUBIAV~1/AppData/Local/Temp/yeknal-published-QfX02m/report.json.
+  Rerun: node C:/Users/nubiaville/AppData/Local/Temp/yeknal-published-smoke.js.
+  npm initially returned 404 during processing, then propagated successfully.
+  Trusted-publish workflow remained skipped as configured; local authenticated
+  publish succeeded. No real user agent configuration was modified.
 
 ## Failed Approaches / Do Not Repeat
 
@@ -123,12 +136,12 @@ can consume account usage. E2E/public/actual-agent final evidence follows below.
   stale/404. Current trusted-publish GitHub variable is unset; authenticated local
   npm publish is the known fallback. Never print credential environment values.
 
-## Next Actions / Remaining Gates
+## Remaining Verification Boundaries
 
-Commit source, regenerate
-catalog at that revision, commit catalog, push and wait for GitHub validation.
-Create v2.4.0 release and publish npm, then verify registry hash/latest and a fresh
-cache invocation plus public immutable skill/reference retrieval. No additional
-user approval is required for these explicitly authorized delivery steps.
-Real native global instruction ingestion and autonomous Claude/OpenCode use remain
-separate unverified runtime boundaries; only claim the actual agent evidence run.
+Requested implementation, commit, push, and publication are complete. Real native
+global instruction ingestion, bootstrap-only autonomous search/load, and autonomous
+Claude/OpenCode use remain unverified runtime boundaries. Existing global skills
+took precedence in actual Codex runs; further provider attempts were deliberately
+stopped. CLI/integration fixtures do not prove those native autonomous behaviors.
+Users activate this version with npx yeknal@latest setup; explicit backups/restore
+and manual installs are documented in README.md and yeknal-cli/README.md.
