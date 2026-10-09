@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "100add6e4925b5f7c0af3d6cc29ea9d87413bcfe",
-  "version": "2.3.4",
+  "sourceRevision": "edf3ec64781c24428e87cb869225a4bab077619c",
+  "version": "2.4.0",
   "skills": [
     {
       "name": "yeknal-add-changelog",
@@ -3196,7 +3196,7 @@
         "writing",
         "yeknal-frontend-design"
       ],
-      "version": "5d5f541477060a849731aa034469afccbd0336c443911268f56ca1ca0103051c",
+      "version": "10e2f087437a81184d2b233a48cf363be5c9f5931b6d7d6b738d9cfada9e9c0f",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -3210,8 +3210,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "bb79d47db1236afee99b4f30de821a418ef5ad25834599b895446f3d9e93e434",
-          "size": 8104
+          "sha256": "12cac56cfa5609366266fdb3c9da9307863cb7a191ddb584427af016f43d0efc",
+          "size": 8310
         }
       ]
     },
@@ -3259,12 +3259,12 @@
         "what",
         "yeknal-frontend-developer"
       ],
-      "version": "949154b9981773ab449e9176d6c761828ef79f06574b074bb460f19231076681",
+      "version": "d378ba1ea7a9c4f950c911a4274ad11b26514e99c1e5f323d8e7c9d65af42faa",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "7e07477f2226bf5db98a3ec331e6bd3d355524f4b1a1cbdc6020ab614c97c89b",
-          "size": 8187
+          "sha256": "af4124b4d0b3743aac58d7bcb1e3a18083ef3e943b4596850c00dfe6eeddb9ac",
+          "size": 8405
         }
       ]
     },
@@ -3882,7 +3882,7 @@
         "web",
         "yeknal-imagegen-frontend-web"
       ],
-      "version": "b0ea28972ae5b109e7b039422c12f8a0586f5834f1052b76a1b2c0367cab34c0",
+      "version": "2db2d87208639e0ac19e8136392fb2aa8ab3646c61db4c597994173a51b2bfe1",
       "files": [
         {
           "path": "LICENSE.txt",
@@ -3896,8 +3896,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "34c00a45b024b4319bb4a9cc4e130fb576bed06baa0ff13b4c6c6223d29959c1",
-          "size": 17149
+          "sha256": "f7b5b86de27673c0f94b999b6d152bf20b78ac28c7d391bfe9eb6756883f88c4",
+          "size": 17255
         }
       ]
     },
@@ -5517,7 +5517,7 @@
         "without",
         "yeknal-redesign-existing-projects"
       ],
-      "version": "9205375642e691282fbd33cc9148923925b6e98757582e491d4cc658a2a5f1ed",
+      "version": "619c82b4583718cb9c579ac0647d1d031e0132bad0273a0b1a44329ec74e09f1",
       "files": [
         {
           "path": "LICENSE.txt",
@@ -5526,8 +5526,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "9299559a7c6e4d98b094520c22b637ae4549e362462db2134f79ca9d3d3a9036",
-          "size": 9562
+          "sha256": "50571755f4b790bd4453af06ee170a2e63f954c255c42dd8f13f20e39ed4506e",
+          "size": 9778
         }
       ]
     },
@@ -6306,7 +6306,7 @@
     },
     {
       "name": "yeknal-skill-router",
-      "description": "At the start of a substantive coding or build task, check whether the task needs a specialist Yeknal skill that is not available in the current project, install that skill into the project, read it, and use it before continuing.",
+      "description": "Discover and load a relevant Yeknal workflow for substantive work. Skip simple prompts and use repository overrides before shared cached instructions; retain deliberate manual installation as a fallback.",
       "keywords": [
         "and",
         "constraints",
@@ -6326,12 +6326,12 @@
         "yeknal",
         "yeknal-skill-router"
       ],
-      "version": "46312eb8ceccae3e36291c36574283da9b2bdad2edb4798fd5e2e0bf706fa5d7",
+      "version": "8c3600aae93eb45d6d896e6de8e467172835a186bcde23e86d3c6f35f6eb08de",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "18b8acdecd7ec954ceed31c6d5a9f166214c36ebc354e4d23117b611106a18c0",
-          "size": 2779
+          "sha256": "90c4c250e3cd853fdedd1c798f12a345a24f469b1fc10b629315b19d1433572d",
+          "size": 5190
         }
       ]
     },
@@ -7086,7 +7086,7 @@
         "start",
         "states"
       ],
-      "version": "5c2e7e3e4499474542ba6d0334e0ee219e44e285437024f3cfe7f2dca3d424f7",
+      "version": "d5af1788b5cdcb38fe65548c7b3c49d9946d1347e818d163391bd87a437bf082",
       "files": [
         {
           "path": "references/accessibility-design.md",
@@ -7095,8 +7095,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "ccde8516e58f64f3a625cb0030fa7d2f91b036e4cf8328fd91148f7b4c27840d",
-          "size": 32697
+          "sha256": "eb62e8f429e361e7dd639dc26cf8b9eb887b869713a69cd5166aa6e28c7877b5",
+          "size": 33523
         }
       ]
     },
@@ -7147,12 +7147,12 @@
         "what",
         "yeknal-ui-ux-designer"
       ],
-      "version": "dab7a88fd2ba319e57ef6d4b443f87125fa9eadf6c7b4838f23b58e76e4a18b2",
+      "version": "a4c45f18a3ad31f31c5bd32a1b570ca24e0eab547261ae207e5221d8642a9676",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "3183a4f694fed292cbebb0a8fa7125a1d4b9262450864296bc31650681a1f849",
-          "size": 11534
+          "sha256": "f5c851d55ce9835738900cc3f1fe0af60fb32ab28740ead0704f693b142ad69a",
+          "size": 11781
         }
       ]
     },
