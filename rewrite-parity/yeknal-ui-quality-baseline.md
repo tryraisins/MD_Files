@@ -13,7 +13,7 @@
   - Respect choice and attention
 
 ## backticks (error)
-- baseline 21, current 52, missing 0, added 31
+- baseline 21, current 54, missing 0, added 33
 - added:
   - -webkit-tap-highlight-color: transparent
   - .active
@@ -25,6 +25,7 @@
   - :hover
   - @media (hover: hover) and (pointer: fine)
   - @media (pointer: coarse)
+  - ArrowUpRight
   - [role="button"]
   - body
   - calc()
@@ -46,6 +47,7 @@
   - user-scalable=no
   - user-select: none
   - viewport-fit=cover
+  - ↗
 
 ## links (error)
 - baseline 0, current 1, missing 0, added 1

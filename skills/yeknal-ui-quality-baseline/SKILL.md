@@ -94,6 +94,7 @@ Buttons, badges, pills, chips, segmented controls, tabs, navigation items, avata
 - Reuse the project's established icon system when it is consistent. If no system exists for a React web product, prefer Phosphor Icons or another deliberate project-approved family; do not default to Lucide or Feather merely because they are common in generated UI.
 - Use regular weight for routine utility actions, stronger weight for active navigation, and filled icons only for selected or critical states where the distinction is meaningful.
 - Do not mix multiple libraries on the same surface, hand-draw routine SVG icons, substitute emoji, or use Sparkle, MagicWand, Rocket, and similar AI shorthand without a real product reason.
+- Never decorate a link with the North East Arrow (`↗`, the `ArrowUpRight` icon, or U+2197) or any similar directional glyph, external-link badge, or emoji. When a link leaves the current page, opens a new tab, or downloads a file, say so in the link text and its accessible name or description and rely on the platform convention instead of an appended icon. A chevron that marks a menu row, accordion, or overflow control is a real affordance and is not this pattern.
 - Give icon-only controls accessible names and visible tooltips when meaning is not universally obvious.
 
 ## Responsive containment
@@ -257,6 +258,7 @@ Reject defaults that make the result look generated rather than designed:
 - arbitrary dark green themes, especially `#173f36`-like palettes, as a generic sophistication shortcut;
 - excessive pill shapes, giant corner radii, floating cards, and nested containers;
 - Lucide-everywhere iconography, emoji as controls, or mixed icon families;
+- external-link arrows such as the North East Arrow (`↗` / `ArrowUpRight` / U+2197), external-link badges, or emojis attached to link labels;
 - every section using the same split layout, identical card grid, or centered badge-over-heading composition;
 - gratuitous animation, fake progress, or shimmer on every surface;
 - inconsistent spacing, weights, line heights, radii, and control geometry;
@@ -277,6 +279,7 @@ Even when the task is only one button, badge, input, icon, loader, or skeleton:
 
 - Compare the implementation with the approved design or reference at representative desktop, tablet, mobile, and reduced-height viewports.
 - Check control geometry, rendered text centering, padding, line height, icon alignment, wrapping, truncation, and horizontal scroll.
+- Confirm no link is decorated with an external-link arrow (`↗` / `ArrowUpRight` / U+2197), badge, or emoji, and that each external destination and behavior is clear from the link text and accessible name.
 - Verify loading feedback against real async state and test success, failure, retry, and reduced motion.
 - Walk every critical user journey end to end in the running product (for example, sign-up or checkout when present), including applicable direct-entry and sign-in-return paths. Check that visible buttons act, links reach valid destinations, and the same journey can be completed with a keyboard alone.
 - For new or materially changed flows, exercise relevant screen-reader and system-setting behavior in the running interface; use the reference's scoped checks and record the tested browser/device/tool combination. Automated scans, screenshots, and simulations alone do not establish accessibility conformance or observed usability.

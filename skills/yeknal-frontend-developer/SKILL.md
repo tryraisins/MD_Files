@@ -82,7 +82,7 @@ Follow the repository and platform cursor conventions. Add `cursor-pointer` to l
 
 ### Icons
 
-Reuse the product's icon family and choose symbols for semantic clarity, familiarity, optical fit, and accessible labeling. Common symbols are valid for common actions; do not use them as unexplained brand decoration or switch libraries merely for novelty.
+Reuse the product's icon family and choose symbols for semantic clarity, familiarity, optical fit, and accessible labeling. Common symbols are valid for common actions; do not use them as unexplained brand decoration or switch libraries merely for novelty. Do not append external-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, or emojis to links; express new-tab, off-site, or download behavior through the link text and an accessible name or description instead.
 
 ## Navigation implementation
 
@@ -98,6 +98,7 @@ When the product supports theme choice, use its established persistence and hydr
 - Generic card-grid layouts as the primary composition
 - Navigation presentation chosen before information architecture and viewport behavior
 - Cliché symbols used as identity without product rationale
+- External-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, or emojis attached to links
 - Animations that are purely decorative without hierarchy value
 - Missing semantics, focus, affordance, or touch feedback on interactive elements
 - Missing or inconsistent states in any theme the product promises

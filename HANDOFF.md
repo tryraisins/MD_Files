@@ -1,8 +1,8 @@
 # Project Handoff
 
-Last updated: 2026-10-08
+Last updated: 2026-10-09
 Branch: main
-HEAD: post-release handoff update follows the `v2.3.4` release commit; see `git log -1`
+HEAD: link-decoration convention added to the shared UI baseline and design/UI skills; see `git log -1`
 
 ## Current Objective
 
@@ -27,10 +27,11 @@ Maintain the published Yeknal catalog on skills.sh under unique `yeknal-*` slugs
 - **2026-10-08 accessibility update**: synthesized the supplied *Accessible Design Reference & Specification Book* into shared behavior rules, one conditional accessibility reference, and UX research/handoff guidance. Added small native checks and aligned existing motion guidance with the shared removal/reduction/replacement policy. No new skills or profile changes.
 - **2026-10-08 core profile expansion**: added `animate-expo`, `apple-design`, `emil-design-eng`, `find-animation-opportunities`, `improve-animations`, and `review-animations` to core. Core is now 37 skills; the design profile remains available for exact specialist installs. The task-time router still installs any other relevant missing specialist into a project. These defaults are included in published `yeknal@2.3.4`.
 - Published `yeknal@2.3.4` and GitHub release `v2.3.4`; npm `latest` now reports 2.3.4 and the downloaded CLI profile reports core 37 with all six motion specialists.
+- **2026-10-09 link-decoration convention**: banned the North East Arrow (`↗` / `ArrowUpRight` / U+2197) and any similar decorative external-link arrows, badges, or emojis. The authoritative rule lives in `yeknal-ui-quality-baseline` (iconography, anti-slop, and verification), with reinforcing checks in `yeknal-frontend-design`, `yeknal-redesign-existing-projects`, `yeknal-frontend-developer`, and `yeknal-ui-ux-designer`. Removed the "underlined inline link with arrow" CTA option from `yeknal-imagegen-frontend-web`. No skill, profile, or count changes.
 
 ## Current Task
 
-Complete. `yeknal@2.3.4` is published with the 37-skill default core profile. The source changes and package release are on GitHub; npm registry and a fresh-cache `npx yeknal@latest profiles` check both confirm the updated default.
+Complete. `yeknal@2.3.4` is the published release. The 2026-10-09 link-decoration convention update is applied to the design/UI skills and awaits push.
 
 ## Relevant Files
 
@@ -39,6 +40,7 @@ Complete. `yeknal@2.3.4` is published with the 37-skill default core profile. Th
 - `skills/yeknal-ui-ux-designer/SKILL.md` - user-centered design and usability research guidance.
 - `skills/yeknal-ui-quality-baseline/SKILL.md` - shared UI implementation and verification contract.
 - `skills/yeknal-ui-quality-baseline/references/accessibility-design.md` - conditional text, input, media, announcement, and assistive-technology checks with primary sources.
+- Link-decoration convention: `skills/yeknal-ui-quality-baseline/SKILL.md` (authoritative), `skills/yeknal-frontend-design/SKILL.md`, `skills/yeknal-redesign-existing-projects/SKILL.md`, `skills/yeknal-frontend-developer/SKILL.md`, `skills/yeknal-ui-ux-designer/SKILL.md`, `skills/yeknal-imagegen-frontend-web/SKILL.md`.
 - `skills/yeknal-mobile-app-design/SKILL.md` - platform accessibility semantics and native setting/navigation checks.
 - Motion consistency changes: `yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-find-animation-opportunities`, `yeknal-review-animations` and its standards, `yeknal-improve-animations` audit, and `yeknal-emil-design-eng` motion reference.
 - `skills/yeknal-test-audit/SKILL.md` - test value audit and evidence-led cleanup workflow.
@@ -55,6 +57,7 @@ Complete. `yeknal@2.3.4` is published with the 37-skill default core profile. Th
 
 ## Recent Changes
 
+- 2026-10-09: banned the North East Arrow (`↗` / `ArrowUpRight` / U+2197) and similar decorative link arrows, badges, and emojis. Kept the rule in the shared baseline so every design/UI skill inherits it, and added reinforcing checks in the four skills that own link treatment; removed a conflicting arrow CTA option.
 - 2026-10-08: kept shared accessibility behavior in the baseline, detailed checks in one reference, and participant/handoff decisions in the UX designer skill. Existing frontend and redesign integrations inherit the shared rules. Replaced conflicting motion statements that required animation under reduced motion; preserved platform examples and existing capabilities.
 - 2026-10-08: moved six common motion specialists into core so default installs include `animate-expo`, `apple-design`, `emil-design-eng`, `find-animation-opportunities`, `improve-animations`, and `review-animations`. Updated profile counts and clarified that the router remains available for other task-specific skills.
 - 2026-10-08: kept shared interaction rules in the baseline and research/decision guidance in the UX designer skill. Existing frontend, redesign, mobile, and motion integrations inherit the baseline without duplicated instructions or a new skill.
@@ -112,6 +115,7 @@ Previous verified results: 87/87 valid; audit-skills 0/0; links 0 unresolved; ro
 
 ## Verification
 
+- 2026-10-09 link-decoration update: all six edited skills validated with `skills-ref`; `tools/parity.js check-all` passed for all baselined skills; catalog `audit-skills.ps1` reported 0 errors / 0 warnings across 89 skills; routing evaluations passed 28 cases / 0 errors; CLI tests passed 22/22; `git diff --check` passed. Unrelated parity reports regenerated by the full check were restored to their initial clean state; only the reports for the five edited baselined skills are updated. `audit-markdown-links.ps1` was not run because PowerShell 7 (`pwsh`) is unavailable on this machine, but the change adds no Markdown links.
 - 2026-10-08 accessibility update: all 10 affected skills passed `skills-ref validate`; full parity check passed; catalog audit found 0 errors/warnings across 89 skills; all 1,054 relative links resolved; routing evaluations passed 28 cases; CLI tests passed 22/22; `git diff --check` passed. Reviewed ownership and removed conflicting reduced-motion wording. Unrelated reports regenerated by the full parity check were restored to their initial clean state. These checks validate catalog structure and packaging, not downstream accessibility or usability outcomes.
 - 2026-10-08 core profile expansion: local CLI profile listing confirms 37 core skills and includes all six requested motion specialists; the router instructions confirm task-time additive fetching remains available for other relevant skills. `git diff --check` passed.
 - 2026-10-08 `yeknal@2.3.4` release prep: `npm test` 22/22, `npm pack --dry-run` succeeded (package includes `profiles.json`, shasum `8f9b844fccd488b8eb4464af99ea35e4a0adb135`), all 89 skills validated, catalog audit 0 errors/0 warnings, 1,054 relative links resolved, routing evaluation 28 cases/0 errors, core metadata 9,642/10,000 characters, `git diff --check` passed. GitHub trusted publishing was not configured, so npm was published manually after the GitHub release.

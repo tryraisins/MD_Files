@@ -13,7 +13,10 @@
   - Usability testing and iteration
 
 ## backticks (error)
-- baseline 4, current 4, missing 0, added 0
+- baseline 4, current 6, missing 0, added 2
+- added:
+  - ArrowUpRight
+  - ↗
 
 ## links (error)
 - baseline 0, current 0, missing 0, added 0

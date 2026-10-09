@@ -48,6 +48,7 @@ Define:
 ### Visual system
 
 - Are type, color, spacing, grid, radius, border, elevation, imagery, and icons tokenized and coherent?
+- Are links free of external-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, and emojis, with destination and behavior carried by the link text and accessible name?
 - Do hierarchy and density match task frequency and content complexity?
 - Are exceptions meaningful, or are they accumulated one-off values?
 - Does the page have a product-specific signature, or could the brand and nouns be swapped without changing the design?

@@ -17,7 +17,10 @@
   - Start from the shared quality floor
 
 ## backticks (error)
-- baseline 18, current 18, missing 0, added 0
+- baseline 18, current 20, missing 0, added 2
+- added:
+  - ArrowUpRight
+  - ↗
 
 ## links (error)
 - baseline 0, current 0, missing 0, added 0

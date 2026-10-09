@@ -11,7 +11,10 @@
 - baseline 15, current 15, missing 0, added 0
 
 ## backticks (error)
-- baseline 6, current 6, missing 0, added 0
+- baseline 6, current 8, missing 0, added 2
+- added:
+  - ArrowUpRight
+  - ↗
 
 ## links (error)
 - baseline 0, current 0, missing 0, added 0

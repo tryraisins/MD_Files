@@ -119,7 +119,7 @@ When the product supports multiple themes:
 
 ## Icons
 
-Choose icons for meaning, familiarity, optical fit, stroke/fill coherence, and accessible labeling. Familiar symbols such as settings, favorite, automation, or launch are valid when they match the action; they become generic when used as unexplained brand decoration. Reuse the product's icon family before seeking novelty.
+Choose icons for meaning, familiarity, optical fit, stroke/fill coherence, and accessible labeling. Familiar symbols such as settings, favorite, automation, or launch are valid when they match the action; they become generic when used as unexplained brand decoration. Reuse the product's icon family before seeking novelty. Never specify the North East Arrow (`↗` / `ArrowUpRight` / U+2197), an external-link badge, or an emoji as link decoration; make the link's destination and behavior explicit in its label and accessible name instead.
 
 ## What to Reject
 
@@ -129,4 +129,5 @@ Choose icons for meaning, familiarity, optical fit, stroke/fill coherence, and a
 - Incomplete theme variants when the product promises multiple themes
 - Missing affordance, semantics, focus, or touch feedback on interactive elements
 - Motion that is purely decorative without communicating anything
+- External-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, or emojis decorating links
 - Cliché symbols used as identity without a product-specific reason

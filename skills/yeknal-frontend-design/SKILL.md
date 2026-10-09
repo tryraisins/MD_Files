@@ -44,7 +44,7 @@ These are fine only when the brief earns them:
 - broadsheet columns, hairline rules, and square corners regardless of content;
 - identical rounded cards, one radius everywhere, soft shadows, and decorative gradient washes;
 - tracked all-caps eyebrows, middle-dot metadata, spaced em-dash labels, tinted near-black, and monospace used only to signal depth;
-- a centered badge over every heading or a decorative arrow after every link.
+- a centered badge over every heading or a decorative arrow after every link, including the North East Arrow (`↗` / `ArrowUpRight` / U+2197) or any similar external-link glyph, badge, or emoji. Carry a link's destination and behavior in its text and accessible name instead.
 
 If the brief asks for one, do it. Otherwise choose along the free design axes for this subject instead of trading one stock trend for another.
 
@@ -93,6 +93,7 @@ Before handoff:
 
 - Could the thesis belong to another product with only the logo swapped?
 - Does every structural and decorative device carry information or reinforce the subject?
+- Is every link free of external-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, and emojis, with its destination and behavior carried by the text and accessible name?
 - Is there one memorable idea rather than several competing effects?
 - Do copy, loading, empty, error, and success states sound like one product?
 - Does it hold up with keyboard, touch, zoom, narrow width, low height, slow network, and reduced motion?

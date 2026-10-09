@@ -11,7 +11,10 @@
   - Interface copy
 
 ## backticks (error)
-- baseline 9, current 9, missing 0, added 0
+- baseline 9, current 11, missing 0, added 2
+- added:
+  - ArrowUpRight
+  - ↗
 
 ## links (error)
 - baseline 0, current 0, missing 0, added 0
