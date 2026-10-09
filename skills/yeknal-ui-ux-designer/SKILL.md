@@ -130,4 +130,5 @@ Choose icons for meaning, familiarity, optical fit, stroke/fill coherence, and a
 - Missing affordance, semantics, focus, or touch feedback on interactive elements
 - Motion that is purely decorative without communicating anything
 - External-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, or emojis decorating links
+- Underlined links in default, hover, focus, active, or visited states, including animated lines and bottom-border or pseudo-element substitutes; specify clear labels, placement, contrast or full control styling and visible focus outlines instead
 - Cliché symbols used as identity without a product-specific reason

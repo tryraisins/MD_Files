@@ -58,6 +58,7 @@ jobs:
         working-directory: yeknal-cli
         run: |
           npm ci
+          npm run catalog:check
           npm test
           npm pack --dry-run
 

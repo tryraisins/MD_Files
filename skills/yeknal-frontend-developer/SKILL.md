@@ -99,6 +99,7 @@ When the product supports theme choice, use its established persistence and hydr
 - Navigation presentation chosen before information architecture and viewport behavior
 - Cliché symbols used as identity without product rationale
 - External-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, or emojis attached to links
+- Underlined links in any state, including animated underlines and bottom-border or pseudo-element substitutes; use clear labels, placement, contrasting color or full control styling and visible focus outlines instead
 - Animations that are purely decorative without hierarchy value
 - Missing semantics, focus, affordance, or touch feedback on interactive elements
 - Missing or inconsistent states in any theme the product promises

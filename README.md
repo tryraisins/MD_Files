@@ -28,17 +28,65 @@ A user-level folder is only used when it already exists. When `~/.agents` exists
 
 Git is optional and is used only if the GitHub download path is rate-limited.
 Project-level sync requires the current directory to be inside a Git repository.
+Repository-scoped loading and asset materialization also use Git to resolve the
+active project. Without Git, direct catalog/cache loading creates no project files.
 
 ## Quick start
 
-```bash
+### Minimal automatic discovery
+
+~~~bash
+npx yeknal setup
+npx yeknal setup --agents codex,claude,opencode
+npx yeknal search "accessible React animation" --json
+npx yeknal load yeknal-animate --json
+npx yeknal setup --backups --json
+npx yeknal setup --restore BACKUP_ID --json
+npx yeknal setup --remove --agents codex,claude,opencode
+~~~
+
+Yeknal 2.4.0 keeps one short global bootstrap per connected Codex, Claude Code,
+or OpenCode V2 installation, plus a cached CLI runtime. Greetings, simple
+questions, and trivial tasks skip discovery. Substantive tasks search compact
+metadata and read only the selected instructions and needed supporting files.
+There is no global router SKILL.md or full catalog in agent context.
+
+Setup migrates identified global Yeknal catalog skills and superseded routers
+from shared and agent-specific locations into verified recoverable backups,
+including customized contents. A prefix alone does not establish ownership;
+ambiguous identities, symlinks, unrelated skills, project-local folders, and
+backup failures are preserved and reported. The shared cache and backups sit
+outside every native skill-discovery path. Restore is explicit and never
+overwrites an existing target. Setup removal retains backup/cache data.
+
+Run loading from the active repository. Its actual Git root bounds project
+overrides, so another repository's overrides cannot leak into the request.
+Plain loads create no native skill inventory or project files. Only explicit
+materialize/all-resources requests copy executable supporting trees into
+.yeknal/resources; resources clean removes unchanged managed assets. Outside a
+repository, lightweight loading works without creating project files.
+
+Manual installation stays available. A later deliberate global skills command
+can recreate collections; setup will migrate recognized copies again. Automatic
+behavior depends on the agent following its bootstrap and having command/file
+access. New sessions may be needed. See the [CLI documentation](yeknal-cli/README.md)
+for supported configurations, backup/restore, cache expiry, and verification limits.
+
+Distribution uses public GitHub static files and npm, with immutable revisions,
+hash checks, and shared offline caching. No account, API key, backend, paid
+dependency, or LLM search service is required. GitHub/npm public-service limits
+still apply; cache reuse is not unlimited free capacity. Future scale should be
+measured before choosing mirrors or hosting with explicit cost budgets.
+
+### Deliberate manual installation
+
+~~~bash
 npx yeknal skills
-npx yeknal skills --skip-claude
 npx yeknal skills --project --profile design
 npx yeknal skills --project --add --skills aspnet-core
 npx yeknal profiles
 npx yeknal security
-```
+~~~
 
 | Command | Result |
 | --- | --- |
@@ -53,7 +101,7 @@ npx yeknal security
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 
-`yeknal@2.3.4` defaults to the updated 37-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
+`yeknal@2.4.0` defaults to the updated 37-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
 
 ### Install with skills.sh
 
@@ -71,7 +119,7 @@ npx skills add tryraisins/MD_Files --skill yeknal-frontend-design
 - Skill folders already carry the `yeknal-` prefix, so installed folder names match the catalog names; the CLI treats an existing prefix as final.
 - User scope syncs every detected agent folder: Codex, Claude, Gemini Antigravity/Antigravity, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, Kiro, Cline, OpenHands, Amp, and the shared `~/.agents` standard. When `~/.agents` is present it is preferred, the overlapping per-harness folders are skipped, and their stale managed `yeknal-*` folders are removed. Project scope targets the current Git repository's `.agents/skills` folder, which Codex, Cursor, opencode, Roo Code, OpenHands, and other compatible clients scan from the working directory up to the repository root.
 - Profiles are exact sets. Combine them with commas; named `--skills` are also exact and do not add core implicitly, so project installs need not duplicate a user-level core profile.
-- Core includes `yeknal-skill-router`: during a substantive task, Codex or OpenCode can spot when a specialist Yeknal skill is missing, select its exact catalog name, add it to the current Git project with `--project --add`, read the installed `SKILL.md`, and use it during that same task. It installs only task-relevant skills, not the entire catalog.
+- Manual core installs include `yeknal-skill-router`. Automatic setup migrates that router with recognized global collections and uses a short bootstrap to search/load directly without native installation. Older manual workflows retain additive project installation with `--project --add`.
 - `npx yeknal security` installs `yeknal-application-security`, `yeknal-security-best-practices`, `yeknal-security-ownership-map`, and `yeknal-security-threat-model`.
 - `SEO` remains source/reference material and is not installed because it has no `SKILL.md` entry point.
 - Missing `skills` folders are created inside detected agent parent folders.

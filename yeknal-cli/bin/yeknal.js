@@ -47,6 +47,12 @@ const SECURITY_REPO_FOLDERS = [
 
 function usage() {
   console.log("\nUsage:");
+  console.log("  npx yeknal setup [--list | --agents codex,claude,opencode | --remove | --backups | --restore ID]");
+  console.log("  npx yeknal search <query> [--limit 8] [--json] [--offline]");
+  console.log("  npx yeknal load <name> [resource] [--materialize | --all-resources] [--revision SHA] [--json] [--offline]");
+  console.log("  npx yeknal resources clean [--json]  Remove unchanged managed repository assets");
+  console.log("  npx yeknal update [--json]  Refresh discovery metadata");
+  console.log("  npx yeknal cache [status] [--json]");
   console.log("  npx yeknal skills [profile] [--profile name,...] [--skills name,...] [--project] [--add] [--skip-claude]");
   console.log("  npx yeknal skills --all");
   console.log("  npx yeknal profiles");
@@ -2994,6 +3000,16 @@ async function main() {
     return;
   }
 
+  if (command === "setup") {
+    await require("../lib/setup").runSetup(args.slice(1));
+    return;
+  }
+
+  if (["search", "load", "update", "cache", "resources"].includes(command)) {
+    await require("../lib/commands").runDiscoveryCommand(command, args.slice(1));
+    return;
+  }
+
   if (command === "profiles") {
     runProfilesCommand();
     return;
@@ -3007,13 +3023,6 @@ async function main() {
   console.error(`Error: Invalid command "${command}".`);
   usage();
   process.exit(1);
-}
-
-if (require.main === module) {
-  main().catch((error) => {
-    console.error(`\nError: ${error.message}`);
-    process.exit(1);
-  });
 }
 
 module.exports = {
@@ -3043,3 +3052,10 @@ module.exports = {
   shouldUseGitCloneFallback,
   syncManagedSkills,
 };
+
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(`\nError: ${error.message}`);
+    process.exit(1);
+  });
+}

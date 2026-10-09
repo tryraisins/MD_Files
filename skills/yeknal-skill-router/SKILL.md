@@ -1,13 +1,50 @@
 ---
 name: yeknal-skill-router
-description: At the start of a substantive coding or build task, check whether the task needs a specialist Yeknal skill that is not available in the current project, install that skill into the project, read it, and use it before continuing.
+description: Discover and load a relevant Yeknal workflow for substantive work. Skip simple prompts and use repository overrides before shared cached instructions; retain deliberate manual installation as a fallback.
 ---
 
 # Yeknal skill router
 
 Run this at the start of substantive implementation, debugging, design, security, deployment, or document work. The point is to load a missing specialist workflow before the work, not to bolt it on afterward.
 
+Skip greetings, simple questions, and trivial tasks that do not benefit from a
+specialist. Setup keeps only a short global bootstrap, backs up and migrates
+recognized global Yeknal collections and superseded routers, and retains the
+local CLI runtime. It does not register this skill globally. An explicit manual
+`npx yeknal skills` installation can make this router available again.
+
 ## 1. Decide whether a specialist skill is warranted
+
+When `yeknal setup` has connected this agent, use the retained CLI invocation in
+the managed task-start instructions for discovery. Run `search "<task domain>"
+--json`, select one or two applicable skills, then `load <name> --json`. Prefer
+the applicable project or installed skill returned by the loader and avoid
+loading a skill twice in the same task. Discovery reads metadata, not full skill
+instructions. Read the loaded instructions before continuing.
+
+For a referenced supporting file, run `load <name> <resource> --revision <SHA>
+--json` using the returned `sourceRevision`. This keeps references and
+instructions on the same immutable revision. Use `--all-resources` before
+running a bundled script or template that needs sibling files, and use its
+returned absolute path and working directory. Loading never executes assets.
+If a local skill has no `sourceRevision`, omit `--revision` and use its local paths.
+Use `--offline` for cached or local retrieval without network access. If a
+missing resource cannot be retrieved, report the gap and use available guidance.
+Do not install a second copy just to make the cache visible to an agent.
+
+Run the retained CLI from the requesting repository's real working directory.
+Plain loads do not create project files or a native skill inventory. Before using
+executable supporting files, request `--materialize` or `--all-resources`; the
+loader keeps their relative tree in `.yeknal/resources` inside that Git repository.
+Run `resources clean` after use to remove unchanged managed assets, preserving
+customizations. Outside a repository, direct instruction/reference loading works
+and materialization creates no files.
+
+Without a setup-managed invocation, the following manual installation workflow
+remains available for older CLI releases and deliberate installations. Prefer
+`npx yeknal search` and `npx yeknal load` on version 2.4.0 or later when native
+installation is unnecessary. A manual installation is an explicit choice to
+register skills; automatic on-demand retrieval does not do that.
 
 1. Name the task's main domain and any distinct specialist subtask.
 2. If a relevant skill is already loaded or installed, use it. A passing mention of a framework or tool is not a reason to install a duplicate.

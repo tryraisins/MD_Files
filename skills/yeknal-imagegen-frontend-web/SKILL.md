@@ -296,7 +296,7 @@ Pick 1 per section; vary across the page so it is never all the same mode. Be **
 Pick the CTA style that fits each section, not a default pill every time:
 - Classic primary pill
 - Outline / ghost
-- Underlined inline link (no external-link arrow or emoji)
+- Inline text link with clear action wording and contrasting styling (no underline, external-link arrow, or emoji; retain a visible focus outline in implementation)
 - Banner-style full-width CTA
 - Oversized headline + tiny CTA hint
 - CTA as caption under a strong visual

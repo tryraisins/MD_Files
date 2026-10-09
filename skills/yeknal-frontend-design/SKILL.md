@@ -94,6 +94,7 @@ Before handoff:
 - Could the thesis belong to another product with only the logo swapped?
 - Does every structural and decorative device carry information or reinforce the subject?
 - Is every link free of external-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, and emojis, with its destination and behavior carried by the text and accessible name?
+- Is every link free of default, hover, focus, active, visited, and animated underlines, including bottom-border or pseudo-element substitutes, with clear action styling and visible focus outlines instead?
 - Is there one memorable idea rather than several competing effects?
 - Do copy, loading, empty, error, and success states sound like one product?
 - Does it hold up with keyboard, touch, zoom, narrow width, low height, slow network, and reduced motion?
