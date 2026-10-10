@@ -1,36 +1,44 @@
 # Project Handoff
 
-Last updated: 2026-10-09
+Last updated: 2026-10-10
 Branch: main
 HEAD: see git log; released source edf3ec6, catalog/tag e769323
 
 ## Current Objective
 
-Release minimal global bootstrap and repository-scoped on-demand skills, including
-the previous discovery implementation and pending UI link-underline rules. The
-user explicitly authorized commit, push, and deployment/publication on 2026-10-09.
+Ship compatibility for every previously supported local agent/harness while
+preserving working registrations. User authorized implementation and publishing
+on 2026-10-10. Release version is 2.4.1; push and npm/GitHub publication are in
+progress.
 
 ## Current State
 
-- CLI 2.4.0 is published as npm latest and GitHub release v2.4.0. Source commit
+- Published baseline: CLI 2.4.0 was verified as npm latest/GitHub v2.4.0 on
+  2026-10-09 (not refreshed during this implementation). Source commit
   edf3ec64781c24428e87cb869225a4bab077619c; catalog/release commit
   e7693236a65293171456c4f77dcf08908b1d717c. Release validation passed:
   https://github.com/tryraisins/MD_Files/actions/runs/37994702565.
 - Catalog contains 89 Markdown skills, 54 public slugs, and the unchanged 37-skill
   manual core profile. Markdown folders remain authoritative; preserve licenses,
   unique yeknal names, supporting files, and published/manual profile behavior.
-- Setup adds one short native instruction block per connected Codex, Claude Code,
-  or OpenCode V2 agent. No global SKILL.md router is installed. Existing unchanged
-  owned connections upgrade too. Edited/ambiguous blocks are preserved/reported.
+- Local patch adds documented adapters for Cursor, Windsurf/Cascade, Copilot CLI,
+  Gemini CLI/Antigravity, Roo, Kiro, Cline, and Amp alongside Codex/Claude/OpenCode.
+  OpenHands/shared clients receive paste-ready manual bootstrap and steps. Gemini
+  shares Antigravity's default file; redirected CLI roots get distinct Antigravity
+  manual steps. Rule/settings gates and custom-agent scope limits are reported.
+  Connected means instructions-prepared, runtimeVerified false. No router skill
+  is installed. Unchanged owned blocks upgrade; edited/unowned files stay intact.
 - Setup inventories all known shared/agent-specific global discovery roots. Exact
   catalog folder + frontmatter identity or prior router ownership establish the
-  migration candidate; prefix alone never does. Customized content is backed up,
-  verified, then moved outside discovery. Symlinks/unknown identities, repository
-  roots, or failed backups are preserved. Existing unrelated skills/config stay.
+  migration candidate; prefix alone never does. Default setup retains all skills.
+  --migrate is opt-in after a native-session check, and only selected successfully
+  prepared dedicated roots qualify. Shared .agents/.claude, manual, unselected,
+  blocked/failed and historical alternative roots stay. Unsafe protection paths
+  disable migration conservatively. Backups are verified before moving originals.
 - setup --backups lists recovery records; --restore ID|all restores only into an
   empty absent supported target with verified backup bytes. --remove disconnects
   unchanged blocks while retaining cache/runtime/backups. Manual global skills
-  installs can deliberately recreate collections; future setup migrates them again.
+  installs and restored skills remain unless eligible migration is requested.
 - Plain search/load read compact metadata or selected instructions/references.
   Git root + relative cwd + filesystem identity bound overrides to the requesting
   repository. Direct loads create no project files/native inventory. Explicit
@@ -45,11 +53,12 @@ user explicitly authorized commit, push, and deployment/publication on 2026-10-0
 
 ## Relevant Files
 
-- yeknal-cli/lib/setup.js, migration.js: native bootstrap, ownership and recovery.
+- yeknal-cli/lib/harnesses.js, setup.js, migration.js: native adapters, manual
+  bootstrap, preserved registrations, ownership and recovery.
 - yeknal-cli/lib/discovery.js, commands.js: cache/repository/resource retrieval.
 - yeknal-cli/bin/yeknal.js: existing commands plus setup/search/load/update/cache/resources.
 - tools/build-catalog.js and yeknal-cli/catalog.json: reproducible static source snapshot.
-- yeknal-cli/package.json, package-lock.json: 2.4.0 and runtime packaging.
+- yeknal-cli/package.json, package-lock.json: 2.4.1 release and runtime packaging.
 - README.md, yeknal-cli/README.md: setup/migration/restore/manual/cache behavior.
 - skills/yeknal-skill-router/SKILL.md: legacy manual router with direct-loading guidance.
 - Six UI skills: frontend-design/developer, redesign, UI baseline/designer, imagegen web.
@@ -64,9 +73,9 @@ user explicitly authorized commit, push, and deployment/publication on 2026-10-0
 - Keep npx yeknal skills and its options intact. Exact-profile sync retains its
   existing managed replacement/pruning behavior. Setup migration never uses that
   blind stale-folder helper; it always backs up identified full folders first.
-- Native connection support is limited to verified agents. Ambiguous OpenCode V1
-  Claude fallback configurations are skipped/reported. Config-directory detection
-  is not proof of installation/authentication or autonomous agent behavior.
+- Native surfaces are backed by official documentation, not runtime autonomy
+  proof. Ambiguous OpenCode V1 fallback and disabled/custom guidance are reported.
+  Config-directory detection is not authentication or autonomous behavior proof.
 - Registered metadata measurements are skill files/description characters, not a
   claimed token saving. Cache directories are excluded from active discovery.
 - No project-local migration and no unknown symlink targets. Windows 8.3 aliases
@@ -87,12 +96,13 @@ From repository root:
 node tools/build-catalog.js --check
 npm test --prefix yeknal-cli
 npm pack ./yeknal-cli --dry-run
+node tools/verify-harness-setup.js
 node tools/verify-discovery.js
 node tools/verify-public-discovery.js
 node tools/verify-agent-discovery.js
 ~~~
 
-The three local verifiers are in this checkout and locally excluded from Git.
+The four local verifiers are in this checkout and locally excluded from Git.
 They write rerunnable reports/logs into OS temporary directories, without editing
 real global configurations or copying authentication credentials. Provider runs
 can consume account usage. E2E/public/actual-agent final evidence follows below.
@@ -138,7 +148,34 @@ can consume account usage. E2E/public/actual-agent final evidence follows below.
 
 ## Remaining Verification Boundaries
 
-Requested implementation, commit, push, and publication are complete. Real native
+### Compatibility patch, 2026-10-10
+
+- Fixed the reproduced 2.4.0 continuity risk: broad migration removed registrations
+  for unconnected clients. Default setup now retains every collection; opt-in
+  migration follows successful runtime preparation and native instruction writing.
+- All prior harnesses are selectable or have a documented manual path. --agents
+  all handles detected configurations. OpenHands/shared clients, disabled guidance,
+  rule conflicts, and redirected Antigravity configurations get manual steps.
+- Compatibility flows 17/17 passed; discovery flows 29/29 passed without skips,
+  including public legacy installs. CLI checks 22/22, catalog, package dry-run,
+  all 89 skills, Markdown audit 0/0, relative links 1,055/0 broken, routing 28/0.
+- Pre-release E2E reports (with sibling commands.log):
+  C:/Users/NUBIAV~1/AppData/Local/Temp/yeknal-harness-e2e-ePzKnD/report.json
+  C:/Users/NUBIAV~1/AppData/Local/Temp/yeknal-discovery-e2e-Kecnn1/report.json
+- Review caught and fixed redirected Gemini/Antigravity identity, unresolved
+  junction protection aborting retention, and customized blocks reported removed.
+  These cases are covered by the compatibility flow verifier.
+- Run the patch locally: node yeknal-cli/bin/yeknal.js setup --agents all.
+  No real user global configuration or credentials were modified/copied. No
+  commit, push, npm publish, or native provider test had been performed before
+  this authorized release turn.
+- Remaining: verify real native global ingestion and autonomous search/load in
+  each actual harness/surface. Only Codex/Claude/OpenCode commands were available
+  here; most clients are unavailable. The isolated CLI checks are not agent proof.
+- Release gates and fresh published-package verification are required before
+  declaring 2.4.1 shipped. Native provider/runtime behavior remains unverified.
+
+Prior release implementation, commit, push, and publication are complete. Real native
 global instruction ingestion, bootstrap-only autonomous search/load, and autonomous
 Claude/OpenCode use remain unverified runtime boundaries. Existing global skills
 took precedence in actual Codex runs; further provider attempts were deliberately

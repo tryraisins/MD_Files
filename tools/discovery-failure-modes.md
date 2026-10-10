@@ -73,3 +73,18 @@ The default run also verifies the legacy CLI against the public GitHub source,
 installing one skill into an isolated temporary Git project. For deterministic CI
 or offline fixture runs, use `node tools/verify-discovery.js --skip-live-legacy`.
 The report marks that live boundary as skipped and records the exact rerun command.
+
+## Harness compatibility implementation failure modes, 2026-10-10
+
+Recorded before new compatibility flow checks and implementation:
+- setup omits or rejects a previously supported harness instead of connecting it or reporting a usable manual fallback.
+- A bootstrap is written to an undocumented global location or wrong environment override, or overrides Gemini context.fileName / disabled guidance.
+- Default setup removes old skills before native behavior has been checked; explicit migration touches shared, unselected, blocked, manual, customized integration, aliased, or failed-connection roots.
+- Setup migrates originals before runtime/connection creation succeeds; removal or repetition corrupts existing instructions or creates duplicates.
+- Shared Gemini/Antigravity instructions get duplicate blocks; dedicated rule frontmatter is missing; Windsurf rules exceed the documented 6000 character limit.
+- Manual fallback appears connected, lacks paste-ready commands and steps, or overrides user settings to force activation.
+- A moved registration has no recoverable identical-byte backup, or a legacy 2.4.0 backup becomes inaccessible.
+- Commands in prepared instructions cannot execute from the retained runtime, and CLI smoke proof is mistaken for autonomous native-agent proof.
+- Redirected Gemini CLI instruction roots must not be reported as shared with Antigravity's default global rules; explicit Antigravity selection must not write the unrelated redirected CLI file.
+- A symlinked protected discovery root must be reported and preserved without aborting retention-only setup; unresolved protection must disable migration conservatively.
+- Removal must not report customized blocks as removed when they remain active.

@@ -198,8 +198,23 @@ function makeMigration(ctx, agents, manifest, result, cwd) {
     return backups;
   }
 
-  async function migrate() {
+  async function migrate({ allowedRoots = [], protectedRoots = [] } = {}) {
     const before = await inventory();
+    const allowed = new Set(), protectedPaths = [];
+    // Retention-only setup does not need a migration policy. If a requested
+    // policy cannot be resolved safely, keep every original registration.
+    let unresolvedProtection = false;
+    if (allowedRoots.length) {
+      for (const root of new Set(protectedRoots)) {
+        try { protectedPaths.push(await canonical(root)); }
+        catch (error) { unresolvedProtection = true; result.preserved.push(root); result.warnings.push(error.message); }
+      }
+      if (unresolvedProtection) result.warnings.push("Migration disabled because a discovery-root protection path could not be resolved safely. Existing skills were retained.");
+      else for (const root of new Set(allowedRoots)) {
+        try { allowed.add(await canonical(root)); }
+        catch (error) { result.preserved.push(root); result.warnings.push(error.message); }
+      }
+    }
     result.metadata = { before: before.metadata };
     const catalog = JSON.parse(await fs.readFile(path.join(__dirname, "..", "catalog.json"), "utf8"));
     const known = new Map(catalog.skills.map((skill) => [skill.name, skill]));
@@ -217,6 +232,11 @@ function makeMigration(ctx, agents, manifest, result, cwd) {
           result.preserved.push(entry.folder);
           result.warnings.push(`Ambiguous Yeknal identity preserved: ${entry.folder}; catalog name and frontmatter identity must match.`);
         }
+        continue;
+      }
+      if (!allowed.has(entry.root) || protectedPaths.some(root => inside(root, entry.root) || inside(entry.root, root))) {
+        result.preserved.push(entry.folder);
+        result.warnings.push(`Existing Yeknal registration retained: ${entry.folder}; migration requires a selected prepared connection in a dedicated, unshared root and explicit --migrate.`);
         continue;
       }
       try {
@@ -309,7 +329,7 @@ function makeMigration(ctx, agents, manifest, result, cwd) {
       } catch (error) { result.preserved.push(record.originalPath); result.warnings.push(error.message); }
     }
   }
-  return { migrate, list, restore };
+  return { migrate, list, restore, validate: init };
 }
 
 module.exports = { makeMigration, metadata };

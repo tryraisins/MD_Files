@@ -6,10 +6,10 @@ const os = require("os");
 const crypto = require("crypto");
 const readline = require("readline/promises");
 const { makeMigration } = require("./migration.js");
+const { SUPPORTED, ALIASES, detectHarnesses } = require("./harnesses.js");
 
 const START = "<!-- yeknal:automatic-discovery:start -->";
 const END = "<!-- yeknal:automatic-discovery:end -->";
-const SUPPORTED = ["codex", "claude", "opencode"];
 
 async function exists(file) {
   try { await fs.access(file); return true; } catch (error) {
@@ -65,36 +65,14 @@ function context(options = {}) {
 // Locations verified against current first-party skills and instruction docs.
 // Config directory presence is detection evidence, not proof of authentication.
 async function detectAgents(options = {}) {
-  const { env, home } = context(options);
-  const codex = path.resolve(env.CODEX_HOME || env.YEKNAL_CODEX_PARENT || path.join(home, ".codex"));
-  const claude = path.resolve(env.CLAUDE_CONFIG_DIR || env.YEKNAL_CLAUDE_PARENT || path.join(home, ".claude"));
-  const opencode = path.resolve(env.YEKNAL_OPENCODE_PARENT || path.join(env.XDG_CONFIG_HOME || path.join(home, ".config"), "opencode"));
-  const shared = path.resolve(env.YEKNAL_AGENTS_PARENT || path.join(home, ".agents"));
-  const candidates = [
-    { id: "codex", label: "Codex", configDir: codex, instructionFile: path.join(codex, (await readOptional(path.join(codex, "AGENTS.override.md")))?.trim() ? "AGENTS.override.md" : "AGENTS.md"), skillRoots: [path.join(shared, "skills"), path.join(codex, "skills")] },
-    { id: "claude", label: "Claude Code", configDir: claude, instructionFile: path.join(claude, "CLAUDE.md"), skillRoots: [path.join(claude, "skills")] },
-    { id: "opencode", label: "OpenCode V2", configDir: opencode, instructionFile: path.join(opencode, "AGENTS.md"), skillRoots: [path.join(shared, "skills"), path.join(opencode, "skills"), path.join(claude, "skills")] },
-  ];
-  for (const agent of candidates) {
-    try { agent.detected = (await fs.stat(agent.configDir)).isDirectory(); }
-    catch (error) { if (error.code !== "ENOENT") throw error; agent.detected = false; }
-    if (agent.id === "opencode") {
-      agent.warning = "OpenCode integration targets V2. Earlier versions are not verified.";
-      if (env.OPENCODE_CONFIG_DIR) agent.warning += " OPENCODE_CONFIG_DIR is an additional custom directory; setup uses the documented global XDG config directory.";
-      const compatibilityDisabled = [env.OPENCODE_DISABLE_CLAUDE_CODE, env.OPENCODE_DISABLE_CLAUDE_CODE_PROMPT].some((value) => ["1", "true"].includes(String(value).toLowerCase()));
-      if (!compatibilityDisabled && !(await exists(agent.instructionFile)) && (await readOptional(path.join(claude, "CLAUDE.md")))?.trim()) {
-        agent.integrationBlocked = "Existing Claude global instructions may be the active fallback in OpenCode V1. Setup preserved that configuration. After confirming OpenCode V2, create an empty global OpenCode AGENTS.md and rerun setup.";
-      }
-    }
-  }
-  return candidates;
+  return detectHarnesses(context(options));
 }
 
 function parseArgs(args) {
-  const result = { agents: [], list: false, remove: false, backups: false, restore: null, json: false };
+  const result = { agents: [], list: false, remove: false, backups: false, restore: null, json: false, migrate: false };
   for (let i = 0; i < args.length; i++) {
     const flag = args[i];
-    if (["--list", "--remove", "--backups", "--json"].includes(flag)) result[flag.slice(2)] = true;
+    if (["--list", "--remove", "--backups", "--json", "--migrate"].includes(flag)) result[flag.slice(2)] = true;
     else if (flag === "--restore") {
       result.restore = args[++i];
       if (!result.restore || result.restore.startsWith("--") || !/^[a-zA-Z0-9-]+$/.test(result.restore)) throw new Error("--restore requires a backup ID or all.");
@@ -103,13 +81,15 @@ function parseArgs(args) {
       if (!value || value.startsWith("--")) throw new Error("--agents requires a comma-separated agent list.");
       const selected = value.split(",").map((item) => item.trim().toLowerCase()).filter(Boolean);
       if (!selected.length) throw new Error("--agents requires at least one supported agent.");
-      result.agents.push(...selected);
+      result.agents.push(...selected.map(id => ALIASES[id] || id));
     } else throw new Error(`Unknown setup option: ${flag}`);
   }
   result.agents = [...new Set(result.agents)];
-  for (const id of result.agents) if (!SUPPORTED.includes(id)) throw new Error(`Unsupported agent '${id}'. Supported agents: ${SUPPORTED.join(", ")}.`);
+  for (const id of result.agents) if (id !== "all" && !SUPPORTED.includes(id)) throw new Error(`Unsupported agent '${id}'. Supported agents: ${SUPPORTED.join(", ")}, all.`);
+  if (result.agents.includes("all") && result.agents.length !== 1) throw new Error("Use --agents all by itself, or name specific agents.");
   if ([result.list, result.remove, result.backups, !!result.restore].filter(Boolean).length > 1) throw new Error("Choose only one of --list, --remove, --backups, or --restore.");
   if ((result.list || result.backups || result.restore) && result.agents.length) throw new Error("--agents is only used for connection or removal.");
+  if (result.migrate && (result.list || result.remove || result.backups || result.restore)) throw new Error("--migrate is only used when connecting verified agents.");
   return result;
 }
 
@@ -155,12 +135,17 @@ function shellCommand(runtime) {
   // Quoted arguments are literal in POSIX shells and cmd. PowerShell requires
   // the call operator when the executable path is quoted.
   const args = [process.execPath, path.join(runtime, "bin", "yeknal.js")];
-  if (args.some((value) => /["`$\r\n]/.test(value))) throw new Error("The Node/runtime path contains unsupported shell metacharacters.");
+  if (args.some((value) => /["`$\r\n]/.test(value) || (process.platform === "win32" && /[%!]/.test(value)))) throw new Error("The Node/runtime path contains unsupported shell metacharacters.");
   return `${process.platform === "win32" ? "& " : ""}${args.map((value) => `"${value}"`).join(" ")}`;
 }
 
 function instructions(command) {
-  return [START, "Yeknal CLI: `" + command + "`.", 'Skip discovery for greetings, simple questions, and trivial tasks. For substantive work benefiting from specialist guidance, prefer a loaded or project-local skill; otherwise invoke the CLI with `search "task domain and intent" --json`, then `load yeknal-name --json` from the active repository. Follow the returned instructions. Load only needed resources, pinning their returned sourceRevision with `--revision`; use `--all-resources` for executable assets. Never bulk install or read the full catalog. Cached content works offline.', END, ""].join("\n");
+  const shell = process.platform === "win32" ? " On Windows, this command uses PowerShell; in cmd.exe omit the leading &." : "";
+  return [START, "Yeknal CLI: `" + command + "`." + shell, 'Skip discovery for greetings, simple questions, and trivial tasks. For substantive work benefiting from specialist guidance, prefer a loaded or project-local skill; otherwise invoke the CLI with `search "task domain and intent" --json`, then `load yeknal-name --json` from the active repository. Follow the returned instructions. Load only needed resources, pinning their returned sourceRevision with `--revision`; use `--all-resources` for executable assets. Never bulk install or read the full catalog. Cached content works offline.', END, ""].join("\n");
+}
+
+function manualFallback(agent, result, bootstrapFile, command, reason) {
+  result.manual.push({ id: agent.id, label: agent.label, reason, bootstrapFile, command, docs: agent.docs, steps: agent.steps || ["Keep existing skills available. Paste the prepared bootstrap into this harness's active global or project instructions.", "Start a fresh session; check the instructions are enabled, then verify a relevant search/load and a greeting that skips discovery."], status: "manual-action-required" });
 }
 
 async function safeRegularFile(file) {
@@ -198,25 +183,36 @@ async function connect(agent, manifest, save, runtime, result) {
     updated = current.replace(previous.block.text, text);
     record.block = { ...previous.block, text };
   } else {
+    if (agent.exclusiveFile && await exists(agent.instructionFile)) {
+      result.preserved.push(agent.instructionFile);
+      result.warnings.push(`${agent.label}: an existing unowned rule file was preserved.`);
+      return;
+    }
     if (current.includes(START) || current.includes(END)) {
       result.preserved.push(agent.instructionFile);
       result.warnings.push(`${agent.label}: an unowned Yeknal instruction block exists; preserved without changes.`);
       return;
     }
-    const text = (current ? "\n\n" : "") + block;
+    const text = (current ? "\n\n" : (agent.prefix || "")) + block;
     updated = current + text;
     record.block = { path: agent.instructionFile, text, createdFile: !(await exists(agent.instructionFile)) };
+  }
+  if (agent.maxCharacters && updated.length > agent.maxCharacters) {
+    result.preserved.push(agent.instructionFile);
+    result.warnings.push(`${agent.label}: combined rules exceed ${agent.maxCharacters} characters; existing content preserved.`);
+    return;
   }
   manifest.agents[agent.id] = record;
   await save();
   if (updated !== current) await atomicWrite(agent.instructionFile, updated);
-  result.connected.push({ id: agent.id, label: agent.label, instructionFile: agent.instructionFile, router: null, command, restart: "Start a new agent session to load updated instructions." });
+  result.connected.push({ id: agent.id, label: agent.label, instructionFile: agent.instructionFile, router: null, command, docs: agent.docs, status: "instructions-prepared", runtimeVerified: false, restart: "Start a new agent session to load updated instructions and verify search/load behavior." });
   if (agent.warning) result.warnings.push(agent.warning);
 }
 
 async function disconnect(id, manifest, result) {
   const record = manifest.agents[id];
   if (!record) { result.warnings.push(`${id}: no setup-owned integration found.`); return; }
+  let removedBlock = false;
   if (record.block) {
     await safeRegularFile(record.block.path);
     const current = await readOptional(record.block.path);
@@ -225,12 +221,13 @@ async function disconnect(id, manifest, result) {
       if (!updated && record.block.createdFile) await fs.unlink(record.block.path);
       else await atomicWrite(record.block.path, updated);
       delete record.block;
+      removedBlock = true;
     } else if (current !== null) result.preserved.push(record.block.path);
     else delete record.block;
   }
   if (!record.block && !record.router) delete manifest.agents[id];
   else result.warnings.push(`${id}: customized managed components remain and were preserved. Removal only changes content that still matches setup ownership records.`);
-  result.removed.push(id);
+  if (removedBlock) result.removed.push(id);
 }
 
 async function runSetup(args = [], options = {}) {
@@ -239,26 +236,30 @@ async function runSetup(args = [], options = {}) {
   const agents = await detectAgents(options);
   const output = options.output || process.stdout;
   const input = options.input || process.stdin;
-  const result = { supported: SUPPORTED, detected: agents.filter((agent) => agent.detected), connected: [], removed: [], migrated: [], backups: [], restored: [], preserved: [], warnings: [] };
+  const result = { supported: SUPPORTED, aliases: { ...ALIASES, ...Object.fromEntries(agents.filter(agent => agent.aliasOf).map(agent => [agent.id, agent.aliasOf])) }, detected: agents.filter((agent) => agent.detected), connected: [], manual: [], removed: [], migrated: [], backups: [], restored: [], preserved: [], warnings: [] };
   const report = () => {
     if (flags.json) output.write(JSON.stringify(result, null, 2) + "\n");
     else {
-      for (const agent of agents) output.write(`${agent.label}: ${agent.detected ? "detected" : "not detected"} (${agent.configDir})\n`);
-      for (const agent of result.connected) output.write(`Connected ${agent.label}. ${agent.restart}\n  CLI: ${agent.command}\n`);
+      for (const agent of agents) output.write(`${agent.label}: ${agent.detected ? "detected" : "not detected"}; ${agent.mode} (${agent.configDir})\n`);
+      for (const agent of result.connected) output.write(`Prepared ${agent.label} instructions. ${agent.restart}\n  CLI: ${agent.command}\n`);
+      for (const item of result.manual) {
+        output.write(`Manual connection for ${item.label}: ${item.reason}\n  Prepared instructions: ${item.bootstrapFile}\n`);
+        for (const step of item.steps) output.write(`  ${step}\n`);
+      }
       for (const id of result.removed) output.write(`Removed owned instruction block for ${id}.\n`);
       for (const item of result.migrated) output.write(`Backed up ${item.originalPath} (${item.customized ? "customized" : "catalog match"}); restore ID: ${item.id}\n`);
       for (const item of result.backups) output.write(`Backup ${item.id}: ${item.originalPath}\n`);
       for (const item of result.restored) output.write(`Restored ${item.originalPath} from ${item.id}.\n`);
       if (result.metadata) output.write(`Registered metadata: ${result.metadata.before.skillCount} -> ${result.metadata.after.skillCount} skill files; ${result.metadata.before.descriptionCharacters} -> ${result.metadata.after.descriptionCharacters} description characters.\n`);
-      for (const item of result.preserved) output.write(`Preserved customized content: ${item}\n`);
+      for (const item of result.preserved) output.write(`Preserved existing content: ${item}\n`);
       for (const warning of result.warnings) output.write(`Notice: ${warning}\n`);
-      output.write("Other agents and cloud-only sessions are not connected by this first version.\n");
+      output.write("Prepared instruction files are not proof of agent behavior. Existing skills stay by default; shared folders always stay. Remote sessions require their own connection.\n");
     }
     return result;
   };
   if (flags.list) return report();
   if (!flags.agents.length && !flags.backups && !flags.restore) {
-    if (!input.isTTY || !output.isTTY) throw new Error("Non-interactive setup requires --agents codex,claude,opencode. Use --list to inspect detected agents.");
+    if (!input.isTTY || !output.isTTY) throw new Error("Non-interactive setup requires --agents all or a comma-separated agent list. Use --list to inspect detected agents.");
     const available = agents.filter((agent) => agent.detected);
     if (!flags.remove && !available.length) throw new Error("No supported agent configuration directory detected. Install and start a supported agent, then retry setup.");
     output.write(`Supported agents: ${available.map((agent) => agent.id).join(", ") || SUPPORTED.join(", ")}\n`);
@@ -266,8 +267,12 @@ async function runSetup(args = [], options = {}) {
     try { flags.agents = parseArgs(["--agents", await rl.question(`Which agents should setup ${flags.remove ? "disconnect" : "connect"} (comma-separated)? `)]).agents; }
     finally { rl.close(); }
   }
+  if (flags.agents.includes("all")) flags.agents = flags.remove ? [...SUPPORTED] : agents.filter(agent => agent.detected).map(agent => agent.id);
+  flags.agents = [...new Set(flags.agents.map(id => agents.find(agent => agent.id === id).aliasOf || id))];
+  if (!flags.remove && !flags.backups && !flags.restore && !flags.agents.length) throw new Error("No supported agent configuration directory detected. Start the agent once, then retry setup.");
   if (!flags.remove && !flags.backups && !flags.restore) for (const id of flags.agents) {
-    if (!agents.find((agent) => agent.id === id).detected) throw new Error(`${id} was not detected at its verified configuration directory. Start that agent once, then retry.`);
+    const agent = agents.find(item => item.id === id);
+    if (agent.mode === "native" && !agent.detected) throw new Error(`${id} was not detected at its configuration directory. Start that agent once, then retry.`);
   }
   await noLinks(ctx.cacheDir);
   await fs.mkdir(ctx.cacheDir, { recursive: true });
@@ -290,12 +295,42 @@ async function runSetup(args = [], options = {}) {
       for (const id of flags.agents) { await disconnect(id, manifest, result); await save(); }
       result.warnings.push("Shared cache, migration backups, and versioned local runtimes are retained. Restore backups explicitly with setup --restore <id|all>.");
     } else {
-      await migration.migrate();
+      // Validate cache/root boundaries before preparing any native integration.
+      await migration.validate();
+      const runtime = await runtimeSnapshot(ctx.cacheDir);
+      const command = shellCommand(runtime);
+      const bootstrapFile = path.join(runtime, "bootstrap.md");
+      await safeRegularFile(bootstrapFile);
+      const bootstrap = instructions(command);
+      const priorBootstrap = await readOptional(bootstrapFile);
+      if (priorBootstrap !== null && priorBootstrap !== bootstrap) throw new Error(`Prepared bootstrap was customized; preserved ${bootstrapFile}. Use a different YEKNAL_CACHE_DIR or restore its original contents.`);
+      if (priorBootstrap === null) await atomicWrite(bootstrapFile, bootstrap);
+      result.bootstrapFile = bootstrapFile;
+      const connections = [...new Set([...flags.agents, ...SUPPORTED.filter((id) => manifest.agents[id]?.block)])];
+      for (const id of connections) {
+        const agent = agents.find(item => item.id === id);
+        if (agent.mode === "manual") { manualFallback(agent, result, bootstrapFile, command, "No universal automatic global instruction surface is documented for this harness."); continue; }
+        const previous = manifest.agents[id];
+        try { await connect(agent, manifest, save, runtime, result); }
+        catch (error) {
+          // A failed write must not create an ownership record authorizing
+          // future migration. Other successfully prepared connections can stay.
+          if (previous) manifest.agents[id] = previous;
+          else delete manifest.agents[id];
+          await save();
+          result.preserved.push(agent.instructionFile);
+          result.warnings.push(`${agent.label}: connection failed; existing skills preserved. ${error.message}`);
+        }
+        if (!result.connected.some(item => item.id === id)) manualFallback(agent, result, bootstrapFile, command, agent.integrationBlocked || "Native instructions could not be safely prepared. Review the preservation notices.");
+      }
       manifest.schemaVersion = 2;
       await save();
-      const runtime = await runtimeSnapshot(ctx.cacheDir);
-      const connections = [...new Set([...flags.agents, ...SUPPORTED.filter((id) => manifest.agents[id]?.block)])];
-      for (const id of connections) await connect(agents.find((agent) => agent.id === id), manifest, save, runtime, result);
+      const eligible = agents.filter(agent => flags.migrate && flags.agents.includes(agent.id) && result.connected.some(item => item.id === agent.id));
+      const allowedRoots = eligible.flatMap(agent => agent.migrationRoots);
+      const protectedRoots = [...agents.flatMap(agent => agent.protectedRoots), ...agents.filter(agent => !eligible.includes(agent)).flatMap(agent => agent.skillRoots)];
+      await migration.migrate({ allowedRoots, protectedRoots });
+      await save();
+      if (!flags.migrate) result.warnings.push("Existing skills were retained. After verifying native search/load in a fresh session, --migrate can back up eligible dedicated collections. Shared and unconnected roots remain protected.");
     }
     return report();
   } finally { await lock.close(); await fs.unlink(lockFile); }

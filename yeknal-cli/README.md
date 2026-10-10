@@ -19,13 +19,16 @@ materialization. Without it, direct discovery/loading creates no project files.
 
 ### One-time setup and on-demand loading
 
-Version 2.4.0 adds a minimal global bootstrap, a shared cache, and repository-scoped
-retrieval. Install Node.js 18 or later, start/configure a supported agent, then run:
+Version 2.4.1 adds compatibility adapters for previously supported harnesses while
+preserving existing registrations by default. It builds on 2.4.0's minimal global
+bootstrap, shared cache, and repository-scoped retrieval. Install Node.js 18 or
+later, start/configure a supported agent, then run:
 
 ~~~bash
 npx yeknal setup
 npx yeknal setup --list --json
-npx yeknal setup --agents codex,claude,opencode --json
+npx yeknal setup --agents all --json
+npx yeknal setup --agents cursor,gemini,cline --json
 ~~~
 
 Setup retains one short managed instruction block per connected agent and a
@@ -38,9 +41,13 @@ setup. Automatic use depends on following the bootstrap and tool permissions.
 
 ### Migration, removal, and restore
 
-Setup also migrates recognized global Yeknal collections across shared and
-agent-specific discovery locations, including locations read by agents other
-than those selected for the bootstrap. It identifies exact catalog names with
+Setup preserves existing global collections by default. Writing an instruction
+file proves preparation, not that the real harness has loaded or followed it.
+Check a fresh session before requesting setup --agents NAME --migrate. Migration
+only considers dedicated roots of selected agents whose current connection was
+safely prepared. Shared .agents/skills and .claude/skills, historical alternative
+roots, unselected agents, manual fallbacks, and failed connections stay untouched.
+It identifies exact catalog names with
 matching frontmatter identities, or existing setup ownership records. A prefix
 alone is insufficient. Each identified folder is copied to a recoverable backup,
 verified, and only then removed from active discovery. Customized contents are
@@ -50,6 +57,7 @@ and reported. Existing unrelated native configuration and third-party skills sta
 
 ~~~bash
 npx yeknal setup --backups --json
+npx yeknal setup --agents codex --migrate --json
 npx yeknal setup --restore BACKUP_ID --json
 npx yeknal setup --restore all --json
 npx yeknal setup --remove --agents codex,claude,opencode --json
@@ -60,8 +68,9 @@ discovery paths, and include original paths, content hashes, and filesystem
 metadata. Restore refuses conflicting targets or modified backup contents. It
 retains the backup after a successful restore. Removal disconnects unchanged
 owned instruction blocks and retains backups/cache/runtime; it does not silently
-restore global collections. A later setup migrates deliberately restored global
-skills again. Repeated setup otherwise creates no duplicate integration/backups.
+restore global collections. Deliberately restored skills remain available unless
+eligible migration is explicitly requested again. Repeated setup creates no
+duplicate integration/backups. Backups created by 2.4.0 remain listable/restorable.
 Before/after output measures skill files and description characters, not tokens.
 
 ### Repository context and supporting assets
@@ -102,24 +111,57 @@ can be loaded selectively through the same loader at the pinned revision.
 The skills command and all existing options remain available. skills --project
 is a deliberate repository installation; --project --add preserves existing
 project copies. Global skills installation deliberately recreates native global
-collections, which a subsequent setup will back up and migrate again. Exact
+collections, which setup retains unless eligible migration is requested. Exact
 profile sync retains its existing managed-folder replacement/removal behavior.
 Automatic discovery does not use that stale-folder removal helper for migration.
 
 ### Supported integrations
 
-Native bootstrap connections support Codex, Claude Code, and OpenCode V2, using
-verified native instruction files. There is no MCP server or background service.
-See official [Codex instructions](https://developers.openai.com/codex/guides/agents-md),
-[Claude memory](https://code.claude.com/docs/en/memory), and
-[OpenCode V2 instructions](https://opencode.ai/v2/docs/instructions/).
-Configuration directory presence establishes detection, not authentication.
-Ambiguous OpenCode V1 Claude fallback configurations are preserved and reported.
-Other agents can use manual installations/CLI loading but are not automatically
-connected. Cloud-only sessions without local command/file access are unsupported.
-Actual Codex simple/substantive behavior is checked separately; global native
-instruction ingestion and autonomous Claude/OpenCode behavior require separate
-runtime verification. HANDOFF.md records the evidence actually obtained.
+Native adapters use the following documented local instruction surfaces. Paths
+are relative to the user's home unless an explicit configuration override applies.
+There is no MCP server or background service.
+
+| Setup ID | Instruction location | Scope or required check |
+| --- | --- | --- |
+| codex | .codex/AGENTS.md, or an active AGENTS.override.md | [Codex instructions](https://developers.openai.com/codex/guides/agents-md); respects CODEX_HOME. |
+| claude | .claude/CLAUDE.md | [Claude memory](https://code.claude.com/docs/en/memory); respects CLAUDE_CONFIG_DIR. |
+| opencode | .config/opencode/AGENTS.md | [OpenCode V2](https://opencode.ai/v2/docs/instructions/); respects XDG_CONFIG_HOME. Ambiguous V1 fallback is reported. |
+| cursor | .cursor/rules/yeknal.mdc | [Cursor user rule files](https://cursor.com/help/customization/rules); check enabled/Always Apply. Agent Chat scope. |
+| windsurf | .codeium/windsurf/memories/global_rules.md | [Cascade global rules](https://docs.devin.ai/desktop/cascade/memories); combined file limited to 6,000 characters. |
+| copilot | .copilot/copilot-instructions.md | [Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions); respects COPILOT_HOME. IDEs need their own instructions. |
+| gemini, antigravity | .gemini/GEMINI.md | [Gemini context](https://geminicli.com/docs/cli/gemini-md/) and [Antigravity rules](https://www.antigravity.google/docs/rules/); one shared connection when roots match, otherwise Antigravity receives manual steps for its own global file. |
+| roo | .roo/rules/yeknal.md | [Roo global instructions](https://github.com/RooCodeInc/Roo-Code/blob/main/apps/docs/docs/features/custom-instructions.md). |
+| kiro | .kiro/steering/yeknal.md | [Kiro steering](https://kiro.dev/docs/steering/); local IDE/CLI. Custom agents need the steering path in resources. |
+| cline | .cline/rules/yeknal.md | [Cline rules](https://docs.cline.bot/customization/cline-rules); respects CLINE_DIR. Check rule enabled and active CLI --config location. |
+| amp | .config/amp/AGENTS.md | [Amp guidance](https://ampcode.com/docs/customize/agents-md); AMP_IGNORE_GUIDANCE_FILES triggers a manual check. |
+| openhands | Manual connection | [OpenHands skills](https://docs.openhands.dev/overview/skills); configure the active project/backend or AgentContext and enable instructions. |
+| agents | Manual connection | Shared Agent Skills clients have no universal global bootstrap location; keep existing shared skills. |
+
+Setup --agents all handles detected configurations. Other aliases are gemini-cli,
+copilot-cli, cascade, roo-code, and shared. YEKNAL_*_PARENT overrides retain the
+legacy naming, including YEKNAL_GEMINI_CLI_PARENT for the Gemini instruction root.
+[GEMINI_CLI_HOME](https://geminicli.com/docs/reference/configuration/) replaces
+the home used to resolve .gemini, rather than directly naming the .gemini folder.
+If Gemini context.fileName excludes GEMINI.md or settings cannot be safely read,
+setup preserves settings and provides a manual connection instead.
+Explicitly selected manual modes do not require a local configuration folder.
+If a protected discovery root cannot be resolved safely, migration is disabled
+and setup reports the preserved paths instead of moving any registrations.
+
+Manual, blocked, or failed connections return manual entries containing a
+paste-ready bootstrapFile, CLI command, documentation link, and steps. The file
+stays in the cache outside native discovery. Existing unowned dedicated rule
+files and customized managed blocks are preserved. Nothing is pasted into IDE
+settings or custom-agent configurations automatically.
+
+Configuration presence proves detection only. connected entries have status
+instructions-prepared and runtimeVerified false. Verify native ingestion in a
+fresh session: inspect active instructions, use a natural substantive task that
+should search/load relevant guidance, check a greeting skips discovery, then
+repeat offline with already cached content. Also verify custom-agent/subagent
+surfaces separately. Remote/cloud sessions need instruction and command/file
+access in their own environment; a local setup cannot establish that. HANDOFF.md
+records actual verification evidence and outstanding runtime boundaries.
 
 ### Catalog, cache, and free-service limits
 
@@ -211,7 +253,9 @@ The `yeknal-skill-router` remains part of deliberate manual `core` installations
 Version 2.4.0 prefers direct search/load without native installation. Older CLI
 workflows can still inspect `npx --yes yeknal@^2.2.0 profiles`, then explicitly add
 the specialist with `npx --yes yeknal@^2.2.0 skills --project --add --skills <skill-name>`.
-Setup migrates recognized global routers and uses only the minimal bootstrap.
+Setup adds only the minimal bootstrap and preserves existing routers by default.
+Explicit eligible --migrate requests back up routers in dedicated collections;
+shared routers remain available for other clients.
 
 The agent decides whether specialist guidance adds value; greetings/simple tasks
 skip discovery. The CLI handles catalog validation and selective retrieval.
