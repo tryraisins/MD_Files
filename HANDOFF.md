@@ -6,10 +6,9 @@ HEAD: see git log; released source edf3ec6, catalog/tag e769323
 
 ## Current Objective
 
-Ship compatibility for every previously supported local agent/harness while
-preserving working registrations. User authorized implementation and publishing
-on 2026-10-10. Release version is 2.4.1; push and npm/GitHub publication are in
-progress.
+Compatibility for every previously supported local agent/harness shipped in
+2.4.1 while preserving working registrations. User authorized implementation and
+publishing on 2026-10-10.
 
 ## Current State
 
@@ -18,6 +17,11 @@ progress.
   edf3ec64781c24428e87cb869225a4bab077619c; catalog/release commit
   e7693236a65293171456c4f77dcf08908b1d717c. Release validation passed:
   https://github.com/tryraisins/MD_Files/actions/runs/37994702565.
+- CLI 2.4.1 is published as npm latest and GitHub release v2.4.1. Source commit
+  d976b7923cae86c12ca9b7d92d1d32f936a083ea; push validation passed:
+  https://github.com/tryraisins/MD_Files/actions/runs/38038171667. npm shasum:
+  7dbe47482451e8027112e631af91e570138e0e16. Release:
+  https://github.com/tryraisins/MD_Files/releases/tag/v2.4.1.
 - Catalog contains 89 Markdown skills, 54 public slugs, and the unchanged 37-skill
   manual core profile. Markdown folders remain authoritative; preserve licenses,
   unique yeknal names, supporting files, and published/manual profile behavior.
@@ -165,15 +169,17 @@ can consume account usage. E2E/public/actual-agent final evidence follows below.
 - Review caught and fixed redirected Gemini/Antigravity identity, unresolved
   junction protection aborting retention, and customized blocks reported removed.
   These cases are covered by the compatibility flow verifier.
-- Run the patch locally: node yeknal-cli/bin/yeknal.js setup --agents all.
-  No real user global configuration or credentials were modified/copied. No
-  commit, push, npm publish, or native provider test had been performed before
-  this authorized release turn.
+- Published package was fetched through a clean npm cache; `yeknal profiles` and
+  read-only `yeknal setup --list --json` both completed from 2.4.1. Initial npm
+  metadata checks briefly returned cached 2.4.0/404; fresh registry metadata and
+  clean-cache install confirmed 2.4.1/latest and the expected shasum.
+- No real user global configuration or credentials were modified/copied. No
+  native provider test was performed in the release turn.
 - Remaining: verify real native global ingestion and autonomous search/load in
   each actual harness/surface. Only Codex/Claude/OpenCode commands were available
   here; most clients are unavailable. The isolated CLI checks are not agent proof.
-- Release gates and fresh published-package verification are required before
-  declaring 2.4.1 shipped. Native provider/runtime behavior remains unverified.
+- Release gates and fresh published-package checks passed. Native provider/runtime
+  behavior remains unverified.
 
 Prior release implementation, commit, push, and publication are complete. Real native
 global instruction ingestion, bootstrap-only autonomous search/load, and autonomous
