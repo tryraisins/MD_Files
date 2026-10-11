@@ -1,0 +1,2213 @@
+{
+  "schemaVersion": 1,
+  "tasks": [
+    {
+      "id": "build",
+      "label": "Plan and build",
+      "description": "Shape an idea, then turn it into working code."
+    },
+    {
+      "id": "design",
+      "label": "Design interfaces",
+      "description": "Visual direction, layout, components and interface quality."
+    },
+    {
+      "id": "motion",
+      "label": "Motion",
+      "description": "Web and mobile animation, from first idea to review."
+    },
+    {
+      "id": "review",
+      "label": "Review and test",
+      "description": "Find defects, check flows in a browser and debug failures."
+    },
+    {
+      "id": "security",
+      "label": "Security",
+      "description": "Secure implementation, review and threat modeling."
+    },
+    {
+      "id": "ship",
+      "label": "Ship and deploy",
+      "description": "Git, pull requests, releases and hosting."
+    },
+    {
+      "id": "docs",
+      "label": "Docs and files",
+      "description": "Markdown, handoffs, office files, notebooks and Notion."
+    },
+    {
+      "id": "media",
+      "label": "Images and media",
+      "description": "Generated images, video, speech and transcription."
+    },
+    {
+      "id": "agents",
+      "label": "Working with agents",
+      "description": "How agents load skills, split work and format answers."
+    }
+  ],
+  "featured": [
+    "yeknal-implement",
+    "yeknal-review",
+    "yeknal-frontend-design",
+    "yeknal-troubleshoot",
+    "yeknal-playwright",
+    "yeknal-testing-strategy",
+    "yeknal-brainstorm",
+    "yeknal-redesign-existing-projects",
+    "yeknal-animate",
+    "yeknal-application-security",
+    "yeknal-git",
+    "yeknal-project-handoff"
+  ],
+  "startingPoints": [
+    {
+      "task": "Build a feature from a rough brief",
+      "skill": "yeknal-implement"
+    },
+    {
+      "task": "Get a second opinion on my code",
+      "skill": "yeknal-review"
+    },
+    {
+      "task": "Design a screen that doesn’t look generic",
+      "skill": "yeknal-frontend-design"
+    },
+    {
+      "task": "Figure out why something broke",
+      "skill": "yeknal-troubleshoot"
+    },
+    {
+      "task": "Check a change in a real browser",
+      "skill": "yeknal-playwright"
+    },
+    {
+      "task": "Put a site online",
+      "skill": "yeknal-vercel-deploy"
+    }
+  ],
+  "skills": {
+    "yeknal-add-changelog": {
+      "title": "Changelog entries",
+      "purpose": "Adds or updates a Keep a Changelog entry based on the changes and history that can actually be verified, so release notes describe what shipped.",
+      "tasks": [
+        "ship",
+        "docs"
+      ],
+      "whenToUse": [
+        "You are preparing a release and need the notes written up.",
+        "Work has shipped and the changelog has fallen behind.",
+        "You want entries grouped the Keep a Changelog way under Added, Changed and Fixed."
+      ],
+      "example": {
+        "ask": "Add a changelog entry for everything merged since the last tag.",
+        "outcome": "It reads the history since that tag, checks what each change actually did and writes a dated entry grouped by type."
+      },
+      "related": [
+        "yeknal-finalize",
+        "yeknal-git"
+      ]
+    },
+    "yeknal-animate": {
+      "title": "Web animation",
+      "purpose": "Adds purposeful, accessible motion to components, pages, scrolling, gestures, SVG and canvas, with sensible timing and a reduced-motion fallback.",
+      "tasks": [
+        "motion"
+      ],
+      "whenToUse": [
+        "You are adding an entrance, transition or gesture to a web interface.",
+        "A component needs motion that explains a change instead of decorating it.",
+        "You want motion that stays smooth and respects reduced-motion settings."
+      ],
+      "avoid": "To audit motion that already exists, use Review animations instead.",
+      "example": {
+        "ask": "Animate the settings drawer so it slides in from the right and can be interrupted halfway.",
+        "outcome": "It picks the properties, duration and easing, builds an interruptible transition and adds a reduced-motion version."
+      },
+      "attribution": {
+        "credit": "Written for this catalog, drawing on Emil Kowalski’s design-engineering ideas as inspiration; no source was copied."
+      },
+      "related": [
+        "yeknal-review-animations",
+        "yeknal-find-animation-opportunities",
+        "yeknal-animation-vocabulary"
+      ]
+    },
+    "yeknal-animate-expo": {
+      "title": "Animation in Expo",
+      "purpose": "Builds animation for React Native and Expo apps with Reanimated, Gesture Handler, Expo Router and haptics, making the decisions that decide whether motion feels right on a device.",
+      "tasks": [
+        "motion"
+      ],
+      "whenToUse": [
+        "You are adding gestures, sheets, screen transitions or press feedback to an Expo app.",
+        "Motion stutters on a real device and you need it on the right thread.",
+        "You want haptics that match what the interface is doing."
+      ],
+      "avoid": "For animation on the web, use Web animation.",
+      "example": {
+        "ask": "Make the bottom sheet follow my finger and settle with a spring when I let go.",
+        "outcome": "It wires the drag with Gesture Handler, runs the motion on the UI thread with Reanimated and hands off velocity to a spring."
+      },
+      "attribution": {
+        "credit": "Written for this catalog, drawing on Emil Kowalski’s design-engineering ideas as inspiration; no source was copied."
+      },
+      "related": [
+        "yeknal-mobile-app-design",
+        "yeknal-animate"
+      ]
+    },
+    "yeknal-animation-vocabulary": {
+      "title": "Animation vocabulary",
+      "purpose": "Turns a vague description of a motion effect into its proper name, so you can ask an agent or a designer for exactly what you mean.",
+      "tasks": [
+        "motion"
+      ],
+      "whenToUse": [
+        "You can describe an effect but don’t know what it’s called.",
+        "You want a precise word to put in a prompt or a design brief.",
+        "Two people are describing the same motion in different ways."
+      ],
+      "avoid": "It names effects; it doesn’t design or build them.",
+      "example": {
+        "ask": "What’s it called when a popover sort of bounces as it opens?",
+        "outcome": "It names the effect, explains what makes it look that way and suggests how to describe it in a request."
+      },
+      "related": [
+        "yeknal-animate",
+        "yeknal-review-animations"
+      ]
+    },
+    "yeknal-apple-design": {
+      "title": "Apple-style interface design",
+      "purpose": "Brings Apple’s approach to fluid, physical motion and interface design to the web, from springs and interruptible gestures to materials, depth and typography.",
+      "tasks": [
+        "design",
+        "motion"
+      ],
+      "whenToUse": [
+        "You are building drag, swipe or sheet interactions that should feel physical.",
+        "You want spring animation and momentum that can be interrupted.",
+        "Typography, translucency and depth need the restraint Apple interfaces are known for."
+      ],
+      "example": {
+        "ask": "Review our swipe-to-dismiss card and make it feel more like iOS.",
+        "outcome": "It checks how the gesture tracks the finger, tunes the spring and velocity hand-off and adds a reduced-motion alternative."
+      },
+      "related": [
+        "yeknal-emil-design-eng",
+        "yeknal-animate"
+      ]
+    },
+    "yeknal-application-security": {
+      "title": "Application security",
+      "purpose": "Designs or hardens security across web apps, APIs, cloud setup, CI/CD pipelines and AI features, covering the OWASP-style risks a product is likely to face.",
+      "tasks": [
+        "security"
+      ],
+      "whenToUse": [
+        "You are building authentication, authorization or an API that handles user data.",
+        "A project needs a broad security pass before launch.",
+        "You want secure defaults for headers, secrets, rate limits and logging."
+      ],
+      "example": {
+        "ask": "Harden the API before we launch: auth, rate limiting, headers and how secrets are handled.",
+        "outcome": "It reviews each area against concrete risks, fixes what it can and lists anything that needs a decision from you."
+      },
+      "related": [
+        "yeknal-security-best-practices",
+        "yeknal-security-threat-model"
+      ]
+    },
+    "yeknal-ask-sonner": {
+      "title": "Sonner toasts",
+      "purpose": "A practical guide to Sonner, the React toast library, from wiring up the Toaster to promise toasts, styling, theming and the usual reasons toasts misbehave.",
+      "tasks": [
+        "design",
+        "build"
+      ],
+      "whenToUse": [
+        "You are adding toast notifications to a React app with Sonner.",
+        "Toasts don’t appear, appear twice or sit behind a modal.",
+        "Toasts ignore your Tailwind classes or don’t follow dark mode."
+      ],
+      "example": {
+        "ask": "Show a loading toast while the file uploads, then switch it to success or error.",
+        "outcome": "It sets up a promise toast that updates in place and checks the Toaster is mounted once with the right theme."
+      },
+      "related": [
+        "yeknal-pick-ui-library",
+        "yeknal-frontend-developer"
+      ],
+      "attribution": {
+        "credit": "Rewritten for this catalog from an earlier merged UI skill. No upstream author is recorded for it."
+      }
+    },
+    "yeknal-aspnet-core": {
+      "title": "ASP.NET Core",
+      "purpose": "Builds, reviews and upgrades ASP.NET Core applications using current official guidance, from Blazor and Razor Pages to Minimal APIs, SignalR and authentication.",
+      "tasks": [
+        "build"
+      ],
+      "whenToUse": [
+        "You are working on a Blazor, Razor Pages, MVC or Web API project.",
+        "Middleware, dependency injection or configuration needs to follow current guidance.",
+        "You are planning an ASP.NET Core upgrade."
+      ],
+      "example": {
+        "ask": "Add a Minimal API endpoint for orders with validation and proper authorization.",
+        "outcome": "It follows the project’s existing conventions, adds the endpoint with validation and policy-based authorization, and notes how to test it."
+      },
+      "attribution": {
+        "credit": "Adapted from Microsoft’s ASP.NET Core skill.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-engineering-specialists",
+        "yeknal-winui-app"
+      ]
+    },
+    "yeknal-brainstorm": {
+      "title": "Brainstorm",
+      "purpose": "Generates and compares genuinely different approaches before anything is built, which helps when the problem is still fuzzy.",
+      "tasks": [
+        "build"
+      ],
+      "whenToUse": [
+        "You have a problem but no settled approach.",
+        "You want more than one option before committing time to building.",
+        "The brief is ambiguous and needs framing first."
+      ],
+      "example": {
+        "ask": "Give me three different ways to let users undo a bulk delete, with the trade-offs.",
+        "outcome": "It sketches distinct approaches, compares effort and risk, and recommends one with its reasons."
+      },
+      "related": [
+        "yeknal-implement",
+        "yeknal-domain-modeling"
+      ]
+    },
+    "yeknal-brandkit": {
+      "title": "Brand kit images",
+      "purpose": "Generates polished brand-guideline boards, logo systems and identity presentations as images, with deliberate composition and sparse typography.",
+      "tasks": [
+        "media",
+        "design"
+      ],
+      "whenToUse": [
+        "You want visual concepts for a new brand or product identity.",
+        "You need a brand-guidelines board to share with a team.",
+        "You are exploring logo directions before committing to one."
+      ],
+      "requirements": "Needs an image-generation tool available to your agent.",
+      "example": {
+        "ask": "Create a brand board for a calm budgeting app: logo ideas, palette and type.",
+        "outcome": "It plans the identity, then generates a board with logo concepts, colours, type and a couple of mockups."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-imagegen",
+        "yeknal-frontend-design"
+      ]
+    },
+    "yeknal-break-ui": {
+      "title": "Break UI",
+      "purpose": "Stress-tests a screen with realistic worst-case data, such as long names, missing fields, huge counts and non-Latin text, and reports every break with its fix.",
+      "tasks": [
+        "review",
+        "design"
+      ],
+      "whenToUse": [
+        "A screen looks fine with demo data and you want to know where it fails.",
+        "You are about to ship a list, table or card that shows user-supplied text.",
+        "You want a dev-only toggle between demo and worst-case states."
+      ],
+      "example": {
+        "ask": "Try the worst case on the team members table.",
+        "outcome": "It fills the table with extreme but realistic data, shows the broken states and fixes overflow, wrapping and empty values."
+      },
+      "attribution": {
+        "credit": "Adapted from Emil Kowalski’s skills collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/emilkowalski/skills"
+      },
+      "related": [
+        "yeknal-ui-quality-baseline",
+        "yeknal-playwright"
+      ]
+    },
+    "yeknal-chatgpt-apps": {
+      "title": "ChatGPT apps",
+      "purpose": "Builds and troubleshoots ChatGPT Apps SDK projects that pair an MCP server with a widget UI, starting from the current official documentation.",
+      "tasks": [
+        "build",
+        "agents"
+      ],
+      "whenToUse": [
+        "You are scaffolding a new ChatGPT app.",
+        "You need to register UI resources or wire the MCP Apps bridge.",
+        "Metadata, CSP or domain settings are getting in the way."
+      ],
+      "requirements": "Written with Codex in mind and works best alongside the OpenAI docs skill.",
+      "example": {
+        "ask": "Scaffold a ChatGPT app that searches our recipes and shows results in a widget.",
+        "outcome": "It checks the current docs, sets up the MCP server and tools, and registers the widget with the right metadata."
+      },
+      "attribution": {
+        "credit": "Adapted from OpenAI’s published skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-openai-docs",
+        "yeknal-orchestration-specialists"
+      ]
+    },
+    "yeknal-cleanup": {
+      "title": "Cleanup",
+      "purpose": "Removes dead code, stale dependencies and redundant configuration once it has confirmed they really are unused.",
+      "tasks": [
+        "review",
+        "build"
+      ],
+      "whenToUse": [
+        "A project has accumulated files and packages nobody uses.",
+        "You want to prune configuration that no longer does anything.",
+        "You are tidying up after a large refactor."
+      ],
+      "example": {
+        "ask": "Clean up unused dependencies and leftover config from the old build setup.",
+        "outcome": "It proves each item is unused before removing it, then runs the build and tests to confirm nothing broke."
+      },
+      "related": [
+        "yeknal-dead-code-hunter",
+        "yeknal-review"
+      ]
+    },
+    "yeknal-cloudflare-deploy": {
+      "title": "Cloudflare deploy",
+      "purpose": "Deploys applications and infrastructure to Cloudflare using Workers, Pages and related services, with references for the platform’s products.",
+      "tasks": [
+        "ship"
+      ],
+      "whenToUse": [
+        "You want to host a site or API on Cloudflare.",
+        "You are setting up Workers, Pages, KV or R2 for a project.",
+        "A Cloudflare deployment needs configuring or fixing."
+      ],
+      "requirements": "Uses Wrangler and needs a Cloudflare account or API token.",
+      "example": {
+        "ask": "Deploy this Astro site to Cloudflare Pages with a preview for every branch.",
+        "outcome": "It configures the project for Pages, deploys it with Wrangler and gives you the preview and production URLs."
+      },
+      "attribution": {
+        "credit": "Adapted from Cloudflare’s published skill.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-vercel-deploy",
+        "yeknal-netlify-deploy",
+        "yeknal-render-deploy"
+      ]
+    },
+    "yeknal-content-seo": {
+      "title": "Content and SEO",
+      "purpose": "Guides useful, accessible web content and technical SEO together, from page copy and metadata to structured data, sitemaps, canonical URLs and AI-search visibility.",
+      "tasks": [
+        "docs",
+        "design"
+      ],
+      "whenToUse": [
+        "You are planning or rewriting pages and want them to be found.",
+        "Metadata, canonical tags or structured data need an audit.",
+        "You want a site to be readable by search engines and AI search alike."
+      ],
+      "example": {
+        "ask": "Audit the product pages for SEO and fix the metadata and structured data.",
+        "outcome": "It checks titles, descriptions, canonicals and schema against the visible content and corrects what’s missing or wrong."
+      },
+      "related": [
+        "yeknal-markdown-management",
+        "yeknal-frontend-developer"
+      ]
+    },
+    "yeknal-dead-code-hunter": {
+      "title": "Dead code hunter",
+      "purpose": "Finds and removes dead code, unused imports, unreachable branches and variables nobody reads, across Python, TypeScript, JavaScript and other languages.",
+      "tasks": [
+        "review"
+      ],
+      "whenToUse": [
+        "You want a code-health scan before a refactor.",
+        "Linters keep flagging unused imports and symbols.",
+        "You suspect branches that can never run."
+      ],
+      "example": {
+        "ask": "Scan the services folder for unused exports and unreachable code.",
+        "outcome": "It lists each finding with evidence, removes the safe ones and flags anything that might be used dynamically."
+      },
+      "related": [
+        "yeknal-cleanup",
+        "yeknal-review"
+      ]
+    },
+    "yeknal-design-reference-research": {
+      "title": "Design reference research",
+      "purpose": "Researches comparable products and collects references into an evidence ledger and brief, so design decisions come from what works rather than what’s fashionable.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "You are about to design or redesign something and want evidence first.",
+        "The team disagrees about direction and needs references to compare.",
+        "You want patterns from real products, not gallery trends."
+      ],
+      "example": {
+        "ask": "Research how five scheduling apps handle rescheduling before we redesign ours.",
+        "outcome": "It studies each flow, records what it saw and what it couldn’t verify, and writes a short brief with recommendations."
+      },
+      "related": [
+        "yeknal-frontend-design",
+        "yeknal-ui-ux-designer"
+      ]
+    },
+    "yeknal-design-taste-frontend": {
+      "title": "Design taste for the web",
+      "purpose": "Designs and builds expressive landing pages, portfolios and marketing sites from real product evidence instead of reusable AI layouts.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "A new web experience needs distinctive art direction and working code.",
+        "You want a landing page that doesn’t look like a template.",
+        "The brand has a story the layout should carry."
+      ],
+      "avoid": "For an existing product, use Redesign an existing product instead.",
+      "example": {
+        "ask": "Design and build a launch page for our note-taking app that feels like ours.",
+        "outcome": "It pulls the visual direction from the product itself, then builds a responsive page with real copy and states."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-frontend-design",
+        "yeknal-high-end-visual-design"
+      ]
+    },
+    "yeknal-design-taste-frontend-v1": {
+      "title": "Design taste for the web (v1)",
+      "purpose": "The original version of the design-taste skill, kept for projects that depend on its exact behaviour.",
+      "tasks": [
+        "design"
+      ],
+      "compatibility": true,
+      "whenToUse": [
+        "A project was built around the v1 skill and must keep behaving the same.",
+        "You need to reproduce results from the earlier version."
+      ],
+      "avoid": "For new work, use Design taste for the web, which replaces this version.",
+      "example": {
+        "ask": "Keep using the v1 taste rules for this older landing page.",
+        "outcome": "It applies the original v1 guidance so the page stays consistent with what was built before."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-design-taste-frontend"
+      ]
+    },
+    "yeknal-develop-web-game": {
+      "title": "Web game development",
+      "purpose": "Gives your agent a reliable loop for building browser games: make a small change, play it through a Playwright script, then check screenshots and console errors.",
+      "tasks": [
+        "build",
+        "review"
+      ],
+      "whenToUse": [
+        "You are building or iterating on an HTML and JavaScript game.",
+        "Changes keep breaking gameplay and you want each one checked.",
+        "You need deterministic frame stepping for automated play."
+      ],
+      "requirements": "Written with Codex in mind and needs Playwright available.",
+      "example": {
+        "ask": "Add a double jump to the platformer and make sure nothing else broke.",
+        "outcome": "It implements the change, plays through the level with scripted input, inspects screenshots and fixes any console errors."
+      },
+      "attribution": {
+        "credit": "Adapted from OpenAI’s published skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-playwright",
+        "yeknal-implement"
+      ]
+    },
+    "yeknal-doc": {
+      "title": "Word documents",
+      "purpose": "Reads, creates and edits .docx files where formatting matters, and renders pages to check the layout visually.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "You need a Word document generated or edited.",
+        "Layout fidelity matters, such as headings, tables and page breaks.",
+        "You want to check how a document actually renders."
+      ],
+      "requirements": "Uses Python with python-docx, and Poppler or LibreOffice for rendering checks.",
+      "example": {
+        "ask": "Turn these meeting notes into a formatted Word report with a table of actions.",
+        "outcome": "It builds the document with proper styles and a table, renders it and fixes any layout problems."
+      },
+      "attribution": {
+        "credit": "Adapted from Anthropic’s document skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-pdf",
+        "yeknal-slides",
+        "yeknal-spreadsheet"
+      ]
+    },
+    "yeknal-domain-modeling": {
+      "title": "Domain modeling",
+      "purpose": "Clarifies a project’s domain terms and boundaries and records the decisions in a glossary or architecture decision record.",
+      "tasks": [
+        "build",
+        "docs"
+      ],
+      "whenToUse": [
+        "People use different words for the same thing, or one word for two things.",
+        "System boundaries are unclear before a larger change.",
+        "You want a GLOSSARY.md or an ADR written down."
+      ],
+      "example": {
+        "ask": "We keep mixing up accounts, workspaces and organisations. Sort out the terms.",
+        "outcome": "It maps how each term is used in code and conversation, proposes definitions and records them in a glossary."
+      },
+      "attribution": {
+        "credit": "Written independently, inspired by the domain-modeling skill in Matt Pocock’s skills collection; no source text was copied.",
+        "sourceUrl": "https://github.com/mattpocock/skills"
+      },
+      "related": [
+        "yeknal-brainstorm",
+        "yeknal-project-handoff"
+      ]
+    },
+    "yeknal-emil-design-eng": {
+      "title": "Design engineering polish",
+      "purpose": "Applies the careful interaction details and purposeful motion that Emil Kowalski is known for, so components feel considered rather than merely functional.",
+      "tasks": [
+        "design",
+        "motion"
+      ],
+      "whenToUse": [
+        "A component works but doesn’t feel finished.",
+        "You are reviewing hover, press and focus details.",
+        "You want motion that supports the interaction rather than decorating it."
+      ],
+      "example": {
+        "ask": "Polish the command menu so opening, filtering and selecting feel crisp.",
+        "outcome": "It tightens timing and easing, adds proper press and focus states and removes motion that slows people down."
+      },
+      "attribution": {
+        "credit": "Adapted from Emil Kowalski’s skills collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/emilkowalski/skills"
+      },
+      "related": [
+        "yeknal-apple-design",
+        "yeknal-review-animations"
+      ]
+    },
+    "yeknal-engineering-specialists": {
+      "title": "Engineering specialists",
+      "purpose": "Routes implementation through focused guidance for the framework, language, API, data, build, CLI, realtime or deployment problem in front of you.",
+      "tasks": [
+        "build"
+      ],
+      "whenToUse": [
+        "The work crosses several parts of the stack.",
+        "You want the agent to apply specialist knowledge for a particular framework or layer.",
+        "A change touches data, APIs and the interface at once."
+      ],
+      "example": {
+        "ask": "Add realtime updates to the dashboard using our existing WebSocket server.",
+        "outcome": "It applies realtime and frontend guidance together, wires the updates and handles reconnects and stale data."
+      },
+      "related": [
+        "yeknal-implement",
+        "yeknal-frontend-developer"
+      ]
+    },
+    "yeknal-figma-implement-design": {
+      "title": "Figma to code",
+      "purpose": "Turns Figma frames into production code that matches the design closely, using the Figma MCP server for design context, screenshots and assets.",
+      "tasks": [
+        "design",
+        "build"
+      ],
+      "whenToUse": [
+        "You have a Figma URL or node ID to implement.",
+        "A component must match its Figma spec exactly.",
+        "You want design tokens translated into the project’s own conventions."
+      ],
+      "requirements": "Needs a working Figma MCP server connection.",
+      "example": {
+        "ask": "Implement this Figma frame as a React component using our design tokens.",
+        "outcome": "It reads the frame through the Figma MCP server, maps values to existing tokens and builds the component to match."
+      },
+      "attribution": {
+        "credit": "Adapted from Figma’s published skill.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-image-to-code",
+        "yeknal-frontend-developer"
+      ]
+    },
+    "yeknal-finalize": {
+      "title": "Finalize",
+      "purpose": "Runs the final documentation and quality checks, summarises the diff and handles any Git publishing you asked for.",
+      "tasks": [
+        "ship"
+      ],
+      "whenToUse": [
+        "The work is done and needs a last check before delivery.",
+        "You want a clear summary of what changed.",
+        "You are ready to commit and push but want the gates run first."
+      ],
+      "example": {
+        "ask": "Finalize this branch: run the checks, update the docs and push it.",
+        "outcome": "It runs the repository’s checks, updates documentation that the change affects, summarises the diff and pushes."
+      },
+      "related": [
+        "yeknal-git",
+        "yeknal-add-changelog"
+      ]
+    },
+    "yeknal-find-animation-opportunities": {
+      "title": "Find animation opportunities",
+      "purpose": "Looks through a codebase or interface for places that should animate and rejects those that shouldn’t, proposing motion with exact values but changing nothing.",
+      "tasks": [
+        "motion",
+        "review"
+      ],
+      "whenToUse": [
+        "You wonder what could be animated in an app.",
+        "An interface feels static and you want it to feel more alive.",
+        "You want proposals before anyone writes animation code."
+      ],
+      "avoid": "To fix existing animation, use Improve animations or Review animations.",
+      "example": {
+        "ask": "What in the onboarding flow would benefit from motion?",
+        "outcome": "It lists a few specific opportunities with durations and easing, and explains why other spots should stay still."
+      },
+      "attribution": {
+        "credit": "Written for this catalog, drawing on Emil Kowalski’s design-engineering ideas as inspiration; no source was copied."
+      },
+      "related": [
+        "yeknal-animate",
+        "yeknal-improve-animations"
+      ]
+    },
+    "yeknal-frontend-design": {
+      "title": "Frontend design",
+      "purpose": "Sets a distinctive visual direction for new or heavily reshaped UI, from typography and composition to palette and interface copy.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "You are designing a new screen or product surface.",
+        "A design looks generic and needs a clear point of view.",
+        "Typography, colour and layout need to work as one system."
+      ],
+      "example": {
+        "ask": "Design the pricing page so it doesn’t look like every other SaaS template.",
+        "outcome": "It sets a visual direction from the product’s content, picks type and colour roles and builds the page with real copy."
+      },
+      "attribution": {
+        "credit": "Adapted from Anthropic’s frontend-design skill. Its library guidance credits Rare UI, which requires attribution if you install one of its components.",
+        "license": "Apache-2.0",
+        "sourceUrl": "https://github.com/anthropics/skills/tree/main/skills/frontend-design"
+      },
+      "related": [
+        "yeknal-ui-quality-baseline",
+        "yeknal-design-reference-research",
+        "yeknal-redesign-existing-projects"
+      ]
+    },
+    "yeknal-frontend-developer": {
+      "title": "Frontend developer",
+      "purpose": "Implements or repairs accessible web interfaces in React, Vue or Angular, covering components, state, styling and browser behaviour.",
+      "tasks": [
+        "build",
+        "design"
+      ],
+      "whenToUse": [
+        "You are changing frontend components or their state.",
+        "A browser behaviour or styling bug needs fixing.",
+        "You want accessible, working UI rather than a visual concept."
+      ],
+      "example": {
+        "ask": "Fix the date picker so it works with the keyboard and screen readers.",
+        "outcome": "It repairs focus handling and labels, tests the keyboard path and keeps the existing look."
+      },
+      "related": [
+        "yeknal-implement",
+        "yeknal-ui-quality-baseline"
+      ]
+    },
+    "yeknal-full-output-enforcement": {
+      "title": "Full output",
+      "purpose": "Makes the agent return complete code or documents without placeholder gaps, splitting long output only at real boundaries.",
+      "tasks": [
+        "agents"
+      ],
+      "whenToUse": [
+        "You need every line of a file, not a summary with ellipses.",
+        "Earlier answers left out sections with placeholders.",
+        "Output is long enough that it has to be split carefully."
+      ],
+      "avoid": "It only runs when you explicitly ask for exhaustive output.",
+      "example": {
+        "ask": "Give me the full migration file, every line, no placeholders.",
+        "outcome": "It writes the complete file and, if it has to split it, breaks at clear boundaries and says where to continue."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-i-have-adhd"
+      ]
+    },
+    "yeknal-gh-address-comments": {
+      "title": "Address PR comments",
+      "purpose": "Works through the review and issue comments on the open GitHub pull request for your current branch, using the GitHub CLI.",
+      "tasks": [
+        "ship",
+        "review"
+      ],
+      "whenToUse": [
+        "A pull request has review comments waiting.",
+        "You want each comment addressed or answered in turn.",
+        "You use the gh CLI and want the agent to read the PR directly."
+      ],
+      "requirements": "Needs the GitHub CLI signed in to your account.",
+      "example": {
+        "ask": "Address the review comments on my PR.",
+        "outcome": "It checks gh is signed in, reads each comment, makes the changes and summarises what it did for each one."
+      },
+      "attribution": {
+        "credit": "Adapted from GitHub’s published skill.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-gh-fix-ci",
+        "yeknal-git"
+      ]
+    },
+    "yeknal-gh-fix-ci": {
+      "title": "Fix failing CI",
+      "purpose": "Inspects failing GitHub Actions checks on a pull request, summarises the logs, drafts a fix plan and only makes changes once you approve.",
+      "tasks": [
+        "ship",
+        "review"
+      ],
+      "whenToUse": [
+        "Checks are failing on a pull request.",
+        "You want the failure explained before anything changes.",
+        "CI runs on GitHub Actions."
+      ],
+      "avoid": "Checks from other providers, such as Buildkite, are reported by link only.",
+      "requirements": "Needs the GitHub CLI signed in to your account.",
+      "example": {
+        "ask": "The tests job is failing on my PR. Find out why.",
+        "outcome": "It pulls the failing job’s logs, explains the cause, proposes a fix and waits for your go-ahead."
+      },
+      "attribution": {
+        "credit": "Adapted from GitHub’s published skill.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-gh-address-comments",
+        "yeknal-troubleshoot"
+      ]
+    },
+    "yeknal-git": {
+      "title": "Git",
+      "purpose": "Handles status, diffs, branches, commits, merges and pushes while leaving unrelated work in your checkout alone.",
+      "tasks": [
+        "ship"
+      ],
+      "whenToUse": [
+        "You want a focused commit without sweeping in other changes.",
+        "You need help with a branch, merge or history question.",
+        "Your working tree has unrelated edits that must survive."
+      ],
+      "example": {
+        "ask": "Commit only the API changes and push them to a new branch.",
+        "outcome": "It stages just those files, writes a clear commit message, creates the branch and pushes it."
+      },
+      "related": [
+        "yeknal-finalize",
+        "yeknal-yeet"
+      ]
+    },
+    "yeknal-gpt-taste": {
+      "title": "GPT taste (compatibility)",
+      "purpose": "Kept so older requests for gpt-taste still work. It hands premium art direction over to High-end visual design.",
+      "tasks": [
+        "design"
+      ],
+      "compatibility": true,
+      "whenToUse": [
+        "An existing prompt or project still asks for gpt-taste by name."
+      ],
+      "avoid": "For new work, use High-end visual design directly.",
+      "example": {
+        "ask": "Use gpt-taste for this hero section.",
+        "outcome": "It routes the request to the current high-end visual design guidance instead of the retired recipe."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-high-end-visual-design"
+      ]
+    },
+    "yeknal-high-end-visual-design": {
+      "title": "High-end visual design",
+      "purpose": "Creates art-directed, showcase-level web interfaces with a product-specific visual idea, expressive type, deliberate composition and considered motion.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "The brief explicitly asks for agency, editorial or experimental quality.",
+        "A launch or showcase page needs a strong visual idea.",
+        "Ordinary product styling isn’t enough for this piece."
+      ],
+      "avoid": "For everyday product UI, use Frontend design instead.",
+      "example": {
+        "ask": "Art-direct the launch page for our camera app as if it were a magazine feature.",
+        "outcome": "It develops a visual thesis from the product, then builds a page with editorial type, imagery and restrained motion."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-design-taste-frontend",
+        "yeknal-frontend-design"
+      ]
+    },
+    "yeknal-human-ai-interface-design": {
+      "title": "Human-AI interface design",
+      "purpose": "Designs AI features people can trust, covering suggestions, generation, copilots and agents, along with sources, uncertainty, approvals and recovery.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "You are adding an AI feature to a product.",
+        "Users need to see where an answer came from or how sure it is.",
+        "An agent can take actions that need approval or undo."
+      ],
+      "example": {
+        "ask": "Design how our assistant proposes calendar changes before it makes them.",
+        "outcome": "It designs a review step with clear sources, editable proposals, approval and a way to undo."
+      },
+      "related": [
+        "yeknal-ui-ux-designer",
+        "yeknal-ui-quality-baseline"
+      ]
+    },
+    "yeknal-i-have-adhd": {
+      "title": "ADHD-friendly answers",
+      "purpose": "Shapes answers into short, action-first steps with visible progress, which can make long tasks easier to follow.",
+      "tasks": [
+        "agents"
+      ],
+      "whenToUse": [
+        "You prefer answers that lead with the next action.",
+        "Long explanations make it hard to keep track.",
+        "You want progress shown clearly as work moves along."
+      ],
+      "avoid": "It only runs when you turn it on by asking for it.",
+      "example": {
+        "ask": "ADHD mode on. Help me set up the project locally.",
+        "outcome": "It answers with one clear step at a time, keeps the current state visible and skips long preambles."
+      },
+      "attribution": {
+        "credit": "Adapted from Ayoub Ghriss’s i-have-adhd skill.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/ayghri/i-have-adhd"
+      },
+      "related": [
+        "yeknal-full-output-enforcement"
+      ]
+    },
+    "yeknal-image-to-code": {
+      "title": "Image to code",
+      "purpose": "Studies an approved screenshot or concept image, works out its visual and responsive system, and builds the frontend to match it faithfully.",
+      "tasks": [
+        "design",
+        "build"
+      ],
+      "whenToUse": [
+        "You have a screenshot or mockup to turn into code.",
+        "An approved concept must be implemented without drifting.",
+        "You want the responsive behaviour worked out from a static image."
+      ],
+      "avoid": "It won’t replace an approved reference with a newly generated design.",
+      "example": {
+        "ask": "Build this landing page screenshot as a responsive Astro page.",
+        "outcome": "It extracts spacing, type and colour from the image, then builds the page and checks it at phone and desktop widths."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-figma-implement-design",
+        "yeknal-imagegen-frontend-web"
+      ]
+    },
+    "yeknal-imagegen": {
+      "title": "Image generation",
+      "purpose": "Generates and edits images through the OpenAI Image API, including masks, background removal, transparent backgrounds and batches of variants.",
+      "tasks": [
+        "media"
+      ],
+      "whenToUse": [
+        "You need product shots, covers or concept art.",
+        "An image needs inpainting or its background replaced.",
+        "You want several variants generated in one go."
+      ],
+      "requirements": "Uses Python and needs an OPENAI_API_KEY for live calls.",
+      "example": {
+        "ask": "Make three cover images for the blog post with a transparent background.",
+        "outcome": "It writes the prompts, runs the bundled script and saves the variants for you to choose from."
+      },
+      "attribution": {
+        "credit": "Adapted from OpenAI’s published skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-brandkit",
+        "yeknal-sora"
+      ]
+    },
+    "yeknal-imagegen-frontend-mobile": {
+      "title": "Mobile app concept images",
+      "purpose": "Generates polished concept images of mobile app screens and flows inside a phone frame, with consistent hierarchy across screens. It creates images, not code.",
+      "tasks": [
+        "media",
+        "design"
+      ],
+      "whenToUse": [
+        "You want to see a mobile app idea before building it.",
+        "Several screens need to look like one consistent product.",
+        "You need concepts for iOS, Android or both."
+      ],
+      "requirements": "Needs an image-generation tool available to your agent.",
+      "example": {
+        "ask": "Show me the onboarding and home screens for a plant-care app.",
+        "outcome": "It plans the flow, then generates consistent screen concepts framed in a phone mockup."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-mobile-app-design",
+        "yeknal-imagegen-frontend-web"
+      ]
+    },
+    "yeknal-imagegen-frontend-web": {
+      "title": "Website concept images",
+      "purpose": "Generates website concept images for landing pages and sections that developers can actually read and build from.",
+      "tasks": [
+        "media",
+        "design"
+      ],
+      "whenToUse": [
+        "You want visual concepts for a site rather than code.",
+        "A page needs its section order worked out from real content.",
+        "Developers need section-sized images with readable detail."
+      ],
+      "requirements": "Needs an image-generation tool available to your agent.",
+      "example": {
+        "ask": "Give me concept images for a landing page for our invoicing tool.",
+        "outcome": "It works out the page sections from your content and generates readable images for each one."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-image-to-code",
+        "yeknal-imagegen-frontend-mobile"
+      ]
+    },
+    "yeknal-implement": {
+      "title": "Implement",
+      "purpose": "Takes a scoped feature or fix from plan to working code while keeping the rest of the repository behaving as it did.",
+      "tasks": [
+        "build"
+      ],
+      "whenToUse": [
+        "You want a feature built or a bug fixed from start to finish.",
+        "The change has to fit existing conventions and not break other behaviour.",
+        "You want the work verified rather than just written."
+      ],
+      "example": {
+        "ask": "Add CSV export to the reports page.",
+        "outcome": "It reads how the page works today, adds the export following existing patterns and runs the flow to confirm it works."
+      },
+      "related": [
+        "yeknal-brainstorm",
+        "yeknal-review",
+        "yeknal-testing-strategy"
+      ]
+    },
+    "yeknal-improve-animations": {
+      "title": "Improve animations",
+      "purpose": "Surveys an app’s existing motion like a senior motion designer would, then writes a prioritised audit with self-contained plans that other agents can carry out.",
+      "tasks": [
+        "motion",
+        "review"
+      ],
+      "whenToUse": [
+        "You want a roadmap of animation fixes across an app.",
+        "Motion feels inconsistent and you don’t know where to start.",
+        "You plan to hand the fixes to other agents or a cheaper model."
+      ],
+      "avoid": "It plans changes but doesn’t edit source code.",
+      "example": {
+        "ask": "Audit the motion across the dashboard and plan what to fix first.",
+        "outcome": "It inventories each animation, ranks the problems and writes a standalone fix plan for each."
+      },
+      "attribution": {
+        "credit": "Written for this catalog, drawing on Emil Kowalski’s design-engineering ideas as inspiration; no source was copied."
+      },
+      "related": [
+        "yeknal-review-animations",
+        "yeknal-animate"
+      ]
+    },
+    "yeknal-industrial-brutalist-ui": {
+      "title": "Industrial brutalist UI",
+      "purpose": "Designs raw, mechanical interfaces that mix Swiss print typography with terminal aesthetics: rigid grids, extreme type contrast and utilitarian colour.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "You want a dashboard or site to feel like a declassified blueprint.",
+        "A data-heavy interface suits a stark, technical style.",
+        "The brief names brutalist or industrial aesthetics."
+      ],
+      "example": {
+        "ask": "Restyle the telemetry dashboard in an industrial brutalist style.",
+        "outcome": "It sets a strict grid and type scale, a utilitarian palette and dense but readable data panels."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-minimalist-ui",
+        "yeknal-frontend-design"
+      ]
+    },
+    "yeknal-jupyter-notebook": {
+      "title": "Jupyter notebooks",
+      "purpose": "Creates and edits Jupyter notebooks for experiments, explorations and tutorials, starting from bundled templates.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "You want a clean notebook for an experiment or analysis.",
+        "A tutorial should be runnable cell by cell.",
+        "An existing notebook needs restructuring."
+      ],
+      "requirements": "Uses Python with JupyterLab.",
+      "example": {
+        "ask": "Set up a notebook to explore last month’s sales CSV.",
+        "outcome": "It creates a notebook from the template with loading, cleaning and a few starter charts."
+      },
+      "attribution": {
+        "credit": "Adapted from OpenAI’s published skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-spreadsheet",
+        "yeknal-research-analysis"
+      ]
+    },
+    "yeknal-linear": {
+      "title": "Linear",
+      "purpose": "Reads, creates and updates issues, projects and team workflows in Linear.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "You want tickets created from a plan or a bug report.",
+        "Issue status needs updating as work progresses.",
+        "You want a summary of what’s in a project."
+      ],
+      "requirements": "Needs the Linear MCP server connected.",
+      "example": {
+        "ask": "Create Linear issues for each task in this plan and add them to the current cycle.",
+        "outcome": "It creates one issue per task with a clear description and adds them to the cycle."
+      },
+      "attribution": {
+        "credit": "Adapted from Linear’s published skill.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-notion-spec-to-implementation"
+      ]
+    },
+    "yeknal-markdown-management": {
+      "title": "Markdown management",
+      "purpose": "Creates, merges, updates and audits Markdown without losing meaning, links or repository conventions, including README files and Agent Skills.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "Docs need merging or restructuring without losing anything.",
+        "A README or skill file needs updating to match the code.",
+        "You want links and headings audited."
+      ],
+      "example": {
+        "ask": "Merge these two setup guides into one README section.",
+        "outcome": "It combines them without dropping steps, keeps the links working and follows the repository’s style."
+      },
+      "related": [
+        "yeknal-project-handoff",
+        "yeknal-content-seo"
+      ]
+    },
+    "yeknal-minimalist-ui": {
+      "title": "Minimalist UI",
+      "purpose": "Designs clean editorial interfaces with warm monochrome palettes, strong typographic contrast, flat grids and restrained depth.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "The brief calls for calm, premium minimalism.",
+        "An interface feels cluttered and needs restraint.",
+        "You want typography to carry the hierarchy."
+      ],
+      "example": {
+        "ask": "Redesign the settings page in a warm, minimal editorial style.",
+        "outcome": "It reduces the palette, strengthens the type hierarchy and groups settings with space instead of boxes."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-industrial-brutalist-ui",
+        "yeknal-frontend-design"
+      ]
+    },
+    "yeknal-mobile-app-design": {
+      "title": "Mobile app design",
+      "purpose": "Designs and builds mobile screens and flows that feel native, especially in Expo or React Native, covering navigation, controls, states, accessibility and performance.",
+      "tasks": [
+        "design",
+        "build"
+      ],
+      "whenToUse": [
+        "You are building screens for an Expo or React Native app.",
+        "Navigation or controls don’t feel like they belong on the platform.",
+        "Loading, empty and error states are missing on mobile."
+      ],
+      "example": {
+        "ask": "Design and build the checkout flow for our Expo app.",
+        "outcome": "It plans the screens and navigation, builds them with native-feeling controls and covers each state."
+      },
+      "attribution": {
+        "credit": "Adapted from Appllama’s skills collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/Appllama/appllama-skills"
+      },
+      "related": [
+        "yeknal-animate-expo",
+        "yeknal-ui-quality-baseline"
+      ]
+    },
+    "yeknal-netlify-deploy": {
+      "title": "Netlify deploy",
+      "purpose": "Deploys and links web projects on Netlify with the Netlify CLI, including preview and production deploys.",
+      "tasks": [
+        "ship"
+      ],
+      "whenToUse": [
+        "You want a site hosted on Netlify.",
+        "You need a preview deploy to share.",
+        "A repository needs linking to a Netlify site."
+      ],
+      "requirements": "Uses the Netlify CLI and needs a Netlify account or token.",
+      "example": {
+        "ask": "Deploy a preview of this branch to Netlify and send me the link.",
+        "outcome": "It links the project if needed, runs a preview deploy and returns the URL."
+      },
+      "attribution": {
+        "credit": "Adapted from Netlify’s published skill.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-vercel-deploy",
+        "yeknal-cloudflare-deploy"
+      ]
+    },
+    "yeknal-nextjs-developer": {
+      "title": "Next.js developer",
+      "purpose": "Builds and maintains Next.js apps using the version, router, rendering model and deployment target the project already has.",
+      "tasks": [
+        "build"
+      ],
+      "whenToUse": [
+        "You are working on Next.js routes, components or data access.",
+        "Caching or server and client boundaries are confusing.",
+        "You want changes that match the installed version, not the latest blog post."
+      ],
+      "example": {
+        "ask": "Add a cached product listing route that revalidates every ten minutes.",
+        "outcome": "It checks the installed version and router, then adds the route with the right caching for that setup."
+      },
+      "related": [
+        "yeknal-frontend-developer",
+        "yeknal-engineering-specialists"
+      ]
+    },
+    "yeknal-notion-knowledge-capture": {
+      "title": "Notion knowledge capture",
+      "purpose": "Turns conversations and decisions into structured Notion pages, such as wiki entries, how-tos, decision records and FAQs, with proper links.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "A decision was made in chat and needs recording.",
+        "Notes should become a proper how-to or FAQ.",
+        "You want new pages linked into the existing wiki."
+      ],
+      "requirements": "Needs the Notion MCP server connected.",
+      "example": {
+        "ask": "Write up today’s decision about the billing provider as a Notion page.",
+        "outcome": "It creates a decision page with context, options and outcome, and links it from the right wiki section."
+      },
+      "attribution": {
+        "credit": "Adapted from Notion’s published skills.",
+        "license": "MIT"
+      },
+      "related": [
+        "yeknal-notion-research-documentation",
+        "yeknal-notion-meeting-intelligence"
+      ]
+    },
+    "yeknal-notion-meeting-intelligence": {
+      "title": "Notion meeting prep",
+      "purpose": "Prepares meeting materials from Notion context and research, such as agendas and pre-reads tailored to the people attending.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "You have a meeting coming up and scattered notes in Notion.",
+        "Attendees need a pre-read before the call.",
+        "An agenda should reflect what each person cares about."
+      ],
+      "requirements": "Needs the Notion MCP server connected.",
+      "example": {
+        "ask": "Prepare an agenda and pre-read for Thursday’s roadmap review.",
+        "outcome": "It gathers the relevant Notion pages, drafts an agenda and writes a short pre-read for attendees."
+      },
+      "attribution": {
+        "credit": "Adapted from Notion’s published skills.",
+        "license": "MIT"
+      },
+      "related": [
+        "yeknal-notion-knowledge-capture"
+      ]
+    },
+    "yeknal-notion-research-documentation": {
+      "title": "Notion research and docs",
+      "purpose": "Researches across several Notion sources and writes structured briefs, comparisons or reports with citations.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "The information you need is spread across many Notion pages.",
+        "You want a brief or comparison with sources cited.",
+        "A report should be saved back into Notion."
+      ],
+      "requirements": "Needs the Notion MCP server connected.",
+      "example": {
+        "ask": "Summarise everything we’ve written about onboarding churn into one brief.",
+        "outcome": "It searches the workspace, synthesises the findings and writes a cited brief in Notion."
+      },
+      "attribution": {
+        "credit": "Adapted from Notion’s published skills.",
+        "license": "MIT"
+      },
+      "related": [
+        "yeknal-research-analysis",
+        "yeknal-notion-knowledge-capture"
+      ]
+    },
+    "yeknal-notion-spec-to-implementation": {
+      "title": "Notion spec to plan",
+      "purpose": "Turns a spec or PRD in Notion into an implementation plan with tasks and progress tracking.",
+      "tasks": [
+        "docs",
+        "build"
+      ],
+      "whenToUse": [
+        "A feature spec lives in Notion and needs breaking down.",
+        "You want tasks created and tracked against the spec.",
+        "Progress should be visible to the rest of the team."
+      ],
+      "requirements": "Needs the Notion MCP server connected.",
+      "example": {
+        "ask": "Turn the notifications PRD into an implementation plan with tasks.",
+        "outcome": "It reads the spec, writes a plan and creates linked tasks in Notion for tracking."
+      },
+      "attribution": {
+        "credit": "Adapted from Notion’s published skills.",
+        "license": "MIT"
+      },
+      "related": [
+        "yeknal-implement",
+        "yeknal-linear"
+      ]
+    },
+    "yeknal-oil-motion": {
+      "title": "Frame-based motion",
+      "purpose": "Designs and builds scrubbable web animation made from generated or captured frames and driven by scroll, pointer, touch or data, for moments ordinary CSS can’t express.",
+      "tasks": [
+        "motion"
+      ],
+      "whenToUse": [
+        "A product transformation or scene change can’t be done with CSS alone.",
+        "You want an animation that follows the scroll or the pointer frame by frame.",
+        "Media needs processing into an efficient, scrubbable sequence."
+      ],
+      "avoid": "For ordinary UI transitions, use Web animation.",
+      "requirements": "Frame processing may need Python 3, Pillow and ffmpeg.",
+      "example": {
+        "ask": "Make the product photo rotate as the visitor scrolls through the feature section.",
+        "outcome": "It plans the frames, processes them into an efficient sequence and wires playback to the scroll position."
+      },
+      "attribution": {
+        "credit": "Adapted from Lin Zhihuang’s oil-motion skill.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/oil-oil/oil-motion"
+      },
+      "related": [
+        "yeknal-animate"
+      ]
+    },
+    "yeknal-openai-docs": {
+      "title": "OpenAI docs",
+      "purpose": "Answers OpenAI product and API questions from the official documentation, including current model choices, migrations and prompt reviews, with citations.",
+      "tasks": [
+        "agents",
+        "build"
+      ],
+      "whenToUse": [
+        "You need current guidance on an OpenAI API or model.",
+        "You are migrating to a newer model.",
+        "An answer needs citing to the official docs."
+      ],
+      "example": {
+        "ask": "Which OpenAI model should we use for structured extraction now, and what changes?",
+        "outcome": "It checks the current documentation, recommends a model and lists the changes with citations."
+      },
+      "attribution": {
+        "credit": "Adapted from OpenAI’s published skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-chatgpt-apps"
+      ]
+    },
+    "yeknal-orchestration-specialists": {
+      "title": "Orchestration specialists",
+      "purpose": "Organises work across several agents and tools, covering task distribution, context management, evidence synthesis, prompt engineering and MCP design.",
+      "tasks": [
+        "agents",
+        "build"
+      ],
+      "whenToUse": [
+        "A job is big enough to split between agents.",
+        "Context is getting lost between steps.",
+        "You are designing prompts or an MCP server."
+      ],
+      "example": {
+        "ask": "Split this migration across agents so each one handles a service and reports back.",
+        "outcome": "It divides the work into bounded tasks, defines what each agent returns and merges the results with evidence."
+      },
+      "related": [
+        "yeknal-skill-router",
+        "yeknal-engineering-specialists"
+      ]
+    },
+    "yeknal-pdf": {
+      "title": "PDF files",
+      "purpose": "Reads, creates and reviews PDFs where layout matters, rendering pages to check them and using Python tools for generation and extraction.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "You need a PDF generated with a reliable layout.",
+        "Text or tables have to be extracted from a PDF.",
+        "You want rendered pages checked before sending."
+      ],
+      "requirements": "Uses Python with reportlab, pdfplumber and pypdf, plus Poppler for rendering.",
+      "example": {
+        "ask": "Pull the tables out of these invoices and make a summary PDF.",
+        "outcome": "It extracts the tables, builds a summary PDF and renders the pages to check the layout."
+      },
+      "attribution": {
+        "credit": "Adapted from Anthropic’s document skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-doc",
+        "yeknal-spreadsheet"
+      ]
+    },
+    "yeknal-pick-ui-library": {
+      "title": "Pick a UI library",
+      "purpose": "Recommends the right library or inspectable source registry for a frontend need from a curated list, from accessible primitives to charts, toasts and drag and drop.",
+      "tasks": [
+        "design",
+        "build"
+      ],
+      "whenToUse": [
+        "You need a component library and don’t want to guess.",
+        "You are choosing between options for charts, menus or virtualised lists.",
+        "You want something accessible and actively maintained."
+      ],
+      "avoid": "It only runs when you ask for it by name.",
+      "example": {
+        "ask": "Which library should I use for an accessible command menu in React?",
+        "outcome": "It compares a few candidates from its list and recommends one with reasons and install notes."
+      },
+      "attribution": {
+        "credit": "Written for this catalog. It mentions Rare UI, which requires attribution if you install one of its components."
+      },
+      "related": [
+        "yeknal-ask-sonner",
+        "yeknal-frontend-developer"
+      ]
+    },
+    "yeknal-playwright": {
+      "title": "Browser automation",
+      "purpose": "Lets your agent open a real browser from the terminal to click through a flow, fill forms, take screenshots and read what’s on the page, so it can show you a change working.",
+      "tasks": [
+        "review"
+      ],
+      "whenToUse": [
+        "You want proof that a sign-up, checkout or settings flow still works after a change.",
+        "A layout problem only shows up at one screen size or after a few clicks.",
+        "You need screenshots or page text captured the same way every time."
+      ],
+      "avoid": "If you want a permanent test suite in the repository, ask for Playwright test files instead, because this skill drives the browser from the command line.",
+      "requirements": "Needs Node.js with npx, which the bundled wrapper uses to run playwright-cli.",
+      "example": {
+        "ask": "Open the sign-up page at phone width, fill the form with test values and send me a screenshot of the confirmation screen.",
+        "outcome": "It opens a browser through the bundled wrapper, steps through the form, saves the screenshot and reports anything that overlapped or clipped."
+      },
+      "attribution": {
+        "credit": "Adapted from Microsoft’s playwright-cli skill, including its NOTICE.txt attribution.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-break-ui",
+        "yeknal-testing-strategy",
+        "yeknal-troubleshoot"
+      ]
+    },
+    "yeknal-project-handoff": {
+      "title": "Project handoff",
+      "purpose": "Keeps a short HANDOFF.md at the root of the repository so the next session, or the next person, can pick up exactly where the work stopped.",
+      "tasks": [
+        "docs",
+        "agents"
+      ],
+      "whenToUse": [
+        "A project spans several sessions or people.",
+        "You are finishing a milestone and want the context saved.",
+        "You are picking up an unfamiliar repository."
+      ],
+      "example": {
+        "ask": "Update the handoff with where we got to today.",
+        "outcome": "It records the current state, decisions, how to verify the work and what remains, without repeating what the code already shows."
+      },
+      "related": [
+        "yeknal-markdown-management",
+        "yeknal-finalize"
+      ]
+    },
+    "yeknal-prototype": {
+      "title": "Prototype variants",
+      "purpose": "Builds several genuinely different versions of a UI piece behind a visual picker, so you can flip between them live and keep the one that feels right.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "You can’t decide between layouts until you see them working.",
+        "You want to compare real, interactive options rather than mockups.",
+        "A component needs exploring before it’s finalised."
+      ],
+      "avoid": "It only runs when you ask for it by name.",
+      "example": {
+        "ask": "Prototype three different empty states for the inbox.",
+        "outcome": "It builds three distinct versions with a picker to switch between them, ready for you to promote one."
+      },
+      "attribution": {
+        "credit": "Written for this catalog, drawing on Emil Kowalski’s design-engineering ideas as inspiration; no source was copied."
+      },
+      "related": [
+        "yeknal-brainstorm",
+        "yeknal-frontend-design"
+      ]
+    },
+    "yeknal-redesign-existing-projects": {
+      "title": "Redesign an existing product",
+      "purpose": "Refreshes the look or flow of a working site or app without breaking its behaviour or the data behind it.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "A product works but looks dated or generic.",
+        "Responsive layouts are broken and need repairing.",
+        "You want UX improvements without rewriting the app."
+      ],
+      "example": {
+        "ask": "Give the admin dashboard a visual refresh without changing how anything works.",
+        "outcome": "It inventories every route and state first, then restyles them while keeping each feature behaving the same."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection. Its library guidance credits Rare UI, which requires attribution if you install one of its components.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-frontend-design",
+        "yeknal-ui-quality-baseline"
+      ]
+    },
+    "yeknal-render-deploy": {
+      "title": "Render deploy",
+      "purpose": "Deploys applications to Render by analysing the codebase, generating a render.yaml Blueprint and pointing you to the right dashboard pages.",
+      "tasks": [
+        "ship"
+      ],
+      "whenToUse": [
+        "You want an app hosted on Render.",
+        "A project needs a Blueprint for its services and databases.",
+        "You are setting up a web service, worker or cron job on Render."
+      ],
+      "requirements": "Needs a Render account; some steps use the Render API or MCP server.",
+      "example": {
+        "ask": "Set this app up on Render with a web service and a Postgres database.",
+        "outcome": "It writes a render.yaml Blueprint for both, explains the settings and gives you the link to create them."
+      },
+      "attribution": {
+        "credit": "Adapted from Render’s published skill.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-vercel-deploy",
+        "yeknal-cloudflare-deploy"
+      ]
+    },
+    "yeknal-research-analysis": {
+      "title": "Research and analysis",
+      "purpose": "Researches and compares sources, checks them against each other and writes evidence-backed reports for market, competitive, trend or data questions.",
+      "tasks": [
+        "docs",
+        "build"
+      ],
+      "whenToUse": [
+        "You need a report backed by sources rather than opinion.",
+        "You are comparing competitors or tools.",
+        "A question needs deep research across many sources."
+      ],
+      "example": {
+        "ask": "Compare the main open-source feature-flag tools for a small team.",
+        "outcome": "It gathers current sources, compares the tools on the criteria that matter and cites where each claim came from."
+      },
+      "attribution": {
+        "credit": "Includes material adapted from NeetigyaShah’s deep-research skill.",
+        "license": "MIT"
+      },
+      "related": [
+        "yeknal-design-reference-research",
+        "yeknal-notion-research-documentation"
+      ]
+    },
+    "yeknal-review": {
+      "title": "Code review",
+      "purpose": "Reads code or a whole system for real defects, regressions and maintainability risks, then sorts what it finds by severity and effort.",
+      "tasks": [
+        "review"
+      ],
+      "whenToUse": [
+        "You want a second opinion before merging.",
+        "A system needs a quality assessment.",
+        "You want findings you can act on, not style nitpicks."
+      ],
+      "example": {
+        "ask": "Review the payments module for bugs and risky code.",
+        "outcome": "It reports concrete defects with locations and reasons, ranked by severity, and suggests fixes."
+      },
+      "related": [
+        "yeknal-testing-strategy",
+        "yeknal-security-best-practices"
+      ]
+    },
+    "yeknal-review-animations": {
+      "title": "Review animations",
+      "purpose": "Checks existing motion against a high craft bar, from easing and duration to interruption and reduced-motion behaviour, and explains each fix.",
+      "tasks": [
+        "motion",
+        "review"
+      ],
+      "whenToUse": [
+        "You are reviewing a change that adds or alters animation.",
+        "Motion feels slow, floaty or janky.",
+        "You want specific fixes rather than general advice."
+      ],
+      "example": {
+        "ask": "Review the animations in this pull request.",
+        "outcome": "It checks each animation’s purpose, timing and easing, and suggests concrete changes with values."
+      },
+      "attribution": {
+        "credit": "Written for this catalog, drawing on Emil Kowalski’s design-engineering ideas as inspiration; no source was copied."
+      },
+      "related": [
+        "yeknal-improve-animations",
+        "yeknal-animate"
+      ]
+    },
+    "yeknal-screenshot": {
+      "title": "Screenshots",
+      "purpose": "Captures desktop or system screenshots of the whole screen, one window or a region, for when the browser or tool can’t capture what you need.",
+      "tasks": [
+        "review"
+      ],
+      "whenToUse": [
+        "You explicitly want a screenshot of the desktop or an app window.",
+        "Tool-specific capture isn’t available.",
+        "You need a precise region of the screen."
+      ],
+      "requirements": "Uses Python and operating-system capture tools.",
+      "example": {
+        "ask": "Take a screenshot of the simulator window.",
+        "outcome": "It finds the window, captures it and saves the image where you can open it."
+      },
+      "attribution": {
+        "credit": "Adapted from OpenAI’s published skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-playwright"
+      ]
+    },
+    "yeknal-security-best-practices": {
+      "title": "Security best practices",
+      "purpose": "Reviews Python, JavaScript, TypeScript or Go code for security issues and writes secure-by-default code when you ask for it.",
+      "tasks": [
+        "security",
+        "review"
+      ],
+      "whenToUse": [
+        "You want a security review of specific code.",
+        "New code should be secure by default from the start.",
+        "You are working in Python, JavaScript, TypeScript or Go."
+      ],
+      "avoid": "It only runs for explicit security review or secure-coding requests.",
+      "example": {
+        "ask": "Do a security review of the file-upload handler.",
+        "outcome": "It checks validation, storage, paths and permissions, and reports issues with fixes and references."
+      },
+      "attribution": {
+        "credit": "An original workflow that incorporates OpenAI’s security review material.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-application-security",
+        "yeknal-security-threat-model"
+      ]
+    },
+    "yeknal-security-ownership-map": {
+      "title": "Security ownership map",
+      "purpose": "Maps who owns sensitive code from Git history and highlights bus-factor risk and code nobody looks after.",
+      "tasks": [
+        "security"
+      ],
+      "whenToUse": [
+        "You want to know who maintains authentication or payment code.",
+        "Sensitive areas may depend on one person.",
+        "You are writing or checking a CODEOWNERS file."
+      ],
+      "avoid": "It only runs when you ask about security ownership.",
+      "example": {
+        "ask": "Who owns our auth and billing code, and where are we exposed?",
+        "outcome": "It analyses commit history for sensitive paths and reports owners, gaps and single points of failure."
+      },
+      "attribution": {
+        "credit": "An original workflow that incorporates OpenAI’s security review material.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-security-threat-model"
+      ]
+    },
+    "yeknal-security-threat-model": {
+      "title": "Threat model",
+      "purpose": "Builds a threat model grounded in the actual repository, covering assets, trust boundaries, abuse paths and mitigations.",
+      "tasks": [
+        "security"
+      ],
+      "whenToUse": [
+        "You are launching something that handles sensitive data.",
+        "You want to understand how the system could be abused.",
+        "A security review needs a threat model first."
+      ],
+      "avoid": "It only runs when you ask for a threat model.",
+      "example": {
+        "ask": "Threat model the new public API.",
+        "outcome": "It maps assets and trust boundaries from the code, lists likely abuse paths and recommends mitigations by priority."
+      },
+      "attribution": {
+        "credit": "An original workflow that incorporates OpenAI’s security review material.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-application-security",
+        "yeknal-security-best-practices"
+      ]
+    },
+    "yeknal-sentry": {
+      "title": "Sentry errors",
+      "purpose": "Inspects Sentry issues and events, summarises recent production errors and pulls basic health data, using read-only queries.",
+      "tasks": [
+        "review"
+      ],
+      "whenToUse": [
+        "You want a summary of recent production errors.",
+        "A specific Sentry issue needs investigating.",
+        "You want health numbers without opening the dashboard."
+      ],
+      "requirements": "Uses Python and needs a SENTRY_AUTH_TOKEN.",
+      "example": {
+        "ask": "What are the top errors in production this week?",
+        "outcome": "It queries Sentry read-only and summarises the most frequent issues with links and affected users."
+      },
+      "attribution": {
+        "credit": "Adapted from Sentry’s published skill.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-troubleshoot"
+      ]
+    },
+    "yeknal-skill-router": {
+      "title": "Skill router (legacy)",
+      "purpose": "An older installable router that tells an agent how to find and load the right Yeknal skill for substantive work.",
+      "tasks": [
+        "agents"
+      ],
+      "compatibility": true,
+      "whenToUse": [
+        "You install skills by hand and want one entry point to the rest.",
+        "Your agent can’t use the setup command’s instructions."
+      ],
+      "avoid": "Most people should run npx yeknal@latest setup instead, which does this without installing a router skill.",
+      "example": {
+        "ask": "Fix the failing build.",
+        "outcome": "The router checks for a repository-specific skill first, then loads the shared troubleshooting skill."
+      },
+      "related": [
+        "yeknal-orchestration-specialists"
+      ]
+    },
+    "yeknal-slides": {
+      "title": "Slide decks",
+      "purpose": "Creates and edits PowerPoint decks with PptxGenJS, including charts and diagrams, and checks rendered slides for overflow and font problems.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "You need a new .pptx deck built.",
+        "Slides should be recreated from screenshots or a PDF.",
+        "Text overflows or fonts change when the deck opens elsewhere."
+      ],
+      "requirements": "Uses Node.js, Python and LibreOffice for rendering checks.",
+      "example": {
+        "ask": "Make a ten-slide deck from this project update, with one chart.",
+        "outcome": "It builds an editable deck with the chart, renders every slide and fixes overflow before handing it over."
+      },
+      "attribution": {
+        "credit": "Adapted from Anthropic’s document skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-doc",
+        "yeknal-pdf"
+      ]
+    },
+    "yeknal-sora": {
+      "title": "Sora video",
+      "purpose": "Generates, edits, extends and downloads Sora videos, and runs batches of video jobs through a bundled command-line tool.",
+      "tasks": [
+        "media"
+      ],
+      "whenToUse": [
+        "You want a short AI-generated video.",
+        "An existing Sora clip needs editing or extending.",
+        "You are planning a batch of related videos."
+      ],
+      "requirements": "Needs an OPENAI_API_KEY with Sora API access.",
+      "example": {
+        "ask": "Generate a five-second loop of coffee being poured for the landing page.",
+        "outcome": "It writes the prompt, submits the job, waits for it and downloads the video and thumbnail."
+      },
+      "attribution": {
+        "credit": "Adapted from OpenAI’s published skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-imagegen",
+        "yeknal-speech"
+      ]
+    },
+    "yeknal-speech": {
+      "title": "Text to speech",
+      "purpose": "Turns text into narration or voiceover with the OpenAI Audio API’s built-in voices, including batches for longer scripts.",
+      "tasks": [
+        "media"
+      ],
+      "whenToUse": [
+        "You need narration for a video or demo.",
+        "You want an audio version of written content.",
+        "Several clips should share the same voice."
+      ],
+      "avoid": "Creating custom voices is out of scope.",
+      "requirements": "Uses Python and needs an OPENAI_API_KEY for live calls.",
+      "example": {
+        "ask": "Record a calm voiceover for this 60-second product script.",
+        "outcome": "It picks a suitable voice, generates the audio and saves it ready to drop into your edit."
+      },
+      "attribution": {
+        "credit": "Adapted from OpenAI’s published skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-transcribe",
+        "yeknal-sora"
+      ]
+    },
+    "yeknal-spreadsheet": {
+      "title": "Spreadsheets",
+      "purpose": "Creates, edits, analyses and formats spreadsheets in .xlsx, .csv and .tsv, keeping formulas working and checking the result visually.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "You need a spreadsheet built with working formulas.",
+        "Messy data needs cleaning or reformatting.",
+        "You want charts or summaries from tabular data."
+      ],
+      "requirements": "Uses Python with openpyxl, plus LibreOffice for recalculation and rendering.",
+      "example": {
+        "ask": "Turn this CSV export into a formatted budget sheet with monthly totals.",
+        "outcome": "It builds the workbook with formulas and formatting, recalculates it and checks the rendered sheet."
+      },
+      "attribution": {
+        "credit": "Adapted from Anthropic’s document skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-jupyter-notebook",
+        "yeknal-pdf"
+      ]
+    },
+    "yeknal-stitch-design-taste": {
+      "title": "Design spec for AI design tools",
+      "purpose": "Writes or updates a versioned DESIGN.md that gives AI design tools like Google Stitch clear guidance on tokens, components, content, states and motion.",
+      "tasks": [
+        "design",
+        "docs"
+      ],
+      "whenToUse": [
+        "You generate screens with an AI design tool and want them on-brand.",
+        "The design system should be written down in one place.",
+        "Generated screens keep drifting from the real product."
+      ],
+      "example": {
+        "ask": "Write a DESIGN.md so Stitch generates screens that match our app.",
+        "outcome": "It extracts tokens, components and rules from the product and writes a spec the tool can follow."
+      },
+      "attribution": {
+        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
+      },
+      "related": [
+        "yeknal-frontend-design",
+        "yeknal-ui-quality-baseline"
+      ]
+    },
+    "yeknal-test-audit": {
+      "title": "Test audit",
+      "purpose": "Reviews a test suite for checks that prove real behaviour, and flags redundant or implementation-coupled tests worth removing.",
+      "tasks": [
+        "review"
+      ],
+      "whenToUse": [
+        "A test suite is slow or noisy and you want to prune it.",
+        "You suspect tests that only check implementation details.",
+        "You are deciding whether a new test is worth adding."
+      ],
+      "example": {
+        "ask": "Audit the checkout tests and tell me which ones actually matter.",
+        "outcome": "It classifies each test by the behaviour it protects and recommends what to keep, merge or delete."
+      },
+      "attribution": {
+        "credit": "Written independently, inspired by the test-audit concepts in the openclaw project; no source text was copied.",
+        "sourceUrl": "https://github.com/openclaw/openclaw"
+      },
+      "related": [
+        "yeknal-testing-strategy",
+        "yeknal-review"
+      ]
+    },
+    "yeknal-testing-strategy": {
+      "title": "Testing strategy",
+      "purpose": "Plans tests around real end-to-end flows and writes down how things could fail before any isolated test gets added.",
+      "tasks": [
+        "review"
+      ],
+      "whenToUse": [
+        "You are about to add tests for a feature.",
+        "You want coverage of real user flows and error paths.",
+        "Unit tests keep being written after the code instead of before it."
+      ],
+      "example": {
+        "ask": "Plan how we should test the new password-reset flow.",
+        "outcome": "It lists the ways the flow could fail, then proposes end-to-end checks that cover them and produce a rerunnable record."
+      },
+      "related": [
+        "yeknal-test-audit",
+        "yeknal-playwright"
+      ]
+    },
+    "yeknal-transcribe": {
+      "title": "Transcribe audio",
+      "purpose": "Transcribes audio and video recordings to text, with optional speaker labels and hints for speakers you already know.",
+      "tasks": [
+        "media",
+        "docs"
+      ],
+      "whenToUse": [
+        "You have an interview or meeting recording to turn into text.",
+        "Speakers need labelling in the transcript.",
+        "You want text extracted from a video’s audio."
+      ],
+      "requirements": "Uses Python and needs an OPENAI_API_KEY.",
+      "example": {
+        "ask": "Transcribe this interview and label the two speakers.",
+        "outcome": "It transcribes the recording, separates the speakers and saves a clean transcript."
+      },
+      "attribution": {
+        "credit": "Adapted from OpenAI’s published skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-speech"
+      ]
+    },
+    "yeknal-troubleshoot": {
+      "title": "Troubleshoot",
+      "purpose": "Works back from a reproducible error, failing build or slowdown to its cause before it suggests a fix.",
+      "tasks": [
+        "review"
+      ],
+      "whenToUse": [
+        "Something broke and you don’t know why.",
+        "A build or deployment fails with an unclear error.",
+        "Performance got worse after a change."
+      ],
+      "example": {
+        "ask": "The app crashes when I open the settings page. Figure out why.",
+        "outcome": "It reproduces the crash, traces it to the cause, fixes it and confirms the page opens."
+      },
+      "related": [
+        "yeknal-playwright",
+        "yeknal-gh-fix-ci"
+      ]
+    },
+    "yeknal-ui-quality-baseline": {
+      "title": "UI quality baseline",
+      "purpose": "Applies a shared set of visual, responsive, accessibility, state and motion checks whenever an agent creates or changes visible UI.",
+      "tasks": [
+        "design",
+        "review"
+      ],
+      "whenToUse": [
+        "You want every UI change held to the same standard.",
+        "Layouts break at small widths or with large text.",
+        "Loading, empty and error states keep getting forgotten."
+      ],
+      "example": {
+        "ask": "Check the new onboarding screens against the UI baseline.",
+        "outcome": "It checks spacing, contrast, focus, responsive containment and states, then fixes what fails."
+      },
+      "related": [
+        "yeknal-frontend-design",
+        "yeknal-break-ui"
+      ]
+    },
+    "yeknal-ui-ux-designer": {
+      "title": "UI and UX design",
+      "purpose": "Designs user-centred interface systems that balance intuitive flows with a distinctive visual direction, from information architecture to interaction patterns.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "You are shaping how a product is organised and navigated.",
+        "A flow is confusing and needs rethinking.",
+        "You need a UI specification someone can build from."
+      ],
+      "example": {
+        "ask": "Rethink how people find and manage saved reports.",
+        "outcome": "It maps the current flow, proposes a clearer structure and specifies the screens and interactions."
+      },
+      "related": [
+        "yeknal-frontend-design",
+        "yeknal-human-ai-interface-design"
+      ]
+    },
+    "yeknal-vercel-deploy": {
+      "title": "Vercel deploy",
+      "purpose": "Deploys applications and websites to Vercel and gives you the link, with preview deploys by default and production when you ask.",
+      "tasks": [
+        "ship"
+      ],
+      "whenToUse": [
+        "You want an app online quickly.",
+        "You need a preview link to share.",
+        "A project is ready to go to production on Vercel."
+      ],
+      "requirements": "Uses the Vercel CLI and a Vercel account.",
+      "example": {
+        "ask": "Deploy this and give me the link.",
+        "outcome": "It checks for the Vercel CLI, runs a preview deploy and returns the URL."
+      },
+      "attribution": {
+        "credit": "Adapted from Vercel’s published skill.",
+        "license": "MIT"
+      },
+      "related": [
+        "yeknal-netlify-deploy",
+        "yeknal-cloudflare-deploy"
+      ]
+    },
+    "yeknal-winui-app": {
+      "title": "WinUI apps",
+      "purpose": "Creates and develops WinUI 3 desktop apps in C# with the Windows App SDK, following Microsoft’s guidance and WinUI Gallery patterns.",
+      "tasks": [
+        "build",
+        "design"
+      ],
+      "whenToUse": [
+        "You are starting a new Windows desktop app.",
+        "A machine needs setting up for WinUI development.",
+        "XAML controls, navigation or theming need work."
+      ],
+      "requirements": "Needs Windows with the .NET SDK and Windows App SDK.",
+      "example": {
+        "ask": "Create a WinUI 3 app with a navigation view and light and dark themes.",
+        "outcome": "It checks the environment, scaffolds the app and sets up navigation and theming the recommended way."
+      },
+      "attribution": {
+        "credit": "Adapted from Microsoft’s WinUI skill.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-aspnet-core"
+      ]
+    },
+    "yeknal-write-swift": {
+      "title": "Modern Swift",
+      "purpose": "Writes and reviews modern Swift, including value types, Swift 6 data-race safety, concurrency, generics, API design, performance and Swift Testing.",
+      "tasks": [
+        "build"
+      ],
+      "whenToUse": [
+        "You are writing or migrating Swift code.",
+        "A concurrency error, hang or data race needs fixing.",
+        "You want Swift that uses current language features well."
+      ],
+      "example": {
+        "ask": "Fix the data-race warnings after enabling Swift 6 mode.",
+        "outcome": "It explains each warning, applies the right isolation or actor changes and keeps behaviour the same."
+      },
+      "related": [
+        "yeknal-mobile-app-design"
+      ]
+    },
+    "yeknal-yeet": {
+      "title": "Commit, push and open a PR",
+      "purpose": "Stages, commits, pushes and opens a GitHub pull request in one flow using the GitHub CLI.",
+      "tasks": [
+        "ship"
+      ],
+      "whenToUse": [
+        "You want the whole commit-to-PR flow done in one go.",
+        "Your changes are ready and reviewed locally.",
+        "You use the gh CLI."
+      ],
+      "avoid": "It only runs when you explicitly ask for the full flow.",
+      "requirements": "Needs the GitHub CLI signed in to your account.",
+      "example": {
+        "ask": "Yeet this: commit, push and open a PR.",
+        "outcome": "It stages the changes, writes the commit, pushes the branch and opens a pull request with a summary."
+      },
+      "attribution": {
+        "credit": "Adapted from OpenAI’s published skills.",
+        "license": "Apache-2.0"
+      },
+      "related": [
+        "yeknal-git",
+        "yeknal-gh-address-comments"
+      ]
+    }
+  }
+}

@@ -267,6 +267,17 @@ The latest review selectively strengthens existing entries instead of adding dup
 
 GitHub Actions validates skill structure, relative Markdown links, CLI tests, package contents, and changed-file whitespace on pushes and pull requests. The npm trusted-publishing workflow is prepared but remains dormant until the package has a matching OIDC connection and the repository variable `NPM_TRUSTED_PUBLISHING_ENABLED` is set to `true`. Until then, package owners publish from an authenticated local npm client; no npm write token is stored in GitHub.
 
+### Portfolio skills library
+
+The library at [tryraisins.dev/skills](https://tryraisins.dev/skills/) is generated from this catalog. Visitor-facing titles, tasks, examples and attribution live in [`site/presentation.json`](site/presentation.json); a new skill without an entry still appears using its name and description, and CI rejects entries for skills that no longer exist. Whoever publishes catalog changes also syncs the portfolio, in this order:
+
+1. Commit skill changes, run `node tools/build-catalog.js`, and commit the regenerated catalog.
+2. Update `site/presentation.json` for added, renamed (`previousNames`) or removed skills, and run `node tools/sync-portfolio.js --validate`.
+3. Push to `main` and wait for the validation workflow to pass.
+4. Run `node tools/sync-portfolio.js --portfolio ../../Portfolio/my-portfolio`, then build, check, commit and push the portfolio as its handoff describes.
+
+The sync reads only committed, pushed objects and refuses stale catalogs, unpublished commits, unknown references and missing license credits; [`tools/portfolio-sync-failure-modes.md`](tools/portfolio-sync-failure-modes.md) lists every check. Deleted skills disappear from the portfolio on the next sync, renamed ones keep a redirect, and `--ref <commit>` re-syncs an earlier published catalog as a rollback.
+
 `evaluations/skill-routing.json` records high-value routing and precedence cases. CI validates the dataset and referenced skills; model-level activation scoring remains a separate behavioral evaluation boundary.
 
 ## Credits

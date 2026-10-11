@@ -43,3 +43,7 @@ current stack is React-compatible.
 This default is carried by the distributed design skills
 (`yeknal-frontend-design`, `yeknal-redesign-existing-projects`, `yeknal-ui-quality-baseline`) so that
 installs via `npx yeknal skills` inherit it across agents and harnesses.
+
+## Portfolio skills library
+
+When you add, edit, rename or remove a skill, keep `site/presentation.json` in step and, after the change is pushed and CI passes, sync the portfolio library with `node tools/sync-portfolio.js --portfolio <portfolio checkout>`. Follow the publication sequence in the README's "Portfolio skills library" section. Do not add scheduled synchronization or cross-repository credentials.

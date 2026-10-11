@@ -62,6 +62,9 @@ jobs:
           npm test
           npm pack --dry-run
 
+      - name: Validate portfolio presentation metadata
+        run: node tools/sync-portfolio.js --validate
+
       - name: Check changed whitespace
         shell: pwsh
         env:
