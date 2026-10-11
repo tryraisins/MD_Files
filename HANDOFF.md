@@ -1,8 +1,16 @@
 # Project Handoff
 
-Last updated: 2026-10-10
+Last updated: 2026-10-11
 Branch: main
 HEAD: see git log; released source edf3ec6, catalog/tag e769323
+
+## Portfolio skills library (2026-10-11)
+
+- Shipped: `site/presentation.json` (visitor-facing title, purpose, tasks, when-to-use, example, requirements and attribution for all 89 skills, grounded in PROVENANCE.md and bundled notices) and `tools/sync-portfolio.js`, which writes a validated snapshot to the portfolio's `src/data/skills-catalog.json`. Commit `f013d36`; validation run 38171155193 passed, including the new `--validate` CI step. The portfolio library is live at https://tryraisins.dev/skills/ (portfolio `5121fea`).
+- The sync reads committed objects only and pins everything to the catalog `sourceRevision`, the revision `setup` serves; `skills --all` still installs unpinned `main`, so regenerate and commit the catalog with any skill change. Refusals and recovery are listed in `tools/portfolio-sync-failure-modes.md`; the publication order is in the README "Portfolio skills library" section.
+- `ask-sonner` has no recorded upstream; its page says so rather than claiming it as original. Licensed skills must carry attribution or the sync refuses.
+- Evidence: `node tools/verify-portfolio-sync.js` (locally excluded) passed 26/26 in disposable clones with a bare origin and a real Astro build: dirty, stale, tampered, unpublished and invalid-reference refusals, new-skill defaults, deletion, rename redirect, hand-edited snapshot build failure and `--ref` rollback. Report and command log are in the OS temp `portfolio-sync-e2e-*` folder it prints. Portfolio browser E2E passed 83/83 locally and against production, including running the install prompt's git commands against GitHub with hash comparison. That run found and fixed a Windows `core.autocrlf` hash mismatch in the prompt.
+- Catalog 0/0 skill audit, routing 0 errors and CLI 22/22 passed locally; the link audit needs PowerShell 7, which isn't installed here, and passed in CI.
 
 ## Current Objective
 
