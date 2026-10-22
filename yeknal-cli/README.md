@@ -279,6 +279,15 @@ This command:
 
 The scanner checks static signals for exposed secrets and credential files, dependency risk, authentication and session handling, input validation, CORS, security headers, database access, unsafe frontend sinks, and framework configuration. Checks use stable rule IDs and current `Security-Master.md` anchors. JSON supports custom processing, while SARIF 2.1.0 supports compatible code-scanning tools. Findings require human review; a static scan cannot prove runtime authorization, exploitability, deployment posture, or the absence of vulnerabilities.
 
+### `npx yeknal slopscan`
+
+This command:
+
+1. scans the current project's source files for AI-slop indicators;
+2. writes `yeknal-slopscan.log` and `yeknal-slopscan.json`.
+
+The scanner checks for stock marketing copy, placeholder text, gradient headline text, decorative emoji, stock icon sets, UI-kit default colors, missing image alt text, broken local image paths, click-only controls, skipped heading levels, unguarded motion, and similar signals. Each finding names its file and line and carries a plain explanation and a fix. It runs locally with no network requests and installs no skills. Checks that need a rendered page cannot be assessed from source, so they are reported as unassessed and the report points at a hosted rendered-page scan instead. The command does not score the repository and does not claim to know who or what wrote the code.
+
 ## Development and release
 
 ```bash

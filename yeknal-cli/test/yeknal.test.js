@@ -571,7 +571,42 @@ test("CLI profiles command remains executable", () => {
   });
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /core\s+37/);
-  assert.match(result.stdout, /design\s+24/);
+  assert.match(result.stdout, /design\s+25/);
   assert.match(result.stdout, /Default: core/);
   assert.match(result.stdout, /skill-router/);
 });
+
+// The security scanner and the slop scanner share one tree walker. This guards
+// the security scanner's file list against a future change to that shared code.
+test("the security scan still reads exactly the files it read before the shared walker", async () => {
+  await withTempDir(async (directory) => {
+    const tree = {
+      "src/app.js": "const a = 1;\n",
+      "src/app.min.js": "var a=1\n",
+      "src/types.d.ts": "export {};\n",
+      "src/app.js.map": "{}\n",
+      ".env": "A=1\n",
+      "requirements-dev.txt": "flask\n",
+      "App.csproj": "<Project />\n",
+      "notes.md": "# notes\n",
+      "scripts/run.sh": "echo hi\n",
+      "node_modules/pkg/index.js": "module.exports = 1;\n",
+      "dist/bundle.js": "var a = 1;\n",
+    };
+
+    for (const [relative, content] of Object.entries(tree)) {
+      const target = path.join(directory, relative);
+      await fsp.mkdir(path.dirname(target), { recursive: true });
+      await fsp.writeFile(target, content);
+    }
+
+    const found = (await yeknal.walkProjectFiles(directory))
+      .map((file) => path.relative(directory, file).replace(/\\/g, "/"))
+      .sort();
+
+    assert.deepEqual(found, [".env", "App.csproj", "requirements-dev.txt", "src/app.js"].sort());
+    assert.equal(yeknal.isSecurityScanFile("notes.md"), false);
+    assert.equal(yeknal.isSecurityScanFile("App.csproj"), true);
+  });
+});
+

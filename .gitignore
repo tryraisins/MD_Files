@@ -2,3 +2,7 @@
 yeknal-security.log
 yeknal-security.json
 yeknal-security.sarif
+
+# Slop scan reports
+yeknal-slopscan.log
+yeknal-slopscan.json

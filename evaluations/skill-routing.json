@@ -224,6 +224,14 @@
       "secondary": ["yeknal-mobile-app-design"],
       "mustNotLead": ["yeknal-animate", "yeknal-animate-expo"],
       "rationale": "These are platform-layer CSS and meta fixes owned by the shared baseline, not motion or React Native work."
+    },
+    {
+      "id": "static-slop-audit",
+      "prompt": "Scan this repo for AI slop and tell me what to fix.",
+      "primary": "yeknal-slopscan",
+      "secondary": ["yeknal-ui-quality-baseline"],
+      "mustNotLead": ["yeknal-review"],
+      "rationale": "A local source scan with a findings report is the specific artifact, not a general code review."
     }
   ]
 }

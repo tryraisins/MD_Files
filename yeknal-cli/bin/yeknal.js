@@ -57,6 +57,8 @@ function usage() {
   console.log("  npx yeknal skills --all");
   console.log("  npx yeknal profiles");
   console.log("  npx yeknal security   Sync security skills + scan current project\n");
+  console.log("  npx yeknal slopscan [--json] [--out DIR] [--fail-on N|any] [--ignore GLOB] [--path DIR]");
+  console.log("                        Scan the current project for AI-slop indicators (local, no network)\n");
 }
 
 function splitOptionList(value) {
@@ -1014,39 +1016,10 @@ async function runSkillsCommand(options) {
 // Based on Security-Master.md rules
 // ==========================================
 
-const SCAN_IGNORE_DIRS = new Set([
-  "node_modules", ".git", ".next", "dist", "build", ".cache", ".output",
-  "coverage", ".nyc_output", "__pycache__", ".venv", "venv", "env",
-  ".terraform", "vendor", "target", "bin", "obj", ".nuxt", ".svelte-kit",
-  ".astro", ".vercel", ".netlify", ".turbo", "out", ".parcel-cache", "tmp",
-]);
-
-// Dependency backups and similarly named generated/build directories are
-// commonly left beside the working tree after reinstalls or builds.
-const SCAN_IGNORE_DIR_PATTERNS = [
-  /^node_modules(?:\.|[-_])(?:bak|backup)(?:[-_.]|$)/i,
-  /^(?:vendor|bower_components|\.venv|venv|env)(?:\.|[-_])(?:bak|backup)(?:[-_.]|$)/i,
-  /^(?:build|dist|out|coverage|generated|__generated__)(?:\.|[-_])(?:bak|backup)(?:[-_.]|$)/i,
-];
-
-// Generated source/config files can contain copied secrets or noisy bundled
-// content that is not the project's authored implementation.
-const SCAN_IGNORE_FILE_PATTERNS = [
-  /\.min\.(?:js|css|mjs|cjs)$/i,
-  /\.(?:bundle|chunk|generated|gen)\.[^.]+$/i,
-  /(?:^|[._-])generated(?:[._-]|$)/i,
-  /\.d\.ts$/i,
-  /\.map$/i,
-];
-
-function isScanIgnoredDirectory(name) {
-  const nameLC = name.toLowerCase();
-  return SCAN_IGNORE_DIRS.has(nameLC) || SCAN_IGNORE_DIR_PATTERNS.some((pattern) => pattern.test(name));
-}
-
-function isScanIgnoredFile(name) {
-  return SCAN_IGNORE_FILE_PATTERNS.some((pattern) => pattern.test(name));
-}
+// The ignore rules, the tree walker and safe file reads are shared with the
+// slop scanner through lib/scan-files.js. Keeping them out of this entry point
+// also avoids a circular require, since lib/slopscan.js needs the walker.
+const { safeReadFile, walkFiles } = require("../lib/scan-files");
 
 const SCAN_SOURCE_EXTENSIONS = new Set([
   ".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs",
@@ -1117,67 +1090,25 @@ const CREDENTIAL_FILENAME_PATTERNS = [
 ];
 const CREDENTIAL_EXT_PATTERNS = /\.(?:pem|key|crt|p12|pfx|jks|pkcs12)$/i;
 
-// Walk directory tree collecting scannable files
-async function walkProjectFiles(rootDir) {
-  const maxDepth = 12;
-  const maxFileSize = 512 * 1024; // 512KB
-  const files = [];
-
-  async function walk(dir, depth) {
-    if (depth > maxDepth) return;
-
-    let entries;
-    try {
-      entries = await fsp.readdir(dir, { withFileTypes: true });
-    } catch {
-      return;
-    }
-
-    for (const entry of entries) {
-      const fullPath = path.join(dir, entry.name);
-
-      if (entry.isDirectory()) {
-        if (!isScanIgnoredDirectory(entry.name)) {
-          await walk(fullPath, depth + 1);
-        }
-        continue;
-      }
-
-      if (entry.isFile()) {
-        if (isScanIgnoredFile(entry.name)) {
-          continue;
-        }
-        const ext = path.extname(entry.name).toLowerCase();
-        const nameLC = entry.name.toLowerCase();
-        if (
-          SCAN_ALL_EXTENSIONS.has(ext) ||
-          SCAN_MANIFEST_FILENAMES.has(nameLC) ||
-          isPythonRequirementsFile(nameLC) ||
-          SCAN_MANIFEST_SUFFIXES.some((suffix) => nameLC.endsWith(suffix)) ||
-          nameLC.startsWith(".env")
-        ) {
-          try {
-            const stats = await fsp.stat(fullPath);
-            if (stats.size <= maxFileSize) {
-              files.push(fullPath);
-            }
-          } catch { /* skip unreadable */ }
-        }
-      }
-    }
-  }
-
-  await walk(rootDir, 0);
-  return files;
+// Files the security scanner reads: authored source and config plus dependency
+// manifests, excluding generated output. This reproduces the original inline
+// filter exactly, so the security scan's file list is unchanged.
+function isSecurityScanFile(name) {
+  const ext = path.extname(name).toLowerCase();
+  const nameLC = name.toLowerCase();
+  return (
+    SCAN_ALL_EXTENSIONS.has(ext) ||
+    SCAN_MANIFEST_FILENAMES.has(nameLC) ||
+    isPythonRequirementsFile(nameLC) ||
+    SCAN_MANIFEST_SUFFIXES.some((suffix) => nameLC.endsWith(suffix)) ||
+    nameLC.startsWith(".env")
+  );
 }
 
-// Read file safely, return null on failure
-async function safeReadFile(filePath) {
-  try {
-    return await fsp.readFile(filePath, "utf8");
-  } catch {
-    return null;
-  }
+// Walk directory tree collecting scannable files
+async function walkProjectFiles(rootDir) {
+  const { files } = await walkFiles(rootDir, { accept: isSecurityScanFile });
+  return files;
 }
 
 const SECURITY_MASTER_URL = "https://github.com/tryraisins/MD_Files/blob/main/skills/yeknal-application-security/Security-Master.md";
@@ -2977,6 +2908,157 @@ async function runSecurityCommand() {
 }
 
 // ==========================================
+// SLOP SCAN COMMAND
+// ==========================================
+
+const SLOPSCAN_REPORT_FILES = ["yeknal-slopscan.log", "yeknal-slopscan.json"];
+
+function parseSlopScanArgs(args) {
+  const options = { ignore: [] };
+  let jsonToStdout = false;
+  let out = null;
+  let failOn = null;
+
+  const takeValue = (flag, index) => {
+    const value = args[index + 1];
+    if (value === undefined || value.startsWith("--")) {
+      throw new Error(`${flag} needs a value.`);
+    }
+    return value;
+  };
+
+  for (let i = 0; i < args.length; i += 1) {
+    const arg = args[i];
+    if (arg === "--json") jsonToStdout = true;
+    else if (arg === "--out") { out = takeValue(arg, i); i += 1; }
+    else if (arg === "--fail-on") { failOn = takeValue(arg, i); i += 1; }
+    else if (arg === "--ignore") { options.ignore.push(takeValue(arg, i)); i += 1; }
+    else if (arg === "--path") { options.path = takeValue(arg, i); i += 1; }
+    else throw new Error(`Unknown argument for slopscan: ${arg}`);
+  }
+
+  if (failOn !== null && failOn !== "any" && !/^\d+$/.test(failOn)) {
+    throw new Error("--fail-on takes a whole number or the word any.");
+  }
+
+  return { options, jsonToStdout, out, failOn };
+}
+
+/**
+ * Add the report names to .gitignore, but only inside a repository, and never
+ * in a way that turns a successful scan into a failure. The security command's
+ * version of this creates .gitignore in folders that are not repositories and
+ * throws on a read-only file, so it is not reused here.
+ */
+function ensureSlopScanIgnored(outDir) {
+  const gitignorePath = path.join(outDir, ".gitignore");
+  const isRepo = fs.existsSync(path.join(outDir, ".git")) || fs.existsSync(gitignorePath);
+  if (!isRepo) return null;
+
+  let content = "";
+  try {
+    content = fs.existsSync(gitignorePath) ? fs.readFileSync(gitignorePath, "utf8") : "";
+  } catch {
+    return null;
+  }
+  const existing = new Set(content.split(/\r?\n/).map((line) => line.trim()));
+  const missing = SLOPSCAN_REPORT_FILES.filter((entry) => !existing.has(entry));
+  if (!missing.length) return null;
+
+  const separator = content.length === 0 ? "" : content.endsWith("\n") ? "\n" : "\n\n";
+  try {
+    fs.appendFileSync(gitignorePath, `${separator}# Slop scan reports\n${missing.join("\n")}\n`);
+    return missing;
+  } catch {
+    return null;
+  }
+}
+
+function writeSlopScanReport(target, contents) {
+  try {
+    if (fs.existsSync(target) && fs.lstatSync(target).isSymbolicLink()) {
+      return `refused to write ${path.basename(target)} because it is a symbolic link`;
+    }
+    fs.writeFileSync(target, contents, "utf8");
+    return null;
+  } catch (error) {
+    return `could not write ${path.basename(target)}: ${error.message}`;
+  }
+}
+
+async function runSlopScanCommand(args) {
+  const { options, jsonToStdout, out, failOn } = parseSlopScanArgs(args);
+  const slopscan = require("../lib/slopscan");
+
+  const log = jsonToStdout ? () => {} : (message) => console.log(message);
+  log("\n  yeknal slopscan");
+  log("  ===============\n");
+
+  const results = await slopscan.runSlopScan(options);
+  const summary = slopscan.summarise(results);
+  const primaryCount = slopscan.countPrimaryFindings(summary);
+  const gateOpen = slopscan.splitSignals(summary).gateOpen;
+
+  for (const warning of results.warnings) console.error(`  Warning: ${warning}`);
+
+  if (jsonToStdout) {
+    process.stdout.write(slopscan.generateSlopScanJson(results));
+  } else {
+    log(`  Scanned ${results.filesRead} file(s) in ${results.projectDir}\n`);
+    const active = summary.primary.filter((group) => group.findings.length > 0);
+    for (const { rule, findings } of active) {
+      log(`  [${rule.id}] ${rule.name}: ${findings.length}`);
+    }
+    log("");
+    log(`  ${primaryCount} finding(s) across ${active.length} rule(s).`);
+    log(`  ${summary.primary.length - active.length} other rule(s) checked with nothing found.`);
+    if (summary.supporting.length) {
+      log(`  ${summary.supporting.length} supporting signal(s) ${gateOpen ? "reported alongside a slop signal" : "observed but not counted, since no slop signal was found"}.`);
+    }
+    log(`  ${summary.unassessed.length} check(s) need the rendered page and were not attempted.`);
+    log("");
+  }
+
+  const outDir = path.resolve(out || results.projectDir);
+  try {
+    fs.mkdirSync(outDir, { recursive: true });
+  } catch (error) {
+    console.error(`  Error: could not use --out directory: ${error.message}`);
+    process.exitCode = 2;
+    return;
+  }
+
+  const ignored = ensureSlopScanIgnored(outDir);
+  const logPath = path.join(outDir, "yeknal-slopscan.log");
+  const jsonPath = path.join(outDir, "yeknal-slopscan.json");
+  const writeErrors = [
+    writeSlopScanReport(logPath, slopscan.generateSlopScanLog(results)),
+    writeSlopScanReport(jsonPath, slopscan.generateSlopScanJson(results)),
+  ].filter(Boolean);
+
+  for (const message of writeErrors) console.error(`  Warning: ${message}`);
+  if (!jsonToStdout) {
+    if (!writeErrors.length) {
+      console.log(`  Reports written to ${outDir}`);
+      console.log(`    Text:  ${logPath}`);
+      console.log(`    JSON:  ${jsonPath}`);
+    }
+    if (ignored) console.log(`  Added ${ignored.join(", ")} to .gitignore`);
+    console.log("");
+  }
+
+  if (writeErrors.length && !fs.existsSync(logPath) && !fs.existsSync(jsonPath)) {
+    process.exitCode = 2;
+    return;
+  }
+
+  if (failOn !== null) {
+    const threshold = failOn === "any" ? 1 : Number(failOn);
+    if (primaryCount >= threshold) process.exitCode = 1;
+  }
+}
+
+// ==========================================
 // MAIN
 // ==========================================
 
@@ -3020,6 +3102,18 @@ async function main() {
     return;
   }
 
+  if (command === "slopscan") {
+    // A usage or input error is not a scan result, so it exits 2 rather than
+    // the generic 1. An empty repository must never look like a clean one.
+    try {
+      await runSlopScanCommand(args.slice(1));
+    } catch (error) {
+      console.error(`\nError: ${error.message}`);
+      process.exitCode = 2;
+    }
+    return;
+  }
+
   console.error(`Error: Invalid command "${command}".`);
   usage();
   process.exit(1);
@@ -3043,14 +3137,17 @@ module.exports = {
   generateSecuritySarif,
   getManagedSkillFolderName,
   getSkillTargetSpecs,
+  isSecurityScanFile,
   listFilesForFolder,
   parseSkillsCommandArgs,
   removeStaleManagedSkillFolders,
   resolveProjectSkillTarget,
   resolveSkillTargets,
+  runSlopScanCommand,
   selectSkillFolders,
   shouldUseGitCloneFallback,
   syncManagedSkills,
+  walkProjectFiles,
 };
 
 if (require.main === module) {

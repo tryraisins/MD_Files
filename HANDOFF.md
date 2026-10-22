@@ -1,8 +1,30 @@
 # Project Handoff
 
-Last updated: 2026-10-11
+Last updated: 2026-10-23
 Branch: main
 HEAD: see git log; released source edf3ec6, catalog/tag e769323
+
+## Slop scan command (2026-10-23)
+
+`npx yeknal slopscan` is a new command. It scans a local codebase for AI-slop indicators, writes `yeknal-slopscan.log` and `yeknal-slopscan.json`, and names the checks it cannot perform without a rendered page. It is local only: no network request, no browser, no dependency, and no skill syncing (unlike `security`, which downloads and syncs).
+
+Design decisions, all settled in review with the user:
+
+- **No score.** SlopLens scores one rendered page. A repository is not a page, and a repo-wide number is driven by size, so the report gives counts instead. `--fail-on N|any` gates on the count of primary findings.
+- **Exit 0 by default**, `1` when `--fail-on` is met, `2` for a usage or input error.
+- **The catalog is hand-curated, not generated.** `yeknal-cli/lib/slop-rules.json` carries provenance (`sloplens-3.2.0` at `7d73916dd79ba95b50ef36a32663c15fc849c305`) and copies the shared fields verbatim: id, name, category, family, supporting, fix. Everything specific to a source scan is owned here: `staticPlain`, the observation/inference split, the assessment, file types and thresholds. The `plain` text from SlopLens describes a rendered page and cannot be printed beside a static finding.
+- **Assessment is explicit.** `measured` means syntactically certain, `heuristic` means the pattern is present but the inference is not, `unassessed` means the check needs the rendered page. Nine rules are unassessed, including card-grid, repeated-layouts, template-hero, hero-badge, nested-containers, mobile-overflow, scroll-length, control-consistency and spacing-consistency.
+- **Supporting signals never count alone.** A stock icon set or a kit palette is reported only as context, and only when a primary slop signal exists.
+
+Files: `yeknal-cli/lib/slopscan.js` (detectors and reports), `yeknal-cli/lib/slop-rules.json`, `yeknal-cli/lib/scan-files.js` (the walker extracted from `bin/yeknal.js` so the two scanners share it without a circular require), `bin/yeknal.js` (dispatch, usage, report writing), `test/slopscan.test.js`, `skills/yeknal-slopscan/SKILL.md`, `tools/slopscan-failure-modes.md`.
+
+Rule ownership is shared with the user's `Slop Detector` repository. That repository records the contract in its `HANDOFF.md` and provides `tools/slopscan-drift.mjs`, a maintainer command that compares the shared fields. It is deliberately not wired into either CI: this repository cannot check out that one during validation, and `catalog:check` rebuilds at its own pinned revision so it would never detect the drift anyway. Run the drift script after changing either copy.
+
+Real-repository pass, seven of the user's projects spanning Next.js, Vite/React and non-framework folders: scan times 1.5 to 11.1 seconds, no crashes, no leftover processes. The pass found and fixed seven false-positive classes before acceptance: nested JSX braces breaking the tag scanner, expression attributes read as literal values, icon-only buttons that actually carried `aria-label`, `outline: none` with a global `:focus-visible` or a ring replacement, modal backdrops counted as decorative effects, nested click handlers counted twice, and vitest-style `.cjs` scripts parsed as markup. Findings that remain are plausible defects (icon-only buttons with no name, empty image sources, clickable table rows) plus genuine copy in a deliberate specimen illustration inside SlopLens itself, which is the intended "candidate for review" framing rather than a defect.
+
+Verification: `node --test` in `yeknal-cli` passes 49/49, including the existing 22. The clean fixture produces zero findings, and two runs over the same fixture produce identical reports apart from the timestamp. Neither the log nor the JSON contains a literal em dash; the JSON preserves the character through the `\u2014` escape.
+
+Not verified: a Node 18 run, Linux or macOS behaviour, false-positive rates on third-party codebases, and the `skills-ref` validator, which is installed only in CI.
 
 ## Portfolio skills library (2026-10-11)
 

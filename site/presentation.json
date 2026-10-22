@@ -1882,6 +1882,28 @@
         "yeknal-pdf"
       ]
     },
+    "yeknal-slopscan": {
+      "title": "Slop scan",
+      "purpose": "Scans a codebase locally for AI-slop indicators such as stock marketing copy, placeholder text, gradient headline text, decorative emoji, stock icon sets and kit default colors, and writes a report that explains each finding and how to fix it.",
+      "tasks": [
+        "design",
+        "review"
+      ],
+      "whenToUse": [
+        "You want to know whether a codebase carries the familiar signs of a shipped template.",
+        "Copy or interface patterns need checking before a launch.",
+        "You want findings with locations and fixes rather than a general opinion."
+      ],
+      "avoid": "It reads source files only. It cannot see the rendered page, so checks that need a browser are reported as unassessed.",
+      "example": {
+        "ask": "Scan this project for AI slop before we launch.",
+        "outcome": "It reports each indicator with its file and line, a plain explanation and a fix, lists what it could not assess, and writes both a readable log and a JSON report."
+      },
+      "related": [
+        "yeknal-ui-quality-baseline",
+        "yeknal-review"
+      ]
+    },
     "yeknal-sora": {
       "title": "Sora video",
       "purpose": "Generates, edits, extends and downloads Sora videos, and runs batches of video jobs through a bundled command-line tool.",
