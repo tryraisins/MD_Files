@@ -75,10 +75,12 @@
     },
     {
       "title": "Verification",
-      "description": "Adversarial and browser-based verification workflows.",
+      "description": "Adversarial, browser-based and scripted end-to-end verification workflows.",
       "skills": [
         "yeknal-break-ui",
-        "yeknal-playwright"
+        "yeknal-playwright",
+        "yeknal-verification-audit",
+        "yeknal-verification-harness"
       ]
     }
   ]

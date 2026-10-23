@@ -42,7 +42,7 @@
     ]
   },
   "process": {
-    "description": "Optional domain modeling, delivery, GitHub, cleanup, exhaustive-output, and response-mode workflows beyond core.",
+    "description": "Optional domain modeling, delivery, cleanup, verification upkeep, GitHub, exhaustive-output, and response-mode workflows beyond core.",
     "skills": [
       "dead-code-hunter",
       "domain-modeling",
@@ -50,6 +50,8 @@
       "gh-address-comments",
       "gh-fix-ci",
       "i-have-adhd",
+      "verification-audit",
+      "verification-harness",
       "yeet"
     ]
   },

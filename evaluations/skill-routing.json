@@ -264,6 +264,22 @@
       "secondary": [],
       "mustNotLead": ["yeknal-troubleshoot", "yeknal-review"],
       "rationale": "This is search-performance diagnosis with query and page data, not application failure troubleshooting or a code review."
+    },
+    {
+      "id": "build-verification-harness",
+      "prompt": "There is no scripted way to prove this app works. Build one that launches it, drives a flow like a user and keeps the evidence.",
+      "primary": "yeknal-verification-harness",
+      "secondary": ["yeknal-testing-strategy"],
+      "mustNotLead": ["yeknal-playwright"],
+      "rationale": "Creating the harness is a repository-specific setup task; Playwright is only one possible driver inside it."
+    },
+    {
+      "id": "refresh-verification-map",
+      "prompt": "The feature map in our verify skill is out of date. Check every feature against the code and drive each one live.",
+      "primary": "yeknal-verification-audit",
+      "secondary": ["yeknal-verification-harness"],
+      "mustNotLead": ["yeknal-test-audit"],
+      "rationale": "Upkeep of a verification map is not an audit of test-suite value, and it must not edit product code."
     }
   ]
 }

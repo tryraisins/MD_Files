@@ -4,6 +4,20 @@ Last updated: 2026-10-23
 Branch: main
 HEAD: see git log; released source edf3ec6, catalog/tag e769323
 
+## Verification harness pair (2026-10-23)
+
+Two skills added from Lauren Tan's pstack (`cursor/plugins` at `4ec7ffa`): `yeknal-verification-harness` (generates a project-local launch/doctor/drive/evidence/cleanup skill plus a feature map) and `yeknal-verification-audit` (the upkeep pass: source wave per feature, one live session, at most one set of proven corrections). Catalog 91 to 93.
+
+Decisions with the user: pair 1 only. The formal-verification pair (`create-formal-verification-skill` and `maintain-formal-verification-skill`, TLA+/model checkers) was reviewed and deliberately left out because it only pays off where concurrency, parsers, or invariants exceed what tests reach, and would rot across a design-and-product catalog.
+
+Two upstream behaviors were changed during the port. The hardcoded `.cursor/skills/verify-<app>/` path became the project's own skill directory with `.agents/skills/` as the neutral fallback, because this catalog targets Codex, Claude, opencode, and Cursor. `disable-model-invocation: true` became "Use only when the user explicitly asks" in the description, because `tools/rewrite-standard.md` rejects unknown top-level frontmatter fields. `/create-verification-skill` and `/maintain-verification-skill` references became the two `yeknal-` skill names. The three upstream `references/feature-map-example/` files were carried over unchanged.
+
+Registration: both skills are in the `process` profile, not core, because core sat 303 characters under the 10,000-character discovery budget in `yeknal-cli/test/yeknal.test.js`. Also updated `skills.sh.json` (Verification group), `site/presentation.json` (task `review`; harness also `build`), `PROVENANCE.md`, `README.md` (process 7 to 9, all 91 to 93, upstream review paragraph, credits), `llms.txt`, and two `evaluations/skill-routing.json` cases (33 to 35).
+
+Verification: `skills-ref validate` passes both skills. `audit-skills.ps1`, routing evals, the CLI suite (50/50 including the profile-coverage and core-budget tests), `node tools/build-catalog.js --check`, and the portfolio `assemble` run all passed on this commit from a clean worktree. Relative links resolve and `git diff --check` is clean.
+
+Boundaries: `npx yeknal skills --skills verification-harness,verification-audit` needs a push, because manual installs read the public GitHub tree. `audit-markdown-links.ps1` cannot run here: it needs PowerShell 7 for `Path.GetRelativePath` and only 5.1 is installed. Release order unchanged: commit the source, run `node tools/build-catalog.js`, commit the catalog, push, then `--validate` and CI, then sync the portfolio.
+
 ## Content SEO skill rewrite (2026-10-23)
 
 `yeknal-content-seo` now carries procedures, not only guardrails. The trigger was an AI-SEO course that supplied the missing operational layer. `SKILL.md` grew from 81 to 104 lines: four new workflow steps (intent from observed results, winnability at current authority, a named differentiator, a distribution path before publishing), a reference-routing table, an extended AI-search section (search-backed vs training answers, fan-out queries, the self-ranking discount, logged-out sampling), a diff-gate step before replacing pages, and new rules against fabricated metrics, multi-page intent splits, and publishing without a differentiator.

@@ -2190,6 +2190,61 @@
         "yeknal-cloudflare-deploy"
       ]
     },
+    "yeknal-verification-audit": {
+      "title": "Verification audit",
+      "purpose": "Keeps a project's verification skill and feature map honest by rechecking every feature against source, driving every feature in one live session, and shipping only proven corrections.",
+      "tasks": [
+        "review"
+      ],
+      "whenToUse": [
+        "A verification skill or feature map has fallen behind the app.",
+        "You want every mapped feature exercised live, not just skimmed.",
+        "You need one clear outcome: clean, changed or blocked."
+      ],
+      "avoid": "It never edits product code; a real regression is reported, not fixed here.",
+      "example": {
+        "ask": "Audit the verify skill before we cut the release.",
+        "outcome": "It reads each feature from source, drives all of them in one session, fixes stale map entries and reports what is actually broken."
+      },
+      "attribution": {
+        "credit": "Adapted from Lauren Tan's pstack skill of the same name.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/cursor/plugins/tree/main/pstack"
+      },
+      "related": [
+        "yeknal-verification-harness",
+        "yeknal-testing-strategy",
+        "yeknal-troubleshoot"
+      ]
+    },
+    "yeknal-verification-harness": {
+      "title": "Verification harness",
+      "purpose": "Generates a project-local skill that launches the real app, drives a feature the way a user would, and captures proof, with a feature map for the next agent to follow.",
+      "tasks": [
+        "review",
+        "build"
+      ],
+      "whenToUse": [
+        "A repository has no scripted way to prove its UI, CLI or service behavior.",
+        "You are tired of re-deriving how to start the app and check a flow.",
+        "You want screenshots, transcripts or response bodies kept as evidence."
+      ],
+      "avoid": "It builds the harness; for what counts as proof, use Testing strategy.",
+      "example": {
+        "ask": "This repo has no way to prove a flow end to end. Set one up.",
+        "outcome": "It inspects how the app starts and can be driven, writes a verify skill with launch, doctor, drive, evidence and cleanup, seeds a feature map and then proves it once."
+      },
+      "attribution": {
+        "credit": "Adapted from Lauren Tan's pstack skill of the same name.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/cursor/plugins/tree/main/pstack"
+      },
+      "related": [
+        "yeknal-testing-strategy",
+        "yeknal-playwright",
+        "yeknal-verification-audit"
+      ]
+    },
     "yeknal-winui-app": {
       "title": "WinUI apps",
       "purpose": "Creates and develops WinUI 3 desktop apps in C# with the Windows App SDK, following Microsoft’s guidance and WinUI Gallery patterns.",

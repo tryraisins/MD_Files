@@ -152,7 +152,7 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | Profile | Skills | Purpose |
 | --- | ---: | --- |
 | `core` | 37 | High-frequency process, design, implementation, verification, and security. |
-| `process` | 7 | Optional domain modeling, delivery, cleanup, GitHub, exhaustive-output, and response workflows beyond core. |
+| `process` | 9 | Optional domain modeling, delivery, cleanup, verification upkeep, GitHub, exhaustive-output, and response workflows beyond core. |
 | `design` | 25 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
 | `security` | 4 | The four distinct security output contracts. |
 | `web` | 6 | Specialist web apps, frameworks, SEO, launch readiness, and production errors beyond core. |
@@ -160,7 +160,7 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
 | `productivity` | 5 | Linear and Notion workflows. |
 | `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 91 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 93 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects`, `yeknal-mobile-app-design`, `yeknal-human-ai-interface-design`, and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-emil-design-eng`, `yeknal-find-animation-opportunities`, `yeknal-improve-animations`, and `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping, Figma, and image-led workflows remain in the design pack because their triggers and output contracts differ. The skill router still fetches a task-specific specialist when one is missing. Security keeps four folders for the same reason: implementation, review, threat modeling, and ownership analysis are not interchangeable artifacts.
 
@@ -248,6 +248,8 @@ The 2026-10-03 refresh reviewed [emilkowalski/skills](https://github.com/emilkow
 
 The 2026-10-07 workflow review examined [mattpocock/skills](https://github.com/mattpocock/skills) at `f3fc5632f401156837ee3872f14fe33ccf1024ea`. Its domain-modeling practice informed `yeknal-domain-modeling`, an independently written glossary/ADR workflow with no source text copied.
 
+The 2026-10-23 review examined pstack in [cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack) at `4ec7ffa173eaa70d3d9467a627baf0954645a353`. Two behavioral-verification workflows were adapted as `yeknal-verification-harness` and `yeknal-verification-audit`, both in the `process` profile: the first generates a project-local skill with launch, doctor, drive, evidence, cleanup, and a feature map; the second keeps that map honest with one live pass. Upstream is MIT (Copyright 2026 Lauren Tan), so each skill bundles the notice. Two upstream behaviors changed. The hardcoded `.cursor/skills/verify-<app>/` path becomes the project's own skill directory with `.agents/skills/` as the neutral fallback, and the `disable-model-invocation` flag becomes explicit-only wording in the description, because this catalog's frontmatter contract allows only known fields. The formal-verification pair (model checkers, provers, TLA+) was reviewed and left out: it pays off only where concurrency, parsers, or invariants exceed what tests reach, and carrying it across a design-and-product catalog would add upkeep without demand.
+
 The 2026-09-12 refresh additionally reviewed:
 
 - `anthropics/skills` at `41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f`;
@@ -298,6 +300,7 @@ This catalog adapts and consolidates work from many upstream authors. Full sourc
 - Leonxlnx ([leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill), MIT) for the taste-skill design derivatives.
 - Emil Kowalski ([emilkowalski/skills](https://github.com/emilkowalski/skills), MIT) for `yeknal-emil-design-eng`, `yeknal-break-ui`, and the motion craft bar, with the mobile-native web guidance folded into `yeknal-ui-quality-baseline`.
 - Appllama (MIT), [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) (MIT), [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) (MIT), and NeetigyaShah/deep-research (MIT).
+- Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack) (MIT) for `yeknal-verification-harness` and `yeknal-verification-audit`.
 - Microsoft, Figma, OpenAI, Notion, Vercel, Cloudflare, Netlify, Render, Sentry, Linear, and GitHub for provider and platform skills.
 - Rare UI (MIT + Commons Clause + Attribution), referenced for component selection; not vendored. Any project that installs a Rare UI component must retain its notice and add a README credit linking to [rareui.com](https://www.rareui.com).
 

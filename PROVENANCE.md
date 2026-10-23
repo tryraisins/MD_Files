@@ -14,6 +14,8 @@ Legend: **Explicit** = `metadata.source` in frontmatter. **Notice** = bundled `L
 | `yeknal-i-have-adhd` | [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | MIT | `LICENSE.txt` | OK |
 | `yeknal-mobile-app-design` | [Appllama/appllama-skills](https://github.com/Appllama/appllama-skills) | MIT | `LICENSE.txt` | OK |
 | `yeknal-oil-motion` | [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) | MIT | `LICENSE.txt` | OK |
+| `yeknal-verification-harness` | [cursor/plugins](https://github.com/cursor/plugins) (`pstack/skills/create-verification-skill`) | MIT | `LICENSE.txt` | OK |
+| `yeknal-verification-audit` | [cursor/plugins](https://github.com/cursor/plugins) (`pstack/skills/maintain-verification-skill`) | MIT | `LICENSE.txt` | OK |
 
 ## Derived with bundled notice
 

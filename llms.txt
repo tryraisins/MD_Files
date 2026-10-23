@@ -36,3 +36,5 @@ yeknal-research-analysis: Canonical evidence-backed research workflow, including
 yeknal-i-have-adhd: Explicit-only persistent response mode with action-first structure, bounded steps, visible state, and evidence-based time estimates.
 yeknal-break-ui: Adversarial worst-case data stress test for a component or screen, reporting each break and its fix against the shared UI quality baseline.
 yeknal-domain-modeling: Clarify domain concepts, maintain a project glossary, and record durable architecture decisions as ADRs only when the tradeoff warrants it.
+yeknal-verification-harness: Generate a project-local verification skill that launches the real app, drives a feature like a user, and keeps provable artifacts, with a maintained feature map.
+yeknal-verification-audit: Keep a verification skill and its feature map honest by checking every feature against source and driving every feature in one live session, then shipping only proven corrections.
