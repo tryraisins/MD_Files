@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "eff3d2aaa881ed3f007d2454a1dca623d8c71859",
+  "sourceRevision": "565e10b96cdab30bc8c3089ffa7f1c201b9c3854",
   "version": "2.5.1",
   "skills": [
     {
@@ -2384,7 +2384,7 @@
     },
     {
       "name": "yeknal-content-seo",
-      "description": "Unified content marketing and technical SEO guidance for useful, accessible web content. Use when planning, writing, auditing, or improving pages, metadata, information architecture, structured data, crawlability, sitemaps, canonicalization, AI-search visibility, or change-driven IndexNow submission.",
+      "description": "Evidence-led search visibility guidance for content, technical SEO, local search, earned links, and AI answers. Use when choosing target queries, deciding whether to update or create a page, writing or publishing pages, auditing metadata, structure, structured data, crawlability, sitemaps, or canonicalization, triaging traffic changes, improving local or AI-search visibility, or submitting changed URLs with IndexNow.",
       "keywords": [
         "and",
         "brand",
@@ -2392,30 +2392,68 @@
         "during",
         "existing",
         "information",
+        "load",
         "metadata",
         "optimization",
         "page",
         "performance",
         "protect",
+        "reference",
         "review",
         "rules",
         "search",
         "seo",
         "value",
+        "when",
         "workflow",
         "yeknal-content-seo"
       ],
-      "version": "3dafef01dfe91b51852ff404a7caef64a376349cceb8edb9d694bf84ce0332f3",
+      "version": "9e3022df5c6321363375dbb826f999ada88c7e96ca07488f6fc5fb78ebb5e3e1",
       "files": [
+        {
+          "path": "references/authority-and-links.md",
+          "sha256": "cd1ff8bb41bbd63e6f6ed1c07b3a2c65635790c5d9fd453c64c340dab73df41f",
+          "size": 9290
+        },
+        {
+          "path": "references/content-maintenance.md",
+          "sha256": "d51c3c183abc2a818ed453adadc4ea5e88ae355edefee9e1669fc681937d01d2",
+          "size": 5544
+        },
         {
           "path": "references/indexnow.md",
           "sha256": "37a95981c161c0419ae367f2ace255dd41450d1b7fdc9bcc9fffc39e396a2e37",
           "size": 3978
         },
         {
+          "path": "references/keyword-intent-and-patterns.md",
+          "sha256": "dd90d628d05e6c59db6fb7acc5b9306a6fb28b2095832080f7f21cd616fd83bc",
+          "size": 7527
+        },
+        {
+          "path": "references/local-search.md",
+          "sha256": "1a02b2e1325e8aeb347df3c282091213c665f923affd55254cbb8c377bde5696",
+          "size": 6221
+        },
+        {
+          "path": "references/page-decisions-and-briefs.md",
+          "sha256": "a16ae7c5b08e98f097aa0a6970bd4f723e53eeaaf0490606a9b3ea221a7c70f9",
+          "size": 8088
+        },
+        {
+          "path": "references/publishing-and-change-control.md",
+          "sha256": "24e379d7eaad512cca11ad2494b2a8a026cf505113d63e775aff557d4b0d533c",
+          "size": 4799
+        },
+        {
+          "path": "references/technical-audit.md",
+          "sha256": "f82e4a734401bc733984962a08f3a815eaf453b4832f6b619102b2300cc1c00e",
+          "size": 6656
+        },
+        {
           "path": "SKILL.md",
-          "sha256": "50fe5267eea50a20a0b9584f57ca4a128b16349a952b64418f8567247cfac591",
-          "size": 9226
+          "sha256": "1c2b5afd6d6dc10905dc70428591abc3acdf55b4d483bfe898554afc7f578f64",
+          "size": 12756
         }
       ]
     },
