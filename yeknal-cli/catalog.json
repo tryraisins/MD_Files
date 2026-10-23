@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "8072c87bf7a7b4405d2154d9e98777760ac53e76",
+  "sourceRevision": "0313b4b91a12894063ef675649d4d76c8883b3c2",
   "version": "2.5.0",
   "skills": [
     {
@@ -412,7 +412,7 @@
         "workflow",
         "yeknal-aspnet-core"
       ],
-      "version": "be978f12e7df2341cd09e3c60416320bd8dcb6799aa4223c3b09e2bfb18d691f",
+      "version": "8fc6139eace45ed49b570f040ccb4cd452244b1392eedba6c0bc7cb5407a7958",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -471,8 +471,8 @@
         },
         {
           "path": "references/testing-performance-and-operations.md",
-          "sha256": "14fecd1e3f5c7a54de2e7ffdd51a91a52101da5765f1ccdfd1f6c6437dd6c8ec",
-          "size": 2698
+          "sha256": "193203a1d03a6e9f163fdffd8fa0f28ac02cc27a94854e29870c6caaa2eaea00",
+          "size": 2916
         },
         {
           "path": "references/ui-blazor.md",
@@ -3919,12 +3919,12 @@
         "workflow",
         "yeknal-implement"
       ],
-      "version": "bfdd78e7f6f734286afb1071fa88bde85f305650760cbeff67d71ddd9635bdf2",
+      "version": "b4166324001e18f73ed9e8dac65667b2bc7b8e8955b5225c2f4b9e71bf1a4f17",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "98bb9b09eea3a84dcb8b4d324ef98d933ab5beff2abb84204383b037c3e065ee",
-          "size": 4607
+          "sha256": "dd53ac0f5994313776dc6c0d62966eb261319a3c6bc216dbc314ab0eeb912541",
+          "size": 4720
         }
       ]
     },
@@ -5010,7 +5010,7 @@
         "workflow",
         "yeknal-notion-spec-to-implementation"
       ],
-      "version": "bfead02471d21ce36819356a32fa32e9e745d77c47819d3f18ee1ef08bdee727",
+      "version": "d6a7372975a24f823079bf2d58062e2b7853eb8357af1a9d872096c1094f16f8",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -5099,8 +5099,8 @@
         },
         {
           "path": "reference/task-creation.md",
-          "sha256": "df1bec09816ab7beffe7a675eaab24fd62dc01617141cf8deb48f72a735b7ee5",
-          "size": 8209
+          "sha256": "0eaf8bbf51aa24165bf99bd3578cbd65936f73ff11f612e5f5166a008113fcaa",
+          "size": 8312
         },
         {
           "path": "SKILL.md",
@@ -5391,7 +5391,7 @@
         "wrapper",
         "yeknal-playwright"
       ],
-      "version": "8d64b3217b7967b25ac40928f50502e497dce1481d1ea4ebe2bc14ec85cca2db",
+      "version": "b644e6163cba4c276a50856dc088628f3c3d7a83e13c9160976db59b82be583f",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -5435,8 +5435,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "1e403e1b98fca2078b6800cb2ab86822c96979110eb8bd92e572fba16da95446",
-          "size": 4973
+          "sha256": "b3c12fab8afa624166fd9329d8f02f75361849a31c90edaaca35975a104f32be",
+          "size": 5159
         }
       ]
     },
@@ -7002,23 +7002,27 @@
     },
     {
       "name": "yeknal-testing-strategy",
-      "description": "Use before testing implementation work to prefer end-to-end coverage and plan failure cases before isolated test implementations.",
+      "description": "Use before writing or running tests to enforce end-to-end-only verification. Do not write unit tests; prove behavior through the real entry point, keep a repeatable artifact, and report what stayed unverified.",
       "keywords": [
-        "approach",
-        "default",
-        "isolation",
+        "artifacts",
+        "boundary",
+        "cannot",
+        "e2e",
+        "end-to-end",
+        "only",
+        "reach",
         "strategy",
-        "system",
         "testing",
+        "when",
         "workflow",
         "yeknal-testing-strategy"
       ],
-      "version": "803ef414ef872efa0e49f4c8b88de66425e4bcf8068909b89170add3cb7b2214",
+      "version": "f52fe17912e989a9cf82bf4e3f2c99abda5b458148e4c0994f09c8068ae9631d",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "ee32df8dcd9296962e20388bcf92ec14824ebbcf2f4be8e6e76da3e6a69c3aaa",
-          "size": 2332
+          "sha256": "8c672787d32e07e97681f6f3d62b9f117028cbe707a4df39c4acf245ee98f461",
+          "size": 3470
         }
       ]
     },
