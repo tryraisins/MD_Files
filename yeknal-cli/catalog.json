@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "f00caadb729f8f787bfa1a1e72a2ef0a1df8342e",
+  "sourceRevision": "8072c87bf7a7b4405d2154d9e98777760ac53e76",
   "version": "2.5.0",
   "skills": [
     {
@@ -4128,6 +4128,68 @@
           "path": "SKILL.md",
           "sha256": "ad8d0b85969e6e653d81ce531542f1c8e2c989111da628a09710bd4add57e397",
           "size": 4240
+        }
+      ]
+    },
+    {
+      "name": "yeknal-launch-readiness",
+      "description": "Audit a product for launch readiness before it becomes publicly reachable, covering the legal obligations that attach to the data, payments, email and user content it handles, plus the engineering gates no other workflow owns, then produce one register and a go or no-go. Use when someone asks whether an app is ready to launch or to ship to real users, or before public availability.",
+      "keywords": [
+        "acting",
+        "already",
+        "and",
+        "boundaries",
+        "elsewhere",
+        "fits",
+        "gates",
+        "handoff",
+        "hard",
+        "launch",
+        "legal",
+        "owned",
+        "readiness",
+        "references",
+        "register",
+        "regulatory",
+        "rules",
+        "table",
+        "the",
+        "this",
+        "where",
+        "workflow",
+        "yeknal-launch-readiness"
+      ],
+      "version": "f45155ff651356f1667cbf597f03bce9d9306a41c0dceacd3fd8885c194a4f05",
+      "files": [
+        {
+          "path": "references/evidence-and-fixes.md",
+          "sha256": "5a43626c0dc6c1b1270731710e809bd79108770c23b5854e0fed25136e43b265",
+          "size": 6526
+        },
+        {
+          "path": "references/jurisdictions.md",
+          "sha256": "60de2728b14bc00c8886a3058a9596769d057be35fdf77052aeff57eb298ca62",
+          "size": 15007
+        },
+        {
+          "path": "references/launch-gates.md",
+          "sha256": "29d0d25c99ead50448e03d27d1b290dd022e85cf02f7d9f85bb43c85672cdd50",
+          "size": 7153
+        },
+        {
+          "path": "references/obligations.md",
+          "sha256": "d4a99d9eeccea611d6a4cb390edb8c4dba25815d4023ec641751f2cbc684f94e",
+          "size": 9546
+        },
+        {
+          "path": "references/report-template.md",
+          "sha256": "63eec6cbc513354f3b935664c525a347c5da5c3b1a67c179fd7e565ae0062d89",
+          "size": 3143
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "98e79b1b9d4e709180397f28de804d388c08d15b7e103dd6b89cc50589dca11b",
+          "size": 8085
         }
       ]
     },
