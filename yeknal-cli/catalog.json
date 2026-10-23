@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "edf3ec64781c24428e87cb869225a4bab077619c",
-  "version": "2.4.0",
+  "sourceRevision": "f00caadb729f8f787bfa1a1e72a2ef0a1df8342e",
+  "version": "2.5.0",
   "skills": [
     {
       "name": "yeknal-add-changelog",
@@ -6473,6 +6473,40 @@
           "path": "SKILL.md",
           "sha256": "3855baa854d194bc1e171c76dcf13e8853083468966c2c794ff8025c8802b837",
           "size": 4537
+        }
+      ]
+    },
+    {
+      "name": "yeknal-slopscan",
+      "description": "Scan a codebase locally for AI-slop indicators such as stock marketing copy, placeholder text, gradient headline text, decorative emoji, stock icon sets and kit default colors, then act on the report. Use when a project should be checked for the familiar signs of a shipped template, when copy or interface patterns need reviewing before a launch, or when someone asks whether a codebase reads as generic.",
+      "keywords": [
+        "acting",
+        "aligned",
+        "cannot",
+        "findings",
+        "keeping",
+        "projects",
+        "purpose",
+        "reading",
+        "report",
+        "running",
+        "scan",
+        "slop",
+        "the",
+        "this",
+        "two",
+        "use",
+        "verification",
+        "what",
+        "when",
+        "yeknal-slopscan"
+      ],
+      "version": "f9fefbde49b0762bc4d9fd40cbb4324a4e6f216532150c09ecd3a40ca72648b7",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "eaa80f9f839ffb9645182e959a5a08c66968f0a0f2fcdf331fd04024dd886ee2",
+          "size": 5964
         }
       ]
     },
