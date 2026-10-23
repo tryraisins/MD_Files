@@ -4,6 +4,24 @@ Last updated: 2026-10-23
 Branch: main
 HEAD: see git log; released source edf3ec6, catalog/tag e769323
 
+## Launch readiness skill (2026-10-23)
+
+New skill `skills/yeknal-launch-readiness` with five references: `obligations.md` (Register A by surface), `jurisdictions.md` (NG, EU/EEA, UK, US federal, US California), `launch-gates.md` (Register B), `evidence-and-fixes.md` (detection recipes and what source cannot prove), `report-template.md`.
+
+The work started from a pre-launch compliance checklist and a twenty-item pre-launch prompt. Two decisions were settled with the user: one skill rather than a legal skill plus an engineering skill, because both fire on the same trigger and produce one artifact; and a jurisdiction-neutral matrix with Nigeria leading, because the NDPA follows the data subject and the GAID filing cycle applies to small teams.
+
+Register B covers the seven gates no existing skill owned: database access rules, a tested restore, a performance budget on a mid-tier phone, email deliverability, cost containment with a per-user quota, rollback including migration reversibility, and consent-gated analytics. Thirteen further checks are cross-referenced to `application-security`, `sentry`, `ui-quality-baseline`, `content-seo`, the deployment skills, and the testing skills, and are deliberately not restated.
+
+Registration: `web` profile 5 to 6, `platform` 7 to 8, core unchanged at 37, catalog 91. Also updated `site/presentation.json`, `PROVENANCE.md` originals list, `SKILL_AUDIT.md` (new decision section), `README.md` counts plus a Launch readiness group, and the folder count in `yeknal-cli/README.md`.
+
+Verification: skill audit 91 skills, 0 errors, 0 warnings. CLI suite 50/50 including the profile validity and core-budget test. `node yeknal-cli/bin/yeknal.js profiles` lists `launch-readiness` under `web` and `platform`. Presentation entry parses, its task ids are valid, its key set matches an existing entry, and every `related` target exists. Repository-wide relative links 1,071 checked, 0 broken, using a Node walk because `audit-markdown-links.ps1` needs PowerShell 7 (`Path.GetRelativePath`) and this machine has only 5.1. `git diff --check` clean.
+
+Two rows inside the skill are flagged `verify` on purpose rather than asserted: the GAID DCPMI tier thresholds, and the specific CBN instrument governing recurring card mandates. Keep that treatment.
+
+Pre-commit boundary, not a defect. `tools/build-catalog.js` builds from the committed tree by design, so `--check` still passes and `tools/sync-portfolio.js --validate` fails with two expected errors: catalog behind the working tree, and the presentation entry having no catalog match yet. Release order is unchanged: commit the source, run `node tools/build-catalog.js`, commit the catalog, push, then `--validate` and CI.
+
+Not built: a scanner. `references/evidence-and-fixes.md` records the measured subset so a later `npx yeknal` scan has a specification instead of a guess.
+
 ## Slop scan command (2026-10-23)
 
 `npx yeknal slopscan` is a new command. It scans a local codebase for AI-slop indicators, writes `yeknal-slopscan.log` and `yeknal-slopscan.json`, and names the checks it cannot perform without a rendered page. It is local only: no network request, no browser, no dependency, and no skill syncing (unlike `security`, which downloads and syncs).

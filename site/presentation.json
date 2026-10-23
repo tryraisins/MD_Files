@@ -1162,6 +1162,31 @@
         "yeknal-research-analysis"
       ]
     },
+    "yeknal-launch-readiness": {
+      "title": "Launch readiness",
+      "purpose": "Audits a product before it becomes publicly reachable, covering the legal obligations that attach to the data, payments, email and user content it handles, plus the engineering gates no other workflow owns, then returns one register and a go or no-go.",
+      "tasks": [
+        "review",
+        "ship",
+        "security"
+      ],
+      "whenToUse": [
+        "You are about to let strangers reach the product for the first time.",
+        "You need to know which privacy, payment, email and content duties apply to you, in Nigeria or elsewhere.",
+        "You want the unglamorous checks done: database rules, a tested restore, a real performance budget, deliverability, spend caps, a rollback plan."
+      ],
+      "avoid": "It is not legal advice and it is not a code review. It never states a statutory maximum as a likely outcome, and it marks anything it cannot verify as unassessed rather than guessing.",
+      "example": {
+        "ask": "We launch on Monday. What are we missing?",
+        "outcome": "It builds a data map from the code, checks it against the applicable obligations and the seven launch gates, then returns a verdict with blockers first, the filings that need lead time, and every check it could not perform."
+      },
+      "related": [
+        "yeknal-application-security",
+        "yeknal-finalize",
+        "yeknal-sentry",
+        "yeknal-testing-strategy"
+      ]
+    },
     "yeknal-linear": {
       "title": "Linear",
       "purpose": "Reads, creates and updates issues, projects and team workflows in Linear.",
@@ -2039,7 +2064,7 @@
       "whenToUse": [
         "You are about to add tests for a feature.",
         "You want coverage of real user flows and error paths.",
-        "Unit tests keep being written after the code instead of before it."
+        "An agent is about to write unit tests instead of an end-to-end flow."
       ],
       "example": {
         "ask": "Plan how we should test the new password-reset flow.",

@@ -155,12 +155,12 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | `process` | 7 | Optional domain modeling, delivery, cleanup, GitHub, exhaustive-output, and response workflows beyond core. |
 | `design` | 25 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
 | `security` | 4 | The four distinct security output contracts. |
-| `web` | 5 | Specialist web apps, frameworks, SEO, and production errors beyond core. |
-| `platform` | 7 | Platform-specific engineering and deployment. |
+| `web` | 6 | Specialist web apps, frameworks, SEO, launch readiness, and production errors beyond core. |
+| `platform` | 8 | Platform-specific engineering, deployment, and launch readiness. |
 | `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
 | `productivity` | 5 | Linear and Notion workflows. |
 | `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 90 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 91 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects`, `yeknal-mobile-app-design`, `yeknal-human-ai-interface-design`, and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-emil-design-eng`, `yeknal-find-animation-opportunities`, `yeknal-improve-animations`, and `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping, Figma, and image-led workflows remain in the design pack because their triggers and output contracts differ. The skill router still fetches a task-specific specialist when one is missing. Security keeps four folders for the same reason: implementation, review, threat modeling, and ownership analysis are not interchangeable artifacts.
 
@@ -226,6 +226,14 @@ pwsh -NoProfile -File .\skills\yeknal-markdown-management\scripts\audit-installe
 The guidance covers current OWASP web/API risks, secure authentication and password storage, software supply chains, exceptional conditions, and prompt/tool/agent boundaries. Static checks are evidence, not proof of live authorization, deployment, tenant, browser, or provider behavior.
 
 Security scan checks use stable IDs and link to current `Security-Master.md` anchors. The CLI writes `yeknal-security.log`, `yeknal-security.json`, and SARIF 2.1.0 `yeknal-security.sarif`; all three are ignored by Git by default.
+
+### Launch readiness
+
+`yeknal-launch-readiness` runs once per product, not per change, against the obligations that begin when a stranger can reach it. It covers the legal surfaces (data collected, third-party embeds and transfers, minors, marketing email, subscriptions and payments, user content, accessibility, AI features, breach response, vendors) and the seven engineering gates no other skill owns: database access rules, a restore that was actually tested, a performance budget measured on a mid-tier phone, email sender authentication, cost caps with a per-user quota, a rollback plan that includes migration reversibility, and consent-gated analytics.
+
+Nigeria leads the jurisdiction matrix because the NDPA follows the data subject, so a product with no Nigerian entity still owes Nigerian users the full set of duties, and the NDPC GAID filing cycle applies to small teams. The matrix then covers EU/EEA, UK, US federal, and US California, and tells the agent how to extend it rather than improvising.
+
+The skill is read-only by default and explicitly not legal advice. It never presents a statutory maximum as a likely outcome, marks anything unverifiable as `unassessed`, and refuses the word "compliant". Everything already owned by `yeknal-application-security`, `yeknal-sentry`, `yeknal-ui-quality-baseline`, `yeknal-content-seo`, the deployment skills, or the testing skills is cross-referenced rather than restated.
 
 ### SEO discovery
 

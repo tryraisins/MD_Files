@@ -98,6 +98,7 @@
       "chatgpt-apps",
       "content-seo",
       "develop-web-game",
+      "launch-readiness",
       "nextjs-developer",
       "sentry"
     ]
@@ -107,6 +108,7 @@
     "skills": [
       "aspnet-core",
       "cloudflare-deploy",
+      "launch-readiness",
       "netlify-deploy",
       "render-deploy",
       "vercel-deploy",

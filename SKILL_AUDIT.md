@@ -116,6 +116,18 @@ Deep Research extends the canonical research workflow instead of duplicating it.
 
 The official IndexNow protocol and LaunchIgniter submitter are covered in `content-seo/references/indexnow.md`, with submission receipt kept separate from crawling, indexing, and ranking evidence.
 
+## Launch readiness (2026-10-23)
+
+One skill was added rather than two, and it was deliberately not folded into `yeknal-application-security`.
+
+The trigger is a single event: a product becomes publicly reachable. Legal obligations and launch engineering both fire on that event and both produce the same artifact, one register with a go or no-go. Splitting them across two skills would make them compete for the same request. Folding legal duties into `application-security` would blur the boundary this audit protects elsewhere, where secure implementation, framework review, threat modeling, and ownership analysis stay separate because their artifacts differ.
+
+`yeknal-launch-readiness` therefore owns two registers. Register A covers legal and regulatory surfaces, with the instruments in `references/jurisdictions.md` and the checks in `references/obligations.md`. Register B covers seven gates that no existing skill owned: database access rules, tested restore, performance budget, email deliverability, cost containment, rollback including migration reversibility, and consent-gated analytics. Thirteen further checks are cross-referenced to their owners and are not restated.
+
+Nigeria was made the leading jurisdiction at the user's request. The NDPA 2023 applies to any product processing the data of a data subject in Nigeria, the GAID 2025 replaced NDPR 2019 entirely from 19 September 2025, and the NITDA intermediary code and Copyright Act 2022 takedown regime differ enough from their US counterparts that a copied template fails. Two rows ship flagged `verify` rather than asserted: the GAID tier thresholds, and the specific CBN instrument governing recurring card mandates. The skill's own rules require that treatment for any figure not confirmed from a primary source.
+
+`references/evidence-and-fixes.md` records the measured subset so that a future scanner has a specification rather than a guess. No scanner was built, following the slop-scan precedent that the rule catalog should settle before it is codified.
+
 ## Security refresh
 
 The old duplicate raw security prompt files and generated audit log were removed. `yeknal-application-security` and its reference baseline now cover:
