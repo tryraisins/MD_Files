@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "565e10b96cdab30bc8c3089ffa7f1c201b9c3854",
+  "sourceRevision": "e25b3e4424766d1ee620053e73ea899388dcba84",
   "version": "2.5.1",
   "skills": [
     {
@@ -7351,6 +7351,93 @@
           "path": "SKILL.md",
           "sha256": "d37bcf31a047a33206ade33a54fe66ab23a44af39e57d4d2b0781eda6528b169",
           "size": 2663
+        }
+      ]
+    },
+    {
+      "name": "yeknal-verification-audit",
+      "description": "Keep a project's verification skill and feature map honest by checking every feature against source, driving every feature in one live session, and shipping at most one set of proven corrections. Use only when the user explicitly asks to audit, refresh, or maintain a verify skill or its feature map.",
+      "keywords": [
+        "audit",
+        "edit",
+        "outcomes",
+        "pass",
+        "related-skill",
+        "routing",
+        "scope",
+        "verification",
+        "yeknal-verification-audit"
+      ],
+      "version": "fa0db19791865386cd6ce1fc2e36a972bb0d8e73834bc0c8cd94f8cd5064975a",
+      "files": [
+        {
+          "path": "LICENSE.txt",
+          "sha256": "c7dda0c0458c83912926bd8812f5f7ba30a186ac6a2785c5e42191ac829ae944",
+          "size": 1142
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "2c1930eda8083dec43a97cb2be15ba653aeb2516520b7c56e09040ffa8686105",
+          "size": 5438
+        }
+      ]
+    },
+    {
+      "name": "yeknal-verification-harness",
+      "description": "Generate a project-local verification harness that starts a real app, drives a feature the way a user does, and captures proof, for any language, framework, or platform. Use only when the user explicitly asks to set one up for a repository that has no scripted way to prove UI, CLI, or service behavior.",
+      "keywords": [
+        "before",
+        "choose",
+        "feature",
+        "generate",
+        "generated",
+        "hand",
+        "handing",
+        "harness",
+        "interview",
+        "lives",
+        "map",
+        "not",
+        "off",
+        "over",
+        "prove",
+        "related-skill",
+        "repo",
+        "routing",
+        "seed",
+        "skill",
+        "the",
+        "user",
+        "verification",
+        "where",
+        "yeknal-verification-harness"
+      ],
+      "version": "e34cf8f7b2d81284141ad4f30b974cfbab2432e571edd7f3e32edf90cbbc6753",
+      "files": [
+        {
+          "path": "LICENSE.txt",
+          "sha256": "c7dda0c0458c83912926bd8812f5f7ba30a186ac6a2785c5e42191ac829ae944",
+          "size": 1142
+        },
+        {
+          "path": "references/feature-map-example/create-note.md",
+          "sha256": "644a44c74f35d38c2feb7cd05a0121fdebbb623e8dc376c185b565a581d1ccf7",
+          "size": 2926
+        },
+        {
+          "path": "references/feature-map-example/README.md",
+          "sha256": "cb7bd782cf89968a4ba3d58a5151db837430db92d19a6f52a906973b77b516ba",
+          "size": 2601
+        },
+        {
+          "path": "references/feature-map-example/search.md",
+          "sha256": "6e87b9e7f2791a7776ba1bb83f371cd285c306c67f19d245cc4dd6ca3015c823",
+          "size": 3478
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "21b96ecbd1f739200348cb3f67444f90b9d984db39935cb4d1fd7d5dcbbcfc6f",
+          "size": 7912
         }
       ]
     },
