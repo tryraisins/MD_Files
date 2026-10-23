@@ -609,4 +609,3 @@ test("the security scan still reads exactly the files it read before the shared 
     assert.equal(yeknal.isSecurityScanFile("App.csproj"), true);
   });
 });
-
