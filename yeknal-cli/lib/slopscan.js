@@ -428,13 +428,13 @@ function extractDeclarations(clean, starts) {
   return declarations;
 }
 
-/** Every string literal in the file, for import and copy scanning. */
-function extractStringLiterals(clean) {
+/** Every string literal in the file, with its line, for import and copy scanning. */
+function extractStringLiterals(clean, starts) {
   const values = [];
   const re = /(["'`])((?:\\.|(?!\1)[^\\])*)\1/g;
   let match;
   while ((match = re.exec(clean)) !== null) {
-    values.push(match[2]);
+    values.push({ value: match[2], line: starts ? lineAt(starts, match.index) : 1 });
   }
   return values;
 }
@@ -503,14 +503,14 @@ function analyseFile(filePath, source, context) {
 
   const { nodes, classStrings } = isMarkup ? extractMarkup(clean, starts) : { nodes: [], classStrings: [] };
   const declarations = isStyle ? extractDeclarations(clean, starts) : [];
-  const stringLiterals = extractStringLiterals(clean);
+  const stringLiterals = extractStringLiterals(clean, starts);
 
   // For script files the class strings still matter, since Tailwind classes
   // often live in template literals rather than class attributes.
   if (!isMarkup && !isStyle) {
-    for (const literal of stringLiterals) {
-      if (/[a-z-]+:(?:bg|text|border|from|via|to|ring|fill|stroke|shadow|backdrop|animate|outline)-/.test(literal)) {
-        classStrings.push({ value: literal, line: 1 });
+    for (const { value, line } of stringLiterals) {
+      if (/[a-z-]+:(?:bg|text|border|from|via|to|ring|fill|stroke|shadow|backdrop|animate|outline)-/.test(value)) {
+        classStrings.push({ value, line });
       }
     }
   }
@@ -702,17 +702,19 @@ function runSupportingRules(collector, filePath, ctx) {
     const classHits = classStrings.filter((cls) => TAILWIND_COLOR_CLASS_RE.test(cls.value));
     const hexHits = [];
     for (const literal of stringLiterals) {
-      const hexes = literal.match(/#[0-9a-fA-F]{6}\b/g) || [];
-      for (const hex of hexes) if (KIT_HEX.has(hex.toLowerCase())) hexHits.push(hex);
+      const hexes = literal.value.match(/#[0-9a-fA-F]{6}\b/g) || [];
+      for (const hex of hexes) if (KIT_HEX.has(hex.toLowerCase())) hexHits.push({ hex, line: literal.line });
     }
     for (const decl of declarations) {
       const hexes = decl.value.match(/#[0-9a-fA-F]{6}\b/g) || [];
-      for (const hex of hexes) if (KIT_HEX.has(hex.toLowerCase())) hexHits.push(hex);
+      for (const hex of hexes) if (KIT_HEX.has(hex.toLowerCase())) hexHits.push({ hex, line: decl.line });
     }
     const uses = classHits.length + hexHits.length;
     if (uses >= 3) {
-      const named = hexHits.length ? KIT_HEX.get(hexHits[0].toLowerCase()) : "a Tailwind accent class";
-      collector.add("default-palette", filePath, classHits[0] ? classHits[0].line : 1, classHits.length ? classHits[0].value : hexHits[0], `${uses} uses of a kit accent colour in this file, including ${named}. The theme may override it, so an untouched default is not established.`);
+      const example = classHits[0]
+        ? { text: classHits[0].value, line: classHits[0].line, name: "a Tailwind accent class" }
+        : { text: hexHits[0].hex, line: hexHits[0].line, name: KIT_HEX.get(hexHits[0].hex.toLowerCase()) };
+      collector.add("default-palette", filePath, example.line, example.text, `${uses} uses of a kit accent colour in this file, including ${example.name}. The theme may override it, so an untouched default is not established.`);
     }
   }
 
