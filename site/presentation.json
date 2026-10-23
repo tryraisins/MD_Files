@@ -416,19 +416,23 @@
     },
     "yeknal-content-seo": {
       "title": "Content and SEO",
-      "purpose": "Guides useful, accessible web content and technical SEO together, from page copy and metadata to structured data, sitemaps, canonical URLs and AI-search visibility.",
+      "purpose": "Guides useful content and search visibility together, from keyword patterns and page briefs to metadata, structured data, sitemaps, local search, earned links and AI citations.",
       "tasks": [
         "docs",
-        "design"
+        "design",
+        "review"
       ],
       "whenToUse": [
+        "You are choosing which queries to target and which pages should exist.",
         "You are planning or rewriting pages and want them to be found.",
-        "Metadata, canonical tags or structured data need an audit.",
+        "Metadata, canonical tags, crawlability or structured data need an audit.",
+        "A local business is invisible in the map pack, or links and coverage need a plan.",
+        "Traffic moved and you need to separate a ranking loss from a click-through loss.",
         "You want a site to be readable by search engines and AI search alike."
       ],
       "example": {
-        "ask": "Audit the product pages for SEO and fix the metadata and structured data.",
-        "outcome": "It checks titles, descriptions, canonicals and schema against the visible content and corrects what’s missing or wrong."
+        "ask": "Choose the queries worth targeting and tell me whether to update an existing page or create a new one.",
+        "outcome": "It reads the live results, checks existing query and page data, and returns a decision, a brief and the evidence behind it."
       },
       "related": [
         "yeknal-markdown-management",
@@ -2057,7 +2061,7 @@
     },
     "yeknal-testing-strategy": {
       "title": "Testing strategy",
-      "purpose": "Plans tests around real end-to-end flows and writes down how things could fail before any isolated test gets added.",
+      "purpose": "Keeps verification end to end: proves behavior through the real entry point, bans new unit tests, and asks before any isolated check.",
       "tasks": [
         "review"
       ],
@@ -2068,7 +2072,7 @@
       ],
       "example": {
         "ask": "Plan how we should test the new password-reset flow.",
-        "outcome": "It lists the ways the flow could fail, then proposes end-to-end checks that cover them and produce a rerunnable record."
+        "outcome": "It maps the flow's real end-to-end path and failure states, then proposes the browser or CLI run that proves them and leaves a rerunnable record."
       },
       "related": [
         "yeknal-test-audit",

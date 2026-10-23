@@ -205,7 +205,7 @@ Examples:
 - "Test: E2E testing for checkout, including payment failure recovery"
 - "Test: Performance testing for API"
 
-Prefer E2E tests as the sole testing mechanism. Do not write unit tests after implementation; if an isolated test is necessary, document its failure modes before writing the test code.
+Prefer E2E tests as the sole testing mechanism. Do not write, scaffold, or generate unit tests. Running an existing unit suite is allowed and its failures must be reported, but do not add cases to it. If E2E cannot reach a boundary, name it and ask before writing any isolated test code.
 
 Focus: Validation and quality assurance
 ```

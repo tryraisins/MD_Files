@@ -4,6 +4,16 @@ Last updated: 2026-10-23
 Branch: main
 HEAD: see git log; released source edf3ec6, catalog/tag e769323
 
+## End-to-end-only testing policy (2026-10-23)
+
+`yeknal-testing-strategy` no longer merely prefers E2E. It bans writing, scaffolding, or generating unit tests, and requires behavior to be proven through the real entry point (browser, CLI, HTTP request against the running server, or the built feature observed end to end). Running a repository's existing unit suite stays allowed and its failures must be reported, but cases must not be added to it. If E2E cannot reach a boundary, the boundary is named and the user is asked before any isolated test is written. The user chose "ban writing, allow running existing" over a total ban, because most repositories route their existing unit suite through the normal test command and CI. The frontmatter description changed so the skill triggers when an agent is about to write or run tests.
+
+Every place that restated the old "write it before the code" rule was aligned so nothing contradicts the skill: `yeknal-implement` step 5, `yeknal-playwright`, the `yeknal-notion-spec-to-implementation` task reference, the `yeknal-aspnet-core` testing reference, repository `AGENTS.md`, and the global `C:\Users\nubiaville\.config\opencode\AGENTS.md` section 14 plus the `claude_tests` and `go-tests` lane text in section 22. `site/presentation.json` purpose, when-to-use, and example were updated in step. No skill was added, renamed, or removed, so `previousNames` and the groupings are untouched.
+
+The unit-test mentions under `yeknal-cloudflare-deploy/references/` are framework documentation for `getPlatformProxy` and Vitest, not agent policy. Leave them alone.
+
+Verification: skill audit reports 0 errors and 0 warnings for every changed skill; the remaining `yeknal-content-seo` broken-link errors belong to the user's in-progress content-seo edits, which were left untouched. Routing evaluations 29/0. `git diff --check` clean, `site/presentation.json` parses. Not run: `audit-markdown-links.ps1` (needs PowerShell 7, this machine has 5.1), `skills-ref` (installed only in CI), and `node tools/build-catalog.js` plus `sync-portfolio.js --validate` (both build from committed trees). Release order is unchanged: commit the source, run the catalog build, commit the catalog.
+
 ## Launch readiness skill (2026-10-23)
 
 New skill `skills/yeknal-launch-readiness` with five references: `obligations.md` (Register A by surface), `jurisdictions.md` (NG, EU/EEA, UK, US federal, US California), `launch-gates.md` (Register B), `evidence-and-fixes.md` (detection recipes and what source cannot prove), `report-template.md`.

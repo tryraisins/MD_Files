@@ -74,7 +74,7 @@ playwright-cli --help
 4. Re-snapshot after navigation or significant DOM changes.
 5. Capture artifacts (screenshot, pdf, traces) when useful.
 
-When using Playwright for E2E verification, strongly prefer it as the sole testing mechanism for the behavior under test. Finish each E2E run with a repeatable, verifiable artifact, such as the rerunnable command/script plus a report, trace, screenshot, or log. Do not write unit tests after the implementation; if isolated testing is necessary, document failure modes before writing its test or harness code.
+When using Playwright for E2E verification, treat it as the sole testing mechanism for the behavior under test. Finish each E2E run with a repeatable, verifiable artifact, such as the rerunnable command/script plus a report, trace, screenshot, or log. Do not write, scaffold, or generate unit tests. Running an existing unit suite is allowed and its failures must be reported, but do not add cases to it. If a boundary cannot be reached through the browser, report what is unreachable and ask before writing any isolated test or harness code. Apply `yeknal-testing-strategy` for the full policy.
 
 Minimal loop:
 

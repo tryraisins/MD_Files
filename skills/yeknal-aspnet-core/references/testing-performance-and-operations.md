@@ -8,11 +8,13 @@ Primary docs:
 
 ## Testing Strategy
 
-Use layered testing instead of relying on one style:
+Use layered testing instead of relying on one style, within this catalog's end-to-end-first policy: do not write unit tests. Layer the E2E proof instead.
 
-- unit tests for pure services and business logic
-- integration tests for request pipeline, DI, database, auth, and framework wiring
+- integration tests for request pipeline, DI, database, auth, and framework wiring, driven through the real host
 - browser tests for end-to-end user flows
+- run any existing unit suite, and report its failures, but do not add cases to it
+
+Apply `yeknal-testing-strategy` for the full policy.
 
 ## Integration Tests
 
