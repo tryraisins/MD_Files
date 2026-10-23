@@ -232,6 +232,38 @@
       "secondary": ["yeknal-ui-quality-baseline"],
       "mustNotLead": ["yeknal-review"],
       "rationale": "A local source scan with a findings report is the specific artifact, not a general code review."
+    },
+    {
+      "id": "commercial-keyword-patterns",
+      "prompt": "We are a young site and I want keywords with buyers, not blog traffic. Which patterns can we realistically rank for first?",
+      "primary": "yeknal-content-seo",
+      "secondary": [],
+      "mustNotLead": ["yeknal-research-analysis", "yeknal-frontend-design"],
+      "rationale": "Selecting commercial query patterns against observed results and current authority is the search-visibility workflow, not market research or a visual task."
+    },
+    {
+      "id": "local-map-pack-visibility",
+      "prompt": "Our plumbing business is invisible in the Houston map pack even though the site is fine. What should we fix first?",
+      "primary": "yeknal-content-seo",
+      "secondary": [],
+      "mustNotLead": ["yeknal-frontend-developer"],
+      "rationale": "Map visibility is a business-profile and location-page problem, not a site implementation or styling change."
+    },
+    {
+      "id": "earned-links-no-buying",
+      "prompt": "Find earned link opportunities for this site and draft outreach, but do not buy links or set up reciprocal link swaps.",
+      "primary": "yeknal-content-seo",
+      "secondary": [],
+      "mustNotLead": ["yeknal-research-analysis"],
+      "rationale": "Link acquisition with an explicit policy boundary is part of the SEO workflow; it is not generic research and must not drift into paid placement."
+    },
+    {
+      "id": "traffic-drop-triage",
+      "prompt": "Clicks fell across a dozen pages last month. Tell me which pages lost ranking versus click-through rate, and what to do first.",
+      "primary": "yeknal-content-seo",
+      "secondary": [],
+      "mustNotLead": ["yeknal-troubleshoot", "yeknal-review"],
+      "rationale": "This is search-performance diagnosis with query and page data, not application failure troubleshooting or a code review."
     }
   ]
 }
