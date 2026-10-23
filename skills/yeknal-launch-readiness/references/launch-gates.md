@@ -65,6 +65,8 @@ Measured on a mid-tier Android device over throttled 4G, not a desktop and not l
 
 **Fail:** desktop-only measurement, localhost, or a single lab run presented as a percentile.
 
+Fixing a failed budget is a measured optimization programme, not a launch task: use `yeknal-performance` for the baseline, the bottleneck, and the before and after proof.
+
 ## 4. Email deliverability
 
 Looking right in the composer proves nothing about the inbox.

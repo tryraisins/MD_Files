@@ -40,6 +40,8 @@ Use this deeper loop for hard, multi-step, intermittent, or performance failures
 
 If a red-capable loop cannot be built, state what was attempted, what access or artifact is missing, and request the smallest useful redacted log, request, trace, or environment access. Keep conclusions provisional instead of presenting an untested hypothesis as root cause.
 
+For a request to make the app faster rather than to fix a reported failure, use `yeknal-performance`: it owns the baseline, the bottleneck trace, and the keep-or-revert benchmark loop across startup, screens, content, and scrolling.
+
 ## Evidence rules
 
 - Reproduce, or obtain the exact error, inputs, environment, and boundary where it occurs.
