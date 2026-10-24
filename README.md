@@ -108,7 +108,7 @@ npx yeknal security
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
 | `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills aspnet-core` | Adds missing skills to the current repository without deleting or replacing existing skills. |
-| `npx yeknal skills --all` | Syncs all 95 skills for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs all 96 skills for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
@@ -153,7 +153,7 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | Profile | Skills | Purpose |
 | --- | ---: | --- |
 | `core` | 37 | High-frequency process, design, implementation, verification, and security. |
-| `process` | 9 | Optional domain modeling, delivery, cleanup, verification upkeep, GitHub, exhaustive-output, and response workflows beyond core. |
+| `process` | 10 | Optional agent cost, domain modeling, delivery, cleanup, verification upkeep, GitHub, exhaustive-output, and response workflows beyond core. |
 | `design` | 25 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
 | `security` | 5 | The five distinct security output contracts. |
 | `web` | 7 | Specialist web apps, frameworks, SEO, performance, launch readiness, and production errors beyond core. |
@@ -161,7 +161,7 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
 | `productivity` | 5 | Linear and Notion workflows. |
 | `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 95 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 96 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects`, `yeknal-mobile-app-design`, `yeknal-human-ai-interface-design`, and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-emil-design-eng`, `yeknal-find-animation-opportunities`, `yeknal-improve-animations`, and `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping, Figma, and image-led workflows remain in the design pack because their triggers and output contracts differ. The skill router still fetches a task-specific specialist when one is missing. Security keeps five folders for the same reason: implementation, review, auditing, threat modeling, and ownership analysis are not interchangeable artifacts.
 
