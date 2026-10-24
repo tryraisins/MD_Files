@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "a2260a6fe20101d7008a379490f6f8e8d16243a3",
+  "sourceRevision": "0d3357839c1197d254bec134443a60a7bacacb06",
   "version": "2.6.0",
   "skills": [
     {
@@ -22,6 +22,56 @@
           "path": "SKILL.md",
           "sha256": "37fb5ebc6804df8aab652fb1201042a5f67833b3d4fcd5a9882766d2dc2d176b",
           "size": 1014
+        }
+      ]
+    },
+    {
+      "name": "yeknal-agent-cost-control",
+      "description": "Cut agent inference spend without quietly losing quality. Use when an LLM bill, token spend, or per-task cost is too high, when sessions feel slow or expensive, when choosing models or effort levels for a task, or when someone asks whether prompt caching, model routing, or a cheaper tier is worth it.",
+      "keywords": [
+        "actually",
+        "agent",
+        "alone",
+        "boundaries",
+        "change",
+        "concentration",
+        "control",
+        "cost",
+        "evidence",
+        "failure",
+        "find",
+        "fits",
+        "lever",
+        "measure",
+        "modes",
+        "not",
+        "outcomes",
+        "point",
+        "points",
+        "prove",
+        "published",
+        "reference",
+        "reporting",
+        "spent",
+        "step",
+        "the",
+        "this",
+        "what",
+        "where",
+        "yeknal-agent-cost-control",
+        "you"
+      ],
+      "version": "087dfde78139eee352a32be95eb0595e436b4be33eaf73daf1a52ecb72efaa2a",
+      "files": [
+        {
+          "path": "references/measurement.md",
+          "sha256": "718dabaa6778d25cae7afaf07cf5c7a0335d263afd83f10b30e4129bdda29571",
+          "size": 4627
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "d1e79857d60bf5022d26ece9430ca01bc39926aa4552c7fbb13bd76c71566439",
+          "size": 6576
         }
       ]
     },
@@ -345,7 +395,7 @@
         "with",
         "yeknal-application-security"
       ],
-      "version": "d44b764bb750ebe095054caa59fc2f38d1fab09f3a063e4eb1f626c1178b1bca",
+      "version": "e047828950d26c0a64b9d23f7534277e509aaa12b1101faeb1fc43fa0234e61a",
       "files": [
         {
           "path": "Security-Master.md",
@@ -354,8 +404,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "5582eda6c8243399d51d778de1174a6a5e19d5333dcd87ccbbdc05d4ee040773",
-          "size": 11086
+          "sha256": "bedd377cd38226ecd0396832161e4650c83819735375f7bc7d501022bb897578",
+          "size": 11402
         }
       ]
     },
@@ -6194,8 +6244,154 @@
       ]
     },
     {
+      "name": "yeknal-security-audit",
+      "description": "Run a multi-phase security audit of a repository, directory, or diff with a coverage ledger, adversarial verification, and schema-validated findings. Use only for explicit audit, vulnerability-hunt, or penetration-test requests that ask for findings or report artifacts, not for general security questions.",
+      "keywords": [
+        "and",
+        "anti-patterns",
+        "audit",
+        "boundary",
+        "budget",
+        "certainty",
+        "core",
+        "coverage",
+        "effective",
+        "execution",
+        "files",
+        "fix",
+        "from",
+        "harness",
+        "ledger",
+        "modes",
+        "operating",
+        "output",
+        "planning",
+        "principles",
+        "prior",
+        "priority",
+        "profiles",
+        "recommend",
+        "references",
+        "require",
+        "respect",
+        "result",
+        "roles",
+        "runs",
+        "safety",
+        "security",
+        "separate",
+        "setup",
+        "smallest",
+        "source",
+        "the",
+        "this",
+        "validators",
+        "visibility",
+        "workflow",
+        "yeknal-security-audit"
+      ],
+      "version": "b82a4319f285410b2f2e108b55a8927893f785f24312aa60914ba667023c014f",
+      "files": [
+        {
+          "path": "LICENSE.txt",
+          "sha256": "e598e694aa506650c7192d5ea3be0e50aca0d356ea00551c53429f0b01eb6391",
+          "size": 1078
+        },
+        {
+          "path": "references/AI-AND-LLM.md",
+          "sha256": "7335a95c43554eadefcf03ece639291bb0e038c398a179299e3887ffe06bd2ef",
+          "size": 10617
+        },
+        {
+          "path": "references/ATTACK-CLASSES.md",
+          "sha256": "3ee4f00c6e8c9dcf6dd02dd5ac2a4ceb322e2085f3e9fbe79cf0c6330bc7ef83",
+          "size": 15695
+        },
+        {
+          "path": "references/CLIENT-SIDE.md",
+          "sha256": "613f6b98f86083e045525c5b60154ffdab122bac35f1e05eb17488e6e453370c",
+          "size": 8594
+        },
+        {
+          "path": "references/CLOUD-AND-DEPLOYMENT.md",
+          "sha256": "3c80f3088be22345e07b057c056d6ed99fe2b0304f794398964f7ccd5a496ca3",
+          "size": 8291
+        },
+        {
+          "path": "references/DATA-ISOLATION-AND-LIFECYCLE.md",
+          "sha256": "307dcb3e24d292715c4a041190e7bb135646a37eb6187619ae01d000a634a4ad",
+          "size": 7798
+        },
+        {
+          "path": "references/DESKTOP-MOBILE-AND-LOCAL-IPC.md",
+          "sha256": "58eae8ee0ca6a46611c501ec5a3ab47fdff88dd7db0d8d74789bbf8bb19d8cb2",
+          "size": 8739
+        },
+        {
+          "path": "references/HUNTING.md",
+          "sha256": "71c121decea1322c47c718f6e110f1a892980bb4266bd7ac55ef043a213ade09",
+          "size": 22446
+        },
+        {
+          "path": "references/MEMORY-SAFETY-AND-BINARY.md",
+          "sha256": "7c8b0dccfb35315cca2455509674d49632b2fe37e1f3aac16c1a496a7e9924a7",
+          "size": 10513
+        },
+        {
+          "path": "references/PROTOCOLS-RPC-AND-MESSAGING.md",
+          "sha256": "8b73816fa5b3697c9c40977f0c836b40f01d6e81929ff2720fe83ce089e9a619",
+          "size": 7483
+        },
+        {
+          "path": "references/RECONNAISSANCE.md",
+          "sha256": "02ca887aca84de8ae137f1891bd2f0a54f28d3fa6da92a27f54734382b3381a2",
+          "size": 15902
+        },
+        {
+          "path": "references/RESOURCE-EXHAUSTION-AND-AVAILABILITY.md",
+          "sha256": "4326fab5c92a0b4c420a70196254040105cd794026562130b59bf1a6db3e4baa",
+          "size": 7476
+        },
+        {
+          "path": "references/SUPPLY-CHAIN-AND-RELEASE.md",
+          "sha256": "f372e919940e335468ba1ae09f99026c3986a345f7fe26f8068f132e199f52a5",
+          "size": 7258
+        },
+        {
+          "path": "references/VALIDATION-AND-REPORTING.md",
+          "sha256": "b892470cb89bb31f33403e050d4bdfbe2cdaef940ade1496fa65e32b2e129449",
+          "size": 17843
+        },
+        {
+          "path": "references/WEB-PROTOCOL-AND-AUTH.md",
+          "sha256": "4f3066dffa23c5635859187be9b96c32f2aff29a688186b91ff0c63e47d62b5c",
+          "size": 12300
+        },
+        {
+          "path": "scripts/report-schema.json",
+          "sha256": "6575c9de4a62255699ea052ebf9a49ebfb373a32891bcd89af6f55cc84b35519",
+          "size": 14494
+        },
+        {
+          "path": "scripts/validate-coverage-ledger.cjs",
+          "sha256": "0b07ef87f408ae34e82a7750b137224318b76c7f09b8e15323221b09cc801fb0",
+          "size": 34011
+        },
+        {
+          "path": "scripts/validate-findings.cjs",
+          "sha256": "68148ce4b9709d45875af0a17c8dcd91403d610b390c8cb52332731fddb22ae7",
+          "size": 29379
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "777541c529d6098df5f365d6571136e6799af8108b1f25fd745657381b63bd86",
+          "size": 19750
+        }
+      ]
+    },
+    {
       "name": "yeknal-security-best-practices",
-      "description": "Review Python, JavaScript/TypeScript, or Go code for security best practices. Use only for explicit security review or secure-by-default coding requests.",
+      "description": "Apply secure-by-default guidance for Python, JavaScript/TypeScript, or Go with per-framework references. Use for writing secure code, targeted security questions, or a focused review of a supported stack, not a full codebase audit.",
       "keywords": [
         "advice",
         "authorization",
@@ -6220,7 +6416,7 @@
         "workflow",
         "yeknal-security-best-practices"
       ],
-      "version": "dfe3786a387ed800ea5fd18078633284d047ea09bb6f60ac62b446eaf1aa83a3",
+      "version": "f1257184a24a623ecac63c2478fd0cc88ae4cd58d2759c0c3eb4cc0312fc0bb6",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -6289,8 +6485,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "30551f5f85d974de744ad71beab0720125d6a58f7b86da2130ed6848bd130918",
-          "size": 6832
+          "sha256": "f71c19bbc9425ebb97f608b7c10056003510fea403727527d209070fc3c7b898",
+          "size": 7362
         }
       ]
     },
@@ -6359,7 +6555,7 @@
         "workflow",
         "yeknal-security-ownership-map"
       ],
-      "version": "4c9d6a15cceb3fcd43a081dbf9a74e53ffaac4accb7be307930b91c09e6c2bcc",
+      "version": "d843a1dd7746d192b07e4ae607c6512f7b1807fd88a95a8ad53d32d1dc79ef36",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -6398,14 +6594,14 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "90f4f2658769390f23934afe5800c0b005335eaf7b230c34ecc5a272266e39af",
-          "size": 9019
+          "sha256": "ff2a8450014ef2645ce53831fb7809027036b61c4d1b7f0c930a35292a93a5ca",
+          "size": 9218
         }
       ]
     },
     {
       "name": "yeknal-security-threat-model",
-      "description": "Create a repository-grounded threat model covering assets, trust boundaries, abuse paths, and mitigations. Use only for explicit threat-modeling requests.",
+      "description": "Create a repository-grounded threat model covering assets, trust boundaries, abuse paths, and mitigations. Use only for explicit threat-modeling requests, not for vulnerability hunts or pen tests.",
       "keywords": [
         "abuse",
         "additions",
@@ -6460,7 +6656,7 @@
         "workflow",
         "yeknal-security-threat-model"
       ],
-      "version": "a8edccc2ce1dcc15bbd0cd125c884e4a3231095dbf1bdfde87110ffe6c9cd9c4",
+      "version": "f344341cf9606a90b7a4f6a403cb2ea3437881899cae81a39fe0473a053b4fda",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -6484,8 +6680,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "a277c7aa1c8d8950867b47dfdf44be21e9b2593a198e7b6286e2aca590bb6daa",
-          "size": 8110
+          "sha256": "8646af84803ca4d7ee87776c5ae33082c44ec394ecc91afd602a1f439f8c1756",
+          "size": 8353
         }
       ]
     },
@@ -7288,7 +7484,7 @@
     },
     {
       "name": "yeknal-ui-quality-baseline",
-      "description": "Apply shared visual, responsive, accessibility, state, and motion checks whenever creating, changing, or reviewing visible UI or mockups.",
+      "description": "Apply shared visual, responsive, accessibility, state, motion, and copy checks whenever creating, changing, or reviewing visible UI or mockups.",
       "keywords": [
         "accessibility",
         "action",
@@ -7309,8 +7505,10 @@
         "containment",
         "content",
         "context",
+        "copy",
         "decisions",
         "design",
+        "discipline",
         "durable",
         "evidence",
         "flow",
@@ -7351,11 +7549,9 @@
         "skeletons",
         "small-element",
         "smallest",
-        "spacing",
-        "start",
-        "states"
+        "spacing"
       ],
-      "version": "d5af1788b5cdcb38fe65548c7b3c49d9946d1347e818d163391bd87a437bf082",
+      "version": "b51103345ca8d596ca768336e79612417498e7e62a3d283815b4346731894194",
       "files": [
         {
           "path": "references/accessibility-design.md",
@@ -7364,8 +7560,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "eb62e8f429e361e7dd639dc26cf8b9eb887b869713a69cd5166aa6e28c7877b5",
-          "size": 33523
+          "sha256": "70cb10526fdf3393f9abb7b5acf071e63ae3bae248628d0062124b8bd8915bd6",
+          "size": 34901
         }
       ]
     },
