@@ -745,30 +745,50 @@ function getSkillTargetSpecs(home = os.homedir()) {
       defaults: [path.join(home, ".agents")],
       shared: true,
     },
+    {
+      // T3 Code is a control surface, not an agent: it scans provider roots and
+      // reads ~/.agents/skills without third-party extensibility. ~/.t3 only
+      // proves installation, so the install root stays the shared standard.
+      label: "T3 Code",
+      envVar: "YEKNAL_T3_PARENT",
+      display: "~/.t3 (skills in ~/.agents)",
+      defaults: [path.join(home, ".t3")],
+      skillsParent: path.join(home, ".agents"),
+      skillsEnvVar: "YEKNAL_AGENTS_PARENT",
+      shared: true,
+    },
   ];
 }
 
 async function collectSkillTargets() {
   const targetSpecs = getSkillTargetSpecs();
 
-  const seenParents = new Set();
+  // Targets are keyed by their skills folder, not their detection folder, so a
+  // harness that reads another parent's collection (T3 Code reads ~/.agents)
+  // never produces a duplicate copy.
+  const pathKey = (value) => process.platform === "win32" ? value.toLowerCase() : value;
+  const seenSkillParents = new Set();
   const targets = [];
 
   for (const spec of targetSpecs) {
     const overridePath = process.env[spec.envVar];
     const candidates = overridePath ? [path.resolve(overridePath)] : spec.defaults;
+    const skillsParentOverride = spec.skillsEnvVar ? process.env[spec.skillsEnvVar] : undefined;
+    const skillsParent = spec.skillsParent ? path.resolve(skillsParentOverride || spec.skillsParent) : null;
 
     for (const candidateParent of candidates) {
-      if (seenParents.has(candidateParent)) {
+      const resolvedSkillsParent = skillsParent || candidateParent;
+      const key = pathKey(resolvedSkillsParent);
+      if (seenSkillParents.has(key)) {
         continue;
       }
 
       if (await isDirectory(candidateParent)) {
-        seenParents.add(candidateParent);
+        seenSkillParents.add(key);
         targets.push({
           label: spec.label,
-          parentPath: candidateParent,
-          skillsPath: path.join(candidateParent, "skills"),
+          parentPath: resolvedSkillsParent,
+          skillsPath: path.join(resolvedSkillsParent, "skills"),
           shared: Boolean(spec.shared),
           sharedReads: Boolean(spec.sharedReads),
         });

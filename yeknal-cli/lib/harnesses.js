@@ -3,8 +3,8 @@
 const fs = require("fs/promises");
 const path = require("path");
 
-const SUPPORTED = ["codex", "claude", "opencode", "cursor", "windsurf", "copilot", "gemini", "antigravity", "roo", "kiro", "cline", "openhands", "amp", "agents"];
-const ALIASES = { "gemini-cli": "gemini", cascade: "windsurf", "roo-code": "roo", "copilot-cli": "copilot", shared: "agents" };
+const SUPPORTED = ["codex", "claude", "opencode", "cursor", "windsurf", "copilot", "gemini", "antigravity", "roo", "kiro", "cline", "openhands", "amp", "t3", "agents"];
+const ALIASES = { "gemini-cli": "gemini", cascade: "windsurf", "roo-code": "roo", "copilot-cli": "copilot", "t3-code": "t3", t3code: "t3", shared: "agents" };
 
 async function read(file) {
   try { return await fs.readFile(file, "utf8"); }
@@ -32,9 +32,10 @@ async function detectHarnesses({ home, env }) {
   const cline = parent("CLINE", path.join(home, ".cline"), env.CLINE_DIR);
   const openhands = parent("OPENHANDS", path.join(home, ".openhands"));
   const amp = parent("AMP", path.join(home, ".config", "amp"));
+  const t3 = parent("T3", path.join(home, ".t3"), env.T3CODE_HOME);
   const shared = parent("AGENTS", path.join(home, ".agents"));
   const native = (id, label, configDir, relative, docs, extra = {}) => ({ id, label, configDir, configDirs: [configDir], instructionFile: path.join(configDir, relative), skillRoots: [path.join(configDir, "skills")], migrationRoots: [path.join(configDir, "skills")], mode: "native", docs, ...extra });
-  const manual = (id, label, configDir, docs, steps) => ({ id, label, configDir, configDirs: [configDir], instructionFile: null, skillRoots: [path.join(configDir, "skills")], migrationRoots: [], mode: "manual", docs, steps });
+  const manual = (id, label, configDir, docs, steps, extra = {}) => ({ id, label, configDir, configDirs: [configDir], instructionFile: null, skillRoots: [path.join(configDir, "skills")], migrationRoots: [], mode: "manual", docs, steps, ...extra });
   const candidates = [
     native("codex", "Codex", codex, (await read(path.join(codex, "AGENTS.override.md")))?.trim() ? "AGENTS.override.md" : "AGENTS.md", "https://developers.openai.com/codex/guides/agents-md", { skillRoots: [path.join(shared, "skills"), path.join(codex, "skills")] }),
     native("claude", "Claude Code", claude, "CLAUDE.md", "https://code.claude.com/docs/en/memory", { migrationRoots: [] }),
@@ -49,15 +50,25 @@ async function detectHarnesses({ home, env }) {
     native("cline", "Cline", cline, "rules/yeknal.md", "https://docs.cline.bot/customization/cline-rules", { exclusiveFile: true, warning: "Verify the Yeknal rule is enabled. A CLI --config override or older Documents/Cline/Rules configuration needs the prepared bootstrap in its active rules directory." }),
     manual("openhands", "OpenHands", openhands, "https://docs.openhands.dev/overview/skills", ["Keep existing native skills. Add the prepared bootstrap to the project's AGENTS.md, or your active backend's instructions.", "Canvas/Cloud: enable or select the instructions for the active backend/conversation. SDK: configure AgentContext and its user skill loaders.", "Verify instruction ingestion and command/file access in a fresh session. A local setup cannot configure remote sessions."]),
     native("amp", "Amp", amp, "AGENTS.md", "https://ampcode.com/docs/customize/agents-md", { warning: "For Amp web, paste the prepared bootstrap in Settings > Advanced > Global AGENTS.md. Verify guidance for each custom/subagent surface separately." }),
+    // T3 Code owns no global instruction file: it runs the selected provider
+    // agent and reads that provider's instructions plus the repository file.
+    manual("t3", "T3 Code", t3, "https://github.com/pingdotgg/t3code/blob/main/docs/user/composer.md#commands-and-skills", [
+      `Run npx yeknal skills to install the selected skills into ${path.join(shared, "skills")}. T3 Code reads that folder for every provider without third-party extensibility.`,
+      "In a thread, type $ to insert a skill or / to open the command menu, then use Restart agent session so the running agent session picks up new skills.",
+      "T3 Code has no global instruction file. Run setup for the provider you select (codex, claude, opencode, cursor, or antigravity), and paste the prepared bootstrap into the repository AGENTS.md for project scope.",
+      "For repository-only skills, run npx yeknal skills --project. T3 Code discovers the repository .agents/skills folder for each workspace.",
+    ], { skillRoots: [path.join(shared, "skills")], warning: "T3 Code lists only skills enabled for the selected provider. Its ~/.claude/skills, ~/.codex/skills, and ~/.grok/skills roots also require third-party extensibility; ~/.agents/skills does not." }),
     manual("agents", "Shared Agent Skills clients", shared, "https://agentskills.io", ["Keep shared skills available for every client that uses them.", "Paste the prepared bootstrap into the client's documented global instructions, or into the active project's AGENTS.md if supported.", "Verify the client's instruction ingestion and command/file access. There is no universal global instruction file for all shared-skills clients."]),
   ];
   // Keep historical roots available for inventory and restoration. Alternative
   // legacy locations are not assumed to have a verified replacement connection.
-  const owners = { GEMINI: "antigravity", GEMINI_CLI: "gemini", CODEX: "codex", CLAUDE: "claude", OPENCODE: "opencode", CURSOR: "cursor", WINDSURF: "windsurf", COPILOT: "copilot", ROO: "roo", KIRO: "kiro", CLINE: "cline", OPENHANDS: "openhands", AMP: "amp", AGENTS: "agents" };
+  const owners = { GEMINI: "antigravity", GEMINI_CLI: "gemini", CODEX: "codex", CLAUDE: "claude", OPENCODE: "opencode", CURSOR: "cursor", WINDSURF: "windsurf", COPILOT: "copilot", ROO: "roo", KIRO: "kiro", CLINE: "cline", OPENHANDS: "openhands", AMP: "amp", T3: "t3", AGENTS: "agents" };
   const protectedRoots = [path.join(shared, "skills"), path.join(claude, "skills")];
   for (const spec of specs) {
     const agent = candidates.find(item => item.id === owners[spec.envVar.replace(/^YEKNAL_|_PARENT$/g, "")]);
-    const historical = [...spec.defaults, ...(env[spec.envVar] ? [env[spec.envVar]] : [])].map(root => path.resolve(root, "skills"));
+    // A harness that installs into another parent's collection (T3 Code reads
+    // ~/.agents) must not register its own detection folder as a skill root.
+    const historical = [...spec.defaults, ...(env[spec.envVar] ? [env[spec.envVar]] : [])].map(root => path.resolve(spec.skillsParent || root, "skills"));
     if (agent) agent.skillRoots = [...new Set([...agent.skillRoots, ...historical])];
     // Extra discovery locations remain protected even if an environment alias
     // points a connected agent at the same directory.

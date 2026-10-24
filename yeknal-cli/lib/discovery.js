@@ -218,10 +218,13 @@ function createDiscovery(options = {}) {
     // Lazy import avoids a module initialization cycle when CLI uses discovery.
     const { getSkillTargetSpecs } = require("../bin/yeknal.js");
     for (const spec of getSkillTargetSpecs(home)) {
-      const nativeOverride = spec.envVar === "YEKNAL_CODEX_PARENT" ? env.CODEX_HOME : spec.envVar === "YEKNAL_CLAUDE_PARENT" ? env.CLAUDE_CONFIG_DIR : spec.envVar === "YEKNAL_OPENCODE_PARENT" && env.XDG_CONFIG_HOME ? path.join(env.XDG_CONFIG_HOME, "opencode") : spec.envVar === "YEKNAL_AMP_PARENT" && env.XDG_CONFIG_HOME ? path.join(env.XDG_CONFIG_HOME, "amp") : null;
+      const nativeOverride = spec.envVar === "YEKNAL_CODEX_PARENT" ? env.CODEX_HOME : spec.envVar === "YEKNAL_CLAUDE_PARENT" ? env.CLAUDE_CONFIG_DIR : spec.envVar === "YEKNAL_OPENCODE_PARENT" && env.XDG_CONFIG_HOME ? path.join(env.XDG_CONFIG_HOME, "opencode") : spec.envVar === "YEKNAL_AMP_PARENT" && env.XDG_CONFIG_HOME ? path.join(env.XDG_CONFIG_HOME, "amp") : spec.envVar === "YEKNAL_T3_PARENT" && env.T3CODE_HOME ? env.T3CODE_HOME : null;
       const override = env[spec.envVar] || nativeOverride;
       const parents = override ? [path.resolve(override)] : spec.defaults;
-      for (const parent of parents) roots.push({ root: path.join(parent, "skills"), source: "installed" });
+      // T3 Code installs into the shared ~/.agents collection, so discovery must
+      // read that folder instead of the ~/.t3 home that only proves installation.
+      const skillsParent = spec.skillsParent ? path.resolve((spec.skillsEnvVar && env[spec.skillsEnvVar]) || spec.skillsParent) : null;
+      for (const parent of parents) roots.push({ root: path.join(skillsParent || parent, "skills"), source: "installed" });
     }
     const seen = new Set();
     return roots.filter(({ root }) => { const key = process.platform === "win32" ? root.toLowerCase() : root; if (seen.has(key)) return false; seen.add(key); return true; });

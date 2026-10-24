@@ -8,7 +8,7 @@ You do not need a global install. A new device needs:
 
 - Node.js with npm;
 - internet access;
-- for user-level sync, at least one supported agent folder: Codex (`~/.codex`), Claude (`~/.claude`), Gemini Antigravity (`~/.gemini/config` or `~/.gemini/antigravity`), Antigravity (`~/.antigravity`), opencode (`~/.config/opencode`), Cursor (`~/.cursor`), Windsurf/Cascade (`~/.codeium/windsurf`), GitHub Copilot (`~/.copilot`), Gemini CLI (`~/.gemini`), Roo Code (`~/.roo`), Kiro (`~/.kiro`), Cline (`~/.cline`), OpenHands (`~/.openhands`), Amp (`~/.config/amp`), or the shared Agent Skills standard (`~/.agents`);
+- for user-level sync, at least one supported agent folder: Codex (`~/.codex`), Claude (`~/.claude`), Gemini Antigravity (`~/.gemini/config` or `~/.gemini/antigravity`), Antigravity (`~/.antigravity`), opencode (`~/.config/opencode`), Cursor (`~/.cursor`), Windsurf/Cascade (`~/.codeium/windsurf`), GitHub Copilot (`~/.copilot`), Gemini CLI (`~/.gemini`), Roo Code (`~/.roo`), Kiro (`~/.kiro`), Cline (`~/.cline`), OpenHands (`~/.openhands`), Amp (`~/.config/amp`), T3 Code (`~/.t3`, respects `T3CODE_HOME`), or the shared Agent Skills standard (`~/.agents`);
 - for project sync, a current directory inside a Git repository.
 
 Git is optional and is used as a fallback when GitHub API or raw-file downloads remain unavailable after automatic retries.
@@ -135,11 +135,13 @@ There is no MCP server or background service.
 | cline | .cline/rules/yeknal.md | [Cline rules](https://docs.cline.bot/customization/cline-rules); respects CLINE_DIR. Check rule enabled and active CLI --config location. |
 | amp | .config/amp/AGENTS.md | [Amp guidance](https://ampcode.com/docs/customize/agents-md); AMP_IGNORE_GUIDANCE_FILES triggers a manual check. |
 | openhands | Manual connection | [OpenHands skills](https://docs.openhands.dev/overview/skills); configure the active project/backend or AgentContext and enable instructions. |
+| t3 | Manual connection | [T3 Code commands and skills](https://github.com/pingdotgg/t3code/blob/main/docs/user/composer.md#commands-and-skills); runs the selected provider agent, reads `.agents/skills` without gating, has no global instruction file, and needs Restart agent session after a skill change. |
 | agents | Manual connection | Shared Agent Skills clients have no universal global bootstrap location; keep existing shared skills. |
 
 Setup --agents all handles detected configurations. Other aliases are gemini-cli,
-copilot-cli, cascade, roo-code, and shared. YEKNAL_*_PARENT overrides retain the
-legacy naming, including YEKNAL_GEMINI_CLI_PARENT for the Gemini instruction root.
+copilot-cli, cascade, roo-code, t3-code, t3code, and shared. YEKNAL_*_PARENT
+overrides retain the legacy naming, including YEKNAL_GEMINI_CLI_PARENT for the
+Gemini instruction root.
 [GEMINI_CLI_HOME](https://geminicli.com/docs/reference/configuration/) replaces
 the home used to resolve .gemini, rather than directly naming the .gemini folder.
 If Gemini context.fileName excludes GEMINI.md or settings cannot be safely read,
@@ -242,8 +244,9 @@ The command:
 - preserves personal skill folders without that prefix;
 - on Codex, skips repository skills already supplied by `~/.codex/skills/.system`;
 - installs into every detected user-level parent; when `~/.agents` is present it is preferred, the overlapping per-harness folders (Codex, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, and Amp) are skipped and their stale managed folders removed, while targets not configured to read `~/.agents` (Claude, Kiro, Cline, and the Antigravity folders) keep their own copy; clients that also read a kept folder (opencode, Cursor, Amp, and Windsurf read `~/.claude/skills`) can still see a managed skill twice;
+- with T3 Code detected, installs user-level skills into `~/.agents/skills` even when that folder does not exist yet. T3 Code reads it for every provider without third-party extensibility, so it is the single reliable root; its `.claude`, `.codex`, and `.grok` roots are gated and are not used as install targets;
 - `--skip-claude` opts out of the Claude target for user-level sync and removes only stale managed `yeknal-*` copies there; use it when OpenCode/Cursor/Amp/Windsurf should avoid also discovering the copy in `~/.claude/skills`;
-- with `--project`, resolves the current Git root and syncs only that repository's `.agents/skills`; Codex, Cursor, opencode, Roo Code, OpenHands, and other compatible clients discover repository skills from the working directory up to the repository root;
+- with `--project`, resolves the current Git root and syncs only that repository's `.agents/skills`; Codex, Cursor, opencode, Roo Code, OpenHands, T3 Code, and other compatible clients discover repository skills from the working directory up to the repository root;
 - with `--project --add`, installs only missing selected managed skills and preserves other managed and personal project skills; this is the safe mode for task-time skill routing;
 - excludes `SEO`, which is reference material without a `SKILL.md`.
 
