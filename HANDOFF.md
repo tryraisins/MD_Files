@@ -18,7 +18,7 @@ End-to-end proof: a fixture service in `%TEMP%\opencode\audit-target` (five file
 
 Verification: `skills-ref validate` valid; `audit-skills.ps1` 96 skills, 0 errors, 0 warnings; routing evals 43 cases, 0 errors; relative links resolve across 717 files; CLI suite 50/50; `git diff --check` clean. `audit-markdown-links.ps1` still cannot run here because PowerShell 7 is absent, so a Node link check stood in.
 
-Published: source in `0d33578`, catalog regenerated at `70a537a` with 96 skills, and `node tools/build-catalog.js --check` passes at that revision. The follow-up count correction in `README.md` keeps the profile table honest after both 2.7.0 skills landed in the same source commit.
+Published: source in `0d33578`, catalog regenerated at `70a537a` with 96 skills, and `node tools/build-catalog.js --check` passes at that revision. The follow-up count correction in `README.md` keeps the profile table honest after both 2.6.0 skills landed in the same source commit.
 
 ## T3 Code harness support (2026-10-24)
 
@@ -46,7 +46,9 @@ Skill: `yeknal-agent-cost-control` with `references/measurement.md` (OpenCode sc
 
 Project tool surface: a local-only `opencode.json` in the repo root disables pencil, Neon, vercel, and cloudflare for this project, where MCP tools accounted for 2 calls in roughly 1,100. It is excluded through `.git/info/exclude` and is not part of the release. Entries must be complete, because a partial `{ "enabled": false }` is dropped by schema validation without warning and the server stays active.
 
-Verification: `skills-ref validate` valid; `audit-skills.ps1` 96 skills, 0 errors, 0 warnings; routing evals 43 cases, 0 errors; relative links resolve; `opencode mcp list` shows the four servers disabled in this directory. Boundaries: catalog rebuild, portfolio validation, and CLI discovery all read the committed tree, so they run after the commit (`node tools/build-catalog.js`, `node tools/sync-portfolio.js --validate`, then `node yeknal-cli/bin/yeknal.js search "cut agent cost" --json`). `audit-markdown-links.ps1` still cannot run here for the same PowerShell 7 reason as before. CLI suite is 49/50: test 34 fails on `security-audit`, which is already in the security profile but missing from the hardcoded expectation at `test/yeknal.test.js:208`, so that belongs to the parallel security work. `yeknal-cli/catalog.json` also now carries `sourceRevision` 60ff367 instead of a2260a6 from running the catalog build at HEAD.
+Verification: `skills-ref validate` valid; `audit-skills.ps1` 96 skills, 0 errors, 0 warnings; routing evals 43 cases, 0 errors; relative links resolve; `opencode mcp list` shows the four servers disabled in this directory. `audit-markdown-links.ps1` still cannot run here for the same PowerShell 7 reason as before. The CLI failure reported at 49/50 was the security work's stale expectation at `test/yeknal.test.js:208`, since fixed, so the suite is 50/50.
+
+Released as 2.6.0: catalog regenerated in `70a537a`, `node tools/build-catalog.js --check` passes at `0d33578`, `npm publish` shipped 2.6.0 (shasum `7d2e252`), tag `v2.6.0` points at `3a04d68`, and the portfolio synced in `3bbe359`. End-to-end proof from the published package: `npx yeknal@2.6.0 search "cut agent cost"` ranks `yeknal-agent-cost-control` first from `source: catalog`, and `load yeknal-agent-cost-control` returns `SKILL.md` plus `references/measurement.md` from revision `0d33578`. Live page verified at `tryraisins.dev/skills/agent-cost-control`.
 
 ## Legacy sweep rename (2026-10-24)
 
