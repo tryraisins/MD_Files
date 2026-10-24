@@ -45,6 +45,23 @@ This default is carried by the distributed design skills
 (`yeknal-frontend-design`, `yeknal-redesign-existing-projects`, `yeknal-ui-quality-baseline`) so that
 installs via `npx yeknal skills` inherit it across agents and harnesses.
 
+## Interface standard
+
+Every design and implementation decision must lift the user experience (UX), the
+developer experience (DX), and the agent experience (AX) together, without breaking
+existing behavior. When they conflict, keep the product correct first, then protect
+UX, then weigh DX and AX equally.
+
+Cut taglines, helper text, and secondary labels. Keep them only when the layout
+cannot carry the meaning: required field labels, error messages, consequence
+warnings, and accessibility text. Never cut a label a user needs to identify a
+field, understand a failure, or tell a destructive action from a safe one. In
+data-dense UI, a secondary label that distinguishes rows, states, or metrics is
+content. If a screen needs explanation to make sense, fix the layout instead of
+adding copy.
+
+This standard reaches every install because `yeknal-ui-quality-baseline` carries it.
+
 ## Portfolio skills library
 
 When you add, edit, rename or remove a skill, keep `site/presentation.json` in step and, after the change is pushed and CI passes, sync the portfolio library with `node tools/sync-portfolio.js --portfolio <portfolio checkout>`. Follow the publication sequence in the README's "Portfolio skills library" section. Do not add scheduled synchronization or cross-repository credentials.

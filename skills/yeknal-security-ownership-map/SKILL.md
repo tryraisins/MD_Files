@@ -12,6 +12,8 @@ metadata:
 
 Build a bipartite graph of people and files from git history, compute ownership risk, and export graph artifacts for Neo4j/Gephi. Also build a file co-change graph (Jaccard similarity over shared commits) to cluster files by how they move together, while ignoring large, noisy commits.
 
+This skill answers who owns sensitive code and where the bus-factor risk sits. It does not judge whether that code is vulnerable. For an empirical audit of those paths, use `yeknal-security-audit`.
+
 ## Requirements
 
 - Python 3

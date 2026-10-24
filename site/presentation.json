@@ -109,6 +109,28 @@
         "yeknal-git"
       ]
     },
+    "yeknal-agent-cost-control": {
+      "title": "Agent cost control",
+      "purpose": "Measures what agent work actually costs, finds the sessions and settings that own the spend, and changes one lever at a time without quietly losing review quality along the way.",
+      "tasks": [
+        "agents"
+      ],
+      "whenToUse": [
+        "The inference bill rose, or one task cost far more than expected.",
+        "You are choosing models or effort levels and want evidence rather than a hunch.",
+        "Someone asks whether prompt caching, model routing, or a cheaper tier will actually help."
+      ],
+      "avoid": "It does not decide who does the work and it does not review code. It will not present a saving without an outcome check that nothing important was dropped.",
+      "example": {
+        "ask": "Why did last month cost more than the month before, with the same workload?",
+        "outcome": "It reads the harness usage log, shows that one long session carried most of the spend, checks whether caching is already warm, and recommends splitting the work at a boundary instead of switching models."
+      },
+      "related": [
+        "yeknal-orchestration-specialists",
+        "yeknal-review",
+        "yeknal-testing-strategy"
+      ]
+    },
     "yeknal-animate": {
       "title": "Web animation",
       "purpose": "Adds purposeful, accessible motion to components, pages, scrolling, gestures, SVG and canvas, with sensible timing and a reduced-motion fallback.",
@@ -1821,6 +1843,36 @@
       },
       "related": [
         "yeknal-playwright"
+      ]
+    },
+    "yeknal-security-audit": {
+      "title": "Security audit",
+      "purpose": "Runs a multi-phase security audit of a repository, directory or diff with a coverage ledger, adversarial verification and schema-validated findings.",
+      "tasks": [
+        "security",
+        "review"
+      ],
+      "whenToUse": [
+        "You want a full security audit or pen test of a codebase rather than a quick review.",
+        "You need findings you can hand to someone else, with evidence and a reproduction for each.",
+        "A previous audit needs its coverage gaps closed or its findings rechecked against changed code."
+      ],
+      "avoid": "It only runs a full audit when you ask for one. Security questions and focused reviews belong to the narrower security skills.",
+      "requirements": "Needs Node.js for the two zero-dependency validators. Target code is not executed without an OS-enforced sandbox.",
+      "example": {
+        "ask": "Audit this repository for security vulnerabilities and give me the findings.",
+        "outcome": "It plans coverage, hunts in isolated units, has every candidate independently disproved or confirmed, and writes findings.json plus a report derived from it."
+      },
+      "attribution": {
+        "credit": "Adapted from Cloudflare's security-audit skill.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/cloudflare/security-audit-skill"
+      },
+      "related": [
+        "yeknal-application-security",
+        "yeknal-security-threat-model",
+        "yeknal-security-best-practices",
+        "yeknal-security-ownership-map"
       ]
     },
     "yeknal-security-best-practices": {

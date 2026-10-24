@@ -16,6 +16,7 @@ Legend: **Explicit** = `metadata.source` in frontmatter. **Notice** = bundled `L
 | `yeknal-oil-motion` | [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) | MIT | `LICENSE.txt` | OK |
 | `yeknal-verification-harness` | [cursor/plugins](https://github.com/cursor/plugins) (`pstack/skills/create-verification-skill`) | MIT | `LICENSE.txt` | OK |
 | `yeknal-verification-audit` | [cursor/plugins](https://github.com/cursor/plugins) (`pstack/skills/maintain-verification-skill`) | MIT | `LICENSE.txt` | OK |
+| `yeknal-security-audit` | [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) (`skills/security-audit`) | MIT | `LICENSE.txt` | OK |
 
 ## Derived with bundled notice
 
@@ -61,10 +62,11 @@ These match upstream skill names published on skills.sh. They are MIT-licensed u
 | `yeknal-ui-quality-baseline`, `yeknal-design-reference-research` | Reviewed [ibelick/ui-skills](https://github.com/ibelick/ui-skills) (Julien Thibeaut) as a reference only; an 8-word shingle scan found no verbatim overlap, so no upstream notice is bundled. |
 | `yeknal-legacy-sweep` | Original production-code, failure-triage and campaign material. The test evidence gate is adapted independently from the audit concepts in [openclaw/openclaw test-audit](https://github.com/openclaw/openclaw/blob/main/.agents/skills/test-audit/SKILL.md) (previously shipped as `yeknal-test-audit`); no source text copied. |
 | `yeknal-domain-modeling` | Adapted independently from [mattpocock/skills domain-modeling](https://github.com/mattpocock/skills/blob/f3fc5632f401156837ee3872f14fe33ccf1024ea/skills/engineering/domain-modeling/SKILL.md) at `f3fc5632f401156837ee3872f14fe33ccf1024ea` (MIT); no source text copied. |
+| `yeknal-agent-cost-control` | Method adapted independently from [Cloudflare, cutting our inference bill by 68%](https://blog.cloudflare.com/obsessive-inference-optimization/); no source text or code copied, and its figures are presented as one team's reference case rather than a benchmark. |
 
 ## Original skills (no upstream identified)
 
-`yeknal-add-changelog`, `yeknal-animate`, `yeknal-animate-expo`, `yeknal-animation-vocabulary`, `yeknal-apple-design`, `yeknal-application-security`, `yeknal-brainstorm`, `yeknal-cleanup`, `yeknal-content-seo`, `yeknal-dead-code-hunter`, `yeknal-engineering-specialists`, `yeknal-finalize`, `yeknal-frontend-developer`, `yeknal-git`, `yeknal-human-ai-interface-design`, `yeknal-implement`, `yeknal-launch-readiness`, `yeknal-markdown-management`, `yeknal-nextjs-developer`, `yeknal-orchestration-specialists`, `yeknal-project-handoff`, `yeknal-review`, `yeknal-skill-router`, `yeknal-slopscan` (derived from the SlopLens rule catalog in the author's own Slop Detector project; the catalog itself remains full SlopLens material), `yeknal-testing-strategy`, `yeknal-troubleshoot`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-ui-ux-designer`, `yeknal-write-swift` (Apple/Swift guidance is referenced, not copied).
+`yeknal-add-changelog`, `yeknal-agent-cost-control`, `yeknal-animate`, `yeknal-animate-expo`, `yeknal-animation-vocabulary`, `yeknal-apple-design`, `yeknal-application-security`, `yeknal-brainstorm`, `yeknal-cleanup`, `yeknal-content-seo`, `yeknal-dead-code-hunter`, `yeknal-engineering-specialists`, `yeknal-finalize`, `yeknal-frontend-developer`, `yeknal-git`, `yeknal-human-ai-interface-design`, `yeknal-implement`, `yeknal-launch-readiness`, `yeknal-markdown-management`, `yeknal-nextjs-developer`, `yeknal-orchestration-specialists`, `yeknal-project-handoff`, `yeknal-review`, `yeknal-skill-router`, `yeknal-slopscan` (derived from the SlopLens rule catalog in the author's own Slop Detector project; the catalog itself remains full SlopLens material), `yeknal-testing-strategy`, `yeknal-troubleshoot`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-ui-ux-designer`, `yeknal-write-swift` (Apple/Swift guidance is referenced, not copied).
 
 ## Actions
 

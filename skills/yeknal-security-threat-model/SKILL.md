@@ -1,6 +1,6 @@
 ---
 name: "yeknal-security-threat-model"
-description: "Create a repository-grounded threat model covering assets, trust boundaries, abuse paths, and mitigations. Use only for explicit threat-modeling requests."
+description: "Create a repository-grounded threat model covering assets, trust boundaries, abuse paths, and mitigations. Use only for explicit threat-modeling requests, not for vulnerability hunts or pen tests."
 metadata:
   baseline: OWASP Top 10:2025 and OWASP Agentic Security Initiative
   openai-plugins-reviewed-commit: 1e285826e604f66f7208f7ac4dba0fe8341d1f57
@@ -77,7 +77,7 @@ Use the prompts in `references/prompt-template.md` to draft a repository summary
 
 ## Adversarial audit extension
 
-When the user asks for a red-team review, penetration test, or adversarial security audit rather than a standard threat model, add the following.
+When the user asks to model an adversary against this system as part of a threat model, add the following. When the request is instead a hunt for exploitable defects, a penetration test, or an audit that produces findings and report artifacts, hand off to `yeknal-security-audit`. This extension sharpens the model. It does not verify candidates.
 
 ### Attacker profiles
 

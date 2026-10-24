@@ -11,7 +11,7 @@ metadata:
 
 Defend the real system boundary while keeping existing behavior intact. Controls must be enforced at a trusted server or platform boundary; client state, hidden UI, generated instructions, tests, and documentation count as evidence, never authorization.
 
-Read [Security-Master.md](Security-Master.md) for the current control baseline and parameter guidance. Load framework-specific material from `yeknal-security-best-practices` when the stack is supported. Use `yeknal-security-threat-model` for a standalone repository-grounded threat model and `yeknal-security-ownership-map` for ownership risk.
+Read [Security-Master.md](Security-Master.md) for the current control baseline and parameter guidance. Load framework-specific material from `yeknal-security-best-practices` when the stack is supported. Use `yeknal-security-threat-model` for a standalone repository-grounded threat model, `yeknal-security-audit` for a multi-phase audit with a coverage ledger and schema-validated findings, and `yeknal-security-ownership-map` for ownership risk.
 
 ## Start with scope and evidence
 
@@ -102,6 +102,8 @@ Prefer secret managers, workload identity, and short-lived CI OIDC credentials o
 - Bound loops, context, fan-out, and spend. Log tool decisions and outcomes without storing hidden reasoning or sensitive prompt content unnecessarily.
 
 ## Audit method
+
+These capture fields are the finding contract for focused work. A full audit with a coverage ledger, isolated hunters, adversarial verification, and a `findings.json` contract runs under `yeknal-security-audit`.
 
 For every candidate finding, capture:
 

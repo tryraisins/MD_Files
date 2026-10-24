@@ -208,6 +208,7 @@ test("profiles reference real skills and keep core discovery under budget", asyn
   assert.deepEqual(selected, [
     "application-security",
     "nextjs-developer",
+    "security-audit",
     "security-best-practices",
     "security-ownership-map",
     "security-threat-model",

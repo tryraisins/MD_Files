@@ -7,6 +7,7 @@
       "description": "Planning, implementation, review, diagnosis, domain modeling, cleanup, Git, documentation, and testing workflows.",
       "skills": [
         "yeknal-add-changelog",
+        "yeknal-agent-cost-control",
         "yeknal-brainstorm",
         "yeknal-cleanup",
         "yeknal-domain-modeling",
@@ -67,9 +68,10 @@
     },
     {
       "title": "Security",
-      "description": "Secure implementation, focused review, threat modeling, and sensitive-code ownership analysis.",
+      "description": "Multi-phase auditing, secure implementation, focused review, threat modeling, and sensitive-code ownership analysis.",
       "skills": [
         "yeknal-application-security",
+        "yeknal-security-audit",
         "yeknal-security-best-practices",
         "yeknal-security-ownership-map",
         "yeknal-security-threat-model"

@@ -144,6 +144,16 @@ Three skills now split the territory explicitly: `yeknal-dead-code-hunter` finds
 
 The content adds what the old gate lacked: a baseline before any edit where failures are treated as the bug list, lane design with serialized writers, an evidence row that must be complete before a removal, failure triage into product bug, obsolete contract, flaky, and already-broken, a keeper map built before deletion, checkpoints that keep the tree reversible, and a report contract that exposes blocked candidates. Three references carry the detail (`evidence-standard.md`, `campaign-execution.md`, `report-template.md`), including a tool matrix for knip, ts-prune, depcheck, madge, ruff, vulture, and coverage with the rule that tool output is a lead, never a verdict.
 
+## Security audit (2026-10-24)
+
+`yeknal-security-audit` was adapted from `cloudflare/security-audit-skill` at `c1c8a8c1471069fb0e188eeaff69b8e8db6564a8` and added to the `security` profile, which grows from four skills to five. The catalog now separates auditing from the three adjacent contracts: `yeknal-security-best-practices` applies secure-by-default guidance and focused stack review, `yeknal-security-threat-model` models design-time abuse, `yeknal-security-ownership-map` maps sensitive-code ownership, and only the audit skill runs a coverage-led empirical hunt with adversarial verification.
+
+This is the first skill in the catalog to ship a JSON Schema and executable validators, and that is a deliberate convention change. The findings contract is what makes the workflow checkable: every record is machine-validated, prose is derived from records, and a claim that cannot be verified stays `needs_validation` without a severity. The coverage ledger is a second schema because "we looked everywhere" must be countable rather than asserted.
+
+Four upstream behaviors changed. The upstream `research` and `general` roles are platform-neutral by design, but unbound role names collapse into one context on this harness, so the skill binds them to `@deepseek-fast`, `@go-scout`, and a fresh verifier, and states that independence comes from fresh context. The OS-sandbox requirement is written as source-only on Windows rather than assumed, so target code does not execute and behavioral leads stay unresolved instead of guessed. Both validators are patched for Windows: upstream rejects every input when `O_NOFOLLOW` and `O_NONBLOCK` are missing, which is always the case on win32, so the local build falls back to a check-then-open read that keeps the symlink, regular-file, byte-limit, and UTF-8 checks and only loses the race-free guarantee. The two upstream validator test files are not shipped: this catalog does not carry unit suites inside skills, and the pinned source commit makes re-vendoring a diff rather than a reconstruction.
+
+`report-schema.json` sits beside `validate-findings.cjs` because the validator resolves it from its own directory. Do not move one without the other.
+
 ## Security refresh
 
 The old duplicate raw security prompt files and generated audit log were removed. `yeknal-application-security` and its reference baseline now cover:

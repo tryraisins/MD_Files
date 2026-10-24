@@ -4,6 +4,50 @@ Last updated: 2026-10-24
 Branch: main
 HEAD: see git log; released source edf3ec6, catalog/tag e769323
 
+## Security audit skill (2026-10-24)
+
+`yeknal-security-audit` adapts `cloudflare/security-audit-skill` at `c1c8a8c1471069fb0e188eeaff69b8e8db6564a8` (MIT, Cloudflare) into the `security` profile, which grows from four skills to five. It is the first skill in the catalog to ship a JSON Schema and executable validators, and the first to own an empirical audit distinct from the three existing security contracts. `yeknal-security-best-practices` keeps focused stack review and secure-by-default guidance, `yeknal-security-threat-model` keeps design-time modeling, `yeknal-security-ownership-map` keeps the git-risk axis, and each now points at the audit skill for a full run.
+
+Files: `SKILL.md` rewritten to this catalog's conventions with the platform-neutral `research`/`general` roles bound to `@deepseek-fast`, `@go-scout`, and a fresh verifier; 14 companions under `references/`; `scripts/validate-findings.cjs`, `scripts/validate-coverage-ledger.cjs`, and `scripts/report-schema.json` kept byte-close to upstream except one patch. The upstream test files are deliberately not shipped.
+
+Upstream change worth knowing before re-vendoring: both validators call `readFileWithinLimit`, which upstream makes reject every input when `O_NOFOLLOW` and `O_NONBLOCK` are unavailable. Those constants are undefined on win32, so the validators were unusable here until the local fallback was added: a check-then-open read that keeps symlink rejection, the regular-file test, the byte limit, and UTF-8 decoding, and only loses the race-free guarantee. Each file carries a header note. Diff against the pin rather than replacing the files.
+
+Registered in `yeknal-cli/profiles.json` (`security`), `skills.sh.json` (Security group), `site/presentation.json` (tasks `security` and `review`, Cloudflare attribution and source URL), `llms.txt`, `PROVENANCE.md`, `README.md` (counts, profile table, upstream review paragraph), `SKILL_AUDIT.md` (release note and the convention change), and `evaluations/skill-routing.json` (five new cases plus `mustNotLead` additions to the existing security-review and threat-model cases). `yeknal-cli/test/yeknal.test.js:208` needed its hardcoded `security` profile expectation updated, which is the failure the parallel cost session reported at 49/50.
+
+End-to-end proof: a fixture service in `%TEMP%\opencode\audit-target` (five files, planted login bypass, SQL concatenation, cross-owner search, plaintext listener) was audited end to end with the skill in `quick` profile. Recon seeded six units, two hunters returned four candidates, a `@go-scout` critic added two deferred units and disputed one `covered` status that was really a dead branch, a fresh verifier kept all four at `needs_validation` and corrected three evidence claims, and the parent wrote `findings.json`. Validators: `PASS: 4 findings valid` and `PASS: 9 coverage units valid`. Run artifacts stay in `%TEMP%\opencode\audit-runs\invoicer\run-1` (`REPORT.md`, `NEEDS-VALIDATION.md`, `FINDINGS-DETAIL.md`, ledger, `findings.json`). Zero records reached `confirmed` because the policy is source-only, which is the expected and honest outcome on this machine.
+
+Verification: `skills-ref validate` valid; `audit-skills.ps1` 96 skills, 0 errors, 0 warnings; routing evals 43 cases, 0 errors; relative links resolve across 717 files; CLI suite 50/50; `git diff --check` clean. `audit-markdown-links.ps1` still cannot run here because PowerShell 7 is absent, so a Node link check stood in.
+
+Not done: the catalog rebuild and commit. `node tools/build-catalog.js --check` passes at `60ff367`, which means the catalog is stale rather than wrong: both new skills are uncommitted. Rebuild after the commit.
+
+## T3 Code harness support (2026-10-24)
+
+T3 Code is an agent control surface, not an agent. Its shipped server (`server.asar`, the `IN0` skill-root table) scans `~/.agents/skills`, `~/.cursor/skills`, and the gated `~/.claude/skills`, `~/.codex/skills`, `~/.grok/skills`, plus the same names under the workspace, plugin roots, and `extraRoots`. It has no global instruction file: instructions come from the selected provider agent and the repository `AGENTS.md`. Skills appear in the `$` mention and `/` menu, filtered to the provider, and need **Restart agent session** after a change. T3 home is `~/.t3` or `T3CODE_HOME`.
+
+The CLI now treats it as a first-class manual harness. `SUPPORTED` and `ALIASES` add `t3`, `t3-code`, and `t3code`; `detectHarnesses` detects `~/.t3`/`T3CODE_HOME` and returns a manual entry whose skill root is `~/.agents/skills`, with steps covering install, the `$` menu, restart, provider instructions, and project scope. `getSkillTargetSpecs` gained a T3 spec with `skillsParent: ~/.agents` and `shared: true`, so a T3-only machine creates `~/.agents/skills` instead of installing nothing, while a machine that already has `~/.agents` still reports the unchanged "Agents (shared standard)" target. `collectSkillTargets` now de-duplicates by resolved skills folder rather than detection folder, and `discovery.localRoots` honours `skillsParent` so it never reads `~/.t3/skills`. Setup stays manual mode: T3 owns no instruction file to write.
+
+Docs updated: `yeknal-cli/README.md` prerequisite, integration table, aliases, and `skills` bullets; root `README.md` folder list and user-scope paragraphs. No version bump was made because the working tree already carries an unfinished 2.7.0 release (new `yeknal-agent-cost-control` and `yeknal-security-audit` skills, profile and catalog updates).
+
+Verification: `node tools/verify-harness-setup.js` 18/18, including a new T3 scenario for detection, `T3CODE_HOME` redirect, aliases, manual contract, and the shared install root. `node tools/verify-discovery.js` 30/30, including a new live scenario proving a T3-only home installs into `~/.agents/skills` and creates no `~/.t3/skills`. Both scripts are listed in `.git/info/exclude`, so their edits stay local. `node tools/build-catalog.js --check` verified at `60ff367`. On this machine `setup --list` reports `T3 Code: detected; manual`, and the resolved target list still shows one `Agents (shared standard)` entry, not a T3 duplicate.
+
+Known failure, not caused here: `npm test --prefix yeknal-cli` is 49/50. `profiles reference real skills and keep core discovery under budget` fails because the untracked `skills/yeknal-agent-cost-control` folder is not in any profile yet. That belongs to the in-flight release, so it was reported and left untouched.
+
+Boundary: the `$` menu entry itself is a T3 Code UI check. After `npx yeknal skills`, use **Restart agent session** in T3 Code and confirm a skill appears for the selected provider. No automated check covers that surface.
+
+## Agent cost work (2026-10-24)
+
+Two halves: harness tuning outside this repo, and one new catalog skill. The trigger was the Cloudflare post on cutting inference cost 68%, measured against this machine before applying anything.
+
+Baseline that changed the plan: 36 sessions, 2,736 calls, $10.66 over 30 days, with 95% of input tokens already served from cache and one 644-call session carrying 57% of the spend. So the work became session shape and call count, not prompt-cache tuning.
+
+Harness changes (`~/.config/opencode`, not in this repo): `cost-report.mjs` plus `command/cost.md` (`/cost`) reads the local session database read-only and reports spend, calls per session, first-call cache hit, and the tail; a batch-read rule in `deepseek-fast.md` and `go-scout.md`; a re-review skip rule in `deepseek-routing.ts`; and section 22.16 on session hygiene and cost in the global `AGENTS.md`. Subagent tool definitions needed no change: no denied-tool attempts in about 2,700 calls.
+
+Skill: `yeknal-agent-cost-control` with `references/measurement.md` (OpenCode schema and SQL). Registered in `site/presentation.json` (task `agents`), `skills.sh.json` (Process and reasoning), `llms.txt`, `README.md`, `PROVENANCE.md` (Cloudflare post, method adapted, figures framed as one team's reference case), `evaluations/skill-routing.json` (`agent-spend-regression`), and `yeknal-cli/profiles.json` (`process`; the profile-coverage test requires every discovered skill to be covered).
+
+Project tool surface: a local-only `opencode.json` in the repo root disables pencil, Neon, vercel, and cloudflare for this project, where MCP tools accounted for 2 calls in roughly 1,100. It is excluded through `.git/info/exclude` and is not part of the release. Entries must be complete, because a partial `{ "enabled": false }` is dropped by schema validation without warning and the server stays active.
+
+Verification: `skills-ref validate` valid; `audit-skills.ps1` 96 skills, 0 errors, 0 warnings; routing evals 43 cases, 0 errors; relative links resolve; `opencode mcp list` shows the four servers disabled in this directory. Boundaries: catalog rebuild, portfolio validation, and CLI discovery all read the committed tree, so they run after the commit (`node tools/build-catalog.js`, `node tools/sync-portfolio.js --validate`, then `node yeknal-cli/bin/yeknal.js search "cut agent cost" --json`). `audit-markdown-links.ps1` still cannot run here for the same PowerShell 7 reason as before. CLI suite is 49/50: test 34 fails on `security-audit`, which is already in the security profile but missing from the hardcoded expectation at `test/yeknal.test.js:208`, so that belongs to the parallel security work. `yeknal-cli/catalog.json` also now carries `sourceRevision` 60ff367 instead of a2260a6 from running the catalog build at HEAD.
+
 ## Legacy sweep rename (2026-10-24)
 
 `yeknal-test-audit` is now `yeknal-legacy-sweep`, rewritten from a test-value gate into the full sweep campaign: baseline first, serialized lanes, an evidence row per candidate, failure triage, a keeper map, checkpoints, and a report contract. It keeps the core slot (core stays 37), becomes public (published 58 to 59), and joins the Process and reasoning group. New references: `evidence-standard.md`, `campaign-execution.md`, `report-template.md`.

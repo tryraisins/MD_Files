@@ -134,8 +134,8 @@
       "prompt": "Perform a security best-practices review of this Express service.",
       "primary": "yeknal-security-best-practices",
       "secondary": ["yeknal-application-security"],
-      "mustNotLead": ["yeknal-review"],
-      "rationale": "An explicit supported-stack security review outranks generic review."
+      "mustNotLead": ["yeknal-review", "yeknal-security-audit"],
+      "rationale": "An explicit supported-stack security review outranks generic review, and a focused review is not a full audit."
     },
     {
       "id": "language-simplification",
@@ -182,8 +182,8 @@
       "prompt": "Threat model this repository and enumerate trust boundaries and abuse paths.",
       "primary": "yeknal-security-threat-model",
       "secondary": ["yeknal-application-security"],
-      "mustNotLead": ["yeknal-review"],
-      "rationale": "Threat modeling produces a distinct artifact."
+      "mustNotLead": ["yeknal-review", "yeknal-security-audit"],
+      "rationale": "Threat modeling produces a design-time artifact, not an empirical audit of exploitability."
     },
     {
       "id": "unused-code-audit",
@@ -296,6 +296,54 @@
       "secondary": ["yeknal-playwright"],
       "mustNotLead": ["yeknal-troubleshoot", "yeknal-improve-animations"],
       "rationale": "The request is a measured optimization programme across four surfaces, not failure diagnosis or motion craft."
+    },
+    {
+      "id": "agent-spend-regression",
+      "prompt": "Our agent bill doubled this month on roughly the same work. Find out where the tokens went and what to change, including whether a cheaper model is actually safe.",
+      "primary": "yeknal-agent-cost-control",
+      "secondary": ["yeknal-testing-strategy"],
+      "mustNotLead": ["yeknal-performance", "yeknal-orchestration-specialists"],
+      "rationale": "The question is inference spend and whether a cheaper configuration is safe, which needs measurement plus an outcome gate, not app speed work or a new delegation plan."
+    },
+    {
+      "id": "full-security-audit",
+      "prompt": "Do a full security audit of this repository and give me the findings.",
+      "primary": "yeknal-security-audit",
+      "secondary": ["yeknal-application-security"],
+      "mustNotLead": ["yeknal-security-best-practices", "yeknal-review", "yeknal-legacy-sweep"],
+      "rationale": "An explicit full audit needs coverage planning, adversarial verification, and findings artifacts, which only the audit skill owns."
+    },
+    {
+      "id": "scoped-vulnerability-hunt",
+      "prompt": "Find security vulnerabilities in ./src and tell me which ones are actually real.",
+      "primary": "yeknal-security-audit",
+      "secondary": ["yeknal-application-security"],
+      "mustNotLead": ["yeknal-security-best-practices", "yeknal-review"],
+      "rationale": "A vulnerability hunt with a truth test is a scoped audit run, not a checklist review of a supported stack."
+    },
+    {
+      "id": "scoped-diff-security-audit",
+      "prompt": "Audit just this pull request for security problems.",
+      "primary": "yeknal-security-audit",
+      "secondary": ["yeknal-review"],
+      "mustNotLead": ["yeknal-security-best-practices"],
+      "rationale": "A diff is the scope of an audit run, so partial coverage must be declared rather than implied by a review."
+    },
+    {
+      "id": "ai-agent-security-audit",
+      "prompt": "Audit our LLM agent for prompt injection, tool abuse, and unsafe output handling.",
+      "primary": "yeknal-security-audit",
+      "secondary": ["yeknal-application-security", "yeknal-human-ai-interface-design"],
+      "mustNotLead": ["yeknal-security-best-practices"],
+      "rationale": "The target class is agentic and the request is an audit, so the LLM attack-class companion leads over generic stack guidance."
+    },
+    {
+      "id": "security-guidance-not-audit",
+      "prompt": "Is it safe to keep the session token in localStorage for this app?",
+      "primary": "yeknal-application-security",
+      "secondary": ["yeknal-security-best-practices"],
+      "mustNotLead": ["yeknal-security-audit"],
+      "rationale": "A single design question is guidance, and guidance must not start the multi-phase audit workflow or create run artifacts."
     }
   ]
 }

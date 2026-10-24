@@ -1,6 +1,6 @@
 ---
 name: yeknal-ui-quality-baseline
-description: Apply shared visual, responsive, accessibility, state, and motion checks whenever creating, changing, or reviewing visible UI or mockups.
+description: Apply shared visual, responsive, accessibility, state, motion, and copy checks whenever creating, changing, or reviewing visible UI or mockups.
 ---
 
 # Universal UI Quality Baseline
@@ -251,6 +251,27 @@ Treat a remote form submission as an interruption-prone operation, not a one-way
 
 When inference, generation, retrieval, or agentic action changes the user experience, also apply `yeknal-human-ai-interface-design`. Expose capability limits, relevant provenance and freshness, editable output, partial failure, stop or cancel, approval before consequential actions, and recovery proportional to the side effect. Use deterministic controls for exact state, permissions, price, and irreversible commitment; do not turn every feature into chat.
 
+## Copy discipline
+
+Cut taglines, helper text, and secondary labels. Keep them only when they carry
+meaning the layout cannot: a required field label, an error message, a consequence
+warning, or accessibility text. If a screen needs explanation to make sense, fix
+the hierarchy, grouping, spacing, control names, and visible state instead of
+adding copy.
+
+- Never cut what a user needs to identify a field, understand a failure, or tell a
+  destructive action from a safe one. Form labels, field instructions, and error
+  messages stay, and stay programmatically associated as "States and accessibility"
+  requires.
+- Cut echo and duplication first: labels that repeat the heading, helper text that
+  restates the control, captions that describe what is already visible.
+- In data-dense UI, a secondary label that distinguishes rows, states, or metrics
+  is content, not decoration. Keep it.
+- Prefer a clearer control name or a single strong heading over a heading plus a
+  tagline, and prefer rejection or empty-state guidance over explanatory prose.
+- When a visible string changes, keep its accessible name, test id, and translation
+  key intact unless the change is deliberate.
+
 ## Anti-slop review
 
 Reject defaults that make the result look generated rather than designed:
@@ -286,6 +307,7 @@ Even when the task is only one button, badge, input, icon, loader, or skeleton:
 - Verify loading feedback against real async state and test success, failure, retry, and reduced motion.
 - Walk every critical user journey end to end in the running product (for example, sign-up or checkout when present), including applicable direct-entry and sign-in-return paths. Check that visible buttons act, links reach valid destinations, and the same journey can be completed with a keyboard alone.
 - For new or materially changed flows, exercise relevant screen-reader and system-setting behavior in the running interface; use the reference's scoped checks and record the tested browser/device/tool combination. Automated scans, screenshots, and simulations alone do not establish accessibility conformance or observed usability.
+- Confirm that trimmed copy removed no required label, field instruction, error message, or accessible name, and that every remaining string reads as interface copy rather than marketing.
 - For a public launch, confirm the home page says what the product does in one clear line, each page has one dominant primary action, every page has an accurate title and description, the site has a working favicon, and no visible placeholder or template text remains.
 - Run relevant lint, type checks, tests, builds, and browser checks. A successful build is not visual proof.
 - Report what was verified, what failed, and what remains blocked without overclaiming.

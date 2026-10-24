@@ -22,9 +22,10 @@ A curated collection of reusable skill folders for AI coding agents. The collect
 - Cline: `~/.cline`
 - OpenHands: `~/.openhands`
 - Amp: `~/.config/amp`
-- Shared Agent Skills standard: `~/.agents` (read by Cursor, opencode, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, Windsurf, Amp, and other compatible clients)
+- T3 Code: `~/.t3` (or `T3CODE_HOME`); installs skills into `~/.agents/skills`, which T3 Code reads for every provider
+- Shared Agent Skills standard: `~/.agents` (read by Cursor, opencode, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, Windsurf, Amp, T3 Code, and other compatible clients)
 
-A user-level folder is only used when it already exists. When `~/.agents` exists, sync installs there and skips the per-harness folders whose clients already read `~/.agents/skills` (Codex, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, and Amp); managed folders left in a skipped location are removed so the client stops showing a stale duplicate. Targets not configured to read `~/.agents` (Claude, Kiro, Cline, and the Antigravity folders) keep their own copy. Because opencode, Cursor, Amp, and Windsurf also read `~/.claude/skills`, they can still see a managed skill from both `~/.agents` and Claude's folder. Use `npx yeknal skills --skip-claude` to also skip Claude Code's folder and clean its managed copies, preventing that duplicate. Personal folders are preserved.
+A user-level folder is only used when it already exists, except that a detected T3 Code install makes `~/.agents/skills` the install target because it is the only folder T3 Code reads without third-party extensibility. When `~/.agents` exists, sync installs there and skips the per-harness folders whose clients already read `~/.agents/skills` (Codex, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, and Amp); managed folders left in a skipped location are removed so the client stops showing a stale duplicate. Targets not configured to read `~/.agents` (Claude, Kiro, Cline, and the Antigravity folders) keep their own copy. Because opencode, Cursor, Amp, and Windsurf also read `~/.claude/skills`, they can still see a managed skill from both `~/.agents` and Claude's folder. Use `npx yeknal skills --skip-claude` to also skip Claude Code's folder and clean its managed copies, preventing that duplicate. Personal folders are preserved.
 
 Git is optional and is used only if the GitHub download path is rate-limited.
 Project-level sync requires the current directory to be inside a Git repository.
@@ -107,7 +108,7 @@ npx yeknal security
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
 | `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills aspnet-core` | Adds missing skills to the current repository without deleting or replacing existing skills. |
-| `npx yeknal skills --all` | Syncs all 94 skills for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs all 95 skills for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
@@ -128,7 +129,7 @@ npx skills add tryraisins/MD_Files --skill yeknal-frontend-design
 - Skills are pulled from `skills/yeknal-*/` in this repository on `main`.
 - Version 2 defaults to `core`; `all` preserves the former full-catalog behavior.
 - Skill folders already carry the `yeknal-` prefix, so installed folder names match the catalog names; the CLI treats an existing prefix as final.
-- User scope syncs every detected agent folder: Codex, Claude, Gemini Antigravity/Antigravity, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, Kiro, Cline, OpenHands, Amp, and the shared `~/.agents` standard. When `~/.agents` is present it is preferred, the overlapping per-harness folders are skipped, and their stale managed `yeknal-*` folders are removed. Project scope targets the current Git repository's `.agents/skills` folder, which Codex, Cursor, opencode, Roo Code, OpenHands, and other compatible clients scan from the working directory up to the repository root.
+- User scope syncs every detected agent folder: Codex, Claude, Gemini Antigravity/Antigravity, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, Kiro, Cline, OpenHands, Amp, T3 Code, and the shared `~/.agents` standard. When `~/.agents` is present it is preferred (a detected T3 Code install also makes it the target), the overlapping per-harness folders are skipped, and their stale managed `yeknal-*` folders are removed. Project scope targets the current Git repository's `.agents/skills` folder, which Codex, Cursor, opencode, Roo Code, OpenHands, T3 Code, and other compatible clients scan from the working directory up to the repository root.
 - Profiles are exact sets. Combine them with commas; named `--skills` are also exact and do not add core implicitly, so project installs need not duplicate a user-level core profile.
 - Manual core installs include `yeknal-skill-router`. Setup adds a short bootstrap to search/load directly without native installation and preserves existing routers by default. Explicit eligible `--migrate` requests back them up with their dedicated collections. Older manual workflows retain additive project installation with `--project --add`.
 - `npx yeknal security` installs `yeknal-application-security`, `yeknal-security-best-practices`, `yeknal-security-ownership-map`, and `yeknal-security-threat-model`.
@@ -154,15 +155,15 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | `core` | 37 | High-frequency process, design, implementation, verification, and security. |
 | `process` | 9 | Optional domain modeling, delivery, cleanup, verification upkeep, GitHub, exhaustive-output, and response workflows beyond core. |
 | `design` | 25 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
-| `security` | 4 | The four distinct security output contracts. |
+| `security` | 5 | The five distinct security output contracts. |
 | `web` | 7 | Specialist web apps, frameworks, SEO, performance, launch readiness, and production errors beyond core. |
 | `platform` | 8 | Platform-specific engineering, deployment, and launch readiness. |
 | `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
 | `productivity` | 5 | Linear and Notion workflows. |
 | `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 94 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 95 | Every catalog entry; use when discovery cost is acceptable. |
 
-Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects`, `yeknal-mobile-app-design`, `yeknal-human-ai-interface-design`, and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-emil-design-eng`, `yeknal-find-animation-opportunities`, `yeknal-improve-animations`, and `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping, Figma, and image-led workflows remain in the design pack because their triggers and output contracts differ. The skill router still fetches a task-specific specialist when one is missing. Security keeps four folders for the same reason: implementation, review, threat modeling, and ownership analysis are not interchangeable artifacts.
+Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects`, `yeknal-mobile-app-design`, `yeknal-human-ai-interface-design`, and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-emil-design-eng`, `yeknal-find-animation-opportunities`, `yeknal-improve-animations`, and `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping, Figma, and image-led workflows remain in the design pack because their triggers and output contracts differ. The skill router still fetches a task-specific specialist when one is missing. Security keeps five folders for the same reason: implementation, review, auditing, threat modeling, and ownership analysis are not interchangeable artifacts.
 
 ## Selection and precedence
 
@@ -239,6 +240,10 @@ The skill is read-only by default and explicitly not legal advice. It never pres
 
 `yeknal-content-seo` includes an IndexNow workflow for changed-URL notification and conditionally evaluates whether a public AI-readable brand facts page fills a real search-information gap. It does not claim such a page or `/llms.txt` improves AI Overview placement. The skill treats submission, crawling, indexing, ranking, and AI citations as separate proof boundaries.
 
+### Agent cost control
+
+`yeknal-agent-cost-control` treats an inference bill as a design outcome rather than a provider price list. It reads per-session usage from the harness log, ranks sessions by cost, and then changes one lever: calls per session, content per call, tool surface, or model and effort. Cache work is explicitly conditional, because a setup already at a high cache-read share gains almost nothing from reordering prompts. A cheaper model is never accepted on cost alone: the outcome check counts findings that led to a change rather than findings reported, since a fall in reported problems is equally consistent with noise removed or real problems lost.
+
 ## Upstream review
 
 The 2026-10-03 refresh reviewed [emilkowalski/skills](https://github.com/emilkowalski/skills) at `e8a175de22ae1e49370fc144c1f3bb9aeedf988d`. The catalog already carried 12 of its 14 skills. Its two newest were incorporated without duplicating existing capability:
@@ -249,6 +254,8 @@ The 2026-10-03 refresh reviewed [emilkowalski/skills](https://github.com/emilkow
 The 2026-10-07 workflow review examined [mattpocock/skills](https://github.com/mattpocock/skills) at `f3fc5632f401156837ee3872f14fe33ccf1024ea`. Its domain-modeling practice informed `yeknal-domain-modeling`, an independently written glossary/ADR workflow with no source text copied.
 
 The 2026-10-23 review examined pstack in [cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack) at `4ec7ffa173eaa70d3d9467a627baf0954645a353`. Two behavioral-verification workflows were adapted as `yeknal-verification-harness` and `yeknal-verification-audit`, both in the `process` profile: the first generates a project-local skill with launch, doctor, drive, evidence, cleanup, and a feature map; the second keeps that map honest with one live pass. Upstream is MIT (Copyright 2026 Lauren Tan), so each skill bundles the notice. Two upstream behaviors changed. The hardcoded `.cursor/skills/verify-<app>/` path becomes the project's own skill directory with `.agents/skills/` as the neutral fallback, and the `disable-model-invocation` flag becomes explicit-only wording in the description, because this catalog's frontmatter contract allows only known fields. The formal-verification pair (model checkers, provers, TLA+) was reviewed and left out: it pays off only where concurrency, parsers, or invariants exceed what tests reach, and carrying it across a design-and-product catalog would add upkeep without demand.
+
+The 2026-10-24 review examined [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) at `c1c8a8c1471069fb0e188eeaff69b8e8db6564a8` and adapted it as `yeknal-security-audit` in the `security` profile. Upstream is MIT (Copyright 2025-2026 Cloudflare, Inc.), so the skill bundles the notice. The six-phase engine, coverage ledger, findings schema, and both zero-dependency validators are carried over; the domain attack-class companions move under `references/`. Three upstream behaviors changed. Its platform-neutral `research` and `general` roles are bound to this harness's real lanes, because an unbound role name silently collapses the audit into one context. Its OS-sandbox requirement is stated as source-only on Windows rather than quietly assumed, so behavioral leads stay `needs_validation` instead of being guessed. Both validators are patched for Windows, where upstream rejects every input because `O_NOFOLLOW` and `O_NONBLOCK` are unavailable; the local build keeps every other input check and only loses the race-free read. Its two validator test files are not shipped, since this catalog does not carry unit suites inside skills and the pinned commit makes re-vendoring a diff. The four existing security skills were retargeted in the same change so that exactly one skill owns a full audit.
 
 The 2026-09-12 refresh additionally reviewed:
 

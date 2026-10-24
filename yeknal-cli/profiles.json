@@ -42,8 +42,9 @@
     ]
   },
   "process": {
-    "description": "Optional domain modeling, delivery, cleanup, verification upkeep, GitHub, exhaustive-output, and response-mode workflows beyond core.",
+    "description": "Optional agent cost, domain modeling, delivery, cleanup, verification upkeep, GitHub, exhaustive-output, and response-mode workflows beyond core.",
     "skills": [
+      "agent-cost-control",
       "dead-code-hunter",
       "domain-modeling",
       "full-output-enforcement",
@@ -86,9 +87,10 @@
     ]
   },
   "security": {
-    "description": "Secure implementation, focused review, threat modeling, and sensitive-code ownership analysis.",
+    "description": "Multi-phase auditing, secure implementation, focused review, threat modeling, and sensitive-code ownership analysis.",
     "skills": [
       "application-security",
+      "security-audit",
       "security-best-practices",
       "security-ownership-map",
       "security-threat-model"
