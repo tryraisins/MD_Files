@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "e25b3e4424766d1ee620053e73ea899388dcba84",
-  "version": "2.5.1",
+  "sourceRevision": "a2260a6fe20101d7008a379490f6f8e8d16243a3",
+  "version": "2.6.0",
   "skills": [
     {
       "name": "yeknal-add-changelog",
@@ -4197,7 +4197,7 @@
         "workflow",
         "yeknal-launch-readiness"
       ],
-      "version": "f45155ff651356f1667cbf597f03bce9d9306a41c0dceacd3fd8885c194a4f05",
+      "version": "ced9db7bf1b978e7d3f18814cc31b0cc54cec2d966ad696b932a5f54bf27a1a5",
       "files": [
         {
           "path": "references/evidence-and-fixes.md",
@@ -4211,8 +4211,8 @@
         },
         {
           "path": "references/launch-gates.md",
-          "sha256": "29d0d25c99ead50448e03d27d1b290dd022e85cf02f7d9f85bb43c85672cdd50",
-          "size": 7153
+          "sha256": "77e8ee9f454bd288612b51d0714c5ba6fb7060710f4ea761f756cac0d181c7b1",
+          "size": 7325
         },
         {
           "path": "references/obligations.md",
@@ -4228,6 +4228,78 @@
           "path": "SKILL.md",
           "sha256": "98e79b1b9d4e709180397f28de804d388c08d15b7e103dd6b89cc50589dca11b",
           "size": 8085
+        }
+      ]
+    },
+    {
+      "name": "yeknal-legacy-sweep",
+      "description": "Audit a whole repository or subsystem for unused legacy code and bloated or worthless tests, prove each candidate is obsolete before deleting it, repair real defects instead of removing the test that caught them, and keep the coverage that still protects behaviour. Use when asked for a deep cleanup, a dead-code sweep, a test-suite prune, or a legacy audit, and whenever deletion is on the table.",
+      "keywords": [
+        "baseline",
+        "before",
+        "boundaries",
+        "build",
+        "cheap",
+        "checkpoint",
+        "code",
+        "conditions",
+        "credit",
+        "deleting",
+        "establish",
+        "every",
+        "evidence",
+        "execute",
+        "executor",
+        "failure",
+        "fill",
+        "fits",
+        "for",
+        "gate",
+        "inventory",
+        "keeper",
+        "lanes",
+        "legacy",
+        "map",
+        "plan",
+        "read",
+        "references",
+        "report",
+        "row",
+        "scope",
+        "stop",
+        "sweep",
+        "tests",
+        "the",
+        "then",
+        "this",
+        "triage",
+        "where",
+        "with",
+        "workflow",
+        "working",
+        "yeknal-legacy-sweep"
+      ],
+      "version": "f46516b2e539e3e969d077b74c9ffd5a1d3b2a47117cc57adf94df4533f46709",
+      "files": [
+        {
+          "path": "references/campaign-execution.md",
+          "sha256": "b103ef1ea6737dd3b782cd104c2efe8b7ee1b0bb01aa2b8cac4adabe88e8ed7f",
+          "size": 5231
+        },
+        {
+          "path": "references/evidence-standard.md",
+          "sha256": "ea0acc05f8fafddbed1733f09b8493054f823d8eaac7c7f82bc6f3e7ef98c435",
+          "size": 6698
+        },
+        {
+          "path": "references/report-template.md",
+          "sha256": "6ad6d95addaf9c0020209b19a7a42edb76d2a0e1538adf13be8f1cdb26600bbb",
+          "size": 2631
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "63df80703b49e216820538247e2343a13d9f0f1bd0d70ca26aa262a3fbd998de",
+          "size": 8505
         }
       ]
     },
@@ -5333,6 +5405,97 @@
           "path": "SKILL.md",
           "sha256": "d8b50784ab581208062a8c081087e76861c8ac70a4496e68798c2efa4e201b7b",
           "size": 2567
+        }
+      ]
+    },
+    {
+      "name": "yeknal-performance",
+      "description": "Optimize an application's real performance by measuring baseline startup, screen navigation, content loading, and scrolling, locating the actual bottleneck, changing one thing at a time, and proving every fix with before and after benchmarks. Use when an app feels slow to start, screens or content take too long to appear, scrolling stutters, or someone asks to make the app faster.",
+      "keywords": [
+        "and",
+        "baseline",
+        "before",
+        "bottleneck",
+        "change",
+        "code",
+        "conditions",
+        "contract",
+        "counts",
+        "decide",
+        "deliver",
+        "evidence",
+        "fits",
+        "freeze",
+        "handoffs",
+        "hard",
+        "identically",
+        "invocation",
+        "locate",
+        "map",
+        "metric",
+        "name",
+        "numbers",
+        "one",
+        "performance",
+        "predict",
+        "re-measure",
+        "references",
+        "rules",
+        "stop",
+        "surface",
+        "the",
+        "then",
+        "thing",
+        "this",
+        "touching",
+        "what",
+        "where",
+        "win",
+        "with",
+        "workflow",
+        "yeknal-performance"
+      ],
+      "version": "00b691b178a42e09f3ba75f8da0d07508bbff805892c093c0a47113276a154f2",
+      "files": [
+        {
+          "path": "references/fix-catalog.md",
+          "sha256": "ab7d6b837b64bb1850efaa0bf63d3843c050750277f66e64256053c489a004b8",
+          "size": 6762
+        },
+        {
+          "path": "references/measuring.md",
+          "sha256": "147876a258dcb60e1321e4cc03edc91fe19e2e25611ec23d7eb966d35eb59eab",
+          "size": 5991
+        },
+        {
+          "path": "references/report-template.md",
+          "sha256": "e41cd83c4a92e3187254b29fd896c2bb60239406164b950061f66f54b1172f5e",
+          "size": 2776
+        },
+        {
+          "path": "references/screens-and-content.md",
+          "sha256": "766c533f83c170d6793942c59d9843a751a2301b1e4cf89a282e711c5b07d19c",
+          "size": 5492
+        },
+        {
+          "path": "references/scrolling.md",
+          "sha256": "0d540e8039dcf19ca90928a22e539ff31d296326bfd50d2a4cc8c0940a34ab84",
+          "size": 4354
+        },
+        {
+          "path": "references/startup.md",
+          "sha256": "198d84fc353127eab353bfae6f8e92a2aa14b52f3f79facea3fca218b0bef115",
+          "size": 4797
+        },
+        {
+          "path": "scripts/bench-web.mjs",
+          "sha256": "262791d491a9c07a7544db34f9fee2094efd114e0bce85aa3952015ae00e7234",
+          "size": 16825
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "3900059a2d3247e62803d9e5f21f067ffe68f188620eebf3dc2bcf7f2a59a9de",
+          "size": 8745
         }
       ]
     },
@@ -7007,38 +7170,6 @@
       ]
     },
     {
-      "name": "yeknal-test-audit",
-      "description": "Audit test suites for meaningful behavioral coverage, redundant or implementation-coupled assertions, and test-only production seams. Use when reviewing, consolidating, pruning, or making decisions about existing tests; also apply its value gate before adding or changing tests.",
-      "keywords": [
-        "adding",
-        "and",
-        "audit",
-        "before",
-        "campaigns",
-        "changing",
-        "coverage",
-        "evidence",
-        "existing",
-        "large",
-        "proposing",
-        "record",
-        "removal",
-        "report",
-        "subsystem",
-        "test",
-        "validation",
-        "yeknal-test-audit"
-      ],
-      "version": "6277bade739d911975ec5172a28c2fa58134eda94646c0040dc0295e45ba3a77",
-      "files": [
-        {
-          "path": "SKILL.md",
-          "sha256": "be2b73259766c93fa9a614cec8915fae88b7b77f2ee19705842f5708225b605b",
-          "size": 6026
-        }
-      ]
-    },
-    {
       "name": "yeknal-testing-strategy",
       "description": "Use before writing or running tests to enforce end-to-end-only verification. Do not write unit tests; prove behavior through the real entry point, keep a repeatable artifact, and report what stayed unverified.",
       "keywords": [
@@ -7055,12 +7186,12 @@
         "workflow",
         "yeknal-testing-strategy"
       ],
-      "version": "f52fe17912e989a9cf82bf4e3f2c99abda5b458148e4c0994f09c8068ae9631d",
+      "version": "687f8285efd26dca47b9f62b66a1067d6685af8d37e20cf1f2ac8cf24c2c33be",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "8c672787d32e07e97681f6f3d62b9f117028cbe707a4df39c4acf245ee98f461",
-          "size": 3470
+          "sha256": "8de5491331f24b2af55275e551b2f641326aa4e91633f440ee2e7bc809642d29",
+          "size": 3472
         }
       ]
     },
@@ -7146,12 +7277,12 @@
         "troubleshoot",
         "yeknal-troubleshoot"
       ],
-      "version": "e0c3c34f619952e590143d64edc31cb42c89c76ec6b1cce7c843a20eb7ea1a49",
+      "version": "0f5a63ff41735e781373465d57514dc3b8912bcd02560560e6c61e19486b021b",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "1010682985e97f4ea264e2d8ffadbcd4288874d892d70e8c142436307cc6e5c2",
-          "size": 3201
+          "sha256": "6bbab4566fd2555bccd3cbd41ed145bcc3e84b511861e440bd1189e43d3218f4",
+          "size": 3435
         }
       ]
     },
