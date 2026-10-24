@@ -107,7 +107,7 @@ npx yeknal security
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
 | `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills aspnet-core` | Adds missing skills to the current repository without deleting or replacing existing skills. |
-| `npx yeknal skills --all` | Syncs all 90 skills for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs all 94 skills for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
@@ -116,7 +116,7 @@ npx yeknal security
 
 ### Install with skills.sh
 
-The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (55 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
+The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (59 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
 
 ```bash
 npx skills add tryraisins/MD_Files --list
@@ -142,7 +142,7 @@ npx skills add tryraisins/MD_Files --skill yeknal-frontend-design
 
 The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 37 entries cover:
 
-- process and reasoning management: brainstorming, research, orchestration/context management, implementation, review, diagnosis, cleanup, Git, finalization, documentation, test planning, and test auditing;
+- process and reasoning management: brainstorming, research, orchestration/context management, implementation, review, diagnosis, cleanup, legacy sweeps, Git, finalization, documentation, and test planning;
 - canonical design: reference research, visual direction, UI quality, frontend implementation, redesign, mobile, motion, and human-AI interaction;
 - security: secure implementation, focused framework review, threat modeling, and sensitive-code ownership;
 - browser-based verification through Playwright.
@@ -155,12 +155,12 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | `process` | 9 | Optional domain modeling, delivery, cleanup, verification upkeep, GitHub, exhaustive-output, and response workflows beyond core. |
 | `design` | 25 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
 | `security` | 4 | The four distinct security output contracts. |
-| `web` | 6 | Specialist web apps, frameworks, SEO, launch readiness, and production errors beyond core. |
+| `web` | 7 | Specialist web apps, frameworks, SEO, performance, launch readiness, and production errors beyond core. |
 | `platform` | 8 | Platform-specific engineering, deployment, and launch readiness. |
 | `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
 | `productivity` | 5 | Linear and Notion workflows. |
 | `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 93 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 94 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects`, `yeknal-mobile-app-design`, `yeknal-human-ai-interface-design`, and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-emil-design-eng`, `yeknal-find-animation-opportunities`, `yeknal-improve-animations`, and `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping, Figma, and image-led workflows remain in the design pack because their triggers and output contracts differ. The skill router still fetches a task-specific specialist when one is missing. Security keeps four folders for the same reason: implementation, review, threat modeling, and ownership analysis are not interchangeable artifacts.
 

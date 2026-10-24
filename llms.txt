@@ -28,6 +28,7 @@ yeknal-implement: End-to-end repository implementation command that defers to sp
 yeknal-review: Evidence-first code and system review.
 yeknal-troubleshoot: Reproduction-led diagnosis and scoped repair.
 yeknal-cleanup: Evidence-led dead-code and project cleanup.
+yeknal-legacy-sweep: Repository-wide sweep that proves legacy code and tests are obsolete before deleting them, fixes real defects instead of removing the failing test, and keeps the coverage that still protects behaviour.
 yeknal-git: Scoped, non-destructive Git operations that preserve unrelated work.
 yeknal-finalize: Repository-appropriate documentation and quality gates with publication only when explicitly requested.
 yeknal-orchestration-specialists: Bounded multi-agent, context, prompt, synthesis, and MCP coordination guidance.
@@ -38,3 +39,4 @@ yeknal-break-ui: Adversarial worst-case data stress test for a component or scre
 yeknal-domain-modeling: Clarify domain concepts, maintain a project glossary, and record durable architecture decisions as ADRs only when the tradeoff warrants it.
 yeknal-verification-harness: Generate a project-local verification skill that launches the real app, drives a feature like a user, and keeps provable artifacts, with a maintained feature map.
 yeknal-verification-audit: Keep a verification skill and its feature map honest by checking every feature against source and driving every feature in one live session, then shipping only proven corrections.
+yeknal-performance: Measure startup, screen navigation, content loading, and scrolling on a throttled production build, find the real bottleneck, and keep only fixes that beat the measured noise floor.

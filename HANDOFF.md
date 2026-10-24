@@ -1,22 +1,48 @@
 # Project Handoff
 
-Last updated: 2026-10-23
+Last updated: 2026-10-24
 Branch: main
 HEAD: see git log; released source edf3ec6, catalog/tag e769323
 
+## Legacy sweep rename (2026-10-24)
+
+`yeknal-test-audit` is now `yeknal-legacy-sweep`, rewritten from a test-value gate into the full sweep campaign: baseline first, serialized lanes, an evidence row per candidate, failure triage, a keeper map, checkpoints, and a report contract. It keeps the core slot (core stays 37), becomes public (published 58 to 59), and joins the Process and reasoning group. New references: `evidence-standard.md`, `campaign-execution.md`, `report-template.md`.
+
+The request behind it was a Codex prompt that used GPT-6.1 Sol Ultra for a deep dead-code and bloated-test cleanup. The skill exists so a cheap executor can run the same campaign, because the expensive part was never the scan, it was the judgment about what counts as proof. A candidate that cannot fill its row leaves as a blocker instead of a deletion, and a failing test is triaged as a defect before it is treated as bloat.
+
+Renamed references updated: `yeknal-testing-strategy` (line 47), `site/presentation.json` (key moved to alphabetical position, `previousNames: ["yeknal-test-audit"]`, purpose and example widened), `evaluations/skill-routing.json` (the verification-audit case now points at the new ID, plus a new `deep-legacy-sweep` case), `PROVENANCE.md`, `skills.sh.json`, `profiles.json`, `SKILL_AUDIT.md`, `llms.txt`, `README.md`, `yeknal-cli/README.md`. Version bumped to 2.6.0, which also covers the verification pair and `yeknal-performance`.
+
+Verification: `skills-ref validate` valid; `audit-skills.ps1` 0 errors and 0 warnings; CLI suite 50/50; presentation and count validator 0 errors; `git diff --check` clean. End-to-end run: a fixture repository in `%TEMP%\opencode\legacy-sweep-fixture` with four traps was swept by a separate worker following this skill. It removed `formatLegacyDate`, kept the string-key handler that `knip` flagged, kept the barrel export, removed a self-comparison test only after proving it passes against broken code, fixed the real `normalizeEmail` bug, and left both keeper tests byte-identical. Its report is `SWEEP-REPORT.md` in that folder; the acceptance list is `%TEMP%\opencode\legacy-sweep-evidence\RUN.md`.
+
+Not done here: the catalog rebuild and commit, the push, and the portfolio sync. The user's `yeknal-test-audit` copies in `~/.agents/skills` and `~/.claude/skills` were left in place.
+
 ## Verification harness pair (2026-10-23)
 
-Two skills added from Lauren Tan's pstack (`cursor/plugins` at `4ec7ffa`): `yeknal-verification-harness` (generates a project-local launch/doctor/drive/evidence/cleanup skill plus a feature map) and `yeknal-verification-audit` (the upkeep pass: source wave per feature, one live session, at most one set of proven corrections). Catalog 91 to 93.
+Two skills added from Lauren Tan's pstack (`cursor/plugins` at `4ec7ffa`): `yeknal-verification-harness` (generates a project-local launch/doctor/drive/evidence/cleanup skill plus a feature map) and `yeknal-verification-audit` (the upkeep pass: source wave per feature, one live session, at most one set of proven corrections).
 
 Decisions with the user: pair 1 only. The formal-verification pair (`create-formal-verification-skill` and `maintain-formal-verification-skill`, TLA+/model checkers) was reviewed and deliberately left out because it only pays off where concurrency, parsers, or invariants exceed what tests reach, and would rot across a design-and-product catalog.
 
 Two upstream behaviors were changed during the port. The hardcoded `.cursor/skills/verify-<app>/` path became the project's own skill directory with `.agents/skills/` as the neutral fallback, because this catalog targets Codex, Claude, opencode, and Cursor. `disable-model-invocation: true` became "Use only when the user explicitly asks" in the description, because `tools/rewrite-standard.md` rejects unknown top-level frontmatter fields. `/create-verification-skill` and `/maintain-verification-skill` references became the two `yeknal-` skill names. The three upstream `references/feature-map-example/` files were carried over unchanged.
 
-Registration: both skills are in the `process` profile, not core, because core sat 303 characters under the 10,000-character discovery budget in `yeknal-cli/test/yeknal.test.js`. Also updated `skills.sh.json` (Verification group), `site/presentation.json` (task `review`; harness also `build`), `PROVENANCE.md`, `README.md` (process 7 to 9, all 91 to 93, upstream review paragraph, credits), `llms.txt`, and two `evaluations/skill-routing.json` cases (33 to 35).
+Registration: both skills are in the `process` profile, not core, because core sat 303 characters under the 10,000-character discovery budget in `yeknal-cli/test/yeknal.test.js`. Also updated `skills.sh.json` (Verification group), `site/presentation.json` (task `review`; harness also `build`), `PROVENANCE.md`, `README.md`, `llms.txt`, and two `evaluations/skill-routing.json` cases.
 
-Verification: `skills-ref validate` passes both skills. `audit-skills.ps1`, routing evals, the CLI suite (50/50 including the profile-coverage and core-budget tests), `node tools/build-catalog.js --check`, and the portfolio `assemble` run all passed on this commit from a clean worktree. Relative links resolve and `git diff --check` is clean.
+Verification: `skills-ref validate` passes both skills (installed locally at 0.1.0). `audit-skills.ps1` reported 93 skills, 0 errors, 0 warnings before the parallel performance and legacy-sweep work landed. Routing evals 0 errors. CLI suite 50/50 including the profile-coverage and core-budget tests. Catalog build and portfolio `assemble` over the built tree returned 0 errors and 0 warnings with the MIT credits detected. Relative links resolve. `git diff --check` clean.
 
-Boundaries: `npx yeknal skills --skills verification-harness,verification-audit` needs a push, because manual installs read the public GitHub tree. `audit-markdown-links.ps1` cannot run here: it needs PowerShell 7 for `Path.GetRelativePath` and only 5.1 is installed. Release order unchanged: commit the source, run `node tools/build-catalog.js`, commit the catalog, push, then `--validate` and CI, then sync the portfolio.
+Boundaries: not committed. The tree is shared with the performance and legacy-sweep workstreams, so the source commit, `node tools/build-catalog.js`, the catalog commit, the push, and the portfolio sync are all still pending. `audit-markdown-links.ps1` cannot run here: it needs PowerShell 7 for `Path.GetRelativePath` and only 5.1 is installed.
+
+## Performance skill (2026-10-24)
+
+New skill `skills/yeknal-performance` owns the measure, fix, re-measure programme across startup, screen open, content load, and scrolling. It is separate from `yeknal-troubleshoot` (starts from a failure, one before/after), `yeknal-launch-readiness` (one read-only p75 gate), and `yeknal-improve-animations` (read-only motion craft). The contract is explicit: production build, cold cache, throttled device, at least five runs, median and p75, an artifact behind every number, and a revert when a change does not clear the measured noise floor.
+
+Six references: `measuring.md` (protocol, noise floor, artifacts, tooling per stack), `startup.md`, `screens-and-content.md`, `scrolling.md`, `fix-catalog.md`, `report-template.md`. Bundled harness `scripts/bench-web.mjs` uses Playwright to record route timings, ready selector, long tasks, TBT, CLS, DOM size, transfer, and scroll frame intervals, writes `perf-results/<label>.json`, and compares two labels with a per-metric noise floor, a 50 percent cap, and a 2ms absolute floor. It refuses to install Playwright or a browser silently.
+
+Registration: `web` profile, not `core`, because a 38th core entry pushed core discovery metadata to 10,255 characters against the 10,000 budget in `yeknal-cli/test/yeknal.test.js`; core stays 37 and `all` is 94. Also updated `skills.sh.json` (Process & reasoning), `site/presentation.json`, `llms.txt`, `README.md` (web 6 to 7, all 94), `SKILL_AUDIT.md`, and one routing evaluation case (`app-performance-optimization`, mustNotLead troubleshoot and improve-animations). One-line cross-links added in `yeknal-troubleshoot` and `yeknal-launch-readiness`; neither restates the workflow.
+
+Verification: `audit-skills.ps1` 94 skills, 0 errors, 0 warnings; `validate-routing-evals.ps1` 37 cases, 0 errors; `node --test yeknal-cli/test/yeknal.test.js` 23/23; `verify-public-discovery.js` passed; relative links 1,109 checked, 0 broken (Node walk, because `audit-markdown-links.ps1` needs PowerShell 7 and this machine has 5.1); presentation entry 94 keys, known key set, valid tasks and related targets; `catalog:check` verified at the committed revision; `git diff --check` clean.
+
+Harness smoke test: local static page in `%TEMP%\opencode\perf-smoke`, 3 runs at 4x CPU, 1600kbps, 150ms latency, 390x844. Baseline (3,000 rows plus a 120ms blocking render) measured 3,949ms ready, 3,584ms LCP, 21,012 DOM nodes; after (300 rows, no blocking work) measured 871ms ready, 660ms LCP, 1,212 nodes. The comparison marked 7 improvements, 8 within noise, and 2 regressions (long-task totals), which is the harness doing its job rather than declaring a clean sweep.
+
+Not run here: `skills-ref validate` (CI only), `audit-markdown-links.ps1` (needs PowerShell 7), and `sync-portfolio.js --validate` (compares against the catalog's pinned revision, so it can only pass after the source commit and catalog rebuild). Release order is unchanged: commit the source, run `node tools/build-catalog.js`, commit `yeknal-cli/catalog.json`, push, then `--validate`.
 
 ## Content SEO skill rewrite (2026-10-23)
 

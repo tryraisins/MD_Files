@@ -34,7 +34,7 @@
       "security-ownership-map",
       "security-threat-model",
       "skill-router",
-      "test-audit",
+      "legacy-sweep",
       "troubleshoot",
       "ui-quality-baseline",
       "ui-ux-designer",
@@ -95,13 +95,14 @@
     ]
   },
   "web": {
-    "description": "Specialist web app, framework, SEO, and production-error workflows beyond core.",
+    "description": "Specialist web app, framework, SEO, performance, and production-error workflows beyond core.",
     "skills": [
       "chatgpt-apps",
       "content-seo",
       "develop-web-game",
       "launch-readiness",
       "nextjs-developer",
+      "performance",
       "sentry"
     ]
   },

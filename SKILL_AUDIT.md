@@ -128,6 +128,22 @@ Nigeria was made the leading jurisdiction at the user's request. The NDPA 2023 a
 
 `references/evidence-and-fixes.md` records the measured subset so that a future scanner has a specification rather than a guess. No scanner was built, following the slop-scan precedent that the rule catalog should settle before it is codified.
 
+## Performance (2026-10-23)
+
+`yeknal-performance` was added as one skill rather than folded into `yeknal-troubleshoot`, `yeknal-launch-readiness`, or `yeknal-improve-animations`.
+
+The trigger is a standing request, not a reported failure: make the app faster, prove each fix, and keep only what actually works. Troubleshoot starts from a reproducible failure and stops at one before-and-after measurement. Launch readiness measures a single p75 budget once, read-only, as a gate. Improve animations is a read-only motion-craft audit. None of them owns a measure, fix, re-measure programme across startup, screen navigation, content loading, and scrolling, and none enforces a noise floor or a revert rule.
+
+The skill makes measurement part of the contract: a production build, cold cache, a throttled device, at least five runs, median and p75, and an artifact behind every number. It adds `scripts/bench-web.mjs`, a Playwright harness that records route timings, long tasks, layout shift, and scroll frame intervals, writes JSON, and compares two runs with the noise floor applied. The harness needs Playwright in the target project and refuses to install it silently. Electron and React Native use their native profiling tools, documented in the references.
+
+## Legacy sweep (2026-10-24)
+
+`yeknal-test-audit` was renamed to `yeknal-legacy-sweep` and widened from a test-value gate into the campaign that removes unused legacy code and bloated tests together. It stays in `core`, renaming its existing slot (core stays 37), so the default install keeps the deletion-evidence gate. The published set grows from 58 to 59 and the skill joins the Process and reasoning group; `previousNames` redirects the old portfolio slug, and `PROVENANCE.md` keeps the openclaw credit while recording that all production-code, triage, and campaign material is original.
+
+Three skills now split the territory explicitly: `yeknal-dead-code-hunter` finds unused symbols in named files, `yeknal-cleanup` prunes a scoped set of files, dependencies, or config, and `yeknal-legacy-sweep` owns a repository-wide or subsystem campaign with deletion authority. Folding the campaign into `dead-code-hunter` would have buried a whole-repo procedure inside a linter emulation; folding it into `testing-strategy` would have put production-code deletion behind a test-planning trigger.
+
+The content adds what the old gate lacked: a baseline before any edit where failures are treated as the bug list, lane design with serialized writers, an evidence row that must be complete before a removal, failure triage into product bug, obsolete contract, flaky, and already-broken, a keeper map built before deletion, checkpoints that keep the tree reversible, and a report contract that exposes blocked candidates. Three references carry the detail (`evidence-standard.md`, `campaign-execution.md`, `report-template.md`), including a tool matrix for knip, ts-prune, depcheck, madge, ruff, vulture, and coverage with the rule that tool output is a lead, never a verdict.
+
 ## Security refresh
 
 The old duplicate raw security prompt files and generated audit log were removed. `yeknal-application-security` and its reference baseline now cover:

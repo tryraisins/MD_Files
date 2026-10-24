@@ -278,8 +278,24 @@
       "prompt": "The feature map in our verify skill is out of date. Check every feature against the code and drive each one live.",
       "primary": "yeknal-verification-audit",
       "secondary": ["yeknal-verification-harness"],
-      "mustNotLead": ["yeknal-test-audit"],
-      "rationale": "Upkeep of a verification map is not an audit of test-suite value, and it must not edit product code."
+      "mustNotLead": ["yeknal-legacy-sweep"],
+      "rationale": "Upkeep of a verification map is not an audit of test-suite or code value, and it must not edit product code."
+    },
+    {
+      "id": "deep-legacy-sweep",
+      "prompt": "Run a deep audit and delete the dead legacy code and the bloated tests, but prove each removal first and fix the real bugs instead of deleting the failing test.",
+      "primary": "yeknal-legacy-sweep",
+      "secondary": ["yeknal-dead-code-hunter", "yeknal-testing-strategy"],
+      "mustNotLead": ["yeknal-cleanup", "yeknal-dead-code-hunter"],
+      "rationale": "A repository-wide sweep with deletion authority is a campaign with an evidence gate, not a scoped prune or a symbol search."
+    },
+    {
+      "id": "app-performance-optimization",
+      "prompt": "Make this app faster: startup, screen opens, content loads and scrolling. Benchmark every fix before and after and keep only what works.",
+      "primary": "yeknal-performance",
+      "secondary": ["yeknal-playwright"],
+      "mustNotLead": ["yeknal-troubleshoot", "yeknal-improve-animations"],
+      "rationale": "The request is a measured optimization programme across four surfaces, not failure diagnosis or motion craft."
     }
   ]
 }

@@ -211,7 +211,7 @@ failure modes, and which public/actual-agent boundaries were verified.
 
 ### `npx yeknal skills`
 
-Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2.4.0 defaults to the 37-skill `core` profile instead of installing all 91 folders. The core keeps high-frequency process and reasoning management, project continuity, canonical UI/UX design, common motion design and review workflows, test auditing and planning, browser verification, all four security workflows, and the task-time `yeknal-skill-router` available globally. The optional `process` profile includes `yeknal-domain-modeling` for deliberate glossary and ADR work.
+Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2.4.0 defaults to the 37-skill `core` profile instead of installing all 94 folders. The core keeps high-frequency process and reasoning management, project continuity, canonical UI/UX design, common motion design and review workflows, legacy sweeps and test planning, browser verification, all four security workflows, and the task-time `yeknal-skill-router` available globally. The optional `process` profile includes `yeknal-domain-modeling` for deliberate glossary and ADR work.
 
 ```bash
 # Core profile in detected user-level agent folders

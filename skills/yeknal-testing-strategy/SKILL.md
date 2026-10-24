@@ -44,4 +44,4 @@ When no harness exists and the change is small, run the feature in its real cont
 3. If E2E cannot reach a boundary, state what is unreachable and what real evidence you did gather, then ask before writing anything isolated.
 4. Run the flow, keep a repeatable artifact, and report exactly what was verified and what remains unverified.
 
-When reviewing, consolidating, or removing existing tests, also apply `yeknal-test-audit`; it owns the evidence bar for test value and deletion. This does not replace the repository's test-planning or validation requirements.
+When reviewing, consolidating, or removing existing tests, also apply `yeknal-legacy-sweep`; it owns the evidence bar for test value and deletion. This does not replace the repository's test-planning or validation requirements.

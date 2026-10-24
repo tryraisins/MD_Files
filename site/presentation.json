@@ -1191,6 +1191,37 @@
         "yeknal-testing-strategy"
       ]
     },
+    "yeknal-legacy-sweep": {
+      "title": "Legacy sweep",
+      "purpose": "Audits a whole repository or subsystem for unused legacy code and bloated or worthless tests, proves each candidate is obsolete before deleting it, fixes real defects instead of removing the failing test, and keeps the coverage that still protects behaviour.",
+      "tasks": [
+        "review",
+        "build"
+      ],
+      "whenToUse": [
+        "A codebase has accumulated dead paths, unused exports and stale tests.",
+        "A test suite is slow or noisy and you want to prune it without losing the checks that matter.",
+        "A cleanup should fix the failures it uncovers instead of deleting them.",
+        "You want a cleanup that reports what it could not prove."
+      ],
+      "avoid": "It is not a lint pass and not a licence to delete code. Every removal needs a filled evidence row, a failing test is treated as a defect before it is treated as bloat, and it never authors unit tests.",
+      "example": {
+        "ask": "Sweep the repo: remove the dead code and the bloated tests, but fix real bugs instead of hiding them.",
+        "outcome": "It records a baseline, splits production ownership into read-only and write lanes, removes only candidates with completed proof, fixes the failures that are real defects, and reports what it removed, the contracts it preserved and every blocked candidate."
+      },
+      "previousNames": [
+        "yeknal-test-audit"
+      ],
+      "attribution": {
+        "credit": "The test evidence gate was written independently, inspired by the test-audit concepts in the openclaw project; no source text was copied. Production-code, failure-triage and campaign material is original.",
+        "sourceUrl": "https://github.com/openclaw/openclaw"
+      },
+      "related": [
+        "yeknal-cleanup",
+        "yeknal-dead-code-hunter",
+        "yeknal-testing-strategy"
+      ]
+    },
     "yeknal-linear": {
       "title": "Linear",
       "purpose": "Reads, creates and updates issues, projects and team workflows in Linear.",
@@ -1525,6 +1556,31 @@
       "related": [
         "yeknal-doc",
         "yeknal-spreadsheet"
+      ]
+    },
+    "yeknal-performance": {
+      "title": "App performance",
+      "purpose": "Measures startup, screen navigation, content loading and scrolling on a throttled production build, finds the real bottleneck, then proves each fix with before and after benchmarks rather than intuition.",
+      "tasks": [
+        "build",
+        "review"
+      ],
+      "whenToUse": [
+        "The app feels slow to start or slow to open a screen.",
+        "Content takes too long to appear, especially older or deeper pages.",
+        "Scrolling stutters or degrades during a long session.",
+        "Every optimization needs a measured before and after."
+      ],
+      "avoid": "It is not failure diagnosis or a motion audit. Use Troubleshoot for a broken feature and Improve animations for motion craft.",
+      "example": {
+        "ask": "Make this app faster, benchmark every fix, and tell me what actually worked.",
+        "outcome": "It records a cold production baseline on a throttled device, traces the largest cost, changes one thing at a time, re-measures, and keeps only the wins that clear the noise floor."
+      },
+      "related": [
+        "yeknal-troubleshoot",
+        "yeknal-improve-animations",
+        "yeknal-launch-readiness",
+        "yeknal-playwright"
       ]
     },
     "yeknal-pick-ui-library": {
@@ -2035,30 +2091,6 @@
         "yeknal-ui-quality-baseline"
       ]
     },
-    "yeknal-test-audit": {
-      "title": "Test audit",
-      "purpose": "Reviews a test suite for checks that prove real behaviour, and flags redundant or implementation-coupled tests worth removing.",
-      "tasks": [
-        "review"
-      ],
-      "whenToUse": [
-        "A test suite is slow or noisy and you want to prune it.",
-        "You suspect tests that only check implementation details.",
-        "You are deciding whether a new test is worth adding."
-      ],
-      "example": {
-        "ask": "Audit the checkout tests and tell me which ones actually matter.",
-        "outcome": "It classifies each test by the behaviour it protects and recommends what to keep, merge or delete."
-      },
-      "attribution": {
-        "credit": "Written independently, inspired by the test-audit concepts in the openclaw project; no source text was copied.",
-        "sourceUrl": "https://github.com/openclaw/openclaw"
-      },
-      "related": [
-        "yeknal-testing-strategy",
-        "yeknal-review"
-      ]
-    },
     "yeknal-testing-strategy": {
       "title": "Testing strategy",
       "purpose": "Keeps verification end to end: proves behavior through the real entry point, bans new unit tests, and asks before any isolated check.",
@@ -2075,7 +2107,7 @@
         "outcome": "It maps the flow's real end-to-end path and failure states, then proposes the browser or CLI run that proves them and leaves a rerunnable record."
       },
       "related": [
-        "yeknal-test-audit",
+        "yeknal-legacy-sweep",
         "yeknal-playwright"
       ]
     },
@@ -2126,7 +2158,7 @@
     },
     "yeknal-ui-quality-baseline": {
       "title": "UI quality baseline",
-      "purpose": "Applies a shared set of visual, responsive, accessibility, state and motion checks whenever an agent creates or changes visible UI.",
+      "purpose": "Applies a shared set of visual, responsive, accessibility, state, motion and copy checks whenever an agent creates or changes visible UI.",
       "tasks": [
         "design",
         "review"
