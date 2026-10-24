@@ -18,7 +18,7 @@ End-to-end proof: a fixture service in `%TEMP%\opencode\audit-target` (five file
 
 Verification: `skills-ref validate` valid; `audit-skills.ps1` 96 skills, 0 errors, 0 warnings; routing evals 43 cases, 0 errors; relative links resolve across 717 files; CLI suite 50/50; `git diff --check` clean. `audit-markdown-links.ps1` still cannot run here because PowerShell 7 is absent, so a Node link check stood in.
 
-Not done: the catalog rebuild and commit. `node tools/build-catalog.js --check` passes at `60ff367`, which means the catalog is stale rather than wrong: both new skills are uncommitted. Rebuild after the commit.
+Published: source in `0d33578`, catalog regenerated at `70a537a` with 96 skills, and `node tools/build-catalog.js --check` passes at that revision. The follow-up count correction in `README.md` keeps the profile table honest after both 2.7.0 skills landed in the same source commit.
 
 ## T3 Code harness support (2026-10-24)
 
