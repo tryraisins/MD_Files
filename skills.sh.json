@@ -8,6 +8,7 @@
       "skills": [
         "yeknal-add-changelog",
         "yeknal-agent-cost-control",
+        "yeknal-code-graph",
         "yeknal-domain-modeling",
         "yeknal-finalize",
         "yeknal-git",

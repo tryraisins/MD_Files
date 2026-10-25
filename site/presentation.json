@@ -130,6 +130,29 @@
         "yeknal-testing-strategy"
       ]
     },
+    "yeknal-code-graph": {
+      "title": "Code graph",
+      "purpose": "Builds a local, model-free index of a repository and answers with a small ranked slice, so an unfamiliar codebase can be entered in one call instead of many searches.",
+      "tasks": [
+        "agents",
+        "build"
+      ],
+      "whenToUse": [
+        "You are starting work in a large repository and do not know where a behavior lives.",
+        "The question is conceptual and searching for it would need several vocabulary guesses.",
+        "You need call sites, importers, or the tests that touch a route."
+      ],
+      "avoid": "It is not exhaustive and it is not GraphRAG. For every mention of a known identifier, use grep; for a small repository, grep is already one call.",
+      "example": {
+        "ask": "In this 300-file app, where does an uploaded CV get turned into text before review?",
+        "outcome": "It builds a local index, returns the parser function and its call sites with line numbers in one call, states that recall is partial, and reads the surrounding code before changing anything."
+      },
+      "related": [
+        "yeknal-agent-cost-control",
+        "yeknal-troubleshoot",
+        "yeknal-orchestration-specialists"
+      ]
+    },
     "yeknal-animate": {
       "title": "Web animation",
       "purpose": "Adds purposeful, accessible motion to components, pages, scrolling, gestures, SVG and canvas, with sensible timing and a reduced-motion fallback.",

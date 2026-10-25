@@ -115,7 +115,7 @@ npx yeknal security
 | `npx yeknal skills --skills design-reference-research,prototype --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills slopscan` | Adds missing skills to the current repository without deleting or replacing existing skills. |
 | `npx yeknal skills --project --add --prune-archived --skills slopscan` | Same additive sync, plus removal of retired skills listed in `archived.json`. |
-| `npx yeknal skills --all` | Syncs every published skill (53 folders) for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs every published skill (54 folders) for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
@@ -124,7 +124,7 @@ npx yeknal security
 
 ### Install with skills.sh
 
-The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (53 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
+The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (54 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
 
 ```bash
 npx skills add tryraisins/MD_Files --list
@@ -249,6 +249,10 @@ The skill is read-only by default and explicitly not legal advice. It never pres
 ### Agent cost control
 
 `yeknal-agent-cost-control` treats an inference bill as a design outcome rather than a provider price list. It reads per-session usage from the harness log, ranks sessions by cost, and then changes one lever: calls per session, content per call, tool surface, or model and effort. Cache work is explicitly conditional, because a setup already at a high cache-read share gains almost nothing from reordering prompts. A cheaper model is never accepted on cost alone: the outcome check counts findings that led to a change rather than findings reported, since a fall in reported problems is equally consistent with noise removed or real problems lost.
+
+### Code navigation
+
+`yeknal-code-graph` builds a local, model-free index of a repository and answers with one ranked, budgeted slice instead of a sequence of guessed searches. It is deliberately not GraphRAG: nothing is extracted by a model, so building costs no tokens. Its own measurements are published with it, including the recall it misses against plain `grep`, because the honest claim is fewer orientation turns in a large repository, not an escape from a usage limit.
 
 ## Upstream review
 

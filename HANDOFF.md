@@ -4,6 +4,17 @@ Last updated: 2026-10-25
 Branch: main
 HEAD: see git log; 2.6.3 release commit tagged `v2.6.3`
 
+## Unreleased: `yeknal-code-graph` (2026-10-25)
+
+Requested after a claim that "graphRAG" is what keeps an agent inside its usage window. Investigated, built, measured, shipped as a skill; the claim itself did not survive measurement.
+
+- **What shipped:** `skills/yeknal-code-graph/` with `scripts/codegraph.py` (stdlib only, no model calls) and `references/measurements.md`. Registered in `site/presentation.json`, `yeknal-cli/profiles.json` (process), `skills.sh.json`, `llms.txt`, `evaluations/skill-routing.json`; README counts moved 53 to 54 and a "Code navigation" note added.
+- **What it does:** indexes file content terms plus files, symbols, imports, routes and tests; answers `--task`, `--symbol`, `--file` and `--impact` inside a token budget. Built for orientation in large repos, explicitly not GraphRAG and not a grep replacement.
+- **Evidence:** on `Projects 2026/AI CV Screener` (339 files, 110k lines) a concept query costs about 800 tokens and usually names the main file, but recall against grep is about half. Numbers and the failed first approach are in the skill's `references/measurements.md`.
+- **Unverified:** `audit-markdown-links.ps1` cannot run here because it uses `Path.GetRelativePath` and only Windows PowerShell 5.1 is installed (no `pwsh`); `verify-skill-references.js` covers link resolution and passed. `node tools/sync-portfolio.js --validate` refuses until the skill is committed, because the catalog is built from `HEAD`.
+- **Remaining sequence:** commit the skill, run `node tools/build-catalog.js`, commit the regenerated `yeknal-cli/catalog.json`, then run the README portfolio publication sequence.
+- **Passing now:** `audit-skills.ps1` (54 skills, 0 errors), `validate-routing-evals.ps1` (43 cases), `verify-skill-references.js` (7/7 across 54 skills), `npm test` in `yeknal-cli` (50/50).
+
 ## 2.6.3: readable setup output and line-ending ownership repair (2026-10-25)
 
 Prompted by a real setup run. The run succeeded (5 agents connected, T3 and shared clients manual by design, no archived leftovers present) but two problems showed:

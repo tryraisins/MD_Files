@@ -475,6 +475,19 @@
         "yeknal-implement"
       ],
       "rationale": "Two matching provider configs must trigger one clarifying question about the intended target, not a silent pick of the first match."
+    },
+    {
+      "id": "orient-in-unfamiliar-large-repo",
+      "prompt": "I just cloned this 300-file app. Where does an uploaded CV get parsed, and what breaks if I change the parser?",
+      "primary": "yeknal-code-graph",
+      "secondary": [
+        "yeknal-troubleshoot"
+      ],
+      "mustNotLead": [
+        "yeknal-implement",
+        "yeknal-review"
+      ],
+      "rationale": "Orientation in unknown code is a retrieval task. The graph narrows the files; implementation and review only start after the read confirms the answer."
     }
   ]
 }

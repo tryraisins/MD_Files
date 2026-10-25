@@ -24,6 +24,7 @@
     "skills": [
       "add-changelog",
       "agent-cost-control",
+      "code-graph",
       "domain-modeling",
       "gh-address-comments",
       "gh-fix-ci",
