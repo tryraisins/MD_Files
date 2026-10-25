@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "afccee72521234f55db7c8ee602a752984a53d15",
+  "sourceRevision": "d744ade355269027041f0503b77afc1fe02bdfa5",
   "version": "2.6.0",
   "skills": [
     {
@@ -725,16 +725,13 @@
     },
     {
       "name": "yeknal-deploy",
-      "description": "Deploy, host, publish, or push a site live when the user names no provider. Detects Cloudflare, Netlify, Render, or Vercel from repository config, then follows that provider's reference with a preview-first deploy.",
+      "description": "Deploy, host, publish, or push a site live to Cloudflare, Netlify, Render, or Vercel, named by the user or detected from repository config. Use when a deploy is requested; keep the first deploy a preview unless production is explicitly asked for.",
       "keywords": [
         "and",
-        "cheapest",
-        "default",
         "deploy",
         "detect",
         "entry",
         "every",
-        "first",
         "for",
         "gate",
         "hold",
@@ -742,18 +739,18 @@
         "procedure",
         "provider",
         "rules",
-        "signal",
+        "shape",
         "source",
         "that",
         "the",
         "yeknal-deploy"
       ],
-      "version": "1834a7a1d390f4a3576f75a8d21331b18f1c0e3bc81fe49925f06d5293cc4391",
+      "version": "22951ae2ae2f682d61ad6505d137030e2066eee139130b236c6d489f441f4bc9",
       "files": [
         {
           "path": "references/cloudflare.md",
-          "sha256": "bb3b396f51e374cc5d0ae47578136eff81d3a43b96c5fed703f6225b6d4b807e",
-          "size": 2350
+          "sha256": "8eca3dc932949c285efd380475a234649507b65ed710b539b37414880ba0e0b3",
+          "size": 3047
         },
         {
           "path": "references/licenses/cloudflare.txt",
@@ -787,18 +784,18 @@
         },
         {
           "path": "references/vercel.md",
-          "sha256": "803d7f8a6e7fbdb287dbd047de699eb56f29709468f6668a66db46ebbdc75a43",
-          "size": 1558
+          "sha256": "5991a4caf28bb38a57e396f024802b89cc7aaffdc4084d09539899dbde93caec",
+          "size": 2246
         },
         {
           "path": "scripts/deploy.sh",
-          "sha256": "91f16c6a298c8b70eff7b7722f860e54101be2f23cea75d2e26ec0778006f9b4",
-          "size": 8877
+          "sha256": "c84b29c5aaa0c17e7acc8de45955b328d3e792955c56ba5bc8c92a2ca65d1244",
+          "size": 9035
         },
         {
           "path": "SKILL.md",
-          "sha256": "ae0c19783091083ede7562f6cbeb420ba6313aa5f24b9acf64bd63d8c6e916d5",
-          "size": 3309
+          "sha256": "9ec46c168cce057114460dacbd3ff6b5633ccfd9eea83484edff9686c6d7660b",
+          "size": 3535
         }
       ]
     },
@@ -2230,7 +2227,7 @@
         "working",
         "yeknal-legacy-sweep"
       ],
-      "version": "a21fec13bad2d0993feb24abadeff85e1b4f6d7c1e305fcba19195cb704a9cfb",
+      "version": "4a12e955145459b8ffe003d9417c9f511ed6d6eec3a34a768d79dbc6618f54e8",
       "files": [
         {
           "path": "references/campaign-execution.md",
@@ -2249,8 +2246,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "62ab0f971c3c0ea210736f6d75b0a7f162ab4ecfc6af91ee1632690c36db4c20",
-          "size": 10988
+          "sha256": "79530835c631d5e0c0ea1e35bb5140ffe00041332a055e25464c70f560e9853e",
+          "size": 11354
         }
       ]
     },
@@ -2496,7 +2493,9 @@
         "call",
         "capture",
         "connect",
+        "entry",
         "first",
+        "gate",
         "meeting",
         "modes",
         "notion",
@@ -2506,7 +2505,7 @@
         "update",
         "yeknal-notion"
       ],
-      "version": "a774f3c781f84ca92f2c2dbfeaa75441ac2e8141edf2d71abb1335e8fda1d69c",
+      "version": "cfcf2de6c88821e9b3c567b0cca3d7691de1b6ca6c56ca9c3ef704ede82034ec",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -2605,8 +2604,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "f10501e617b4284aecf0f2d9a2c33f0103ac7d1fb0e1b4183b9e5e8d5b448023",
-          "size": 5079
+          "sha256": "7c8b6a9654b35301aaadc5c520a89ceff12993e2fbd38ba1a321cdb7c99a3752",
+          "size": 6241
         }
       ]
     },
@@ -4918,7 +4917,7 @@
         "yeet",
         "yeknal-yeet"
       ],
-      "version": "d2d2b66c4deb56e533356331012d752696f67487fc26a1b6043b9eca427c62da",
+      "version": "7cb1b20e6deea0c0466bb8329d3487a7076f23f8671070108e8b2101e1bd5a49",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -4942,8 +4941,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "39894ac695f1c888d0ec453ef05e34acda6b644342050ac361e5f0b2716fa5ad",
-          "size": 2345
+          "sha256": "e790ef252cd02ca83ad95f0881a4895136c0c35ac221b4b920dec491f2818225",
+          "size": 2663
         }
       ]
     }
