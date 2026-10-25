@@ -15,7 +15,9 @@ Implementation: `lib/migration.js` `migrate()` gained `archivedOnly`, which scop
 
 Verification: CLI suite 50/50; `verify-harness-setup.js` 18/18; `node tools/verify-archived-cleanup.js` 6/6, with new scenarios proving that plain `setup` connects two detected agents with no prompt, retires archived folders in both `~/.kiro/skills` and the shared `~/.agents/skills` while keeping catalog skills, restores both, and that `--keep-archived` retains them. Catalog check unchanged at `1189560`.
 
-Release: version 2.6.2. Published manually (trusted publishing remains dormant), tag `v2.6.2`, portfolio resynced for the CLI version only.
+Release: version 2.6.2, released from `be3bcf5`, tag `v2.6.2`, GitHub release `https://github.com/tryraisins/MD_Files/releases/tag/v2.6.2`, published manually, shasum `f3283576b1faa5b42492336dc6238e8bdc42d233`. Confirmed from the published package in an isolated `YEKNAL_HOME`: `npx yeknal@2.6.2 setup --json` prompted for nothing, connected the detected agents, retired the seeded `yeknal-brainstorm` (`archived: true`), and `setup --restore all` returned it. CI green on `be3bcf5`; portfolio resynced for the CLI version only.
+
+Do not repeat: `$home` is read-only in PowerShell, so a scratch variable with that name silently keeps the real profile and writes there. One verification run did exactly that and created `~/.kiro/steering/yeknal.md` and `~/.copilot/copilot-instructions.md` pointing at a temp runtime. Both were removed; no pre-existing block, setup manifest, backup, or skill folder changed. Use a name like `$fakeHome`.
 
 ## 2.6.1: stale npm profiles and archived-skill retirement (2026-10-25)
 
