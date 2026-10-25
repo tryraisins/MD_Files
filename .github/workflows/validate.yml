@@ -65,6 +65,9 @@ jobs:
       - name: Validate portfolio presentation metadata
         run: node tools/sync-portfolio.js --validate
 
+      - name: Check cross-references between skills, metadata and routing cases
+        run: node tools/verify-skill-references.js
+
       - name: Check changed whitespace
         shell: pwsh
         env:

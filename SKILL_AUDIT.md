@@ -221,7 +221,6 @@ The 49 skills installed outside the catalog were reviewed by the same three mode
 Result across all five discovery roots: 129 folders, 94 unique skills, 19,218 description characters, about 4,805 tokens of always-on cost.
 
 ### Provider skills pruned
-
 Four skills were dropped after the consolidation because they were provider-specific without supplying anything a documentation fetch does not: `nextjs-developer` (33 lines, no version-specific fact), `ask-sonner` (one toast library, mostly API tables), `stitch-design-taste` (links a `DESIGN.md` it does not ship, no Stitch-specific grammar), and `linear` (duplicates the connected MCP server's own tool schemas). All four moved to `archive/skills/`.
 
 The rule kept for the rest: a provider skill stays when it encodes a decision gate, a hazard (what looks like a preview and is not), or a bundled script that does real work. Under that rule `aspnet-core`, `winui-app`, `write-swift`, `figma-implement-design`, `chatgpt-apps`, `sentry`, `openai-docs`, `jupyter-notebook`, and the OpenAI media skills remain, as opt-in packs.
@@ -248,5 +247,7 @@ Catalog after this pass: 53 skills, 15 core, in five packs.
 ### Verification
 
 `audit-skills.ps1` 81 skills with 0 errors and 0 warnings; `validate-routing-evals.ps1` 44 cases with 0 errors; `verify-discovery.js` 30/30; `verify-harness-setup.js` 18/18; `npm test --prefix yeknal-cli` 50/50; custom catalog check reporting 0 failures, 0 BOMs, 147 resolving relative links, and a longest description of 251 characters.
+
+Cross-reference guard (2026-10-25): `tools/verify-skill-references.js` runs in CI on every push and pull request. It fails when a skill body, `site/presentation.json`, `skills.sh.json`, `profiles.json`, `llms.txt` or a routing case names a missing skill, when a presentation entry uses an undeclared task, or when a catalog skill is in no profile. Proven by a probe skill that added a dangling reference and no profile coverage: the guard reported both and exited 1; after removing the probe it passed again.
 
 Boundaries: `audit-markdown-links.ps1` needs PowerShell 7, which is absent here, so a Node link check stood in. Model-based routing quality is asserted by the 44 evaluation cases, not proven for every client.
