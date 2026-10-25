@@ -104,7 +104,7 @@ Prefer the product's existing icon, skeleton, progress, and overlay primitives w
 
 Before committing to an icon family, confirm it covers the glyphs the product actually needs. [Icônes](https://icones.js.org) (Iconify) indexes hundreds of sets and is the fastest way to check. A single missing glyph is what causes a second family to be added, which is the defect this section exists to prevent. Bundle icon data or inline the SVGs; never fetch icon geometry from an icon API at runtime.
 
-Animated icon sets are a separate decision with their own format and licensing trade-offs. Read [icons](../../yeknal-ui-quality-baseline/references/icons.md) before adding one.
+Animated icon sets are a separate decision with their own format and licensing trade-offs. Read [icons](../yeknal-ui-quality-baseline/references/icons.md) before adding one.
 
 ### Charts
 
@@ -115,7 +115,7 @@ Animated icon sets are a separate decision with their own format and licensing t
 
 The split: if data points arrive live and the chart scrolls with time, use Liveline. Everything else is recharts.
 
-Library choice does not decide the chart. Read [data display](../../yeknal-ui-quality-baseline/references/data-display.md) before specifying one: the chart type comes from the question being asked, and most generated dashboards fail on that choice rather than on the library.
+Library choice does not decide the chart. Read [data display](../yeknal-ui-quality-baseline/references/data-display.md) before specifying one: the chart type comes from the question being asked, and most generated dashboards fail on that choice rather than on the library.
 
 ### Interaction & performance
 

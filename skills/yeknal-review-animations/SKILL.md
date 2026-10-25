@@ -53,7 +53,7 @@ The standards above judge correctness and craft. They do not ask whether the mot
 - **Rest.** Real objects arrive and stop. Motion that reaches its target at full speed, or reverses direction with no deceleration, reads as machine-made even when nobody can name why.
 - **Staging.** One clear change at a time. When two unrelated elements move at once, neither is the subject, and the eye has nowhere to land.
 
-Read [motion principles](../../yeknal-animate/references/motion-principles.md) when a finding is about weight, follow-through, or staging rather than a value. Anticipation, follow-through, and secondary action are legitimate only in rare or one-off moments; the frequency standard still wins every conflict.
+Read [motion principles](../yeknal-animate/references/motion-principles.md) when a finding is about weight, follow-through, or staging rather than a value. Anticipation, follow-through, and secondary action are legitimate only in rare or one-off moments; the frequency standard still wins every conflict.
 
 ## Remedial Preference Hierarchy
 

@@ -57,7 +57,7 @@ Questions that expose the gap:
 
 The failure to avoid is a flow that is pleasant once and tedious forever. When a decision trades first-run delight against hundredth-run speed, the repeated case wins unless the product is genuinely used once (a checkout, a one-off form, a launch page).
 
-For the navigation density numbers that make a repeated-use surface feel crafted rather than drafted, read [component patterns](references/component-patterns.md).
+For the navigation density numbers that make a repeated-use surface feel crafted rather than drafted, read [component patterns](../yeknal-ui-quality-baseline/references/component-patterns.md).
 
 ## Light / Dark Mode
 

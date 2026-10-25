@@ -32,7 +32,7 @@ Rules:
 - Every token that changes per theme has a value in every theme. A token defined only in light mode is a bug that appears in the dark.
 - If a component needs a value that no token expresses, add the token deliberately, once, in the right layer. Do not add a one-off in the component.
 
-Read [color systems](../../yeknal-ui-quality-baseline/references/color-systems.md) before defining the palette, and [typography](../../yeknal-ui-quality-baseline/references/typography.md) before defining type roles.
+Read [color systems](../yeknal-ui-quality-baseline/references/color-systems.md) before defining the palette, and [typography](../yeknal-ui-quality-baseline/references/typography.md) before defining type roles.
 
 ## The contract file
 
