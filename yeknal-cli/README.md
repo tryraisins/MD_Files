@@ -39,7 +39,9 @@ and `--remove` remains interactive unless you pass `--agents`.
 
 Setup retains one short managed instruction block per connected agent and a
 versioned local CLI runtime. It does not register a global router SKILL.md or
-embed a catalog/skill list. Greetings, simple questions, and trivial tasks bypass
+embed a catalog/skill list. A line-ending-only resave of a rules file is not
+treated as an edit: the block is rewritten in the file's own line endings.
+Greetings, simple questions, and trivial tasks bypass
 discovery. For substantive work that benefits from a specialist, the agent runs
 metadata search from its real working directory, selects one or two skills, and
 reads their instructions directly. Restart or begin a new agent session after

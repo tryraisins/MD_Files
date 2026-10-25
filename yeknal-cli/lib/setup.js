@@ -10,6 +10,8 @@ const { SUPPORTED, ALIASES, detectHarnesses } = require("./harnesses.js");
 
 const START = "<!-- yeknal:automatic-discovery:start -->";
 const END = "<!-- yeknal:automatic-discovery:end -->";
+const RETENTION_NOTICE = "Catalog skills were retained. Archived skills were retired with recoverable backups; pass --keep-archived to retain them.";
+const KEEP_ARCHIVED_NOTICE = "Existing skills were retained, including archived skills.";
 
 async function exists(file) {
   try { await fs.access(file); return true; } catch (error) {
@@ -177,16 +179,40 @@ async function connect(agent, manifest, save, runtime, result) {
   await safeRegularFile(agent.instructionFile);
   const current = (await readOptional(agent.instructionFile)) || "";
   const block = instructions(command);
+  // Match the file's existing line endings so a Windows editor save is not
+  // mistaken for a content edit, and so the injected block stays consistent.
+  const eol = current.includes("\r\n") ? "\r\n" : "\n";
+  const blockForFile = eol === "\n" ? block : block.replaceAll("\n", eol);
+  const normalizeEol = (text) => text.replaceAll("\r\n", "\n");
   let updated;
   if (previous.block) {
-    if (!current.includes(previous.block.text) || current.indexOf(previous.block.text) !== current.lastIndexOf(previous.block.text)) {
+    const normalizedCurrent = normalizeEol(current);
+    const normalizedRecorded = normalizeEol(previous.block.text);
+    const occurrences = normalizedCurrent.split(normalizedRecorded).length - 1;
+    const startIndex = current.indexOf(START);
+    const endIndex = current.indexOf(END, startIndex);
+    const singleRegion = startIndex !== -1 && endIndex !== -1 && current.indexOf(START, startIndex + 1) === -1;
+    if (occurrences !== 1 || !singleRegion) {
       result.preserved.push(agent.instructionFile);
-      result.warnings.push(`${agent.label}: customized managed instructions preserved; connection was not changed.`);
+      result.warnings.push(`${agent.label}: managed instructions were edited, so they were left unchanged. Restore or remove the Yeknal block, then run setup again.`);
       return;
     }
-    const text = previous.block.text.slice(0, previous.block.text.indexOf(START)) + block;
-    updated = current.replace(previous.block.text, text);
-    record.block = { ...previous.block, text };
+    const before = current.slice(0, startIndex);
+    const separator = before.endsWith("\r\n\r\n")
+      ? "\r\n\r\n"
+      : before.endsWith("\n\n")
+        ? "\n\n"
+        : agent.prefix && before.endsWith(agent.prefix.replaceAll("\n", eol))
+          ? agent.prefix.replaceAll("\n", eol)
+          : "";
+    const recordedTail = normalizedRecorded.slice(normalizedRecorded.lastIndexOf(END) + END.length);
+    let afterStart = endIndex + END.length;
+    if (recordedTail.startsWith("\n")) {
+      if (current.startsWith("\r\n", afterStart)) afterStart += 2;
+      else if (current.startsWith("\n", afterStart)) afterStart += 1;
+    }
+    updated = before + blockForFile + current.slice(afterStart);
+    record.block = { ...previous.block, text: separator + blockForFile };
   } else {
     if (agent.exclusiveFile && await exists(agent.instructionFile)) {
       result.preserved.push(agent.instructionFile);
@@ -198,7 +224,7 @@ async function connect(agent, manifest, save, runtime, result) {
       result.warnings.push(`${agent.label}: an unowned Yeknal instruction block exists; preserved without changes.`);
       return;
     }
-    const text = (current ? "\n\n" : (agent.prefix || "")) + block;
+    const text = (current ? `${eol}${eol}` : (agent.prefix ? agent.prefix.replaceAll("\n", eol) : "")) + blockForFile;
     updated = current + text;
     record.block = { path: agent.instructionFile, text, createdFile: !(await exists(agent.instructionFile)) };
   }
@@ -243,23 +269,122 @@ async function runSetup(args = [], options = {}) {
   const input = options.input || process.stdin;
   const result = { supported: SUPPORTED, aliases: { ...ALIASES, ...Object.fromEntries(agents.filter(agent => agent.aliasOf).map(agent => [agent.id, agent.aliasOf])) }, detected: agents.filter((agent) => agent.detected), connected: [], manual: [], removed: [], migrated: [], backups: [], restored: [], preserved: [], warnings: [] };
   const report = () => {
-    if (flags.json) output.write(JSON.stringify(result, null, 2) + "\n");
-    else {
-      for (const agent of agents) output.write(`${agent.label}: ${agent.detected ? "detected" : "not detected"}; ${agent.mode} (${agent.configDir})\n`);
-      for (const agent of result.connected) output.write(`Prepared ${agent.label} instructions. ${agent.restart}\n  CLI: ${agent.command}\n`);
-      for (const item of result.manual) {
-        output.write(`Manual connection for ${item.label}: ${item.reason}\n  Prepared instructions: ${item.bootstrapFile}\n`);
-        for (const step of item.steps) output.write(`  ${step}\n`);
-      }
-      for (const id of result.removed) output.write(`Removed owned instruction block for ${id}.\n`);
-      for (const item of result.migrated) output.write(`${item.archived ? "Retired archived skill" : "Backed up"} ${item.originalPath}${item.archived ? "" : ` (${item.customized ? "customized" : "catalog match"})`}; restore ID: ${item.id}\n`);
-      for (const item of result.backups) output.write(`Backup ${item.id}: ${item.originalPath}\n`);
-      for (const item of result.restored) output.write(`Restored ${item.originalPath} from ${item.id}.\n`);
-      if (result.metadata) output.write(`Registered metadata: ${result.metadata.before.skillCount} -> ${result.metadata.after.skillCount} skill files; ${result.metadata.before.descriptionCharacters} -> ${result.metadata.after.descriptionCharacters} description characters.\n`);
-      for (const item of result.preserved) output.write(`Preserved existing content: ${item}\n`);
-      for (const warning of result.warnings) output.write(`Notice: ${warning}\n`);
-      output.write("Prepared instruction files are not proof of agent behavior. Catalog skills stay by default; archived skills are retired with recoverable backups unless --keep-archived is passed. Shared folders always stay. Remote sessions require their own connection.\n");
+    if (flags.json) {
+      output.write(JSON.stringify(result, null, 2) + "\n");
+      return result;
     }
+
+    const detected = agents.filter((agent) => agent.detected);
+    const missing = agents.filter((agent) => !agent.detected);
+    const retired = result.migrated.filter((item) => item.archived);
+    const backedUp = result.migrated.filter((item) => !item.archived);
+    const informational = new Set([RETENTION_NOTICE, KEEP_ARCHIVED_NOTICE]);
+    const needsAttention = (text) => !informational.has(text) && /preserved|failed|could not|not changed|disabled|mismatch|exceeds|edited|retained/i.test(text);
+    const attention = result.warnings.filter(needsAttention);
+    const notes = result.warnings.filter((warning) => !informational.has(warning) && !needsAttention(warning));
+    const write = (line = "") => output.write(`${line}\n`);
+    const agentLine = (agent) => {
+      if (!agent.aliasOf) return `${agent.label} - ${agent.mode}`;
+      const target = agents.find((item) => item.id === agent.aliasOf);
+      return `${agent.label} (alias of ${target ? target.label : agent.aliasOf})`;
+    };
+    const writeDetected = () => {
+      write(`Detected (${detected.length})`);
+      for (const agent of detected) write(`  ${agentLine(agent)}`);
+      if (missing.length) write(`Not detected: ${missing.map((agent) => agent.label).join(", ")}`);
+    };
+
+    write("");
+    write("Yeknal setup");
+
+    if (flags.list) {
+      write("");
+      writeDetected();
+      write("");
+      return result;
+    }
+
+    if (!flags.remove && !flags.backups && !flags.restore) {
+      write("");
+      writeDetected();
+      write("");
+    }
+
+    if (result.connected.length) {
+      write(`Connected (${result.connected.length})`);
+      write(`  ${result.connected.map((item) => item.label).join(", ")}`);
+      write("  Restart each agent session, then verify one search and one load.");
+      if (result.connected[0] && result.connected[0].command) write(`  CLI: ${result.connected[0].command}`);
+      write("");
+    }
+
+    if (result.removed.length) {
+      write(`Disconnected (${result.removed.length}): ${result.removed.join(", ")}`);
+      write("");
+    }
+
+    if (result.metadata) {
+      const { before, after } = result.metadata;
+      const unchanged = before.skillCount === after.skillCount && before.descriptionCharacters === after.descriptionCharacters;
+      write("Skills");
+      if (unchanged) write(`  Catalog skills retained (${after.skillCount} skill file${after.skillCount === 1 ? "" : "s"}, unchanged).`);
+      else {
+        write(`  Skill files: ${before.skillCount} -> ${after.skillCount}`);
+        write(`  Description characters: ${before.descriptionCharacters} -> ${after.descriptionCharacters}`);
+      }
+      if (retired.length) {
+        write(`  Retired ${retired.length} archived skill(s) with a restorable backup:`);
+        for (const item of retired) write(`    ${item.name} (restore ${item.id})`);
+        write("  Restore with: npx yeknal setup --restore all");
+      } else if (!flags.keepArchived) {
+        write("  No archived skills found.");
+      }
+      if (backedUp.length) write(`  Backed up ${backedUp.length} eligible catalog collection(s).`);
+      write("");
+    }
+
+    if (attention.length || result.preserved.length) {
+      write("Needs attention");
+      for (const warning of attention) write(`  ${warning}`);
+      for (const item of result.preserved) write(`  Left unchanged: ${item}`);
+      write("");
+    }
+
+    if (result.manual.length) {
+      write(`Manual connection (${result.manual.length})`);
+      if (result.bootstrapFile) write(`  Bootstrap: ${result.bootstrapFile}`);
+      for (const item of result.manual) {
+        write(`  ${item.label}: ${item.reason}`);
+        for (const step of item.steps || []) write(`    - ${step}`);
+      }
+      write("");
+    }
+
+    if (result.backups.length) {
+      write(`Backups (${result.backups.length})`);
+      for (const item of result.backups) write(`  ${item.id}  ${item.originalPath}`);
+      write("");
+    } else if (flags.backups) {
+      write("No backups found.");
+      write("");
+    }
+
+    if (result.restored.length) {
+      write(`Restored (${result.restored.length})`);
+      for (const item of result.restored) write(`  ${item.originalPath} (from ${item.id})`);
+      write("");
+    } else if (flags.restore) {
+      write("Nothing was restored.");
+      write("");
+    }
+
+    if (notes.length) {
+      write("Notes");
+      for (const note of notes) write(`  ${note}`);
+      write("");
+    }
+
+    write("Prepared instruction files do not prove agent behavior. Remote sessions need their own connection.");
     return result;
   };
   if (flags.list) return report();
@@ -347,9 +472,9 @@ async function runSetup(args = [], options = {}) {
         // by default across every configured global root with a verified backup.
         await migration.migrate({ archivedOnly: true });
         await save();
-        result.warnings.push("Catalog skills were retained. Archived skills were retired with recoverable backups; pass --keep-archived to retain them.");
+        result.warnings.push(RETENTION_NOTICE);
       } else {
-        result.warnings.push("Existing skills were retained, including archived skills.");
+        result.warnings.push(KEEP_ARCHIVED_NOTICE);
       }
     }
     return report();

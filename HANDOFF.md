@@ -2,7 +2,24 @@
 
 Last updated: 2026-10-25
 Branch: main
-HEAD: see git log; 2.6.2 release commit tagged `v2.6.2`
+HEAD: see git log; 2.6.3 release commit tagged `v2.6.3`
+
+## 2.6.3: readable setup output and line-ending ownership repair (2026-10-25)
+
+Prompted by a real setup run. The run succeeded (5 agents connected, T3 and shared clients manual by design, no archived leftovers present) but two problems showed:
+
+- OpenCode was reported as "customized managed instructions preserved" even though only its line endings had changed. The ownership check compared raw bytes, so a Windows editor resave (LF to CRLF) looked like a user edit and the connection could never heal.
+- The text report printed 15 `label: detected; mode (path)` lines, repeated the same CLI path and restart sentence per agent, duplicated the bootstrap path for each manual fallback, and ended with a flat wall of `Notice:` lines.
+
+Changes:
+
+- `connect()` now normalizes line endings for the ownership comparison, replaces only the marker region in the raw file, preserves the file's own line endings, and consumes the recorded trailing newline so repeated setup stays byte stable. A genuine content edit is still preserved.
+- The text report is grouped: `Detected` / `Not detected`, one `Connected` line with a single CLI path and restart instruction, a `Skills` summary (file count, archived retirement with restore IDs, profile backups), `Needs attention` for preserved or failed connections, `Manual connection` with one shared bootstrap path, `Disconnected`, `Backups`, `Restored`, and `Notes`. `--json` is unchanged.
+- Wording for a preserved block now says the managed instructions were edited and tells the user to restore or remove the block before rerunning.
+
+Verification: CLI suite 50/50; `verify-harness-setup.js` 19/19 with a new scenario proving a CRLF resave is repaired, stays byte-identical after normalization, and preserves the file convention; archived-cleanup harness 6/6; ad hoc text-output run reviewed.
+
+Release: version 2.6.3. The user's OpenCode block heals on the next `setup` because the normalized content still matches ownership.
 
 ## 2.6.2: setup defaults to all agents and retires archived skills (2026-10-25)
 
