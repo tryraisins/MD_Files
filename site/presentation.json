@@ -33,18 +33,18 @@
     },
     {
       "id": "docs",
-      "label": "Docs and files",
-      "description": "Markdown, handoffs, office files, notebooks and Notion."
+      "label": "Docs and handoffs",
+      "description": "Markdown, documentation, handoffs and research notes."
     },
     {
       "id": "media",
-      "label": "Images and media",
-      "description": "Generated images, video, speech and transcription."
+      "label": "Brand and identity",
+      "description": "Brand boards, logo systems and visual identity."
     },
     {
       "id": "agents",
       "label": "Working with agents",
-      "description": "How agents load skills, split work and format answers."
+      "description": "How agents split work, delegate and control cost."
     }
   ],
   "featured": [
