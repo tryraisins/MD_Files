@@ -579,7 +579,7 @@ test("CLI profiles command remains executable", () => {
   });
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /core\s+16/);
-  assert.match(result.stdout, /design\s+21/);
+  assert.match(result.stdout, /design\s+22/);
   assert.match(result.stdout, /Default: core/);
   assert.match(result.stdout, /project-handoff/);
 });
