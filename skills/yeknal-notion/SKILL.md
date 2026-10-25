@@ -10,11 +10,24 @@ metadata:
 
 One hub for the four things a request can ask of a Notion workspace. The mode is chosen by what the user wants to end up with, not by which page they opened.
 
+## Entry gate
+
+Use this skill only when the request names Notion, or when the user asks to save, find, or update something in a workspace they have already called Notion in this session. A general note-taking or research request without Notion in it does not load this skill.
+
+Then choose exactly one mode, in this order:
+
+1. The target page already exists and the user wants it changed: **Update**.
+2. The output is an agenda or pre-read for a specific meeting: **Meeting**.
+3. The output is cited findings gathered from several existing pages: **Research brief**.
+4. Otherwise, a new page should be created: **Capture**.
+
+If a request spans two modes, finish the document first, then update it. Never run two modes against the same page at once.
+
 ## Modes
 
 | Mode | The user wants | Read |
 | --- | --- | --- |
-| Capture | a decision, how-to, FAQ, learning, or wiki entry written down and linked | `references/*-database.md` |
+| Capture | a decision, how-to, FAQ, learning, or wiki entry written down and linked | `references/team-wiki-database.md`, `how-to-guide-database.md`, `faq-database.md`, `decision-log-database.md`, `learning-database.md`, `documentation-database.md` |
 | Meeting | an agenda or pre-read for a specific meeting | [references/meetings.md](references/meetings.md) |
 | Research brief | findings from several Notion pages, with citations | [references/research-brief.md](references/research-brief.md) |
 | Update | an existing page corrected, extended, or re-statused | the Update steps below |
@@ -29,11 +42,11 @@ Once it is connected, re-read the page or search result rather than trusting an 
 
 ## 1. Capture
 
-1. Pin down what to capture and for whom: purpose, audience, freshness, and whether this is new or an update.
-2. Pick the destination database from `references/`: team wiki, how-to, FAQ, decision log, learning, or documentation. Confirm its required properties (title, tags, owner, status, date, relations). When several fit, ask which; otherwise use the primary wiki or documentation database.
-3. Pull prior context with `Notion:notion-search`, then `Notion:notion-fetch`, so the new page links to what already exists.
+1. Pin down what to capture and for whom: purpose, audience, freshness, and whether this is new, not an update.
+2. Pick the destination database from the database references: team wiki, how-to, FAQ, decision log, learning, or documentation. Confirm its required properties (title, tags, owner, status, date, relations). When several fit, ask which; otherwise use the primary wiki or documentation database.
+3. Pull prior context with the Notion search tool (`notion-search`; names vary by client), then the Notion fetch tool (`notion-fetch`), so the new page links to what already exists.
 4. Extract the facts, decisions, actions, and rationale. For a decision record, include alternatives, rationale, and outcome. For a how-to or doc, include steps, prerequisites, asset and code links, and edge cases. For an FAQ, phrase each entry as a question with a short answer and a link to the deeper doc.
-5. Create the page with `Notion:notion-create-pages` against the correct `data_source_id`, structured by the database's template.
+5. Create the page with the Notion create-pages tool (`notion-create-pages`) against the correct `data_source_id`, structured by the database's template.
 6. Add relations and backlinks to hub pages and related records, plus a short summary a future reader can scan.
 
 ## 2. Meeting
@@ -41,7 +54,7 @@ Once it is connected, re-read the page or search result rather than trusting an 
 1. Establish the objective, the decisions needed, attendees, duration, and prior material.
 2. Search and fetch the relevant Notion pages: past notes, specs, OKRs, open actions.
 3. Choose the template with the selection guide in [references/meetings.md](references/meetings.md), then adapt its sections.
-4. Write the agenda or pre-read with `Notion:notion-create-pages`: owner and timebox per item, expected output per item, and links to the pre-reading.
+4. Write the agenda or pre-read with the Notion create-pages tool (`notion-create-pages`): owner and timebox per item, expected output per item, and links to the pre-reading.
 5. Add follow-up owners and dates, and create or link tasks in the relevant database.
 
 Agenda prose does not need research padding. Add outside facts only where a decision depends on them, and cite each one.
@@ -51,7 +64,7 @@ Agenda prose does not need research padding. Add outside facts only where a deci
 1. Search with targeted queries, confirm the scope, then fetch the pages and record each URL or ID as you go.
 2. Select the output shape: quick brief, research summary, comparison, or comprehensive report.
 3. Outline before writing, grouping findings by question or theme. Note evidence with source IDs and flag gaps and contradictions.
-4. Draft with `Notion:notion-create-pages`: title, summary, key findings, supporting evidence, and recommendations where relevant.
+4. Draft with the Notion create-pages tool (`notion-create-pages`): title, summary, key findings, supporting evidence, and recommendations where relevant.
 5. Cite with page mentions and a Sources section, following [references/research-brief.md](references/research-brief.md). Link back to every source page.
 6. Close with highlights, risks, open questions, and any follow-up tasks.
 
@@ -67,7 +80,7 @@ Agenda prose does not need research padding. Add outside facts only where a deci
 
 | File | Read when |
 | --- | --- |
-| `references/*-database.md` | Choosing or configuring a capture destination |
+| `references/team-wiki-database.md`, `how-to-guide-database.md`, `faq-database.md`, `decision-log-database.md`, `learning-database.md`, `documentation-database.md` | Choosing or configuring a capture destination |
 | [references/meetings.md](references/meetings.md) | Preparing a meeting or picking a template |
 | [references/research-brief.md](references/research-brief.md) | Citing sources or shaping a brief |
 | `examples/` | Seeing a finished capture |

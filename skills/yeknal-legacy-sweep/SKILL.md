@@ -3,7 +3,7 @@ name: yeknal-legacy-sweep
 description: Prove legacy code and tests are obsolete before deleting them, repair real defects instead of removing the test that caught them, and keep the coverage that protects behaviour. Use for a dead-code sweep, "remove unused imports", or a test-suite prune.
 metadata:
   last-reviewed: "2026-10-24"
-  boundary: "Read-only until the user authorizes deletion. Never authors unit tests."
+  boundary: "Read-only until the user authorizes edits or deletion. Never authors unit tests."
 ---
 
 # Legacy sweep
@@ -18,7 +18,8 @@ A sweep is a campaign, not a lint pass. Reading and judging come first, and ever
 | --- | --- |
 | "Sweep this repo", "delete the dead code and the bloated tests", a legacy audit of a subsystem | the full workflow below |
 | "Remove unused imports", "delete dead code", unused symbols in named files | the scoped fast path |
-| Prune a folder, drop stale config or dependencies | the scoped fast path, then step 4 for anything not obviously unused |
+| Prune a folder of unused source files | the scoped fast path |
+| Drop stale config or dependencies | the full workflow; the fast path hands back for these |
 | Is this one test worth keeping? | the test evidence gate in step 5 |
 | How should new work be tested? | `yeknal-testing-strategy` |
 | Is this diff correct? | `yeknal-review` |
@@ -32,11 +33,11 @@ A small deletion job does not launch a campaign. When the request names the file
 3. **Show the candidate list before deleting anything.** One table, one row per candidate: `path:line`, the symbol, the evidence (what was searched, what was found), and a confidence tier. High means definitively unused. Medium means cross-module use, dynamic dispatch, or a framework hook could still reach it. Low means a public export, magic method, or reflection could reach it, so it is reported and left alone. Nothing is deleted before the user sees this list.
 4. **Apply only what was confirmed.** Show the diff for each change, apply it, re-grep the removed symbol, and log the file, line, action, and symbol. Then run the repository's gates: tests, typecheck, lint, build, `git diff --check`.
 
-The fast path stops and hands back to the full workflow when a candidate is not obviously unused, when the change touches a dependency, config file, public export, or test suite, or when a gate fails for a reason the removal did not cause. Prove it unused before you delete it: search the whole in-scope call graph and configuration, and treat dynamic imports, reflection, generated entry points, framework conventions, deployment manifests, and external consumers as possible references. Every removal in the closing report names what was removed and whether it can be recovered.
+The fast path runs the project gates once before editing and records the result, so a later failure can be attributed. It stops and hands back to the full workflow when a candidate is not obviously unused, when the change touches a dependency, config file, public export, or test suite, or when a gate fails for a reason the removal did not cause. Prove it unused before you delete it: search the whole in-scope call graph and configuration, and treat dynamic imports, reflection, generated entry points, framework conventions, deployment manifests, and external consumers as possible references. Every removal in the closing report names what was removed and whether it can be recovered.
 
 ## Boundaries
 
-- Read-only until the user authorizes deletion. Discovery and evidence collection never edit. Removal needs an explicit request or approval of a proposed batch.
+- Read-only until the user authorizes edits or deletion. Discovery and evidence collection never edit. Removal, and any product fix, needs an explicit request or approval of a proposed batch.
 - Never delete to make a suite green. A failing test is a failure first and a candidate second.
 - Never touch generated files, migrations, schema definitions, vendored code, snapshots, or a public export without per-item confirmation.
 - Never author unit tests. Prove behaviour through the real entry point, following `yeknal-testing-strategy`.
@@ -124,7 +125,8 @@ Use the [report template](references/report-template.md). Report scope, baseline
 
 ## Working with a cheap executor
 
-- One lane, one batch, one checkpoint. Report progress instead of holding the plan in context.
+- One lane, one batch, one checkpoint. A checkpoint is a written progress note, not a commit; committing needs user approval. Report progress instead of holding the plan in context.
+- Lanes may run sequentially when subagents are unavailable; the ownership split still applies.
 - Every deletion cites a filled row. No row, no deletion.
 - Prefer the smallest change that removes the need for the code.
 - If two candidates interact, resolve the dependency first and re-run the gate.

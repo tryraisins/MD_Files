@@ -21,10 +21,12 @@ Do not run a deploy command first and authenticate after it fails; the deploy pr
 
 ## 2. Choose Workers or Pages
 
-| Project shape | Deploy to | Command |
+Read the runtime from the wrangler config before choosing: `pages_build_output_dir` means Pages, `main` means Workers. A Pages project using direct upload may have no wrangler file at all, so also check for an existing `--project-name` in scripts or CI.
+
+| Project shape | Deploy to | Preview command |
 | --- | --- | --- |
-| Static site, JAMstack, or a framework build (SvelteKit, Astro, Nuxt, Qwik, Solid Start) with a git workflow and file-based routing | Pages | `npx wrangler pages deploy ./dist --project-name=<name>` |
-| API, complex routing, WebSockets, scheduled tasks, cron, or email handlers | Workers | `npx wrangler deploy` |
+| Static site or framework build with file-based routing and no server entry | Pages | `npx wrangler pages deploy ./dist --project-name=<name> --branch=<non-production-branch>` |
+| API, complex routing, WebSockets, scheduled tasks, cron, or email handlers | Workers | `npx wrangler versions upload` |
 | Site plus API | Both | Pages for the site; Workers for the API |
 
 Pages Functions run on the Workers runtime and can bind to Workers, so "both" is one project, not two providers.
@@ -33,11 +35,13 @@ Pages Functions run on the Workers runtime and can bind to Workers, so "both" is
 
 Pages offers three routes; pick the one the repository already reflects:
 
-1. **Git integration:** connect the repository in the dashboard under Workers & Pages, then let pushes build. Nothing to run locally.
-2. **Direct upload:** `npx wrangler pages deploy ./dist --project-name=<name>`. Add `--branch=<name>` for a non-production branch, which yields a preview URL.
-3. **C3 scaffold:** `npm create cloudflare@latest <name>` when the project has not been created yet.
+1. **Git integration:** connect the repository in the dashboard under Workers & Pages, then let pushes build. Nothing to run locally. This creates the project, so use it only when the user asks for that.
+2. **Direct upload:** `npx wrangler pages deploy ./dist --project-name=<name> --branch=<non-production-branch>`. Without `--branch` on the production branch this is a production deploy, so always pass a non-production branch for a preview.
+3. **C3 scaffold:** `npm create cloudflare@latest <name>` only when the project has not been created yet and the user asked to create it.
 
-Workers deploys with `npx wrangler deploy` from the directory holding `wrangler.toml` or `wrangler.jsonc`.
+Workers previews upload a version with `npx wrangler versions upload`. Production is `npx wrangler deploy`, and only on an explicit production request.
+
+Do not run `npm run deploy` or any project script whose contents you have not read; it may target production. Do not run a deploy command before authenticating, because the auth error hides the real build failure.
 
 ## 4. Report
 

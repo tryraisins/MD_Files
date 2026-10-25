@@ -502,6 +502,27 @@
         "yeknal-implement"
       ],
       "rationale": "A deletion request with proof belongs to the sweep, not to read-only review."
+    },
+    {
+      "id": "deploy-named-provider",
+      "prompt": "Deploy this to Netlify and send me the preview URL.",
+      "primary": "yeknal-deploy",
+      "secondary": [],
+      "mustNotLead": [
+        "yeknal-implement",
+        "yeknal-finalize"
+      ],
+      "rationale": "A named provider still routes through the deploy skill, which then reads that provider reference directly. Without this case a named request could bypass the preview-default rule."
+    },
+    {
+      "id": "deploy-two-provider-configs",
+      "prompt": "Deploy this repo. It has both a netlify.toml and a vercel.json from an old migration.",
+      "primary": "yeknal-deploy",
+      "secondary": [],
+      "mustNotLead": [
+        "yeknal-implement"
+      ],
+      "rationale": "Two matching provider configs must trigger one clarifying question about the intended target, not a silent pick of the first match."
     }
   ]
 }

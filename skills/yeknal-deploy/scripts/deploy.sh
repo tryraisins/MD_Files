@@ -203,6 +203,11 @@ elif [ -d "$INPUT_PATH" ]; then
         --exclude='.git' \
         --exclude='.env' \
         --exclude='.env.*' \
+        --exclude='*.pem' \
+        --exclude='*.key' \
+        --exclude='*.p12' \
+        --exclude='.npmrc' \
+        --exclude='*service-account*.json' \
         -cf - . | tar -C "$STAGING_DIR" -xf -
 
     # Check if this is a static HTML project (no package.json)

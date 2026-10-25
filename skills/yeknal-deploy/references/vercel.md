@@ -20,6 +20,13 @@ Give the command a 10 minute (600000ms) timeout, because the build runs remotely
 
 ## 3. Fallback when the CLI has no auth
 
+This fallback uploads the project source to a third-party endpoint (`codex-deploy-skills.vercel.sh`). It must not run without explicit consent.
+
+Before running it:
+
+1. Tell the user that the fallback uploads the project tree to a Vercel-hosted service, name the endpoint, and get explicit approval. Do not proceed on a general "deploy it" instruction.
+2. Confirm the tree has no credentials. The script excludes `node_modules`, `.git`, and `.env*`; check by hand for `*.pem`, `*.key`, `.npmrc`, service-account JSON, and any local secret file, and stop if one would be included.
+
 The script is [`../scripts/deploy.sh`](../scripts/deploy.sh), relative to this reference. Run it with the installed skill's directory as the base:
 
 ```bash
@@ -29,6 +36,8 @@ bash "<skill_dir>/scripts/deploy.sh" app.tgz      # an existing tarball
 ```
 
 The script detects the framework, packages the project, deploys it, waits for the build, and returns JSON containing `previewUrl` and `claimUrl`.
+
+On Windows without bash, do not attempt the fallback; report that the CLI path needs credentials and stop.
 
 Tell the user: "Your deployment is ready at [previewUrl]. Claim it at [claimUrl] to manage your deployment."
 
