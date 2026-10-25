@@ -3,6 +3,7 @@
     "description": "High-frequency process, reasoning, design, implementation, verification, and security workflows.",
     "skills": [
       "application-security",
+      "code-graph",
       "domain-modeling",
       "finalize",
       "frontend-design",
@@ -24,7 +25,6 @@
     "skills": [
       "add-changelog",
       "agent-cost-control",
-      "code-graph",
       "domain-modeling",
       "gh-address-comments",
       "gh-fix-ci",

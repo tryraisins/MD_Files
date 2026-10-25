@@ -107,7 +107,7 @@ npx yeknal security
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal skills` | Syncs the 15-skill core profile into detected user-level agent folders, including shared UI/UX guidance and common motion design and review skills. |
+| `npx yeknal skills` | Syncs the 16-skill core profile into detected user-level agent folders, including shared UI/UX guidance and common motion design and review skills. |
 | `npx yeknal skills --skip-claude` | Avoids duplicate managed skills in OpenCode and other Claude-compatible readers by skipping and cleaning managed copies from `~/.claude/skills`. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --project --profile process` | Syncs the optional process and domain-modeling workflows into the current repository. |
@@ -120,7 +120,7 @@ npx yeknal security
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
 
-`yeknal@2.6.1` defaults to the 15-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
+`yeknal@2.6.1` defaults to the 16-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
 
 ### Install with skills.sh
 
@@ -150,9 +150,10 @@ npx skills add tryraisins/MD_Files --skill yeknal-frontend-design
 
 ## Capability profiles
 
-The global core is deliberately small: 15 entries a developer needs across unrelated projects. Its 15 entries cover:
+The global core is deliberately small: 16 entries a developer needs across unrelated projects. Its 16 entries cover:
 
 - process and delivery: implementation, review, diagnosis, finalization, project handoff, domain modeling, multi-agent orchestration, and Git safety;
+- navigation: a model-free code index for entering a large repository without spending turns on guessed searches;
 - design: visual direction, redesign of an existing product, and the shared UI quality floor;
 - security: cross-stack application security for secure implementation and review;
 - verification: the end-to-end testing policy and real-browser verification through Playwright;
@@ -162,8 +163,8 @@ Specialist packs add depth without forcing every style, platform, integration, o
 
 | Profile | Skills | Purpose |
 | --- | ---: | --- |
-| `core` | 15 | Cross-project process, design, security, verification, and documentation. |
-| `process` | 10 | Agent cost, delivery extras, legacy sweeps, GitHub, exhaustive-output, and response modes beyond core. |
+| `core` | 16 | Cross-project process, design, security, verification, documentation, and code navigation. |
+| `process` | 9 | Agent cost, delivery extras, legacy sweeps, GitHub, exhaustive-output, and response modes beyond core. |
 | `design` | 21 | Specialist visual styles, motion, prototyping and design evidence. |
 | `security` | 5 | The five distinct security output contracts. |
 | `web` | 4 | Specialist SEO, performance, launch readiness and production errors beyond core. |
