@@ -26,6 +26,8 @@ Verification: `audit-skills.ps1` 81/0/0; `validate-routing-evals.ps1` 44 cases, 
 
 Do not repeat: a single worker cannot finish 40 trims, it hits its step limit at about 23. Split trim work into batches of roughly 20 and verify descriptions, BOMs and dangling ids after every batch.
 
+Also do not trust `yeknal skills` to install the working tree. It installs from its cached catalog revision, so after a local change it reinstalls stale content. Verify with a file hash against `skills/`, and if it differs, copy the core folders directly from the repository.
+
 ## Security audit skill (2026-10-24)
 
 `yeknal-security-audit` adapts `cloudflare/security-audit-skill` at `c1c8a8c1471069fb0e188eeaff69b8e8db6564a8` (MIT, Cloudflare) into the `security` profile, which grows from four skills to five. It is the first skill in the catalog to ship a JSON Schema and executable validators, and the first to own an empirical audit distinct from the three existing security contracts. `yeknal-security-best-practices` keeps focused stack review and secure-by-default guidance, `yeknal-security-threat-model` keeps design-time modeling, `yeknal-security-ownership-map` keeps the git-risk axis, and each now points at the audit skill for a full run.
