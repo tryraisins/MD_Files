@@ -19,7 +19,7 @@ Changes:
 
 Verification: CLI suite 50/50; `verify-harness-setup.js` 19/19 with a new scenario proving a CRLF resave is repaired, stays byte-identical after normalization, and preserves the file convention; archived-cleanup harness 6/6; ad hoc text-output run reviewed.
 
-Release: version 2.6.3. The user's OpenCode block heals on the next `setup` because the normalized content still matches ownership.
+Release: version 2.6.3, released from `bcbf387`, tag `v2.6.3`, GitHub release `https://github.com/tryraisins/MD_Files/releases/tag/v2.6.3`, published manually, shasum `f1c40e10046470ae62a3a12dff01df313be42d2b`. On this machine `npx yeknal@2.6.3 setup` then connected all six agents, healed the OpenCode block that the line-ending drift had blocked, and printed no needs-attention items; output reviewed against the grouped layout. Portfolio resynced at `8b93a77`.
 
 ## 2.6.2: setup defaults to all agents and retires archived skills (2026-10-25)
 
