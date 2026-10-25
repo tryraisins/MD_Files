@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "09ad05425853ec23f4e5a0e2079525dddc1d986c",
+  "sourceRevision": "a9246104d861a12f472ab19764db7296186b2931",
   "version": "2.6.4",
   "skills": [
     {
@@ -2698,7 +2698,7 @@
         "with",
         "yeknal-ui-quality-baseline"
       ],
-      "version": "11dfdaffbdc69de4f9b678eedbb3ea98a23cec9d5cf943e3a8b70beba825bde5",
+      "version": "46ac132e31714ad994e789ad5c464e546e547f4c141a44fd5e2421ea542e003a",
       "files": [
         {
           "path": "references/accessibility-design.md",
@@ -2717,8 +2717,8 @@
         },
         {
           "path": "references/component-patterns.md",
-          "sha256": "abec10ba6d5d0092c79cbe2535ae08d9bb188fb10676899849c7cffda19a598c",
-          "size": 9963
+          "sha256": "9075cab4283d91f88df72c149e2d94cfaa9f69fd01e2aafa732710f93a7a8622",
+          "size": 10543
         },
         {
           "path": "references/data-display.md",
