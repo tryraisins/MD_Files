@@ -37,6 +37,26 @@ runs/<brief>-<arm>/
     1440-reduced.png
 ```
 
+## Conformance probes
+
+`conformance.mjs` checks rules that have an exact value, without a judge:
+
+```bash
+node tools/design-eval/conformance.mjs --url http://localhost:3000 \
+  --out runs/b1/conformance.md --json runs/b1/conformance.json
+```
+
+It reads [probes.json](probes.json), which carries two groups:
+
+- **Structural** — `h1` count, unnamed controls, heading-order skips, `lang`, `title`, `:focus-visible` defined, `prefers-reduced-motion` defined, viewport meta.
+- **Navigation** — row height, row radius, icon width, label size, group gap, selection inset, exactly one active item. These need a nav landmark; rows are its links and buttons, the active row is `aria-current`.
+
+Each probe returns **pass**, **fail**, or **skip**. Skip is not a pass: it means the page does not expose the structure the probe needs, which is a finding in itself for a brief that required that structure.
+
+Exit codes: `0` for pass or skip, `1` if any high-severity probe fails, `2` for a usage or browser error.
+
+Write rules so they can pass a probe. A rule that names a property and a value ("row `height`: 32px") lands; a rule that describes a relationship ("inset from the panel edge") does not, because the implementer has to guess which property to set. That is measured, not assumed — see [the b5 experiment](experiments/2026-10-26-b5-nav-density.md).
+
 ## Scoring
 
 1. Capture a run for each arm you are comparing (for example `--arm control` with no skill, `--arm catalog` with the skill loaded).

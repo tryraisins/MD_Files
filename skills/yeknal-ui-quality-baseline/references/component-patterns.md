@@ -17,19 +17,22 @@ The universal floor still applies everywhere: visible focus, keyboard operation,
 
 ### Sidebar and nav density
 
-The numbers below are defaults that read as crafted. The reasons matter more than the values; if the product's scale differs, derive from the reason.
+Each rule names the property to set, because a rule that describes a relationship rather than a declaration gets applied at the implementer's discretion. Measured on two controlled builds: rules that named a property and a value landed exactly; rules phrased as a relationship ("inset from the edge") were ignored by both.
 
-| Property | Default | Why |
+| CSS | Value | Why |
 | --- | --- | --- |
-| Panel radius | 12px (not 4px) | A large panel with a control-sized radius reads as an unstyled box |
-| Row inset | 8px from the panel edge | A selected row that touches the edge looks clipped, not selected |
-| Icon size | 18px against 14px labels | At 22px the icon out-shouts the label it describes |
-| Icon-to-label gap | 10px | At 4px the pair reads as one shape |
-| Row height | 32px | Below this the target is hard to hit, and dense lists mis-click |
-| Group gap | 20px between groups | At 2px the groups read as one long list |
+| `nav` row `height` | 32px | Below 30px the target is hard to hit; above 34px a dense sidebar loses its rhythm |
+| Row `border-radius` | 12px | A row with a control-sized radius does not read as a selectable band |
+| Row `padding-inline` on the selected state, with the container padding at 0 | 8px | The selection stops 8px before the panel edge. Padding the *row* is what produces the inset; margin on the row also works but must total 8px |
+| Nav icon `width` and `height` | 18px | At 22px the icon out-shouts a 14px label |
+| Icon-to-label `gap` | 10px | At 4px the pair reads as one shape |
+| Group `margin-block` between groups | 20px | At 2px the groups read as one long list |
+| Panel `border-radius` | 12px | A large panel with a 4px radius reads as an unstyled box |
 
-- Selection is expressed by a full-width row with a radius matching the row, not a colored underline or a dot that duplicates the icon.
+- Selection is a full-width row with a radius matching the row, not a colored underline or a dot that duplicates the icon.
 - Collapsed state is a real state, not an afterthought: tooltips for labels, preserved active state, and a transition that does not fight the pointer.
+
+These seven values are checkable without judgement. `tools/design-eval/conformance.mjs` ships probes for row height, row radius, icon width, label size, group gap and selection inset.
 
 ## Footer
 

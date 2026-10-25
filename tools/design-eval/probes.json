@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "note": "Deterministic probes for rules that can be checked instead of argued. A probe is a contract; anything the judge scores but no probe covers is still an opinion. `skip` is reported rather than failed when the page does not expose the structure a probe needs.",
+  "structural": [
+    {
+      "id": "h1-count",
+      "description": "Exactly one top-level heading per page.",
+      "type": "count",
+      "selector": "h1",
+      "expect": { "equals": 1 },
+      "severity": "high"
+    },
+    {
+      "id": "unnamed-controls",
+      "description": "Every rendered focusable control has an accessible name.",
+      "type": "unnamed-controls",
+      "expect": { "equals": 0 },
+      "severity": "high"
+    },
+    {
+      "id": "heading-order",
+      "description": "Headings do not skip a level.",
+      "type": "heading-order",
+      "expect": { "maxSkip": 1 },
+      "severity": "medium"
+    },
+    {
+      "id": "lang",
+      "description": "The document declares its language.",
+      "type": "attr",
+      "selector": "html",
+      "attr": "lang",
+      "expect": { "present": true },
+      "severity": "medium"
+    },
+    {
+      "id": "title",
+      "description": "The document has a non-empty title.",
+      "type": "attr",
+      "selector": "title",
+      "attr": "textContent",
+      "expect": { "present": true, "minLength": 8 },
+      "severity": "medium"
+    },
+    {
+      "id": "focus-visible",
+      "description": "A visible focus style is defined, not just the no-outline default.",
+      "type": "css-feature",
+      "feature": ":focus-visible",
+      "expect": { "atLeast": 1 },
+      "severity": "high"
+    },
+    {
+      "id": "reduced-motion",
+      "description": "A prefers-reduced-motion branch exists.",
+      "type": "css-feature",
+      "feature": "prefers-reduced-motion",
+      "expect": { "atLeast": 1 },
+      "severity": "high"
+    },
+    {
+      "id": "viewport-meta",
+      "description": "The page declares a viewport so mobile widths are real.",
+      "type": "exists",
+      "selector": "meta[name='viewport']",
+      "expect": { "exists": true },
+      "severity": "low"
+    }
+  ],
+  "navigation": {
+    "enabled": true,
+    "note": "Enable when the brief includes a primary navigation. Needs a nav landmark; rows are its links and buttons, the selected row is aria-current.",
+    "container": "nav[aria-label], nav, [role='navigation']",
+    "rules": [
+      {
+        "id": "nav-row-height",
+        "measure": "rowHeight",
+        "expect": { "within": [30, 34] },
+        "severity": "medium",
+        "why": "Below 30px the target is hard to hit; above 34px a dense sidebar loses its rhythm."
+      },
+      {
+        "id": "nav-row-radius",
+        "measure": "rowRadius",
+        "expect": { "within": [10, 14] },
+        "severity": "low",
+        "why": "A selected row matching the row radius reads as selected rather than clipped."
+      },
+      {
+        "id": "nav-icon-width",
+        "measure": "iconWidth",
+        "expect": { "within": [16, 20] },
+        "severity": "medium",
+        "why": "Above 20px the icon out-shouts a 14px label."
+      },
+      {
+        "id": "nav-label-size",
+        "measure": "labelFontSize",
+        "expect": { "within": [13, 15] },
+        "severity": "low",
+        "why": "Labels below 13px stop being scannable; above 15px they compete with content."
+      },
+      {
+        "id": "nav-group-gap",
+        "measure": "groupGap",
+        "expect": { "within": [16, 24] },
+        "severity": "medium",
+        "why": "At 2px the groups read as one long list."
+      },
+      {
+        "id": "nav-selected-inset",
+        "measure": "selectedInset",
+        "expect": { "within": [4, 12] },
+        "severity": "medium",
+        "why": "A selection touching the container edge looks clipped, not selected."
+      },
+      {
+        "id": "nav-single-active",
+        "measure": "activeCount",
+        "expect": { "equals": 1 },
+        "severity": "high",
+        "why": "One active item, marked with aria-current."
+      }
+    ]
+  }
+}

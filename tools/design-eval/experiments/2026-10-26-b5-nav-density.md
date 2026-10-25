@@ -19,7 +19,34 @@ Question: does pasting the catalog's nav-density rules into the build prompt mea
 
 Both arms: zero console errors, zero horizontal overflow, zero unnamed controls.
 
-## Why this does not demonstrate skill lift
+## What the probes showed
+
+`conformance.mjs` measures each nav rule directly, so this part is not a judgement.
+
+| Rule | Target | Control | Treatment |
+| --- | --- | --- | --- |
+| Row height | 32px | 34 | **32** |
+| Row radius | 12px | 7 | 8 |
+| Icon width | 18px | none | **18** |
+| Label size | 14px | 14 | 14 |
+| Group gap | 20px | 39 | 40 |
+| Selection inset | 8px | 0 | 0 |
+| Active items | 1 | 1 | 1 |
+| `h1` count | 1 | 1 | **2** (fail) |
+
+Treatment applied two rules to the exact value, ignored three, and introduced a high-severity regression the control did not have.
+
+## The finding worth keeping
+
+**Rules that name a property and a value land. Rules that describe a relationship do not.**
+
+- "Row height 32px" and "icon 18px" were both reproduced exactly.
+- "Row inset 8px from the panel edge" and "group gap 20px between groups" were ignored by both arms, because the wording does not say which property to set on which element. An implementer has to guess whether the inset is row padding, row margin, or container padding, and guessing produces zero.
+- The `h1` regression happened because the treatment prompt carried only the nav rules. A real skill run loads the whole contract; this experiment pasted a fragment, which is a limitation of the method, not a property of the skill.
+
+`component-patterns.md` has been rewritten to name the CSS property and value for each rule, which is the change this experiment paid for.
+
+## Why the score difference does not demonstrate skill lift
 
 Three reasons, in order of severity.
 
@@ -27,26 +54,12 @@ Three reasons, in order of severity.
 2. **n = 1 per arm, with different inventions.** Each build chose its own product domain, dataset and copy. A 0.61 difference between two unrelated pages is noise, not a treatment effect.
 3. **The arms differ in ways nobody controlled.** The treatment page rendered two `h1`s; the control page clipped text at 390px. Both are defects the other arm did not have.
 
-## What the rule check did show
-
-A direct check of the declared CSS values, because the generic nav probe latched onto a one-row `<nav>` and measured nothing useful:
-
-| Rule | Control | Treatment |
-| --- | --- | --- |
-| 32px rows | 1 declaration | 5 declarations |
-| 14px labels | 0 | 3 |
-| 20px group gap | 1 | 0 |
-| 18px icons | 1 | 0 |
-| 12px panel radius | 0 | 0 |
-
-The treatment applied part of the rule set and silently dropped the rest. That is the useful finding: **a paragraph of rules transfers unevenly, and nothing in the current harness would tell you which rules landed.**
-
 ## Next
 
-- Add a conformance probe: one deterministic check per rule (row height, inset, icon width, group gap, panel radius, `h1` count), reported as pass/fail beside the quality score. Rules without a probe are opinions; rules with one are contracts.
-- Repeat with n of at least 3 per arm, and pin the page's content so only the styling rules vary.
-- Score nav density explicitly when it is the thing under test, or the experiment cannot answer its own question.
+- Re-run with n of at least 3 per arm, with the page's own content pinned so only styling varies.
+- Paste the whole relevant contract rather than the nav fragment, so a regression like the second `h1` is prevented by the run and not by luck.
+- Extend probes to the other rule sets that already have exact values: motion durations, touch targets, type floors, contrast ratios.
 
 ## Artifacts
 
-Run folders were produced in `%TEMP%\design-eval-run\runs\b5-control` and `runs\b5-treatment`: five screenshots, `manifest.json`, `judgement.json`, `scorecard.md` each. Not committed, because they are several megabytes of PNG.
+Run folders in `%TEMP%\design-eval-run\runs\b5-control` and `runs\b5-treatment`: five screenshots, `manifest.json`, `judgement.json`, `scorecard.md`, `conformance.md` and `conformance.json` each. Not committed, because they are several megabytes of PNG.
