@@ -4,6 +4,28 @@ Last updated: 2026-10-25
 Branch: main
 HEAD: see git log; 2.6.3 release commit tagged `v2.6.3`
 
+## Unreleased: design catalog review (2026-10-25)
+
+A review of roughly 120 externally sourced links (skill catalogs, component libraries, inspiration galleries, technique posts) against the existing design skills. The finding: the catalog was strong on engineering correctness and weak on craft, surface coverage, and measurement. Only about a dozen items survived review.
+
+**New skill:** `skills/yeknal-design-system/` — the five jobs behind "design system" (build, extract, map, document, migrate), the three token layers, the `DESIGN.md` contract, read-only hardcoded-value mapping, per-component specs, and drift/migration with a ratchet. Registered in `site/presentation.json`, `yeknal-cli/profiles.json` (`design`), and `skills.sh.json`. Catalog counts moved 54 to 55 in `README.md`.
+
+**New references under `yeknal-ui-quality-baseline/references/`:** `color-systems.md` (OKLCH construction, gamut, roles, light/dark as separate palettes), `typography.md` (selection, pairing, loading, optical detail, truncation, iOS zoom), `icons.md` (coverage check, optical sizing, animated-icon formats and licensing, a11y), `effects-and-blends.md` (knockout text, `isolation`, contrast, forced-colors, glass cost), `component-patterns.md` (nav density numbers, footer, 404, carousel, empty states, toasts, overlays, tabs, command palette, destructive actions, forms, theme toggle), `data-display.md` (chart choice by question, axes, color, stat blocks, tables, five data states), `account-and-money.md` (auth, OTP, checkout, pricing, billing, cancellation). All linked from the baseline body.
+
+**New references under `yeknal-animate/references/`:** `motion-principles.md` (classical principles with a transfer verdict each, the weight/mass criterion, staging), `frame-budget.md` (frame cost table, diagnosis order, device bar, verification), `rendered-video.md` (Remotion plus snapcn, determinism, verification).
+
+**Sharpened:** `animate` (five intent-named spring presets, page/route transitions, links to the new references), `review-animations` (a physical-credibility section: weight, inertia, friction, rest, staging), `pick-ui-library` (animated-marketplace class rule, Commons Clause, icon coverage check, Shaders and Remotion/snapcn, data-display pointer), `prototype` (four design worlds and dealt directions), `ui-ux-designer` (design for repetition), `frontend-developer` (`moveBefore` with its event and mutation caveats), `ui-quality-baseline` (new anti-slop tells: middle-dot metadata, decorative status dots, italic-in-heading, tracked-caps eyebrows, invented metrics and logo walls, repeated hero composition).
+
+**New capability:** `tools/design-eval/` — briefs, capture, blind judge prompt, rubric, scorecard. Adapted from Hallmark's harness design (MIT). `capture.mjs` refuses to fake evidence without Playwright; `score.mjs` keeps the conformance gate separate from weighted quality and exits non-zero on failure.
+
+**Corrected defects:** `design-taste-frontend/references/dials-and-arsenal.md` recommended `transition: all 0.3s`, which the catalog's own motion rules forbid; it now names properties. `PROVENANCE.md` no longer lists `yeknal-animation-vocabulary` as an installed skill (it is archived) and records the new upstream reviews.
+
+**Deliberate scope choices:** no new video skill (a reference under `animate` instead); no peer-catalog audit of `skill-issue.in` (deferred; it needs the same treatment as the ui-skills audit); no component library adopted as a default; no new runtime dependency.
+
+**Verification:** `verify-skill-references.js` 7/7 across 55 skills; `verify-discovery.js` 30/30; `verify-public-discovery.js` passed; `verify-archived-cleanup.js` passed; `verify-harness-setup.js` 19/19; `node --check` on both eval scripts; `score.mjs` exercised through pass and fail paths with a fixture judgement. `verify-agent-discovery.js` fails with `spawn codex ENOENT` because the Codex CLI is not installed on this machine, unrelated to these changes.
+
+**Remaining sequence:** commit the source, run `node tools/build-catalog.js`, commit the regenerated `yeknal-cli/catalog.json`, push, then the README portfolio publication sequence.
+
 ## Unreleased: `yeknal-code-graph` (2026-10-25)
 
 Requested after a claim that "graphRAG" is what keeps an agent inside its usage window. Investigated, built, measured, shipped as a skill; the claim itself did not survive measurement.

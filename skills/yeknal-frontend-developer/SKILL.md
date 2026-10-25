@@ -33,6 +33,19 @@ When the product supports theme choice, use its established persistence and hydr
 
 Preserve semantics, focus order, accessible names, touch targets, and pressed feedback on everything you implement. Follow the repository and platform cursor conventions: add `cursor-pointer` to custom clickable surfaces when needed, never to every native control. Express new-tab, off-site, or download behavior through the link text and an accessible name rather than appending arrows, badges, or emojis.
 
+### Reparenting stateful elements
+
+Moving a node with `appendChild` or `insertBefore` removes and reinserts it, which destroys state: an iframe reloads, a video restarts, a running animation resets, and focus is lost. When a responsive layout or a reordering interaction moves something stateful, use `moveBefore` and keep a fallback:
+
+```js
+if ("moveBefore" in target) target.moveBefore(player, null);
+else target.insertBefore(player, null);
+```
+
+- `moveBefore` is not Baseline; verify support before relying on continuity. The fallback correctly restarts the element, so anything that *requires* uninterrupted playback must degrade rather than break.
+- It fires no `load` event and no remove/add mutation pair. Code that waits for `load`, or that re-initializes a widget when a `MutationObserver` sees it removed, will never run. That is the subtle failure: the state you wanted preserved is preserved, and the reset you wanted silently never happens.
+- Only `Element` and `CharacterData` nodes can move. The reference node `null` appends at the end of the target.
+
 ## What to Avoid
 
 - Navigation presentation chosen before information architecture and viewport behavior

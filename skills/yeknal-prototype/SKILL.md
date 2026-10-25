@@ -48,6 +48,19 @@ Default **3 variants**; up to 5 when the user asks or the design space is genuin
 
 Before writing any code, list the set: a name and an axis for each. Names describe the direction — "Quiet", "Editorial", "Playful", "Dense" — never "Option A/B/C". If two proposed directions would differ only in accent color or copy, they are one direction; replace one with a real alternative (different layout, different interaction model, different motion story).
 
+**Four worlds generate genuinely different answers.** When the axes feel thin, deal from these rather than inventing a new tint of the same idea:
+
+| World | Vocabulary | Fits |
+| --- | --- | --- |
+| **Minimal** | Restraint, borders over shadows, one accent, tight type | Daily-use tools, dense products |
+| **Craft** | Tactile materials, visible construction, weight and texture | Products whose subject is physical or made by hand |
+| **Retro** | Borrowed period vocabulary, hard edges, limited palette | Products with history, archives, music, games |
+| **Toy** | Playful geometry, exaggerated affordances, generous motion | Consumer onboarding, kids, creative tools |
+
+Deal at least two different worlds into every set. Two variants from the same world are one variant with a different color.
+
+When the same kind of piece is built repeatedly across sessions, the model tends to converge on whatever it built last. Deal the axis deliberately (pick the world, then name it) instead of reusing the previous direction by default; otherwise every prototype round produces the same product with a new headline.
+
 **Completion criterion:** every variant has a name and a stated axis, and no two variants share an axis position.
 
 ### Phase 4 — Build the picker harness

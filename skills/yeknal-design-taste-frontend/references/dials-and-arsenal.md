@@ -14,7 +14,7 @@ Adapted from [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) at 
 
 ### MOTION_INTENSITY (Level 1-10)
 * **1-3 (Static):** No automatic animations. CSS `:hover` and `:active` states only.
-* **4-7 (Fluid CSS):** Use `transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1)`. Use `animation-delay` cascades for load-ins. Focus strictly on `transform` and `opacity`. Use `will-change: transform` sparingly.
+* **4-7 (Fluid CSS):** Name the properties: `transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1)`. Never `transition: all`; it animates whatever changes next, including layout properties nobody intended. Use `animation-delay` cascades for load-ins. Focus strictly on `transform` and `opacity`. Use `will-change: transform` sparingly, during the interaction only.
 * **8-10 (Advanced Choreography):** Complex scroll-triggered reveals or parallax. Use Framer Motion hooks. NEVER use `window.addEventListener('scroll')`.
 
 ### VISUAL_DENSITY (Level 1-10)

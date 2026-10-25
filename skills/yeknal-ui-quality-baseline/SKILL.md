@@ -29,6 +29,8 @@ Record the visual thesis and reusable rules that implementation needs: role-base
 
 Create or reuse role-based tokens for: color and semantic states; typography families, sizes, weights, and line heights; spacing and control insets; border widths and radii; elevation; control heights and icon sizes; motion duration, easing, and reduced-motion behavior; responsive type and layout steps. Equivalent components use the same tokens, and a one-off component inherits the nearest established role rather than inventing new values.
 
+For palette construction, theme values, contrast checks, and gamut handling, read [color systems](references/color-systems.md) before declaring colors.
+
 ## Ground open-ended design in evidence
 
 When the visual direction is not already fixed, use `yeknal-design-reference-research` before committing to a pattern. Compare functionally similar products and complete flows across relevant devices; extract hierarchy, navigation grammar, state behavior, and responsive transformations instead of copying pixels or averaging gallery trends.
@@ -75,6 +77,8 @@ Buttons, badges, pills, chips, segmented controls, tabs, navigation items, avata
 - Implement responsive type with `clamp()`, media queries, or container queries. Do not let text determine or break the control's target size.
 - For constrained controls, shorten secondary copy or move secondary actions before shrinking important text. Do not reduce control labels below 11px.
 
+For face selection and pairing, font loading, optical detail, truncation, and mobile input zoom, read [typography](references/typography.md).
+
 ## Iconography
 
 - Use one coherent icon family per product surface. Match optical size, stroke weight, corner character, and filled/outline state.
@@ -84,6 +88,8 @@ Buttons, badges, pills, chips, segmented controls, tabs, navigation items, avata
 - Never decorate a link with the North East Arrow (`↗`, the `ArrowUpRight` icon, or U+2197) or any similar directional glyph, external-link badge, or emoji. When a link leaves the current page, opens a new tab, or downloads a file, say so in the link text and its accessible name or description and rely on the platform convention instead of an appended icon. A chevron that marks a menu row, accordion, or overflow control is a real affordance and is not this pattern.
 - Do not underline links in any state, including hover, focus, active, and visited. Do not recreate an underline with a bottom border, background stripe, pseudo-element, or animated line. Use clear action labels, placement, typography, contrasting color, or a full control background/border to make links recognizable; keep visible focus outlines and adequate contrast. Apply this to navigation, inline text, contact details, social links, and calls to action.
 - Give icon-only controls accessible names and visible tooltips when meaning is not universally obvious.
+
+For coverage checks, icon-to-label sizing, animated icon formats and licensing, read [icons](references/icons.md).
 
 ## Responsive containment
 
@@ -104,6 +110,13 @@ For a web app that will be used on a phone, read [the mobile web platform layer]
 ## Complete page and flow anatomy
 
 For page- or screen-level work, map entry, primary job, commitment, completion, escape, recovery, and next step before polishing sections. Read [page and flow anatomy](references/page-and-flow.md) for the full checklist, including navigation, heroes, CTAs, footers, empty and error states, choice and attention, and the public website launch checks.
+
+## Pattern and data surfaces
+
+For a specific component surface, read [component patterns](references/component-patterns.md) before styling it: navigation and sidebar density, footer, error pages, carousel, empty states, toasts, modals and sheets, tabs, command palette, destructive actions, forms, and theme toggle. Apply the entry for the surface in front of you rather than the whole file.
+
+- Charts, dashboards, stat blocks, and tables: read [data display](references/data-display.md). Choose the chart from the question, never from the data.
+- Sign-in, one-time codes, settings, billing, checkout, and cancellation: read [account and money flows](references/account-and-money.md). Never show success before the server confirms it, and never invent a price.
 
 ## Loading and timing
 
@@ -126,6 +139,8 @@ Motion explains hierarchy, feedback, spatial relationships, or state changes. Do
 - Respect `prefers-reduced-motion` in code and design. Remove, reduce, or replace effects according to their purpose; essential content and controls must remain available in a meaningful static presentation. Opacity or color can preserve comprehension when positional motion is removed.
 - Give modals, dropdowns, and tab changes a brief transition when it clarifies opening, closing, or selection. Keep it interruptible, skip it when it adds delay without information, and honor reduced motion.
 - Test under CPU and network load; animation that only looks smooth on an idle machine is not finished.
+
+For blend modes, knockout text, glass, translucency, and effect fallbacks, read [effects and blends](references/effects-and-blends.md).
 
 ## States and accessibility
 
@@ -192,7 +207,16 @@ Reject defaults that make the result look generated rather than designed:
 - every section using the same split layout, identical card grid, or centered badge-over-heading composition;
 - gratuitous animation, fake progress, or shimmer on every surface;
 - inconsistent spacing, weights, line heights, radii, and control geometry;
-- labels that technically fit but look visibly off-center.
+- labels that technically fit but look visibly off-center;
+- an object or company name with a middle-dot-joined metadata string ("Acme · Series B · 12 people") used as decoration rather than information;
+- a small colored status dot attached to a label that carries no state anyone can act on;
+- an italic word inside a roman heading for emphasis;
+- a tracked-caps eyebrow label above every heading, or tracked caps on ordinary labels, captions, table heads, tags, or nav items;
+- an invented metric, testimonial, customer logo, or case-study count;
+- stack logos or a "trusted by" wall with no real relationship behind it;
+- the same hero composition on every page: centered badge, then heading, then subtitle, then two buttons, then a mockup.
+
+Each of these is a defect to remove, not a style to prefer. Removing one is never a regression; the layout must still work without it.
 
 ## Small-element rule
 

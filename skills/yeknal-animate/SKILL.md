@@ -98,6 +98,8 @@ If the task needs a *component* rather than an animation — a toast, a drawer, 
 
 - **Never drive a child's transform from a CSS variable on the parent** — it recalculates styles for every child. Set `transform` on the element directly.
 
+For the cost of each of these choices, and the order to diagnose a stutter, see [frame budget](references/frame-budget.md).
+
 ### 5. Easing and duration — or a spring
 
 **Easing**, in decision order:
@@ -134,14 +136,21 @@ Need a curve that is not here? Take it from [easing.dev](https://easing.dev/) or
 
 **UI animations stay under 300ms.** A 180ms dropdown feels more responsive than a 400ms one.
 
-**Reach for a spring instead** when the motion is a drag with momentum, an element that should feel alive, a gesture the user can interrupt or reverse, or decorative mouse-tracking:
+**Reach for a spring instead** when the motion is a drag with momentum, an element that should feel alive, a gesture the user can interrupt or reverse, or decorative mouse-tracking.
 
-```js
-{ type: "spring", duration: 0.5, bounce: 0.2 }        // Apple-style — easier to reason about
-{ type: "spring", mass: 1, stiffness: 100, damping: 10 }  // traditional physics — more control
-```
+Name springs by intent, not by number. These five cover almost every case; pick the row that matches the job before inventing a config.
 
-Keep bounce between 0.1–0.3, and avoid bounce in most UI; reserve it for drag-to-dismiss and playful interactions.
+| Intent | Config | Use for |
+| --- | --- | --- |
+| Snappy | `{ type: "spring", visualDuration: 0.26, bounce: 0 }` | Presses, toggles, thumbs, small indicators |
+| Smooth | `{ type: "spring", visualDuration: 0.4, bounce: 0 }` | Panels, height changes, layout shifts. Never overshoots |
+| Morph | `{ type: "spring", visualDuration: 0.42, bounce: 0 }` | Shared highlights, shape changes, widths that follow content |
+| Responsive | `{ type: "spring", stiffness: 520, damping: 44 }` | Direct manipulation that must track the pointer closely |
+| Gentle | `{ type: "spring", stiffness: 340, damping: 34 }` | Larger layout changes that should feel calm |
+
+Older Motion versions call `visualDuration` simply `duration`; the value is the perceptual duration of the settle, not a time box. Keep bounce between 0.1–0.3, and avoid bounce in most UI; reserve it for drag-to-dismiss and playful interactions.
+
+If a spring must read as heavy, do not raise `mass` alone. Add a small overshoot and a longer settle, and let a trailing element lag the thing that pulls it. See [motion principles](references/motion-principles.md).
 
 ### 6. Interruption and exit
 
@@ -170,6 +179,27 @@ const reduce = useReducedMotion();
 const closedX = reduce ? 0 : '-100%';
 ```
 Choose removal, reduction, or replacement according to the effect and the user's preference. The media query detects that preference; it does not automatically pause video or freeze animations. Follow the baseline's static-presentation and user-control rules, and verify that interrupted entrances or scroll reveals leave essential content visible.
+
+## Page and route transitions
+
+Navigation motion is its own decision, and it is usually the wrong one.
+
+- **Decide whether it should animate at all.** A product used all day has high-frequency navigation: route changes are instant or near-instant. A marketing site or a narrative flow may animate more. Do not apply a marketing transition to a working app.
+- **Never gate content.** The new view is interactive the moment it paints. The transition is a layer on top of an already-usable screen.
+- **Preserve state.** Back and forward restore scroll position, filter state, and the previous view. An entrance animation that replays on back is a regression, not a flourish.
+- **Direction encodes hierarchy.** Forward goes deeper, back goes shallower. If every route enters from the same side, the motion carries no information and is decoration.
+- **Fit inside the perceived latency.** If data is still loading, show the destination's shell and let it settle; do not stretch the animation to cover the wait.
+- **Test browser back and forward specifically.** History navigation restores state in ways the app's own transitions do not expect. If they fight, disable the transition for history navigation rather than fighting the browser.
+- **Prefer native View Transitions** where they are supported, with a plain fallback. Do not add a router-agnostic transition library to get a crossfade.
+- **Reduced motion collapses this to a crossfade or an instant swap**, and the destination stays fully usable either way.
+
+## Budget and diagnosis
+
+Before shipping motion that matters, read [frame budget](references/frame-budget.md) for the cost of each property, the diagnostic order when something stutters, and the device bar. A frame is 16.7ms at 60Hz and 8.3ms at 120Hz, and the relevant device is a mid-range phone.
+
+## When the output is a video file
+
+Interface motion and rendered video are different jobs with different rules. If the deliverable is a demo video or a launch clip rather than a page, read [rendered video](references/rendered-video.md) before writing anything. Do not animate a page in order to produce a video, and do not treat a video as an explanation for a page that does not work.
 
 ## Recipes
 

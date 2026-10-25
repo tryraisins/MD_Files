@@ -43,6 +43,18 @@ Every animation in the diff is measured against these. A violation is a finding.
 
 10. **Cohesion.** Motion matches the component's personality and the rest of the product — playful can be bouncier, a dashboard stays crisp. Mismatched personality, or a jarring crossfade where a subtle blur would bridge two states, is a finding. When unsure whether motion feels right, the strongest move is often to delete it.
 
+## Physical credibility
+
+The standards above judge correctness and craft. They do not ask whether the motion reads as a real object moving, which is a separate axis and a common failure in generated motion.
+
+- **Weight.** Two elements of obviously different size or consequence should not move with identical timing and no settle. If they do, the motion says they weigh the same. Large or consequential things depart more slowly and settle.
+- **Inertia.** Anything with momentum — a drag, a flick, a thrown card — continues at the velocity it was given and decelerates; it does not snap to a new speed.
+- **Friction at boundaries.** Rubber-banding and resistance read as physical. A hard stop at the edge of the screen reads as a wall that appeared for the occasion.
+- **Rest.** Real objects arrive and stop. Motion that reaches its target at full speed, or reverses direction with no deceleration, reads as machine-made even when nobody can name why.
+- **Staging.** One clear change at a time. When two unrelated elements move at once, neither is the subject, and the eye has nowhere to land.
+
+Read [motion principles](../../yeknal-animate/references/motion-principles.md) when a finding is about weight, follow-through, or staging rather than a value. Anticipation, follow-through, and secondary action are legitimate only in rare or one-off moments; the frequency standard still wins every conflict.
+
 ## Remedial Preference Hierarchy
 
 When proposing fixes, prefer earlier moves over later ones:

@@ -50,8 +50,12 @@ For source registries such as shadcn or Rare UI, inspect `components.json`, the 
 | 3D globes | [Cobe](https://cobe.vercel.app) |
 | Dynamic OG images (HTML/CSS → SVG/PNG) | [Satori](https://github.com/vercel/satori) |
 | Syntax highlighting | [shiki](https://shiki.style) |
+| GPU-rendered backgrounds, gradients, glass, noise, distortion | [Shaders](https://github.com/shader-effects-inc/shaders) — MIT, WebGPU, ships its own agent skill; one hero canvas at most |
+| Rendered video from React (product demos, launch clips) | [Remotion](https://remotion.dev) with [snapcn](https://snapcn.dev) components — MIT, installed as source |
 
 Reach for motion when you need springs, layout animations, exit animations, or gesture-driven values. A simple hover or fade doesn't need it — plain CSS transitions are the right tool there.
+
+GPU effects are the one category where the performance rules genuinely bite: one canvas, never the LCP element, lazy-loaded, reduced-motion aware, and with a verified GPU-unavailable fallback. Do not add a WebGPU or WebGL runtime for a page that will be read on a mid-range phone.
 
 Rare UI is a source registry, not a visual system. Its current components use React, TypeScript, Tailwind, Motion, and component-specific dependencies. Verify the exact item before installation. Prefer its matching prebuilt component when one already exists for the brief's interaction, then adapt it instead of rebuilding the interaction from scratch. A typical install is:
 
@@ -70,12 +74,22 @@ Use the project's package runner in place of `npx` when appropriate. Do not past
 The upstream repository is `swamimalode07/rare-ui`; the shadcn CLI installs from its current HEAD, so re-verify the component when correctness depends on the exact source.
 
 The same source-ownership rule applies to the other reviewed registries:
-
 - [beUI](https://beui.dev/) currently targets React 19 and Tailwind 4, uses Motion, and distributes through shadcn. Confirm project-version compatibility before copying a component.
 - [Spectrum UI](https://ui.spectrumhq.in/) exposes shadcn/Tailwind/Motion components and blocks, including AI-oriented activity and approval patterns. Verify license, installation path, semantics, and whether motion adds real value.
 - [Spell UI](https://github.com/xxtomm/spell-ui) is an MIT source repository reviewed at `fffe96db7b67b44243bf35815916fdfc58fe5014`. Review the exact component: some primitives use client-only state, Motion, SVG filters, timers, or narrowly styled markup that require adaptation.
 
 Registry selection is not a beauty contest. Compare the precise interaction, license, maintenance, peer dependencies, React and Tailwind versions, accessibility, reduced-motion behavior, server/client boundary, bundle cost, and touch/responsive behavior. If two sources solve the same need, prefer the one already compatible with the project and requiring the least corrective work.
+
+### Animated component marketplaces
+
+A large class of registries sells the same artifact under different prices: React plus Tailwind, animated, installed as source through the shadcn CLI, marketed as an "agent-ready interaction layer". Examples include paid catalogs such as [Planes](https://useplanes.com) and [Arc UI](https://uiarc.dev), and free sets such as [Kokonut UI](https://kokonutui.com), [Aceternity UI](https://ui.aceternity.com), and [Magic UI](https://magicui.dev). They are compatible with the default stack by construction, so compatibility is not the deciding question.
+
+Two questions decide, and only two:
+
+1. **License.** You are copying source into a product. Record the exact terms where the file is installed. [React Bits](https://github.com/DavidHDev/react-bits) is MIT plus a Commons Clause-style restriction, the same class as Rare UI, and requires the notice and the same redistribution limits.
+2. **Slop risk.** These catalogs sell novelty; this skill exists to prefer restraint. A component may be installed because it solves a real interaction, never because it demonstrates an effect. Do not let a marketplace's visual language replace the product's tokens, and do not stack two of them on one surface.
+
+Never make any of them a default dependency, and never paste a demo wholesale.
 
 ### Icons and loading feedback
 
@@ -88,6 +102,10 @@ Registry selection is not a beauty contest. Compare the precise interaction, lic
 
 Prefer the product's existing icon, skeleton, progress, and overlay primitives when they are coherent. Do not mix icon families, add a loader package for a single trivial state, use route progress for data fetching, or install `thinking-orbs` in an ordinary non-agent product merely because it is animated. Full-screen blocking overlays are usually a local accessible composition, not a reason to add another library.
 
+Before committing to an icon family, confirm it covers the glyphs the product actually needs. [Icônes](https://icones.js.org) (Iconify) indexes hundreds of sets and is the fastest way to check. A single missing glyph is what causes a second family to be added, which is the defect this section exists to prevent. Bundle icon data or inline the SVGs; never fetch icon geometry from an icon API at runtime.
+
+Animated icon sets are a separate decision with their own format and licensing trade-offs. Read [icons](../../yeknal-ui-quality-baseline/references/icons.md) before adding one.
+
 ### Charts
 
 | Task | Library |
@@ -96,6 +114,8 @@ Prefer the product's existing icon, skeleton, progress, and overlay primitives w
 | General charts (static or interactive dashboards) | [recharts](https://recharts.org) |
 
 The split: if data points arrive live and the chart scrolls with time, use Liveline. Everything else is recharts.
+
+Library choice does not decide the chart. Read [data display](../../yeknal-ui-quality-baseline/references/data-display.md) before specifying one: the chart type comes from the question being asked, and most generated dashboards fail on that choice rather than on the library.
 
 ### Interaction & performance
 

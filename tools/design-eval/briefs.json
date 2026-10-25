@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "note": "Eight briefs, one per row of the quality problem this catalog claims to solve. Each brief names what a good result must contain and what would fail. Keep this list small: a harness nobody runs measures nothing.",
+  "briefs": [
+    {
+      "id": "b1",
+      "title": "Landing page, one product",
+      "prompt": "Build a landing page for a tool that turns a folder of screenshots into a searchable design reference. One page, real copy, no invented metrics.",
+      "expect": {
+        "page": true,
+        "mustShow": ["what the product does in one line", "one primary action", "how it works"],
+        "mustNotShow": ["invented metric", "testimonial", "logo wall", "customer count"]
+      }
+    },
+    {
+      "id": "b2",
+      "title": "Dashboard with real-looking data",
+      "prompt": "Build an analytics page for a subscription product: revenue over time, plan mix, churn, and a table of recent cancellations. Use plausible sample data and label it as sample.",
+      "expect": {
+        "page": true,
+        "mustShow": ["a chart type that matches the question", "labeled axes with units", "an explicit sample-data note", "empty or loading handling"],
+        "mustNotShow": ["dual-axis chart", "pie with more than three slices", "centered numeric columns", "unlabeled sparkline"]
+      }
+    },
+    {
+      "id": "b3",
+      "title": "Settings and billing",
+      "prompt": "Build the account settings page for a paid product: profile, password change, current plan, invoices, and cancel subscription.",
+      "expect": {
+        "page": true,
+        "mustShow": ["current plan and renewal date", "cancellation path as easy to find as upgrade", "destructive action named specifically"],
+        "mustNotShow": ["cancel hidden behind support", "retention offer that cannot be declined in one action"]
+      }
+    },
+    {
+      "id": "b4",
+      "title": "Empty state to populated",
+      "prompt": "Build a projects list with three states: genuinely empty, filtered to nothing, and loading. Each must be distinguishable and actionable.",
+      "expect": {
+        "page": true,
+        "mustShow": ["three visually distinct states", "one primary action per state", "an explanation of why it is empty"],
+        "mustNotShow": ["a single generic no-data state", "illustration replacing the explanation"]
+      }
+    },
+    {
+      "id": "b5",
+      "title": "Navigation density",
+      "prompt": "Build an app shell with a sidebar of twelve destinations in four groups, a top bar, and one working content view.",
+      "expect": {
+        "page": true,
+        "component": true,
+        "mustShow": ["selection inset from the panel edge", "group separation", "one active item", "keyboard reachable items"],
+        "mustNotShow": ["selection touching the container edge", "icon louder than its label", "rows below 28px"]
+      }
+    },
+    {
+      "id": "b6",
+      "title": "Motion on a repeated action",
+      "prompt": "Build a command palette opened from a keyboard shortcut with a list of twenty commands, plus a modal that opens from a button.",
+      "expect": {
+        "page": true,
+        "component": true,
+        "mustShow": ["instant or near-instant palette open", "keyboard full operation", "an animated modal that stays interruptible"],
+        "mustNotShow": ["entrance animation on the keyboard-triggered palette", "animation that delays the first keystroke"]
+      }
+    },
+    {
+      "id": "b7",
+      "title": "Marketing page under restraint",
+      "prompt": "Build a page for a physical product: a desk lamp made of extruded aluminium. Sell the object, not the website.",
+      "expect": {
+        "page": true,
+        "mustShow": ["the object as the focal point", "plain specification detail", "a single call to action"],
+        "mustNotShow": ["purple gradient", "glass panel", "decorative status dot", "tracked-caps eyebrow above every section"]
+      }
+    },
+    {
+      "id": "b8",
+      "title": "Decline the brief",
+      "prompt": "Build a landing page for a B2B analytics product where the client wants: an animated gradient background, a scrolling logo wall, a countdown timer, a chat bubble that pulses, and a 3D globe.",
+      "expect": {
+        "study-decline": true,
+        "mustShow": ["a clear statement of which requests were rejected and why", "a restrained alternative that keeps the product's job"],
+        "mustNotShow": ["silent compliance with every request"]
+      }
+    }
+  ]
+}

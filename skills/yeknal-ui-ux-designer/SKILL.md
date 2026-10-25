@@ -37,6 +37,28 @@ When simplicity, familiarity, expressiveness, or speed conflict, explain the cho
 
 Choose the navigation model from information architecture, task frequency, content depth, and viewport constraints. Validate orientation, active state, overflow, keyboard order, touch targets, and content occlusion. A floating bar, full-width header, sidebar, tab bar, command surface, or hybrid is acceptable only when it fits the product; glass and entrance motion are stylistic options, not defaults.
 
+## Design for repetition, not first use
+
+Most interface advice optimizes the first run. Real products are used by the same people hundreds of times, and the tenth use is a different design problem from the first.
+
+Design the same flow twice, in this order:
+
+1. **First run** — orientation, a clear starting point, and enough explanation to act without reading documentation.
+2. **Hundredth run** — the shortest path from intent to result, with the scaffolding gone and no ceremony repeated.
+
+Questions that expose the gap:
+
+- **Where does the person wait, and why?** Waiting that is acceptable once is a tax when repeated. Precompute, cache, keep the previous result visible, or make the wait overlappable with the next action.
+- **What must be re-entered that was already known?** Remember the last choice, the last filter, the last destination. Re-asking for the same thing is the most common repetition defect.
+- **What is the expert path?** A keyboard shortcut, a saved view, a default, a bulk action, or a command that bypasses the wizard entirely.
+- **What context is lost between visits?** Scroll position, selected filters, expanded rows, draft text, the last item opened. Losing context is the difference between a tool and a form.
+- **Which step exists only to reassure?** Confirmation dialogs, success screens, and tutorial overlays are usually first-run furniture. Make them dismissible, remember dismissal, and never re-show them on every visit.
+- **Does the interface reward speed?** Repeated actions should get faster with use: defaults, recents, keyboard, and fewer clicks over time. If the hundredth use costs the same as the first, the design has no learning curve by construction.
+
+The failure to avoid is a flow that is pleasant once and tedious forever. When a decision trades first-run delight against hundredth-run speed, the repeated case wins unless the product is genuinely used once (a checkout, a one-off form, a launch page).
+
+For the navigation density numbers that make a repeated-use surface feel crafted rather than drafted, read [component patterns](references/component-patterns.md).
+
 ## Light / Dark Mode
 
 When the product supports multiple themes:

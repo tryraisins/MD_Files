@@ -338,6 +338,29 @@
         "yeknal-ui-ux-designer"
       ]
     },
+    "yeknal-design-system": {
+      "title": "Design system",
+      "purpose": "Builds, audits, documents or migrates a product's design system: token layers, mapping hardcoded values onto tokens, component specs, drift detection and an ordered adoption plan.",
+      "tasks": [
+        "design",
+        "build"
+      ],
+      "whenToUse": [
+        "The app has a look but no rules, or the rules live in three places.",
+        "You need to know which hardcoded colors, spacing and radii should become tokens.",
+        "A component needs a written spec covering anatomy, tokens and states.",
+        "The app has drifted off its system and you want an order of work.",
+        "You are starting a design system from nothing on a shipped product."
+      ],
+      "example": {
+        "ask": "Our buttons and cards use slightly different grays and radii. Map them onto tokens and tell me where to start.",
+        "outcome": "It inventories the near-duplicate values, clusters them, proposes role-based tokens with confidence per cluster, and returns an ordered plan with a ratchet so the drift does not return."
+      },
+      "related": [
+        "yeknal-ui-quality-baseline",
+        "yeknal-frontend-developer"
+      ]
+    },
     "yeknal-design-taste-frontend": {
       "title": "Design taste for the web",
       "purpose": "Designs and builds expressive landing pages, portfolios and marketing sites from real product evidence instead of reusable AI layouts.",
