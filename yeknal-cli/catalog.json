@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "086398a26e489bad4ba68cbd83dfd82aadb0bf49",
+  "sourceRevision": "b8387035b2c54be41fb5eeac3df4264697b87ea5",
   "version": "2.6.4",
   "skills": [
     {
@@ -79,15 +79,18 @@
         "and",
         "animate",
         "animations",
+        "budget",
         "build",
         "building",
         "cheapest",
         "component-level",
         "correctly",
         "craft",
+        "diagnosis",
         "duration",
         "easing",
         "exit",
+        "file",
         "gating",
         "hard",
         "integration",
@@ -95,6 +98,7 @@
         "motion",
         "operating",
         "output",
+        "page",
         "pick",
         "pointer",
         "posture",
@@ -104,6 +108,7 @@
         "recipes",
         "reduced",
         "references",
+        "route",
         "rules",
         "self-check",
         "sequence",
@@ -114,12 +119,15 @@
         "this",
         "tone",
         "tool",
+        "transitions",
         "use",
+        "video",
         "what",
+        "when",
         "works",
         "yeknal-animate"
       ],
-      "version": "1b0ca403a5cbff052ec0fd80efadb322ddc4f5a0b3765d111ea8da9ac9c1e8ff",
+      "version": "4740fcfaf5b61747d87547dfad2652d34247e5ba586ef5b850b662b43de09540",
       "files": [
         {
           "path": "RECIPES.md",
@@ -132,9 +140,24 @@
           "size": 17786
         },
         {
+          "path": "references/frame-budget.md",
+          "sha256": "2b25cac9c28ddff71d7d799e1ef260beee8d7b73e3683f186ce1a672a0cb208c",
+          "size": 4330
+        },
+        {
+          "path": "references/motion-principles.md",
+          "sha256": "8a75ded444fe231111e5646321c400195816f202ad26bb9005fed2659be312a6",
+          "size": 3850
+        },
+        {
+          "path": "references/rendered-video.md",
+          "sha256": "f3add4ab9e36330820517787fb6f42e85634dc5e3668a572652095b17667f879",
+          "size": 3092
+        },
+        {
           "path": "SKILL.md",
-          "sha256": "f9692fc15388cf637d640afae211504026715d58e06f43940d2f22891c7da9fb",
-          "size": 12562
+          "sha256": "e5ecb88201277f97105f37d4c78329192b74cfd2f5178eb7789f888da0b1d107",
+          "size": 15816
         }
       ]
     },
@@ -635,6 +658,43 @@
       ]
     },
     {
+      "name": "yeknal-design-system",
+      "description": "Build, audit, document, or migrate a product's design system: token layers, mapping hardcoded values onto tokens, component specs, drift detection, and adoption plans. Use when the request names a design system, tokens, component documentation, or inconsistency across an app.",
+      "keywords": [
+        "and",
+        "completion",
+        "component",
+        "contract",
+        "criteria",
+        "design",
+        "drift",
+        "file",
+        "guard",
+        "hardcoded",
+        "layers",
+        "mapping",
+        "migration",
+        "onto",
+        "output",
+        "rails",
+        "specs",
+        "system",
+        "the",
+        "three",
+        "tokens",
+        "values",
+        "yeknal-design-system"
+      ],
+      "version": "6c5bf6f91f1c2278bdf76922dc2848e281563f7d3be23f33db10ad2e67ca3fc8",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "d1e43f8044caa048a0922d15a27a61135409813bcb745433d8f7de83604fa133",
+          "size": 8045
+        }
+      ]
+    },
+    {
       "name": "yeknal-design-taste-frontend",
       "description": "Design and build expressive landing pages, portfolios, and marketing interfaces from product evidence instead of reusable AI recipes, including showcase-level art direction. For an existing product use `yeknal-redesign-existing-projects`.",
       "keywords": [
@@ -667,7 +727,7 @@
         "use",
         "yeknal-design-taste-frontend"
       ],
-      "version": "2b4bd53d2317b1a5c3e11ac927b683bf5e78372cd91fed44ddd1cdb20f6ae302",
+      "version": "1aaea11e27262a0a79795f97306d7733f66930f40a76967c1df01bf041956439",
       "files": [
         {
           "path": "LICENSE.txt",
@@ -676,8 +736,8 @@
         },
         {
           "path": "references/dials-and-arsenal.md",
-          "sha256": "a68ce5beff5f94ff7642583cf5028bc9262058c333e5e0f750f997e7118de221",
-          "size": 7051
+          "sha256": "528dfaba52d98475b1e19a831c8fc543fee854b55214c1a78fdaa53374d9eaa0",
+          "size": 7252
         },
         {
           "path": "references/patterns-redesign-and-sources.md",
@@ -862,6 +922,7 @@
         "dark",
         "developer",
         "discipline",
+        "elements",
         "engineering",
         "frontend",
         "implementation",
@@ -869,17 +930,19 @@
         "light",
         "mode",
         "navigation",
+        "reparenting",
         "responsibilities",
+        "stateful",
         "styling-system",
         "what",
         "yeknal-frontend-developer"
       ],
-      "version": "d8bdc91d3a26b94ba16f91177297e9849f1d94fdc5aa2e4c6362ed1fa5066d8e",
+      "version": "3e13f12d88d998fea505d03fcbee518d2aae584b0779e444404004a5b9ecfff4",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "d26e3fd68eda3908ed0b9456ad5ecdeb1ce616fac543273284d836a07077df53",
-          "size": 2937
+          "sha256": "fb11e5a51092d9a7f8a35e68691e23674c4eeb6bfcd10c0734ecabd3df3bf427",
+          "size": 4005
         }
       ]
     },
@@ -1685,7 +1748,9 @@
       "description": "Pick a frontend library or inspectable source registry from a curated list of accessible primitives, React components, motion, charts, virtualization, drag and drop, toasts, and styling. Only runs when explicitly invoked.",
       "keywords": [
         "and",
+        "animated",
         "charts",
+        "component",
         "components",
         "feedback",
         "how",
@@ -1694,6 +1759,7 @@
         "library",
         "list",
         "loading",
+        "marketplaces",
         "motion",
         "performance",
         "picking",
@@ -1707,12 +1773,12 @@
         "visuals",
         "yeknal-pick-ui-library"
       ],
-      "version": "9375fe6130a1beda779d4a2aeffc1b8344ad531aafd01e38cd49ba1eeeb38237",
+      "version": "ddc84c2b4b32b4a6de291c0d56a23d898e6958b6fb1a08875474aea12ec1d2a3",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "6413863b88931c922bc28560035244170e07da8b8ed5ef86d2c06f07225c633f",
-          "size": 9172
+          "sha256": "d6e6977aafcc152b5e4e8ac1e104dc553f49e688051481c87695dbef2da9f615",
+          "size": 11991
         }
       ]
     },
@@ -1869,7 +1935,7 @@
         "workflow",
         "yeknal-prototype"
       ],
-      "version": "3c96e4d0a55cac2a5dd396377091f6416bfec2db5f0dbccaaaea672c9c62b4b0",
+      "version": "55d89d1c2dfffda94dcb9afede62a8f5974d947615f1dffe8d38c9781966a57b",
       "files": [
         {
           "path": "PICKER.md",
@@ -1878,8 +1944,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "b716d78783f31643a5dac169dc40a55cbf36affa63339eec1ab6f72b0eb91302",
-          "size": 7865
+          "sha256": "9a59622b3c4ae9491779b673a78db55c8a8b6552b9e5484793768ebdd148fd5e",
+          "size": 8974
         }
       ]
     },
@@ -1998,6 +2064,7 @@
       "keywords": [
         "animations",
         "baseline",
+        "credibility",
         "findings",
         "format",
         "guidelines",
@@ -2007,6 +2074,7 @@
         "operating",
         "output",
         "part",
+        "physical",
         "posture",
         "preference",
         "remedial",
@@ -2019,12 +2087,12 @@
         "verdict",
         "yeknal-review-animations"
       ],
-      "version": "b5226ae629c397b71e84e041da81a8464410e35f7970bf67c3baa94fe21fcffb",
+      "version": "898f36837008a7310effdf359f761b5d60111272a45cb3d82f9041e6fc66fe35",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "35d518e3a181be767062b3fdfc9c5a6fc8d8ec7ad46088d96516d18b8d2f5632",
-          "size": 7792
+          "sha256": "bb58eb19066efcea65d2f3b23bc92f9db9a57d5780be3d761f100f70dbb4a649",
+          "size": 9200
         },
         {
           "path": "STANDARDS.md",
@@ -2579,6 +2647,7 @@
         "containment",
         "context",
         "copy",
+        "data",
         "design",
         "discipline",
         "durable",
@@ -2600,6 +2669,7 @@
         "open-ended",
         "optical",
         "page",
+        "pattern",
         "public",
         "quality",
         "real",
@@ -2617,6 +2687,7 @@
         "states",
         "submission",
         "surface",
+        "surfaces",
         "system",
         "the",
         "timing",
@@ -2627,12 +2698,42 @@
         "with",
         "yeknal-ui-quality-baseline"
       ],
-      "version": "caa7dc6f4bba6c37065a0682b869796fa7850f9e6bfa5b6d6d3da3a04a7674bc",
+      "version": "11dfdaffbdc69de4f9b678eedbb3ea98a23cec9d5cf943e3a8b70beba825bde5",
       "files": [
         {
           "path": "references/accessibility-design.md",
           "sha256": "271c7f9b5e3e771fa52bde4f4ea62c1cc2f239c7aa6468ae53d3295b2530cdde",
           "size": 8412
+        },
+        {
+          "path": "references/account-and-money.md",
+          "sha256": "77c939e834c3f715c9af11d2a05e32f7fc7a00f68422f34c9f2b3ed218161f73",
+          "size": 5706
+        },
+        {
+          "path": "references/color-systems.md",
+          "sha256": "f446b916666413956efd05d5ec7ed1ca5790aedb07aec536382734956660ad1f",
+          "size": 5718
+        },
+        {
+          "path": "references/component-patterns.md",
+          "sha256": "abec10ba6d5d0092c79cbe2535ae08d9bb188fb10676899849c7cffda19a598c",
+          "size": 9963
+        },
+        {
+          "path": "references/data-display.md",
+          "sha256": "61557decd293fbe6015aa859a1ed44c7ca4e78d075f3a9b1aee096c09d97e216",
+          "size": 6180
+        },
+        {
+          "path": "references/effects-and-blends.md",
+          "sha256": "4a51be2cc89b907d9e3d4c284b8a49d6662eebab655625165084268d8b02dba4",
+          "size": 4035
+        },
+        {
+          "path": "references/icons.md",
+          "sha256": "dfbab0bb3ee3202338a0ad3b60d53874b634d20903acf0b438ac2af86d59d17d",
+          "size": 4443
         },
         {
           "path": "references/loading-and-timing.md",
@@ -2650,9 +2751,14 @@
           "size": 5088
         },
         {
+          "path": "references/typography.md",
+          "sha256": "020e99e58efa4c6b62cfb15dd7e2641ac022a686534d56e25836e93a8a960429",
+          "size": 5448
+        },
+        {
           "path": "SKILL.md",
-          "sha256": "f6568d2344a1f5f202b2fb55520dd589e3e3fabd7e04ee9b5fb3ae7a4475802f",
-          "size": 25383
+          "sha256": "7b259a8e8faff7d49213a2c82c30c64e72ae203d3778d48418a30f4cf7d175f6",
+          "size": 27518
         }
       ]
     },
@@ -2666,12 +2772,16 @@
         "decision",
         "design",
         "designer",
+        "first",
+        "for",
         "ground",
         "handoff",
         "iteration",
         "light",
         "mode",
         "navigation",
+        "not",
+        "repetition",
         "resolve",
         "task",
         "testing",
@@ -2679,14 +2789,15 @@
         "through",
         "tradeoffs",
         "usability",
+        "use",
         "yeknal-ui-ux-designer"
       ],
-      "version": "8317eebafa2ebb0ceca0b42078c729d877df17db7664fe23805f206bfea51df6",
+      "version": "943aa96f171613b41bd488712f357f3ba460268c9e5858c68de2e70a0823b69c",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "b303e31bd19b3f7ec7c50110f3824aff035e188477ac68f657892c96c835a5db",
-          "size": 5300
+          "sha256": "a4802a64721be9c15598cfd417bff55d0993a90793bdf53378b841ea5adac746",
+          "size": 7424
         }
       ]
     },
