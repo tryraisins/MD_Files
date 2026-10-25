@@ -22,7 +22,11 @@ Not audited: none. The 49 personal skills in `~/.agents` were reviewed in a seco
 
 Defects the review caught that structure checks do not: `yeet` staged the whole tree including secrets; `gh-fix-ci` required a `create-plan` skill that never existed; several skills hardcoded `$CODEX_HOME/skills/<name>` paths that resolve to nothing after install; 13 trimmed descriptions became invalid YAML from an unquoted colon-space; two files were written with a UTF-8 BOM; four deploy descriptions all matched an unnamed "deploy this".
 
-Verification: `audit-skills.ps1` 81/0/0; `validate-routing-evals.ps1` 44 cases, 0 errors; `verify-discovery.js` 30/30; `verify-harness-setup.js` 18/18; CLI suite 50/50; custom check 0 failures, 0 BOMs, 147 links resolving, longest description 251.
+Verification: `audit-skills.ps1` 81/0/0; `validate-routing-evals.ps1` 46 cases, 0 errors; `verify-discovery.js` 30/30; `verify-harness-setup.js` 18/18; CLI suite 50/50; custom check 0 failures, 0 BOMs, 147 links resolving, longest description 251.
+
+Published 2026-10-25: catalog source `945ada1` with catalog at `3ce23da`, CI "Validate skills and CLI" success on both pushes. Portfolio synced with `node tools/sync-portfolio.js --portfolio ../../Portfolio/my-portfolio`, committed as `a0fca84` and deployed; live `https://tryraisins.dev/skills/` shows Deploy and Notion and no longer lists the archived skills. Only `src/data/skills-catalog.json` was committed in the portfolio; its other modified files were left untouched as in-progress work.
+
+Installer note: `yeknal skills` installs from its cached catalog revision, so it reinstalls stale content after a local change. Verify with a file hash against `skills/`, and if it differs, copy the core folders directly from the repository.
 
 Do not repeat: a single worker cannot finish 40 trims, it hits its step limit at about 23. Split trim work into batches of roughly 20 and verify descriptions, BOMs and dangling ids after every batch.
 
