@@ -14,7 +14,11 @@ Reviewers: DeepSeek V4.1 Flash (all 96), Claude Sonnet 5.5 (all 96), GPT-6 Luna 
 
 Consolidation: `yeknal-deploy` (router over four provider references, provider detected from repo config, asks when none or several match), `yeknal-notion` (hub with capture, meeting, research-brief and update modes), `yeknal-legacy-sweep` (absorbs dead-code-hunter and cleanup), `yeknal-animate` (absorbs emil reference material), `yeknal-verification-harness` (absorbs verification-audit as `references/upkeep.md`). Archived to `archive/skills/`, outside every discovery root: v1 taste, gpt-taste, animation-vocabulary, engineering-specialists, brainstorm, skill-router.
 
-Install layer: 98 redundant folders moved to `~/.skill-quarantine/2026-10-24/` with a restore manifest. The OpenCode root keeps 6 personal skills with no catalog equivalent: ai-sdk, shadcn, react-best-practices, visualize, template-creator, hatch-pet. Those six were judged against the quality bar but not put through the three-model board, which is the honest gap in coverage.
+Install layer: 98 redundant folders moved to `~/.skill-quarantine/2026-10-24/` with a restore manifest, and 10 superseded personal skills to `~/.skill-quarantine/2026-10-25/`. The OpenCode root keeps 6 personal skills with no catalog equivalent: ai-sdk, shadcn, react-best-practices, visualize, template-creator, hatch-pet.
+
+Baseline correction worth remembering: the Phase 0 inventory missed `~/.agents/skills`, which is a real discovery root and held a parallel catalog install plus about 53 personal skills. Final measured state across all five roots is 169 folders, 130 unique names, 23,559 description characters (about 5,890 tokens). The 39 remaining duplicate folders are one copy per harness root, which discovery deduplicates by name.
+
+Not audited: the 49 remaining personal skills in `~/.agents` (role personas, Neon set, and similar) never went through the board. They cost about 1,800 tokens of always-on budget and need a second pass before any decision.
 
 Defects the review caught that structure checks do not: `yeet` staged the whole tree including secrets; `gh-fix-ci` required a `create-plan` skill that never existed; several skills hardcoded `$CODEX_HOME/skills/<name>` paths that resolve to nothing after install; 13 trimmed descriptions became invalid YAML from an unquoted colon-space; two files were written with a UTF-8 BOM; four deploy descriptions all matched an unnamed "deploy this".
 

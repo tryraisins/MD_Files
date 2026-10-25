@@ -188,7 +188,7 @@ Second full audit, run against the installed set rather than the repository alon
 
 - 96 catalog skills reduced to 81: 10 merged, 6 archived, 1 new router created.
 - Core profile reduced from 37 skills to 15, on the test "a developer needs this across unrelated projects".
-- Installed footprint reduced from 250 folders and 152 unique names to 81 plus 11 personal skills, with every duplicate removed.
+- Installed footprint reduced from 250 folders and 152 unique names across four roots to 169 folders and 130 unique names across five roots, with every duplicate removed and 10 superseded personal skills quarantined. The original inventory missed `~/.agents/skills`, so the starting cost was higher than measured.
 - Always-on description cost reduced from 39,144 to 16,289 characters (about 9,786 to 4,072 tokens).
 - Median skill body reduced from 103 to 60 lines; total body lines from 9,148 to 5,568; largest from 482 to 243.
 - Every surviving skill has an explicit entry gate, a description under 260 characters, and no reference to a skill that no longer exists.
