@@ -1,8 +1,6 @@
 ---
 name: yeknal-deploy
 description: "Deploy, host, publish, or push a site live to Cloudflare, Netlify, Render, or Vercel, named by the user or detected from repository config. Use when a deploy is requested; keep the first deploy a preview unless production is explicitly asked for."
-metadata:
-  internal: true
 ---
 
 # Deploy

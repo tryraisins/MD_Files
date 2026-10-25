@@ -2,7 +2,6 @@
 name: yeknal-notion
 description: Capture, prepare, research, or update Notion pages. Turn conversations into wiki entries and decisions, build meeting agendas from templates, write cited research briefs, and refresh existing pages. Use when the request names Notion.
 metadata:
-  internal: true
   short-description: Capture, meet, research, and update in Notion
 ---
 
