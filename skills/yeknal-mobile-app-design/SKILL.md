@@ -13,7 +13,6 @@ Build mobile interfaces that respect the project's existing stack and feel nativ
 
 ## Related-skill routing
 
-- Use `yeknal-imagegen-frontend-mobile` when the deliverable is images or visual concepts only.
 - Use this skill for end-to-end mobile screen and flow design or implementation. Load [references/appllama-research.md](references/appllama-research.md) only when the Appllama MCP is connected or the user provides Appllama screen references.
 - Use `yeknal-design-reference-research` when the user supplies mobile references or the product category needs a benchmark study. AppLlama is one optional source, not a prerequisite for evidence-led mobile design.
 - Gesture, transition, haptic, and Reanimated implementation belong to `yeknal-animate-expo`; shared accessibility, token, and rendered-QA requirements belong to `yeknal-ui-quality-baseline`.
@@ -97,4 +96,4 @@ Static review and simulator screenshots do not prove real-device performance, ha
 
 Adapted from [Appllama/appllama-skills](https://github.com/Appllama/appllama-skills) at commit `dd5caaec3d5d50ad7fc0324da238119c6b7c3707`.
 
-The two upstream skills were consolidated into this one capability. Detailed Reanimated guidance was not copied because `yeknal-animate-expo` already owns it; image generation remains in `yeknal-imagegen-frontend-mobile`; shared UI checks remain in `yeknal-ui-quality-baseline`. Appllama research is optional and progressively disclosed rather than a requirement for all mobile work.
+The two upstream skills were consolidated into this one capability. Detailed Reanimated guidance was not copied because `yeknal-animate-expo` already owns it; shared UI checks remain in `yeknal-ui-quality-baseline`. Appllama research is optional and progressively disclosed rather than a requirement for all mobile work.

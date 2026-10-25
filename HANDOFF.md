@@ -24,6 +24,8 @@ Provider prune (2026-10-25): dropped `nextjs-developer`, `ask-sonner`, `stitch-d
 
 Published 2026-10-25 after the prune: catalog source `c661f3c` with the catalog at `8aa2a36`, CI success. Portfolio synced at `8aa2a36`, committed `f99bac7`, deployed, and the live page confirmed all four skills gone with Deploy and Legacy sweep still present. Final installed measurement: 125 folders, 90 unique, 18,361 description characters, about 4,590 tokens.
 
+Capability prune (2026-10-25): a further 24 skills archived on request, taking the catalog to 53 skills and 15 core. Removed: all image/video/audio, all documents, both response-mode skills, the remaining platform and framework skills, develop-web-game, both agent-surface skills, and the Notion pair. Three packs went empty and were deleted. Six surviving skills had cross-references rewritten. The catalog is now an engineering, design, security and process set.
+
 Defects the review caught that structure checks do not: `yeet` staged the whole tree including secrets; `gh-fix-ci` required a `create-plan` skill that never existed; several skills hardcoded `$CODEX_HOME/skills/<name>` paths that resolve to nothing after install; 13 trimmed descriptions became invalid YAML from an unquoted colon-space; two files were written with a UTF-8 BOM; four deploy descriptions all matched an unnamed "deploy this".
 
 Verification: `audit-skills.ps1` 81/0/0; `validate-routing-evals.ps1` 46 cases, 0 errors; `verify-discovery.js` 30/30; `verify-harness-setup.js` 18/18; CLI suite 50/50; custom check 0 failures, 0 BOMs, 147 links resolving, longest description 251.

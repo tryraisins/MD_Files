@@ -9,9 +9,6 @@ yeknal-ui-quality-baseline: Mandatory baseline for visible UI work covering toke
 yeknal-design-reference-research: Read-only-by-default research across live interfaces, galleries, flows, and source registries that produces evidence, a product-specific visual thesis, responsive transformations, and a rejection list before implementation.
 yeknal-human-ai-interface-design: Trustworthy AI-product interaction guidance for expectations, appropriate reliance, provenance, uncertainty, user control, approvals, autonomy, recovery, and evaluation.
 yeknal-design-taste-frontend: Default expressive local design system for distinctive landing pages, portfolios, and redesigns; detailed patterns live under references.
-yeknal-image-to-code: Image-first frontend analysis and implementation workflow.
-yeknal-imagegen-frontend-web: Image-generation-only workflow for premium website design references.
-yeknal-imagegen-frontend-mobile: Image-generation-only workflow for premium mobile concepts and flows.
 yeknal-mobile-app-design: Native mobile screen and flow design or implementation, with optional Appllama reference research; delegates motion-only and image-only work to their focused skills.
 yeknal-brandkit: Image-generation-only workflow for visual identity systems and brand-kit boards.
 yeknal-redesign-existing-projects: Audits and upgrades existing interfaces without breaking behavior.
@@ -30,10 +27,8 @@ yeknal-finalize: Repository-appropriate documentation and quality gates with pub
 yeknal-orchestration-specialists: Bounded multi-agent, context, prompt, synthesis, and MCP coordination guidance.
 yeknal-agent-cost-control: Measure agent inference spend per session, find the sessions that own the bill, and change one cost lever at a time without silently losing review quality.
 yeknal-research-analysis: Canonical evidence-backed research workflow, including a progressively disclosed deep-research mode with claim verification and saturation-based stopping.
-yeknal-i-have-adhd: Explicit-only persistent response mode with action-first structure, bounded steps, visible state, and evidence-based time estimates.
 yeknal-break-ui: Adversarial worst-case data stress test for a component or screen, reporting each break and its fix against the shared UI quality baseline.
 yeknal-domain-modeling: Clarify domain concepts, maintain a project glossary, and record durable architecture decisions as ADRs only when the tradeoff warrants it.
 yeknal-verification-harness: Generate a project-local verification skill that launches the real app, drives a feature like a user, and keeps provable artifacts, with a maintained feature map.
 yeknal-performance: Measure startup, screen navigation, content loading, and scrolling on a throttled production build, find the real bottleneck, and keep only fixes that beat the measured noise floor.
 yeknal-deploy: Detect the hosting provider from repository configuration and run that provider's preview-first deploy procedure, so an unnamed deploy request has one entry point instead of four competing ones.
-yeknal-notion: One Notion entry point with four modes: capture a decision, prepare a meeting, research a cited brief, and update an existing page.

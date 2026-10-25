@@ -218,29 +218,6 @@
         "yeknal-security-threat-model"
       ]
     },
-    "yeknal-aspnet-core": {
-      "title": "ASP.NET Core",
-      "purpose": "Builds, reviews and upgrades ASP.NET Core applications using current official guidance, from Blazor and Razor Pages to Minimal APIs, SignalR and authentication.",
-      "tasks": [
-        "build"
-      ],
-      "whenToUse": [
-        "You are working on a Blazor, Razor Pages, MVC or Web API project.",
-        "Middleware, dependency injection or configuration needs to follow current guidance.",
-        "You are planning an ASP.NET Core upgrade."
-      ],
-      "example": {
-        "ask": "Add a Minimal API endpoint for orders with validation and proper authorization.",
-        "outcome": "It follows the project’s existing conventions, adds the endpoint with validation and policy-based authorization, and notes how to test it."
-      },
-      "attribution": {
-        "credit": "Adapted from Microsoft’s ASP.NET Core skill.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-winui-app"
-      ]
-    },
     "yeknal-brandkit": {
       "title": "Brand kit images",
       "purpose": "Generates polished brand-guideline boards, logo systems and identity presentations as images, with deliberate composition and sparse typography.",
@@ -264,7 +241,6 @@
         "sourceUrl": "https://github.com/leonxlnx/taste-skill"
       },
       "related": [
-        "yeknal-imagegen",
         "yeknal-frontend-design"
       ]
     },
@@ -292,32 +268,6 @@
       "related": [
         "yeknal-ui-quality-baseline",
         "yeknal-playwright"
-      ]
-    },
-    "yeknal-chatgpt-apps": {
-      "title": "ChatGPT apps",
-      "purpose": "Builds and troubleshoots ChatGPT Apps SDK projects that pair an MCP server with a widget UI, starting from the current official documentation.",
-      "tasks": [
-        "build",
-        "agents"
-      ],
-      "whenToUse": [
-        "You are scaffolding a new ChatGPT app.",
-        "You need to register UI resources or wire the MCP Apps bridge.",
-        "Metadata, CSP or domain settings are getting in the way."
-      ],
-      "requirements": "Written with Codex in mind and works best alongside the OpenAI docs skill.",
-      "example": {
-        "ask": "Scaffold a ChatGPT app that searches our recipes and shows results in a widget.",
-        "outcome": "It checks the current docs, sets up the MCP server and tools, and registers the widget with the right metadata."
-      },
-      "attribution": {
-        "credit": "Adapted from OpenAI’s published skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-openai-docs",
-        "yeknal-orchestration-specialists"
       ]
     },
     "yeknal-content-seo": {
@@ -391,58 +341,6 @@
         "yeknal-high-end-visual-design"
       ]
     },
-    "yeknal-develop-web-game": {
-      "title": "Web game development",
-      "purpose": "Gives your agent a reliable loop for building browser games: make a small change, play it through a Playwright script, then check screenshots and console errors.",
-      "tasks": [
-        "build",
-        "review"
-      ],
-      "whenToUse": [
-        "You are building or iterating on an HTML and JavaScript game.",
-        "Changes keep breaking gameplay and you want each one checked.",
-        "You need deterministic frame stepping for automated play."
-      ],
-      "requirements": "Written with Codex in mind and needs Playwright available.",
-      "example": {
-        "ask": "Add a double jump to the platformer and make sure nothing else broke.",
-        "outcome": "It implements the change, plays through the level with scripted input, inspects screenshots and fixes any console errors."
-      },
-      "attribution": {
-        "credit": "Adapted from OpenAI’s published skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-playwright",
-        "yeknal-implement"
-      ]
-    },
-    "yeknal-doc": {
-      "title": "Word documents",
-      "purpose": "Reads, creates and edits .docx files where formatting matters, and renders pages to check the layout visually.",
-      "tasks": [
-        "docs"
-      ],
-      "whenToUse": [
-        "You need a Word document generated or edited.",
-        "Layout fidelity matters, such as headings, tables and page breaks.",
-        "You want to check how a document actually renders."
-      ],
-      "requirements": "Uses Python with python-docx, and Poppler or LibreOffice for rendering checks.",
-      "example": {
-        "ask": "Turn these meeting notes into a formatted Word report with a table of actions.",
-        "outcome": "It builds the document with proper styles and a table, renders it and fixes any layout problems."
-      },
-      "attribution": {
-        "credit": "Adapted from Anthropic’s document skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-pdf",
-        "yeknal-slides",
-        "yeknal-spreadsheet"
-      ]
-    },
     "yeknal-domain-modeling": {
       "title": "Domain modeling",
       "purpose": "Clarifies a project’s domain terms and boundaries and records the decisions in a glossary or architecture decision record.",
@@ -465,32 +363,6 @@
       },
       "related": [
         "yeknal-project-handoff"
-      ]
-    },
-    "yeknal-figma-implement-design": {
-      "title": "Figma to code",
-      "purpose": "Turns Figma frames into production code that matches the design closely, using the Figma MCP server for design context, screenshots and assets.",
-      "tasks": [
-        "design",
-        "build"
-      ],
-      "whenToUse": [
-        "You have a Figma URL or node ID to implement.",
-        "A component must match its Figma spec exactly.",
-        "You want design tokens translated into the project’s own conventions."
-      ],
-      "requirements": "Needs a working Figma MCP server connection.",
-      "example": {
-        "ask": "Implement this Figma frame as a React component using our design tokens.",
-        "outcome": "It reads the frame through the Figma MCP server, maps values to existing tokens and builds the component to match."
-      },
-      "attribution": {
-        "credit": "Adapted from Figma’s published skill.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-image-to-code",
-        "yeknal-frontend-developer"
       ]
     },
     "yeknal-finalize": {
@@ -583,31 +455,6 @@
       "related": [
         "yeknal-implement",
         "yeknal-ui-quality-baseline"
-      ]
-    },
-    "yeknal-full-output-enforcement": {
-      "title": "Full output",
-      "purpose": "Makes the agent return complete code or documents without placeholder gaps, splitting long output only at real boundaries.",
-      "tasks": [
-        "agents"
-      ],
-      "whenToUse": [
-        "You need every line of a file, not a summary with ellipses.",
-        "Earlier answers left out sections with placeholders.",
-        "Output is long enough that it has to be split carefully."
-      ],
-      "avoid": "It only runs when you explicitly ask for exhaustive output.",
-      "example": {
-        "ask": "Give me the full migration file, every line, no placeholders.",
-        "outcome": "It writes the complete file and, if it has to split it, breaks at clear boundaries and says where to continue."
-      },
-      "attribution": {
-        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
-        "license": "MIT",
-        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
-      },
-      "related": [
-        "yeknal-i-have-adhd"
       ]
     },
     "yeknal-gh-address-comments": {
@@ -729,137 +576,6 @@
         "yeknal-ui-quality-baseline"
       ]
     },
-    "yeknal-i-have-adhd": {
-      "title": "ADHD-friendly answers",
-      "purpose": "Shapes answers into short, action-first steps with visible progress, which can make long tasks easier to follow.",
-      "tasks": [
-        "agents"
-      ],
-      "whenToUse": [
-        "You prefer answers that lead with the next action.",
-        "Long explanations make it hard to keep track.",
-        "You want progress shown clearly as work moves along."
-      ],
-      "avoid": "It only runs when you turn it on by asking for it.",
-      "example": {
-        "ask": "ADHD mode on. Help me set up the project locally.",
-        "outcome": "It answers with one clear step at a time, keeps the current state visible and skips long preambles."
-      },
-      "attribution": {
-        "credit": "Adapted from Ayoub Ghriss’s i-have-adhd skill.",
-        "license": "MIT",
-        "sourceUrl": "https://github.com/ayghri/i-have-adhd"
-      },
-      "related": [
-        "yeknal-full-output-enforcement"
-      ]
-    },
-    "yeknal-image-to-code": {
-      "title": "Image to code",
-      "purpose": "Studies an approved screenshot or concept image, works out its visual and responsive system, and builds the frontend to match it faithfully.",
-      "tasks": [
-        "design",
-        "build"
-      ],
-      "whenToUse": [
-        "You have a screenshot or mockup to turn into code.",
-        "An approved concept must be implemented without drifting.",
-        "You want the responsive behaviour worked out from a static image."
-      ],
-      "avoid": "It won’t replace an approved reference with a newly generated design.",
-      "example": {
-        "ask": "Build this landing page screenshot as a responsive Astro page.",
-        "outcome": "It extracts spacing, type and colour from the image, then builds the page and checks it at phone and desktop widths."
-      },
-      "attribution": {
-        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
-        "license": "MIT",
-        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
-      },
-      "related": [
-        "yeknal-figma-implement-design",
-        "yeknal-imagegen-frontend-web"
-      ]
-    },
-    "yeknal-imagegen": {
-      "title": "Image generation",
-      "purpose": "Generates and edits images through the OpenAI Image API, including masks, background removal, transparent backgrounds and batches of variants.",
-      "tasks": [
-        "media"
-      ],
-      "whenToUse": [
-        "You need product shots, covers or concept art.",
-        "An image needs inpainting or its background replaced.",
-        "You want several variants generated in one go."
-      ],
-      "requirements": "Uses Python and needs an OPENAI_API_KEY for live calls.",
-      "example": {
-        "ask": "Make three cover images for the blog post with a transparent background.",
-        "outcome": "It writes the prompts, runs the bundled script and saves the variants for you to choose from."
-      },
-      "attribution": {
-        "credit": "Adapted from OpenAI’s published skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-brandkit",
-        "yeknal-sora"
-      ]
-    },
-    "yeknal-imagegen-frontend-mobile": {
-      "title": "Mobile app concept images",
-      "purpose": "Generates polished concept images of mobile app screens and flows inside a phone frame, with consistent hierarchy across screens. It creates images, not code.",
-      "tasks": [
-        "media",
-        "design"
-      ],
-      "whenToUse": [
-        "You want to see a mobile app idea before building it.",
-        "Several screens need to look like one consistent product.",
-        "You need concepts for iOS, Android or both."
-      ],
-      "requirements": "Needs an image-generation tool available to your agent.",
-      "example": {
-        "ask": "Show me the onboarding and home screens for a plant-care app.",
-        "outcome": "It plans the flow, then generates consistent screen concepts framed in a phone mockup."
-      },
-      "attribution": {
-        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
-        "license": "MIT",
-        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
-      },
-      "related": [
-        "yeknal-mobile-app-design",
-        "yeknal-imagegen-frontend-web"
-      ]
-    },
-    "yeknal-imagegen-frontend-web": {
-      "title": "Website concept images",
-      "purpose": "Generates website concept images for landing pages and sections that developers can actually read and build from.",
-      "tasks": [
-        "media",
-        "design"
-      ],
-      "whenToUse": [
-        "You want visual concepts for a site rather than code.",
-        "A page needs its section order worked out from real content.",
-        "Developers need section-sized images with readable detail."
-      ],
-      "requirements": "Needs an image-generation tool available to your agent.",
-      "example": {
-        "ask": "Give me concept images for a landing page for our invoicing tool.",
-        "outcome": "It works out the page sections from your content and generates readable images for each one."
-      },
-      "attribution": {
-        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
-        "license": "MIT",
-        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
-      },
-      "related": [
-        "yeknal-image-to-code",
-        "yeknal-imagegen-frontend-mobile"
-      ]
-    },
     "yeknal-implement": {
       "title": "Implement",
       "purpose": "Takes a scoped feature or fix from plan to working code while keeping the rest of the repository behaving as it did.",
@@ -928,31 +644,6 @@
       "related": [
         "yeknal-minimalist-ui",
         "yeknal-frontend-design"
-      ]
-    },
-    "yeknal-jupyter-notebook": {
-      "title": "Jupyter notebooks",
-      "purpose": "Creates and edits Jupyter notebooks for experiments, explorations and tutorials, starting from bundled templates.",
-      "tasks": [
-        "docs"
-      ],
-      "whenToUse": [
-        "You want a clean notebook for an experiment or analysis.",
-        "A tutorial should be runnable cell by cell.",
-        "An existing notebook needs restructuring."
-      ],
-      "requirements": "Uses Python with JupyterLab.",
-      "example": {
-        "ask": "Set up a notebook to explore last month’s sales CSV.",
-        "outcome": "It creates a notebook from the template with loading, cleaning and a few starter charts."
-      },
-      "attribution": {
-        "credit": "Adapted from OpenAI’s published skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-spreadsheet",
-        "yeknal-research-analysis"
       ]
     },
     "yeknal-launch-readiness": {
@@ -1080,31 +771,6 @@
         "yeknal-ui-quality-baseline"
       ]
     },
-    "yeknal-notion-spec-to-implementation": {
-      "title": "Notion spec to plan",
-      "purpose": "Turns a spec or PRD in Notion into an implementation plan with tasks and progress tracking.",
-      "tasks": [
-        "docs",
-        "build"
-      ],
-      "whenToUse": [
-        "A feature spec lives in Notion and needs breaking down.",
-        "You want tasks created and tracked against the spec.",
-        "Progress should be visible to the rest of the team."
-      ],
-      "requirements": "Needs the Notion MCP server connected.",
-      "example": {
-        "ask": "Turn the notifications PRD into an implementation plan with tasks.",
-        "outcome": "It reads the spec, writes a plan and creates linked tasks in Notion for tracking."
-      },
-      "attribution": {
-        "credit": "Adapted from Notion’s published skills.",
-        "license": "MIT"
-      },
-      "related": [
-        "yeknal-implement"
-      ]
-    },
     "yeknal-oil-motion": {
       "title": "Frame-based motion",
       "purpose": "Designs and builds scrubbable web animation made from generated or captured frames and driven by scroll, pointer, touch or data, for moments ordinary CSS can’t express.",
@@ -1131,30 +797,6 @@
         "yeknal-animate"
       ]
     },
-    "yeknal-openai-docs": {
-      "title": "OpenAI docs",
-      "purpose": "Answers OpenAI product and API questions from the official documentation, including current model choices, migrations and prompt reviews, with citations.",
-      "tasks": [
-        "agents",
-        "build"
-      ],
-      "whenToUse": [
-        "You need current guidance on an OpenAI API or model.",
-        "You are migrating to a newer model.",
-        "An answer needs citing to the official docs."
-      ],
-      "example": {
-        "ask": "Which OpenAI model should we use for structured extraction now, and what changes?",
-        "outcome": "It checks the current documentation, recommends a model and lists the changes with citations."
-      },
-      "attribution": {
-        "credit": "Adapted from OpenAI’s published skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-chatgpt-apps"
-      ]
-    },
     "yeknal-orchestration-specialists": {
       "title": "Orchestration specialists",
       "purpose": "Organises work across several agents and tools, covering task distribution, context management, evidence synthesis, prompt engineering and MCP design.",
@@ -1172,31 +814,6 @@
         "outcome": "It divides the work into bounded tasks, defines what each agent returns and merges the results with evidence."
       },
       "related": []
-    },
-    "yeknal-pdf": {
-      "title": "PDF files",
-      "purpose": "Reads, creates and reviews PDFs where layout matters, rendering pages to check them and using Python tools for generation and extraction.",
-      "tasks": [
-        "docs"
-      ],
-      "whenToUse": [
-        "You need a PDF generated with a reliable layout.",
-        "Text or tables have to be extracted from a PDF.",
-        "You want rendered pages checked before sending."
-      ],
-      "requirements": "Uses Python with reportlab, pdfplumber and pypdf, plus Poppler for rendering.",
-      "example": {
-        "ask": "Pull the tables out of these invoices and make a summary PDF.",
-        "outcome": "It extracts the tables, builds a summary PDF and renders the pages to check the layout."
-      },
-      "attribution": {
-        "credit": "Adapted from Anthropic’s document skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-doc",
-        "yeknal-spreadsheet"
-      ]
     },
     "yeknal-performance": {
       "title": "App performance",
@@ -1364,8 +981,7 @@
         "license": "MIT"
       },
       "related": [
-        "yeknal-design-reference-research",
-        "yeknal-notion"
+        "yeknal-design-reference-research"
       ]
     },
     "yeknal-review": {
@@ -1410,30 +1026,6 @@
       "related": [
         "yeknal-improve-animations",
         "yeknal-animate"
-      ]
-    },
-    "yeknal-screenshot": {
-      "title": "Screenshots",
-      "purpose": "Captures desktop or system screenshots of the whole screen, one window or a region, for when the browser or tool can’t capture what you need.",
-      "tasks": [
-        "review"
-      ],
-      "whenToUse": [
-        "You explicitly want a screenshot of the desktop or an app window.",
-        "Tool-specific capture isn’t available.",
-        "You need a precise region of the screen."
-      ],
-      "requirements": "Uses Python and operating-system capture tools.",
-      "example": {
-        "ask": "Take a screenshot of the simulator window.",
-        "outcome": "It finds the window, captures it and saves the image where you can open it."
-      },
-      "attribution": {
-        "credit": "Adapted from OpenAI’s published skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-playwright"
       ]
     },
     "yeknal-security-audit": {
@@ -1565,31 +1157,6 @@
         "yeknal-troubleshoot"
       ]
     },
-    "yeknal-slides": {
-      "title": "Slide decks",
-      "purpose": "Creates and edits PowerPoint decks with PptxGenJS, including charts and diagrams, and checks rendered slides for overflow and font problems.",
-      "tasks": [
-        "docs"
-      ],
-      "whenToUse": [
-        "You need a new .pptx deck built.",
-        "Slides should be recreated from screenshots or a PDF.",
-        "Text overflows or fonts change when the deck opens elsewhere."
-      ],
-      "requirements": "Uses Node.js, Python and LibreOffice for rendering checks.",
-      "example": {
-        "ask": "Make a ten-slide deck from this project update, with one chart.",
-        "outcome": "It builds an editable deck with the chart, renders every slide and fixes overflow before handing it over."
-      },
-      "attribution": {
-        "credit": "Adapted from Anthropic’s document skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-doc",
-        "yeknal-pdf"
-      ]
-    },
     "yeknal-slopscan": {
       "title": "Slop scan",
       "purpose": "Scans a codebase locally for AI-slop indicators such as stock marketing copy, placeholder text, gradient headline text, decorative emoji, stock icon sets and kit default colors, and writes a report that explains each finding and how to fix it.",
@@ -1612,82 +1179,6 @@
         "yeknal-review"
       ]
     },
-    "yeknal-sora": {
-      "title": "Sora video",
-      "purpose": "Generates, edits, extends and downloads Sora videos, and runs batches of video jobs through a bundled command-line tool.",
-      "tasks": [
-        "media"
-      ],
-      "whenToUse": [
-        "You want a short AI-generated video.",
-        "An existing Sora clip needs editing or extending.",
-        "You are planning a batch of related videos."
-      ],
-      "requirements": "Needs an OPENAI_API_KEY with Sora API access.",
-      "example": {
-        "ask": "Generate a five-second loop of coffee being poured for the landing page.",
-        "outcome": "It writes the prompt, submits the job, waits for it and downloads the video and thumbnail."
-      },
-      "attribution": {
-        "credit": "Adapted from OpenAI’s published skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-imagegen",
-        "yeknal-speech"
-      ]
-    },
-    "yeknal-speech": {
-      "title": "Text to speech",
-      "purpose": "Turns text into narration or voiceover with the OpenAI Audio API’s built-in voices, including batches for longer scripts.",
-      "tasks": [
-        "media"
-      ],
-      "whenToUse": [
-        "You need narration for a video or demo.",
-        "You want an audio version of written content.",
-        "Several clips should share the same voice."
-      ],
-      "avoid": "Creating custom voices is out of scope.",
-      "requirements": "Uses Python and needs an OPENAI_API_KEY for live calls.",
-      "example": {
-        "ask": "Record a calm voiceover for this 60-second product script.",
-        "outcome": "It picks a suitable voice, generates the audio and saves it ready to drop into your edit."
-      },
-      "attribution": {
-        "credit": "Adapted from OpenAI’s published skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-transcribe",
-        "yeknal-sora"
-      ]
-    },
-    "yeknal-spreadsheet": {
-      "title": "Spreadsheets",
-      "purpose": "Creates, edits, analyses and formats spreadsheets in .xlsx, .csv and .tsv, keeping formulas working and checking the result visually.",
-      "tasks": [
-        "docs"
-      ],
-      "whenToUse": [
-        "You need a spreadsheet built with working formulas.",
-        "Messy data needs cleaning or reformatting.",
-        "You want charts or summaries from tabular data."
-      ],
-      "requirements": "Uses Python with openpyxl, plus LibreOffice for recalculation and rendering.",
-      "example": {
-        "ask": "Turn this CSV export into a formatted budget sheet with monthly totals.",
-        "outcome": "It builds the workbook with formulas and formatting, recalculates it and checks the rendered sheet."
-      },
-      "attribution": {
-        "credit": "Adapted from Anthropic’s document skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-jupyter-notebook",
-        "yeknal-pdf"
-      ]
-    },
     "yeknal-testing-strategy": {
       "title": "Testing strategy",
       "purpose": "Keeps verification end to end: proves behavior through the real entry point, bans new unit tests, and asks before any isolated check.",
@@ -1706,31 +1197,6 @@
       "related": [
         "yeknal-legacy-sweep",
         "yeknal-playwright"
-      ]
-    },
-    "yeknal-transcribe": {
-      "title": "Transcribe audio",
-      "purpose": "Transcribes audio and video recordings to text, with optional speaker labels and hints for speakers you already know.",
-      "tasks": [
-        "media",
-        "docs"
-      ],
-      "whenToUse": [
-        "You have an interview or meeting recording to turn into text.",
-        "Speakers need labelling in the transcript.",
-        "You want text extracted from a video’s audio."
-      ],
-      "requirements": "Uses Python and needs an OPENAI_API_KEY.",
-      "example": {
-        "ask": "Transcribe this interview and label the two speakers.",
-        "outcome": "It transcribes the recording, separates the speakers and saves a clean transcript."
-      },
-      "attribution": {
-        "credit": "Adapted from OpenAI’s published skills.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-speech"
       ]
     },
     "yeknal-troubleshoot": {
@@ -1821,50 +1287,6 @@
         "yeknal-playwright"
       ]
     },
-    "yeknal-winui-app": {
-      "title": "WinUI apps",
-      "purpose": "Creates and develops WinUI 3 desktop apps in C# with the Windows App SDK, following Microsoft’s guidance and WinUI Gallery patterns.",
-      "tasks": [
-        "build",
-        "design"
-      ],
-      "whenToUse": [
-        "You are starting a new Windows desktop app.",
-        "A machine needs setting up for WinUI development.",
-        "XAML controls, navigation or theming need work."
-      ],
-      "requirements": "Needs Windows with the .NET SDK and Windows App SDK.",
-      "example": {
-        "ask": "Create a WinUI 3 app with a navigation view and light and dark themes.",
-        "outcome": "It checks the environment, scaffolds the app and sets up navigation and theming the recommended way."
-      },
-      "attribution": {
-        "credit": "Adapted from Microsoft’s WinUI skill.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-aspnet-core"
-      ]
-    },
-    "yeknal-write-swift": {
-      "title": "Modern Swift",
-      "purpose": "Writes and reviews modern Swift, including value types, Swift 6 data-race safety, concurrency, generics, API design, performance and Swift Testing.",
-      "tasks": [
-        "build"
-      ],
-      "whenToUse": [
-        "You are writing or migrating Swift code.",
-        "A concurrency error, hang or data race needs fixing.",
-        "You want Swift that uses current language features well."
-      ],
-      "example": {
-        "ask": "Fix the data-race warnings after enabling Swift 6 mode.",
-        "outcome": "It explains each warning, applies the right isolation or actor changes and keeps behaviour the same."
-      },
-      "related": [
-        "yeknal-mobile-app-design"
-      ]
-    },
     "yeknal-yeet": {
       "title": "Commit, push and open a PR",
       "purpose": "Stages, commits, pushes and opens a GitHub pull request in one flow using the GitHub CLI.",
@@ -1914,31 +1336,6 @@
       "related": [
         "yeknal-finalize",
         "yeknal-yeet"
-      ]
-    },
-    "yeknal-notion": {
-      "title": "Notion",
-      "purpose": "One Notion entry point with four modes: capture a decision, prepare a meeting, research a cited brief, and update an existing page.",
-      "tasks": [
-        "docs"
-      ],
-      "whenToUse": [
-        "A conversation or decision should become a structured Notion page.",
-        "Meeting material has to be prepared from existing Notion context.",
-        "Research across several Notion sources has to become a cited brief."
-      ],
-      "avoid": "It is not a general note-taking skill and not a research tool for sources outside Notion. The request must name Notion.",
-      "example": {
-        "ask": "Save these decisions into Notion as a page for the team.",
-        "outcome": "It selects the capture mode, searches for an existing page before creating one, writes the page with the team template, and returns the link."
-      },
-      "attribution": {
-        "credit": "Meeting and research templates were consolidated from the three previously separate Notion skills; no upstream source text is claimed.",
-        "sourceUrl": "https://developers.notion.com/"
-      },
-      "related": [
-        "yeknal-markdown-management",
-        "yeknal-research-analysis"
       ]
     }
   }

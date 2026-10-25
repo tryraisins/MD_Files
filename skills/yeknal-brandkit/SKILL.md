@@ -10,7 +10,7 @@ metadata:
 
 Produce premium brand-kit images that read as the work of a serious identity studio: coherent, restrained, strategic, and presentation-ready.
 
-Render through the harness's image tool; with the OpenAI Image API, `yeknal-imagegen` makes the call. This skill supplies the art direction and the prompt.
+Render through the harness's own image tool; no image-generation skill is installed in this catalog. This skill supplies the art direction and the prompt.
 
 - Never generate generic logos.
 - Never generate random mockups.

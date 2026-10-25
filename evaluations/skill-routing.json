@@ -82,8 +82,7 @@
         "yeknal-ui-quality-baseline"
       ],
       "mustNotLead": [
-        "yeknal-mobile-app-design",
-        "yeknal-imagegen-frontend-mobile"
+        "yeknal-mobile-app-design"
       ],
       "rationale": "A motion-only React Native task belongs to the focused Expo animation skill."
     },
@@ -94,22 +93,8 @@
       "secondary": [
         "yeknal-ui-quality-baseline"
       ],
-      "mustNotLead": [
-        "yeknal-imagegen-frontend-mobile"
-      ],
+      "mustNotLead": [],
       "rationale": "End-to-end mobile screen and flow work is distinct from image-only concepts and generic engineering routing."
-    },
-    {
-      "id": "mobile-concept-images",
-      "prompt": "Generate polished image concepts for five screens of this mobile app; do not write code.",
-      "primary": "yeknal-imagegen-frontend-mobile",
-      "secondary": [
-        "yeknal-ui-quality-baseline"
-      ],
-      "mustNotLead": [
-        "yeknal-mobile-app-design"
-      ],
-      "rationale": "The requested deliverable is image generation, not mobile implementation."
     },
     {
       "id": "frame-based-scroll-story",
@@ -152,16 +137,6 @@
       ],
       "mustNotLead": [],
       "rationale": "Deep research is a rigorous mode inside the canonical research skill rather than a duplicate entry point."
-    },
-    {
-      "id": "adhd-output-mode",
-      "prompt": "Use ADHD mode for the rest of this conversation and keep each step easy to act on.",
-      "primary": "yeknal-i-have-adhd",
-      "secondary": [],
-      "mustNotLead": [
-        "yeknal-full-output-enforcement"
-      ],
-      "rationale": "The user explicitly requested the persistent ADHD-friendly response contract."
     },
     {
       "id": "release-notes",
@@ -467,18 +442,6 @@
         "yeknal-implement"
       ],
       "rationale": "An unnamed provider must hit the detection router, not a provider-specific skill."
-    },
-    {
-      "id": "notion-capture-mode",
-      "prompt": "Save these decisions into Notion as a page for the team.",
-      "primary": "yeknal-notion",
-      "secondary": [
-        "yeknal-markdown-management"
-      ],
-      "mustNotLead": [
-        "yeknal-research-analysis"
-      ],
-      "rationale": "All Notion requests route through the single hub, which then selects a mode."
     },
     {
       "id": "cleanup-is-not-review",

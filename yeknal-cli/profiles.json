@@ -20,15 +20,13 @@
     ]
   },
   "process": {
-    "description": "Optional agent cost, domain modeling, delivery, cleanup, verification upkeep, GitHub, exhaustive-output, and response-mode workflows beyond core.",
+    "description": "Agent cost, delivery extras, legacy sweeps, GitHub and verification upkeep beyond core.",
     "skills": [
       "add-changelog",
       "agent-cost-control",
       "domain-modeling",
-      "full-output-enforcement",
       "gh-address-comments",
       "gh-fix-ci",
-      "i-have-adhd",
       "legacy-sweep",
       "research-analysis",
       "verification-harness",
@@ -45,14 +43,10 @@
       "break-ui",
       "design-reference-research",
       "design-taste-frontend",
-      "figma-implement-design",
       "find-animation-opportunities",
       "frontend-developer",
       "high-end-visual-design",
       "human-ai-interface-design",
-      "image-to-code",
-      "imagegen-frontend-mobile",
-      "imagegen-frontend-web",
       "improve-animations",
       "industrial-brutalist-ui",
       "minimalist-ui",
@@ -76,57 +70,19 @@
     ]
   },
   "web": {
-    "description": "Specialist web app, framework, SEO, performance, and production-error workflows beyond core.",
+    "description": "Specialist SEO, performance, launch readiness and production-error workflows beyond core.",
     "skills": [
-      "chatgpt-apps",
       "content-seo",
-      "develop-web-game",
       "launch-readiness",
       "performance",
       "sentry"
     ]
   },
   "platform": {
-    "description": "Platform-specific engineering and deployment workflows.",
+    "description": "Deployment routing and launch readiness for specific platforms.",
     "skills": [
-      "aspnet-core",
       "deploy",
-      "launch-readiness",
-      "winui-app",
-      "write-swift"
-    ]
-  },
-  "documents-media": {
-    "description": "Documents, spreadsheets, presentations, notebooks, images, audio, video, and screenshots.",
-    "skills": [
-      "doc",
-      "imagegen",
-      "jupyter-notebook",
-      "pdf",
-      "screenshot",
-      "slides",
-      "sora",
-      "speech",
-      "spreadsheet",
-      "transcribe"
-    ]
-  },
-  "productivity": {
-    "description": "Notion knowledge, meeting, research, and specification workflows.",
-    "skills": [
-      "notion",
-      "notion-spec-to-implementation"
-    ]
-  },
-  "openai": {
-    "description": "OpenAI documentation and generation workflows for images, video, speech, and transcription.",
-    "skills": [
-      "chatgpt-apps",
-      "imagegen",
-      "openai-docs",
-      "sora",
-      "speech",
-      "transcribe"
+      "launch-readiness"
     ]
   }
 }

@@ -6,7 +6,7 @@ description: "Automate a real browser from the terminal for navigation, forms, s
 # Playwright Browser Automation
 
 Drive a real browser from the terminal with `playwright-cli`. Prefer the bundled wrapper script so the CLI works even when it is not globally installed.
-Treat this skill as CLI-first automation. Do not pivot to `@playwright/test` unless the user explicitly asks for test files. Use `yeknal-screenshot` instead when you need an OS-level capture of a desktop app, an app window, or a screen region that Playwright does not drive.
+Treat this skill as CLI-first automation. Do not pivot to `@playwright/test` unless the user explicitly asks for test files.
 
 Interactive QA must include a written inventory of requested behavior, controls, state changes, visual evidence, and at least two off-happy-path scenarios. Run separate functional and visual passes, verify viewport fit, inspect screenshots, and clean up the session only after all claims are checked.
 

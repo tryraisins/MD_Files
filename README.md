@@ -155,16 +155,13 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | --- | ---: | --- |
 | `core` | 15 | Cross-project process, design, security, verification, and documentation. |
 | `process` | 11 | Agent cost, delivery extras, legacy sweeps, GitHub, exhaustive-output, and response modes beyond core. |
-| `design` | 25 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
+| `design` | 21 | Specialist visual styles, motion, prototyping and design evidence. |
 | `security` | 5 | The five distinct security output contracts. |
-| `web` | 6 | Specialist web apps, frameworks, SEO, performance, launch readiness, and production errors beyond core. |
-| `platform` | 5 | Platform-specific engineering and the deploy router. |
-| `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
-| `productivity` | 2 | Notion knowledge and specification workflows. |
-| `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 77 | Every catalog entry; use when discovery cost is acceptable. |
+| `web` | 4 | Specialist SEO, performance, launch readiness and production errors beyond core. |
+| `platform` | 2 | Deployment routing and launch readiness. |
+| `all` | 53 | Every catalog entry; use when discovery cost is acceptable. |
 
-Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects` and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-improve-animations`, `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping, Figma, image-led and mobile workflows remain in the design pack because their triggers and output contracts differ. Deploy is one router (`yeknal-deploy`) that reads the provider from repository configuration, and Notion is one hub (`yeknal-notion`) with capture, meeting, research-brief and update modes, because four descriptions that all matched "deploy this" or "save this to Notion" cost more in routing accuracy than they returned. Security keeps five folders for the same reason: implementation, review, auditing, threat modeling, and ownership analysis are not interchangeable artifacts.
+Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects` and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-improve-animations`, `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping and mobile workflows remain in the design pack because their triggers and output contracts differ. Deploy is one router (`yeknal-deploy`) that reads the provider from repository configuration, because four descriptions that all matched "deploy this" cost more in routing accuracy than they returned. Security keeps five folders for the same reason: implementation, review, auditing, threat modeling, and ownership analysis are not interchangeable artifacts.
 
 ## Selection and precedence
 
@@ -188,7 +185,7 @@ The consolidated routers are `yeknal-orchestration-specialists` and `yeknal-rese
 - `yeknal-design-taste-frontend`: the detailed local design system for expressive, non-templated interfaces. The `v1` compatibility copy is archived; its three dials live in that skill's references.
 - `yeknal-high-end-visual-design`, `yeknal-minimalist-ui`, `yeknal-industrial-brutalist-ui`: specialist art-direction and design-system workflows. `yeknal-gpt-taste` is archived; its legacy name is recorded in catalog metadata rather than kept as a routing entry.
 - `yeknal-ui-quality-baseline`: the shared UI contract for all core agents, including a durable `DESIGN.md`, coherent tokens, accessible responsive layouts, complete interaction and loading states, a mobile web platform layer (sticky hover, tap flash, dynamic viewport units, input zoom, overscroll, safe areas, and real-hardware verification), end-to-end user-flow checks, rendered QA, and public-site launch checks for links, page metadata, favicon, buttons, and placeholder copy.
-- `yeknal-mobile-app-design`: native mobile screen and flow implementation with optional Appllama reference research; it delegates motion-only work to `yeknal-animate-expo` and image-only concepts to `yeknal-imagegen-frontend-mobile`.
+- `yeknal-mobile-app-design`: native mobile screen and flow implementation with optional Appllama reference research; it delegates motion-only work to `yeknal-animate-expo`.
 - `yeknal-animate`, `yeknal-animate-expo`, and the animation review skills: interaction and motion craft. The Emil Kowalski reference material now lives inside `yeknal-animate/references/`.
 - `yeknal-break-ui`: adversarial worst-case data stress testing that renders demo and edge-case fixtures behind a dev-only toggle and reports each break with its fix; it complements the shared baseline's mobile web platform layer rather than duplicating it.
 - `yeknal-oil-motion`: a specialized workflow for generated or captured frame-based interactive media, adapted from `oil-oil/oil-motion`.
@@ -197,7 +194,6 @@ The consolidated routers are `yeknal-orchestration-specialists` and `yeknal-rese
 ### Research and response modes
 
 - `yeknal-research-analysis`: the canonical research workflow. Explicit deep-research requests load a focused reference for resumable evidence ledgers, claim verification, saturation-based stopping, and evidence-only follow-up instead of adding a second research skill.
-- `yeknal-i-have-adhd`: an explicit-only, persistent response mode with action-first structure, bounded steps, visible state, and evidence-based time estimates.
 
 ### Markdown and implementation commands
 
@@ -309,7 +305,7 @@ This catalog adapts and consolidates work from many upstream authors. Full sourc
 - Emil Kowalski ([emilkowalski/skills](https://github.com/emilkowalski/skills), MIT) for the motion craft bar now carried by `yeknal-animate`, `yeknal-break-ui`, and the motion review skills, with the mobile-native web guidance folded into `yeknal-ui-quality-baseline`.
 - Appllama (MIT), [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) (MIT), [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) (MIT), and NeetigyaShah/deep-research (MIT).
 - Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack) (MIT) for `yeknal-verification-harness`, which now also carries the upkeep loop from the former `yeknal-verification-audit`.
-- Microsoft, Figma, OpenAI, Notion, Vercel, Cloudflare, Netlify, Render, Sentry, Linear, and GitHub for provider and platform skills.
+- Vercel, Cloudflare, Netlify, Render, Sentry and GitHub for the deploy and operations skills retained in the catalog.
 - Rare UI (MIT + Commons Clause + Attribution), referenced for component selection; not vendored. Any project that installs a Rare UI component must retain its notice and add a README credit linking to [rareui.com](https://www.rareui.com).
 
 ## License

@@ -228,6 +228,14 @@ The rule kept for the rest: a provider skill stays when it encodes a decision ga
 
 Catalog after this pass: 77 skills, 15 core.
 
+### Capability packs removed (2026-10-25)
+
+The catalog was reduced further on request, to an engineering, design, security and process set. Removed to `archive/skills/`: all eight image, video and audio skills, all five document and file skills, the two response-mode skills (`i-have-adhd`, `full-output-enforcement`), the remaining platform and framework skills (`aspnet-core`, `winui-app`, `write-swift`, `figma-implement-design`), `develop-web-game`, both agent-surface skills (`chatgpt-apps`, `openai-docs`), and the Notion pair (`notion`, `notion-spec-to-implementation`).
+
+Consequences handled: three packs became empty and were deleted (`documents-media`, `productivity`, `openai`), six surviving skills had their cross-references to removed ids rewritten (`brandkit`, `markdown-management`, `mobile-app-design`, `playwright`, `research-analysis`), and 3 routing cases were dropped.
+
+Catalog after this pass: 53 skills, 15 core, in five packs.
+
 ### Defects found that structure checks do not catch
 
 - A commit-and-push skill staged the whole working tree, including secrets and unrelated changes.

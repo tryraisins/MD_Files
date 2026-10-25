@@ -68,7 +68,7 @@ Search for inbound references with `rg` before a rename or deletion. A clean Mar
 6. Review the diff for accidental line-ending churn, generated files, secrets, placeholders, and unrelated prose changes.
 7. Report source truth, checks run, and any deployment or runtime proof still outstanding.
 
-Boundary: `yeknal-add-changelog` owns release-history entries and `yeknal-doc` owns DOCX. This skill owns Markdown and repository documentation.
+Boundary: `yeknal-add-changelog` owns release-history entries. This skill owns Markdown and repository documentation.
 
 ## Agent skill repositories
 
