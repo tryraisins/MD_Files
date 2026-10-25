@@ -163,12 +163,12 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | Profile | Skills | Purpose |
 | --- | ---: | --- |
 | `core` | 15 | Cross-project process, design, security, verification, and documentation. |
-| `process` | 11 | Agent cost, delivery extras, legacy sweeps, GitHub, exhaustive-output, and response modes beyond core. |
+| `process` | 10 | Agent cost, delivery extras, legacy sweeps, GitHub, exhaustive-output, and response modes beyond core. |
 | `design` | 21 | Specialist visual styles, motion, prototyping and design evidence. |
 | `security` | 5 | The five distinct security output contracts. |
 | `web` | 4 | Specialist SEO, performance, launch readiness and production errors beyond core. |
 | `platform` | 2 | Deployment routing and launch readiness. |
-| `all` | 53 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 54 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects` and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-improve-animations`, `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping and mobile workflows remain in the design pack because their triggers and output contracts differ. Deploy is one router (`yeknal-deploy`) that reads the provider from repository configuration, because four descriptions that all matched "deploy this" cost more in routing accuracy than they returned. Security keeps five folders for the same reason: implementation, review, auditing, threat modeling, and ownership analysis are not interchangeable artifacts.
 
