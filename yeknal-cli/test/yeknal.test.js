@@ -119,6 +119,7 @@ test("skills command defaults to core and parses project/profile selections", ()
     project: false,
     add: false,
     skipClaude: false,
+    pruneArchived: false,
   });
   assert.deepEqual(
     yeknal.parseSkillsCommandArgs(["--project", "--profile", "process,design", "--skills=performance"]),
@@ -128,6 +129,7 @@ test("skills command defaults to core and parses project/profile selections", ()
       project: true,
       add: false,
       skipClaude: false,
+      pruneArchived: false,
     },
   );
   assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--add", "--skills", "performance"]), {
@@ -136,6 +138,7 @@ test("skills command defaults to core and parses project/profile selections", ()
     project: true,
     add: true,
     skipClaude: false,
+    pruneArchived: false,
   });
   assert.deepEqual(yeknal.parseSkillsCommandArgs(["--all"]), {
     profiles: ["all"],
@@ -143,6 +146,7 @@ test("skills command defaults to core and parses project/profile selections", ()
     project: false,
     add: false,
     skipClaude: false,
+    pruneArchived: false,
   });
   assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--skills", "performance"]), {
     profiles: [],
@@ -150,6 +154,7 @@ test("skills command defaults to core and parses project/profile selections", ()
     project: true,
     add: false,
     skipClaude: false,
+    pruneArchived: false,
   });
   assert.deepEqual(yeknal.parseSkillsCommandArgs(["--skip-claude"]), {
     profiles: ["core"],
@@ -157,6 +162,7 @@ test("skills command defaults to core and parses project/profile selections", ()
     project: false,
     add: false,
     skipClaude: true,
+    pruneArchived: false,
   });
   assert.throws(
     () => yeknal.parseSkillsCommandArgs(["--add", "--skills", "performance"]),
@@ -205,7 +211,7 @@ test("profiles reference real skills and keep core discovery under budget", asyn
     profiles: ["security"],
     skills: ["performance"],
   });
-  assert.deepEqual(selected, [
+  assert.deepEqual(selected.folders, [
     "application-security",
     "performance",
     "security-audit",
@@ -213,6 +219,7 @@ test("profiles reference real skills and keep core discovery under budget", asyn
     "security-ownership-map",
     "security-threat-model",
   ]);
+  assert.deepEqual(selected.skipped, []);
   assert.throws(
     () => yeknal.selectSkillFolders(availableFolders, { profiles: ["missing"], skills: [] }),
     /Unknown skill profile/,

@@ -105,7 +105,7 @@ async function runtimeSnapshot(cacheDir) {
       for (const name of (await fs.readdir(absolute)).sort()) await walk(path.join(relative, name));
     } else if (stat.isFile()) files.push({ relative, data: await fs.readFile(absolute) });
   }
-  for (const entry of ["bin", "lib", "catalog", "catalog.json", "profiles.json", "package.json"]) await walk(entry);
+  for (const entry of ["bin", "lib", "catalog", "catalog.json", "archived.json", "profiles.json", "package.json"]) await walk(entry);
   const identity = crypto.createHash("sha256");
   for (const file of files) identity.update(file.relative.replaceAll(path.sep, "/")).update("\0").update(file.data).update("\0");
   const destination = path.join(cacheDir, "runtime", identity.digest("hex"));
@@ -247,7 +247,7 @@ async function runSetup(args = [], options = {}) {
         for (const step of item.steps) output.write(`  ${step}\n`);
       }
       for (const id of result.removed) output.write(`Removed owned instruction block for ${id}.\n`);
-      for (const item of result.migrated) output.write(`Backed up ${item.originalPath} (${item.customized ? "customized" : "catalog match"}); restore ID: ${item.id}\n`);
+      for (const item of result.migrated) output.write(`${item.archived ? "Retired archived skill" : "Backed up"} ${item.originalPath}${item.archived ? "" : ` (${item.customized ? "customized" : "catalog match"})`}; restore ID: ${item.id}\n`);
       for (const item of result.backups) output.write(`Backup ${item.id}: ${item.originalPath}\n`);
       for (const item of result.restored) output.write(`Restored ${item.originalPath} from ${item.id}.\n`);
       if (result.metadata) output.write(`Registered metadata: ${result.metadata.before.skillCount} -> ${result.metadata.after.skillCount} skill files; ${result.metadata.before.descriptionCharacters} -> ${result.metadata.after.descriptionCharacters} description characters.\n`);

@@ -12,6 +12,7 @@ const path = require("path");
 const https = require("https");
 const { exec } = require("child_process");
 const SKILL_PROFILES = require("../profiles.json");
+const ARCHIVED_SKILLS = require("../archived.json");
 
 const fsp = fs.promises;
 
@@ -34,6 +35,8 @@ const MAX_RETRY_DELAY_MS = 10_000;
 // SEO is source/reference material without a SKILL.md entry point.
 const EXCLUDED_SKILL_FOLDERS = new Set(["SEO"]);
 const MANAGED_SKILL_FOLDER_PREFIX = "yeknal-";
+// Retired skill folders, generated from archive/skills by tools/build-catalog.js.
+const ARCHIVED_SKILL_FOLDER_NAMES = new Set(ARCHIVED_SKILLS.skills || []);
 // Canonical location for skill folders inside the repository.
 const SKILLS_DIR = "skills";
 const DEFAULT_SKILL_PROFILE = "core";
@@ -53,7 +56,7 @@ function usage() {
   console.log("  npx yeknal resources clean [--json]  Remove unchanged managed repository assets");
   console.log("  npx yeknal update [--json]  Refresh discovery metadata");
   console.log("  npx yeknal cache [status] [--json]");
-  console.log("  npx yeknal skills [profile] [--profile name,...] [--skills name,...] [--project] [--add] [--skip-claude]");
+  console.log("  npx yeknal skills [profile] [--profile name,...] [--skills name,...] [--project] [--add] [--skip-claude] [--prune-archived]");
   console.log("  npx yeknal skills --all");
   console.log("  npx yeknal profiles");
   console.log("  npx yeknal security   Sync security skills + scan current project\n");
@@ -75,6 +78,7 @@ function parseSkillsCommandArgs(args) {
     project: false,
     add: false,
     skipClaude: false,
+    pruneArchived: false,
   };
   let hasExplicitProfile = false;
 
@@ -91,6 +95,10 @@ function parseSkillsCommandArgs(args) {
     }
     if (arg === "--skip-claude") {
       options.skipClaude = true;
+      continue;
+    }
+    if (arg === "--prune-archived") {
+      options.pruneArchived = true;
       continue;
     }
     if (arg === "--all") {
@@ -155,10 +163,16 @@ function parseSkillsCommandArgs(args) {
 function selectSkillFolders(availableFolders, options) {
   const available = new Set(availableFolders);
   if (options.profiles.includes("all")) {
-    return [...availableFolders];
+    return { folders: [...availableFolders], skipped: [] };
   }
 
-  const requested = new Set(options.skills);
+  // Track where each request came from. A missing skill the user named is a
+  // typo and must fail. A missing profile entry means the CLI is older than the
+  // published catalog, so it degrades to a warning instead of blocking sync.
+  const requested = new Map();
+  for (const folder of options.skills) {
+    requested.set(folder, new Set(["named"]));
+  }
   for (const profileName of options.profiles) {
     const profile = SKILL_PROFILES[profileName];
     if (!profile) {
@@ -167,16 +181,50 @@ function selectSkillFolders(availableFolders, options) {
       );
     }
     for (const folder of profile.skills) {
-      requested.add(folder);
+      const sources = requested.get(folder) || new Set();
+      sources.add(profileName);
+      requested.set(folder, sources);
     }
   }
 
-  const missing = [...requested].filter((folder) => !available.has(folder));
-  if (missing.length > 0) {
-    throw new Error(`Requested skill folder(s) not found: ${missing.join(", ")}`);
+  const missingNamed = [];
+  const skipped = [];
+  for (const [folder, sources] of requested) {
+    if (available.has(folder)) {
+      continue;
+    }
+    if (sources.has("named")) {
+      missingNamed.push(folder);
+      continue;
+    }
+    skipped.push({ folder, profiles: [...sources].sort() });
   }
 
-  return [...requested].sort((a, b) => a.localeCompare(b));
+  if (missingNamed.length > 0) {
+    throw new Error(`Requested skill folder(s) not found: ${missingNamed.join(", ")}`);
+  }
+
+  const folders = [...requested.keys()]
+    .filter((folder) => available.has(folder))
+    .sort((a, b) => a.localeCompare(b));
+  if (folders.length === 0 && requested.size > 0) {
+    throw new Error(
+      'None of the skills in the selected profile(s) are published. Run "npx yeknal@latest" to update the CLI.',
+    );
+  }
+
+  return { folders, skipped: skipped.sort((a, b) => a.folder.localeCompare(b.folder)) };
+}
+
+function reportSkippedProfileSkills(skipped) {
+  if (skipped.length === 0) {
+    return;
+  }
+  const names = skipped.map((item) => item.folder).join(", ");
+  const profiles = [...new Set(skipped.flatMap((item) => item.profiles))].join(", ");
+  console.warn(
+    `  [skip] ${skipped.length} skill(s) in profile "${profiles}" are no longer published: ${names}. Run "npx yeknal@latest" to update the CLI.`,
+  );
 }
 
 function runProfilesCommand() {
@@ -501,6 +549,36 @@ async function removeStaleManagedSkillFolders(skillsPath, expectedFolders) {
   return removed;
 }
 
+// Retired skills are removed by name from a curated list generated from
+// archive/skills. This is narrower than the prefix-wide stale cleanup so a
+// user's own yeknal- folder is never mistaken for a retired skill.
+async function removeArchivedSkillFolders(skillsPath, protectedFolders = new Set()) {
+  const removed = [];
+  let entries;
+  try {
+    entries = await fsp.readdir(skillsPath, { withFileTypes: true });
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return removed;
+    }
+    throw error;
+  }
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+    const managedName = getManagedSkillFolderName(entry.name);
+    if (!ARCHIVED_SKILL_FOLDER_NAMES.has(managedName) || protectedFolders.has(managedName)) {
+      continue;
+    }
+    await fsp.rm(path.join(skillsPath, entry.name), { recursive: true, force: true });
+    removed.push(managedName);
+  }
+
+  return removed;
+}
+
 function execCommand(command, options = {}) {
   return new Promise((resolve, reject) => {
     exec(command, options, (error, stdout, stderr) => {
@@ -621,7 +699,9 @@ async function stageSkillsFromGitClone(tempRoot, options) {
     if (availableFolders.length === 0) {
       throw new Error("No skill folders were discovered from the cloned repository.");
     }
-    const skillFolders = selectSkillFolders(availableFolders, options);
+    const selection = selectSkillFolders(availableFolders, options);
+    reportSkippedProfileSkills(selection.skipped);
+    const skillFolders = selection.folders;
 
     // A raw-download fallback can follow a partially staged tree. Reset the
     // private staging area so the clone is the sole source of installed files.
@@ -634,7 +714,7 @@ async function stageSkillsFromGitClone(tempRoot, options) {
       await copyDirRecursive(sourceFolder, destinationFolder);
     }
 
-    return skillFolders;
+    return { folders: skillFolders, available: availableFolders };
   } finally {
     await fsp.rm(cloneRoot, { recursive: true, force: true });
   }
@@ -932,6 +1012,7 @@ async function runSkillsCommand(options) {
   const tempRoot = await fsp.mkdtemp(path.join(os.tmpdir(), "yeknal-skills-"));
   try {
     let skillFolders = [];
+    let availableFolders = [];
     let sourceLabel = "GitHub API + raw file download";
 
     try {
@@ -939,11 +1020,13 @@ async function runSkillsCommand(options) {
       const repoTree = await fetchRepoTree();
       process.stdout.write(" done.\n");
 
-      const availableFolders = discoverSkillFolders(repoTree);
+      availableFolders = discoverSkillFolders(repoTree);
       if (availableFolders.length === 0) {
         throw new Error("No skill folders were discovered from the GitHub repository.");
       }
-      skillFolders = selectSkillFolders(availableFolders, options);
+      const selection = selectSkillFolders(availableFolders, options);
+      reportSkippedProfileSkills(selection.skipped);
+      skillFolders = selection.folders;
 
       console.log(`  Selected ${skillFolders.length} skill folder(s). Starting download...\n`);
       await downloadSkillsFromGit(tempRoot, skillFolders, repoTree);
@@ -954,7 +1037,9 @@ async function runSkillsCommand(options) {
 
       console.log("\n  GitHub transfer remained unavailable after retries. Falling back to git clone...");
       console.log("  Cloning repository (this may take a moment)...");
-      skillFolders = await stageSkillsFromGitClone(tempRoot, options);
+      const staged = await stageSkillsFromGitClone(tempRoot, options);
+      skillFolders = staged.folders;
+      availableFolders = staged.available;
       console.log(`  Clone complete. Selected ${skillFolders.length} skill folder(s).`);
       sourceLabel = "git clone fallback";
     }
@@ -968,9 +1053,16 @@ async function runSkillsCommand(options) {
     console.log(`\nInstalled folders use the managed "${MANAGED_SKILL_FOLDER_PREFIX}" prefix.`);
 
     let hadFailure = false;
+    const pruneArchived = options.pruneArchived || !options.add;
+    const publishedFolders = new Set(availableFolders.map((folder) => getManagedSkillFolderName(folder)));
     for (const target of targets) {
       try {
         await fsp.mkdir(target.skillsPath, { recursive: true });
+        if (pruneArchived) {
+          for (const removedFolder of await removeArchivedSkillFolders(target.skillsPath, publishedFolders)) {
+            console.log(`  [removed] ${target.label}: archived skill ${removedFolder}`);
+          }
+        }
         const systemSkillNames =
           target.label === "Codex"
             ? await discoverSystemSkillNames(target.skillsPath)
@@ -3160,6 +3252,7 @@ module.exports = {
   isSecurityScanFile,
   listFilesForFolder,
   parseSkillsCommandArgs,
+  removeArchivedSkillFolders,
   removeStaleManagedSkillFolders,
   resolveProjectSkillTarget,
   resolveSkillTargets,

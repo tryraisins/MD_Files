@@ -48,10 +48,12 @@ only considers dedicated roots of selected agents whose current connection was
 safely prepared. Shared .agents/skills and .claude/skills, historical alternative
 roots, unselected agents, manual fallbacks, and failed connections stay untouched.
 It identifies exact catalog names with
-matching frontmatter identities, or existing setup ownership records. A prefix
+matching frontmatter identities, retired skills listed in the curated
+`archived.json`, or existing setup ownership records. A prefix
 alone is insufficient. Each identified folder is copied to a recoverable backup,
 verified, and only then removed from active discovery. Customized contents are
-backed up in full and reported. Unknown identities, symbolic links, project-local
+backed up in full and reported. Retired skills are reported as archived rather
+than customized. Unknown identities, symbolic links, project-local
 folders, backup failures, and edited managed instruction blocks are preserved
 and reported. Existing unrelated native configuration and third-party skills stay.
 
@@ -112,7 +114,10 @@ The skills command and all existing options remain available. skills --project
 is a deliberate repository installation; --project --add preserves existing
 project copies. Global skills installation deliberately recreates native global
 collections, which setup retains unless eligible migration is requested. Exact
-profile sync retains its existing managed-folder replacement/removal behavior.
+profile sync retains its existing managed-folder replacement/removal behavior,
+and retired skills listed in `archived.json` are removed by name. Setup alone
+never deletes skills; `setup --migrate` backs up and retires eligible catalog and
+archived skills in dedicated roots, and `setup --restore` returns them.
 Automatic discovery does not use that stale-folder removal helper for migration.
 
 ### Supported integrations
@@ -169,7 +174,10 @@ records actual verification evidence and outstanding runtime boundaries.
 
 Markdown skill folders remain the source of truth. The catalog generator reads a
 committed Git revision and emits names, descriptions, search metadata, content
-versions, and SHA-256 manifests without full instructions. Search is local and
+versions, and SHA-256 manifests without full instructions. It also emits
+`archived.json`, the curated retired-skill list from `archive/skills`, which the
+skills command and `setup --migrate` use to remove retired skills by name.
+Search is local and
 uses no LLM. Generate after source commits, then include the static catalog in a
 follow-up catalog commit. CI validates it against its declared immutable source
 revision rather than changing release bytes during publication.
@@ -213,7 +221,7 @@ failure modes, and which public/actual-agent boundaries were verified.
 
 ### `npx yeknal skills`
 
-Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. Version 2.4.0 defaults to the 37-skill `core` profile instead of installing all 94 folders. The core keeps high-frequency process and reasoning management, project continuity, canonical UI/UX design, common motion design and review workflows, legacy sweeps and test planning, browser verification, all four security workflows, and the task-time `yeknal-skill-router` available globally. The optional `process` profile includes `yeknal-domain-modeling` for deliberate glossary and ADR work.
+Downloads selected top-level skill folders from `tryraisins/MD_Files` on `main`, then installs them with the managed `yeknal-` prefix. The command defaults to the 15-skill `core` profile instead of installing every published folder. The core keeps high-frequency process and reasoning management, project continuity, canonical UI/UX design, common motion design and review workflows, legacy sweeps and test planning, browser verification, and all four security workflows. The optional `process` profile adds delivery extras, research, and domain modeling. Retired skills are pruned by name from a list generated from `archive/skills`, so an older installation stops serving a skill the catalog no longer publishes.
 
 ```bash
 # Core profile in detected user-level agent folders
@@ -226,10 +234,13 @@ npx yeknal skills --project --profile design
 npx yeknal skills --project --profile core,web
 
 # Install only named skills in this repository
-npx yeknal skills --project --skills nextjs-developer,vercel-deploy
+npx yeknal skills --project --skills design-reference-research,prototype
 
 # Add a missing task-specific skill without removing existing project skills
-npx yeknal skills --project --add --skills aspnet-core
+npx yeknal skills --project --add --skills slopscan
+
+# Also remove retired skills during an additive project sync
+npx yeknal skills --project --add --prune-archived --skills slopscan
 
 # Preserve the pre-v2 full-catalog behavior
 npx yeknal skills --all
@@ -241,6 +252,8 @@ The command:
 
 - creates missing `skills` directories in supported agent folders;
 - updates and removes only managed `yeknal-*` folders;
+- removes retired skills by name from the curated `archived.json` list before syncing; a normal sync always prunes them, while `--add` stays additive unless `--prune-archived` is also passed;
+- warns and continues when a profile references a skill the repository no longer publishes, so an older CLI version cannot block the whole sync; an explicitly named missing skill still fails;
 - preserves personal skill folders without that prefix;
 - on Codex, skips repository skills already supplied by `~/.codex/skills/.system`;
 - installs into every detected user-level parent; when `~/.agents` is present it is preferred, the overlapping per-harness folders (Codex, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, OpenHands, and Amp) are skipped and their stale managed folders removed, while targets not configured to read `~/.agents` (Claude, Kiro, Cline, and the Antigravity folders) keep their own copy; clients that also read a kept folder (opencode, Cursor, Amp, and Windsurf read `~/.claude/skills`) can still see a managed skill twice;
@@ -252,8 +265,7 @@ The command:
 
 ### Task-time skill routing
 
-The `yeknal-skill-router` remains part of deliberate manual `core` installations.
-Version 2.4.0 prefers direct search/load without native installation. Older CLI
+The `yeknal-skill-router` was retired with the October 2026 catalog consolidation; direct search/load replaces it. Version 2.6.1 prefers direct search/load without native installation. Older CLI
 workflows can still inspect `npx --yes yeknal@^2.2.0 profiles`, then explicitly add
 the specialist with `npx --yes yeknal@^2.2.0 skills --project --add --skills <skill-name>`.
 Setup adds only the minimal bootstrap and preserves existing routers by default.

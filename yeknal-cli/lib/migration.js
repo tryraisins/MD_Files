@@ -218,6 +218,13 @@ function makeMigration(ctx, agents, manifest, result, cwd) {
     result.metadata = { before: before.metadata };
     const catalog = JSON.parse(await fs.readFile(path.join(__dirname, "..", "catalog.json"), "utf8"));
     const known = new Map(catalog.skills.map((skill) => [skill.name, skill]));
+    // Retired skills keep their published identity, so a migration can retire
+    // them with a verified backup instead of preserving an unlisted folder.
+    let archivedNames = new Set();
+    try {
+      const archived = JSON.parse(await fs.readFile(path.join(__dirname, "..", "archived.json"), "utf8"));
+      archivedNames = new Set(archived.skills || []);
+    } catch (error) { if (error.code !== "ENOENT") throw error; }
     const ownedRouterEntries = [];
     for (const agent of Object.values(manifest.agents)) if (agent.router?.path) {
       try { ownedRouterEntries.push({ agent, folder: await canonical(path.dirname(agent.router.path)) }); }
@@ -226,7 +233,8 @@ function makeMigration(ctx, agents, manifest, result, cwd) {
     const ownedRouters = new Set(ownedRouterEntries.map(({ folder }) => folder));
     for (const entry of before.entries) {
       const skill = known.get(entry.name);
-      const eligible = ((skill || entry.name === "yeknal-auto-discovery") && entry.info.name === entry.name) || ownedRouters.has(entry.folder);
+      const archived = archivedNames.has(entry.name) && entry.info.name === entry.name;
+      const eligible = ((skill || entry.name === "yeknal-auto-discovery") && entry.info.name === entry.name) || archived || ownedRouters.has(entry.folder);
       if (!eligible) {
         if (entry.name.startsWith("yeknal-") || ownedRouters.has(entry.folder)) {
           result.preserved.push(entry.folder);
@@ -243,10 +251,13 @@ function makeMigration(ctx, agents, manifest, result, cwd) {
         const original = await snapshot(entry.folder);
         const expected = skill?.files.map(({ path, sha256, size }) => ({ path, sha256, size }));
         const actual = original.files.map(({ path, sha256, size }) => ({ path, sha256, size }));
-        const customized = expected ? JSON.stringify([...expected].sort((a,b) => a.path.localeCompare(b.path))) !== JSON.stringify([...actual].sort((a,b) => a.path.localeCompare(b.path))) : !ownedRouterEntries.some(({ agent, folder }) => folder === entry.folder && agent.router.hash === digest(entry.text || "") && original.files.length === 1);
+        const matchesCatalog = expected
+          ? JSON.stringify([...expected].sort((a,b) => a.path.localeCompare(b.path))) === JSON.stringify([...actual].sort((a,b) => a.path.localeCompare(b.path)))
+          : ownedRouterEntries.some(({ agent, folder }) => folder === entry.folder && agent.router.hash === digest(entry.text || "") && original.files.length === 1);
+        const customized = archived ? false : !matchesCatalog;
         const id = `${Date.now()}-${crypto.randomBytes(8).toString("hex")}`;
         const destination = path.join(backupRoot, id), temporary = `${destination}-pending`;
-        const record = { schemaVersion: 1, id, name: entry.name, originalPath: entry.folder, discoveryRoot: entry.root, createdAt: new Date().toISOString(), customized, identity: contentIdentity(original), ...original };
+        const record = { schemaVersion: 1, id, name: entry.name, originalPath: entry.folder, discoveryRoot: entry.root, createdAt: new Date().toISOString(), customized, identity: contentIdentity(original), ...(archived ? { archived: true } : {}), ...original };
         await noLinks(destination);
         await fs.mkdir(backupRoot, { recursive: true });
         try {

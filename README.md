@@ -94,7 +94,7 @@ measured before choosing mirrors or hosting with explicit cost budgets.
 ~~~bash
 npx yeknal skills
 npx yeknal skills --project --profile design
-npx yeknal skills --project --add --skills aspnet-core
+npx yeknal skills --project --add --skills slopscan
 npx yeknal profiles
 npx yeknal security
 ~~~
@@ -106,18 +106,19 @@ npx yeknal security
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --project --profile process` | Syncs the optional process and domain-modeling workflows into the current repository. |
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
-| `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
-| `npx yeknal skills --project --add --skills aspnet-core` | Adds missing skills to the current repository without deleting or replacing existing skills. |
-| `npx yeknal skills --all` | Syncs all 77 skills for legacy or exhaustive setups. |
+| `npx yeknal skills --skills design-reference-research,prototype --project` | Syncs only those named skills into one repository. |
+| `npx yeknal skills --project --add --skills slopscan` | Adds missing skills to the current repository without deleting or replacing existing skills. |
+| `npx yeknal skills --project --add --prune-archived --skills slopscan` | Same additive sync, plus removal of retired skills listed in `archived.json`. |
+| `npx yeknal skills --all` | Syncs every published skill (53 folders) for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
 
-`yeknal@2.4.0` defaults to the updated 15-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
+`yeknal@2.6.1` defaults to the 15-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
 
 ### Install with skills.sh
 
-The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (59 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
+The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (53 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
 
 ```bash
 npx skills add tryraisins/MD_Files --list
@@ -137,6 +138,8 @@ npx skills add tryraisins/MD_Files --skill yeknal-frontend-design
 - `SEO` remains source/reference material and is not installed because it has no `SKILL.md` entry point.
 - Missing `skills` folders are created inside detected agent parent folders.
 - Managed `yeknal-*` folders are updated or removed as the repository changes.
+- Retired skills are pruned by name from `archived.json` (generated from `archive/skills/`) before syncing. A normal profile sync always prunes them; `--project --add` stays additive unless `--prune-archived` is also passed.
+- A profile that references a skill the repository no longer publishes now warns and continues instead of aborting the sync, so an older CLI version cannot block installation. An explicitly named missing skill still fails.
 - Personal folders without the `yeknal-` prefix are left untouched.
 
 ## Capability profiles

@@ -58,21 +58,46 @@ function buildCatalog(repo = path.resolve(__dirname, ".."), revision = "HEAD") {
   return { schemaVersion: 1, sourceRevision, version, skills };
 }
 
+function buildArchived(repo = path.resolve(__dirname, ".."), revision = "HEAD") {
+  const git = (...args) => execFileSync("git", args, { cwd: repo, maxBuffer: 128 * 1024 * 1024 });
+  const sourceRevision = git("rev-parse", `${revision}^{commit}`).toString().trim();
+  const listing = git("ls-tree", "-r", "-z", sourceRevision, "--", "archive/skills").toString().split("\0").filter(Boolean);
+  const names = new Set();
+  for (const entry of listing) {
+    const [meta, filename] = entry.split("\t");
+    const [mode, type] = meta.split(" ");
+    if (type !== "blob" || mode === "120000") throw new Error(`Unsupported archive entry: ${filename}`);
+    const match = /^archive\/skills\/([^/]+)\/SKILL\.md$/.exec(filename);
+    if (match) names.add(match[1]);
+  }
+  return { schemaVersion: 1, sourceRevision, skills: [...names].sort((a, b) => a.localeCompare(b, "en")) };
+}
+
 if (require.main === module) {
   const output = path.resolve(__dirname, "../yeknal-cli/catalog.json");
+  const archivedOutput = path.resolve(__dirname, "../yeknal-cli/archived.json");
   if (process.argv.includes("--check")) {
     const saved = fs.readFileSync(output, "utf8");
     const revision = JSON.parse(saved).sourceRevision;
     if (!/^[a-f0-9]{40}$/.test(revision)) throw new Error("Invalid catalog source revision");
     const expected = JSON.stringify(buildCatalog(undefined, revision), null, 2) + "\n";
     if (saved.replaceAll("\r\n", "\n") !== expected) throw new Error("Catalog does not match its immutable source revision; regenerate before release");
-    console.log(`Catalog verified at ${revision}`);
+
+    const savedArchived = fs.readFileSync(archivedOutput, "utf8");
+    const archivedRevision = JSON.parse(savedArchived).sourceRevision;
+    if (!/^[a-f0-9]{40}$/.test(archivedRevision)) throw new Error("Invalid archived-skill source revision");
+    const expectedArchived = JSON.stringify(buildArchived(undefined, archivedRevision), null, 2) + "\n";
+    if (savedArchived.replaceAll("\r\n", "\n") !== expectedArchived) throw new Error("Archived skill list does not match its immutable source revision; regenerate before release");
+
+    console.log(`Catalog verified at ${revision}; archived skills verified at ${archivedRevision}`);
   } else {
     if (process.argv.length > 2) throw new Error("Usage: node tools/build-catalog.js [--check]");
     const catalog = buildCatalog();
     fs.writeFileSync(output, JSON.stringify(catalog, null, 2) + "\n");
-    console.log(`Catalog: ${catalog.skills.length} skills at ${catalog.sourceRevision}`);
+    const archived = buildArchived();
+    fs.writeFileSync(archivedOutput, JSON.stringify(archived, null, 2) + "\n");
+    console.log(`Catalog: ${catalog.skills.length} skills at ${catalog.sourceRevision}; ${archived.skills.length} archived at ${archived.sourceRevision}`);
   }
 }
 
-module.exports = { buildCatalog };
+module.exports = { buildArchived, buildCatalog };

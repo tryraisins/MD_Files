@@ -2,7 +2,26 @@
 
 Last updated: 2026-10-25
 Branch: main
-HEAD: see git log; released source edf3ec6, catalog/tag e769323
+HEAD: see git log; 2.6.1 release commit tagged `v2.6.1`
+
+## 2.6.1: stale npm profiles and archived-skill retirement (2026-10-25)
+
+Incident: `npx yeknal@latest skills` failed with `Requested skill folder(s) not found: brainstorm, cleanup, engineering-specialists, emil-design-eng, skill-router`. Cause: npm 2.6.0 was published 2026-10-24 with the pre-consolidation `profiles.json` (37-skill core), while the repository had already archived those folders to `archive/skills/`. `selectSkillFolders` treated a missing profile entry as fatal. The local `profiles.json` was corrected in the consolidation commits, but no version bump or publish followed, so npm kept serving the old file against the new repository tree.
+
+Changes in 2.6.1:
+
+- `yeknal-cli/bin/yeknal.js`: `selectSkillFolders` returns `{ folders, skipped }`. A missing skill named with `--skills` still throws; a missing profile entry warns (`[skip] ... no longer published`) and the sync continues. An empty selection throws an actionable error instead of doing nothing.
+- `yeknal-cli/archived.json` (new, packaged): 34 retired folder names generated from `archive/skills` by `tools/build-catalog.js`, which now emits and `--check`s both files.
+- `removeArchivedSkillFolders` prunes only curated archived names, never the whole `yeknal-` prefix. A normal sync always prunes; `--add` needs the new `--prune-archived` flag.
+- `lib/migration.js`: `setup --migrate` treats archived names as retired-but-owned, backs them up to `migration-backups`, then removes them; `--restore` returns them. `setup` without `--migrate` still touches no skills.
+- `lib/setup.js`: the runtime snapshot includes `archived.json`, and the report prints `Retired archived skill` instead of `Ambiguous Yeknal identity preserved`.
+- Docs: both READMEs, plus `tools/verify-archived-cleanup.js` (new E2E harness, requires network).
+
+Verification: `npm test` 50/50; `catalog:check` verified at `1189560` (catalog) and `d55ada2` (archived); `npm pack --dry-run` includes `archived.json`; `node tools/verify-archived-cleanup.js` passed all four scenarios: default sync pruned the seeded archived folder while keeping 15 managed plus a personal folder; `--add` kept the archived folder and local edits while `--add --prune-archived` removed only the archived folder; a patched stale profile warned and installed while `--skills not-a-skill` still failed; `setup --migrate` retired the archived skill with a backup and `--restore all` returned it.
+
+Release: version 2.6.1, tag `v2.6.1`. `.github/workflows/publish.yml` publishes on release when `NPM_TRUSTED_PUBLISHING_ENABLED=true`; otherwise publish manually from an authenticated npm client.
+
+Known issue, deliberately untouched: `skills --add` still calls `cleanSkippedManagedSkills` for skipped shared-reading targets, which removes managed copies even in additive mode. It predates this release and is recorded here rather than changed inside a release fix.
 
 ## Portfolio audit (2026-10-25)
 
