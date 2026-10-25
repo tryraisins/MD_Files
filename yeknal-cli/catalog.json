@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "118956021dcf48fa608c2c013be9a6e9933f87ea",
-  "version": "2.6.0",
+  "sourceRevision": "923ce83174e4c30d6b44885ac0031e83834c4a21",
+  "version": "2.6.3",
   "skills": [
     {
       "name": "yeknal-add-changelog",
@@ -382,6 +382,49 @@
           "path": "SKILL.md",
           "sha256": "57a282c9cac94335737c6eac65ff97625fcbcddde2b0494ba52d6e8552181be7",
           "size": 8189
+        }
+      ]
+    },
+    {
+      "name": "yeknal-code-graph",
+      "description": "Use when a task starts in an unfamiliar or large repository and you need the right files in one call instead of many searches. Builds a zero-dependency local index of content terms plus imports, routes and tests, then answers with a small ranked slice inside a token budget. It is retrieval, not GraphRAG, and it never replaces grep for exhaustive matches.",
+      "keywords": [
+        "and",
+        "before",
+        "code",
+        "costs",
+        "graph",
+        "knowing",
+        "limits",
+        "not",
+        "requirements",
+        "rules",
+        "saves",
+        "this",
+        "trusting",
+        "use",
+        "what",
+        "when",
+        "workflow",
+        "worth",
+        "yeknal-code-graph"
+      ],
+      "version": "4a9d20c8511c4883d81883f750e9dcb2ea521064ae81d6b789f61dac5cad1f6b",
+      "files": [
+        {
+          "path": "references/measurements.md",
+          "sha256": "91efff02338c012b9fef85e2ef4647979e2dacc75ab1249339d6151d7443dc2f",
+          "size": 2847
+        },
+        {
+          "path": "scripts/codegraph.py",
+          "sha256": "a9515e335843ec375e668a58d3f65efbd3442d18e103a7e944bc1e9a82ccf61b",
+          "size": 22237
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "ecd4bbbc6d4464112e3000c3b45be6c5d5ad8d659d74f47ac75a93e419eeeae3",
+          "size": 4938
         }
       ]
     },
