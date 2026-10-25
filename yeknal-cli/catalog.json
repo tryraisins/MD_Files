@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "b8387035b2c54be41fb5eeac3df4264697b87ea5",
+  "sourceRevision": "4f4b3136e3af7ad21391027a7df3cc264f0234c1",
   "version": "2.6.4",
   "skills": [
     {
@@ -685,12 +685,12 @@
         "values",
         "yeknal-design-system"
       ],
-      "version": "6c5bf6f91f1c2278bdf76922dc2848e281563f7d3be23f33db10ad2e67ca3fc8",
+      "version": "6d10f26eee8d1aa723f12ac5ee3d5a02a26fa1d49ea364b2efba9637004187b2",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "d1e43f8044caa048a0922d15a27a61135409813bcb745433d8f7de83604fa133",
-          "size": 8045
+          "sha256": "b7c12c73b6f36a9620489d9658145447640cdc49dceecf0147a5031925575ada",
+          "size": 8039
         }
       ]
     },
@@ -1773,12 +1773,12 @@
         "visuals",
         "yeknal-pick-ui-library"
       ],
-      "version": "ddc84c2b4b32b4a6de291c0d56a23d898e6958b6fb1a08875474aea12ec1d2a3",
+      "version": "7a06cd249cce62b4f531ecb72365dea3821d35e69ce9985ca9ab9b53455b5ede",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "d6e6977aafcc152b5e4e8ac1e104dc553f49e688051481c87695dbef2da9f615",
-          "size": 11991
+          "sha256": "b406e728bed42528975003356f0c2cdfb5c0ebc7378ac7572be5cc7e89e7dd25",
+          "size": 11985
         }
       ]
     },
@@ -2087,12 +2087,12 @@
         "verdict",
         "yeknal-review-animations"
       ],
-      "version": "898f36837008a7310effdf359f761b5d60111272a45cb3d82f9041e6fc66fe35",
+      "version": "bd40f36380e4f96d5297e784c7c8b7defb09831cefeca63c89426c7deac2753f",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "bb58eb19066efcea65d2f3b23bc92f9db9a57d5780be3d761f100f70dbb4a649",
-          "size": 9200
+          "sha256": "96867124949ac10424bf1a96e6c5f6f081aa50eb6251eb7085dc2b7938d244ac",
+          "size": 9197
         },
         {
           "path": "STANDARDS.md",
@@ -2792,12 +2792,12 @@
         "use",
         "yeknal-ui-ux-designer"
       ],
-      "version": "943aa96f171613b41bd488712f357f3ba460268c9e5858c68de2e70a0823b69c",
+      "version": "ae7fc9f8fab437b1199f3d967ff2726b49976ba272a4129adc9475f95aae06f1",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "a4802a64721be9c15598cfd417bff55d0993a90793bdf53378b841ea5adac746",
-          "size": 7424
+          "sha256": "d98b76b49e13996235ca02cbdec5bd2f9e4032ba7f53c9ab0cc1d36c9943697d",
+          "size": 7454
         }
       ]
     },
