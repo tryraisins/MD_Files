@@ -57,6 +57,17 @@ The scorecard separates conformance failures (binary) from quality scores (1–5
 - **Record the cheap checks even when the score is good.** Overflow and console errors are the defects that survive a beautiful screenshot.
 - **Report what did not run.** A capture that silently failed is worse than no capture.
 
+## What a real run taught us
+
+The first real capture was taken against a live page at three widths plus two reduced-motion variants. It worked, and it exposed two measurement bugs that no amount of code reading had caught:
+
+1. **Hidden controls were counted as focusable.** Fifty-five `hidden` textareas holding copy text inflated the focusable count to 475 and produced 57 "unnamed controls". None of them are in the accessibility tree. `measurePage` now skips `hidden`, `aria-hidden`, `display:none`, `visibility:hidden`, zero-size elements and disabled controls.
+2. **Label association was ignored.** A search input with a real `<label for>` was reported as unnamed. `measurePage` now checks `element.labels`, a wrapping `<label>`, `aria-label`, `aria-labelledby`, `title`, `img[alt]` and `svg title`.
+
+Both bugs produced a *confident* blocking finding from noise, because the judge only sees measurements. That is the important lesson: **the judge cannot tell a bad measurement from a bad page.** When a run fails on an accessibility finding, check the count against the DOM before changing anything.
+
+A third lesson is about lanes. A code-review agent will refuse to act as a blind judge, because everything about its frame says "review the code". The judge needs a blank-slate agent holding only the rubric, the screenshots and the manifest.
+
 ## What this harness cannot do
 
 - It cannot tell you whether a page converts, is accessible in practice, or survives a screen reader. Those need real users and real assistive technology.

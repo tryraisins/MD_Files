@@ -102,6 +102,9 @@ if (judgement.gate) {
 
 const gateFailed = gate.some((entry) => String(entry.result).startsWith("FAIL")) || judgement.verdict === "fail";
 
+const blockingFindings = (judgement.findings || []).filter((finding) => finding.severity === "blocking");
+const gateFailures = gate.filter((entry) => String(entry.result).startsWith("FAIL"));
+
 const lines = [];
 lines.push("# Design eval scorecard");
 lines.push("");
@@ -117,6 +120,12 @@ lines.push("| Check | Result |");
 lines.push("| --- | --- |");
 for (const entry of gate) lines.push(`| ${entry.check} | ${entry.result} |`);
 lines.push("");
+if (gateFailed && gateFailures.length === 0) {
+  lines.push(
+    `Failed on ${blockingFindings.length} blocking finding${blockingFindings.length === 1 ? "" : "s"}, which the gate fields above do not encode. The findings table below is the reason.`
+  );
+  lines.push("");
+}
 lines.push("## Quality");
 lines.push("");
 lines.push("| Dimension | Score | Weight | Anchor |");

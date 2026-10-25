@@ -28,6 +28,8 @@ A review of roughly 120 externally sourced links (skill catalogs, component libr
 
 Portfolio synced at `26fb492` (55 skills, 5 internal, 9 changed entries, `yeknal-design-system` added), committed `e425423`, deploy run 40242641308 green, live `https://tryraisins.dev/skills/` verified at 55 skills with `/skills/design-system/` returning 200. The first live probe read a cached edge copy showing 54 skills; a cache-busted request showed the truth.
 
+**Harness proven end to end 2026-10-25/26:** installed Playwright in a scratch copy, captured `https://tryraisins.dev/skills/` (5 screenshots, 0 console errors, no overflow, LCP 3.0s at 1440), had an image-capable lane judge it blind from the rubric, and scored it. The first run FAILED 4.33/5 on a blocking accessibility finding; that finding was a measurement bug (55 `hidden` copy textareas counted as focusable), and the second run PASSED 4.00/5 with 0 unnamed controls. Two fixes landed in `capture.mjs` (visibility filter, label association) and one in `score.mjs` (state the blocking-finding reason when the gate fields do not encode it). A third finding is procedural: `claude_review` refuses to leave its code-review frame, so the judge must be a blank-slate lane. Run artifacts are in `%TEMP%\design-eval-run`, not committed.
+
 Remaining: none for this change. The next catalog edit follows the usual order: commit the source, regenerate the catalog, commit it, push, then sync the portfolio.
 
 ## Unreleased: `yeknal-code-graph` (2026-10-25)

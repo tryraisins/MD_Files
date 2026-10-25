@@ -51,19 +51,53 @@ async function loadPlaywright() {
 const measurePage = () => {
   const root = document.documentElement;
   const images = Array.from(document.images);
+
+  // Only rendered controls count. Hidden textareas, off-screen inputs and
+  // display:none descendants are not in the accessibility tree and must not be
+  // reported as unnamed controls.
+  const isRendered = (element) => {
+    if (element.hasAttribute("hidden")) return false;
+    if (element.closest("[hidden]")) return false;
+    if (element.getAttribute("aria-hidden") === "true") return false;
+    if (element.disabled) return false;
+    const style = window.getComputedStyle(element);
+    if (style.display === "none" || style.visibility === "hidden") return false;
+    if (typeof element.checkVisibility === "function") {
+      if (!element.checkVisibility({ checkVisibilityCSS: true, checkOpacity: true })) return false;
+    }
+    const rect = element.getBoundingClientRect();
+    if (rect.width === 0 && rect.height === 0) return false;
+    return true;
+  };
+
   const focusables = Array.from(
     document.querySelectorAll(
       'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"]), [contenteditable="true"]'
     )
-  );
+  ).filter(isRendered);
+
   const unnamedControls = focusables.filter((element) => {
     const text = (element.innerText || "").trim();
     const label = element.getAttribute("aria-label");
     const labelledBy = element.getAttribute("aria-labelledby");
     const title = element.getAttribute("title");
     const alt = element.querySelector("img[alt]");
-    return !text && !label && !labelledBy && !title && !alt;
+    const svgTitle = element.querySelector("svg title");
+    // A label element associated by `for`, or a wrapping label, is a real name.
+    const associatedLabels = element.labels ? element.labels.length : 0;
+    const wrappedLabel = element.closest("label") ? 1 : 0;
+    return (
+      !text &&
+      !label &&
+      !labelledBy &&
+      !title &&
+      !alt &&
+      !svgTitle &&
+      !associatedLabels &&
+      !wrappedLabel
+    );
   });
+
   return {
     title: document.title,
     lang: root.getAttribute("lang"),
