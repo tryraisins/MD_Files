@@ -209,6 +209,17 @@ The three reviewers disagreed in a useful way: DeepSeek is conservative about de
 
 Archived skills move to `archive/skills/`, which is outside every discovery root. Restoring one is a folder move back into `skills/`.
 
+### Personal skills, second board pass
+
+The 49 skills installed outside the catalog were reviewed by the same three models.
+
+- 13 kept: ai-sdk, classic-sp-to-spfx, hatch-pet, mcp-builder, microsoft-foundry, neon, neon-auth, neon-functions, neon-object-storage, neon-postgres, neon-realtime, shadcn, and skill-creator.
+- 36 archived, including all 27 thirteen-line "senior X" personas. Those files share a real defect beyond being thin: their descriptions are truncated mid-word, and they instruct the agent to consult a "query context manager" that does not exist on this machine.
+- The Neon family was nine skills, not ten, and all nine repeated the same parent preamble, region list and client setup block. Three surfaces were folded into `neon/references/` before their folders were quarantined: ai-gateway, postgres-branches and postgres-egress-optimizer. Six remain as skills.
+- Every kept skill's description was rewritten to trigger-first form. All 13 are now under 260 characters, down from a maximum of 1,773.
+
+Result across all five discovery roots: 129 folders, 94 unique skills, 19,218 description characters, about 4,805 tokens of always-on cost.
+
 ### Defects found that structure checks do not catch
 
 - A commit-and-push skill staged the whole working tree, including secrets and unrelated changes.
