@@ -2,7 +2,20 @@
 
 Last updated: 2026-10-25
 Branch: main
-HEAD: see git log; 2.6.1 release commit tagged `v2.6.1`
+HEAD: see git log; 2.6.2 release commit tagged `v2.6.2`
+
+## 2.6.2: setup defaults to all agents and retires archived skills (2026-10-25)
+
+Two requested behavior changes on top of 2.6.1:
+
+- `setup` with no agent list now connects every detected agent instead of prompting. `--agents all` and explicit lists still work. `--remove` keeps its interactive prompt, because disconnecting everything stays a deliberate choice, and that prompt now accepts `all`.
+- `setup` now retires curated archived skills by default across every configured global skill root, not only dedicated roots of connected agents. Each retirement is snapshotted into `migration-backups`, verified, then removed, and `setup --restore <id|all>` returns it. New `--keep-archived` opts out; `--migrate` still additionally backs up eligible catalog collections, and combining it with `--keep-archived` is rejected.
+
+Implementation: `lib/migration.js` `migrate()` gained `archivedOnly`, which scopes eligibility to curated archived names and allows every initialized global root while leaving project-local roots untouched. Archived entries with a frontmatter name that does not match the folder are preserved with a specific warning instead of being retired. `lib/setup.js` gained `keepArchived`, the default-all connection path, and the archived retirement call; the final report sentence and usage text were updated.
+
+Verification: CLI suite 50/50; `verify-harness-setup.js` 18/18; `node tools/verify-archived-cleanup.js` 6/6, with new scenarios proving that plain `setup` connects two detected agents with no prompt, retires archived folders in both `~/.kiro/skills` and the shared `~/.agents/skills` while keeping catalog skills, restores both, and that `--keep-archived` retains them. Catalog check unchanged at `1189560`.
+
+Release: version 2.6.2. Published manually (trusted publishing remains dormant), tag `v2.6.2`, portfolio resynced for the CLI version only.
 
 ## 2.6.1: stale npm profiles and archived-skill retirement (2026-10-25)
 

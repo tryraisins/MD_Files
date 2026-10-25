@@ -43,6 +43,7 @@ details and the runtime verification limits.
 ~~~bash
 npx yeknal setup
 npx yeknal setup --agents all
+npx yeknal setup --keep-archived
 npx yeknal search "accessible React animation" --json
 npx yeknal load yeknal-animate --json
 npx yeknal setup --backups --json
@@ -51,7 +52,12 @@ npx yeknal setup --remove --agents codex,claude,opencode
 ~~~
 
 Setup keeps one short global bootstrap per connected local harness, plus a
-cached CLI runtime. It recognizes every previously supported harness and reports
+cached CLI runtime. With no agent list it connects every detected agent, so no
+prompt is needed; `--agents` still selects an exact list.
+Archived skills listed in `archived.json` are retired by default across every
+configured global skill root, each with a recoverable backup that
+`setup --restore` returns; pass `--keep-archived` to retain them.
+It recognizes every previously supported harness and reports
 manual steps where no automatic global instruction surface is available.
 Gemini CLI and Antigravity share one connection when they use the same global
 instruction root; redirected Gemini CLI homes require manual Antigravity setup.
@@ -60,7 +66,7 @@ questions, and trivial tasks skip discovery. Substantive tasks search compact
 metadata and read only the selected instructions and needed supporting files.
 There is no global router SKILL.md or full catalog in agent context.
 
-Existing skills remain available by default. After verifying search/load in a
+Catalog skills remain available by default. After verifying search/load in a
 fresh native agent session, use setup --agents NAME --migrate to back up eligible
 dedicated collections. Only selected agents whose instruction files were safely
 prepared can migrate; shared folders, unselected agents, manual fallbacks, and

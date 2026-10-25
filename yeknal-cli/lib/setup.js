@@ -69,10 +69,13 @@ async function detectAgents(options = {}) {
 }
 
 function parseArgs(args) {
-  const result = { agents: [], list: false, remove: false, backups: false, restore: null, json: false, migrate: false };
+  const result = { agents: [], list: false, remove: false, backups: false, restore: null, json: false, migrate: false, keepArchived: false };
   for (let i = 0; i < args.length; i++) {
     const flag = args[i];
-    if (["--list", "--remove", "--backups", "--json", "--migrate"].includes(flag)) result[flag.slice(2)] = true;
+    if (["--list", "--remove", "--backups", "--json", "--migrate", "--keep-archived"].includes(flag)) {
+      if (flag === "--keep-archived") result.keepArchived = true;
+      else result[flag.slice(2)] = true;
+    }
     else if (flag === "--restore") {
       result.restore = args[++i];
       if (!result.restore || result.restore.startsWith("--") || !/^[a-zA-Z0-9-]+$/.test(result.restore)) throw new Error("--restore requires a backup ID or all.");
@@ -90,6 +93,8 @@ function parseArgs(args) {
   if ([result.list, result.remove, result.backups, !!result.restore].filter(Boolean).length > 1) throw new Error("Choose only one of --list, --remove, --backups, or --restore.");
   if ((result.list || result.backups || result.restore) && result.agents.length) throw new Error("--agents is only used for connection or removal.");
   if (result.migrate && (result.list || result.remove || result.backups || result.restore)) throw new Error("--migrate is only used when connecting verified agents.");
+  if (result.keepArchived && (result.list || result.remove || result.backups || result.restore)) throw new Error("--keep-archived is only used when connecting agents.");
+  if (result.migrate && result.keepArchived) throw new Error("Choose either --migrate (retire eligible catalog and archived skills) or --keep-archived (retain archived skills).");
   return result;
 }
 
@@ -253,19 +258,25 @@ async function runSetup(args = [], options = {}) {
       if (result.metadata) output.write(`Registered metadata: ${result.metadata.before.skillCount} -> ${result.metadata.after.skillCount} skill files; ${result.metadata.before.descriptionCharacters} -> ${result.metadata.after.descriptionCharacters} description characters.\n`);
       for (const item of result.preserved) output.write(`Preserved existing content: ${item}\n`);
       for (const warning of result.warnings) output.write(`Notice: ${warning}\n`);
-      output.write("Prepared instruction files are not proof of agent behavior. Existing skills stay by default; shared folders always stay. Remote sessions require their own connection.\n");
+      output.write("Prepared instruction files are not proof of agent behavior. Catalog skills stay by default; archived skills are retired with recoverable backups unless --keep-archived is passed. Shared folders always stay. Remote sessions require their own connection.\n");
     }
     return result;
   };
   if (flags.list) return report();
   if (!flags.agents.length && !flags.backups && !flags.restore) {
-    if (!input.isTTY || !output.isTTY) throw new Error("Non-interactive setup requires --agents all or a comma-separated agent list. Use --list to inspect detected agents.");
-    const available = agents.filter((agent) => agent.detected);
-    if (!flags.remove && !available.length) throw new Error("No supported agent configuration directory detected. Install and start a supported agent, then retry setup.");
-    output.write(`Supported agents: ${available.map((agent) => agent.id).join(", ") || SUPPORTED.join(", ")}\n`);
-    const rl = readline.createInterface({ input, output });
-    try { flags.agents = parseArgs(["--agents", await rl.question(`Which agents should setup ${flags.remove ? "disconnect" : "connect"} (comma-separated)? `)]).agents; }
-    finally { rl.close(); }
+    if (flags.remove) {
+      // Disconnecting everything is destructive, so it stays an explicit choice.
+      if (!input.isTTY || !output.isTTY) throw new Error('Non-interactive removal requires --agents all or a comma-separated agent list. Use --list to inspect detected agents.');
+      const available = agents.filter((agent) => agent.detected);
+      output.write(`Supported agents: ${available.map((agent) => agent.id).join(", ") || SUPPORTED.join(", ")}\n`);
+      const rl = readline.createInterface({ input, output });
+      try { flags.agents = parseArgs(["--agents", await rl.question('Which agents should setup disconnect (comma-separated, or "all" for every supported agent)? ')]).agents; }
+      finally { rl.close(); }
+    } else {
+      // Connecting is non-destructive for skills and preserves existing content,
+      // so the default covers every detected agent instead of prompting.
+      flags.agents = ["all"];
+    }
   }
   if (flags.agents.includes("all")) flags.agents = flags.remove ? [...SUPPORTED] : agents.filter(agent => agent.detected).map(agent => agent.id);
   flags.agents = [...new Set(flags.agents.map(id => agents.find(agent => agent.id === id).aliasOf || id))];
@@ -325,12 +336,21 @@ async function runSetup(args = [], options = {}) {
       }
       manifest.schemaVersion = 2;
       await save();
-      const eligible = agents.filter(agent => flags.migrate && flags.agents.includes(agent.id) && result.connected.some(item => item.id === agent.id));
-      const allowedRoots = eligible.flatMap(agent => agent.migrationRoots);
-      const protectedRoots = [...agents.flatMap(agent => agent.protectedRoots), ...agents.filter(agent => !eligible.includes(agent)).flatMap(agent => agent.skillRoots)];
-      await migration.migrate({ allowedRoots, protectedRoots });
-      await save();
-      if (!flags.migrate) result.warnings.push("Existing skills were retained. After verifying native search/load in a fresh session, --migrate can back up eligible dedicated collections. Shared and unconnected roots remain protected.");
+      if (flags.migrate) {
+        const eligible = agents.filter(agent => flags.agents.includes(agent.id) && result.connected.some(item => item.id === agent.id));
+        const allowedRoots = eligible.flatMap(agent => agent.migrationRoots);
+        const protectedRoots = [...agents.flatMap(agent => agent.protectedRoots), ...agents.filter(agent => !eligible.includes(agent)).flatMap(agent => agent.skillRoots)];
+        await migration.migrate({ allowedRoots, protectedRoots });
+        await save();
+      } else if (!flags.keepArchived) {
+        // Retiring a curated archived name is narrow and reversible, so it runs
+        // by default across every configured global root with a verified backup.
+        await migration.migrate({ archivedOnly: true });
+        await save();
+        result.warnings.push("Catalog skills were retained. Archived skills were retired with recoverable backups; pass --keep-archived to retain them.");
+      } else {
+        result.warnings.push("Existing skills were retained, including archived skills.");
+      }
     }
     return report();
   } finally { await lock.close(); await fs.unlink(lockFile); }

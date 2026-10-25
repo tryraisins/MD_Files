@@ -50,7 +50,8 @@ const SECURITY_REPO_FOLDERS = [
 
 function usage() {
   console.log("\nUsage:");
-  console.log("  npx yeknal setup [--list | --agents all|NAME,... [--migrate] | --remove | --backups | --restore ID] [--json]");
+  console.log("  npx yeknal setup [--list | [--agents all|NAME,...] [--migrate | --keep-archived] | --remove | --backups | --restore ID] [--json]");
+  console.log("                        Connects every detected agent by default and retires archived skills with backups");
   console.log("  npx yeknal search <query> [--limit 8] [--json] [--offline]");
   console.log("  npx yeknal load <name> [resource] [--materialize | --all-resources] [--revision SHA] [--json] [--offline]");
   console.log("  npx yeknal resources clean [--json]  Remove unchanged managed repository assets");

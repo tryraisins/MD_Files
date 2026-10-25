@@ -198,13 +198,18 @@ function makeMigration(ctx, agents, manifest, result, cwd) {
     return backups;
   }
 
-  async function migrate({ allowedRoots = [], protectedRoots = [] } = {}) {
+  async function migrate({ allowedRoots = [], protectedRoots = [], archivedOnly = false } = {}) {
     const before = await inventory();
     const allowed = new Set(), protectedPaths = [];
-    // Retention-only setup does not need a migration policy. If a requested
-    // policy cannot be resolved safely, keep every original registration.
-    let unresolvedProtection = false;
-    if (allowedRoots.length) {
+    // Archived retirement covers every configured global discovery root, the
+    // same set the skills command installs into. Project-local roots are already
+    // excluded by inventory.
+    if (archivedOnly) {
+      for (const root of roots) allowed.add(root);
+    } else if (allowedRoots.length) {
+      // Retention-only setup does not need a migration policy. If a requested
+      // policy cannot be resolved safely, keep every original registration.
+      let unresolvedProtection = false;
       for (const root of new Set(protectedRoots)) {
         try { protectedPaths.push(await canonical(root)); }
         catch (error) { unresolvedProtection = true; result.preserved.push(root); result.warnings.push(error.message); }
@@ -234,9 +239,14 @@ function makeMigration(ctx, agents, manifest, result, cwd) {
     for (const entry of before.entries) {
       const skill = known.get(entry.name);
       const archived = archivedNames.has(entry.name) && entry.info.name === entry.name;
-      const eligible = ((skill || entry.name === "yeknal-auto-discovery") && entry.info.name === entry.name) || archived || ownedRouters.has(entry.folder);
+      const eligible = archivedOnly
+        ? archived
+        : ((skill || entry.name === "yeknal-auto-discovery") && entry.info.name === entry.name) || archived || ownedRouters.has(entry.folder);
       if (!eligible) {
-        if (entry.name.startsWith("yeknal-") || ownedRouters.has(entry.folder)) {
+        if (archivedNames.has(entry.name)) {
+          result.preserved.push(entry.folder);
+          result.warnings.push(`Archived skill identity mismatch preserved: ${entry.folder}; frontmatter name must match the folder name.`);
+        } else if (!archivedOnly && (entry.name.startsWith("yeknal-") || ownedRouters.has(entry.folder))) {
           result.preserved.push(entry.folder);
           result.warnings.push(`Ambiguous Yeknal identity preserved: ${entry.folder}; catalog name and frontmatter identity must match.`);
         }

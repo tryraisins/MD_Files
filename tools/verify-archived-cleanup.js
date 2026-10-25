@@ -168,12 +168,60 @@ async function scenarioSetupMigration(root) {
   return `setup --migrate retired it with backup ${retired.id}; --restore all returned it`;
 }
 
+async function scenarioDefaultSetup(root) {
+  const home = path.join(root, "home");
+  const kiro = path.join(home, ".kiro");
+  const claude = path.join(home, ".claude");
+  await seedSkill(path.join(kiro, "skills", BRAINSTORM), BRAINSTORM);
+  await seedSkill(path.join(kiro, "skills", "yeknal-git"), "yeknal-git");
+  await seedSkill(path.join(home, ".agents", "skills", "yeknal-animation-vocabulary"), "yeknal-animation-vocabulary");
+  await fsp.mkdir(path.join(claude, "skills"), { recursive: true });
+
+  const env = isolatedEnv(root, { YEKNAL_KIRO_PARENT: kiro, YEKNAL_CLAUDE_PARENT: claude });
+  const result = runCli(env, ["setup", "--json"], root);
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const report = JSON.parse(result.stdout);
+
+  const detected = report.detected.map((agent) => agent.id);
+  assert.ok(detected.includes("kiro") && detected.includes("claude"), `detected: ${detected.join(", ")}`);
+  assert.ok(report.connected.some((entry) => entry.id === "kiro"), "default setup must connect kiro");
+  assert.ok(report.connected.some((entry) => entry.id === "claude"), "default setup must connect claude");
+
+  const retired = report.migrated.filter((item) => item.archived).map((item) => item.name).sort();
+  assert.deepEqual(retired, ["yeknal-animation-vocabulary", BRAINSTORM].sort(), `retired: ${retired.join(", ")}`);
+  assert.ok(!fs.existsSync(path.join(kiro, "skills", BRAINSTORM)));
+  assert.ok(!fs.existsSync(path.join(home, ".agents", "skills", "yeknal-animation-vocabulary")));
+  assert.ok(fs.existsSync(path.join(kiro, "skills", "yeknal-git", "SKILL.md")), "catalog skills must stay");
+
+  const restored = runCli(env, ["setup", "--restore", "all", "--json"], root);
+  assert.equal(restored.status, 0, restored.stderr || restored.stdout);
+  assert.ok(fs.existsSync(path.join(kiro, "skills", BRAINSTORM, "SKILL.md")));
+  assert.ok(fs.existsSync(path.join(home, ".agents", "skills", "yeknal-animation-vocabulary", "SKILL.md")));
+  return "setup with no agent list connected both detected agents, retired archived leftovers across roots, kept catalog skills, and restored them";
+}
+
+async function scenarioKeepArchived(root) {
+  const kiro = path.join(root, "home", ".kiro");
+  const folder = path.join(kiro, "skills", BRAINSTORM);
+  await seedSkill(folder, BRAINSTORM);
+
+  const env = isolatedEnv(root, { YEKNAL_KIRO_PARENT: kiro });
+  const result = runCli(env, ["setup", "--keep-archived", "--json"], root);
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  const report = JSON.parse(result.stdout);
+  assert.equal(report.migrated.filter((item) => item.archived).length, 0);
+  assert.ok(fs.existsSync(path.join(folder, "SKILL.md")), "--keep-archived must retain the archived skill");
+  return "--keep-archived left the archived folder in place";
+}
+
 async function main() {
   const root = await fsp.mkdtemp(path.join(os.tmpdir(), "yeknal-archived-e2e-"));
   const scenarios = [
     ["default sync", scenarioDefaultSync],
-    ["project --add / --prune-archived", scenarioProjectAdditive],
+    ["project true-add pruning", scenarioProjectAdditive],
     ["stale profile", scenarioStaleProfile],
+    ["setup default all agents", scenarioDefaultSetup],
+    ["setup keep archived", scenarioKeepArchived],
     ["setup --migrate", scenarioSetupMigration],
   ];
   let failed = 0;

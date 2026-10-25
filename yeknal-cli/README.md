@@ -29,7 +29,13 @@ npx yeknal setup
 npx yeknal setup --list --json
 npx yeknal setup --agents all --json
 npx yeknal setup --agents cursor,gemini,cline --json
+npx yeknal setup --keep-archived --json
 ~~~
+
+With no agent list, setup connects every detected agent instead of prompting.
+Archived skills from `archived.json` are retired by default with recoverable
+backups; `--keep-archived` retains them. `--agents` still selects an exact list,
+and `--remove` remains interactive unless you pass `--agents`.
 
 Setup retains one short managed instruction block per connected agent and a
 versioned local CLI runtime. It does not register a global router SKILL.md or
@@ -41,7 +47,8 @@ setup. Automatic use depends on following the bootstrap and tool permissions.
 
 ### Migration, removal, and restore
 
-Setup preserves existing global collections by default. Writing an instruction
+Setup preserves existing global collections except curated archived skills, which
+are retired by default with recoverable backups. Writing an instruction
 file proves preparation, not that the real harness has loaded or followed it.
 Check a fresh session before requesting setup --agents NAME --migrate. Migration
 only considers dedicated roots of selected agents whose current connection was
@@ -115,9 +122,11 @@ is a deliberate repository installation; --project --add preserves existing
 project copies. Global skills installation deliberately recreates native global
 collections, which setup retains unless eligible migration is requested. Exact
 profile sync retains its existing managed-folder replacement/removal behavior,
-and retired skills listed in `archived.json` are removed by name. Setup alone
-never deletes skills; `setup --migrate` backs up and retires eligible catalog and
-archived skills in dedicated roots, and `setup --restore` returns them.
+and retired skills listed in `archived.json` are removed by name. Setup never
+removes catalog skills; it retires archived skills by name with recoverable
+backups unless `--keep-archived` is passed, and `setup --migrate` additionally
+backs up eligible catalog collections in dedicated roots. `setup --restore`
+returns anything setup retired.
 Automatic discovery does not use that stale-folder removal helper for migration.
 
 ### Supported integrations
