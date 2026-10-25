@@ -24,7 +24,11 @@ A review of roughly 120 externally sourced links (skill catalogs, component libr
 
 **Verification:** `verify-skill-references.js` 7/7 across 55 skills; `verify-discovery.js` 30/30; `verify-public-discovery.js` passed; `verify-archived-cleanup.js` passed; `verify-harness-setup.js` 19/19; `node --check` on both eval scripts; `score.mjs` exercised through pass and fail paths with a fixture judgement. `verify-agent-discovery.js` fails with `spawn codex ENOENT` because the Codex CLI is not installed on this machine, unrelated to these changes.
 
-**Remaining sequence:** commit the source, run `node tools/build-catalog.js`, commit the regenerated `yeknal-cli/catalog.json`, push, then the README portfolio publication sequence.
+**Published 2026-10-25:** source `b838703`, link correction `4f4b313` (six cross-skill links used `../../`, which resolves above `skills/`; the Markdown link audit caught it and `verify-skill-references` does not check file links), profiles assertion `26fb492`, catalog regenerated at `26fb492` and committed `e4782a8`. CI "Validate skills and CLI" green on `e4782a8` after two failures that were themselves useful: the link audit (six unresolved targets) and the CLI profile assertion (`design 21` became `22`). Local CLI suite 50/50 once run as an explicit file list; `node --test <dir>` does not work here.
+
+Portfolio synced at `26fb492` (55 skills, 5 internal, 9 changed entries, `yeknal-design-system` added), committed `e425423`, deploy run 40242641308 green, live `https://tryraisins.dev/skills/` verified at 55 skills with `/skills/design-system/` returning 200. The first live probe read a cached edge copy showing 54 skills; a cache-busted request showed the truth.
+
+Remaining: none for this change. The next catalog edit follows the usual order: commit the source, regenerate the catalog, commit it, push, then sync the portfolio.
 
 ## Unreleased: `yeknal-code-graph` (2026-10-25)
 
