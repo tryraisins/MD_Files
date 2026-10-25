@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "a4bb154ad01f2e27d8a94900dbc6cd4eeebb477a",
+  "sourceRevision": "8aa2a366d7ef340a2ee558db39deea342a7e94bc",
   "version": "2.6.0",
   "skills": [
     {
@@ -283,39 +283,6 @@
           "path": "SKILL.md",
           "sha256": "9614aa0e04a8d85e14d1009f1f84dc5e7f2e23902f22efa80d7598c0da37f4c8",
           "size": 10689
-        }
-      ]
-    },
-    {
-      "name": "yeknal-ask-sonner",
-      "description": "Work with Sonner toasts: mount the Toaster, pick the right toast() call, style it, and fix toasts that don't appear, appear twice, lose their styles, sit behind a modal, or ignore dark mode. Use when installing Sonner or a toast misbehaves.",
-      "keywords": [
-        "call",
-        "escalation",
-        "ladder",
-        "picking",
-        "recipes",
-        "right",
-        "setup",
-        "sonner",
-        "styling",
-        "the",
-        "troubleshooting",
-        "with",
-        "working",
-        "yeknal-ask-sonner"
-      ],
-      "version": "c69207a2c3d6d9ea996e76f64c51a491b7fd56ffc36b7a11f2a9046a11f4381b",
-      "files": [
-        {
-          "path": "API.md",
-          "sha256": "4bb06f482c5757529e3d7a672a30fbeed42d24919a63e2571384a9ce1549aa7f",
-          "size": 4545
-        },
-        {
-          "path": "SKILL.md",
-          "sha256": "9dea76af2563b6814fb85b79f9d152f7c61c1f0137eb93f1eb2ac7e5637d5cec",
-          "size": 7024
         }
       ]
     },
@@ -2252,49 +2219,6 @@
       ]
     },
     {
-      "name": "yeknal-linear",
-      "description": "Manage issues, projects, and team workflows in Linear. Use when the user wants to read, create, or update tickets, cycles, projects, or documents in a Linear workspace.",
-      "keywords": [
-        "linear",
-        "overview",
-        "practical",
-        "prerequisites",
-        "required",
-        "step",
-        "workflow",
-        "workflows",
-        "yeknal-linear"
-      ],
-      "version": "9bed8df700159ed6198a58484758dc83e5954fdc4c4d3f10ca7589dec51e3789",
-      "files": [
-        {
-          "path": "agents/openai.yaml",
-          "sha256": "9e6f164960e3dd0bc56456538abdf196d9e4fd8b4273be06fe1ef0110fbab9cb",
-          "size": 460
-        },
-        {
-          "path": "assets/linear-small.svg",
-          "sha256": "6af9dbc5e58a51e80fcbcee47e5f9bd196a997cc5985c2147a89c908831d327f",
-          "size": 1065
-        },
-        {
-          "path": "assets/linear.png",
-          "sha256": "be13bf3f97e4437e67cda80979759998fb4f4dcace3cdd6a220ba6a75e1c2a82",
-          "size": 6969
-        },
-        {
-          "path": "LICENSE.txt",
-          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
-          "size": 11357
-        },
-        {
-          "path": "SKILL.md",
-          "sha256": "122d135949722719e6cd09610fafe581f9fd4879c57445d82a048bf180696f9c",
-          "size": 3066
-        }
-      ]
-    },
-    {
       "name": "yeknal-markdown-management",
       "description": "Create, merge, update, or audit Markdown without losing meaning, links, authority, or repository conventions. Use for README, docs, and Agent Skill maintenance.",
       "keywords": [
@@ -2456,31 +2380,6 @@
           "path": "SKILL.md",
           "sha256": "fe48bd44073f7451f61a219f53893aa7b000df72660e0973d8ea5480dd183648",
           "size": 8175
-        }
-      ]
-    },
-    {
-      "name": "yeknal-nextjs-developer",
-      "description": "Build and maintain full-stack Next.js applications using the repository's installed version, router, rendering model, and deployment target. Use when work involves Next.js routes, components, data access, caching, or server boundaries.",
-      "keywords": [
-        "ai-enabled",
-        "and",
-        "data",
-        "developer",
-        "features",
-        "guardrails",
-        "motion",
-        "next",
-        "rendering",
-        "workflow",
-        "yeknal-nextjs-developer"
-      ],
-      "version": "7e9b839ad43b6a09dc05b1f45ea98b37a3c5ba04441fc9d2e97a6d94b088e984",
-      "files": [
-        {
-          "path": "SKILL.md",
-          "sha256": "68d8c9d55fbd22c9fbb8511ac501b8743cdec5638dc168f12516e0c9cbce41b1",
-          "size": 2642
         }
       ]
     },
@@ -4348,58 +4247,6 @@
           "path": "SKILL.md",
           "sha256": "5b32c6b72edcb04cf4d805a2b3788a0d22bac56db33955725320343aeb057d01",
           "size": 5400
-        }
-      ]
-    },
-    {
-      "name": "yeknal-stitch-design-taste",
-      "description": "Create or update a versioned DESIGN.md that guides Google Stitch-style screen generation from real product evidence. Use when an AI design tool needs a specification, not a replacement for the real design system.",
-      "keywords": [
-        "anatomy",
-        "and",
-        "authority",
-        "complete",
-        "components",
-        "content",
-        "define",
-        "design",
-        "direction",
-        "establish",
-        "flow",
-        "gate",
-        "intent",
-        "motion",
-        "product-specific",
-        "quality",
-        "required",
-        "responsive",
-        "scope",
-        "screen",
-        "specification",
-        "stitch",
-        "structure",
-        "system",
-        "the",
-        "tokens",
-        "transformation",
-        "yeknal-stitch-design-taste"
-      ],
-      "version": "6ef53091291df51dcb4fcccda0bdc4ae47d9fc991e031a093bfd1db2c18b9c3f",
-      "files": [
-        {
-          "path": "DESIGN.md",
-          "sha256": "46b1e3c6527320d8f3c5cd07ed8e0d3c5cf5b48090a9cb4408cd79462c8d3354",
-          "size": 3749
-        },
-        {
-          "path": "LICENSE.txt",
-          "sha256": "4575a543ab88dad12ccea7d97e563d0bce5b448b06072e65d3264497dad326df",
-          "size": 1065
-        },
-        {
-          "path": "SKILL.md",
-          "sha256": "9023d0fd4f02ee025d66f187f2990bdab54dff8230e82f22db19e5d9fc37f367",
-          "size": 5431
         }
       ]
     },
