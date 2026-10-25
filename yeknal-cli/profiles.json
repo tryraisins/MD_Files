@@ -41,7 +41,6 @@
       "animate",
       "animate-expo",
       "apple-design",
-      "ask-sonner",
       "brandkit",
       "break-ui",
       "design-reference-research",
@@ -63,7 +62,6 @@
       "prototype",
       "review-animations",
       "slopscan",
-      "stitch-design-taste",
       "ui-ux-designer"
     ]
   },
@@ -84,7 +82,6 @@
       "content-seo",
       "develop-web-game",
       "launch-readiness",
-      "nextjs-developer",
       "performance",
       "sentry"
     ]
@@ -115,9 +112,8 @@
     ]
   },
   "productivity": {
-    "description": "Linear and Notion knowledge, meeting, research, and specification workflows.",
+    "description": "Notion knowledge, meeting, research, and specification workflows.",
     "skills": [
-      "linear",
       "notion",
       "notion-spec-to-implementation"
     ]

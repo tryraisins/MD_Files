@@ -218,30 +218,6 @@
         "yeknal-security-threat-model"
       ]
     },
-    "yeknal-ask-sonner": {
-      "title": "Sonner toasts",
-      "purpose": "A practical guide to Sonner, the React toast library, from wiring up the Toaster to promise toasts, styling, theming and the usual reasons toasts misbehave.",
-      "tasks": [
-        "design",
-        "build"
-      ],
-      "whenToUse": [
-        "You are adding toast notifications to a React app with Sonner.",
-        "Toasts don’t appear, appear twice or sit behind a modal.",
-        "Toasts ignore your Tailwind classes or don’t follow dark mode."
-      ],
-      "example": {
-        "ask": "Show a loading toast while the file uploads, then switch it to success or error.",
-        "outcome": "It sets up a promise toast that updates in place and checks the Toaster is mounted once with the right theme."
-      },
-      "related": [
-        "yeknal-pick-ui-library",
-        "yeknal-frontend-developer"
-      ],
-      "attribution": {
-        "credit": "Rewritten for this catalog from an earlier merged UI skill. No upstream author is recorded for it."
-      }
-    },
     "yeknal-aspnet-core": {
       "title": "ASP.NET Core",
       "purpose": "Builds, reviews and upgrades ASP.NET Core applications using current official guidance, from Blazor and Razor Pages to Minimal APIs, SignalR and authentication.",
@@ -1033,30 +1009,6 @@
         "yeknal-testing-strategy"
       ]
     },
-    "yeknal-linear": {
-      "title": "Linear",
-      "purpose": "Reads, creates and updates issues, projects and team workflows in Linear.",
-      "tasks": [
-        "docs"
-      ],
-      "whenToUse": [
-        "You want tickets created from a plan or a bug report.",
-        "Issue status needs updating as work progresses.",
-        "You want a summary of what’s in a project."
-      ],
-      "requirements": "Needs the Linear MCP server connected.",
-      "example": {
-        "ask": "Create Linear issues for each task in this plan and add them to the current cycle.",
-        "outcome": "It creates one issue per task with a clear description and adds them to the cycle."
-      },
-      "attribution": {
-        "credit": "Adapted from Linear’s published skill.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-notion-spec-to-implementation"
-      ]
-    },
     "yeknal-markdown-management": {
       "title": "Markdown management",
       "purpose": "Creates, merges, updates and audits Markdown without losing meaning, links or repository conventions, including README files and Agent Skills.",
@@ -1128,25 +1080,6 @@
         "yeknal-ui-quality-baseline"
       ]
     },
-    "yeknal-nextjs-developer": {
-      "title": "Next.js developer",
-      "purpose": "Builds and maintains Next.js apps using the version, router, rendering model and deployment target the project already has.",
-      "tasks": [
-        "build"
-      ],
-      "whenToUse": [
-        "You are working on Next.js routes, components or data access.",
-        "Caching or server and client boundaries are confusing.",
-        "You want changes that match the installed version, not the latest blog post."
-      ],
-      "example": {
-        "ask": "Add a cached product listing route that revalidates every ten minutes.",
-        "outcome": "It checks the installed version and router, then adds the route with the right caching for that setup."
-      },
-      "related": [
-        "yeknal-frontend-developer"
-      ]
-    },
     "yeknal-notion-spec-to-implementation": {
       "title": "Notion spec to plan",
       "purpose": "Turns a spec or PRD in Notion into an implementation plan with tasks and progress tracking.",
@@ -1169,8 +1102,7 @@
         "license": "MIT"
       },
       "related": [
-        "yeknal-implement",
-        "yeknal-linear"
+        "yeknal-implement"
       ]
     },
     "yeknal-oil-motion": {
@@ -1312,7 +1244,6 @@
         "credit": "Written for this catalog. It mentions Rare UI, which requires attribution if you install one of its components."
       },
       "related": [
-        "yeknal-ask-sonner",
         "yeknal-frontend-developer"
       ]
     },
@@ -1755,32 +1686,6 @@
       "related": [
         "yeknal-jupyter-notebook",
         "yeknal-pdf"
-      ]
-    },
-    "yeknal-stitch-design-taste": {
-      "title": "Design spec for AI design tools",
-      "purpose": "Writes or updates a versioned DESIGN.md that gives AI design tools like Google Stitch clear guidance on tokens, components, content, states and motion.",
-      "tasks": [
-        "design",
-        "docs"
-      ],
-      "whenToUse": [
-        "You generate screens with an AI design tool and want them on-brand.",
-        "The design system should be written down in one place.",
-        "Generated screens keep drifting from the real product."
-      ],
-      "example": {
-        "ask": "Write a DESIGN.md so Stitch generates screens that match our app.",
-        "outcome": "It extracts tokens, components and rules from the product and writes a spec the tool can follow."
-      },
-      "attribution": {
-        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
-        "license": "MIT",
-        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
-      },
-      "related": [
-        "yeknal-frontend-design",
-        "yeknal-ui-quality-baseline"
       ]
     },
     "yeknal-testing-strategy": {

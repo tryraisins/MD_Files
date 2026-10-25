@@ -246,17 +246,6 @@
       "rationale": "The dead-code specialist is narrower than general cleanup."
     },
     {
-      "id": "nextjs-feature",
-      "prompt": "Implement an authenticated Next.js route and its responsive client form.",
-      "primary": "yeknal-nextjs-developer",
-      "secondary": [
-        "yeknal-application-security",
-        "yeknal-ui-quality-baseline"
-      ],
-      "mustNotLead": [],
-      "rationale": "The framework skill leads while shared security and UI baselines supplement it."
-    },
-    {
       "id": "netlify-deployment",
       "prompt": "Deploy this application to Netlify and return the production URL.",
       "primary": "yeknal-deploy",

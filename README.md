@@ -108,7 +108,7 @@ npx yeknal security
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
 | `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills aspnet-core` | Adds missing skills to the current repository without deleting or replacing existing skills. |
-| `npx yeknal skills --all` | Syncs all 81 skills for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs all 77 skills for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
@@ -155,14 +155,14 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | --- | ---: | --- |
 | `core` | 15 | Cross-project process, design, security, verification, and documentation. |
 | `process` | 11 | Agent cost, delivery extras, legacy sweeps, GitHub, exhaustive-output, and response modes beyond core. |
-| `design` | 27 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
+| `design` | 25 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
 | `security` | 5 | The five distinct security output contracts. |
-| `web` | 7 | Specialist web apps, frameworks, SEO, performance, launch readiness, and production errors beyond core. |
+| `web` | 6 | Specialist web apps, frameworks, SEO, performance, launch readiness, and production errors beyond core. |
 | `platform` | 5 | Platform-specific engineering and the deploy router. |
 | `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
-| `productivity` | 3 | Linear and Notion workflows. |
+| `productivity` | 2 | Notion knowledge and specification workflows. |
 | `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 81 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 77 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects` and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-improve-animations`, `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping, Figma, image-led and mobile workflows remain in the design pack because their triggers and output contracts differ. Deploy is one router (`yeknal-deploy`) that reads the provider from repository configuration, and Notion is one hub (`yeknal-notion`) with capture, meeting, research-brief and update modes, because four descriptions that all matched "deploy this" or "save this to Notion" cost more in routing accuracy than they returned. Security keeps five folders for the same reason: implementation, review, auditing, threat modeling, and ownership analysis are not interchangeable artifacts.
 
@@ -186,7 +186,7 @@ The consolidated routers are `yeknal-orchestration-specialists` and `yeknal-rese
 - `yeknal-design-reference-research`: converts live products, galleries, flows, and source registries into an evidence ledger, product-specific thesis, rejection list, and responsive implementation brief.
 - `yeknal-human-ai-interface-design`: trustworthy AI suggestions, generation, retrieval, agents, approvals, provenance, recovery, and reliance-focused evaluation.
 - `yeknal-design-taste-frontend`: the detailed local design system for expressive, non-templated interfaces. The `v1` compatibility copy is archived; its three dials live in that skill's references.
-- `yeknal-high-end-visual-design`, `yeknal-minimalist-ui`, `yeknal-industrial-brutalist-ui`, and `yeknal-stitch-design-taste`: specialist art-direction and design-system workflows. `yeknal-gpt-taste` is archived; its legacy name is recorded in catalog metadata rather than kept as a routing entry.
+- `yeknal-high-end-visual-design`, `yeknal-minimalist-ui`, `yeknal-industrial-brutalist-ui`: specialist art-direction and design-system workflows. `yeknal-gpt-taste` is archived; its legacy name is recorded in catalog metadata rather than kept as a routing entry.
 - `yeknal-ui-quality-baseline`: the shared UI contract for all core agents, including a durable `DESIGN.md`, coherent tokens, accessible responsive layouts, complete interaction and loading states, a mobile web platform layer (sticky hover, tap flash, dynamic viewport units, input zoom, overscroll, safe areas, and real-hardware verification), end-to-end user-flow checks, rendered QA, and public-site launch checks for links, page metadata, favicon, buttons, and placeholder copy.
 - `yeknal-mobile-app-design`: native mobile screen and flow implementation with optional Appllama reference research; it delegates motion-only work to `yeknal-animate-expo` and image-only concepts to `yeknal-imagegen-frontend-mobile`.
 - `yeknal-animate`, `yeknal-animate-expo`, and the animation review skills: interaction and motion craft. The Emil Kowalski reference material now lives inside `yeknal-animate/references/`.

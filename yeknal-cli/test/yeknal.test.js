@@ -121,18 +121,18 @@ test("skills command defaults to core and parses project/profile selections", ()
     skipClaude: false,
   });
   assert.deepEqual(
-    yeknal.parseSkillsCommandArgs(["--project", "--profile", "process,design", "--skills=nextjs-developer"]),
+    yeknal.parseSkillsCommandArgs(["--project", "--profile", "process,design", "--skills=performance"]),
     {
       profiles: ["process", "design"],
-      skills: ["nextjs-developer"],
+      skills: ["performance"],
       project: true,
       add: false,
       skipClaude: false,
     },
   );
-  assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--add", "--skills", "nextjs-developer"]), {
+  assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--add", "--skills", "performance"]), {
     profiles: [],
-    skills: ["nextjs-developer"],
+    skills: ["performance"],
     project: true,
     add: true,
     skipClaude: false,
@@ -144,9 +144,9 @@ test("skills command defaults to core and parses project/profile selections", ()
     add: false,
     skipClaude: false,
   });
-  assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--skills", "nextjs-developer"]), {
+  assert.deepEqual(yeknal.parseSkillsCommandArgs(["--project", "--skills", "performance"]), {
     profiles: [],
-    skills: ["nextjs-developer"],
+    skills: ["performance"],
     project: true,
     add: false,
     skipClaude: false,
@@ -159,7 +159,7 @@ test("skills command defaults to core and parses project/profile selections", ()
     skipClaude: true,
   });
   assert.throws(
-    () => yeknal.parseSkillsCommandArgs(["--add", "--skills", "nextjs-developer"]),
+    () => yeknal.parseSkillsCommandArgs(["--add", "--skills", "performance"]),
     /--add can only be used with --project/,
   );
   assert.throws(
@@ -171,7 +171,7 @@ test("skills command defaults to core and parses project/profile selections", ()
     /cannot be combined/,
   );
   assert.throws(
-    () => yeknal.parseSkillsCommandArgs(["--all", "--skills", "nextjs-developer"]),
+    () => yeknal.parseSkillsCommandArgs(["--all", "--skills", "performance"]),
     /cannot be combined/,
   );
 });
@@ -203,11 +203,11 @@ test("profiles reference real skills and keep core discovery under budget", asyn
 
   const selected = yeknal.selectSkillFolders(availableFolders, {
     profiles: ["security"],
-    skills: ["nextjs-developer"],
+    skills: ["performance"],
   });
   assert.deepEqual(selected, [
     "application-security",
-    "nextjs-developer",
+    "performance",
     "security-audit",
     "security-best-practices",
     "security-ownership-map",
@@ -572,7 +572,7 @@ test("CLI profiles command remains executable", () => {
   });
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /core\s+15/);
-  assert.match(result.stdout, /design\s+27/);
+  assert.match(result.stdout, /design\s+25/);
   assert.match(result.stdout, /Default: core/);
   assert.match(result.stdout, /project-handoff/);
 });

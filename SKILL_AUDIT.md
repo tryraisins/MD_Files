@@ -220,6 +220,14 @@ The 49 skills installed outside the catalog were reviewed by the same three mode
 
 Result across all five discovery roots: 129 folders, 94 unique skills, 19,218 description characters, about 4,805 tokens of always-on cost.
 
+### Provider skills pruned
+
+Four skills were dropped after the consolidation because they were provider-specific without supplying anything a documentation fetch does not: `nextjs-developer` (33 lines, no version-specific fact), `ask-sonner` (one toast library, mostly API tables), `stitch-design-taste` (links a `DESIGN.md` it does not ship, no Stitch-specific grammar), and `linear` (duplicates the connected MCP server's own tool schemas). All four moved to `archive/skills/`.
+
+The rule kept for the rest: a provider skill stays when it encodes a decision gate, a hazard (what looks like a preview and is not), or a bundled script that does real work. Under that rule `aspnet-core`, `winui-app`, `write-swift`, `figma-implement-design`, `chatgpt-apps`, `sentry`, `openai-docs`, `jupyter-notebook`, and the OpenAI media skills remain, as opt-in packs.
+
+Catalog after this pass: 77 skills, 15 core.
+
 ### Defects found that structure checks do not catch
 
 - A commit-and-push skill staged the whole working tree, including secrets and unrelated changes.
