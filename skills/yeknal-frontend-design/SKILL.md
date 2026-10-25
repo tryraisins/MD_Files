@@ -14,11 +14,11 @@ Work as the design lead of a studio whose reputation rests on giving each client
 
 ## Start from the shared quality floor
 
-`ui-quality-baseline` owns tokens, responsive containment, accessibility, loading states, control geometry, and rendered verification. This skill owns the visual thesis; the baseline keeps that thesis from becoming sloppy without flattening it. An explicit brief, approved design, established brand, or platform convention outranks both.
+`yeknal-ui-quality-baseline` owns tokens, responsive containment, accessibility, loading states, control geometry, and rendered verification. This skill owns the visual thesis; the baseline keeps that thesis from becoming sloppy without flattening it. An explicit brief, approved design, established brand, or platform convention outranks both.
 
 Follow the baseline's `DESIGN.md` rule: settle the project's authoritative design document (thesis plus reusable tokens) before you build, and keep the implementation honest to it.
 
-Bring in `design-reference-research` when the user supplies references or the brief has no defensible direction yet. For anything with AI-generated, retrieved, or agent-executed behavior, also apply `human-ai-interface-design`; AI trust is an interaction problem, not a styling problem.
+Bring in `yeknal-design-reference-research` when the user supplies references or the brief has no defensible direction yet. For anything with AI-generated, retrieved, or agent-executed behavior, also apply `yeknal-human-ai-interface-design`; AI trust is an interaction problem, not a styling problem.
 
 ## Ground the work in the subject
 
@@ -72,20 +72,13 @@ While building:
 
 ## Interface writing
 
-Write from the user's point of view in plain, active language. Name an action for its outcome and keep the term through the flow: `Publish` leads to `Published`, never a differently named confirmation.
+Write from the user's point of view in plain, active language: name an action for its outcome and keep the term through the flow (`Publish` leads to `Published`, never a differently named confirmation). Use complete sentences with a natural rhythm rather than strings of clipped fragments, and treat empty and error states as directions that say what happened and what to do next.
 
-Never use staccato sentences in interface prose, design rationale, or handoff notes. Avoid strings of clipped fragments and one-line paragraphs; connect related thoughts into complete sentences with a natural rhythm. Keep control labels, headings, and status messages concise when the interface calls for it, but do not make longer copy choppy just to sound punchy.
+## Libraries and motion
 
-Treat empty and error states as directions: say what happened and what to do next. Cut apologies, vague failures, decorative microcopy, and implementation jargon.
+Libraries give you mechanics, not a thesis. Follow the stack defaults in AGENTS.md (Tailwind CSS v4 + shadcn/ui on React-compatible stacks, the stack's equivalent otherwise) and use `yeknal-pick-ui-library` when choosing components.
 
-## Component and motion libraries
-
-Libraries give you mechanics, not a thesis.
-
-- Default to **Tailwind CSS (v4) + shadcn/ui** for styling and components whenever the stack is React-compatible, and set them up when absent (`npx shadcn@latest init -d --base radix`). Do this even when neither is present. If the stack is not React-compatible (Vue, Svelte, Angular, plain HTML/CSS, native, or a design-tool file), use the stack's equivalent and note the deviation instead of forcing React. An explicit brief, approved design, brand, or documented design system wins over this default.
-- On React projects, read the existing registry and `components.json` before adding source components. When the interaction already exists as a [Rare UI](https://www.rareui.com/components) component, install it through `pick-ui-library` and adapt it rather than rebuilding. Rare UI needs attribution: keep its notice in the copied source and add a README credit linking to rareui.com.
-- Use `animate` for ordinary product motion and `oil-motion` for generated, frame-based media driven by scroll, pointer, drag, touch, orientation, audio, data, or component state.
-- Adapt imported components to the product's tokens, semantics, focus behavior, reduced-motion policy, bundle budget, and dependency strategy. A library's demo styling is not the product identity.
+Use `yeknal-animate` for ordinary product motion and `yeknal-oil-motion` for generated, frame-based media driven by scroll, pointer, drag, touch, orientation, audio, data, or component state. Adapt anything you import to the product's tokens, semantics, focus behavior, reduced-motion policy, bundle budget, and dependency strategy; a library's demo styling is not the product identity.
 
 ## Final critique
 

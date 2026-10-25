@@ -1,6 +1,6 @@
 ---
 name: yeknal-imagegen-frontend-web
-description: Generate implementation-readable website concept images for landing pages, marketing sites, product pages, and individual sections. Use when the user requests visual concepts rather than code; derive the page sequence from real content and provide section-scale images where developers need readable detail.
+description: Generate implementation-readable website concept images for landing pages, marketing sites, product pages, and single sections. Use when the user wants visual concepts, not code; not for turning an image into code (`yeknal-image-to-code`).
 metadata:
   source: https://github.com/leonxlnx/taste-skill
   source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
@@ -8,24 +8,17 @@ metadata:
 
 # Output framing
 
-## Automatic UI Quality Contract
-
-For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+For every visible UI output, apply `yeknal-ui-quality-baseline` and preserve approved design files, established brands, platform conventions, and existing behavior over the stylistic defaults below.
 
 When the visual direction is unresolved or the user supplies reference URLs, apply `yeknal-design-reference-research` before generation. Use its product thesis and rejection list; do not collage unrelated gallery sections or claim that a generated still proves responsive or interactive behavior.
 
 
 When the user requests a multi-section implementation reference, generate one readable horizontal image per agreed section so text, spacing, controls, and assets can be inspected.
 
-- 1 section requested -> 1 image
-- 4 sections requested -> 4 images
-- 8 sections requested -> 8 images
-- 12 sections requested -> 12 images
-- When the section count is unspecified, infer the smallest complete sequence from the product's real content and user journey; do not default every landing page to six or every website to eight sections.
+- Infer the smallest complete sequence from the product's real content and user journey; do not default every landing page to six or every website to eight sections.
+- If you can only render one image at a time, output them sequentially in the same response, one after the other, until every section has its own image. Announce each one ("Section 1 of 8: Hero", "Section 2 of 8: Trust bar", etc.).
 
 Do not compress several implementation-critical sections into an unreadable collage or tall strip. A whole-page overview is acceptable when the user asks for it, but create section-scale detail views for regions that developers must reproduce accurately.
-
-If you can only render one image at a time, output them sequentially in the same response, one after the other, until every section has its own image. Announce each one ("Section 1 of 8: Hero", "Section 2 of 8: Trust bar", etc.).
 
 Do not generate surplus sections merely to satisfy a count; each image needs a content and implementation role.
 
@@ -98,95 +91,9 @@ Default to website design comps.
 
 ---
 
-## 1. ACTIVE BASELINE CONFIGURATION
+The user's brief overrides every default in this skill: dial back backgrounds, gradients, and full-bleed treatments where the brief asks for restraint, and do not strip them out where it asks for atmosphere.
 
-- DESIGN_VARIANCE: 8
-  `(1 = rigid / symmetrical, 10 = artsy / asymmetric)`
-- VISUAL_DENSITY: 4
-  `(1 = airy / gallery-like, 10 = packed / intense)`
-- ART_DIRECTION: 8
-  `(1 = safe commercial, 10 = bold creative statement)`
-- IMPLEMENTATION_CLARITY: 9
-  `(1 = loose moodboard, 10 = very codeable UI reference)`
-- IMAGE_USAGE_PRIORITY: 9
-  `(1 = mostly typographic, 10 = strongly image-led)`
-- SPACING_GENEROSITY: 8
-  `(1 = compact / tight, 10 = very spacious / breathable)`
-- LAYOUT_VARIATION: 8
-  `(1 = same anchor repeats, 10 = bold composition variety across sections)`
-- CONVERSION_DISCIPLINE: 8
-  `(1 = pure art moodboard, 10 = clear funnel + premium design balance)`
-
-AI Instruction:
-Treat these as global defaults unless the user clearly asks for something else.
-Do not ask the user to edit this file.
-Adapt these values dynamically from the prompt.
-
-Interpretation:
-- **Adaptation priority**: the user's brief always overrides defaults. Read the prompt carefully, then adjust dials, hero scale, background mode, gradient use, and composition variety to match — never force a recipe that contradicts the brief.
-- If the user says "clean", reduce density and increase clarity.
-- If the user says "crazy creative", increase variance and art direction.
-- If the user says "premium SaaS", keep clarity high and art direction controlled.
-- If the user says "editorial", allow stronger type and more asymmetry.
-- Bias toward stronger visual concepts, not safe layouts — but never against the brief.
-- Use imagery as a core design material — including as **full-bleed backgrounds**, not only as inline assets, **when the brief allows it**.
-- Vary composition: do not default to "text left, image right". Move text to bottom-left, center, top-right, etc. across sections.
-- Keep sections breathable. Do not over-pack the page.
-- Prefer slightly more whitespace between sections than default.
-- Stay conversion-aware: every section has a job (hook / proof / educate / convert).
-
-### Brief-to-direction mapping
-Read the brief. Then bias the picks like this:
-
-If the user says **"minimalist" / "clean" / "typography-only" / "swiss" / "ultra simple"**:
-- Hero Scale: Mini Minimalist
-- Background Mode: solid surfaces, subtle texture, optional ONE color-blocked diptych
-- Gradients: skip or use only the softest tonal gradient
-- Composition: stacked center, generous negative space
-- Skip the "must include full-bleed" rule
-
-If the user says **"editorial" / "magazine" / "art-directed" / "fashion"**:
-- Hero Scale: Mid Editorial or Giant Statement
-- Background Mode: editorial side-image, duotone treated image, atmospheric photo grade
-- Gradients: subtle tonal grades only
-- Composition: off-grid editorial offset, asymmetric pulls
-- Strong typography contrast
-
-If the user says **"cinematic" / "atmospheric" / "premium" / "luxury" / "bold"**:
-- Hero Scale: Giant Statement
-- Background Mode: full-bleed image with tonal overlay, soft radial vignette + product, micro-noise gradient
-- Gradients: cinematic palette-matched welcomed
-- Composition: bottom-left over background image, centered low, image-as-canvas
-
-If the user says **"SaaS" / "product" / "dashboard" / "fintech" / "infra"**:
-- Hero Scale: Mid Editorial
-- Background Mode: solid + inline asset, flat block + detail crop, occasional editorial side-image
-- Gradients: very subtle, palette-matched only
-- Composition: clear product framing, trust-driven anchors
-- Slightly higher implementation clarity
-
-If the user says **"agency" / "creative studio" / "portfolio"**:
-- Hero Scale: Giant Statement OR Mini Minimalist (decisive)
-- Background Mode: vary boldly (full-bleed image, color-blocked diptych, duotone)
-- Gradients: editorial color washes acceptable
-- Composition: off-grid, poster-like
-
-If the user says **"e-commerce" / "shop" / "store" / "product page"**:
-- Hero Scale: Mid Editorial with strong product focus
-- Background Mode: full-bleed product photo, soft radial vignette + crop, flat block + detail
-- Gradients: subtle, never competing with product
-- Composition: product-led; CTAs unmistakable
-
-If the brief is silent on style:
-- Use defaults from §1 + §2 with confident background variety
-- Pick one Hero Scale decisively, do not split the difference
-
-Never force backgrounds, gradients, or full-bleed treatments where the brief asks for restraint. Never strip them out where the brief asks for atmosphere.
-
----
-
-## 2. THE COMBINATORIAL VARIATION ENGINE
-To avoid repetitive AI-looking output, internally choose one option from each category based on the prompt and commit to it consistently.
+## 1. THE COMBINATORIAL VARIATION ENGINE
 
 Do not mash everything together into chaos.
 Pick a strong combination and execute it clearly.

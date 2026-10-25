@@ -1,6 +1,6 @@
 ---
 name: yeknal-human-ai-interface-design
-description: Design trustworthy AI-mediated interfaces. Use for suggestions, generation, retrieval, copilots, agents, provenance, uncertainty, approvals, autonomy, or recovery.
+description: "Design AI-mediated interfaces that earn appropriate reliance: capability, provenance, uncertainty, approval, failure, and recovery. Use when an AI feature proposes, generates, retrieves, or acts, and the user must verify, approve, or undo it."
 ---
 
 # Human-AI interface design
@@ -9,7 +9,7 @@ Design for appropriate reliance: users should know what the system can do, what 
 
 Also apply `yeknal-ui-quality-baseline`. Use deterministic controls for exact state, permissions, prices, status, and irreversible commitments; a chat box is not a universal interface for AI.
 
-## Decide the system's role
+## Step 1 — Decide the system's role
 
 For each task, choose one mode deliberately:
 
@@ -22,7 +22,7 @@ For each task, choose one mode deliberately:
 
 Increase review, provenance, and permission friction with stakes and irreversibility. Do not infer broad autonomy from a user allowing one action.
 
-## Design the complete lifecycle
+## Step 2 — Design the complete lifecycle
 
 Map the experience across:
 
@@ -34,7 +34,7 @@ Map the experience across:
 
 Load [references/lifecycle-and-patterns.md](references/lifecycle-and-patterns.md) for detailed states, patterns, and evaluation cases.
 
-## Calibrate trust
+## Step 3 — Calibrate trust
 
 - Label generated, summarized, ranked, or transformed material where confusion with source or human authorship is plausible.
 - Prefer inspectable provenance over a bare confidence score. Link the source passage, record, file, tool result, or changed field that supports the output.
@@ -43,7 +43,7 @@ Load [references/lifecycle-and-patterns.md](references/lifecycle-and-patterns.md
 - Never expose private chain-of-thought. Show concise plans, decisions, inputs, actions, and evidence that help the user verify work.
 - Make freshness visible when source age or model/data drift can change the answer.
 
-## Preserve control and agency
+## Step 4 — Preserve control and agency
 
 - Accepting a suggestion may be one action; dismissing or continuing manually should be equally cheap.
 - Generated output stays editable. Support selected-part revision, comparison, version history, and continuation from the current draft when the task warrants it.
@@ -52,7 +52,7 @@ Load [references/lifecycle-and-patterns.md](references/lifecycle-and-patterns.md
 - Show whose rule constrained behavior: user preference, administrator policy, safety rule, privacy limit, technical limitation, or commercial placement.
 - Keep retrieved content, instructions, tools, and actions visibly and architecturally distinct.
 
-## Make failure a designed state
+## Step 5 — Make failure a designed state
 
 - Partial success is not total success. Identify completed, failed, skipped, stale, and still-running parts.
 - Match recovery to consequence: text can be edited; records need history; external messages need preview; workflows need checkpoints and rollback.
@@ -61,13 +61,13 @@ Load [references/lifecycle-and-patterns.md](references/lifecycle-and-patterns.md
 - Do not leave a silent spinner. Explain whether the system is searching, waiting on a tool, preparing a draft, awaiting approval, rate-limited, or stuck.
 - Never fabricate progress, elapsed stages, citations, or tool activity.
 
-## Accessibility and inclusion
+## Step 6 — Accessibility and inclusion
 
 Generated changes, suggestions, citations, warnings, voice interactions, and agent traces must be keyboard reachable and announced appropriately. Do not make voice, color, animation, hover, or drag the only path. Let users inspect generated alt text and other AI-authored accessibility content rather than silently trusting it.
 
 Adapt explanation and control to user expertise without hiding auditability. Novices need wayfinders; experts need override and configuration; auditors need provenance and repeatability.
 
-## Required design output
+## Step 7 — Write the design output
 
 For an AI-mediated feature, specify:
 
@@ -84,4 +84,4 @@ Do not call the experience trustworthy because it looks calm or transparent. Ver
 
 ## Source note
 
-This skill incorporates the user-supplied [39 Principles for Designing Human-AI Interaction](https://syntaxstream.substack.com/p/42-principles-for-designing-humanai), which synthesizes mixed-initiative and human-AI guidance. For high-stakes product decisions, also verify applicable platform policy, law, domain requirements, and primary research.
+This skill incorporates the user-supplied [Designing Human-AI Interaction principles](https://syntaxstream.substack.com/p/42-principles-for-designing-humanai), which synthesizes mixed-initiative and human-AI guidance. For high-stakes product decisions, also verify applicable platform policy, law, domain requirements, and primary research.

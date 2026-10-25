@@ -21,14 +21,9 @@ Build clean, reproducible Jupyter notebooks for two modes: experiments and explo
 - Choose `tutorial` when the request is instructional, step-by-step, or aimed at a specific audience.
 - Treat edits to an existing notebook as a refactor: keep the intent and improve the structure.
 
-## Skill path (set once)
+## Skill path
 
-```bash
-export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
-export JUPYTER_NOTEBOOK_CLI="$CODEX_HOME/skills/jupyter-notebook/scripts/new_notebook.py"
-```
-
-User-scoped skills install under `$CODEX_HOME/skills` (default: `~/.codex/skills`).
+The helper script is `scripts/new_notebook.py`, relative to this skill folder. Read the bundled templates from `assets/`.
 
 ## Workflow
 1. Lock the intent.
@@ -38,19 +33,11 @@ Write down the objective, the audience, and what "done" means.
 2. Scaffold from the template.
 Run the helper script instead of authoring raw notebook JSON by hand.
 
-```bash
-uv run --python 3.12 python "$JUPYTER_NOTEBOOK_CLI" \
-  --kind experiment \
-  --title "Compare prompt variants" \
-  --out output/jupyter-notebook/compare-prompt-variants.ipynb
+```powershell
+uv run --python 3.12 python scripts/new_notebook.py --kind experiment --title "Compare prompt variants" --out output/jupyter-notebook/compare-prompt-variants.ipynb
 ```
 
-```bash
-uv run --python 3.12 python "$JUPYTER_NOTEBOOK_CLI" \
-  --kind tutorial \
-  --title "Intro to embeddings" \
-  --out output/jupyter-notebook/intro-to-embeddings.ipynb
-```
+The same call with `--kind tutorial`, a different `--title`, and an `--out` path scaffolds the tutorial variant.
 
 3. Fill the notebook with small, runnable steps.
 Give each code cell one job.
@@ -74,9 +61,6 @@ Work through the final pass checklist in `references/quality-checklist.md`.
 ## Templates and helper script
 - Templates live in `assets/experiment-template.ipynb` and `assets/tutorial-template.ipynb`.
 - The helper script loads a template, updates the title cell, and writes a notebook.
-
-Script path:
-- `$JUPYTER_NOTEBOOK_CLI` (installed default: `$CODEX_HOME/skills/jupyter-notebook/scripts/new_notebook.py`)
 
 ## Temp and output conventions
 - Use `tmp/jupyter-notebook/` for intermediate files; delete when done.

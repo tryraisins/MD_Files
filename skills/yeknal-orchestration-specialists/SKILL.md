@@ -1,20 +1,11 @@
 ---
 name: yeknal-orchestration-specialists
-description: Organize bounded multi-agent and tool work. Use for task distribution, context management, evidence synthesis, prompt engineering, or MCP design.
+description: Organize bounded multi-agent and tool work. Use for task distribution, context management, evidence synthesis, and handoff across agents.
 ---
 
 # Orchestration specialists
 
 Keep multi-agent and tool-using work bounded, observable, and easy to hand off. One owner holds the final result; every parallel task carries a concrete artifact or question.
-
-## Specialist lenses
-
-- **Agent organization:** split by independent deliverable, set clear boundaries, and avoid parallel edits to one file.
-- **Task distribution:** match work to capability and risk, sequence dependent work, and keep integration and verification with the owner.
-- **Context management:** carry the goal, constraints, decisions, current state, and validation evidence; drop stale detail.
-- **Knowledge synthesis:** normalize notes, reconcile contradictions, keep provenance, and produce a reusable decision record.
-- **Prompt engineering:** specify role, task, inputs, constraints, output contract, examples only when useful, and explicit failure behavior.
-- **MCP design:** define narrow tools with typed inputs and outputs, safe defaults, auth boundaries, actionable errors, idempotency, and least privilege.
 
 ## Operating workflow
 
@@ -30,6 +21,5 @@ Keep multi-agent and tool-using work bounded, observable, and easy to hand off. 
 
 - Do not delegate secrets, destructive actions, or ambiguous authority without explicit approval.
 - Treat an agent's claim as unverified until you inspect the artifact and run the check yourself.
-- Do not promise delivery guarantees, fixed response times, utilization targets, or unlimited scale without measured evidence.
 - Avoid parallel edits to the same files; if overlap is unavoidable, name one integrator and serialize the final patch.
 - Keep prompts and tool schemas deterministic enough to reproduce failures.

@@ -1,6 +1,6 @@
 ---
 name: yeknal-launch-readiness
-description: Audit a product for launch readiness before it becomes publicly reachable, covering the legal obligations that attach to the data, payments, email and user content it handles, plus the engineering gates no other workflow owns, then produce one register and a go or no-go. Use when someone asks whether an app is ready to launch or to ship to real users, or before public availability.
+description: "Audit a product for launch readiness before it becomes publicly reachable: legal obligations plus the engineering gates no other workflow owns, then one register and a go or no-go. Use when asked whether an app can ship."
 metadata:
   last-reviewed: "2026-10-23"
   jurisdictions: "NG, EU/EEA, UK, US federal, US California"
@@ -22,7 +22,7 @@ This is a one-time external exposure audit. It is not a code review, and it is n
 | A piece of work is finished and needs gates, then a commit | `yeknal-finalize` |
 | Controls, auth, injection, secrets, abuse paths | `yeknal-application-security` |
 
-Say the difference out loud when the request is ambiguous. Running launch readiness for every change wastes the session; skipping it before a launch is how a fixable problem reaches the press.
+Running launch readiness for every change wastes the session; skipping it before a launch is how a fixable problem reaches the press.
 
 ## Boundaries
 
@@ -84,12 +84,9 @@ Do not restate these checks. Confirm the owning skill ran, note its result, and 
 
 ## Hard rules
 
-- A statutory maximum is a ceiling, not a forecast. State it that way or leave it in the matrix.
 - Keep "must", "should", and "market practice" as three visibly different labels.
-- An obligation with no verifiable source is `verify`, with the exact thing to confirm.
 - Analytics, pixels, chat widgets, and session replay count as non-compliant until shown to load behind consent.
-- A backup that has never been restored is `unassessed`, whatever the provider dashboard says.
-- A restore claim needs a date and a method, or it did not happen.
+- A backup that has never been restored is `unassessed`, and a restore claim needs a date and a method, or it did not happen, whatever the provider dashboard says.
 - Never mark a row green because a policy page exists. Mark it green when the behaviour matches the page.
 
 ## Acting on the register

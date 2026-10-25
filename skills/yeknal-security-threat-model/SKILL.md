@@ -11,6 +11,8 @@ metadata:
 
 Produce an AppSec-grade threat model for a specific repository or path, not a generic checklist. Anchor every architectural claim to evidence in the repo and make assumptions explicit. Rank realistic attacker goals and concrete impacts above exhaustive lists.
 
+This skill models adversaries against a system. For a hunt for exploitable defects, a penetration test, or an audit that produces findings and report artifacts, use `yeknal-security-audit`.
+
 ## Inputs
 
 Collect or infer:
@@ -51,8 +53,8 @@ Use the prompts in `references/prompt-template.md` to draft a repository summary
 
 ### 6. Validate context with the user
 - Summarize the assumptions that change scope or ranking. Ask only when an unresolved choice would materially change the result or authorized scope; otherwise continue and label the assumption.
-- Ask one to three targeted questions about service owner and environment, scale, deployment model, authn/authz, exposure, data sensitivity, and multi-tenancy.
-- If the user cannot answer, state which assumptions remain and how they shift priority.
+- When the environment allows questions, ask one to three targeted questions about service owner and environment, scale, deployment model, authn/authz, exposure, data sensitivity, and multi-tenancy.
+- If the user cannot answer or is unavailable, state which assumptions remain and how they shift priority, then finish the model.
 
 ### 7. Recommend mitigations and focus paths
 - Separate existing controls (with evidence) from recommended ones.
@@ -74,48 +76,6 @@ Use the prompts in `references/prompt-template.md` to draft a repository summary
 - High: pre-auth RCE, auth bypass, cross-tenant access, sensitive data exfiltration, key or token theft, model or config integrity compromise, sandbox escape.
 - Medium: targeted DoS of critical components, partial data exposure, rate-limit bypass with measurable impact, log or metrics poisoning that affects detection.
 - Low: low-sensitivity info leaks, noisy DoS with easy mitigation, issues needing unlikely preconditions.
-
-## Adversarial audit extension
-
-When the user asks to model an adversary against this system as part of a threat model, add the following. When the request is instead a hunt for exploitable defects, a penetration test, or an audit that produces findings and report artifacts, hand off to `yeknal-security-audit`. This extension sharpens the model. It does not verify candidates.
-
-### Attacker profiles
-
-- **Anonymous user** - unauthenticated, public endpoints: auth bypass, data exfiltration, account takeover.
-- **Authenticated user** - valid session, standard permissions: privilege escalation, IDOR/BOLA, horizontal access.
-- **Insider / ex-employee** - internal knowledge: credential theft, backdoor, data manipulation.
-- **API consumer** - API key only: rate-limit bypass, scope escalation.
-- **Supply chain attacker** - dependency or CI/CD access: RCE via package, build-artifact backdoor.
-- **Prompt/content attacker** - controls a document, page, email, retrieved record, tool output, or durable memory item seen by an AI system: goal hijack, data exfiltration, unsafe tool use.
-- **Compromised tool or peer agent** - a trusted integration returns malicious instructions or data: confused-deputy behavior, privilege abuse, memory poisoning.
-
-### Threats to probe
-
-- **Chained exploits**: combine low-severity issues (SSRF + CORS bypass + JWT leakage = account takeover).
-- **Race conditions**: double-submit, check-then-act (TOCTOU), concurrent request abuse, double spending.
-- **Business-logic abuse**: skip payment or approval, replay completed transactions, bypass feature flags via URL params.
-- **Cache poisoning**: unkeyed request headers, CDN cache pollution with attacker-controlled content.
-- **Timing attacks**: auth-comparison leaks, username enumeration via response time.
-- **Replay attacks**: reuse expired tokens, replay magic links after single-use invalidation.
-- **State desynchronization**: multi-step wizard bypass, stale frontend state, incomplete server-side validation.
-- **JWT confusion**: algorithm switching (`none`, RS to HS), key confusion.
-- **Mass assignment**: ORM/framework auto-binding untrusted fields to privileged model fields.
-- **Exceptional-condition bypass**: timeouts, retries, parser failures, fallback paths, and partial commits that skip authorization or duplicate effects.
-- **Agentic abuse**: prompt injection, excessive agency, tool misuse, identity or privilege abuse, unsafe output handling, memory/context poisoning, unbounded resource consumption.
-
-### Output additions for adversarial audits
-
-- **Exploitation scenario** per finding: the step-by-step attacker sequence.
-- **Attack chains**: how two to four minor issues combine into a critical exploit.
-- **Assume-breach controls**: what limits damage once an attacker is inside.
-- **Severity justification**: why it is Critical/High/Medium/Low given real exploitability.
-
-### Adversarial mindset
-
-- Do not assume the code is safe; treat every input boundary as exploitable until proven otherwise.
-- Do not skip for missing context; infer, and state the assumption.
-- Flag "that shouldn't be possible" behaviors; edge conditions often make them possible.
-- Think in chains; three low-severity issues can form one critical path.
 
 ## References
 

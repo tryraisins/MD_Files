@@ -1,6 +1,6 @@
 ---
-name: "yeknal-develop-web-game"
-description: "Use when Codex is building or iterating on a web game (HTML/JS) and needs a reliable development + testing loop: implement small changes, run a Playwright-based test script with short input bursts and intentional pauses, inspect screenshots/text, and review console errors with render_game_to_text."
+name: yeknal-develop-web-game
+description: "Build or iterate on a web game (HTML/JS) with a reliable dev and test loop: small changes, a Playwright action script, screenshot and text-state inspection, and console errors. Use when the deliverable is a browser game."
 metadata:
   internal: true
 ---
@@ -10,15 +10,14 @@ metadata:
 
 Build games in small steps and validate every change. Treat each iteration as: implement → act → pause → observe → adjust.
 
-## Skill paths (set once)
+## Skill paths
 
-```bash
-export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
-export WEB_GAME_CLIENT="$CODEX_HOME/skills/develop-web-game/scripts/web_game_playwright_client.js"
-export WEB_GAME_ACTIONS="$CODEX_HOME/skills/develop-web-game/references/action_payloads.json"
-```
+Both files ship with this skill, relative to the skill folder:
 
-User-scoped skills install under `$CODEX_HOME/skills` (default: `~/.codex/skills`).
+- `scripts/web_game_playwright_client.js` — the Playwright action loop.
+- `references/action_payloads.json` — example action payloads.
+
+Run the client from the project you are testing, passing the absolute or relative path to the script.
 
 ## Workflow
 
@@ -26,10 +25,10 @@ User-scoped skills install under `$CODEX_HOME/skills` (default: `~/.codex/skills
 2. **Implement small.** Make the smallest change that moves the game forward.
 3. **Ensure integration points.** Provide one canvas and `window.render_game_to_text` so the test loop can read state.
 4. **Add `window.advanceTime(ms)`.** Strongly prefer a deterministic step hook so the Playwright script can advance frames reliably; without it, automated tests can be flaky.
-5. **Initialize progress.md.** If `progress.md` exists, read it first and confirm the original user prompt is recorded at the top (prefixed with `Original prompt:`). Note any TODOs and suggestions left by the previous agent. If missing, create it and write `Original prompt: <prompt>` at the top before appending updates.
+5. **Initialize progress.md.** See [Progress Tracking](#progress-tracking): read an existing file first and keep its original prompt, or create it with `Original prompt: <prompt>` at the top.
 6. **Verify Playwright availability.** Make sure `playwright` is available (local dependency or global install). If unsure, check `npx` first.
-7. **Run the Playwright test script.** Run `$WEB_GAME_CLIENT` after every meaningful change; do not invent a new client unless required.
-8. **Use the payload reference.** Base actions on `$WEB_GAME_ACTIONS` to avoid guessing keys.
+7. **Run the Playwright test script.** Run `scripts/web_game_playwright_client.js` after every meaningful change; do not invent a new client unless required.
+8. **Use the payload reference.** Base actions on `references/action_payloads.json` to avoid guessing keys.
 9. **Inspect state.** Capture screenshots and text state after each burst.
 10. **Inspect screenshots.** Open the latest screenshot, verify the expected visuals, fix any issues, and rerun the script. Repeat until correct.
 11. **Verify controls and state (multi-step focus).** Exercise every important interaction exhaustively. For each one, think through the full multi-step sequence it implies (cause → intermediate states → outcome) and verify the entire chain end-to-end. Confirm `render_game_to_text` reflects the same state shown on screen. If anything is off, fix it and rerun.
@@ -40,7 +39,7 @@ User-scoped skills install under `$CODEX_HOME/skills` (default: `~/.codex/skills
 
 Example command (actions required):
 ```
-node "$WEB_GAME_CLIENT" --url http://localhost:5173 --actions-file "$WEB_GAME_ACTIONS" --click-selector "#start-btn" --iterations 3 --pause-ms 250
+node scripts/web_game_playwright_client.js --url http://localhost:5173 --actions-file references/action_payloads.json --click-selector "#start-btn" --iterations 3 --pause-ms 250
 ```
 
 Example actions (inline JSON):
@@ -72,7 +71,8 @@ Examples of things to test:
 - Latest screenshots from the Playwright run.
 - Latest `render_game_to_text` JSON output.
 - Console error logs (fix the first new error before continuing).
-Actually open and visually inspect the latest screenshots after running the Playwright script, not just generate them. Make sure everything that should be visible on screen is actually visible. Go beyond the start screen and capture gameplay screenshots that cover all newly added features. Treat the screenshots as the source of truth; if something is missing, it is missing in the build. If you suspect a headless/WebGL capture issue, rerun the Playwright script in headed mode and re-check. Fix and rerun in a tight loop until the screenshots and text state look correct. Once fixes are verified, re-test all important interactions and controls, confirm they work, and ensure your changes did not introduce regressions. If they did, fix them and rerun everything in a loop until interactions, text state, and controls all work as expected. Be exhaustive in testing controls; broken games are not acceptable.
+
+Open the latest screenshots and inspect them visually, not just generate them, and capture gameplay rather than the start screen. Treat a missing element as missing in the build. If a headless/WebGL capture looks wrong, rerun in headed mode. Fix and rerun until the screenshots and text state are correct.
 
 ## Core Game Guidelines
 
@@ -125,27 +125,18 @@ window.advanceTime = (ms) => {
 ## Progress Tracking
 
 Create a `progress.md` file if it doesn't exist, and append TODOs, notes, gotchas, and loose ends as you go so another agent can pick up seamlessly.
-If a `progress.md` file already exists, read it first, including the original user prompt at the top (you may be continuing another agent's work). Do not overwrite the original prompt; preserve it.
-Update `progress.md` after each meaningful chunk of work (feature added, bug found, test run, or decision made).
-At the end of your work, leave TODOs and suggestions for the next agent in `progress.md`.
+If it already exists, read it first, including the original user prompt at the top. Do not overwrite the original prompt; preserve it.
+Update `progress.md` after each meaningful chunk of work (feature added, bug found, test run, or decision made), and leave TODOs and suggestions for the next agent at the end.
 
 ## Playwright Prerequisites
 
 - Prefer a local `playwright` dependency if the project already has it.
-- If unsure whether Playwright is available, check for `npx`:
-  ```
-  command -v npx >/dev/null 2>&1
-  ```
-- If `npx` is missing, install Node/npm and then install Playwright globally:
-  ```
-  npm install -g @playwright/mcp@latest
-  ```
+- If unsure whether Playwright is available, check for `npx` (`npx --version`).
+- If `npx` is missing, install Node/npm and then install Playwright globally (`npm install -g @playwright/mcp@latest`).
 - Do not switch to `@playwright/test` unless explicitly asked; stick to the client script.
 
-## Scripts
+## Scripts and references
 
-- `$WEB_GAME_CLIENT` (installed default: `$CODEX_HOME/skills/develop-web-game/scripts/web_game_playwright_client.js`) — Playwright-based action loop with virtual-time stepping, screenshot capture, and console error buffering. Pass an action burst via `--actions-file`, `--actions-json`, or `--click`.
-
-## References
-
-- `$WEB_GAME_ACTIONS` (installed default: `$CODEX_HOME/skills/develop-web-game/references/action_payloads.json`) — example action payloads (keyboard + mouse, per-frame capture). Use these to build your burst.
+- `scripts/web_game_playwright_client.js` — Playwright-based action loop with virtual-time stepping, screenshot capture, and console error buffering. Pass an action burst via `--actions-file`, `--actions-json`, or `--click`.
+- `references/action_payloads.json` — example action payloads (keyboard + mouse, per-frame capture). Use these to build your burst.
+- `assets/` — the small SVG and PNG used by the example page.

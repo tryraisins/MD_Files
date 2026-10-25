@@ -1,6 +1,6 @@
 ---
 name: yeknal-ui-quality-baseline
-description: Apply shared visual, responsive, accessibility, state, motion, and copy checks whenever creating, changing, or reviewing visible UI or mockups.
+description: "Apply one shared quality contract to any visible UI, covering tokens, spacing and optical centering, typography, icons, responsive containment, states, loading, motion, copy, and rendered QA. Use whenever visible interface work starts."
 ---
 
 # Universal UI Quality Baseline
@@ -27,6 +27,8 @@ Before implementing a new interface or a substantial visual change, create or up
 
 Record the visual thesis and reusable rules that implementation needs: role-based color values (including text and surfaces for each supported light or dark theme), font families and size/line-height roles, spacing scale, control geometry, radii, and component variants. Check text and controls against every surface where they appear. Keep the palette restrained, hierarchy clear, and equivalent buttons, cards, and inputs consistent through shared tokens or components. Give the page a clear focal point; add emphasis when hierarchy is too flat and remove competing detail when it feels crowded. Do not add arbitrary one-off values that bypass the documented system.
 
+Create or reuse role-based tokens for: color and semantic states; typography families, sizes, weights, and line heights; spacing and control insets; border widths and radii; elevation; control heights and icon sizes; motion duration, easing, and reduced-motion behavior; responsive type and layout steps. Equivalent components use the same tokens, and a one-off component inherits the nearest established role rather than inventing new values.
+
 ## Ground open-ended design in evidence
 
 When the visual direction is not already fixed, use `yeknal-design-reference-research` before committing to a pattern. Compare functionally similar products and complete flows across relevant devices; extract hierarchy, navigation grammar, state behavior, and responsive transformations instead of copying pixels or averaging gallery trends.
@@ -41,21 +43,6 @@ When the visual direction is not already fixed, use `yeknal-design-reference-res
 For a UI fix or improvement request, identify the affected route, component, state, and target viewport before styling. Reconstruct the local design system and working interaction first; record confirmed defects separately from preferences or unverified assumptions.
 
 Prioritize in this order: inaccessible or broken behavior, responsive and state failures, system inconsistency, hierarchy or task-flow weakness, then visual polish. Repair the governing token, primitive, layout constraint, or state contract when it explains multiple symptoms. Do not restyle every visible element, replace a working flow, or turn an evidence-backed repair into a broad redesign without scope.
-
-## Tokenize repeated decisions
-
-Create or reuse role-based tokens for:
-
-- color and semantic states;
-- typography families, sizes, weights, and line heights;
-- spacing and control insets;
-- border widths and radii;
-- elevation;
-- control heights and icon sizes;
-- motion duration, easing, and reduced-motion behavior;
-- responsive type and layout steps.
-
-Equivalent components must use the same tokens. A one-off component must inherit the nearest established role rather than inventing new values.
 
 ## Uniform spacing and geometry
 
@@ -91,7 +78,7 @@ Buttons, badges, pills, chips, segmented controls, tabs, navigation items, avata
 ## Iconography
 
 - Use one coherent icon family per product surface. Match optical size, stroke weight, corner character, and filled/outline state.
-- Reuse the project's established icon system when it is consistent. If no system exists for a React web product, prefer Phosphor Icons or another deliberate project-approved family; do not default to Lucide or Feather merely because they are common in generated UI.
+- Reuse the project's established icon system when it is consistent. If no system exists, use the family the chosen component system ships with (shadcn/ui ships Lucide) or another deliberate project-approved family such as Phosphor, and keep it consistent across the surface.
 - Use regular weight for routine utility actions, stronger weight for active navigation, and filled icons only for selected or critical states where the distinction is meaningful.
 - Do not mix multiple libraries on the same surface, hand-draw routine SVG icons, substitute emoji, or use Sparkle, MagicWand, Rocket, and similar AI shorthand without a real product reason.
 - Never decorate a link with the North East Arrow (`↗`, the `ArrowUpRight` icon, or U+2197) or any similar directional glyph, external-link badge, or emoji. When a link leaves the current page, opens a new tab, or downloads a file, say so in the link text and its accessible name or description and rely on the platform convention instead of an appended icon. A chevron that marks a menu row, accordion, or overflow control is a real affordance and is not this pattern.
@@ -112,95 +99,15 @@ Design real layout changes rather than scaled-down desktop screens.
 - Place breakpoints where the content or task changes, not merely where the CSS framework provides a token. Document what reorders, condenses, becomes a sheet, moves to overflow, or remains fixed.
 - Preserve logical source and focus order when grids re-span or visual order changes. A one-column collapse is not automatically the right mobile transformation.
 
-### Mobile web platform layer
-
-For a web app that will be used on a phone, ship these before the first component. They are CSS-and-meta fixes, not animation work, and they are the tells that separate a website from something installed.
-
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a" />
-```
-
-- **Gate every `:hover` behind capability.** Touch has no hover, so the first tap applies `:hover` and leaves it stuck. Wrap hover styles in `@media (hover: hover) and (pointer: fine)`, and give touch users an `:active` state instead.
-- **Kill the tap flash.** Set `-webkit-tap-highlight-color: transparent` once globally, then ensure every tappable element has its own `.active` feedback.
-- **Use dynamic viewport units.** App shells, drawers, and bottom-pinned UI use `100dvh`; heroes and first screens use `100svh` so nothing is cut off. Avoid `100vh` for anything that must track the visible area.
-- **Never let inputs zoom the page.** Keep input `font-size` at 16px (or scale up under `@media (pointer: coarse)`). Never use `user-scalable=no` or `maximum-scale=1`; fix the font size instead.
-- **Make taps immediate.** Apply `touch-action: manipulation` to buttons, links, and `[role="button"]`, and give press feedback on `:active` or `pointerdown`, not on `click`.
-- **Stop the browser hijacking scroll.** `overscroll-behavior: none` on `html, body` for an app shell; `overscroll-behavior: contain` on inner scroll containers. Prefer these over a `touchmove` + `preventDefault()` listener.
-- **Pad safe areas.** With `viewport-fit=cover`, pad fixed headers, bottom bars, toasts, and sheets with `env(safe-area-inset-*)` (with a `0px` fallback inside `calc()`).
-- **Keep text that is a control unselectable.** `user-select: none` on buttons, tabs, chips, and drag handles; never on `body`, because content text must stay selectable.
-- **Tell the browser which axes a gesture owns.** `touch-action: pan-y` on a horizontal carousel, `pan-x` on a vertical drag handle, `none` only on a surface that truly handles every axis. Prefer native `scroll-snap` over a hand-rolled spring.
-- **Verify on real hardware.** None of this reproduces in desktop device emulation. Connect a real phone (older than the one on your desk), test with the keyboard open, in landscape, and as an installed PWA if that is a target. State which fixes were verified from code and which need a device.
+For a web app that will be used on a phone, read [the mobile web platform layer](references/mobile-web.md) before the first component: viewport meta, hover gating, tap flash, dynamic viewport units, input zoom, tap latency, overscroll, safe areas, and touch-action.
 
 ## Complete page and flow anatomy
 
-For page- or screen-level work, map entry, primary job, commitment, completion, escape, recovery, and next step before polishing individual sections.
+For page- or screen-level work, map entry, primary job, commitment, completion, escape, recovery, and next step before polishing sections. Read [page and flow anatomy](references/page-and-flow.md) for the full checklist, including navigation, heroes, CTAs, footers, empty and error states, choice and attention, and the public website launch checks.
 
-- Include likely entry from search, shared links, bookmarks, or notifications. Interior pages must explain their purpose and current location without requiring a visit to the home page; preserve the intended destination through sign-in where applicable.
-- Navigation exposes structure, current location, and a reliable way home. Its mobile form follows priority and task frequency rather than defaulting blindly to a hamburger.
-- Heroes or first task surfaces keep one dominant purpose, one primary action, and credible product evidence. Essential meaning must survive without animation or a desktop crop.
-- On a public home page, state in one clear line what the product does. Give each page one visually dominant primary action; keep secondary actions visibly subordinate.
-- CTAs use outcome-specific verbs and place risk, price, scope, permission, or reversibility near the commitment.
-- Footers support continuation, support, required legal paths, and recovery; do not delete useful structure just to avoid a conventional footer.
-- 404, empty, error, offline, and permission states explain what happened and provide the best next action.
-- Bento and modular grids use spans to communicate hierarchy or relationships, keep logical DOM order, and transform intentionally on smaller screens.
-- Open Graph and share images are separate fixed-ratio artifacts with their own crop, type, fallback, and localization checks.
+## Loading and timing
 
-### Respect choice and attention
-
-Persuasion must leave the user informed and able to decline. Avoid invented urgency, concealed costs, misleading defaults, and needless obstacles to cancellation or refusal. Add confirmation or review when the consequence warrants it; keep routine, reversible actions fluid.
-
-Interrupt only for information that is actionable and time-sensitive or requires a decision before continuing. Keep routine feedback in the flow and make optional notifications controllable. Ask only for input needed for the task, reuse known values when appropriate, and accept equivalent valid formats without weakening validation.
-
-### Public website launch checks
-
-For a public multi-page website, audit the real routes and shared shell before calling the work complete. Apply the checks that fit the project; do not add empty content or features just to satisfy a checklist.
-
-- Check every page at phone widths for horizontal overflow, clipped content, unusable controls, and layout that still assumes a desktop screen. A mobile menu is needed when the existing navigation cannot fit and remain usable; preserve its links, keyboard and touch behavior, expanded state, and close behavior.
-- Verify internal links, footer links, logo destinations, and calls to action against the actual route map. Remove navigation only when the destination is confirmed obsolete or intentionally unavailable; do not hide a broken destination by deleting useful information architecture.
-- Make the logo link to the site's home route. Use `tel:` and `mailto:` links for visible phone numbers and email addresses when they are intended as contact methods.
-- Ensure each public page has a distinct, accurate title and useful meta description, and that the site has a working favicon. Keep page metadata aligned with visible content; use `yeknal-content-seo` for broader canonical, indexing, social-card, sitemap, or structured-data work.
-- Provide a deliberate not-found page with a useful route back into the site. Keep copyright dates current using the project's established convention; if generated dynamically, use a real date source and verify the rendered year.
-- Inspect visible copy for lorem ipsum, stale template instructions, and placeholder labels. Confirm each button performs its stated action and has a visible, accessible success or error result when its action can succeed or fail.
-- Never use staccato sentences in interface prose, design notes, or handoff copy. Connect related ideas with complete sentences and a natural rhythm; avoid strings of clipped fragments and one-line paragraphs. Keep labels, headings, and status messages concise where the interface needs them, while writing supporting explanations in flowing prose.
-- Check image dimensions and transfer size at rendered sizes. Resize oversized assets and prefer supported modern formats and responsive variants where the project supports them; retain appropriate quality, dimensions, and fallbacks rather than blindly recompressing every asset.
-- Treat the site as responsive page by page: inspect every route at narrow phone width and representative common phone, tablet, and desktop widths, then check shared components and any page-specific exceptions at the viewport where their content is most constrained.
-
-For an existing site audit, record each finding with its route, observed behavior, viewport or state, and the smallest appropriate correction. Separate confirmed broken behavior from optional polish.
-
-## Loading, skeletons, overlays, and timing buffers
-
-Choose feedback by what the user is waiting for:
-
-### Layout-shaped content loading
-
-- Use skeletons that match the final content's geometry, spacing, hierarchy, and radius. Random gray bars are not a content model.
-- Preserve layout dimensions to prevent cumulative layout shift.
-- Use the project's design-system skeleton first. In React projects without one, `react-loading-skeleton` is an acceptable lightweight option; a small tokenized CSS primitive is often sufficient.
-- Keep shimmer quiet and directional. Under `prefers-reduced-motion`, use a static or gently fading placeholder.
-- Do not show skeletons for destructive writes or short button actions; they imply content is arriving, not that a mutation is processing.
-
-### Action or process loading
-
-- A pending button keeps its label or an equally clear status, retains its dimensions, sets `aria-busy`, prevents accidental duplicate submission, and remains understandable without animation.
-- Reuse the project's existing progress primitive. `thinking-orbs` is appropriate only when the product tone and visible assistant/process workflow support it; it is not a universal replacement for every spinner and must not be forced into ordinary branded products.
-- Use determinate progress when real progress exists. Never fabricate percentages, steps, elapsed time, or tool activity.
-- Route progress libraries such as `nextjs-toploader` or NProgress are for actual navigation latency, not data fetching or arbitrary decoration.
-
-### Blocking overlays
-
-- Use a full-screen or modal overlay only when interaction must genuinely pause: session restoration, a consequential operation, or a transition that cannot safely continue in the background.
-- Provide a readable status, `role="status"` for non-modal feedback or correct dialog semantics for modal feedback, focus containment when modal, and focus restoration afterward.
-- Do not dismiss authentication or session-loading UI until signed-in or signed-out state is actually confirmed. Avoid flashes of the wrong screen.
-- Do not trigger navigation overlays on pointer-down or touch-start; scrolling must never look like navigation.
-
-### Timing buffers
-
-- Tie visibility to the real promise, transition, or state machine. Never use a fixed timeout as proof that work completed.
-- Immediate actions should acknowledge input at once. For page-level placeholders or overlays, a short 120-200ms reveal delay may prevent flashes when work finishes almost instantly.
-- Once a substantial overlay is shown, an optional short minimum-visible window around 250-400ms can prevent flicker, but it must never delay interaction unnecessarily or outlive the real operation.
-- Every loader needs a failure, retry, cancellation, or timeout path appropriate to the operation. Infinite unexplained loading is a bug.
+Choose feedback by what the user is waiting for. Read [loading and timing](references/loading-and-timing.md) for the rules on layout-shaped skeletons, pending controls, blocking overlays, and reveal or minimum-visible timing buffers. Every loader needs a failure, retry, cancellation, or timeout path; infinite unexplained loading is a bug.
 
 ## Motion and animation libraries
 

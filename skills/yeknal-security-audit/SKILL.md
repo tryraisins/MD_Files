@@ -1,6 +1,6 @@
 ---
 name: "yeknal-security-audit"
-description: "Run a multi-phase security audit of a repository, directory, or diff with a coverage ledger, adversarial verification, and schema-validated findings. Use only for explicit audit, vulnerability-hunt, or penetration-test requests that ask for findings or report artifacts, not for general security questions."
+description: "Run a multi-phase security audit of a repository, directory, or diff with a coverage ledger, adversarial verification, and schema-validated findings. Use only for explicit audit or pen-test requests, not general security questions."
 license: MIT
 metadata:
   source: https://github.com/cloudflare/security-audit-skill
@@ -21,29 +21,29 @@ Load the security policy baseline from `yeknal-application-security`, per-framew
 
 Loading this skill does not authorize the full workflow or any file creation.
 
-- **Guidance mode.** For security questions, focused review of a specific finding, methodology questions, or triage, read only the relevant parts and answer. Launch focused agents when useful, but they return to the current task. Do not run all six phases and do not create a run directory.
+- **Guidance mode.** For security questions, focused review of a specific finding, methodology questions, or triage, answer from `yeknal-application-security` plus this skill's core principles. Launch focused agents when useful, but they return to the current task. Do not run all six phases and do not create a run directory.
 - **Full audit mode.** Use the complete workflow when the user asks to audit or pen-test a codebase, asks for a full or end-to-end security review, or asks for report artifacts. Run all six phases and write the files defined below.
 
 If the request could mean either mode, ask one focused question before creating files.
 
-## Audit roles in this harness
+## Audit roles
 
 The workflow needs three independent roles. Bind them to real subagents; never simulate the roles inside one context.
 
 | Role | Lane | Responsibility |
 | --- | --- | --- |
-| Reconnaissance and hunting | `@deepseek-fast` | Read-only source inspection, one coverage unit per assignment, structured candidate output |
-| Repository-wide tracing and coverage critique | `@go-scout` | Follow a path across subsystems, find ledger gaps, never hunt and never write |
-| Candidate and record verification | A fresh agent per candidate, `@go-reasoner` when the candidate turns on subtle logic | Try to disprove the claim from source, with no access to the hunter's reasoning |
+| Reconnaissance and hunting | A read-only explorer agent | Read-only source inspection, one coverage unit per assignment, structured candidate output |
+| Repository-wide tracing and coverage critique | A repository-wide tracing agent | Follow a path across subsystems, find ledger gaps, never hunt and never write |
+| Candidate and record verification | A fresh agent per candidate, a stronger reasoning agent when the candidate turns on subtle logic | Try to disprove the claim from source, with no access to the hunter's reasoning |
 
 Rules that hold in every profile:
 
 - Only the parent spawns agents. Delegated agents cannot delegate.
 - Independence comes from fresh context. A verifier receives the candidate fingerprint, the claimed boundary, and the claimed evidence paths. It never receives the hunter's narrative, and it never verifies its own find.
 - The parent is the only writer of shared run files.
-- `@deepseek-fast` and `@go-scout` are read-only lanes. Never send them code edits, and never ask a hunting lane to fix what it found. Remediation is separate work that the user requests.
+- Hunting and tracing roles are read-only. Never send them code edits, and never ask a hunting role to fix what it found. Remediation is separate work that the user requests.
 
-Budget the run in agent invocations. Those calls consume the OpenCode Go allowance, so a `deep` profile on a large repository is a deliberate spend, not a default.
+Budget the run in agent invocations. A `deep` profile on a large repository is a deliberate spend, not a default.
 
 ## Execution safety
 
@@ -188,26 +188,22 @@ The parent owns every file in the run directory.
 Both validators are zero-dependency Node scripts. `report-schema.json` must stay beside `validate-findings.cjs` because the validator resolves it from its own directory.
 
 ```bash
-node skills/yeknal-security-audit/scripts/validate-coverage-ledger.cjs <run-dir>/coverage-ledger.json
-node skills/yeknal-security-audit/scripts/validate-findings.cjs <run-dir>/findings.json
+node <skill-dir>/scripts/validate-coverage-ledger.cjs <run-dir>/coverage-ledger.json
+node <skill-dir>/scripts/validate-findings.cjs <run-dir>/findings.json
 ```
 
 Run the ledger validator after creating the ledger and after every later ledger update. Run the findings validator in Phase 4 and again after every Phase 5 replacement. A validator failure is a blocking defect in the records, not a warning.
 
-On Windows the validators use a check-then-open fallback, because `O_NOFOLLOW` and `O_NONBLOCK` do not exist there. Every other input check still applies: symlink rejection, regular-file requirement, byte limit, and UTF-8 decoding. The read is no longer race-free, which matters only if a run directory is writable by someone other than you. Keep run directories outside shared or target-controlled locations.
+Keep run directories outside shared or target-controlled locations. Platform-specific validator behavior is documented in `references/VALIDATION-AND-REPORTING.md`.
 
 ## Anti-patterns
 
-1. Presenting a checklist deviation as a vulnerability.
-2. Offering defense-in-depth advice with no reachable boundary violation.
-3. Testing a live or shared environment because bounded local evidence was unavailable.
-4. Guessing provider, proxy, browser, identity, or deployment behavior that source does not show.
-5. Treating intended same-principal authority or self-impact as a cross-boundary result.
-6. Reporting a parser or runtime effect stronger than the observed one.
-7. Emitting prose-only hunter output that cannot be deduplicated or verified.
-8. Using carried prior findings as exemplars that anchor the current hunt.
-9. Assigning severity to a `needs_validation` record.
-10. Writing the report before independent verification, or letting prose and JSON disagree.
+1. Testing a live or shared environment because bounded local evidence was unavailable.
+2. Treating intended same-principal authority or self-impact as a cross-boundary result.
+3. Reporting a parser or runtime effect stronger than the observed one.
+4. Emitting prose-only hunter output that cannot be deduplicated or verified.
+5. Using carried prior findings as exemplars that anchor the current hunt.
+6. Writing the report before independent verification, or letting prose and JSON disagree.
 
 ## References
 

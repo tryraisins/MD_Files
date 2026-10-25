@@ -1,6 +1,6 @@
 ---
 name: yeknal-oil-motion
-description: Design, implement, optimize, and explain continuous interactive web animation built from generated or captured frames and controlled by scroll, pointer, drag, touch, device orientation, audio, data, or component state. Use when ordinary CSS or component motion cannot express a product transformation, character response, scene transition, or scrub-able media timeline.
+description: Build continuous interactive web animation from generated or captured frames, driven by scroll, pointer, drag, touch, orientation, audio, data, or state. Use when CSS or component motion cannot express a transformation or a scrub-able timeline.
 license: MIT. See LICENSE.txt
 compatibility: Media generation is optional. Deterministic processing may require Python 3, Pillow, ffmpeg, and ffprobe; browser implementations may require Canvas or WebGL.
 metadata:

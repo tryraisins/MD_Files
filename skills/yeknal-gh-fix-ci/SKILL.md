@@ -1,6 +1,6 @@
 ---
-name: "yeknal-gh-fix-ci"
-description: "Use when a user asks to debug or fix failing GitHub PR checks that run in GitHub Actions; use `gh` to inspect checks and logs, summarize failure context, draft a fix plan, and implement only after explicit approval. Treat external providers (for example Buildkite) as out of scope and report only the details URL."
+name: yeknal-gh-fix-ci
+description: "Debug failing GitHub PR checks that run in GitHub Actions: inspect checks and logs with `gh`, summarize the failure, propose a fix, and implement after approval. Use when a PR check fails; external providers are out of scope."
 metadata:
   internal: true
 ---
@@ -11,20 +11,14 @@ metadata:
 ## Overview
 
 Use `gh` to find failing PR checks, pull GitHub Actions logs for actionable failures, summarize the failure snippet, then propose a fix plan and implement it only after explicit approval.
-- If a plan-oriented skill (for example `create-plan`) is available, use it; otherwise draft a concise plan inline and request approval before implementing.
 
-Prereq: authenticate with the standard GitHub CLI once (for example, run `gh auth login`), then confirm with `gh auth status` (repo + workflow scopes are typically required).
+Prereq: authenticate with the standard GitHub CLI once (`gh auth login`), then confirm with `gh auth status` (repo + workflow scopes are typically required).
 
 ## Inputs
 
 - `repo`: path inside the repo (default `.`)
 - `pr`: PR number or URL (optional; defaults to current branch PR)
 - `gh` authentication for the repo host
-
-## Quick start
-
-- `python "<path-to-skill>/scripts/inspect_pr_checks.py" --repo "." --pr "<number-or-url>"`
-- Add `--json` if you want machine-friendly output for summarization.
 
 ## Workflow
 
@@ -53,19 +47,12 @@ Prereq: authenticate with the standard GitHub CLI once (for example, run `gh aut
    - Give the failing check name, the run URL (if any), and a concise log snippet.
    - Call out missing logs explicitly.
 6. Create a plan.
-   - Use the `create-plan` skill to draft a concise plan and request approval.
+   - Draft a concise plan inline and request approval before implementing.
 7. Implement after approval.
    - Apply the approved plan, summarize diffs and tests, and ask about opening a PR.
 8. Recheck status.
    - After changes, suggest re-running the relevant tests and `gh pr checks` to confirm.
 
-## Bundled Resources
+## Bundled script
 
-### scripts/inspect_pr_checks.py
-
-Fetch failing PR checks, pull GitHub Actions logs, and extract a failure snippet. Exits non-zero when failures remain so it can be used in automation.
-
-Usage examples:
-- `python "<path-to-skill>/scripts/inspect_pr_checks.py" --repo "." --pr "123"`
-- `python "<path-to-skill>/scripts/inspect_pr_checks.py" --repo "." --pr "https://github.com/org/repo/pull/123" --json`
-- `python "<path-to-skill>/scripts/inspect_pr_checks.py" --repo "." --max-lines 200 --context 40`
+`scripts/inspect_pr_checks.py` handles gh field drift and job-log fallbacks. It exits non-zero when failures remain, so it can be used in automation. Pass `--json` for machine-friendly output and `--max-lines` / `--context` to widen the snippet.

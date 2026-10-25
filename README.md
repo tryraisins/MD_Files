@@ -101,19 +101,19 @@ npx yeknal security
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal skills` | Syncs the 37-skill core profile into detected user-level agent folders, including shared UI/UX guidance and common motion design and review skills. |
+| `npx yeknal skills` | Syncs the 15-skill core profile into detected user-level agent folders, including shared UI/UX guidance and common motion design and review skills. |
 | `npx yeknal skills --skip-claude` | Avoids duplicate managed skills in OpenCode and other Claude-compatible readers by skipping and cleaning managed copies from `~/.claude/skills`. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --project --profile process` | Syncs the optional process and domain-modeling workflows into the current repository. |
 | `npx yeknal skills --profile core,web --project` | Combines exact profiles for one repository. |
 | `npx yeknal skills --skills nextjs-developer,vercel-deploy --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills aspnet-core` | Adds missing skills to the current repository without deleting or replacing existing skills. |
-| `npx yeknal skills --all` | Syncs all 96 skills for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs all 81 skills for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
 
-`yeknal@2.4.0` defaults to the updated 37-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
+`yeknal@2.4.0` defaults to the updated 15-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
 
 ### Install with skills.sh
 
@@ -131,7 +131,7 @@ npx skills add tryraisins/MD_Files --skill yeknal-frontend-design
 - Skill folders already carry the `yeknal-` prefix, so installed folder names match the catalog names; the CLI treats an existing prefix as final.
 - User scope syncs every detected agent folder: Codex, Claude, Gemini Antigravity/Antigravity, opencode, Cursor, Windsurf/Cascade, GitHub Copilot, Gemini CLI, Roo Code, Kiro, Cline, OpenHands, Amp, T3 Code, and the shared `~/.agents` standard. When `~/.agents` is present it is preferred (a detected T3 Code install also makes it the target), the overlapping per-harness folders are skipped, and their stale managed `yeknal-*` folders are removed. Project scope targets the current Git repository's `.agents/skills` folder, which Codex, Cursor, opencode, Roo Code, OpenHands, T3 Code, and other compatible clients scan from the working directory up to the repository root.
 - Profiles are exact sets. Combine them with commas; named `--skills` are also exact and do not add core implicitly, so project installs need not duplicate a user-level core profile.
-- Manual core installs include `yeknal-skill-router`. Setup adds a short bootstrap to search/load directly without native installation and preserves existing routers by default. Explicit eligible `--migrate` requests back them up with their dedicated collections. Older manual workflows retain additive project installation with `--project --add`.
+- Manual core installs no longer include a skill router. Setup adds a short bootstrap to search/load directly without native installation and preserves existing routers by default. Explicit eligible `--migrate` requests back them up with their dedicated collections. Older manual workflows retain additive project installation with `--project --add`.
 - `npx yeknal security` installs `yeknal-application-security`, `yeknal-security-best-practices`, `yeknal-security-ownership-map`, and `yeknal-security-threat-model`.
 - `npx yeknal slopscan` scans locally only. It makes no network requests and installs no skills.
 - `SEO` remains source/reference material and is not installed because it has no `SKILL.md` entry point.
@@ -141,29 +141,30 @@ npx skills add tryraisins/MD_Files --skill yeknal-frontend-design
 
 ## Capability profiles
 
-The global core is intentionally broader than a minimal coding starter but smaller than the full catalog. Its 37 entries cover:
+The global core is deliberately small: 15 entries a developer needs across unrelated projects. Its 15 entries cover:
 
-- process and reasoning management: brainstorming, research, orchestration/context management, implementation, review, diagnosis, cleanup, legacy sweeps, Git, finalization, documentation, and test planning;
-- canonical design: reference research, visual direction, UI quality, frontend implementation, redesign, mobile, motion, and human-AI interaction;
-- security: secure implementation, focused framework review, threat modeling, and sensitive-code ownership;
-- browser-based verification through Playwright.
+- process and delivery: implementation, review, diagnosis, finalization, project handoff, domain modeling, multi-agent orchestration, and Git safety;
+- design: visual direction, redesign of an existing product, and the shared UI quality floor;
+- security: cross-stack application security for secure implementation and review;
+- verification: the end-to-end testing policy and real-browser verification through Playwright;
+- documentation: Markdown maintenance.
 
 Specialist packs add depth without forcing every style, platform, integration, or media workflow into every agent prompt:
 
 | Profile | Skills | Purpose |
 | --- | ---: | --- |
-| `core` | 37 | High-frequency process, design, implementation, verification, and security. |
-| `process` | 10 | Optional agent cost, domain modeling, delivery, cleanup, verification upkeep, GitHub, exhaustive-output, and response workflows beyond core. |
-| `design` | 25 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
+| `core` | 15 | Cross-project process, design, security, verification, and documentation. |
+| `process` | 11 | Agent cost, delivery extras, legacy sweeps, GitHub, exhaustive-output, and response modes beyond core. |
+| `design` | 27 | Specialist visual styles, motion, prototyping, Figma, and image-led work. |
 | `security` | 5 | The five distinct security output contracts. |
 | `web` | 7 | Specialist web apps, frameworks, SEO, performance, launch readiness, and production errors beyond core. |
-| `platform` | 8 | Platform-specific engineering, deployment, and launch readiness. |
+| `platform` | 5 | Platform-specific engineering and the deploy router. |
 | `documents-media` | 10 | Documents, data files, presentations, notebooks, image, audio, and video. |
-| `productivity` | 5 | Linear and Notion workflows. |
+| `productivity` | 3 | Linear and Notion workflows. |
 | `openai` | 6 | OpenAI documentation and media-generation workflows. |
-| `all` | 96 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 81 | Every catalog entry; use when discovery cost is acceptable. |
 
-Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects`, `yeknal-mobile-app-design`, `yeknal-human-ai-interface-design`, and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-emil-design-eng`, `yeknal-find-animation-opportunities`, `yeknal-improve-animations`, and `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping, Figma, and image-led workflows remain in the design pack because their triggers and output contracts differ. The skill router still fetches a task-specific specialist when one is missing. Security keeps five folders for the same reason: implementation, review, auditing, threat modeling, and ownership analysis are not interchangeable artifacts.
+Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects` and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-improve-animations`, `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping, Figma, image-led and mobile workflows remain in the design pack because their triggers and output contracts differ. Deploy is one router (`yeknal-deploy`) that reads the provider from repository configuration, and Notion is one hub (`yeknal-notion`) with capture, meeting, research-brief and update modes, because four descriptions that all matched "deploy this" or "save this to Notion" cost more in routing accuracy than they returned. Security keeps five folders for the same reason: implementation, review, auditing, threat modeling, and ownership analysis are not interchangeable artifacts.
 
 ## Selection and precedence
 
@@ -175,7 +176,7 @@ Use the narrowest applicable skill. When guidance conflicts, follow this order:
 4. shared baselines such as `yeknal-ui-quality-baseline`, `yeknal-application-security`, and `yeknal-markdown-management`;
 5. generic specialist routers or personas.
 
-The consolidated routers are `yeknal-engineering-specialists`, `yeknal-orchestration-specialists`, and `yeknal-research-analysis`. They reduce duplicate persona skills without overriding more specific instructions.
+The consolidated routers are `yeknal-orchestration-specialists` and `yeknal-research-analysis`. They reduce duplicate persona skills without overriding more specific instructions. The former `yeknal-engineering-specialists` persona router was archived in the October 2026 audit: it had no entry gate, restated what the model already knows, and recommended unit tests against repository policy.
 
 ## Notable skill groups
 
@@ -184,11 +185,11 @@ The consolidated routers are `yeknal-engineering-specialists`, `yeknal-orchestra
 - `yeknal-frontend-design`: compact anti-generic frontend direction adapted from Anthropic's current frontend skill.
 - `yeknal-design-reference-research`: converts live products, galleries, flows, and source registries into an evidence ledger, product-specific thesis, rejection list, and responsive implementation brief.
 - `yeknal-human-ai-interface-design`: trustworthy AI suggestions, generation, retrieval, agents, approvals, provenance, recovery, and reliance-focused evaluation.
-- `yeknal-design-taste-frontend` and `yeknal-design-taste-frontend-v1`: detailed local design systems for expressive, non-templated interfaces.
-- `yeknal-high-end-visual-design`, `yeknal-minimalist-ui`, `yeknal-industrial-brutalist-ui`, and `yeknal-stitch-design-taste`: specialist art-direction and design-system workflows. `yeknal-gpt-taste` remains an explicit compatibility route to current guidance.
+- `yeknal-design-taste-frontend`: the detailed local design system for expressive, non-templated interfaces. The `v1` compatibility copy is archived; its three dials live in that skill's references.
+- `yeknal-high-end-visual-design`, `yeknal-minimalist-ui`, `yeknal-industrial-brutalist-ui`, and `yeknal-stitch-design-taste`: specialist art-direction and design-system workflows. `yeknal-gpt-taste` is archived; its legacy name is recorded in catalog metadata rather than kept as a routing entry.
 - `yeknal-ui-quality-baseline`: the shared UI contract for all core agents, including a durable `DESIGN.md`, coherent tokens, accessible responsive layouts, complete interaction and loading states, a mobile web platform layer (sticky hover, tap flash, dynamic viewport units, input zoom, overscroll, safe areas, and real-hardware verification), end-to-end user-flow checks, rendered QA, and public-site launch checks for links, page metadata, favicon, buttons, and placeholder copy.
 - `yeknal-mobile-app-design`: native mobile screen and flow implementation with optional Appllama reference research; it delegates motion-only work to `yeknal-animate-expo` and image-only concepts to `yeknal-imagegen-frontend-mobile`.
-- `yeknal-emil-design-eng`, `yeknal-animate`, `yeknal-animate-expo`, and the animation review skills: interaction and motion craft.
+- `yeknal-animate`, `yeknal-animate-expo`, and the animation review skills: interaction and motion craft. The Emil Kowalski reference material now lives inside `yeknal-animate/references/`.
 - `yeknal-break-ui`: adversarial worst-case data stress testing that renders demo and edge-case fixtures behind a dev-only toggle and reports each break with its fix; it complements the shared baseline's mobile web platform layer rather than duplicating it.
 - `yeknal-oil-motion`: a specialized workflow for generated or captured frame-based interactive media, adapted from `oil-oil/oil-motion`.
 - `yeknal-pick-ui-library`: dependency-aware component selection with Rare UI, beUI, Spectrum UI, and Spell UI treated as inspectable source registries, not default dependencies.
@@ -201,7 +202,7 @@ The consolidated routers are `yeknal-engineering-specialists`, `yeknal-orchestra
 ### Markdown and implementation commands
 
 - `yeknal-markdown-management`: create, update, merge, split, rename, and audit Markdown and skill folders without losing authority, links, anchors, or provenance.
-- `yeknal-implement`, `yeknal-review`, `yeknal-troubleshoot`, `yeknal-cleanup`, `yeknal-git`, `yeknal-finalize`, and `yeknal-add-changelog`: focused command workflows that defer to repository evidence and specialist skills.
+- `yeknal-implement`, `yeknal-review`, `yeknal-troubleshoot`, `yeknal-git`, `yeknal-finalize`, and `yeknal-add-changelog`: focused command workflows that defer to repository evidence and specialist skills. Cleanup now lives inside `yeknal-legacy-sweep`.
 - `yeknal-domain-modeling`: opt-in glossary and ADR practice for resolving domain language and recording only durable, consequential decisions.
 
 Run the local structural audit with:
@@ -253,7 +254,7 @@ The 2026-10-03 refresh reviewed [emilkowalski/skills](https://github.com/emilkow
 
 The 2026-10-07 workflow review examined [mattpocock/skills](https://github.com/mattpocock/skills) at `f3fc5632f401156837ee3872f14fe33ccf1024ea`. Its domain-modeling practice informed `yeknal-domain-modeling`, an independently written glossary/ADR workflow with no source text copied.
 
-The 2026-10-23 review examined pstack in [cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack) at `4ec7ffa173eaa70d3d9467a627baf0954645a353`. Two behavioral-verification workflows were adapted as `yeknal-verification-harness` and `yeknal-verification-audit`, both in the `process` profile: the first generates a project-local skill with launch, doctor, drive, evidence, cleanup, and a feature map; the second keeps that map honest with one live pass. Upstream is MIT (Copyright 2026 Lauren Tan), so each skill bundles the notice. Two upstream behaviors changed. The hardcoded `.cursor/skills/verify-<app>/` path becomes the project's own skill directory with `.agents/skills/` as the neutral fallback, and the `disable-model-invocation` flag becomes explicit-only wording in the description, because this catalog's frontmatter contract allows only known fields. The formal-verification pair (model checkers, provers, TLA+) was reviewed and left out: it pays off only where concurrency, parsers, or invariants exceed what tests reach, and carrying it across a design-and-product catalog would add upkeep without demand.
+The 2026-10-23 review examined pstack in [cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack) at `4ec7ffa173eaa70d3d9467a627baf0954645a353`. Two behavioral-verification workflows were adapted as `yeknal-verification-harness` and `yeknal-verification-audit`, both in the `process` profile: the first generates a project-local skill with launch, doctor, drive, evidence, cleanup, and a feature map; the second keeps that map honest with one live pass and now lives inside that skill as `references/upkeep.md`. Upstream is MIT (Copyright 2026 Lauren Tan), so each skill bundles the notice. Two upstream behaviors changed. The hardcoded `.cursor/skills/verify-<app>/` path becomes the project's own skill directory with `.agents/skills/` as the neutral fallback, and the `disable-model-invocation` flag becomes explicit-only wording in the description, because this catalog's frontmatter contract allows only known fields. The formal-verification pair (model checkers, provers, TLA+) was reviewed and left out: it pays off only where concurrency, parsers, or invariants exceed what tests reach, and carrying it across a design-and-product catalog would add upkeep without demand.
 
 The 2026-10-24 review examined [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) at `c1c8a8c1471069fb0e188eeaff69b8e8db6564a8` and adapted it as `yeknal-security-audit` in the `security` profile. Upstream is MIT (Copyright 2025-2026 Cloudflare, Inc.), so the skill bundles the notice. The six-phase engine, coverage ledger, findings schema, and both zero-dependency validators are carried over; the domain attack-class companions move under `references/`. Three upstream behaviors changed. Its platform-neutral `research` and `general` roles are bound to this harness's real lanes, because an unbound role name silently collapses the audit into one context. Its OS-sandbox requirement is stated as source-only on Windows rather than quietly assumed, so behavioral leads stay `needs_validation` instead of being guessed. Both validators are patched for Windows, where upstream rejects every input because `O_NOFOLLOW` and `O_NONBLOCK` are unavailable; the local build keeps every other input check and only loses the race-free read. Its two validator test files are not shipped, since this catalog does not carry unit suites inside skills and the pinned commit makes re-vendoring a diff. The four existing security skills were retargeted in the same change so that exactly one skill owns a full audit.
 
@@ -280,7 +281,7 @@ Deep Research is incorporated as a mode of `yeknal-research-analysis`; its separ
 
 The UI review is indexed in [`skills/yeknal-design-reference-research/references/source-atlas.md`](skills/yeknal-design-reference-research/references/source-atlas.md). It separates live-product evidence, galleries, motion clips, platform guidance, and source-code registries; rendered desktop/mobile checks and access limitations are recorded without treating attractive screenshots as usability proof.
 
-The latest review selectively strengthens existing entries instead of adding duplicate bundles: `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, and `yeknal-content-seo` cover UI repair, design-rule evidence, and page metadata; `yeknal-engineering-specialists` and `yeknal-review` add language-specific simplification checks for TypeScript, Python, and Go; `yeknal-implement` and `yeknal-markdown-management` separate judgment from repeatable verification work, preserve short discriminating skill triggers, and route detail progressively. Current `yeknal-animate` already provides a stricter motion-performance contract, so the external motion checklist was reviewed without duplication. Guidance was independently adapted; no upstream instructions override repository, project, or user authority.
+The latest review selectively strengthens existing entries instead of adding duplicate bundles: `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, and `yeknal-content-seo` cover UI repair, design-rule evidence, and page metadata; `yeknal-review` adds language-specific simplification checks for TypeScript, Python, and Go (the `yeknal-engineering-specialists` persona router that also carried them was archived in October 2026, with the checks kept in review); `yeknal-implement` and `yeknal-markdown-management` separate judgment from repeatable verification work, preserve short discriminating skill triggers, and route detail progressively. Current `yeknal-animate` already provides a stricter motion-performance contract, so the external motion checklist was reviewed without duplication. Guidance was independently adapted; no upstream instructions override repository, project, or user authority.
 
 ## Validation and releases
 
@@ -305,9 +306,9 @@ This catalog adapts and consolidates work from many upstream authors. Full sourc
 
 - Anthropic ([anthropics/skills](https://github.com/anthropics/skills), Apache-2.0) for `yeknal-frontend-design` and the document skills.
 - Leonxlnx ([leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill), MIT) for the taste-skill design derivatives.
-- Emil Kowalski ([emilkowalski/skills](https://github.com/emilkowalski/skills), MIT) for `yeknal-emil-design-eng`, `yeknal-break-ui`, and the motion craft bar, with the mobile-native web guidance folded into `yeknal-ui-quality-baseline`.
+- Emil Kowalski ([emilkowalski/skills](https://github.com/emilkowalski/skills), MIT) for the motion craft bar now carried by `yeknal-animate`, `yeknal-break-ui`, and the motion review skills, with the mobile-native web guidance folded into `yeknal-ui-quality-baseline`.
 - Appllama (MIT), [oil-oil/oil-motion](https://github.com/oil-oil/oil-motion) (MIT), [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) (MIT), and NeetigyaShah/deep-research (MIT).
-- Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack) (MIT) for `yeknal-verification-harness` and `yeknal-verification-audit`.
+- Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack) (MIT) for `yeknal-verification-harness`, which now also carries the upkeep loop from the former `yeknal-verification-audit`.
 - Microsoft, Figma, OpenAI, Notion, Vercel, Cloudflare, Netlify, Render, Sentry, Linear, and GitHub for provider and platform skills.
 - Rare UI (MIT + Commons Clause + Attribution), referenced for component selection; not vendored. Any project that installs a Rare UI component must retain its notice and add a README credit linking to [rareui.com](https://www.rareui.com).
 

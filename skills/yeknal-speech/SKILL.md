@@ -1,6 +1,6 @@
 ---
 name: "yeknal-speech"
-description: "Use when the user asks for text-to-speech narration or voiceover, accessibility reads, audio prompts, or batch speech generation via the OpenAI Audio API; run the bundled CLI (`scripts/text_to_speech.py`) with built-in voices and require `OPENAI_API_KEY` for live calls. Custom voice creation is out of scope."
+description: "Generate text-to-speech narration, voiceover, IVR prompts, or accessibility reads with the OpenAI Audio API and built-in voices. Use for spoken-audio requests; requires `OPENAI_API_KEY`. Custom voice creation is out of scope."
 metadata:
   internal: true
 ---
@@ -32,28 +32,9 @@ Produce spoken audio for the current project: narration, product-demo voiceover,
 - Write final artifacts under `output/speech/` when working in this repo.
 - Control output paths with `--out` or `--out-dir`; keep filenames stable and descriptive.
 
-## Dependencies (install if missing)
-Prefer `uv` for dependency management.
-
-Python packages:
-```
-uv pip install openai
-```
-If `uv` is unavailable:
-```
-python3 -m pip install openai
-```
-
 ## Environment
-- Live API calls require `OPENAI_API_KEY`.
 
-If the key is missing, give the user these steps:
-1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
-2. Set `OPENAI_API_KEY` as an environment variable in their system.
-3. Offer to guide them through setting the environment variable for their OS/shell if needed.
-- Never ask the user to paste the full key in chat. Ask them to set it locally and confirm when ready.
-
-If installation is not possible here, tell the user which dependency is missing and how to install it locally.
+Live API calls require `OPENAI_API_KEY` and the `openai` package (`uv pip install openai`, or `pip install openai`). If the key is missing, point the user at https://platform.openai.com/api-keys and let them set it locally; never ask them to paste it in chat. If installation is not possible here, tell the user which dependency is missing and how to install it locally.
 
 ## Defaults & rules
 - Use `gpt-4o-mini-tts-2025-12-15` unless the user asks for another model.
@@ -119,27 +100,11 @@ Emphasis: Stress "demo" and "show".
 
 More principles: `references/prompting.md`. Copy/paste specs: `references/sample-prompts.md`.
 
-## Guidance by use case
-Use these modules when the request is for a specific delivery style; they provide targeted defaults and templates.
-- Narration / explainer: `references/narration.md`
-- Product demo / voiceover: `references/voiceover.md`
-- IVR / phone prompts: `references/ivr.md`
-- Accessibility reads: `references/accessibility.md`
+## References
 
-## CLI + environment notes
-- CLI commands + examples: `references/cli.md`
-- API parameter quick reference: `references/audio-api.md`
-- Instruction patterns + examples: `references/voice-directions.md`
-- If network approvals or sandbox settings get in the way: `references/codex-network.md`
-
-## Reference map
-- **`references/cli.md`**: how to run speech generation and batches through `scripts/text_to_speech.py` (commands, flags, recipes).
-- **`references/audio-api.md`**: API parameters, limits, and the voice list.
-- **`references/voice-directions.md`**: instruction patterns and examples.
-- **`references/prompting.md`**: instruction best practices (structure, constraints, iteration).
-- **`references/sample-prompts.md`**: copy/paste instruction recipes (examples only; no extra theory).
-- **`references/narration.md`**: templates and defaults for narration and explainers.
-- **`references/voiceover.md`**: templates and defaults for product-demo voiceover.
-- **`references/ivr.md`**: templates and defaults for IVR and phone prompts.
-- **`references/accessibility.md`**: templates and defaults for accessibility reads.
-- **`references/codex-network.md`**: environment, sandbox, and network-approval troubleshooting.
+- `references/cli.md`: commands, flags, and batch recipes for `scripts/text_to_speech.py`.
+- `references/audio-api.md`: API parameters, limits, and the voice list.
+- `references/voice-directions.md` and `references/prompting.md`: instruction patterns and best practices.
+- `references/sample-prompts.md`: copy/paste instruction recipes.
+- `references/narration.md`, `references/voiceover.md`, `references/ivr.md`, `references/accessibility.md`: templates and defaults per delivery style.
+- `references/codex-network.md`: environment, sandbox, and network-approval troubleshooting.

@@ -9,7 +9,7 @@ Apply `yeknal-ui-quality-baseline` to every variant. Keep the prototype isolated
 
 # Prototyping Variants
 
-A divergence skill. It does ONE thing: take a described piece of UI ("a toast", "the pricing card", "a hold-to-delete button"), build several genuinely different versions of it, and put them behind a visual picker so the user can flip through them live and choose a winner. It does not review existing UI (that's `yeknal-review-animations`), plan fixes for it (that's `yeknal-improve-animations`), or choose dependencies (that's `yeknal-pick-ui-library`).
+A divergence skill. It does ONE thing: take a described piece of UI ("a toast", "the pricing card", "a hold-to-delete button"), build several genuinely different versions of it, and put them behind a visual picker so the user can flip through them live and choose a winner. It does not review existing UI (that's `yeknal-review-animations`), plan fixes for it (that's `yeknal-improve-animations`), choose dependencies (that's `yeknal-pick-ui-library`), or implement an already-made decision for real (that's `yeknal-implement`).
 
 ## Operating Posture
 

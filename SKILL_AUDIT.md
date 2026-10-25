@@ -179,3 +179,47 @@ git diff --check
 ```
 
 The checks validate static structure and syntax. They do not prove behavioral activation quality in every model/client or live security posture in a deployed application.
+
+## Portfolio audit, 2026-10-25
+
+Second full audit, run against the installed set rather than the repository alone, and judged by three models instead of one.
+
+### Outcome
+
+- 96 catalog skills reduced to 81: 10 merged, 6 archived, 1 new router created.
+- Core profile reduced from 37 skills to 15, on the test "a developer needs this across unrelated projects".
+- Installed footprint reduced from 250 folders and 152 unique names to 81 plus 11 personal skills, with every duplicate removed.
+- Always-on description cost reduced from 39,144 to 16,289 characters (about 9,786 to 4,072 tokens).
+- Median skill body reduced from 103 to 60 lines; total body lines from 9,148 to 5,568; largest from 482 to 243.
+- Every surviving skill has an explicit entry gate, a description under 260 characters, and no reference to a skill that no longer exists.
+
+### Method
+
+Each of the 96 skills was reviewed independently by DeepSeek V4.1 Flash, Claude Sonnet 5.5, and GPT-6 Luna against `QUALITY-BAR.md`: single entry gate, trigger precision, front-loaded description, body discipline, split threshold, followability, declared overlap, and provenance. Disagreements resolved by a fixed rule, with six genuinely contested items sent to DeepSeek V4 Pro. The register is recorded in the release commit.
+
+The three reviewers disagreed in a useful way: DeepSeek is conservative about deletion (66 trims, 2 merges), Sonnet produced every surviving merge proposal (15), and Luna voted no skill core-worthy except the genuinely cross-project ones, judging 70 as pack-only. That last result is the strongest signal that the catalog had been over-installed rather than badly written.
+
+### Consolidation
+
+- `yeknal-deploy` replaces four provider skills with a router that reads the provider from repository configuration and stops to ask when none or several match.
+- `yeknal-notion` replaces three Notion skills with one hub and four modes: capture, meeting, research brief, update.
+- `yeknal-legacy-sweep` absorbs `yeknal-dead-code-hunter` and `yeknal-cleanup`, including the scoped fast path for small jobs and the prove-unused-before-delete rules.
+- `yeknal-animate` absorbs the reference material of `yeknal-emil-design-eng`.
+- `yeknal-verification-harness` absorbs `yeknal-verification-audit` as `references/upkeep.md`.
+
+Archived skills move to `archive/skills/`, which is outside every discovery root. Restoring one is a folder move back into `skills/`.
+
+### Defects found that structure checks do not catch
+
+- A commit-and-push skill staged the whole working tree, including secrets and unrelated changes.
+- One skill required a plan skill that this catalog never shipped.
+- Several skills hardcoded an agent-home path that resolves to nothing after install.
+- 13 trimmed descriptions became invalid YAML because an unquoted colon-space breaks strict frontmatter parsing.
+- Two files were written with a UTF-8 BOM, which silently breaks frontmatter parsing for strict validators.
+- Four deploy descriptions all matched an unnamed "deploy this" request, with one never naming its own provider.
+
+### Verification
+
+`audit-skills.ps1` 81 skills with 0 errors and 0 warnings; `validate-routing-evals.ps1` 44 cases with 0 errors; `verify-discovery.js` 30/30; `verify-harness-setup.js` 18/18; `npm test --prefix yeknal-cli` 50/50; custom catalog check reporting 0 failures, 0 BOMs, 147 resolving relative links, and a longest description of 251 characters.
+
+Boundaries: `audit-markdown-links.ps1` needs PowerShell 7, which is absent here, so a Node link check stood in. Model-based routing quality is asserted by the 44 evaluation cases, not proven for every client.

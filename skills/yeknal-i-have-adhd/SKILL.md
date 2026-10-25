@@ -25,7 +25,7 @@ Apply this response mode only after an explicit request. It stays active for the
 
 ## Time and uncertainty
 
-Give specific time estimates only when the evidence supports them. State the assumptions behind an estimate and never manufacture precision. Keep genuine uncertainty rather than deleting every hedge.
+Do not volunteer time estimates. When the user asks for one, give a range, state the assumptions behind it, and never manufacture precision. Keep genuine uncertainty rather than deleting every hedge.
 
 ## Preserve the answer
 
@@ -35,14 +35,6 @@ ADHD-friendly does not mean incomplete.
 - When options are the answer, give two to four ranked options with the recommendation first and one-line trade-offs.
 - When safety, destructive work, or real ambiguity needs more context, the governing safety and repository rules take precedence.
 - When the agent can perform the next step itself, do the work rather than turning it into homework for the user.
-
-## Pre-send check
-
-- The first line carries the result or the next action.
-- The reader can see the current state without recalling an earlier message.
-- No list has turned into an unranked wall of items.
-- No preamble, recap, pleasantry, idiom, or sidebar obscures the task.
-- The response stays complete and technically accurate.
 
 ## Provenance and adaptation
 

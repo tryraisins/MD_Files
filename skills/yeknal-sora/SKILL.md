@@ -1,6 +1,6 @@
 ---
 name: "yeknal-sora"
-description: "Use when the user asks to generate, edit, extend, poll, list, download, or delete Sora videos, create reusable non-human Sora character references, or run local multi-video queues via the bundled CLI (`scripts/sora.py`); includes requests like: (i) generate AI video, (ii) edit this Sora clip, (iii) extend this video, (iv) create a character reference, (v) download video/thumbnail/spritesheet, and (vi) Sora batch planning; requires `OPENAI_API_KEY` and Sora API access."
+description: "Generate, edit, extend, poll, download, or delete Sora videos, build non-human character references, and run local video queues with the bundled CLI. Use for AI video requests; requires `OPENAI_API_KEY` and Sora API access."
 metadata:
   internal: true
 ---
@@ -22,7 +22,7 @@ Create and manage Sora video jobs for the current project: product demos, market
 - A completed video where the user wants the next beat/continuation -> `extend`
 - A completed video where the user wants a targeted change while preserving the shot -> `edit`
 - A video id where the user wants status or assets -> `status`, `poll`, or `download`
-- Many renders needed immediately inside Codex -> `create-batch` (local fan-out, not the Batch API)
+- Many renders needed immediately in one session -> `create-batch` (local fan-out, not the Batch API)
 - Many renders needed for offline processing or a studio pipeline -> use the official Batch API flow described in `references/video-api.md`
 - Anything else -> `create` (or `create-and-poll` when a ready asset is needed in one step)
 
@@ -37,15 +37,6 @@ Create and manage Sora video jobs for the current project: product demos, market
 8. To iterate on a completed shot, prefer `edit`; to continue the shot in time, prefer `extend`.
 9. Make one targeted change per iteration.
 
-## Authentication
-- Live API calls require `OPENAI_API_KEY`.
-
-If the key is missing, give the user these steps:
-1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
-2. Set `OPENAI_API_KEY` as an environment variable in their system.
-3. Offer to guide them through setting the environment variable for their OS/shell if needed.
-- Never ask the user to paste the full key in chat. Ask them to set it locally and confirm when ready.
-
 ## Defaults & rules
 - Default model: `sora-2` (use `sora-2-pro` for higher fidelity).
 - Default size: `1280x720`.
@@ -54,8 +45,8 @@ If the key is missing, give the user these steps:
 - `sora-2-pro` is required for `1920x1080` and `1080x1920`.
 - Use up to two characters per generation.
 - Use the OpenAI Python SDK (`openai` package). If high-level SDK helpers lag the latest Sora guide, use low-level `client.post/get/delete` inside the official SDK rather than standalone HTTP code.
-- Require `OPENAI_API_KEY` before any live API call.
-- If uv cache permissions fail, set `UV_CACHE_DIR=/tmp/uv-cache`.
+- Require `OPENAI_API_KEY` before any live API call. If it is missing, point the user at https://platform.openai.com/api-keys and let them set it locally; never ask them to paste the key in chat.
+- If uv cache permissions fail, point `UV_CACHE_DIR` at a writable temp directory.
 - Input reference images must be jpg/png/webp and should match the target size.
 - JSON `input_reference` objects use either `file_id` or `image_url`; uploaded file paths use multipart.
 - Download URLs expire after about 1 hour; copy assets to your own storage.
@@ -63,20 +54,6 @@ If the key is missing, give the user these steps:
 - `create-batch` in `scripts/sora.py` is a local concurrent queue, not the official Batch API.
 - Prefer the bundled CLI and **never modify** `scripts/sora.py` unless the user asks.
 - Sora can generate audio; when a user requests voiceover/audio, state it explicitly in the `Audio:` and `Dialogue:` lines and keep it short.
-
-## API limitations
-- Models are limited to `sora-2` and `sora-2-pro`.
-- API access to Sora models requires an organization-verified account.
-- Duration is set through the `seconds` parameter and currently supports `4`, `8`, `12`, `16`, and `20`.
-- Character uploads currently work best with short `2`-`4` second non-human MP4s in `16:9` or `9:16`, at `720p`-`1080p`.
-- Extensions can add up to `20` seconds each, up to six times per source video, for a maximum total length of `120` seconds.
-- Extensions currently do not support characters or image references.
-- This skill supports editing existing generated videos by ID.
-- The official Batch API currently supports `POST /v1/videos` only, with JSON bodies rather than multipart uploads.
-- Output sizes are limited by model (see `references/video-api.md` for the supported sizes).
-- Video creation is async; you must poll for completion before downloading.
-- Rate limits apply by usage tier (do not list specific limits).
-- Content restrictions are enforced by the API (see Guardrails below).
 
 ## Guardrails (must enforce)
 - Only content suitable for audiences under 18.
@@ -114,6 +91,7 @@ Augmentation rules:
 - Keep it short; add only details the user already implied or provided elsewhere.
 - For edits, list invariants explicitly ("same shot, change only X").
 - For character-based shots, mention the character name verbatim in the prompt.
+- Keep one main action and one camera move per shot, and use counts or beats for timing.
 - If a critical detail is missing and blocks success, ask a question; otherwise proceed.
 - If you pass a structured prompt file to the CLI, add `--no-augment` so the tool does not re-wrap it.
 
@@ -143,37 +121,19 @@ Lighting/mood: warm dusk practicals, soft haze
 Constraints: keep Mossy's silhouette and moss texture consistent across the shot
 ```
 
-## Prompting best practices (short list)
-- One main action + one camera move per shot.
-- Use counts or beats for timing ("two steps, pause, turn").
-- Keep text short and the camera locked off for UI or on-screen text.
-- Add a brief avoid line when artifacts appear (flicker, jitter, fast motion).
-- Shorter prompts are more creative; longer prompts are more controlled.
-- Put dialogue in a dedicated block; keep lines short for 4-8s clips.
-- Mention character names verbatim when using uploaded character IDs.
-- State invariants explicitly for edits (same shot, same camera move).
-- Prefer `edit` for targeted changes and `extend` for timeline continuation.
-- Iterate with single-change follow-ups to preserve continuity.
+## API limitations
 
-## Guidance by asset type
-Use these modules when the request is for a specific artifact; they provide targeted templates and defaults.
-- Cinematic shots: `references/cinematic-shots.md`
-- Social ads: `references/social-ads.md`
+- API access to Sora models requires an organization-verified account.
+- Character uploads work best with short 2-4 second non-human MP4s in 16:9 or 9:16 at 720p-1080p, and extensions do not support characters or image references.
+- Extensions add up to 20 seconds each, up to six times per source video, to a maximum of 120 seconds.
+- The official Batch API supports `POST /v1/videos` only, with JSON bodies rather than multipart uploads.
+- Video creation is async; poll before downloading. Rate limits apply by usage tier.
 
-## CLI + environment notes
-- CLI commands + examples: `references/cli.md`
-- API parameter quick reference: `references/video-api.md`
-- Prompting guidance: `references/prompting.md`
-- Sample prompts: `references/sample-prompts.md`
-- Troubleshooting: `references/troubleshooting.md`
-- Network/sandbox tips: `references/codex-network.md`
+## References
 
-## Reference map
-- **`references/cli.md`**: how to run create/edit/extend/create-character/poll/download/local-queue flows via `scripts/sora.py`.
-- **`references/video-api.md`**: API-level knobs (models, sizes, duration, characters, edits, extensions, official Batch API).
-- **`references/prompting.md`**: prompt structure, character continuity, editing, and extension guidance.
-- **`references/sample-prompts.md`**: copy/paste prompt recipes (examples only; no extra theory).
-- **`references/cinematic-shots.md`**: templates for filmic shots.
-- **`references/social-ads.md`**: templates for short social ad beats.
-- **`references/troubleshooting.md`**: common errors and fixes.
-- **`references/codex-network.md`**: network/approval troubleshooting.
+- `references/cli.md`: create, edit, extend, create-character, poll, and download flows through `scripts/sora.py`.
+- `references/video-api.md`: models, sizes, duration, characters, edits, extensions, and the official Batch API.
+- `references/prompting.md`: prompt structure, character continuity, editing, and extension guidance.
+- `references/sample-prompts.md`: copy/paste prompt recipes.
+- `references/cinematic-shots.md` and `references/social-ads.md`: templates per artifact type.
+- `references/troubleshooting.md` and `references/codex-network.md`: errors, fixes, network approval.

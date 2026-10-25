@@ -1,8 +1,26 @@
 # Project Handoff
 
-Last updated: 2026-10-24
+Last updated: 2026-10-25
 Branch: main
 HEAD: see git log; released source edf3ec6, catalog/tag e769323
+
+## Portfolio audit (2026-10-25)
+
+Full three-model audit of the catalog and the installed set. Decisions, evidence and merge map live in the release commit under `SKILL_AUDIT.md`; the working artifacts were `.audit/` (git-excluded).
+
+Shape: 96 catalog skills to 81 (10 merged, 6 archived, 1 new `yeknal-deploy` router), core 37 to 15, installed folders 250 to 81 plus 11 personal, always-on descriptions 39,144 to 16,289 characters, body p50 103 to 60, total body lines 9,148 to 5,568.
+
+Reviewers: DeepSeek V4.1 Flash (all 96), Claude Sonnet 5.5 (all 96), GPT-6 Luna (placement for all 96), DeepSeek V4 Pro for six contested items. Resolution rules were fixed before the votes: unanimous wins; a merge needs two votes or a single Sonnet merge with no keep dissent and a surviving target; core needs two core votes and a technology-agnostic trigger; a tie-break overrides the rules and is recorded.
+
+Consolidation: `yeknal-deploy` (router over four provider references, provider detected from repo config, asks when none or several match), `yeknal-notion` (hub with capture, meeting, research-brief and update modes), `yeknal-legacy-sweep` (absorbs dead-code-hunter and cleanup), `yeknal-animate` (absorbs emil reference material), `yeknal-verification-harness` (absorbs verification-audit as `references/upkeep.md`). Archived to `archive/skills/`, outside every discovery root: v1 taste, gpt-taste, animation-vocabulary, engineering-specialists, brainstorm, skill-router.
+
+Install layer: 98 redundant folders moved to `~/.skill-quarantine/2026-10-24/` with a restore manifest. The OpenCode root keeps 6 personal skills with no catalog equivalent: ai-sdk, shadcn, react-best-practices, visualize, template-creator, hatch-pet. Those six were judged against the quality bar but not put through the three-model board, which is the honest gap in coverage.
+
+Defects the review caught that structure checks do not: `yeet` staged the whole tree including secrets; `gh-fix-ci` required a `create-plan` skill that never existed; several skills hardcoded `$CODEX_HOME/skills/<name>` paths that resolve to nothing after install; 13 trimmed descriptions became invalid YAML from an unquoted colon-space; two files were written with a UTF-8 BOM; four deploy descriptions all matched an unnamed "deploy this".
+
+Verification: `audit-skills.ps1` 81/0/0; `validate-routing-evals.ps1` 44 cases, 0 errors; `verify-discovery.js` 30/30; `verify-harness-setup.js` 18/18; CLI suite 50/50; custom check 0 failures, 0 BOMs, 147 links resolving, longest description 251.
+
+Do not repeat: a single worker cannot finish 40 trims, it hits its step limit at about 23. Split trim work into batches of roughly 20 and verify descriptions, BOMs and dangling ids after every batch.
 
 ## Security audit skill (2026-10-24)
 

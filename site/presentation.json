@@ -54,7 +54,6 @@
     "yeknal-troubleshoot",
     "yeknal-playwright",
     "yeknal-testing-strategy",
-    "yeknal-brainstorm",
     "yeknal-redesign-existing-projects",
     "yeknal-animate",
     "yeknal-application-security",
@@ -84,7 +83,7 @@
     },
     {
       "task": "Put a site online",
-      "skill": "yeknal-vercel-deploy"
+      "skill": "yeknal-deploy"
     }
   ],
   "skills": {
@@ -152,8 +151,7 @@
       },
       "related": [
         "yeknal-review-animations",
-        "yeknal-find-animation-opportunities",
-        "yeknal-animation-vocabulary"
+        "yeknal-find-animation-opportunities"
       ]
     },
     "yeknal-animate-expo": {
@@ -180,27 +178,6 @@
         "yeknal-animate"
       ]
     },
-    "yeknal-animation-vocabulary": {
-      "title": "Animation vocabulary",
-      "purpose": "Turns a vague description of a motion effect into its proper name, so you can ask an agent or a designer for exactly what you mean.",
-      "tasks": [
-        "motion"
-      ],
-      "whenToUse": [
-        "You can describe an effect but don’t know what it’s called.",
-        "You want a precise word to put in a prompt or a design brief.",
-        "Two people are describing the same motion in different ways."
-      ],
-      "avoid": "It names effects; it doesn’t design or build them.",
-      "example": {
-        "ask": "What’s it called when a popover sort of bounces as it opens?",
-        "outcome": "It names the effect, explains what makes it look that way and suggests how to describe it in a request."
-      },
-      "related": [
-        "yeknal-animate",
-        "yeknal-review-animations"
-      ]
-    },
     "yeknal-apple-design": {
       "title": "Apple-style interface design",
       "purpose": "Brings Apple’s approach to fluid, physical motion and interface design to the web, from springs and interruptible gestures to materials, depth and typography.",
@@ -218,7 +195,6 @@
         "outcome": "It checks how the gesture tracks the finger, tunes the spring and velocity hand-off and adds a reduced-motion alternative."
       },
       "related": [
-        "yeknal-emil-design-eng",
         "yeknal-animate"
       ]
     },
@@ -286,28 +262,7 @@
         "license": "Apache-2.0"
       },
       "related": [
-        "yeknal-engineering-specialists",
         "yeknal-winui-app"
-      ]
-    },
-    "yeknal-brainstorm": {
-      "title": "Brainstorm",
-      "purpose": "Generates and compares genuinely different approaches before anything is built, which helps when the problem is still fuzzy.",
-      "tasks": [
-        "build"
-      ],
-      "whenToUse": [
-        "You have a problem but no settled approach.",
-        "You want more than one option before committing time to building.",
-        "The brief is ambiguous and needs framing first."
-      ],
-      "example": {
-        "ask": "Give me three different ways to let users undo a bulk delete, with the trade-offs.",
-        "outcome": "It sketches distinct approaches, compares effort and risk, and recommends one with its reasons."
-      },
-      "related": [
-        "yeknal-implement",
-        "yeknal-domain-modeling"
       ]
     },
     "yeknal-brandkit": {
@@ -389,53 +344,6 @@
         "yeknal-orchestration-specialists"
       ]
     },
-    "yeknal-cleanup": {
-      "title": "Cleanup",
-      "purpose": "Removes dead code, stale dependencies and redundant configuration once it has confirmed they really are unused.",
-      "tasks": [
-        "review",
-        "build"
-      ],
-      "whenToUse": [
-        "A project has accumulated files and packages nobody uses.",
-        "You want to prune configuration that no longer does anything.",
-        "You are tidying up after a large refactor."
-      ],
-      "example": {
-        "ask": "Clean up unused dependencies and leftover config from the old build setup.",
-        "outcome": "It proves each item is unused before removing it, then runs the build and tests to confirm nothing broke."
-      },
-      "related": [
-        "yeknal-dead-code-hunter",
-        "yeknal-review"
-      ]
-    },
-    "yeknal-cloudflare-deploy": {
-      "title": "Cloudflare deploy",
-      "purpose": "Deploys applications and infrastructure to Cloudflare using Workers, Pages and related services, with references for the platform’s products.",
-      "tasks": [
-        "ship"
-      ],
-      "whenToUse": [
-        "You want to host a site or API on Cloudflare.",
-        "You are setting up Workers, Pages, KV or R2 for a project.",
-        "A Cloudflare deployment needs configuring or fixing."
-      ],
-      "requirements": "Uses Wrangler and needs a Cloudflare account or API token.",
-      "example": {
-        "ask": "Deploy this Astro site to Cloudflare Pages with a preview for every branch.",
-        "outcome": "It configures the project for Pages, deploys it with Wrangler and gives you the preview and production URLs."
-      },
-      "attribution": {
-        "credit": "Adapted from Cloudflare’s published skill.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-vercel-deploy",
-        "yeknal-netlify-deploy",
-        "yeknal-render-deploy"
-      ]
-    },
     "yeknal-content-seo": {
       "title": "Content and SEO",
       "purpose": "Guides useful content and search visibility together, from keyword patterns and page briefs to metadata, structured data, sitemaps, local search, earned links and AI citations.",
@@ -459,26 +367,6 @@
       "related": [
         "yeknal-markdown-management",
         "yeknal-frontend-developer"
-      ]
-    },
-    "yeknal-dead-code-hunter": {
-      "title": "Dead code hunter",
-      "purpose": "Finds and removes dead code, unused imports, unreachable branches and variables nobody reads, across Python, TypeScript, JavaScript and other languages.",
-      "tasks": [
-        "review"
-      ],
-      "whenToUse": [
-        "You want a code-health scan before a refactor.",
-        "Linters keep flagging unused imports and symbols.",
-        "You suspect branches that can never run."
-      ],
-      "example": {
-        "ask": "Scan the services folder for unused exports and unreachable code.",
-        "outcome": "It lists each finding with evidence, removes the safe ones and flags anything that might be used dynamically."
-      },
-      "related": [
-        "yeknal-cleanup",
-        "yeknal-review"
       ]
     },
     "yeknal-design-reference-research": {
@@ -525,31 +413,6 @@
       "related": [
         "yeknal-frontend-design",
         "yeknal-high-end-visual-design"
-      ]
-    },
-    "yeknal-design-taste-frontend-v1": {
-      "title": "Design taste for the web (v1)",
-      "purpose": "The original version of the design-taste skill, kept for projects that depend on its exact behaviour.",
-      "tasks": [
-        "design"
-      ],
-      "compatibility": true,
-      "whenToUse": [
-        "A project was built around the v1 skill and must keep behaving the same.",
-        "You need to reproduce results from the earlier version."
-      ],
-      "avoid": "For new work, use Design taste for the web, which replaces this version.",
-      "example": {
-        "ask": "Keep using the v1 taste rules for this older landing page.",
-        "outcome": "It applies the original v1 guidance so the page stays consistent with what was built before."
-      },
-      "attribution": {
-        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
-        "license": "MIT",
-        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
-      },
-      "related": [
-        "yeknal-design-taste-frontend"
       ]
     },
     "yeknal-develop-web-game": {
@@ -625,54 +488,7 @@
         "sourceUrl": "https://github.com/mattpocock/skills"
       },
       "related": [
-        "yeknal-brainstorm",
         "yeknal-project-handoff"
-      ]
-    },
-    "yeknal-emil-design-eng": {
-      "title": "Design engineering polish",
-      "purpose": "Applies the careful interaction details and purposeful motion that Emil Kowalski is known for, so components feel considered rather than merely functional.",
-      "tasks": [
-        "design",
-        "motion"
-      ],
-      "whenToUse": [
-        "A component works but doesn’t feel finished.",
-        "You are reviewing hover, press and focus details.",
-        "You want motion that supports the interaction rather than decorating it."
-      ],
-      "example": {
-        "ask": "Polish the command menu so opening, filtering and selecting feel crisp.",
-        "outcome": "It tightens timing and easing, adds proper press and focus states and removes motion that slows people down."
-      },
-      "attribution": {
-        "credit": "Adapted from Emil Kowalski’s skills collection.",
-        "license": "MIT",
-        "sourceUrl": "https://github.com/emilkowalski/skills"
-      },
-      "related": [
-        "yeknal-apple-design",
-        "yeknal-review-animations"
-      ]
-    },
-    "yeknal-engineering-specialists": {
-      "title": "Engineering specialists",
-      "purpose": "Routes implementation through focused guidance for the framework, language, API, data, build, CLI, realtime or deployment problem in front of you.",
-      "tasks": [
-        "build"
-      ],
-      "whenToUse": [
-        "The work crosses several parts of the stack.",
-        "You want the agent to apply specialist knowledge for a particular framework or layer.",
-        "A change touches data, APIs and the interface at once."
-      ],
-      "example": {
-        "ask": "Add realtime updates to the dashboard using our existing WebSocket server.",
-        "outcome": "It applies realtime and frontend guidance together, wires the updates and handles reconnects and stale data."
-      },
-      "related": [
-        "yeknal-implement",
-        "yeknal-frontend-developer"
       ]
     },
     "yeknal-figma-implement-design": {
@@ -891,30 +707,6 @@
         "yeknal-yeet"
       ]
     },
-    "yeknal-gpt-taste": {
-      "title": "GPT taste (compatibility)",
-      "purpose": "Kept so older requests for gpt-taste still work. It hands premium art direction over to High-end visual design.",
-      "tasks": [
-        "design"
-      ],
-      "compatibility": true,
-      "whenToUse": [
-        "An existing prompt or project still asks for gpt-taste by name."
-      ],
-      "avoid": "For new work, use High-end visual design directly.",
-      "example": {
-        "ask": "Use gpt-taste for this hero section.",
-        "outcome": "It routes the request to the current high-end visual design guidance instead of the retired recipe."
-      },
-      "attribution": {
-        "credit": "Adapted from Leonxlnx’s taste-skill collection.",
-        "license": "MIT",
-        "sourceUrl": "https://github.com/leonxlnx/taste-skill"
-      },
-      "related": [
-        "yeknal-high-end-visual-design"
-      ]
-    },
     "yeknal-high-end-visual-design": {
       "title": "High-end visual design",
       "purpose": "Creates art-directed, showcase-level web interfaces with a product-specific visual idea, expressive type, deliberate composition and considered motion.",
@@ -1108,7 +900,6 @@
         "outcome": "It reads how the page works today, adds the export following existing patterns and runs the flow to confirm it works."
       },
       "related": [
-        "yeknal-brainstorm",
         "yeknal-review",
         "yeknal-testing-strategy"
       ]
@@ -1239,8 +1030,6 @@
         "sourceUrl": "https://github.com/openclaw/openclaw"
       },
       "related": [
-        "yeknal-cleanup",
-        "yeknal-dead-code-hunter",
         "yeknal-testing-strategy"
       ]
     },
@@ -1339,31 +1128,6 @@
         "yeknal-ui-quality-baseline"
       ]
     },
-    "yeknal-netlify-deploy": {
-      "title": "Netlify deploy",
-      "purpose": "Deploys and links web projects on Netlify with the Netlify CLI, including preview and production deploys.",
-      "tasks": [
-        "ship"
-      ],
-      "whenToUse": [
-        "You want a site hosted on Netlify.",
-        "You need a preview deploy to share.",
-        "A repository needs linking to a Netlify site."
-      ],
-      "requirements": "Uses the Netlify CLI and needs a Netlify account or token.",
-      "example": {
-        "ask": "Deploy a preview of this branch to Netlify and send me the link.",
-        "outcome": "It links the project if needed, runs a preview deploy and returns the URL."
-      },
-      "attribution": {
-        "credit": "Adapted from Netlify’s published skill.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-vercel-deploy",
-        "yeknal-cloudflare-deploy"
-      ]
-    },
     "yeknal-nextjs-developer": {
       "title": "Next.js developer",
       "purpose": "Builds and maintains Next.js apps using the version, router, rendering model and deployment target the project already has.",
@@ -1380,82 +1144,7 @@
         "outcome": "It checks the installed version and router, then adds the route with the right caching for that setup."
       },
       "related": [
-        "yeknal-frontend-developer",
-        "yeknal-engineering-specialists"
-      ]
-    },
-    "yeknal-notion-knowledge-capture": {
-      "title": "Notion knowledge capture",
-      "purpose": "Turns conversations and decisions into structured Notion pages, such as wiki entries, how-tos, decision records and FAQs, with proper links.",
-      "tasks": [
-        "docs"
-      ],
-      "whenToUse": [
-        "A decision was made in chat and needs recording.",
-        "Notes should become a proper how-to or FAQ.",
-        "You want new pages linked into the existing wiki."
-      ],
-      "requirements": "Needs the Notion MCP server connected.",
-      "example": {
-        "ask": "Write up today’s decision about the billing provider as a Notion page.",
-        "outcome": "It creates a decision page with context, options and outcome, and links it from the right wiki section."
-      },
-      "attribution": {
-        "credit": "Adapted from Notion’s published skills.",
-        "license": "MIT"
-      },
-      "related": [
-        "yeknal-notion-research-documentation",
-        "yeknal-notion-meeting-intelligence"
-      ]
-    },
-    "yeknal-notion-meeting-intelligence": {
-      "title": "Notion meeting prep",
-      "purpose": "Prepares meeting materials from Notion context and research, such as agendas and pre-reads tailored to the people attending.",
-      "tasks": [
-        "docs"
-      ],
-      "whenToUse": [
-        "You have a meeting coming up and scattered notes in Notion.",
-        "Attendees need a pre-read before the call.",
-        "An agenda should reflect what each person cares about."
-      ],
-      "requirements": "Needs the Notion MCP server connected.",
-      "example": {
-        "ask": "Prepare an agenda and pre-read for Thursday’s roadmap review.",
-        "outcome": "It gathers the relevant Notion pages, drafts an agenda and writes a short pre-read for attendees."
-      },
-      "attribution": {
-        "credit": "Adapted from Notion’s published skills.",
-        "license": "MIT"
-      },
-      "related": [
-        "yeknal-notion-knowledge-capture"
-      ]
-    },
-    "yeknal-notion-research-documentation": {
-      "title": "Notion research and docs",
-      "purpose": "Researches across several Notion sources and writes structured briefs, comparisons or reports with citations.",
-      "tasks": [
-        "docs"
-      ],
-      "whenToUse": [
-        "The information you need is spread across many Notion pages.",
-        "You want a brief or comparison with sources cited.",
-        "A report should be saved back into Notion."
-      ],
-      "requirements": "Needs the Notion MCP server connected.",
-      "example": {
-        "ask": "Summarise everything we’ve written about onboarding churn into one brief.",
-        "outcome": "It searches the workspace, synthesises the findings and writes a cited brief in Notion."
-      },
-      "attribution": {
-        "credit": "Adapted from Notion’s published skills.",
-        "license": "MIT"
-      },
-      "related": [
-        "yeknal-research-analysis",
-        "yeknal-notion-knowledge-capture"
+        "yeknal-frontend-developer"
       ]
     },
     "yeknal-notion-spec-to-implementation": {
@@ -1550,10 +1239,7 @@
         "ask": "Split this migration across agents so each one handles a service and reports back.",
         "outcome": "It divides the work into bounded tasks, defines what each agent returns and merges the results with evidence."
       },
-      "related": [
-        "yeknal-skill-router",
-        "yeknal-engineering-specialists"
-      ]
+      "related": []
     },
     "yeknal-pdf": {
       "title": "PDF files",
@@ -1698,7 +1384,6 @@
         "credit": "Written for this catalog, drawing on Emil Kowalski’s design-engineering ideas as inspiration; no source was copied."
       },
       "related": [
-        "yeknal-brainstorm",
         "yeknal-frontend-design"
       ]
     },
@@ -1727,31 +1412,6 @@
         "yeknal-ui-quality-baseline"
       ]
     },
-    "yeknal-render-deploy": {
-      "title": "Render deploy",
-      "purpose": "Deploys applications to Render by analysing the codebase, generating a render.yaml Blueprint and pointing you to the right dashboard pages.",
-      "tasks": [
-        "ship"
-      ],
-      "whenToUse": [
-        "You want an app hosted on Render.",
-        "A project needs a Blueprint for its services and databases.",
-        "You are setting up a web service, worker or cron job on Render."
-      ],
-      "requirements": "Needs a Render account; some steps use the Render API or MCP server.",
-      "example": {
-        "ask": "Set this app up on Render with a web service and a Postgres database.",
-        "outcome": "It writes a render.yaml Blueprint for both, explains the settings and gives you the link to create them."
-      },
-      "attribution": {
-        "credit": "Adapted from Render’s published skill.",
-        "license": "Apache-2.0"
-      },
-      "related": [
-        "yeknal-vercel-deploy",
-        "yeknal-cloudflare-deploy"
-      ]
-    },
     "yeknal-research-analysis": {
       "title": "Research and analysis",
       "purpose": "Researches and compares sources, checks them against each other and writes evidence-backed reports for market, competitive, trend or data questions.",
@@ -1774,7 +1434,7 @@
       },
       "related": [
         "yeknal-design-reference-research",
-        "yeknal-notion-research-documentation"
+        "yeknal-notion"
       ]
     },
     "yeknal-review": {
@@ -1972,26 +1632,6 @@
       },
       "related": [
         "yeknal-troubleshoot"
-      ]
-    },
-    "yeknal-skill-router": {
-      "title": "Skill router (legacy)",
-      "purpose": "An older installable router that tells an agent how to find and load the right Yeknal skill for substantive work.",
-      "tasks": [
-        "agents"
-      ],
-      "compatibility": true,
-      "whenToUse": [
-        "You install skills by hand and want one entry point to the rest.",
-        "Your agent can’t use the setup command’s instructions."
-      ],
-      "avoid": "Most people should run npx yeknal@latest setup instead, which does this without installing a router skill.",
-      "example": {
-        "ask": "Fix the failing build.",
-        "outcome": "The router checks for a repository-specific skill first, then loads the shared troubleshooting skill."
-      },
-      "related": [
-        "yeknal-orchestration-specialists"
       ]
     },
     "yeknal-slides": {
@@ -2249,58 +1889,6 @@
         "yeknal-human-ai-interface-design"
       ]
     },
-    "yeknal-vercel-deploy": {
-      "title": "Vercel deploy",
-      "purpose": "Deploys applications and websites to Vercel and gives you the link, with preview deploys by default and production when you ask.",
-      "tasks": [
-        "ship"
-      ],
-      "whenToUse": [
-        "You want an app online quickly.",
-        "You need a preview link to share.",
-        "A project is ready to go to production on Vercel."
-      ],
-      "requirements": "Uses the Vercel CLI and a Vercel account.",
-      "example": {
-        "ask": "Deploy this and give me the link.",
-        "outcome": "It checks for the Vercel CLI, runs a preview deploy and returns the URL."
-      },
-      "attribution": {
-        "credit": "Adapted from Vercel’s published skill.",
-        "license": "MIT"
-      },
-      "related": [
-        "yeknal-netlify-deploy",
-        "yeknal-cloudflare-deploy"
-      ]
-    },
-    "yeknal-verification-audit": {
-      "title": "Verification audit",
-      "purpose": "Keeps a project's verification skill and feature map honest by rechecking every feature against source, driving every feature in one live session, and shipping only proven corrections.",
-      "tasks": [
-        "review"
-      ],
-      "whenToUse": [
-        "A verification skill or feature map has fallen behind the app.",
-        "You want every mapped feature exercised live, not just skimmed.",
-        "You need one clear outcome: clean, changed or blocked."
-      ],
-      "avoid": "It never edits product code; a real regression is reported, not fixed here.",
-      "example": {
-        "ask": "Audit the verify skill before we cut the release.",
-        "outcome": "It reads each feature from source, drives all of them in one session, fixes stale map entries and reports what is actually broken."
-      },
-      "attribution": {
-        "credit": "Adapted from Lauren Tan's pstack skill of the same name.",
-        "license": "MIT",
-        "sourceUrl": "https://github.com/cursor/plugins/tree/main/pstack"
-      },
-      "related": [
-        "yeknal-verification-harness",
-        "yeknal-testing-strategy",
-        "yeknal-troubleshoot"
-      ]
-    },
     "yeknal-verification-harness": {
       "title": "Verification harness",
       "purpose": "Generates a project-local skill that launches the real app, drives a feature the way a user would, and captures proof, with a feature map for the next agent to follow.",
@@ -2325,8 +1913,7 @@
       },
       "related": [
         "yeknal-testing-strategy",
-        "yeknal-playwright",
-        "yeknal-verification-audit"
+        "yeknal-playwright"
       ]
     },
     "yeknal-winui-app": {
@@ -2397,6 +1984,56 @@
       "related": [
         "yeknal-git",
         "yeknal-gh-address-comments"
+      ]
+    },
+    "yeknal-deploy": {
+      "title": "Deploy",
+      "purpose": "Detects the hosting provider from repository configuration and follows that provider's deploy procedure, so an unnamed \"deploy this\" request has one entry point instead of four competing ones.",
+      "tasks": [
+        "ship"
+      ],
+      "whenToUse": [
+        "The user asks to deploy, host, publish or push a site live.",
+        "The provider is unstated and has to be read from wrangler, netlify, render or vercel configuration.",
+        "A deploy failed and the provider-specific recovery step is needed."
+      ],
+      "avoid": "It is not a hosting comparison and not an infrastructure provisioner. It detects a provider, runs the documented path, and stops to ask when two configurations match.",
+      "example": {
+        "ask": "Deploy this app and give me the live link.",
+        "outcome": "It reads the repository configuration, identifies the provider, follows that provider's preview-first procedure, and reports the deployed URL and any missing credentials."
+      },
+      "attribution": {
+        "credit": "Provider procedures are adapted from the four previously separate deploy skills, whose licence files moved with the content into references/licenses.",
+        "sourceUrl": "https://developers.cloudflare.com/workers/"
+      },
+      "related": [
+        "yeknal-finalize",
+        "yeknal-yeet"
+      ]
+    },
+    "yeknal-notion": {
+      "title": "Notion",
+      "purpose": "One Notion entry point with four modes: capture a decision, prepare a meeting, research a cited brief, and update an existing page.",
+      "tasks": [
+        "docs"
+      ],
+      "whenToUse": [
+        "A conversation or decision should become a structured Notion page.",
+        "Meeting material has to be prepared from existing Notion context.",
+        "Research across several Notion sources has to become a cited brief."
+      ],
+      "avoid": "It is not a general note-taking skill and not a research tool for sources outside Notion. The request must name Notion.",
+      "example": {
+        "ask": "Save these decisions into Notion as a page for the team.",
+        "outcome": "It selects the capture mode, searches for an existing page before creating one, writes the page with the team template, and returns the link."
+      },
+      "attribution": {
+        "credit": "Meeting and research templates were consolidated from the three previously separate Notion skills; no upstream source text is claimed.",
+        "sourceUrl": "https://developers.notion.com/"
+      },
+      "related": [
+        "yeknal-markdown-management",
+        "yeknal-research-analysis"
       ]
     }
   }

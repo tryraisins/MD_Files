@@ -1,6 +1,6 @@
 ---
 name: yeknal-find-animation-opportunities
-description: Search a codebase or UI for places that don't animate but should, and reject everything that shouldn't. Read-only; it proposes motion with exact values, it does not implement it. Use when the user asks "what could be animated here?" or wants to "make this feel more alive". For fixing existing animations, use improve-animations or review-animations instead.
+description: Search a UI for moments that should animate and reject the rest, with exact values for each surviving suggestion. Read-only; it proposes motion, it does not implement it. For fixes use `yeknal-improve-animations`.
 ---
 
 # Finding Animation Opportunities
@@ -54,15 +54,7 @@ The answer must be one of these, named explicitly:
 
 ### 3. Speed — can it stay inside budget?
 
-The suggestion must work within the standard budgets (UI under 300ms):
-
-| Element | Duration |
-| --- | --- |
-| Press feedback | 100–160ms |
-| Tooltips, small popovers | 125–200ms |
-| Dropdowns, selects | 150–250ms |
-| Modals, drawers | 200–500ms |
-| Marketing / explanatory | Can be longer |
+The suggestion must work within the standard budgets in `yeknal-animate`: press feedback 100–160ms, tooltips and small popovers 125–200ms, dropdowns and selects 150–250ms, modals and drawers 200–500ms, and UI under 300ms overall.
 
 If the moment only "works" as a slow, showy animation, it fails the gate.
 

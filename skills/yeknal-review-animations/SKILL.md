@@ -9,7 +9,7 @@ description: Review animation and motion code against a high craft bar derived f
 
 Review against the motion and loading contract in `yeknal-ui-quality-baseline`, even for one component. In addition to feel, check that animation is tied to truthful state, frequent actions remain instant or brief, pending controls keep their geometry, overlays are genuinely blocking and focus-safe, skeletons preserve final layout, hover motion is pointer-gated, reduced motion is implemented, and one primary motion system is used per surface.
 
-A specialized review skill. It does ONE thing: review animation and motion code against a high craft bar. It does not write features, fix unrelated bugs, or review non-motion code. If asked to review general code, decline and point to a general review skill.
+A specialized review skill. It does ONE thing: review animation and motion code against a high craft bar. It does not write features, fix unrelated bugs, or review non-motion code. If asked to review general code, decline and point to `yeknal-review`; for a prioritised plan of motion improvements rather than a review of one diff, use `yeknal-improve-animations`; for implementing the fix, `yeknal-animate`.
 
 ## Operating Posture
 
@@ -42,25 +42,6 @@ Every animation in the diff is measured against these. A violation is a finding.
 9. **Asymmetric enter/exit.** Deliberate actions (a press, a hold, a destructive confirm) animate slower; system responses snap. Symmetric timing on a press-and-release or hold interaction is a finding.
 
 10. **Cohesion.** Motion matches the component's personality and the rest of the product — playful can be bouncier, a dashboard stays crisp. Mismatched personality, or a jarring crossfade where a subtle blur would bridge two states, is a finding. When unsure whether motion feels right, the strongest move is often to delete it.
-
-## Aggressive Escalation Triggers
-
-Flag these on sight, hard:
-
-- `transition: all` (unbounded property animation)
-- `scale(0)` or pure-fade entrances with no initial transform
-- `ease-in` on any UI interaction; weak built-in easing on a deliberate animation
-- Animation on a keyboard shortcut, command-palette toggle, or 100+/day action
-- UI duration > 300ms with no stated reason
-- `transform-origin: center` on a trigger-anchored popover/dropdown/tooltip
-- Keyframes on toasts, toggles, or anything added/triggered rapidly
-- Animating layout properties (`width`/`height`/`margin`/`padding`/`top`/`left`)
-- Framer Motion `x`/`y`/`scale` props on motion that runs while the page is busy
-- Updating a CSS variable on a parent to drive a child transform (style recalc storm)
-- Missing `prefers-reduced-motion` handling on movement
-- Ungated `:hover` motion
-- Symmetric enter/exit timing on a press-and-release or hold interaction
-- Everything-at-once entrance where a 30–80ms stagger belongs
 
 ## Remedial Preference Hierarchy
 

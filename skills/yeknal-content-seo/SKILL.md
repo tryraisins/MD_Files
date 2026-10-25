@@ -1,6 +1,6 @@
 ---
 name: yeknal-content-seo
-description: Evidence-led search visibility guidance for content, technical SEO, local search, earned links, and AI answers. Use when choosing target queries, deciding whether to update or create a page, writing or publishing pages, auditing metadata, structure, structured data, crawlability, sitemaps, or canonicalization, triaging traffic changes, improving local or AI-search visibility, or submitting changed URLs with IndexNow.
+description: "Evidence-led search visibility: target queries, update-or-create decisions, metadata, structure, structured data, crawlability, sitemaps, canonicalization, local search, earned links, and AI answers. Use for SEO work."
 metadata:
   internal: true
   indexnow-source-reviewed: "2026-09-07"
@@ -14,7 +14,7 @@ Anchor every decision in reader intent and product evidence. Produce genuinely u
 ## Workflow
 
 1. Define the audience, the decision they are making, the intent stage, the primary action, and the success measure.
-2. Classify the target query by what the live results contain, not by assumption. Record the page type that occupies the top results and whether the site can serve that intent honestly.
+2. Classify the target query by what the live results contain, not by assumption. Record the page type that occupies the top results and whether the site can serve that intent honestly. Use [keyword intent and patterns](references/keyword-intent-and-patterns.md) for the repeatable patterns.
 3. Judge winnability at the site's current authority. Note the strength of the pages already ranking and whether the site has or can earn comparable support. Choose a narrower query when it cannot.
 4. Map queries to existing URLs before proposing a new page. Use query and page data when available, and decide update or create per [page decisions](references/page-decisions-and-briefs.md).
 5. For every SEO optimization request, assess whether branded-search or AI-search visibility is in scope and whether existing authoritative pages leave a real information gap. Create or update an AI-readable brand information page only when both are true. Follow [AI search and brand information](#ai-search-and-brand-information).
@@ -22,23 +22,10 @@ Anchor every decision in reader intent and product evidence. Produce genuinely u
 7. Shape a clear information hierarchy: one primary topic per page, with descriptive links throughout.
 8. Write specific, accurate, scannable copy that uses real examples and accessible language.
 9. Add metadata and structured data only where they truthfully describe visible content and meet the search feature's guidelines.
-10. Plan distribution before publishing: contextual links from related pages, earned coverage, or a local profile. A page with no inbound path and no coverage does not circulate.
+10. Plan distribution before publishing: contextual links from related pages, earned coverage, a local profile, or map visibility per [local search](references/local-search.md). A page with no inbound path and no coverage does not circulate.
 11. Verify mobile layout, performance, accessibility, crawlability, sitemap accuracy, analytics events, and rendered output. Follow [the technical audit](references/technical-audit.md).
 12. Before replacing an existing page or template, run the diff gate in [publishing and change control](references/publishing-and-change-control.md).
 13. When published URLs are added, materially updated, redirected, or deleted, evaluate IndexNow as a change-notification channel. Read [the IndexNow workflow](references/indexnow.md) before implementing or submitting.
-
-## When to load a reference
-
-| Task | Reference |
-| --- | --- |
-| Choosing queries, intent, and repeatable patterns | [keyword intent and patterns](references/keyword-intent-and-patterns.md) |
-| Deciding update or create, and writing the brief | [page decisions and briefs](references/page-decisions-and-briefs.md) |
-| Publishing, rewriting, approvals, and rollback | [publishing and change control](references/publishing-and-change-control.md) |
-| Pruning, repointing, and restructuring existing pages | [content maintenance](references/content-maintenance.md) |
-| Local business and map visibility | [local search](references/local-search.md) |
-| Earning links, coverage, and AI citations | [authority and links](references/authority-and-links.md) |
-| Metadata, schema, crawl, sitemap, and performance checks | [technical audit](references/technical-audit.md) |
-| Change notification | [IndexNow](references/indexnow.md) |
 
 ## Rules
 
@@ -58,7 +45,7 @@ Anchor every decision in reader intent and product evidence. Produce genuinely u
 
 ## AI search and brand information
 
-For branded-search or generative-AI visibility work, first check the site's existing About, organization, product, service, contact, and policy pages. [Google's current guidance](https://developers.google.com/search/docs/appearance/ai-features) says established SEO practices apply to AI Overviews and AI Mode and that there are no additional technical requirements or special optimizations for inclusion. Do not promise that creating a particular page will make an AI Overview appear.
+For branded-search or generative-AI visibility work, first check the site's existing About, organization, product, service, contact, and policy pages. [Google's current guidance](https://developers.google.com/search/docs/appearance/ai-features) says established SEO practices apply to AI Overviews and AI Mode and that there are no additional technical requirements or special optimizations for inclusion.
 
 When the audit finds a real information gap, create or update a public, human-useful **AI-readable brand information page** (sometimes requested as an "AI instructions page"). Treat it as an accurate source of facts, not a hidden prompt or an instruction that controls how a search engine or AI system must answer. Include only verified details relevant to the site, such as:
 
@@ -81,7 +68,7 @@ Before substantially rewriting a page that already earns impressions, clicks, li
 
 A rewrite is a regression until proven otherwise. The diff gate in [publishing and change control](references/publishing-and-change-control.md) makes the comparison explicit and blocks publishing while material is missing. The element that made the page worth publishing is the one an automated rewrite is most likely to drop.
 
-When extending a keyword pattern across locations, products, or other variants, publish only pages with distinct, accurate information and a legitimate user purpose. Swapping a city or product name into a template, imposing a one-page-per-day schedule, or adding filler to avoid looking automated does not make thin or repetitive pages useful. Google's [spam policies](https://developers.google.com/search/docs/essentials/spam-policies) cover scaled content created primarily to manipulate rankings. Do not invent local presence, prices, results, reviews, or customer stories.
+When extending a keyword pattern across locations, products, or other variants, publish only pages with distinct, accurate information and a legitimate user purpose. Swapping a city or product name into a template, imposing a one-page-per-day schedule, or adding filler to avoid looking automated does not make thin or repetitive pages useful. Google's [spam policies](https://developers.google.com/search/docs/essentials/spam-policies) cover scaled content created primarily to manipulate rankings.
 
 ## Performance review
 

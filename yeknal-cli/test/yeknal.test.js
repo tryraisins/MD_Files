@@ -571,10 +571,10 @@ test("CLI profiles command remains executable", () => {
     encoding: "utf8",
   });
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /core\s+37/);
-  assert.match(result.stdout, /design\s+25/);
+  assert.match(result.stdout, /core\s+15/);
+  assert.match(result.stdout, /design\s+27/);
   assert.match(result.stdout, /Default: core/);
-  assert.match(result.stdout, /skill-router/);
+  assert.match(result.stdout, /project-handoff/);
 });
 
 // The security scanner and the slop scanner share one tree walker. This guards

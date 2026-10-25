@@ -1,6 +1,6 @@
 ---
 name: yeknal-design-taste-frontend
-description: Design and implement expressive landing pages, portfolios, and marketing interfaces from product evidence instead of reusable AI recipes. Use when a new web experience needs distinctive art direction and working code; use redesign-existing-projects for an existing product and narrower aesthetic skills when the user names a specific style.
+description: Design and build expressive landing pages, portfolios, and marketing interfaces from product evidence instead of reusable AI recipes, including showcase-level art direction. For an existing product use `yeknal-redesign-existing-projects`.
 metadata:
   source: https://github.com/leonxlnx/taste-skill
   source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
@@ -12,7 +12,7 @@ Build an authored interface whose visual choices trace back to the product, audi
 
 Also apply `yeknal-ui-quality-baseline`. Approved designs, repository instructions, the established design system, and working behavior outrank this skill. Never swap frameworks, styling systems, state flow, or dependencies merely to achieve a look.
 
-Reach for `yeknal-design-reference-research` when the user supplies references or the direction is not yet defensible. Reach for `yeknal-human-ai-interface-design` when the experience includes generation, recommendations, retrieval, copilots, or agents. Use `yeknal-high-end-visual-design` only when the brief explicitly calls for showcase-level art direction.
+Reach for `yeknal-design-reference-research` when the user supplies references or the direction is not yet defensible. Reach for `yeknal-human-ai-interface-design` when the experience includes generation, recommendations, retrieval, copilots, or agents.
 
 ## Read the product before designing
 
@@ -55,33 +55,6 @@ Design the sequence as an argument:
 
 Repeated cards are right for comparison; asymmetric editorial composition suits narrative emphasis. Choose layout from information relationships, not from a quota for variety. Align shared content when comparison matters and allow deliberate variation when hierarchy matters.
 
-## Build a coherent visual language
-
-### Typography
-
-- Select for voice, reading conditions, script coverage, metrics, licensing, and loading cost.
-- A system stack can be more deliberate than a distinctive display face. Preserve an established family unless typography is in scope.
-- Define roles and measures; verify wrapping, truncation, italic/diacritic clearance, fallback metrics, and zoom behavior with real copy.
-
-### Color and material
-
-- Name colors by semantic role and verify text, non-text, focus, disabled, state, and data contrast.
-- Use the palette the brand and information structure require. Do not ban a hue or impose one accent merely to look different.
-- Give borders, shadows, texture, transparency, grain, imagery, and depth a hierarchy or atmosphere purpose. Provide fallbacks when effects reduce transparency, contrast, performance, or legibility.
-
-### Components and iconography
-
-- Use containers only when grouping, containment, comparison, selection, or elevation is meaningful.
-- Keep control geometry stable across idle, hover, focus, pressed, pending, success, error, disabled, and selected states.
-- Reuse one coherent icon language unless a second family has a documented semantic role. Verify accessible names and optical alignment.
-- Treat loading, empty, error, offline, partial, permission-denied, and success states as first-class compositions.
-
-### Content and assets
-
-- Prefer real, approved product images and truthful sample data. Label fixtures and placeholders; never invent realistic people, dates, metrics, endorsements, or logos to make a mockup appear live.
-- Write specific draft copy that reflects the product. Avoid empty superlatives and repeated CTA labels with ambiguous consequences.
-- Generate imagery only when the user requests or authorizes it and the result has a clear content role; record that it is generated where disclosure matters.
-
 ## Plan responsive transformation
 
 Use the matrix in `yeknal-design-reference-research/references/responsive-matrix.md`. At minimum, test small and common phones, tablet portrait and landscape, reduced-height and standard desktop, wide desktop, text zoom, keyboard, touch/no-hover, and reduced motion.
@@ -98,6 +71,7 @@ A reference clip is not a timing specification. Recreate purpose and perceived p
 
 - Inspect the package manifest before importing anything. Reuse the installed framework, styling system, and primitives.
 - Preserve semantic HTML, route behavior, focus order, forms, state, data bindings, side effects, errors, and analytics.
+- Prefer real, approved product images and truthful sample data. Label fixtures and placeholders; never invent realistic people, dates, metrics, endorsements, or logos to make a mockup appear live. Generate imagery only when the user authorizes it and it has a clear content role, and record that it is generated where disclosure matters.
 - Use fluid constraints, intrinsic layout, grid or flex according to the relationship, `dvh` where a dynamic viewport is genuinely required, and intentional overflow only.
 - Keep client-side animation and pointer work isolated from static rendering. Clean up observers, timelines, listeners, and asynchronous work.
 - Meet the repository's performance and accessibility gates; decorative ambition does not waive them.
@@ -106,12 +80,9 @@ A reference clip is not a timing specification. Recreate purpose and perceived p
 
 Before completion:
 
-1. Render the actual implementation at the target matrix—not only a component preview.
-2. Walk the primary flow with keyboard and touch assumptions; inspect focus, hover/no-hover, pending, empty, error, success, and recovery.
-3. Check clipping, horizontal overflow, text measure, order, occlusion, cumulative layout shift, image crops, and fixed/sticky collisions.
-4. Compare the result with the stated thesis and rejection list. Remove any element that exists only because it is fashionable.
-5. Report what was verified and keep browser, device, network, data, and deployment claims inside the evidence boundary.
+1. Render the actual implementation at the target matrix, not only a component preview, and walk the primary flow with keyboard and touch assumptions.
+2. Run the baseline's clipping, horizontal overflow, layout-shift, image-crop, fixed/sticky collision, pending, empty, error, and recovery checks.
+3. Compare the result with the stated thesis and rejection list. Remove any element that exists only because it is fashionable.
+4. Report what was verified and keep browser, device, network, data, and deployment claims inside the evidence boundary.
 
-## Optional technique reference
-
-Load [patterns-redesign-and-sources.md](references/patterns-redesign-and-sources.md) only when a selected technique needs an implementation skeleton or historical source note. Its fixed counts, palettes, font bans, layout quotas, and theme mandates are legacy heuristics, not current requirements; this skill and `yeknal-ui-quality-baseline` take precedence.
+Load [dials-and-arsenal.md](references/dials-and-arsenal.md) when a brief needs a starting bias on variance, motion intensity, or density, or when you want the vocabulary for a named technique (bento grid, sticky scroll stack, magnetic button, spotlight border). The dial values are biases to argue against, not targets to hit.

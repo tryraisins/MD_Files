@@ -1,6 +1,6 @@
 ---
 name: yeknal-stitch-design-taste
-description: Create or update a versioned DESIGN.md specification for Google Stitch-style screen generation from authoritative product evidence. Use when an AI design tool needs semantic guidance for tokens, components, content, responsive behavior, states, and motion intent without replacing the real design system.
+description: Create or update a versioned DESIGN.md that guides Google Stitch-style screen generation from real product evidence. Use when an AI design tool needs a specification, not a replacement for the real design system.
 metadata:
   source: https://github.com/leonxlnx/taste-skill
   source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
@@ -58,7 +58,7 @@ Cover navigation, opening task or hero, content/evidence sequence, primary commi
 
 ### Responsive transformation
 
-Use `yeknal-design-reference-research/references/responsive-matrix.md`. Specify, per region, what reflows, reorders, condenses, becomes progressive disclosure, changes navigation mode, scrolls intentionally, or is omitted with justification.
+Use the responsive matrix in `yeknal-design-reference-research`. Specify, per region, what reflows, reorders, condenses, becomes progressive disclosure, changes navigation mode, scrolls intentionally, or is omitted with justification.
 
 Include small/common phones, tablet portrait/landscape, compact-height and standard desktops, wide desktop, text zoom, keyboard, touch/no-hover, reduced motion, and any product-specific foldable, split-view, safe-area, or virtual-keyboard conditions. Do not prescribe a blind single-column collapse.
 

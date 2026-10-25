@@ -1,13 +1,11 @@
 ---
 name: yeknal-ask-sonner
-description: Guide to Sonner, the React toast library — install and wire up the Toaster, pick the right toast() call, promise and loading toasts, updating, dismissing and persisting toasts, styling, theming and icons, positioning and multiple toasters. Use when working with Sonner or troubleshooting it — toasts that don't appear, appear twice, lose their styles, ignore Tailwind classes, sit behind a modal, or don't follow dark mode.
+description: "Work with Sonner toasts: mount the Toaster, pick the right toast() call, style it, and fix toasts that don't appear, appear twice, lose their styles, sit behind a modal, or ignore dark mode. Use when installing Sonner or a toast misbehaves."
 ---
 
-## UI quality integration
-
-Apply `yeknal-ui-quality-baseline` to toast work. Mount the toaster exactly once, keep layout stable, reflect true async state, expose readable status with keyboard access, honor reduced motion, and match the product's existing color, type, icon, and theme tokens.
-
 # Working With Sonner
+
+Apply `yeknal-ui-quality-baseline` to toast work: mount the toaster exactly once, keep layout stable, reflect true async state, expose readable status with keyboard access, honor reduced motion, and match the product's existing color, type, icon, and theme tokens.
 
 A guide skill for [Sonner](https://sonner.emilkowal.ski), the toast library. When a task involves Sonner — wiring it up, rendering toasts, styling them, or fixing them — answer from this file first. Full prop tables for `<Toaster />` and `toast()` live in [API.md](API.md); read it when you need an exact prop name, type, or default.
 

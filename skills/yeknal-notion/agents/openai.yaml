@@ -1,0 +1,14 @@
+interface:
+  display_name: "Notion"
+  short_description: "Capture, meet, research, and update in Notion"
+  icon_small: "./assets/notion-small.svg"
+  icon_large: "./assets/notion.png"
+  default_prompt: "Capture this into Notion, prepare the meeting, or research a cited brief from our Notion pages."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "notion"
+      description: "Notion MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.notion.com/mcp"

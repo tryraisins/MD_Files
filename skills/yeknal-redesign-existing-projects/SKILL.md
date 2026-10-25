@@ -38,57 +38,16 @@ Define:
 
 ## Audit the experience
 
-### Structure and user flow
+Work through flow, visual system, content, components and states, responsive behavior, motion, and accessibility against `yeknal-ui-quality-baseline`. Keep the findings this skill adds:
 
-- Can users identify place, state, next action, consequence, and recovery path?
-- Do navigation, information architecture, page title, active state, browser history, deep links, and dead ends behave correctly?
-- Does the content sequence answer user questions before asking for commitment?
-- Are forms, tables, filters, comparison, search, and dashboards structured around the real task rather than decorative containers?
-
-### Visual system
-
-- Are type, color, spacing, grid, radius, border, elevation, imagery, and icons tokenized and coherent?
-- Are links free of external-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, and emojis, with destination and behavior carried by the link text and accessible name?
-- Are links free of underlines in every state, including animated or bottom-border substitutes, while remaining recognizable through clear labels, placement, color or full control styling and visible focus outlines?
-- Do hierarchy and density match task frequency and content complexity?
-- Are exceptions meaningful, or are they accumulated one-off values?
-- Does the page have a product-specific signature, or could the brand and nouns be swapped without changing the design?
-
-Do not diagnose "slop" from one font, hue, card count, centered hero, or navigation style. Diagnose unsupported decisions, copied trend bundles, repetitive section grammar, weak content hierarchy, incoherent tokens, fake depth, gratuitous motion, and incomplete states.
-
-### Content and truthfulness
-
-- Replace vague generated copy with specific, product-grounded language.
-- Never use staccato sentences in interface prose, redesign rationale, or handoff notes. Connect related ideas in complete sentences with a natural rhythm, and avoid runs of clipped fragments or one-line paragraphs; concise control labels and status messages may remain brief when the interface requires it.
-- Use real approved assets and data when available. Label fixtures and placeholders; never invent realistic people, dates, metrics, testimonials, client logos, or contact details to make a mockup appear live.
+- Record confirmed defects separately from preferences and unknowns. Use real approved assets and data; label fixtures and placeholders.
+- Never invent people, dates, metrics, testimonials, client logos, or contact details to make a mockup appear live.
 - Keep CTA labels consistent with their actual consequence. Do not hide cost, prerequisites, destructive impact, or unavailable capability.
-- Include required legal, privacy, status, attribution, and recovery content based on product scope—not as universal boilerplate.
-
-### Components and states
-
-- Audit idle, hover/no-hover, focus, pressed, selected, expanded, pending, success, error, empty, offline, disabled, permission-denied, cancellation, and retry where applicable.
-- Match loading feedback to the wait: geometry-matched skeleton for content, stable pending control for an action, determinate progress only when real, and an overlay only for genuinely blocking work.
-- Keep component dimensions stable, status readable without color alone, focus visible, and announcements appropriate.
 - Use cards only when containment, comparison, selection, grouping, or elevation is meaningful.
-
-### Responsive and device behavior
-
-Use `yeknal-design-reference-research/references/responsive-matrix.md`. Inspect small/common phones, tablet portrait/landscape, compact-height and standard desktop, wide desktop, zoom, keyboard, touch/no-hover, reduced motion, and product-specific safe-area, split-view, foldable, or virtual-keyboard conditions.
-
-For every region, decide explicitly what reflows, reorders, condenses, becomes progressive disclosure, changes navigation mode, scrolls intentionally, or can be omitted. Check long copy, translations, data extremes, image crops, sticky/fixed occlusion, and horizontal overflow.
-
-### Motion and performance
-
-- Keep motion that communicates hierarchy, continuity, feedback, or state; remove motion whose only rationale is fashion.
-- Apply `yeknal-animate` for interaction details. Define trigger, intermediate state, interruption, exit, reduced-motion path, and pointer/touch differences.
+- For every region, decide explicitly what reflows, reorders, condenses, becomes progressive disclosure, changes navigation mode, scrolls intentionally, or can be omitted. Use the responsive matrix in `yeknal-design-reference-research` for the device set.
 - Measure before adding large images, filters, WebGL, video, custom fonts, scroll timelines, or a new animation dependency.
-- Preserve content availability and control responsiveness when motion or assets fail.
-
-### Accessibility
-
-- Preserve or improve semantic landmarks, heading order, labels, descriptions, error association, focus order, skip links, dialogs, live regions, and target sizes.
-- Verify text and non-text contrast, zoom/reflow, high-contrast or forced-color behavior where relevant, reduced motion, and keyboard-only completion.
 - Accessibility fixes are behavior changes: test them rather than assuming markup alone proves success.
+- Do not diagnose "slop" from one font, hue, card count, centered hero, or navigation style. Diagnose unsupported decisions, copied trend bundles, repetitive section grammar, weak content hierarchy, incoherent tokens, fake depth, and incomplete states.
 
 ## Plan changes by coherence and risk
 
@@ -104,8 +63,8 @@ Fix the highest-impact root cause instead of restyling every symptom. Keep chang
 ## Implement without collateral change
 
 - Work in the installed stack and inspect dependencies before imports.
-- For React-compatible stacks, default to **Tailwind CSS (v4) + shadcn/ui** for the styling and component layer, setting them up when absent; for non-React stacks use the stack-appropriate equivalent. Apply the default at all times, not only when the project already uses them, and preserve an existing documented design system unless replacing it is explicitly in scope.
-- When a brief's interaction already exists as a [Rare UI](https://www.rareui.com/components) source component and the stack is React-compatible, install and adapt it through `yeknal-pick-ui-library` before building custom. Keep its license notice in the copied source and add the required README credit linking to rareui.com.
+- Follow the Tailwind CSS (v4) + shadcn/ui default for React-compatible stacks and the stack-appropriate equivalent otherwise, per `AGENTS.md` section 24. Preserve an existing documented design system unless replacing it is explicitly in scope.
+- Use `yeknal-pick-ui-library` before adding or adapting a registry component; keep any license notice and required README credit.
 - Reuse components and semantic tokens; centralize new roles instead of scattering arbitrary values.
 - Preserve network contracts, state transitions, validation, analytics, side effects, and errors.
 - Keep source, generated assets, test artifacts, screenshots, and credentials separated for commit hygiene.

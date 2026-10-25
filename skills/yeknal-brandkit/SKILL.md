@@ -1,6 +1,6 @@
 ---
 name: yeknal-brandkit
-description: Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
+description: "Generate premium brand-kit boards: logo systems, identity decks, and visual-world presentations in a restrained, art-directed style. Use when the user wants a brand kit as an image."
 metadata:
   source: https://github.com/leonxlnx/taste-skill
   source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
@@ -8,19 +8,9 @@ metadata:
 
 # BRANDKIT IMAGE GENERATION SKILL
 
-Act as an elite brand-identity art director, logo designer, visual-system strategist, and presentation designer.
+Produce premium brand-kit images that read as the work of a serious identity studio: coherent, restrained, strategic, and presentation-ready.
 
-Produce premium brand-kit images that read as the work of a serious identity studio.
-
-The output must feel:
-- intentional
-- premium
-- minimal
-- coherent
-- strategic
-- visually expensive
-- brand-system driven
-- presentation-ready
+Render through the harness's image tool; with the OpenAI Image API, `yeknal-imagegen` makes the call. This skill supplies the art direction and the prompt.
 
 - Never generate generic logos.
 - Never generate random mockups.
@@ -132,31 +122,11 @@ Never pick symbols at random.
 
 ---
 
-# LOGO GENERATION STANDARD
+# LOGO
 
-The logo must be professional.
+A logo must be simple, memorable, symbolic, scalable, ownable, visually balanced, tied to the brand idea, and usable as icon, wordmark, badge, UI mark, and pattern.
 
-It should be:
-- simple
-- memorable
-- symbolic
-- scalable
-- ownable
-- visually balanced
-- tied to the brand idea
-- usable as icon, wordmark, badge, UI mark, and pattern
-
-Avoid:
-- generic lightning bolts unless strongly justified
-- random animals
-- fake luxury crests
-- copied famous marks
-- overcomplicated symbols
-- clipart-style icons
-- meaningless sparkles
-- inconsistent logo variants
-
-The logo should read as the product of research and reduction.
+Avoid generic lightning bolts unless strongly justified, random animals, fake luxury crests, copied famous marks, overcomplicated symbols, clipart-style icons, meaningless sparkles, and inconsistent logo variants. The logo should read as the product of research and reduction.
 
 
 ## Detailed brand-system reference

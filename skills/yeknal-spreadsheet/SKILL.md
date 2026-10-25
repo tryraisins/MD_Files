@@ -19,34 +19,13 @@ IMPORTANT: System and user instructions always take precedence.
 ## Workflow
 1. Confirm the file type and the goal: create, edit, analyze, or visualize.
 2. Prefer `openpyxl` for `.xlsx` editing and formatting. Use `pandas` for analysis and CSV/TSV work.
-3. If the environment provides an internal spreadsheet recalculation/rendering tool, use it to recalculate formulas and render sheets before delivery.
+3. If the environment provides an internal spreadsheet recalculation/rendering tool, use it to recalculate formulas and cache values before delivery. `openpyxl` does not evaluate formulas, so preserve them and recalculate with tooling when available. If you rely on an internal tool, do not expose that tool, its code, or its APIs in user-facing explanations or code samples.
 4. Put derived values in formulas rather than hardcoded results.
-5. When layout matters, render for visual review and inspect the output.
-6. Save outputs, keep filenames stable, and clean up intermediate files.
-
-## Temp and output conventions
-- Keep intermediate files in `tmp/spreadsheets/`; delete them when done.
-- Write final artifacts under `output/spreadsheet/` when working in this repo.
-- Keep filenames stable and descriptive.
-
-## Primary tooling
-- Use `openpyxl` to create and edit `.xlsx` files while preserving formatting.
-- Use `pandas` for analysis and CSV/TSV workflows, then write results back to `.xlsx` or `.csv`.
-- Use `openpyxl.chart` for native Excel charts when needed.
-- When an internal spreadsheet tool is available, use it to recalculate formulas, cache values, and render sheets for review.
-
-## Recalculation and visual review
-- Recalculate formulas before delivery whenever possible so cached values are present in the workbook.
-- Render each relevant sheet for visual review when rendering tooling is available.
-- `openpyxl` does not evaluate formulas; preserve them and recalculate with tooling when available.
-- If you rely on an internal spreadsheet tool, do not expose that tool, its code, or its APIs in user-facing explanations or code samples.
-
-## Rendering and visual checks
-- When LibreOffice (`soffice`) and Poppler (`pdftoppm`) are available, render sheets for visual review:
-  - `soffice --headless --convert-to pdf --outdir $OUTDIR $INPUT_XLSX`
-  - `pdftoppm -png $OUTDIR/$BASENAME.pdf $OUTDIR/$BASENAME`
-- If rendering tools are unavailable, tell the user to review layout locally.
-- Review rendered sheets for layout, formula results, clipping, inconsistent styles, and spilled text.
+5. When layout matters, render for visual review and inspect layout, formula results, clipping, inconsistent styles, and spilled text. With LibreOffice and Poppler available:
+   - `soffice --headless --convert-to pdf --outdir <outdir> <input.xlsx>`
+   - `pdftoppm -png <outdir>/<basename>.pdf <outdir>/<basename>`
+   If rendering tools are unavailable, tell the user to review layout locally.
+6. Save outputs, keep filenames stable, and clean up intermediate files. Use `tmp/spreadsheets/` for intermediates and `output/spreadsheet/` for final artifacts when working in this repo.
 
 ## Dependencies (install if missing)
 Prefer `uv` for dependency management.
@@ -57,7 +36,7 @@ uv pip install openpyxl pandas
 ```
 If `uv` is unavailable:
 ```
-python3 -m pip install openpyxl pandas
+python -m pip install openpyxl pandas
 ```
 Optional:
 ```
@@ -65,7 +44,7 @@ uv pip install matplotlib
 ```
 If `uv` is unavailable:
 ```
-python3 -m pip install matplotlib
+python -m pip install matplotlib
 ```
 System tools (for rendering):
 ```
@@ -82,7 +61,7 @@ If installation is not possible here, tell the user which dependency is missing 
 No required environment variables.
 
 ## Examples
-- Runnable Codex examples (openpyxl): `references/examples/openpyxl/`
+- Runnable examples (openpyxl): `references/examples/openpyxl/`
 
 ## Formula requirements
 - Put derived values in formulas rather than hardcoding results.
@@ -121,27 +100,7 @@ No required environment variables.
 - Avoid unsupported spreadsheet data-table features such as `=TABLE`.
 
 ## Color conventions (if no style guidance)
-- Blue: user input
-- Black: formulas and derived values
-- Green: linked or imported values
-- Gray: static constants
-- Orange: review or caution
-- Light red: error or flag
-- Purple: control or logic
-- Teal: visualization anchors and KPI highlights
 
-## Finance-specific requirements
-- Format zeros as `-`.
-- Negative numbers should be red and in parentheses.
-- Format multiples as `5.2x`.
-- Always specify units in headers (for example, `Revenue ($mm)`).
-- Cite sources for all raw inputs in cell comments.
-- For new financial models with no user-specified style, use blue text for hardcoded inputs, black for formulas, green for internal workbook links, red for external links, and yellow fill for key assumptions that need attention.
-
-## Investment banking layouts
-If the spreadsheet is an IB-style model (LBO, DCF, 3-statement, valuation):
-- Totals should sum the range directly above.
-- Hide gridlines and use horizontal borders above totals across relevant columns.
-- Section headers should be merged cells with dark fill and white text.
-- Column labels for numeric data should be right-aligned; row labels should be left-aligned.
-- Indent submetrics under their parent line items.
+- Blue: user input. Black: formulas and derived values. Green: linked or imported values. Gray: static constants. Orange: review or caution. Light red: error or flag. Purple: control or logic. Teal: visualization anchors and KPI highlights.
+- In financial models, use yellow fill for key assumptions that need attention, and cite every raw input in a cell comment.
+- Format zeros as `-`, negatives in red and parentheses, and multiples as `5.2x`. Always specify units in headers, for example `Revenue ($mm)`.

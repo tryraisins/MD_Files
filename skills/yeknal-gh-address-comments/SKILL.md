@@ -1,6 +1,6 @@
 ---
 name: yeknal-gh-address-comments
-description: Help address review/issue comments on the open GitHub PR for the current branch using gh CLI; verify gh auth first and prompt the user to authenticate if not logged in.
+description: Address review and issue comments on the open GitHub PR for the current branch using the `gh` CLI. Verifies `gh` auth first and asks the user to authenticate if needed.
 metadata:
   internal: true
   short-description: Address comments in a GitHub PR review
@@ -8,12 +8,12 @@ metadata:
 
 # PR Comment Handler
 
-Locate the open PR for the current branch and work through its comments with the `gh` CLI. Run every `gh` command with elevated network access.
+Locate the open PR for the current branch and work through its comments with the `gh` CLI.
 
-Prereq: make sure `gh` is authenticated (for example, run `gh auth login` once), then run `gh auth status` with escalated permissions (include workflow/repo scopes) so `gh` commands succeed. If sandboxing blocks `gh auth status`, rerun it with `sandbox_permissions=require_escalated`.
+Prereq: `gh` is authenticated with repo and workflow scopes. Confirm with `gh auth status`; if it is not, ask the user to run `gh auth login`. If a sandbox blocks network access, ask the user to allow it or to run the command themselves.
 
 ## 1) Inspect comments needing attention
-- Run scripts/fetch_comments.py to print every comment and review thread on the PR
+- Run `python scripts/fetch_comments.py` from the skill folder to print every comment and review thread on the PR
 
 ## 2) Ask the user for clarification
 - Number the review threads and comments, and give a short summary of what a fix for each one would require

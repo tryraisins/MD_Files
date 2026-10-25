@@ -1,18 +1,11 @@
 ---
 name: yeknal-frontend-developer
-description: Implement or repair accessible web interfaces in React, Vue, or Angular. Use when changing frontend components, state, styling, or browser behavior.
+description: "Implement or repair web interfaces in React, Vue, or Angular: component architecture, the existing styling system, navigation, and theme persistence. Use for engineering changes, not visual direction."
 ---
 
 # Frontend Developer
 
-## Automatic UI Quality Contract
-
-For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract outranks generic instructions later in this skill that call for a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
-
-When the request supplies references or needs a new visual direction, apply `yeknal-design-reference-research` before implementation. For AI-assisted or agentic workflows, apply `yeknal-human-ai-interface-design` for reliance, provenance, control, approval, and recovery requirements.
-
-
-Act as a senior frontend developer specializing in modern web applications. Your work pairs engineering excellence with strong visual and UX instincts. You build things that work perfectly AND look distinctive — never generic, never AI-sloppy.
+Apply `yeknal-ui-quality-baseline` to every visible interface. This skill owns the engineering; visual direction belongs to `yeknal-frontend-design`, and `yeknal-human-ai-interface-design` owns products with assistants, generation, recommendation, retrieval, or agent-proposed changes.
 
 ## Engineering Responsibilities
 
@@ -24,65 +17,9 @@ Act as a senior frontend developer specializing in modern web applications. Your
 - Measure and improve the applicable Core Web Vitals and repository performance budgets
 - Meet the current WCAG AA target and platform-specific accessibility requirements
 
-## Frontend Aesthetics — Non-Negotiable
-
-You actively resist converging on generic "AI slop" aesthetics. Every project must feel deliberately designed for its context.
-
-### Philosophy: Simple UX, Beautiful UI
-
-These are not in tension. The best interfaces achieve both at once:
-
-- **UX**: clear state, consequence, recovery, and task completion. Fewer steps help only when they do not remove necessary context or control.
-- **UI**: product-specific and coherent. Distinction comes from content, system, and finish rather than forced novelty.
-
-### Styling-system discipline
+## Styling-system discipline
 
 Use the repository's established styling system—Tailwind, CSS modules, vanilla CSS, CSS-in-JS, or component tokens—before adding another one. Reuse semantic tokens and primitives; add custom CSS or dependencies only when the existing system cannot express the requirement cleanly. Do not migrate styling technology as a side effect of a visual task.
-
-### Typography
-
-- Preserve the established type system unless the redesign explicitly includes typography.
-- Select for readability, language coverage, metrics, licensing, loading cost, and product voice. A system stack can be the most deliberate choice.
-- Use a display/body pairing or dramatic hero contrast only when the content hierarchy warrants it.
-- Do not copy a fashionable family from a reference without documenting why it fits.
-
-### Interface copy
-
-- Never use staccato sentences in interface prose, implementation explanations, or handoff notes. Write complete, naturally flowing sentences, connect related thoughts, and avoid strings of clipped fragments or one-line paragraphs.
-- Keep control labels, headings, and status messages as short as usability requires; concise UI text is not a reason to make explanatory copy choppy.
-- Before handoff, read visible copy and explanatory text aloud or as a continuous passage, then smooth abrupt fragments that interrupt its natural rhythm.
-
-### Color & Theme
-
-- Commit to a cohesive palette using CSS variables for consistency
-- Assign semantic roles before values and preserve the product's brand and state language.
-- Use as many accents as the information model requires; categorical data may need several.
-- Implement only supported themes, with complete state and contrast coverage for each.
-- Reject unexamined trend palettes, not individual hues.
-
-### Motion
-
-Apply `yeknal-animate` when motion is in scope. Implement motion only when it improves hierarchy, feedback, continuity, or spatial understanding. Prefer native platform and CSS behavior for simple transitions; use an already-installed animation or graphics library when the interaction genuinely needs it. Define interruption, cleanup, touch/no-hover behavior, reduced motion, and the no-script/failure state.
-
-### Loading States (React)
-
-Choose loading feedback by wait type and reuse the existing system. Use geometry-matched skeletons for layout-shaped content, stable pending controls for actions, and focus-managed overlays only when interaction must pause. `thinking-orbs` is optional for a compatible visible assistant/process workflow, never a blanket spinner replacement. Keep feedback tied to real async state, expose readable status and `aria-busy`, preserve dimensions, honor reduced motion, and implement failure or retry handling before adding a dependency.
-
-### AI-native product components
-
-Use `yeknal-human-ai-interface-design` for products with assistants, generation, recommendation, retrieval, or agent-proposed changes. Implement its lifecycle and evaluation requirements using typed components backed by real system state. Do not simulate an agent console, fabricate progress, expose private reasoning, or add controls whose capabilities are not wired end to end.
-
-### Backgrounds and depth
-
-Implement the chosen art direction without forcing decorative effects. Flat neutral surfaces, texture, imagery, gradients, transparency, and depth are all valid when they support hierarchy and remain performant, legible, and compatible with contrast requirements.
-
-### Cursor
-
-Follow the repository and platform cursor conventions. Add `cursor-pointer` to links or custom clickable surfaces when needed, but do not force it onto every native control. Preserve semantic elements, focus, accessible names, touch targets, and pressed feedback.
-
-### Icons
-
-Reuse the product's icon family and choose symbols for semantic clarity, familiarity, optical fit, and accessible labeling. Common symbols are valid for common actions; do not use them as unexplained brand decoration or switch libraries merely for novelty. Do not append external-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, or emojis to links; express new-tab, off-site, or download behavior through the link text and an accessible name or description instead.
 
 ## Navigation implementation
 
@@ -92,14 +29,13 @@ Implement the navigation model established by the product's information architec
 
 When the product supports theme choice, use its established persistence and hydration strategy, respect system preference where intended, prevent a first-paint flash, label the control, and verify every semantic color and state in each promised theme. Do not assume Tailwind, a `dark` class, or `localStorage` is the correct architecture.
 
+## Interactive affordances
+
+Preserve semantics, focus order, accessible names, touch targets, and pressed feedback on everything you implement. Follow the repository and platform cursor conventions: add `cursor-pointer` to custom clickable surfaces when needed, never to every native control. Express new-tab, off-site, or download behavior through the link text and an accessible name rather than appending arrows, badges, or emojis.
+
 ## What to Avoid
 
-- Unexamined typography or palettes copied from trend references
-- Generic card-grid layouts as the primary composition
 - Navigation presentation chosen before information architecture and viewport behavior
-- Cliché symbols used as identity without product rationale
-- External-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, or emojis attached to links
-- Underlined links in any state, including animated underlines and bottom-border or pseudo-element substitutes; use clear labels, placement, contrasting color or full control styling and visible focus outlines instead
-- Animations that are purely decorative without hierarchy value
 - Missing semantics, focus, affordance, or touch feedback on interactive elements
 - Missing or inconsistent states in any theme the product promises
+- Styling-system migrations smuggled in with an unrelated fix

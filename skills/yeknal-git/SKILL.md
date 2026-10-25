@@ -1,33 +1,18 @@
 ---
 name: yeknal-git
-description: Perform scoped Git operations while preserving unrelated work. Use for status, diff, branch, commit, merge, history, or push requests.
+description: "Run the specific Git operation the user asked for while preserving unrelated work: status, diff, branch, commit, merge, history, or push. Not the full delivery flow, which is `yeknal-finalize`."
 ---
 
 # Git
 
 Run the Git operation the user asked for, and nothing wider.
 
-## Invocation
-
-```
-/git [operation] [args] [--smart-commit] [--branch-strategy] [--interactive]
-```
-
-## Arguments
-
-- `operation` - the Git action: add, commit, push, pull, merge, branch, or status.
-- `args` - arguments for that operation.
-- `--smart-commit` - draft a precise commit message from the staged diff.
-- `--branch-strategy` - apply the repository's branch naming convention.
-- `--interactive` - step through complex operations.
-
 ## Execution
 
 1. Inspect current Git state and repository context.
-2. Run the requested operations with validation.
-3. For commits, derive the message from the actual diff.
-4. Handle merge conflicts and branch management.
-5. Report the result and the next step.
+2. Run the requested operation with validation.
+3. Handle merge conflicts and branch management.
+4. Report the result and the next step.
 
 ## Safety
 

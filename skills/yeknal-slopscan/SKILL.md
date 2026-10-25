@@ -1,11 +1,9 @@
 ---
 name: yeknal-slopscan
-description: Scan a codebase locally for AI-slop indicators such as stock marketing copy, placeholder text, gradient headline text, decorative emoji, stock icon sets and kit default colors, then act on the report. Use when a project should be checked for the familiar signs of a shipped template, when copy or interface patterns need reviewing before a launch, or when someone asks whether a codebase reads as generic.
+description: Scan a codebase locally for AI-slop signs such as stock marketing copy, placeholder text, gradient headline text, decorative emoji, and template leftovers, then act on the report. Use before a launch or when a project reads as generic.
 ---
 
 # Slop scan
-
-## Purpose
 
 Run `npx yeknal slopscan` to read a codebase for the familiar signs of a shipped template, and use the report to decide what to change. The scan is local, needs no network, launches no browser, and writes a readable log plus a JSON report. Every finding carries its file, line, the matched text, a plain explanation and a fix.
 
@@ -70,25 +68,6 @@ Read the whole report before editing. One finding is never a verdict, and the fi
 - It does not score the repository. A repository-wide number would measure size rather than quality, so the report gives counts instead.
 - It cannot tell who or what wrote the code.
 
-## Keeping the two projects aligned
+## Changing the scanner
 
-The rule catalog is a hand-curated copy of the SlopLens catalog. The shared fields are the rule id, name, category, family, supporting flag and fix line. Everything specific to a source scan, including the plain wording, the assessment, the file types and the thresholds, belongs to the CLI.
-
-When either copy changes, run the drift check from the Slop Detector repository:
-
-```bash
-node tools/slopscan-drift.mjs --yeknal "<path to yeknal-cli/lib/slop-rules.json>"
-```
-
-Reconcile differences deliberately. Do not wire the check into continuous integration on either side.
-
-## Verification
-
-When changing the scanner, prove the behaviour rather than the shape of the output:
-
-- Scan a fixture with planted slop and confirm every expected rule fires.
-- Scan a clean fixture and confirm nothing fires.
-- Scan a fixture with only a stock icon set and confirm the supporting gate stays closed.
-- Scan the two projects themselves and confirm no copy findings appear, since both contain the phrase list and the example fixtures.
-
-Reports are evidence. Keep generated reports out of commits.
+Prove the behavior, not the shape of the output: scan a fixture with planted slop and confirm every expected rule fires, scan a clean fixture and confirm nothing fires, and scan a fixture with only a stock icon set and confirm the supporting gate stays closed. Keep generated reports out of commits.

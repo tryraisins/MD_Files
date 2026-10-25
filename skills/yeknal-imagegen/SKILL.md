@@ -1,6 +1,6 @@
 ---
 name: "yeknal-imagegen"
-description: "Use when the user asks to generate or edit images via the OpenAI Image API (for example: generate image, edit/inpaint/mask, background removal or replacement, transparent background, product shots, concept art, covers, or batch variants); run the bundled CLI (`scripts/image_gen.py`) and require `OPENAI_API_KEY` for live calls."
+description: Generate, edit, or batch-produce images with the OpenAI Image API through the bundled `scripts/image_gen.py` CLI. Use when the user asks to generate an image, inpaint or mask an edit, replace a background, or make variants.
 metadata:
   internal: true
 ---
@@ -8,7 +8,7 @@ metadata:
 
 # Image Generation Skill
 
-Create or edit images for the current project (for example website assets, game assets, UI mockups, product mockups, wireframes, logo design, photorealistic images, infographics). Default to `gpt-image-1.5` and the OpenAI Image API, and prefer the bundled CLI for deterministic, reproducible runs.
+Create or edit images for the current project (for example website assets, game assets, UI mockups, product mockups, wireframes, logo design, photorealistic images, infographics). Prefer the bundled CLI for deterministic, reproducible runs.
 
 ## When to use
 - Generate a new image (concept art, product shot, cover, website hero)
@@ -35,28 +35,9 @@ Create or edit images for the current project (for example website assets, game 
 - Write final artifacts under `output/imagegen/` when working in this repo.
 - Use `--out` or `--out-dir` to control output paths; keep filenames stable and descriptive.
 
-## Dependencies (install if missing)
-Prefer `uv` for dependency management.
+## Setup
 
-Python packages:
-```
-uv pip install openai pillow
-```
-If `uv` is unavailable:
-```
-python3 -m pip install openai pillow
-```
-
-## Environment
-- `OPENAI_API_KEY` must be set for live API calls.
-
-If the key is missing, give the user these steps:
-1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
-2. Set `OPENAI_API_KEY` as an environment variable in their system.
-3. Offer to guide them through setting the environment variable for their OS/shell if needed.
-- Never ask the user to paste the full key in chat. Ask them to set it locally and confirm when ready.
-
-If installation isn't possible in this environment, tell the user which dependency is missing and how to install it locally.
+Install the `openai` and `pillow` packages: `uv pip install openai pillow` (`python -m pip install openai pillow` if `uv` is unavailable). `OPENAI_API_KEY` must be set for live calls, so send the user to https://platform.openai.com/api-keys and have them set it locally. Never ask the user to paste the key in chat. If installation is impossible here, name the missing dependency and how to install it locally.
 
 ## Defaults & rules
 - Use `gpt-image-1.5` unless the user explicitly asks for `gpt-image-1-mini` or explicitly prefers a cheaper/faster model.
@@ -72,27 +53,7 @@ If installation isn't possible in this environment, tell the user which dependen
 Reformat user prompts into a structured, production-oriented spec. Make implicit details explicit only; do not invent new requirements.
 
 ## Use-case taxonomy (exact slugs)
-Classify each request into one of these buckets and keep the slug consistent across prompts and references.
-
-Generate:
-- photorealistic-natural — candid/editorial lifestyle scenes with real texture and natural lighting.
-- product-mockup — product/packaging shots, catalog imagery, merch concepts.
-- ui-mockup — app/web interface mockups that look shippable.
-- infographic-diagram — diagrams/infographics with structured layout and text.
-- logo-brand — logo/mark exploration, vector-friendly.
-- illustration-story — comics, children’s book art, narrative scenes.
-- stylized-concept — style-driven concept art, 3D/stylized renders.
-- historical-scene — period-accurate/world-knowledge scenes.
-
-Edit:
-- text-localization — translate/replace in-image text, preserve layout.
-- identity-preserve — try-on, person-in-scene; lock face/body/pose.
-- precise-object-edit — remove/replace a specific element (incl. interior swaps).
-- lighting-weather — time-of-day/season/atmosphere changes only.
-- background-extraction — transparent background / clean cutout.
-- style-transfer — apply reference style while changing subject/scene.
-- compositing — multi-image insert/merge with matched lighting/perspective.
-- sketch-to-render — drawing/line art to photoreal render.
+Classify each request into one generate or edit slug from the taxonomy in `references/prompting.md`, and keep that slug consistent across the prompt, the constraints, and the reference lookup.
 
 Quick clarification (augmentation vs invention):
 - If the user says “a hero image for a landing page”, you may add *layout/composition constraints* implied by that use (for example, “generous negative space on the right for headline text”).
@@ -119,7 +80,7 @@ Avoid: <negative constraints>
 
 Augmentation rules:
 - Keep it short; add only details the user already implied or provided elsewhere.
-- Always classify the request into one taxonomy slug above and tailor constraints/composition/quality to that bucket. Use the slug to find the matching example in `references/sample-prompts.md`.
+- Always classify the request into one taxonomy slug and tailor constraints, composition, and quality to that bucket. Use the slug to find the matching example in `references/sample-prompts.md`.
 - If the user gives a broad request (for example, "Generate images for this website"), use judgment to propose tasteful, context-appropriate assets and map each to a taxonomy slug.
 - For edits, list the invariants explicitly ("change only X; keep Y unchanged").
 - If a critical detail is missing and blocks success, ask a question; otherwise proceed.
@@ -166,11 +127,9 @@ Asset-type templates (website assets, game assets, wireframes, logo) are consoli
 ## CLI + environment notes
 - CLI commands + examples: `references/cli.md`
 - API parameter quick reference: `references/image-api.md`
-- If network approvals / sandbox settings are getting in the way: `references/codex-network.md`
 
 ## Reference map
 - **`references/cli.md`**: how to *run* image generation/edits/batches via `scripts/image_gen.py` (commands, flags, recipes).
 - **`references/image-api.md`**: what knobs exist at the API level (parameters, sizes, quality, background, edit-only fields).
 - **`references/prompting.md`**: prompting principles (structure, constraints/invariants, iteration patterns).
 - **`references/sample-prompts.md`**: copy/paste prompt recipes (generate + edit workflows; examples only).
-- **`references/codex-network.md`**: environment/sandbox/network-approval troubleshooting.

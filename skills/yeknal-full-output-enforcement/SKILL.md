@@ -9,13 +9,13 @@ metadata:
 
 ## Baseline
 
-Treat every task as production-critical. A partial result is a broken result. Optimize for completeness, not brevity. If the user asks for a full file, deliver the whole file. If the user asks for five components, deliver five components. No exceptions.
+When the user asks for exhaustive, unabridged output, treat it as production-critical. A partial result is a broken result. Optimize for completeness, not brevity. If the user asks for a full file, deliver the whole file. If the user asks for five components, deliver five components. Outside that request, this skill does not apply.
 
 ## Banned Output Patterns
 
 The patterns below are hard failures. Never emit them:
 
-**In code blocks:** `// ...`, `// rest of code`, `// implement here`, `// TODO`, `/* ... */`, `// similar to above`, `// continue pattern`, `// add more as needed`, and a bare `...` used in place of omitted code
+**In code blocks:** `// ...`, `// rest of code`, `// implement here`, `/* ... */`, `// similar to above`, `// continue pattern`, `// add more as needed`, and a bare `...` used in place of omitted code. A `// TODO` the user asked for, or one already present in their code, is not an omission.
 
 **In prose:** "Let me know if you want me to continue", "I can provide more details if needed", "for brevity", "the rest follows the same pattern", "similarly for the remaining", "and so on" (when it replaces real content), and "I'll leave that as an exercise"
 
@@ -41,11 +41,3 @@ When a response nears the token limit:
 ```
 
 On "continue", resume exactly where you stopped. No recap, no repetition.
-
-## Quick Check
-
-Before finalizing any response, confirm:
-- No banned pattern from the list above appears anywhere in the output
-- Every item the user requested is present and finished
-- Code blocks hold runnable code, not descriptions of what code would do
-- Nothing was shortened to save space

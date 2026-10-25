@@ -1,6 +1,6 @@
 ---
 name: yeknal-high-end-visual-design
-description: Create premium, art-directed web interfaces with a product-specific visual thesis, expressive typography, deliberate composition, material, imagery, and motion. Use only when the brief explicitly asks for high-end, agency, editorial, experimental, or showcase-level visual direction; use frontend-design or design-taste-frontend for ordinary product UI.
+description: Create premium, art-directed web interfaces with a product-specific visual thesis, expressive type, deliberate composition, material, imagery, and motion. Use only for showcase-level or agency-style briefs.
 metadata:
   source: https://github.com/leonxlnx/taste-skill
   source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
@@ -16,15 +16,7 @@ Apply `yeknal-ui-quality-baseline`. Keep approved brand assets, existing design-
 
 When the user has not supplied an approved direction, use `yeknal-design-reference-research` to study functionally relevant live work before designing. Extract structure, hierarchy, and behavior; never copy compositions or brand assets.
 
-State a compact art-direction brief:
-
-- **Subject:** the world this product belongs to and what users must feel or understand.
-- **Thesis:** one sentence connecting that subject to a visual idea.
-- **Signature:** the single device that makes the work memorable.
-- **System:** the roles of type, color, grid, shape, imagery, material, and motion.
-- **Restraint:** three tempting effects or patterns explicitly rejected.
-
-Reject any thesis that survives unchanged after you swap the logo and the noun.
+State one sentence connecting the subject to a visual idea, name the single signature device that makes the work memorable, and list three tempting effects you are rejecting. Reject any thesis that survives unchanged after you swap the logo and the noun. For ordinary product UI, `yeknal-design-taste-frontend` owns the plan shape; this skill is for briefs that ask for showcase-level direction.
 
 ## Build a visual system, not a mood board
 
@@ -37,15 +29,7 @@ Reject any thesis that survives unchanged after you swap the logo and the noun.
 
 ## Compose the whole experience
 
-Design the sequence, not only the hero:
-
-- navigation exposes the information architecture and the user's current location;
-- the first surface states the job, shows credible proof or the product object, and offers one primary next step;
-- sections advance through evidence, explanation, comparison, and commitment without repeating one split layout;
-- CTAs match commitment, risk, and outcome;
-- the pre-footer resolves the narrative while the footer supports continuation, recovery, contact, and legal needs;
-- 404, empty, loading, error, success, and offline states stay inside the same visual world;
-- Open Graph and share art use a dedicated fixed-ratio composition, never a random page crop.
+Design the sequence, not only the hero: navigation that exposes the information architecture and current location; a first surface that states the job, shows credible proof or the product object, and offers one primary next step; sections that advance through evidence, explanation, comparison, and commitment without repeating one split layout; CTAs matched to commitment and risk; a pre-footer that resolves the narrative and a footer that supports continuation, recovery, contact, and legal needs. 404, empty, loading, error, success, and offline states stay inside the same visual world, and Open Graph or share art gets a dedicated fixed-ratio composition rather than a random page crop.
 
 Bento, masonry, carousel, split-screen, editorial columns, and sticky chapters are options. Choose one only when its spatial relationships carry meaning.
 

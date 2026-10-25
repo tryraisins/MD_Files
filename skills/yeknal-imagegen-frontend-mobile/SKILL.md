@@ -1,6 +1,6 @@
 ---
 name: yeknal-imagegen-frontend-mobile
-description: Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mockup with a visible frame, while the main focus stays on the app content itself. This skill generates images only. It does not write code.
+description: Generate premium mobile app screen and flow concept images for iOS, Android, and cross-platform products. Use when the user wants app screen or flow concepts rather than code; not for websites, landing pages, or frontend implementation.
 metadata:
   source: https://github.com/leonxlnx/taste-skill
   source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
@@ -8,9 +8,9 @@ metadata:
 
 # CORE DIRECTIVE: PREMIUM MOBILE APP IMAGE DIRECTION
 
-## Automatic UI Quality Contract
+For every visible UI output, apply `yeknal-ui-quality-baseline` and preserve approved design files, established brands, platform conventions, and existing behavior over the stylistic defaults below.
 
-For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+By default, show the app inside a subtle premium phone mockup with a visible frame, and keep the focus on the app content rather than the device.
 
 When the direction is unresolved or the user supplies reference URLs, apply `yeknal-design-reference-research` and use its product thesis, flow evidence, platform boundaries, and rejection list. Generated phone frames are presentation devices, not proof of native behavior, accessibility, safe-area correctness, or tablet/foldable adaptation.
 
@@ -230,113 +230,32 @@ The main deliverable is:
 
 ## 4. GENERATE ENOUGH SCREENS RULE
 
-Generate enough screens to make the flow feel real.
+Generate enough screens to make the flow feel real: one screen image per requested screen, separate sign-in, sign-up, and recovery states for an auth flow, several screens for an onboarding flow, and a meaningful set rather than one isolated hero mockup for an app concept.
 
-Do not be lazy with screen count.
+Do not be lazy with screen count, and never reduce it for convenience when that weakens the app concept.
 
-If the user asks for:
-- 1 screen → generate 1 screen image
-- 2 screens → generate 2 screen images
-- 3 screens → generate 3 screen images
-- 5 screens → generate 5 screen images
-- 7 screens → generate 7 screen images
-- onboarding flow → generate multiple onboarding screens, not one
-- auth flow → generate separate sign in / sign up / recovery states when useful
-- app concept → generate a meaningful set, not one isolated hero mockup
+It is better to generate multiple clean readable screens than one compressed board with tiny unreadable text.
 
-It is better to generate:
-- multiple clean readable screens
-than:
-- one compressed board with tiny unreadable text
-
-If a detail is unclear:
-- generate an extra detail image
-- or regenerate that screen cleanly
-
-Never reduce screen count just for convenience if it weakens the app concept.
+When a screen or detail needs a dedicated view, do not crop or zoom into a previously generated larger image, and do not rely on a cutout that distorts spacing, proportions, or typography. Generate a fresh standalone screen or detail render in the same design language, colors, type mood, and component family, optimized for readability. If a detail is still unclear, generate an extra detail image or regenerate that screen cleanly.
 
 ---
 
-## 5. DO NOT CROP OLD IMAGES RULE
+## 5. LOCK ONE DESIGN BIBLE
 
-When a screen or detail needs a dedicated view, do not just crop or zoom into a previously generated larger image.
+When generating multiple images for the same app, lock an internal design bible before continuing, and hold it across the whole set:
 
-Do not:
-- crop a settings view out of a larger board
-- crop tiny onboarding copy out of a multi-screen collage
-- crop a small card from a broader screen to inspect it
-- rely on cutouts if they distort spacing, proportions, or typography
-
-Instead:
-- generate a fresh standalone screen image
-- generate a fresh detail render
-- keep the same design language, colors, type mood, and component family
-- make the new image specifically optimized for readability
-
-Fresh screen-specific generation is strongly preferred over cropping.
-
----
-
-## 6. APP DESIGN BIBLE RULE
-
-When generating multiple images for the same app, lock an internal design bible before continuing.
-
-This design bible should remain consistent across the whole set:
 - platform mode
-- device frame style
-- device scale
+- device frame style and scale
 - palette logic
-- typography mood
-- type scale rhythm
-- spacing system
-- corner radius logic
-- icon style
-- illustration / imagery treatment
-- texture intensity
-- decorative asset language
-- navigation model
-- card and list behavior
-- button styling
-- shadow language
+- typography mood, type scale rhythm, and type hierarchy
+- spacing system, corner radius logic, and shadow language
+- icon style, illustration and imagery treatment, and decorative asset language
+- texture intensity and surface treatment
+- navigation model, including safe-area handling
+- card, list, and button styling
+- background logic and component family
 
-Do not let screen 3, 4, or 5 drift into a different app.
-
-Every new screen should feel like it belongs to the same product world.
-
----
-
-## 7. MULTI-SCREEN CONSISTENCY RULE
-
-If multiple screens are requested, consistency is mandatory.
-
-Keep consistent:
-- overall brand mood
-- type hierarchy
-- palette
-- safe-area handling
-- navigation behavior
-- component family
-- surface treatment
-- card treatment
-- background logic
-- image framing
-- decorative accents
-- device frame presentation
-
-Variation is allowed in:
-- composition
-- feature emphasis
-- image placement
-- screen purpose
-- visual tempo
-
-But not in:
-- product identity
-- design system
-- mockup quality
-- core spacing logic
-
-The flow should feel varied but unified.
+Variation is allowed in composition, feature emphasis, image placement, screen purpose, and visual tempo. It is not allowed in product identity, the design system, mockup quality, or core spacing logic. Do not let screen three, four, or five drift into a different app: every new screen belongs to the same product world, and the flow feels varied but unified.
 
 ---
 

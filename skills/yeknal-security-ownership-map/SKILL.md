@@ -1,6 +1,6 @@
 ---
 name: "yeknal-security-ownership-map"
-description: "Map sensitive-code ownership and bus-factor risk from Git history. Use only for explicit security ownership, orphaned-code, or CODEOWNERS risk analysis."
+description: "Map sensitive-code ownership and bus-factor risk from Git history with Python 3 and networkx. Use only for explicit security ownership, orphaned-code, or CODEOWNERS risk analysis."
 metadata:
   openai-plugins-reviewed-commit: 1e285826e604f66f7208f7ac4dba0fe8341d1f57
   last-reviewed: "2026-09-07"
@@ -8,18 +8,13 @@ metadata:
 
 # Security Ownership Map
 
-## Overview
+Build a bipartite graph of people and files from git history, compute ownership risk, and export graph artifacts for Neo4j/Gephi. It also builds a file co-change graph (Jaccard similarity over shared commits) to cluster files by how they move together, ignoring large noisy commits.
 
-Build a bipartite graph of people and files from git history, compute ownership risk, and export graph artifacts for Neo4j/Gephi. Also build a file co-change graph (Jaccard similarity over shared commits) to cluster files by how they move together, while ignoring large, noisy commits.
-
-This skill answers who owns sensitive code and where the bus-factor risk sits. It does not judge whether that code is vulnerable. For an empirical audit of those paths, use `yeknal-security-audit`.
+This skill answers who owns sensitive code and where bus-factor risk sits. It does not judge whether that code is vulnerable; for an empirical audit of those paths, use `yeknal-security-audit`.
 
 ## Requirements
 
-- Python 3
-- `networkx` (required; community detection is enabled by default)
-
-Install with:
+Python 3 and `networkx` (community detection is on by default):
 
 ```bash
 pip install networkx
@@ -27,61 +22,25 @@ pip install networkx
 
 ## Workflow
 
-1. Scope the repo and time window (optional `--since/--until`).
+1. Scope the repo and time window (`--since` / `--until`).
 2. Decide sensitivity rules. Include authentication, authorization, cryptography, secrets, CI/release workflows, policy-as-code, infrastructure, parsers, AI tool definitions, prompts, retrieval/memory pipelines, and approval gates when present.
-3. Build the ownership map with `scripts/run_ownership_map.py` (co-change graph is on by default; use `--cochange-max-files` to ignore supernode commits).
-4. Communities are computed by default; graphml output is optional (`--graphml`).
-5. Query the outputs with `scripts/query_ownership.py` for bounded JSON slices.
-6. Persist and visualize (see `references/neo4j-import.md`).
-
-By default, the co-change graph ignores common "glue" files (lockfiles, `.github/*`, editor config) so clusters reflect actual code movement instead of shared infra edits. Override with `--cochange-exclude` or `--no-default-cochange-excludes`. Dependabot commits are excluded by default; override with `--no-default-author-excludes` or add patterns via `--author-exclude-regex`.
-
-To exclude Linux build glue like `Kbuild` from co-change clustering, pass:
+3. Build the map with `<skill-dir>/scripts/run_ownership_map.py`. Co-change is on by default; `--cochange-max-files` ignores supernode commits, and `--graphml` adds GraphML output.
+4. Query the outputs with `<skill-dir>/scripts/query_ownership.py` for bounded JSON slices.
+5. Persist and visualize with `references/neo4j-import.md`.
 
 ```bash
-python skills/skills/security-ownership-map/scripts/run_ownership_map.py \
-  --repo /path/to/linux \
-  --out ownership-map-out \
-  --cochange-exclude "**/Kbuild"
-```
-
-## Quick start
-
-Run from the repo root:
-
-```bash
-python skills/skills/security-ownership-map/scripts/run_ownership_map.py \
+python <skill-dir>/scripts/run_ownership_map.py \
   --repo . \
   --out ownership-map-out \
   --since "12 months ago" \
   --emit-commits
 ```
 
-Defaults: author identity, author date, and merge commits excluded. Use `--identity committer`, `--date-field committer`, or `--include-merges` if needed.
-
-Example (override co-change excludes):
-
-```bash
-python skills/skills/security-ownership-map/scripts/run_ownership_map.py \
-  --repo . \
-  --out ownership-map-out \
-  --cochange-exclude "**/Cargo.lock" \
-  --cochange-exclude "**/.github/**" \
-  --no-default-cochange-excludes
-```
-
-Communities are computed by default. To disable:
-
-```bash
-python skills/skills/security-ownership-map/scripts/run_ownership_map.py \
-  --repo . \
-  --out ownership-map-out \
-  --no-communities
-```
+Defaults: author identity, author date, and merge commits excluded. Override with `--identity committer`, `--date-field committer`, or `--include-merges`. Common glue files (lockfiles, `.github/*`, editor config) and Dependabot commits are also excluded from co-change; override with `--cochange-exclude`, `--no-default-cochange-excludes`, `--author-exclude-regex`, or `--no-default-author-excludes`. Example: add `--cochange-exclude "**/Kbuild"` for Linux build glue.
 
 ## Sensitivity rules
 
-By default, the script flags common auth/crypto/secret paths. Override by providing a CSV file:
+By default the script flags common auth/crypto/secret paths. Override with a CSV passed to `--sensitive-config`:
 
 ```
 # pattern,tag,weight
@@ -90,97 +49,28 @@ By default, the script flags common auth/crypto/secret paths. Override by provid
 **/*.pem,secrets,1.0
 ```
 
-Use it with `--sensitive-config path/to/sensitive.csv`.
+## Querying
 
-## Output artifacts
-
-`ownership-map-out/` contains:
-
-- `people.csv` (nodes: people)
-- `files.csv` (nodes: files)
-- `edges.csv` (edges: touches)
-- `cochange_edges.csv` (file-to-file co-change edges with Jaccard weight; omitted with `--no-cochange`)
-- `summary.json` (security ownership findings)
-- `commits.jsonl` (optional, if `--emit-commits`)
-- `communities.json` (computed by default from co-change edges when available; includes `maintainers` per community; disable with `--no-communities`)
-- `cochange.graph.json` (NetworkX node-link JSON with `community_id` + `community_maintainers`; falls back to `ownership.graph.json` if no co-change edges)
-- `ownership.graphml` / `cochange.graphml` (optional, if `--graphml`)
-
-`people.csv` includes timezone detection based on author commit offsets: `primary_tz_offset`, `primary_tz_minutes`, and `timezone_offsets`.
-
-## LLM query helper
-
-Use `scripts/query_ownership.py` to return small, JSON-bounded slices without loading the full graph into context.
-
-Examples:
+`query_ownership.py` returns small, JSON-bounded slices without loading the full graph into context. Its groups are `people`, `files`, `person`, `file`, `cochange`, `summary`, and `community`; use `--limit`, `--tag`, `--bus-factor-max`, `--sort`, or `--min-jaccard` to narrow a slice.
 
 ```bash
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out people --limit 10
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out files --tag auth --bus-factor-max 1
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out person --person alice@corp --limit 10
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out file --file crypto/tls
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out cochange --file crypto/tls --limit 10
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out summary --section orphaned_sensitive_code
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out community --id 3
-```
-
-Use `--community-top-owners 5` (default) to control how many maintainers are stored per community.
-
-## Basic security queries
-
-Run these to answer common security ownership questions with bounded output:
-
-```bash
-# Orphaned sensitive code (stale + low bus factor)
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out summary --section orphaned_sensitive_code
-
-# Hidden owners for sensitive tags
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out summary --section hidden_owners
-
 # Sensitive hotspots with low bus factor
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out summary --section bus_factor_hotspots
+python <skill-dir>/scripts/query_ownership.py --data-dir ownership-map-out summary --section bus_factor_hotspots
 
-# Auth/crypto files with bus factor <= 1
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out files --tag auth --bus-factor-max 1
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out files --tag crypto --bus-factor-max 1
+# Auth files with bus factor <= 1
+python <skill-dir>/scripts/query_ownership.py --data-dir ownership-map-out files --tag auth --bus-factor-max 1
 
-# Who is touching sensitive code the most
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out people --sort sensitive_touches --limit 10
-
-# Co-change neighbors (cluster hints for ownership drift)
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out cochange --file path/to/file --min-jaccard 0.05 --limit 20
-
-# Community maintainers (for a cluster)
-python skills/skills/security-ownership-map/scripts/query_ownership.py --data-dir ownership-map-out community --id 3
-
-# Monthly maintainers for the community containing a file
-python skills/skills/security-ownership-map/scripts/community_maintainers.py \
-  --data-dir ownership-map-out \
-  --file network/card.c \
-  --since 2025-01-01 \
-  --top 5
-
-# Quarterly buckets instead of monthly
-python skills/skills/security-ownership-map/scripts/community_maintainers.py \
-  --data-dir ownership-map-out \
-  --file network/card.c \
-  --since 2025-01-01 \
-  --bucket quarter \
-  --top 5
+# Community maintainers over time for the community containing one file
+python <skill-dir>/scripts/community_maintainers.py --data-dir ownership-map-out --file path/to/file --since 2025-01-01 --bucket quarter --top 5
 ```
 
-Notes:
-- Touches default to one authored commit (not per-file). Use `--touch-mode file` to count per-file touches.
-- Use `--window-days 90` or `--weight recency --half-life-days 180` to smooth churn.
-- Filter bots with `--ignore-author-regex '(bot|dependabot)'`.
-- Use `--min-share 0.1` to show stable maintainers only.
-- Use `--bucket quarter` for calendar quarter groupings.
-- Use `--identity committer` or `--date-field committer` to switch from author attribution.
-- Use `--include-merges` to include merge commits (excluded by default).
+Summary sections: `orphaned_sensitive_code` (stale and low bus factor), `hidden_owners`, `bus_factor_hotspots`.
+
+Useful flags: `--touch-mode file` counts per-file touches instead of per commit; `--window-days 90` or `--weight recency --half-life-days 180` smooths churn; `--ignore-author-regex '(bot|dependabot)'` filters bots; `--min-share 0.1` shows stable maintainers only; `--community-top-owners 5` sets how many maintainers are stored per community.
 
 ### Summary format (default)
 
-Use this structure, add fields if needed:
+Use this structure and add fields if needed:
 
 ```json
 {
@@ -200,14 +90,20 @@ Use this structure, add fields if needed:
 }
 ```
 
-## Graph persistence
+## Output artifacts
 
-Use `references/neo4j-import.md` when you need to load the CSVs into Neo4j. It includes constraints, import Cypher, and visualization tips.
+`ownership-map-out/` contains:
+
+- `people.csv` (nodes: people, with `primary_tz_offset`, `primary_tz_minutes`, `timezone_offsets`), `files.csv` (nodes: files), `edges.csv` (touches)
+- `cochange_edges.csv` (Jaccard-weighted file edges; omitted with `--no-cochange`)
+- `summary.json` (security ownership findings), `communities.json` (computed by default, with `maintainers` per community)
+- `cochange.graph.json` (falls back to `ownership.graph.json` when there are no co-change edges) and optional `*.graphml`
+- `commits.jsonl` (only with `--emit-commits`)
 
 ## Notes
 
-- `bus_factor_hotspots` in `summary.json` lists sensitive files with low bus factor; `orphaned_sensitive_code` is the stale subset.
+- `bus_factor_hotspots` lists sensitive files with low bus factor; `orphaned_sensitive_code` is the stale subset.
 - If `git log` is too large, narrow with `--since` or `--until`.
-- Compare `summary.json` against CODEOWNERS to highlight ownership drift.
-- Treat CODEOWNERS as declared routing, not proof of review or expertise. Git history is also incomplete when work was squashed, mirrored, generated, or performed outside the repository; label those limits.
+- Compare `summary.json` against CODEOWNERS to highlight ownership drift. CODEOWNERS is declared routing, not proof of review or expertise.
+- Git history is incomplete when work was squashed, mirrored, generated, or performed outside the repository; label those limits.
 - Minimize personal data in exported graphs. Use approved identity normalization and retention rules before sharing contributor emails, time zones, or employment inferences.

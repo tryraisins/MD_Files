@@ -117,9 +117,11 @@ node <skill-dir>/validate-coverage-ledger.cjs <output-dir>/coverage-ledger.json
 
 Fix every structural and semantic error before continuing. The findings validator rejects input beyond 5 MiB, 1,000 top-level findings, or 64 nesting levels, and caps reported error output at 100 messages. Validator success proves format and ledger consistency only.
 
+On Windows the validators use a check-then-open fallback, because `O_NOFOLLOW` and `O_NONBLOCK` do not exist there. Every other input check still applies: symlink rejection, regular-file requirement, byte limit, and UTF-8 decoding. The read is no longer race-free, which matters only if a run directory is writable by someone other than you.
+
 ### Phase 5: Verify the final records with fresh eyes
 
-Launch one fresh `research` verifier per final `confirmed` and `needs_validation` record, in parallel. This verifier checks the structured record, not the hunter write-up, and remains inside source/local boundaries.
+Launch one fresh verifier per final `confirmed` and `needs_validation` record, in parallel. This verifier checks the structured record, not the hunter write-up, and remains inside source/local boundaries.
 
 In a `quick` run, Phase 3 and Phase 5 merge: the Phase 3 verifier also performs these record checks and returns the final schema-shaped record, so each candidate gets one fresh independent reviewer instead of two. Every other profile keeps the two passes separate. Never skip independent review of a `confirmed` record in any profile.
 

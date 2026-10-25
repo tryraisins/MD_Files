@@ -37,11 +37,4 @@ End every E2E run with a verifiable, repeatable artifact: a runnable command or 
 
 When no harness exists and the change is small, run the feature in its real context and record what you observed instead of standing up a test framework.
 
-## Workflow
-
-1. Identify the user-visible or externally observable behavior and the strongest practical E2E path.
-2. Use that path as the complete mechanism; add failure and recovery scenarios where they matter.
-3. If E2E cannot reach a boundary, state what is unreachable and what real evidence you did gather, then ask before writing anything isolated.
-4. Run the flow, keep a repeatable artifact, and report exactly what was verified and what remains unverified.
-
-When reviewing, consolidating, or removing existing tests, also apply `yeknal-legacy-sweep`; it owns the evidence bar for test value and deletion. This does not replace the repository's test-planning or validation requirements.
+When reviewing, consolidating, or removing existing tests, apply `yeknal-legacy-sweep`; it owns the evidence bar for test value and deletion. Use `yeknal-verification-harness` only for harness design, not for the policy above. Neither replaces the repository's own test-planning or validation requirements.

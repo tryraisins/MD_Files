@@ -8,10 +8,7 @@
       "skills": [
         "yeknal-add-changelog",
         "yeknal-agent-cost-control",
-        "yeknal-brainstorm",
-        "yeknal-cleanup",
         "yeknal-domain-modeling",
-        "yeknal-engineering-specialists",
         "yeknal-finalize",
         "yeknal-git",
         "yeknal-implement",
@@ -22,7 +19,6 @@
         "yeknal-project-handoff",
         "yeknal-research-analysis",
         "yeknal-review",
-        "yeknal-skill-router",
         "yeknal-testing-strategy",
         "yeknal-troubleshoot"
       ]
@@ -40,16 +36,12 @@
         "yeknal-redesign-existing-projects",
         "yeknal-ui-quality-baseline",
         "yeknal-animate-expo",
-        "yeknal-animation-vocabulary",
         "yeknal-apple-design",
         "yeknal-ask-sonner",
         "yeknal-brandkit",
         "yeknal-design-taste-frontend",
-        "yeknal-design-taste-frontend-v1",
-        "yeknal-emil-design-eng",
         "yeknal-figma-implement-design",
         "yeknal-find-animation-opportunities",
-        "yeknal-gpt-taste",
         "yeknal-high-end-visual-design",
         "yeknal-image-to-code",
         "yeknal-imagegen-frontend-mobile",
@@ -83,7 +75,6 @@
       "skills": [
         "yeknal-break-ui",
         "yeknal-playwright",
-        "yeknal-verification-audit",
         "yeknal-verification-harness"
       ]
     }

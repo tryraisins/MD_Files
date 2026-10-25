@@ -1,6 +1,6 @@
 ---
 name: yeknal-write-swift
-description: How to write modern Swift well — modeling with value types, Swift 6 data-race safety and approachable concurrency (@concurrent, main-actor-by-default, actors, task groups), protocols and generics (some vs any), API design, performance and ARC, Swift Testing, macros, and the modern language features agents don't know about yet. Use when writing, reviewing, or migrating Swift, or when a concurrency error, a hang, a data race, a retain cycle, or a performance problem needs fixing.
+description: "Write modern Swift with value types, Swift 6 data-race safety and approachable concurrency, protocols and generics, API design, performance, ARC, Swift Testing, macros, and migration. Use when writing, reviewing, or migrating Swift code."
 metadata:
   internal: true
 ---
@@ -12,19 +12,6 @@ Write Swift the way the language wants to be written, current through Swift 6.4.
 **Toolchain baseline: Swift 6.3** (current release as of August 2026). Everything here compiles on 6.3 unless marked as unreleased, which flags a Swift 6.4 feature. Concurrency guidance assumes the Swift 6.2 model: if the project is on 6.1 or earlier, §3's rules about `async` and `@concurrent` do not apply.
 
 The through-line: **Swift is a progressive-disclosure language. Start with the simplest, most static, most single-threaded thing that works, and buy dynamism (concurrency, reference semantics, existentials, unsafe pointers) only where you can point at the reason.** Every rule below applies that idea.
-
-Model this hierarchy of defaults. Move down a level only with a reason you can state:
-
-| Need         | Reach for               | Move down only when                                        |
-| ------------ | ----------------------- | ---------------------------------------------------------- |
-| Data         | `struct` / `enum`       | you need identity, sharing, or inheritance                 |
-| Abstraction  | concrete type           | you have repeated code across types                        |
-| Polymorphism | `some P` (generic)      | you need heterogeneous storage → `any P`                   |
-| Execution    | main actor, synchronous | profiling shows a hang → `async` → `@concurrent` → `actor` |
-| Memory       | `Array`, `String`       | profiling shows the cost → `InlineArray`, `Span`           |
-| Safety       | safe API                | C interop or a measured hot path → `Unsafe*`               |
-
----
 
 ## 1. Model data with value types
 
@@ -355,35 +342,3 @@ The order matters, and mixing steps is how migrations stall.
 6. **Refactor afterwards, separately.** Never combine a significant refactor with enabling data-race safety; you will have to back out both.
 
 You can turn strict checking back off and ship; every fix you made is a genuine improvement that survives. Enable **Approachable Concurrency** and, for app modules, main-actor-by-default _before_ you start: both dramatically reduce the number of errors you will see, and Xcode ships migration tooling that applies many of the changes for you (swift.org/migration).
-
----
-
-## Quick Reference
-
-| Need                               | Reach for                       | Not                                       |
-| ---------------------------------- | ------------------------------- | ----------------------------------------- |
-| A data type                        | `struct` / `enum`               | `class` without identity or sharing       |
-| Shared mutable state               | `actor`, or `@MainActor` class  | `class` + a lock you must remember        |
-| Move work off the main thread      | `@concurrent func … async`      | `Task.detached`, `DispatchQueue.global()` |
-| A library API's isolation          | `nonisolated`                   | `@MainActor`, `@concurrent`               |
-| Fixed number of parallel jobs      | `async let`                     | N unstructured `Task`s                    |
-| Dynamic number of parallel jobs    | `withTaskGroup` (bounded)       | one task per element, unbounded           |
-| Children that return nothing       | `withDiscardingTaskGroup`       | `withTaskGroup` you never drain           |
-| Work tied to a UI event            | `Task { }` inside the callback  | making the callback `async`               |
-| Fixing a data race                 | stop sharing the object         | `@unchecked Sendable`                     |
-| A shared model class               | non-`Sendable`, or `@MainActor` | `Sendable` + manual locking               |
-| Blocking primitive across `await`  | nothing; restructure            | `DispatchSemaphore`, `NSCondition`        |
-| Polymorphism                       | `some P`                        | `any P` unless you need storage           |
-| Heterogeneous collection           | `[any P]`                       | a class hierarchy                         |
-| Shared behavior, no customization  | constrained `extension`         | a new protocol                            |
-| A customization point              | protocol **requirement**        | a method only in an extension             |
-| Breaking a reference cycle         | restructure to a tree           | `weak` + `withExtendedLifetime`           |
-| Removing matching elements         | `removeAll(where:)` O(n)        | `remove(at:)` in a loop O(n²)             |
-| Direct access to contiguous memory | `.span`                         | `withUnsafeBufferPointer`                 |
-| Fixed-size buffer in a hot path    | `InlineArray<N, T>`             | `Array`                                   |
-| A new test                         | `@Test` + `#expect`             | `XCTestCase` + `XCTAssertEqual`           |
-| The same test over many inputs     | `@Test(arguments:)`             | a `for` loop, or copy-paste               |
-| Halting a test on failure          | `try #require`                  | `continueAfterFailure = false`            |
-| A temporarily broken test          | `withKnownIssue`                | `.disabled`, or commenting it out         |
-| Diagnostics in shipping code       | `Logger` + a correlation ID     | `print`                                   |
-| Deciding to optimize               | Instruments on a profiled test  | intuition                                 |

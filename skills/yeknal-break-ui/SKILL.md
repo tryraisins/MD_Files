@@ -1,6 +1,6 @@
 ---
 name: yeknal-break-ui
-description: Stress-test a component or screen with realistic worst-case data (long names, unbreakable emails, one-letter names, missing fields, huge and zero counts, long labels, non-Latin text, emoji, extreme numbers), show the demo and worst-case states behind a dev-only toggle, and report every break with its fix. Use when asked to break, stress-test, or find edge cases in UI, or to "try the worst case".
+description: Stress-test a component or screen with realistic worst-case data, put the demo and worst-case states behind a dev-only toggle, and report every break with its fix. Use to break, stress-test, or find UI edge cases.
 metadata:
   source: https://github.com/emilkowalski/skills
   source-commit: e8a175de22ae1e49370fc144c1f3bb9aeedf988d
@@ -8,17 +8,9 @@ metadata:
 
 # Breaking UI
 
-An adversarial verification skill. It does ONE thing: take UI that looks correct against tidy demo data, find the realistic worst case for every value it renders, put both datasets behind a toggle, and report what broke. It does not redesign the component, critique its taste, or review its motion.
+An adversarial verification skill. It does ONE thing: take UI that looks correct against tidy demo data, find the realistic worst case for every value it renders, put both datasets behind a toggle, and report what broke. Use it when the deliverable is a worst-case fixture and a data-stress report. Use `yeknal-redesign-existing-projects` or `yeknal-frontend-design` to act on a redesign or a taste critique, and `yeknal-review-animations` for motion.
 
 Apply `yeknal-ui-quality-baseline` as the surrounding contract: this skill proves which of its states, containment, and formatting rules the component actually holds under real data.
-
-## Related-skill routing
-
-- Use `yeknal-redesign-existing-projects` or `yeknal-frontend-design` to act on a structural redesign.
-- Use `yeknal-emil-design-eng` for taste and visual critique.
-- Use `yeknal-review-animations` or `yeknal-improve-animations` for motion.
-- Use `yeknal-ui-quality-baseline` for the shared state, token, responsive, and formatting rules this skill stress-tests.
-- Use this skill when the deliverable is an adversarial data-stress report and a reusable worst-case fixture.
 
 ## Operating posture
 

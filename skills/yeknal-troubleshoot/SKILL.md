@@ -7,19 +7,6 @@ description: Diagnose code, build, performance, deployment, or system failures f
 
 Find the real cause from reproducible evidence, then fix only what the user asked to fix.
 
-## Invocation
-
-```
-/troubleshoot [issue] [--type bug|build|performance|deployment] [--trace] [--fix]
-```
-
-## Arguments
-
-- `issue` - the problem or error message.
-- `--type` - category: `bug`, `build`, `performance`, or `deployment`.
-- `--trace` - add detailed tracing and logging.
-- `--fix` - apply safe fixes automatically.
-
 ## Execution
 
 1. Read the issue and gather initial context.
@@ -27,10 +14,11 @@ Find the real cause from reproducible evidence, then fix only what the user aske
 3. Separate correlation from cause and test the cheapest discriminating explanation first.
 4. Propose a scoped fix and validate it against the same symptom.
 5. Apply the fix only when requested, then confirm the resolution and run relevant regression checks.
+6. Distinguish local evidence from browser, tenant, provider, network, database, or production proof, and say which one you have.
 
-### Deep diagnosis for difficult failures
+Use the deeper loop below for hard, multi-step, intermittent, or performance failures. Routine build or configuration failures do not need it.
 
-Use this deeper loop for hard, multi-step, intermittent, or performance failures. Do not make every routine build or configuration failure follow a heavyweight process.
+## Deep diagnosis for difficult failures
 
 1. **Build a red-capable feedback loop.** Find the fastest safe command, test, browser flow, request, or fixture that exercises the user's reported failure and can distinguish it from success. A command that merely exits without error is not enough. Run the loop before forming a root-cause claim.
 2. **Minimize the failing case.** Remove inputs, steps, callers, or configuration one at a time, rerunning the loop after each change. Keep only details necessary to reproduce the symptom.
@@ -41,11 +29,3 @@ Use this deeper loop for hard, multi-step, intermittent, or performance failures
 If a red-capable loop cannot be built, state what was attempted, what access or artifact is missing, and request the smallest useful redacted log, request, trace, or environment access. Keep conclusions provisional instead of presenting an untested hypothesis as root cause.
 
 For a request to make the app faster rather than to fix a reported failure, use `yeknal-performance`: it owns the baseline, the bottleneck trace, and the keep-or-revert benchmark loop across startup, screens, content, and scrolling.
-
-## Evidence rules
-
-- Reproduce, or obtain the exact error, inputs, environment, and boundary where it occurs.
-- Separate correlation from root cause and test the cheapest discriminating hypothesis first.
-- Do not change code during a diagnosis-only request.
-- When a fix is requested, keep it scoped and rerun the reproduction plus relevant regression checks.
-- Distinguish local evidence from browser, tenant, provider, network, database, or production proof.

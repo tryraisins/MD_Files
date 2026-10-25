@@ -64,11 +64,11 @@ Search for inbound references with `rg` before a rename or deletion. A clean Mar
 2. Search current terminology, paths, commands, URLs, and cross-references with `rg`.
 3. Make scoped edits and keep public anchors stable when practical.
 4. Re-run affected commands or inspect the implementation behind changed claims.
-5. Validate links, headings, tables, code fences, and repository-specific lint rules.
+5. Validate links, headings, tables, code fences, and repository-specific lint rules, using [the review checklist](references/markdown-review-checklist.md) for a defect pass.
 6. Review the diff for accidental line-ending churn, generated files, secrets, placeholders, and unrelated prose changes.
 7. Report source truth, checks run, and any deployment or runtime proof still outstanding.
 
-Use `yeknal-add-changelog` when the task is specifically a release-history entry. Use `yeknal-doc` for DOCX documents. This skill owns Markdown and repository documentation.
+Boundary: `yeknal-add-changelog` owns release-history entries and `yeknal-doc` owns DOCX. This skill owns Markdown and repository documentation.
 
 ## Agent skill repositories
 
@@ -93,25 +93,25 @@ For a folder collection of Agent Skills:
 Audit all top-level skills:
 
 ```powershell
-pwsh ./markdown-management/scripts/audit-skills.ps1 -Root .
+pwsh <skill-dir>/scripts/audit-skills.ps1 -Root .
 ```
 
 Write a Markdown report:
 
 ```powershell
-pwsh ./markdown-management/scripts/audit-skills.ps1 -Root . -ReportPath ./SKILL_AUDIT.md
+pwsh <skill-dir>/scripts/audit-skills.ps1 -Root . -ReportPath ./SKILL_AUDIT.md
 ```
 
 Check repository-wide relative Markdown links:
 
 ```powershell
-pwsh ./markdown-management/scripts/audit-markdown-links.ps1 -Root .
+pwsh <skill-dir>/scripts/audit-markdown-links.ps1 -Root .
 ```
 
-Audit duplicate skill names across local Codex, Claude, and shared agent roots without deleting anything:
+Audit duplicate skill names across local Codex, Claude, and shared agent roots without deleting anything, then resolve them per [the conflict resolution guide](references/installed-skill-conflict-resolution.md):
 
 ```powershell
-pwsh ./markdown-management/scripts/audit-installed-skill-conflicts.ps1
+pwsh <skill-dir>/scripts/audit-installed-skill-conflicts.ps1
 ```
 
 ## Verification

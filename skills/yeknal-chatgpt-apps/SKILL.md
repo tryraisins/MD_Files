@@ -1,18 +1,13 @@
 ---
 name: yeknal-chatgpt-apps
-description: Build, scaffold, refactor, and troubleshoot ChatGPT Apps SDK applications that combine an MCP server and widget UI. Use when Codex needs to design tools, register UI resources, wire the MCP Apps bridge or ChatGPT compatibility APIs, apply Apps SDK metadata or CSP or domain settings, or produce a docs-aligned project scaffold. Prefer a docs-first workflow by invoking the openai-docs skill or OpenAI developer docs MCP tools before generating code.
+description: "Build, scaffold, or refactor ChatGPT Apps SDK apps that pair an MCP server with widget UI: tool design, UI resources, the MCP Apps bridge, and CSP or domain metadata. Use when building a ChatGPT App; read the docs first."
 metadata:
   internal: true
 ---
 
 # ChatGPT Apps
 
-## Automatic UI Quality Contract
-
-For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
-
-Because these widgets mediate AI behavior, also apply `yeknal-human-ai-interface-design` for expectation setting, provenance, user control, consequential approvals, failure recovery, and reliance-focused evaluation.
-
+Apply `yeknal-ui-quality-baseline` to every visible widget. Because these widgets mediate AI behavior, also apply `yeknal-human-ai-interface-design` for expectation setting, provenance, user control, consequential approvals, failure recovery, and reliance-focused evaluation.
 
 ## Overview
 
@@ -30,30 +25,9 @@ Use this skill to produce:
 - Local dev and connector setup steps
 - A short stakeholder summary of what the app does (when requested)
 
-## Mandatory Docs-First Workflow
+## Docs first
 
-Use `$openai-docs` first whenever you build or change a ChatGPT Apps SDK app.
-
-1. Invoke `$openai-docs` (preferred) or call the OpenAI docs MCP server directly.
-2. Fetch current Apps SDK docs before writing code, especially (baseline pages):
-   - `apps-sdk/build/mcp-server`
-   - `apps-sdk/build/chatgpt-ui`
-   - `apps-sdk/build/examples`
-   - `apps-sdk/plan/tools`
-   - `apps-sdk/reference`
-3. Fetch `apps-sdk/quickstart` when scaffolding a new app or generating a first-pass implementation, and check the official examples repo/page before inventing a scaffold from scratch.
-4. Fetch deployment/submission docs when the task includes local ChatGPT testing, hosting, or public launch:
-   - `apps-sdk/deploy`
-   - `apps-sdk/deploy/submission`
-   - `apps-sdk/app-submission-guidelines`
-5. Cite the docs URLs you used when explaining design choices or generated scaffolds.
-6. Prefer current docs guidance over older repo patterns when they conflict, and call out compatibility aliases explicitly.
-7. If doc search times out or returns poor matches, fetch the canonical Apps SDK pages directly by URL and continue; do not let search failure block scaffolding.
-
-If `$openai-docs` is unavailable, use:
-
-- `mcp__openaiDeveloperDocs__search_openai_docs`
-- `mcp__openaiDeveloperDocs__fetch_openai_doc`
+Run `yeknal-openai-docs` before you build or change an app: it owns doc lookup, the OpenAI docs MCP server, and the fetch and citation rules. Use it to pull the current `apps-sdk/*` pages (`build/mcp-server`, `build/chatgpt-ui`, `build/examples`, `plan/tools`, `reference`, plus `quickstart`, `deploy`, `deploy/submission`, and `app-submission-guidelines` when the task reaches scaffolding, hosting, or launch). Cite the URLs you used, and prefer current docs over older repo patterns when they conflict.
 
 Read `references/apps-sdk-docs-workflow.md` for suggested doc queries and a compact checklist.
 Read `references/app-archetypes.md` to classify the request into a small number of supported app shapes before choosing examples or scaffolds.
@@ -62,18 +36,9 @@ Read `references/search-fetch-standard.md` when the app is connector-like, data-
 Read `references/upstream-example-workflow.md` when starting a greenfield app or when deciding whether to adapt an upstream example or use the local fallback scaffold.
 Read `references/window-openai-patterns.md` when the task needs ChatGPT-specific widget behavior or when translating repo examples that use wrapper-specific `app.*` helpers.
 
-## Prompt Guidance
+## Inputs to establish
 
-Use prompts that explicitly pair this skill with `$openai-docs` so the scaffold is grounded in current docs.
-
-Preferred prompt patterns:
-
-- `Use $chatgpt-apps with $openai-docs to scaffold a ChatGPT app for <use case> with a <TS/Python> MCP server and <React/vanilla> widget.`
-- `Use $chatgpt-apps with $openai-docs to adapt the closest official Apps SDK example into a ChatGPT app for <use case>.`
-- `Use $chatgpt-apps and $openai-docs to refactor this Apps SDK demo into a production-ready structure with tool annotations, CSP, and URI versioning.`
-- `Use $chatgpt-apps with $openai-docs to plan tools first, then generate the MCP server and widget code.`
-
-When responding, ask for or infer these inputs before coding:
+Ask for or infer these before coding:
 
 - Use case and primary user flows
 - Read-only vs mutating tools
@@ -95,7 +60,9 @@ Before choosing examples, repo shape, or scaffolds, classify the request into on
 - `interactive-decoupled`
 - `submission-ready`
 
-Infer the archetype unless a missing detail is truly blocking. Use the archetype to choose:
+Infer the archetype unless a missing detail is truly blocking; if the request is broad, pick the smallest one that still satisfies it. Escalate to `submission-ready` only when the user asks for public launch, directory submission, or review-ready deployment. Say which archetype you chose, so the user can correct it early.
+
+Use the archetype to choose:
 
 - whether a UI is needed at all
 - whether to preserve a split `server/` + `web/` layout
@@ -117,15 +84,6 @@ Do not generate a large custom scaffold from scratch if a close upstream example
 Copy the smallest matching example, remove unrelated demo code, then patch it to the current docs and the user request.
 
 ## Build Workflow
-
-### 0. Classify The App Archetype
-
-Pick one primary archetype before planning tools or choosing a starting point.
-
-- Prefer a single primary archetype instead of mixing several.
-- If the request is broad, infer the smallest archetype that can still satisfy it.
-- Escalate to `submission-ready` only when the user asks for public launch, directory submission, or review-ready deployment.
-- Call out the chosen archetype in your response so the user can correct it early if needed.
 
 ### 1. Plan Tools Before Code
 
@@ -326,14 +284,3 @@ When using this skill to scaffold code, produce output in this order unless the 
 9. Deployment/hosting guidance (if requested or implied)
 10. Submission-readiness checklist (for public launch requests)
 11. Risks, gaps, and follow-up improvements
-
-## References
-
-- `references/app-archetypes.md` for classifying requests into a small number of supported app shapes
-- `references/apps-sdk-docs-workflow.md` for doc queries, page targets, and code-generation checklist
-- `references/interactive-state-sync-patterns.md` for reusable patterns for stateful or highly interactive widget apps
-- `references/repo-contract-and-validation.md` for the minimum working repo contract and lightweight validation ladder
-- `references/search-fetch-standard.md` for when and how to default to the standard `search` and `fetch` tools
-- `references/upstream-example-workflow.md` for choosing between official examples, ext-apps examples, and the local fallback scaffold
-- `references/window-openai-patterns.md` for ChatGPT-specific extensions, wrapper API translation, and React helper patterns
-- `scripts/scaffold_node_ext_apps.mjs` for a minimal Node + `@modelcontextprotocol/ext-apps` fallback starter scaffold

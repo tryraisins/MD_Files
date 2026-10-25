@@ -29,25 +29,13 @@ Treat the repository as the source of truth. Before choosing an API or migration
 
 ## UI and motion
 
-Apply `yeknal-ui-quality-baseline` to every visible change. An approved design system or a more specific design skill outranks the generic style advice here.
-
-- Reuse installed styling and component systems before adding dependencies.
-- Do not impose Tailwind, dark mode, glassmorphism, a font blacklist, custom cursors, background effects, or an animation library unless the brief and repository support them.
-- Choose loading feedback by wait type: geometry-matched skeletons for content, stable pending controls for mutations, and focus-managed overlays only for genuinely blocking work.
-- Tie feedback to real state with status announcements, `aria-busy`, visible focus, reduced-motion support, failure, and retry behavior.
-- Reach for `yeknal-oil-motion` only for deliberate frame-based media timelines that ordinary UI motion cannot express.
+Apply `yeknal-ui-quality-baseline` to every visible change, and `yeknal-oil-motion` only for frame-based media timelines that ordinary UI motion cannot express. An approved design system or a more specific design skill outranks generic style advice.
 
 ## AI-enabled features
 
-Apply these rules only when the product genuinely includes model, tool, retrieval, or agent behavior:
-
-- Render high-level server-provided events; never expose or invent private chain-of-thought or tool activity.
-- Require a clear review boundary before consequential model-proposed mutations.
-- Show provenance, scope, errors, retries, cancellation, and refresh-safe reconciliation.
-- Treat prompts, retrieved content, files, tool output, and stored memory as untrusted input; apply `yeknal-application-security`.
+When the product includes model, tool, retrieval, or agent behavior, apply `yeknal-human-ai-interface-design`, and `yeknal-application-security` to prompts, retrieved content, files, tool output, and stored memory.
 
 ## Guardrails
 
-- Do not claim performance, accessibility, SEO, or Core Web Vitals scores without measurement.
 - Do not assume edge-runtime compatibility; verify every dependency and API used there.
 - Do not silently change routing, caching, data contracts, authentication, environment variables, or deployment behavior.

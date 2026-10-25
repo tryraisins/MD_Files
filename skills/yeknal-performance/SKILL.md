@@ -1,6 +1,6 @@
 ---
 name: yeknal-performance
-description: Optimize an application's real performance by measuring baseline startup, screen navigation, content loading, and scrolling, locating the actual bottleneck, changing one thing at a time, and proving every fix with before and after benchmarks. Use when an app feels slow to start, screens or content take too long to appear, scrolling stutters, or someone asks to make the app faster.
+description: Make an app faster by measuring startup, navigation, content load, and scroll, fixing the real bottleneck, and proving each win with before and after numbers. Use when an app feels slow to start, to change screens, to fill in, or to scroll.
 metadata:
   last-reviewed: "2026-10-23"
   boundary: "Measurement-driven. No claim without a before and after number."
@@ -95,7 +95,7 @@ Use [the report template](references/report-template.md). One table per surface 
 
 ## Surface map
 
-Detailed procedures live in the references. The short version:
+Detailed procedures live in the references; when the profile names a cost, [the fix catalog](references/fix-catalog.md) maps symptom to fix to verification. The short version:
 
 | Surface | Usual largest cost | Read |
 | --- | --- | --- |
@@ -129,24 +129,3 @@ Detailed procedures live in the references. The short version:
 ## Stop conditions
 
 Stop when the surface meets its budget, when the next candidate costs more risk than the remaining milliseconds are worth, or when the profile stops offering a dominant cost. Say which condition was reached. A short, honest report beats a long list of speculative edits.
-
-## Handoffs
-
-| Work | Skill |
-| --- | --- |
-| Motion quality, easing, choreography | `yeknal-improve-animations`, `yeknal-review-animations` |
-| Launch budget gate and p75 device target | `yeknal-launch-readiness` |
-| Defect and regression review of the diff | `yeknal-review` |
-| Browser automation and evidence capture | `yeknal-playwright` |
-| Proving the feature still works after the fix | `yeknal-verification-harness`, `yeknal-testing-strategy` |
-| Framework-specific implementation detail | `yeknal-frontend-developer`, `yeknal-nextjs-developer`, `yeknal-aspnet-core`, `yeknal-winui-app` |
-
-## References
-
-- [Measuring](references/measuring.md): protocol, tooling per stack, noise floor, artifacts.
-- [Startup](references/startup.md): cold start on web, Electron, and React Native.
-- [Screens and content](references/screens-and-content.md): navigation, data, caching, images, pagination.
-- [Scrolling](references/scrolling.md): lists, long tasks, layout, memory.
-- [Fix catalog](references/fix-catalog.md): symptom to evidence to fix to verification.
-- [Report template](references/report-template.md): the deliverable.
-- [Harness](scripts/bench-web.mjs): repeatable web measurements with a comparison report.

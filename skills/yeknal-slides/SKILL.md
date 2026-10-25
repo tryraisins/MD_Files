@@ -1,6 +1,6 @@
 ---
 name: yeknal-slides
-description: Create and edit presentation slide decks (`.pptx`) with PptxGenJS, bundled layout helpers, and render/validation utilities. Use when tasks involve building a new PowerPoint deck, recreating slides from screenshots/PDFs/reference decks, modifying slide content while preserving editable output, adding charts/diagrams/visuals, or diagnosing layout issues such as overflow, overlaps, and font substitution.
+description: Create and edit PowerPoint decks (`.pptx`) with PptxGenJS plus bundled layout, render, and validation helpers. Use to build a deck, recreate slides from screenshots or PDFs, or diagnose overflow, overlap, and font substitution.
 metadata:
   internal: true
 ---
@@ -54,20 +54,18 @@ Do all work in a task-local directory. Copy only the final artifacts to the requ
 
 ## Validation Commands
 
-The examples assume you copied the needed scripts into the working directory. If you did not, invoke the same script paths relative to this skill folder.
+The examples assume you copied the needed scripts into the working directory. If you did not, invoke the same script paths relative to this skill folder. `python` is the Python 3 interpreter on Windows; use your platform's Python 3 command elsewhere.
 
 ```bash
 # Render slides to PNGs for review
-python3 scripts/render_slides.py deck.pptx --output_dir rendered
+python scripts/render_slides.py deck.pptx --output_dir rendered
 
 # Build a montage for quick scanning
-python3 scripts/create_montage.py --input_dir rendered --output_file montage.png
+python scripts/create_montage.py --input_dir rendered --output_file montage.png
 
 # Check for overflow beyond the original slide canvas
-python3 scripts/slides_test.py deck.pptx
+python scripts/slides_test.py deck.pptx
 
 # Detect missing or substituted fonts
-python3 scripts/detect_font.py deck.pptx --json
+python scripts/detect_font.py deck.pptx --json
 ```
-
-Load `references/pptxgenjs-helpers.md` when you need the helper API summary or dependency details.

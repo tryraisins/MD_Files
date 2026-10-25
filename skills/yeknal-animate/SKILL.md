@@ -9,7 +9,7 @@ Apply `yeknal-ui-quality-baseline` to every visible interface the animation touc
 
 # Building Animations
 
-A construction skill with one job: turn a motion request into an implementation that survives a strict review. It does not audit a codebase (`yeknal-improve-animations` does that), critique a diff (`yeknal-review-animations`), search for animation opportunities (`yeknal-find-animation-opportunities`), or target React Native (`yeknal-animate-expo`).
+Use this when the request is to build motion for a web interface. It does not audit a codebase (`yeknal-improve-animations` does that), critique a diff (`yeknal-review-animations`), search for animation opportunities (`yeknal-find-animation-opportunities`), or target React Native (`yeknal-animate-expo`).
 
 ## Operating Posture
 
@@ -85,6 +85,7 @@ If the task needs a *component* rather than an animation — a toast, a drawer, 
 ### 4. Pick the properties
 
 - **`transform` and `opacity` only.** They skip layout and paint and run on the GPU. `width`/`height`/`margin`/`padding`/`top`/`left` trigger all three. (`clip-path` is the sanctioned fourth — see RECIPES.md. `height` is tolerated only for accordions, where no transform equivalent exists.)
+- **Name the exact properties.** `transition: all` animates things you did not intend and is never acceptable.
 - **Never `scale(0)`.** Start from `scale(0.9–0.97)` plus `opacity: 0`. Nothing in the real world appears from nothing.
 - **`transform-origin` at the trigger** for popovers, dropdowns, menus, and tooltips — `var(--transform-origin)` in Base UI. **Modals are exempt** because they are not anchored to a trigger and stay centered.
 - **Percentages in `translate()`** are relative to the element's own size: `translateY(100%)` moves by its own height regardless of content. Prefer this over hardcoded pixels.
@@ -148,6 +149,7 @@ Keep bounce between 0.1–0.3, and avoid bounce in most UI; reserve it for drag-
 - **Springs for gestures**, because they carry velocity through an interruption.
 - **Exit the way it entered.** A toast that slides in from the bottom leaves through the bottom. Symmetric paths are what make swipe-to-dismiss feel obvious.
 - **Asymmetric timing where the user is deciding.** Slow on the deliberate phase (a hold-to-confirm press: 2s linear), snappy on the system response (release: 200ms ease-out).
+- **Stagger a group instead of firing it at once** — 30–80ms between siblings on a list or grid entrance.
 
 ### 7. Reduced motion and pointer gating
 
@@ -173,25 +175,15 @@ Choose removal, reduction, or replacement according to the effect and the user's
 
 For ready-to-build implementations of the common cases — button press, dropdown, tooltip, modal, drawer, toast, accordion, stagger, hold-to-confirm, tab indicator, scroll reveal, drag-to-dismiss — see [RECIPES.md](RECIPES.md). Load it whenever the request matches one of those components and start from the recipe instead of a blank file.
 
-## Never Ship
+## Component-level craft
 
-Self-check before you finish. Each of these is an automatic block in `yeknal-review-animations`:
+[references/component-motion-craft.md](references/component-motion-craft.md) carries the mechanics this skill does not restate: clip-path reveals, gesture and drag handling (pointer capture, boundary damping, momentum dismissal), transform-origin and percentage-translate detail, the Sonner principles, and animation debugging at 2–5× speed. Load it when the work is one specific component behaviour rather than a whole motion decision. Where it and this file disagree, this file and `yeknal-review-animations` win.
 
-| Never | Instead |
-| --- | --- |
-| `transition: all` | Name the exact properties |
-| `transform: scale(0)` entrance | `scale(0.95)` + `opacity: 0` |
-| `ease-in` on a UI element | `ease-out` or a strong custom curve |
-| Built-in `ease-out` on a deliberate animation | `cubic-bezier(0.23, 1, 0.32, 1)` |
-| Animation on a keyboard shortcut or 100+/day action | No animation |
-| UI duration over 300ms with no reason | 150–250ms |
-| `transform-origin: center` on a trigger-anchored popover | `var(--transform-origin)` (modals exempt) |
-| Keyframes on toasts, toggles, rapidly-triggered elements | CSS transitions |
-| Animating `width`/`height`/`margin`/`padding`/`top`/`left` | `transform` / `opacity` |
-| Motion `x`/`y`/`scale` props under load | Full `transform` string |
-| Ungated `:hover` motion | `@media (hover: hover) and (pointer: fine)` |
-| Missing `prefers-reduced-motion` | Apply the shared reduced-motion policy |
-| Everything entering at once | 30–80ms stagger |
+Adapted from [emilkowalski/skills](https://github.com/emilkowalski/skills) at commit `e8a175de22ae1e49370fc144c1f3bb9aeedf988d` (MIT).
+
+## Self-check
+
+Before you finish, check the result against steps 1–7. A violation of any of them is an automatic block in `yeknal-review-animations`.
 
 ## Output
 

@@ -1,6 +1,6 @@
 ---
 name: yeknal-legacy-sweep
-description: Audit a whole repository or subsystem for unused legacy code and bloated or worthless tests, prove each candidate is obsolete before deleting it, repair real defects instead of removing the test that caught them, and keep the coverage that still protects behaviour. Use when asked for a deep cleanup, a dead-code sweep, a test-suite prune, or a legacy audit, and whenever deletion is on the table.
+description: Prove legacy code and tests are obsolete before deleting them, repair real defects instead of removing the test that caught them, and keep the coverage that protects behaviour. Use for a dead-code sweep, "remove unused imports", or a test-suite prune.
 metadata:
   last-reviewed: "2026-10-24"
   boundary: "Read-only until the user authorizes deletion. Never authors unit tests."
@@ -16,14 +16,23 @@ A sweep is a campaign, not a lint pass. Reading and judging come first, and ever
 
 | Request | Use |
 | --- | --- |
-| "Sweep this repo", "delete the dead code and the bloated tests", a legacy audit of a subsystem | this skill |
-| Unused imports or symbols in named files | `yeknal-dead-code-hunter` |
-| Prune a folder, drop stale config or dependencies | `yeknal-cleanup` |
-| Is this one test worth keeping? | the test evidence gate below |
+| "Sweep this repo", "delete the dead code and the bloated tests", a legacy audit of a subsystem | the full workflow below |
+| "Remove unused imports", "delete dead code", unused symbols in named files | the scoped fast path |
+| Prune a folder, drop stale config or dependencies | the scoped fast path, then step 4 for anything not obviously unused |
+| Is this one test worth keeping? | the test evidence gate in step 5 |
 | How should new work be tested? | `yeknal-testing-strategy` |
 | Is this diff correct? | `yeknal-review` |
 
-Earlier catalog versions shipped the test-value gate as `yeknal-test-audit`. That skill was renamed to this one and widened to cover production code; the evidence bar for tests is unchanged and lives in step 5.
+## Scoped fast path
+
+A small deletion job does not launch a campaign. When the request names the files, a directory, or a class of symbol ("remove unused imports", "delete dead code"), work in four steps and stop.
+
+1. **Scope and inventory.** Fix the target from the request. List the files, excluding `node_modules/`, `vendor/`, `.venv/`, `__pycache__/`, `dist/`, `build/`, generated output, and migrations. Tests are excluded unless the user named them; they carry a higher false-positive rate. Say what is in scope before scanning.
+2. **Scan both lenses.** Fast, intra-file checks first: an import whose name never reappears in the file body (F401), a name imported or assigned twice with the first binding unused (F811), a local assigned and never read (F841), statements after `return`, `raise`, `break`, `continue`, or `sys.exit()` (F702), a `from module import *` with no `__all__` (F403), and `except: pass` with no logging (E722). Then the cross-file pass: build a definition map of top-level and class-level functions, classes, methods, and constants; build a usage map of calls, instantiations, attribute access, annotations, and decorators; diff them. A definition with no usage is a candidate, not a finding.
+3. **Show the candidate list before deleting anything.** One table, one row per candidate: `path:line`, the symbol, the evidence (what was searched, what was found), and a confidence tier. High means definitively unused. Medium means cross-module use, dynamic dispatch, or a framework hook could still reach it. Low means a public export, magic method, or reflection could reach it, so it is reported and left alone. Nothing is deleted before the user sees this list.
+4. **Apply only what was confirmed.** Show the diff for each change, apply it, re-grep the removed symbol, and log the file, line, action, and symbol. Then run the repository's gates: tests, typecheck, lint, build, `git diff --check`.
+
+The fast path stops and hands back to the full workflow when a candidate is not obviously unused, when the change touches a dependency, config file, public export, or test suite, or when a gate fails for a reason the removal did not cause. Prove it unused before you delete it: search the whole in-scope call graph and configuration, and treat dynamic imports, reflection, generated entry points, framework conventions, deployment manifests, and external consumers as possible references. Every removal in the closing report names what was removed and whether it can be recovered.
 
 ## Boundaries
 
@@ -78,6 +87,8 @@ For each candidate ask:
 5. Does it depend on a production seam that exists only for tests?
 
 Then classify **retain**, **repair**, **consolidate**, or **remove**. Removal needs either the surviving proof or the reason no contract exists. Overlapping topic is not redundancy, and an implementation-shaped assertion may still be the only guard on a protocol, migration, security rule, or generated artifact.
+
+Repair updates an existing test whose asserted contract deliberately changed. It is not permission to write a new test around broken production code, and outside an approved sweep a test that merely looks wrong is a finding to report.
 
 ### 6. Triage every baseline failure
 

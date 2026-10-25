@@ -1,6 +1,6 @@
 ---
 name: yeknal-agent-cost-control
-description: Cut agent inference spend without quietly losing quality. Use when an LLM bill, token spend, or per-task cost is too high, when sessions feel slow or expensive, when choosing models or effort levels for a task, or when someone asks whether prompt caching, model routing, or a cheaper tier is worth it.
+description: Cut agent inference spend without losing quality. Use when an LLM bill or per-task cost is too high, sessions feel expensive, or you are choosing models, effort, or caching.
 metadata:
   last-reviewed: "2026-10-24"
   boundary: "Measures and changes cost. Does not decide who does the work."
@@ -12,25 +12,13 @@ An inference bill is the product of how many calls you make and how much context
 
 ## Where this fits
 
-| Trigger | Use |
-| --- | --- |
-| The bill rose, or one task cost more than expected | this skill |
-| Splitting work between agents, or deciding who does what | `yeknal-orchestration-specialists` |
-| Judging whether a diff or system is correct | `yeknal-review` |
-| Proving behavior through the real entry point | `yeknal-testing-strategy` |
+The bill rose, or one task cost more than expected. For deciding who does the work, use `yeknal-orchestration-specialists`; for judging correctness, `yeknal-review`; for proving behavior, `yeknal-testing-strategy`.
 
 This skill answers whether the spend is justified and how to prove a change helped. It does not decide who does the work, and it does not review code.
 
-## Boundaries
-
-- Measure before changing anything. A cache or model change made without a baseline cannot be shown to have helped, and often is not the problem.
-- Cheaper is not automatically fine. Every cost change needs an outcome check, or it is a silent quality cut.
-- Do not optimize a workload you have not looked at. An expensive month is usually one long session, not a pricing problem.
-- Another team's numbers are evidence, not a forecast. Recheck on your workload.
-
 ## Step 1: Measure what you actually spent
 
-Per session, collect from the harness usage log. [measurement.md](references/measurement.md) has a queryable schema and query examples.
+Per session, collect from your provider's usage report or your agent harness's session log. [measurement.md](references/measurement.md) has a queryable schema and query examples.
 
 | Metric | Why it matters |
 | --- | --- |
@@ -77,13 +65,7 @@ Before keeping a cheaper configuration, check what it stopped finding:
 
 A fall in reported problems is ambiguous: either noise removed or findings lost. Without one of these checks, assume findings were lost.
 
-Effort is not a cost dial to turn down by default. In the published case below, high effort on one reviewer cost 61% more per run and posted more real findings, so it was kept, while medium effort on the same reviewer lost real findings.
-
-## Published reference point
-
-One team cut cost per code review from $2.43 to $0.77 and median time from 4m09s to 1m32s. Code changes accounted for $0.65 of the saving and model and effort changes for $1.06. Their caching work paid off because the first request of a session found a cached prefix only 14-26% of the time; on a setup already above 90%, that work returns almost nothing. Read the full account at [Cloudflare, cutting inference cost by 68%](https://blog.cloudflare.com/obsessive-inference-optimization/).
-
-Use it as a shape, not a target. The transferable part is the method: measure per session, find the concentration, change one lever, and gate model changes on outcomes.
+Effort is not a cost dial to turn down by default. In [one published review pipeline](https://blog.cloudflare.com/obsessive-inference-optimization/), high effort on one reviewer cost 61% more per run and posted more real findings, so it was kept, while medium effort on the same reviewer lost real findings. That team cut cost per review from $2.43 to $0.77. Treat it as a shape, not a target: the transferable part is the method below, and their saving came from a cache that was already cold, which returns nothing on a warm setup.
 
 ## Failure modes
 

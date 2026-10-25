@@ -10,9 +10,9 @@ Turn verified, shipped changes into a Keep a Changelog entry. Work from real his
 ## Gather evidence
 
 - Read the existing changelog (`CHANGELOG.md`) if one is present.
-- Review recent commits: `git log --oneline -10`.
-- Find the last released version: `git describe --tags --abbrev=0 2>/dev/null || echo "No tags found"`.
 - Read the package version (`package.json` or the project's manifest).
+- Find the last released version: `git describe --tags --abbrev=0`.
+- Review every commit since that release: `git log <last-tag>..HEAD --oneline`. With no tags, read the full history: `git log --oneline`.
 
 ## Write the entry
 

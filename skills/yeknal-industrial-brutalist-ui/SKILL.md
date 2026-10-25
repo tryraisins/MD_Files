@@ -1,6 +1,6 @@
 ---
 name: yeknal-industrial-brutalist-ui
-description: Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
+description: Design data-heavy interfaces in industrial brutalism style, fusing Swiss print typography with military terminal aesthetics. Use when the brief asks for rigid grids, extreme type-scale contrast, utilitarian color, or halftones and scanlines.
 metadata:
   source: https://github.com/leonxlnx/taste-skill
   source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
@@ -8,14 +8,7 @@ metadata:
 
 # SKILL: Industrial Brutalism & Tactical Telemetry UI
 
-## Automatic UI Quality Contract
-
-For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
-
-
-## 1. Skill Meta
-**Name:** Industrial Brutalism & Tactical Telemetry Interface Engineering
-**Description:** Advanced proficiency in architecting web interfaces that merge mid-century Swiss Typographic design, industrial manufacturing manuals, and retro-futuristic aerospace/military terminal interfaces. This discipline demands absolute mastery of rigid modular grids, extreme typographic scale contrast, purely utilitarian color palettes, and the programmatic simulation of analog degradation (halftones, CRT scanlines, bitmap dithering). The objective is to construct digital environments that project raw functionality, mechanical precision, and high data density while deliberately discarding conventional consumer UI patterns.
+Apply `yeknal-ui-quality-baseline` to every visible output. Preserve approved design files, established brands, platform conventions, and existing behavior over the stylistic rules below.
 
 ## 2. Visual Archetypes
 The design system operates by fusing two distinct but highly compatible visual paradigms. **Pick ONE per project and commit to it. Do not alternate or mix both modes within the same interface.**
@@ -33,7 +26,7 @@ Typography is the primary structural and decorative infrastructure; imagery is s
 
 ### 3.1 Macro-Typography (Structural Headers)
 *   **Classification:** Neo-Grotesque / Heavy Sans-Serif.
-*   **Optimal Web Fonts:** Neue Haas Grotesk (Black), Inter (Extra Bold/Black), Archivo Black, Roboto Flex (Heavy), Monument Extended.
+*   **Optimal Web Fonts:** Neue Haas Grotesk (Black), Archivo Black, Roboto Flex (Heavy), Monument Extended.
 *   **Implementation Parameters:**
     *   **Scale:** Deployed at massive scales using fluid typography (e.g., `clamp(4rem, 10vw, 15rem)`).
     *   **Tracking (Letter-spacing):** Extremely tight, often negative (`-0.03em` to `-0.06em`), forcing glyphs to form solid architectural blocks.
@@ -93,6 +86,7 @@ To keep the design from reading as purely digital, simulated analog degradation 
 *   **Halftone and 1-Bit Dithering:** Transforming continuous-tone images or large serif typography into dot-matrix patterns. Achieved via pre-processing or CSS `mix-blend-mode: multiply` overlays combined with SVG radial dot patterns.
 *   **CRT Scanlines:** For terminal interfaces, applying a `repeating-linear-gradient` to the background to simulate horizontal electron beam sweeps (e.g., `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)`).
 *   **Mechanical Noise:** A global, low-opacity SVG static/noise filter applied to the DOM root to introduce a unified physical grain across both dark and light modes.
+*   **Contrast Guardrails:** Every degradation effect is decoration over readable content. Text and controls keep a 4.5:1 contrast ratio or better on both substrates, scanlines and grain never sit over small text, and each effect needs a reason, a reduced-motion or static fallback, and a measured rendering cost.
 
 ## 8. Web Engineering Directives
 1.  **Grid Determinism:** Utilize `display: grid; gap: 1px;` with contrasting parent/child background colors to generate mathematically perfect, razor-thin dividing lines without complex border declarations.

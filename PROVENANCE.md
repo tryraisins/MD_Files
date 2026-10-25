@@ -22,17 +22,15 @@ Legend: **Explicit** = `metadata.source` in frontmatter. **Notice** = bundled `L
 
 | Skill(s) | Upstream / holder | License | Notice |
 | --- | --- | --- | --- |
-| `yeknal-notion-knowledge-capture`, `yeknal-notion-meeting-intelligence`, `yeknal-notion-research-documentation`, `yeknal-notion-spec-to-implementation` | Notion Labs, Inc. | MIT | `LICENSE.txt` |
-| `yeknal-vercel-deploy` | Vercel | MIT | `LICENSE.txt` |
+| `yeknal-notion` (hub; consolidates the former knowledge-capture, meeting-intelligence and research-documentation skills) | Notion Labs, Inc. | MIT | `LICENSE.txt` |
+| `yeknal-deploy` (Vercel reference) | Vercel | MIT | `references/licenses/vercel.txt` |
 | `yeknal-research-analysis` | NeetigyaShah/deep-research | MIT | `LICENSE.deep-research.txt` |
 | `yeknal-playwright` | Microsoft (playwright-cli) | Apache-2.0 | `LICENSE.txt`, `NOTICE.txt` |
 | `yeknal-figma-implement-design` | Figma | Apache-2.0 | `LICENSE.txt` |
 | `yeknal-aspnet-core`, `yeknal-winui-app` | Microsoft | Apache-2.0 | `LICENSE.txt` |
 | `yeknal-doc`, `yeknal-pdf`, `yeknal-slides`, `yeknal-spreadsheet`, `yeknal-jupyter-notebook` | Anthropic document skills | Apache-2.0 | `LICENSE.txt` |
 | `yeknal-imagegen`, `yeknal-sora`, `yeknal-speech`, `yeknal-transcribe`, `yeknal-openai-docs`, `yeknal-chatgpt-apps` | OpenAI | Apache-2.0 | `LICENSE.txt` |
-| `yeknal-cloudflare-deploy` | Cloudflare | Apache-2.0 | `LICENSE.txt` |
-| `yeknal-netlify-deploy` | Netlify | Apache-2.0 | `LICENSE.txt` |
-| `yeknal-render-deploy` | Render | Apache-2.0 | `LICENSE.txt` |
+| `yeknal-deploy` (Cloudflare reference), (Netlify reference), (Render reference) | Cloudflare, Netlify, Render | Apache-2.0 | `references/licenses/cloudflare.txt`, `netlify.txt`, `render.txt` |
 | `yeknal-sentry` | Sentry | Apache-2.0 | `LICENSE.txt` |
 | `yeknal-linear` | Linear | Apache-2.0 | `LICENSE.txt` |
 | `yeknal-gh-address-comments`, `yeknal-gh-fix-ci` | GitHub | Apache-2.0 | `LICENSE.txt` |
@@ -46,7 +44,7 @@ These match upstream skill names published on skills.sh. They are MIT-licensed u
 | Skill(s) | Upstream | License |
 | --- | --- | --- |
 | `yeknal-design-taste-frontend`, `yeknal-design-taste-frontend-v1`, `yeknal-redesign-existing-projects`, `yeknal-high-end-visual-design`, `yeknal-minimalist-ui`, `yeknal-industrial-brutalist-ui`, `yeknal-stitch-design-taste`, `yeknal-gpt-taste`, `yeknal-full-output-enforcement`, `yeknal-image-to-code`, `yeknal-imagegen-frontend-web`, `yeknal-imagegen-frontend-mobile`, `yeknal-brandkit` | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) (Copyright 2026 Leonxlnx) | MIT |
-| `yeknal-emil-design-eng` | [emilkowalski/skills](https://github.com/emilkowalski/skills) (Copyright 2026 Emil Kowalski) | MIT |
+| `yeknal-animate` (absorbs the former `yeknal-emil-design-eng` reference material) | [emilkowalski/skills](https://github.com/emilkowalski/skills) (Copyright 2026 Emil Kowalski) | MIT |
 | `yeknal-break-ui` | [emilkowalski/skills](https://github.com/emilkowalski/skills) (Copyright 2026 Emil Kowalski) | MIT |
 
 ## Attribution-only (non-permissive or reference)

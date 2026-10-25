@@ -33,7 +33,7 @@ Do not compare surfaces that share only an aesthetic. A checkout belongs beside 
 
 Use a gallery to discover examples, then follow through to the original product when a consequential claim depends on current behavior. A screenshot gallery does not prove usability, conversion, accessibility, performance, or production adoption.
 
-When the user asks for a reusable `DESIGN.md` or the repository's visual rules are unclear, trace the rendered surface back to its source of truth: tokens, global styles, component primitives, routes, and approved assets. Separate observed facts from inferred rules, contradictions, and missing evidence. Write only durable, product-specific rules; do not turn one incidental CSS value or screenshot quirk into a design-system requirement.
+If the repository's visual rules are unclear, or the user wants a reusable `DESIGN.md`, treat that as a separate design-system documentation job and keep this research to decisions.
 
 ## Extract patterns before styling
 
@@ -85,9 +85,7 @@ Return a compact package another designer or developer can act on:
 
 1. **Comparison frame** — scope, users, platform, constraints, and proof boundary.
 2. **Evidence matrix** — source, observed pattern, classification, device or state, and relevance.
-3. **Synthesis** — invariants, meaningful variants, risks, and saturation note.
-4. **Design direction** — thesis, structure, system decisions, and rejection list.
-5. **Responsive and state plan** — what reflows, moves, condenses, becomes a sheet, or stays fixed.
-6. **Implementation handoff** — component boundaries, existing primitives to reuse, and unknowns that require a rendered check.
+3. **Synthesis and direction** — invariants, meaningful variants, risks, saturation note, thesis, structure, system decisions, and rejection list.
+4. **Responsive, state, and implementation handoff** — what reflows, moves, condenses, becomes a sheet, or stays fixed; component boundaries, existing primitives to reuse, and unknowns that need a rendered check.
 
 When access is blocked or a source is paywalled, label it `UNVERIFIED` for the unavailable claim and continue with other evidence. Never imply that transport success or a search snippet proves the interface was reviewed.

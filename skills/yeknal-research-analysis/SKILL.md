@@ -7,6 +7,8 @@ description: Research, compare, validate sources, and produce evidence-backed re
 
 Turn an ambiguous research request into a bounded question, an explicit source contract, and an evidence-backed answer. Match depth to the decision.
 
+Use this skill for external evidence gathering and synthesis. Use `yeknal-notion` instead when the deliverable is a Notion page built from Notion sources, and skip both for a single fact one authoritative source settles.
+
 ## Choose the depth
 
 - **Ordinary research:** use the workflow below and stop once the decision can be supported honestly.

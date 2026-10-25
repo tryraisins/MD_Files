@@ -1,15 +1,15 @@
 ---
 name: yeknal-winui-app
-description: Bootstrap, develop, and design modern WinUI 3 desktop applications with C# and the Windows App SDK using official Microsoft guidance, WinUI Gallery patterns, Windows App SDK samples, and CommunityToolkit components. Use when creating a brand new app, preparing a machine for WinUI, reviewing, refactoring, planning, troubleshooting, environment-checking, or setting up WinUI 3 XAML, controls, navigation, windowing, theming, accessibility, responsiveness, performance, deployment, or related Windows app design and development work.
+description: Bootstrap, develop, and review WinUI 3 desktop apps with C# and the Windows App SDK, using Microsoft guidance, WinUI Gallery patterns, and CommunityToolkit. Use for setup, new apps, XAML, controls, navigation, theming, and deployment.
 metadata:
   internal: true
 ---
 
 # WinUI App
 
-## Automatic UI Quality Contract
+## UI baseline
 
-For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over the generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
+Apply `yeknal-ui-quality-baseline` to every visible UI output, and let an approved design system or established Fluent convention win where they conflict.
 
 ## Required Flow
 
@@ -20,7 +20,7 @@ For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. 
    - When the user gave no name, derive a short PascalCase name from the request and state what you chose.
    - Create the project in the user's current workspace unless they asked for another location.
    - Do not use `--force` unless the user explicitly asked to overwrite existing files.
-   - Run the bundled WinGet configuration from the skill directory so the relative path stays exactly `config.yaml`:
+   - Say what the bundled WinGet configuration will change, then run it from the skill directory so the relative path stays exactly `config.yaml`. Do not run machine-changing setup without the user's confirmation:
 
 ```powershell
 winget configure -f config.yaml --accept-configuration-agreements --disable-interactivity
@@ -51,11 +51,9 @@ dotnet new list winui
 13. Do not invent app-specific controls, bespoke component libraries, or custom chrome to replace stock WinUI behavior unless the user explicitly asks for that customization, the existing product design system already requires it, or a verified platform gap leaves no clean native option.
 14. When customization is needed, first compose, template, or restyle built-in WinUI controls and system resources before adding CommunityToolkit dependencies or authoring a new custom control.
 15. Use CommunityToolkit only when built-in WinUI controls or helpers do not cover the need cleanly.
-16. Support both light and dark mode by default. Treat single-theme output as an exception that requires an explicit user request or an existing product constraint.
-17. Use theme-aware resources, system brushes, and WinUI styling hooks instead of hard-coded light-only or dark-only colors when building or revising UI.
-18. Make scroll ownership explicit for collection layouts. When a page already scrolls vertically, do not assume a nested `GridView` or other scroll-owning collection will still render a horizontal poster rail correctly.
-19. Do not add extra `Border` wrappers around sections, lists, or cards unless the border is doing distinct work that the contained control or parent surface does not already provide. Avoid "double-card" compositions where a section `Border` wraps child items that already render as cards.
-20. Treat responsiveness as a shell-plus-page problem, not only a control-resize problem. Plan explicit wide, medium, and phone-width behavior for navigation, padding, content density, and footer/tool regions, and simplify or hide nonessential UI as width shrinks.
+16. Make scroll ownership explicit for collection layouts. When a page already scrolls vertically, do not assume a nested `GridView` or other scroll-owning collection will still render a horizontal poster rail correctly.
+17. Do not add extra `Border` wrappers around sections, lists, or cards unless the border is doing distinct work that the contained control or parent surface does not already provide. Avoid "double-card" compositions where a section `Border` wraps child items that already render as cards.
+18. Treat responsiveness as a shell-plus-page problem, not only a control-resize problem. Plan explicit wide, medium, and phone-width behavior for navigation, padding, content density, and footer/tool regions, and simplify or hide nonessential UI as width shrinks.
 
 ## Common Routes
 
@@ -75,18 +73,15 @@ dotnet new list winui
 | Decide whether to use CommunityToolkit | `references/community-toolkit-controls-and-helpers.md` |
 | Handle lifecycle, notifications, or deployment | `references/windows-app-sdk-lifecycle-notifications-and-deployment.md` |
 | Run a review checklist | `references/testing-debugging-and-review-checklists.md` |
+| Apply motion, animation, or visual polish | `references/motion-animations-and-polish.md` |
+| Find the upstream sample behind a pattern | `references/sample-source-map.md` |
 
 ## Environment Rules
 
-- Never guess whether the machine is ready for WinUI development; verify it.
-- Use the bundled setup-and-scaffold flow in this skill for fresh setup, remediation, and first-project scaffolding instead of delegating to another skill.
-- Treat `config.yaml` in this skill directory as the bundled bootstrap source of truth.
 - Treat uncertain environment signals as uncertain, not as success.
-- For an audit-only task where the user declines machine changes, follow the manual verification guidance in `references/foundation-environment-audit-and-remediation.md` and keep uncertain signals explicit instead of implying success.
-- If `config.yaml` is missing, say so clearly and fall back to the official Microsoft workflow instead of pretending the bundled path exists.
 - Keep environment readiness, packaging choice, and application startup verification as separate checks. Passing one does not prove the others.
 - Fail closed on ambiguous launch results. If the app did not clearly open, keep debugging.
-- After creating or editing a WinUI app, do not stop at a successful build. Launch the app, confirm objective startup behavior, and leave the final verified app instance running before returning control to the user unless they explicitly say not to run it.
+- If `config.yaml` is missing, say so clearly and fall back to the official Microsoft workflow instead of pretending the bundled path exists.
 
 ## Reference Rules
 

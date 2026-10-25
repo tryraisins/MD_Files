@@ -3,15 +3,10 @@ name: "yeknal-playwright"
 description: "Automate a real browser from the terminal for navigation, forms, snapshots, screenshots, extraction, or UI-flow debugging."
 ---
 
-
 # Playwright Browser Automation
 
 Drive a real browser from the terminal with `playwright-cli`. Prefer the bundled wrapper script so the CLI works even when it is not globally installed.
-Treat this skill as CLI-first automation. Do not pivot to `@playwright/test` unless the user explicitly asks for test files.
-
-## Persistent interactive mode
-
-When fast iterative debugging needs browser or Electron handles to survive across checks, use the persistent `js_repl` mode instead of restarting the CLI for every iteration. It requires `js_repl` enabled in Codex, a workspace-local Playwright install, and the same project directory throughout the session. Keep named handles (`browser`, `context`, `page`, `electronApp`, `appWindow`) in shared top-level bindings, reload after renderer changes, relaunch after process changes, and reset only when handles are genuinely stale.
+Treat this skill as CLI-first automation. Do not pivot to `@playwright/test` unless the user explicitly asks for test files. Use `yeknal-screenshot` instead when you need an OS-level capture of a desktop app, an app window, or a screen region that Playwright does not drive.
 
 Interactive QA must include a written inventory of requested behavior, controls, state changes, visual evidence, and at least two off-happy-path scenarios. Run separate functional and visual passes, verify viewport fit, inspect screenshots, and clean up the session only after all claims are checked.
 
@@ -19,13 +14,13 @@ Interactive QA must include a written inventory of requested behavior, controls,
 
 Before proposing commands, check whether `npx` is available (the wrapper depends on it):
 
-```bash
-command -v npx >/dev/null 2>&1
+```powershell
+Get-Command npx -ErrorAction SilentlyContinue
 ```
 
 If it is not available, pause and ask the user to install Node.js/npm (which provides `npx`). Provide these steps verbatim:
 
-```bash
+```powershell
 # Verify Node/npm are installed
 node --version
 npm --version
@@ -39,16 +34,13 @@ Once `npx` is present, proceed with the wrapper script. A global install of `pla
 
 ## Skill path (set once)
 
-```bash
-export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
-export PWCLI="$CODEX_HOME/skills/playwright/scripts/playwright_cli.sh"
+```powershell
+$PWCLI = "<path-to-skill>/scripts/playwright_cli.sh"
 ```
 
-User-scoped skills install under `$CODEX_HOME/skills` (default: `~/.codex/skills`).
+The wrapper is a POSIX shell script, so run it from Git Bash or WSL on Windows. Without a shell, call the CLI directly: `npx --package @playwright/cli playwright-cli <command>`.
 
 ## Quick start
-
-Use the wrapper script:
 
 ```bash
 "$PWCLI" open https://playwright.dev --headed
@@ -59,13 +51,6 @@ Use the wrapper script:
 "$PWCLI" screenshot
 ```
 
-If the user prefers a global install, this is also valid:
-
-```bash
-npm install -g @playwright/cli@latest
-playwright-cli --help
-```
-
 ## Core workflow
 
 1. Open the page.
@@ -74,7 +59,7 @@ playwright-cli --help
 4. Re-snapshot after navigation or significant DOM changes.
 5. Capture artifacts (screenshot, pdf, traces) when useful.
 
-When using Playwright for E2E verification, treat it as the sole testing mechanism for the behavior under test. Finish each E2E run with a repeatable, verifiable artifact, such as the rerunnable command/script plus a report, trace, screenshot, or log. Do not write, scaffold, or generate unit tests. Running an existing unit suite is allowed and its failures must be reported, but do not add cases to it. If a boundary cannot be reached through the browser, report what is unreachable and ask before writing any isolated test or harness code. Apply `yeknal-testing-strategy` for the full policy.
+For the end-to-end verification policy (repeatable artifact at the end, no unit tests, reporting unreachable boundaries), apply `yeknal-testing-strategy`.
 
 Minimal loop:
 

@@ -1,6 +1,6 @@
 ---
 name: yeknal-verification-harness
-description: Generate a project-local verification harness that starts a real app, drives a feature the way a user does, and captures proof, for any language, framework, or platform. Use only when the user explicitly asks to set one up for a repository that has no scripted way to prove UI, CLI, or service behavior.
+description: Generate a project-local verification harness that starts a real app, drives a feature like a user, and captures proof. Use only when explicitly asked to build one for a repository with no scripted way to prove behavior.
 metadata:
   source: https://github.com/cursor/plugins
   source-commit: 4ec7ffa173eaa70d3d9467a627baf0954645a353
@@ -17,7 +17,7 @@ Read `yeknal-testing-strategy` first. That skill sets the verification policy: e
 - Use `yeknal-testing-strategy` for what counts as proof and when to refuse an isolated test.
 - Use `yeknal-playwright` when the browser driver itself needs configuring.
 - Use `yeknal-troubleshoot` when the harness exposes a failure that needs a root cause.
-- Use `yeknal-verification-audit` for the upkeep loop once the harness exists.
+- Read [references/upkeep.md](references/upkeep.md) for the upkeep loop once the harness exists.
 - Use `yeknal-project-handoff` when the map should also carry session context.
 
 ## 1. Interview the repo, not the user
@@ -45,7 +45,7 @@ Write `SKILL.md` with these sections, each grounded in what the interview actual
 - **Launch:** the exact command that starts the app for verification, and how to tell it is ready (a log line, a prompt). Launch must reach a usable state from an empty data directory, including migrations and seed data. Ready means usable, not that a process answers: a database health check can pass while its init scripts are still running. Include teardown. For a short-lived CLI or TUI there is no server to keep alive, so launch means build the binary or install dependencies once, then start each drive in its own isolated PTY or tmux session.
 - **Doctor:** one read-only check that answers "is this instance worth driving?" Process up, right version or build, port owned by us, auth valid. An agent runs it first whenever anything looks off.
 - **Drive:** the harness recipe with this repository's real selectors and commands, not examples. Prefer stable handles (ARIA labels, data attributes, prompt strings, route paths) over coordinates and tab order.
-- **Evidence:** what to capture for a proof and where it goes. State the proof standards: exercise the real user path rather than internal setters or test-only endpoints; capture the action and the resulting state, not only the final screen; verify side effects (files written, rows inserted, messages sent) alongside what is visible; mock only where a production boundary already isolates the external system. When the safe path is a dry-run or test mode, verify what it actually skips by observing files, network, and git refs instead of trusting its name. Some dry-runs still touch the network or open a browser.
+- **Evidence:** what to capture for a proof and where it goes. State the proof standards: exercise the real user path rather than internal setters or test-only endpoints; capture the action and the resulting state, not only the final screen; verify side effects (files written, rows inserted, messages sent) alongside what is visible. Do not mock. When an external boundary cannot be driven, name it as unreachable and capture the strongest real evidence instead. When the safe path is a dry-run or test mode, verify what it actually skips by observing files, network, and git refs instead of trusting its name. Some dry-runs still touch the network or open a browser.
 - **Cleanup:** how to tear down instances this run created. Never kill by process name; kill what you started. Cleanup removes instances and scratch state, never the evidence. Proof artifacts survive teardown, in a location the skill names.
 - **Helpers:** every script the skill ships is executable and its invocation appears in the skill body. A helper the reader has to reverse-engineer is not a helper.
 
@@ -72,4 +72,4 @@ If you proved it in a stand-in for the real target (a container in place of a fr
 
 ## 6. Hand off
 
-Tell the user where the skill lives, which surface it drives, the command that launches and checks the app, where proof artifacts land, and which features are mapped. Point them at `yeknal-verification-audit` for keeping the map honest as the app changes. Suggest a cadence only if they ask.
+Tell the user where the skill lives, which surface it drives, the command that launches and checks the app, where proof artifacts land, and which features are mapped. Point them at [references/upkeep.md](references/upkeep.md) for keeping the map honest as the app changes. Suggest a cadence only if they ask.

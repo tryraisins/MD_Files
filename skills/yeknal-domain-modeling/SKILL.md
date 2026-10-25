@@ -1,6 +1,6 @@
 ---
 name: yeknal-domain-modeling
-description: Clarify a software project's domain concepts and record resolved terminology or durable architecture decisions. Use when terms, relationships, or system boundaries are ambiguous, or when asked to create or update a GLOSSARY.md or architecture decision record (ADR).
+description: Clarify a project's domain concepts and record resolved terminology in a glossary or durable decisions in an ADR. Use when terms, relationships, or system boundaries are ambiguous.
 ---
 
 # Domain Modeling
@@ -40,4 +40,4 @@ Use the repository's existing ADR location and format. If none exists, create th
 
 Check that new definitions match the relevant product behavior and source where possible. If documentation and code disagree, report the discrepancy and ask which is authoritative before rewriting either. Preserve existing decisions unless the user asks to revisit them.
 
-Summarize the terms or decisions changed, their locations, unresolved questions, and any evidence that remains unverified. Use `yeknal-markdown-management` for broader Markdown merges or audits. For a related domain-modeling reference, see [Matt Pocock's domain-modeling skill](https://github.com/mattpocock/skills/blob/f3fc5632f401156837ee3872f14fe33ccf1024ea/skills/engineering/domain-modeling/SKILL.md); this skill adapts the ideas to Yeknal's repository-neutral workflow without copying its text.
+Report the terms or decisions changed, where they live, and what remains unresolved. Use `yeknal-markdown-management` for broader Markdown merges or audits. For a related domain-modeling reference, see [Matt Pocock's domain-modeling skill](https://github.com/mattpocock/skills/blob/f3fc5632f401156837ee3872f14fe33ccf1024ea/skills/engineering/domain-modeling/SKILL.md); this skill adapts the ideas to Yeknal's repository-neutral workflow without copying its text.

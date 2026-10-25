@@ -1,58 +1,31 @@
 ---
-name: "yeknal-figma-implement-design"
-description: "Translate Figma nodes into production-ready code with 1:1 visual fidelity using the Figma MCP workflow (design context, screenshots, assets, and project-convention translation). Trigger when the user provides Figma URLs or node IDs, or asks to implement designs or components that must match Figma specs. Requires a working Figma MCP server connection."
+name: yeknal-figma-implement-design
+description: "Turn Figma nodes into production code with the project's own components and tokens: design context, screenshot, assets, and project-convention translation. Use when given a Figma URL or node ID to implement."
 ---
 
 
 # Figma MCP: Design Context to Production Code
 
-## Automatic UI Quality Contract
-
-For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
-
+Apply `yeknal-ui-quality-baseline` to every visible UI output this produces.
 
 ## Overview
 
-This skill lays out a structured path for turning Figma designs into production-ready code with pixel-accurate fidelity. It keeps the Figma MCP server integration consistent, uses design tokens correctly, and drives toward 1:1 visual parity.
+This skill lays out a structured path for turning Figma designs into production-ready code, keeping the Figma MCP server integration consistent, using design tokens correctly, and matching the design within the project's system.
 
 ## Prerequisites
 
-- A connected, reachable Figma MCP server.
+- A connected, reachable Figma MCP server. **Precheck it before starting:** call `get_design_context` on the target node (or `get_node` for the file) and confirm it answers. If the tool is missing or fails, stop and tell the user to connect their harness's Figma MCP server and restart, then resume at Step 1. Do not try to configure their harness for them.
 - A Figma URL from the user in this shape: `https://figma.com/design/:fileKey/:fileName?node-id=1-2`
   - `:fileKey` is the file key
   - `1-2` is the node ID (the component or frame to implement)
 - **OR**, with `figma-desktop` MCP, a node selected directly in the Figma desktop app (no URL needed).
 - Ideally, an established design system or component library in the project.
 
-### MCP setup and troubleshooting
-
-If the Figma MCP is not connected, configure it before starting:
-
-```toml
-[mcp_servers.figma]
-url = "https://mcp.figma.com/mcp"
-bearer_token_env_var = "FIGMA_OAUTH_TOKEN"
-http_headers = { "X-Figma-Region" = "us-east-1" }
-```
-
-Turn on the remote MCP client (`[features].rmcp_client = true`), authenticate with `codex mcp login figma`, and restart Codex after changing configuration. Keep `FIGMA_OAUTH_TOKEN` out of source control. Read [references/figma-mcp-config.md](references/figma-mcp-config.md) for verification and troubleshooting, and [references/figma-tools-and-prompts.md](references/figma-tools-and-prompts.md) for the tool catalog and prompt patterns.
+Read [references/figma-mcp-config.md](references/figma-mcp-config.md) for setup verification and troubleshooting, and [references/figma-tools-and-prompts.md](references/figma-tools-and-prompts.md) for the tool catalog and prompt patterns.
 
 ## Required Workflow
 
 **Follow these steps in order. Do not skip steps.**
-
-### Step 0: Set up Figma MCP (if not already configured)
-
-If any MCP call fails because Figma MCP is not connected, pause and set it up:
-
-1. Add the Figma MCP:
-   - `codex mcp add figma --url https://mcp.figma.com/mcp`
-2. Enable remote MCP client:
-   - Set `[features].rmcp_client = true` in `config.toml` **or** run `codex --enable rmcp_client`
-3. Log in with OAuth:
-   - `codex mcp login figma`
-
-After a successful login the user has to restart codex. Finish your answer and tell them that when they return they can pick up at Step 1.
 
 ### Step 1: Get Node ID
 
@@ -136,17 +109,16 @@ Translate the Figma output into this project's framework, styles, and convention
 - Use the project's color system, typography scale, and spacing tokens consistently
 - Respect existing routing, state management, and data-fetch patterns
 
-### Step 6: Achieve 1:1 Visual Parity
+### Step 6: Match the design
 
-Aim for pixel-perfect visual parity with the Figma design.
+Aim for visual parity on layout, spacing, type, and color. Where the project's tokens or components differ from Figma, use the project's version and record the deviation; do not hand-tune pixels to imitate the file.
 
 **Guidelines:**
 
-- Prioritize Figma fidelity to match designs exactly
-- Avoid hardcoded values - use design tokens from Figma where available
-- When design system tokens conflict with Figma specs, prefer the design system tokens but nudge spacing or sizes minimally to match the visuals
-- Follow WCAG requirements for accessibility
-- Add component documentation as needed
+- Avoid hardcoded values: map Figma tokens to the project's tokens.
+- When tokens and Figma specs disagree, prefer the design system and keep the geometry within a defensible step of the design.
+- Follow WCAG requirements. If the design is inaccessible, fix it and document why.
+- Document any component you add.
 
 ### Step 7: Validate Against Figma
 
@@ -156,7 +128,7 @@ Before calling the work complete, validate the final UI against the Figma screen
 
 - [ ] Layout matches (spacing, alignment, sizing)
 - [ ] Typography matches (font, size, weight, line height)
-- [ ] Colors match exactly
+- [ ] Colors match the mapped project tokens
 - [ ] Interactive states work as designed (hover, active, disabled)
 - [ ] Responsive behavior follows Figma constraints
 - [ ] Assets render correctly
@@ -175,14 +147,19 @@ Before calling the work complete, validate the final UI against the Figma screen
 - ALWAYS use components from the project's design system when possible
 - Map Figma design tokens to project design tokens
 - When a matching component exists, extend it rather than creating a new one
-- Document any new components added to the design system
+- Look for an existing component before creating one: consistency across the codebase matters more than exact Figma replication
 
-### Code Quality
+### Always Start with Context
 
-- Avoid hardcoded values - extract to constants or design tokens
-- Keep components composable and reusable
-- Add TypeScript types for component props
-- Include JSDoc comments for exported components
+Never implement from assumptions. Fetch `get_design_context` and `get_screenshot` first.
+
+### Incremental Validation
+
+Validate often during implementation, not only at the end. It catches issues early.
+
+### Document Deviations
+
+If you must depart from the Figma design (say, for accessibility or technical limits), record why in code comments.
 
 ## Examples
 
@@ -220,60 +197,6 @@ User says: "Build this dashboard: https://figma.com/design/pR8mNv5KqXzGwY2JtCfL4
 9. Validate responsive behavior against Figma constraints
 
 **Result:** Complete dashboard matching the Figma design with a responsive layout.
-
-## Best Practices
-
-### Always Start with Context
-
-Never implement from assumptions. Fetch `get_design_context` and `get_screenshot` first.
-
-### Incremental Validation
-
-Validate often during implementation, not only at the end. It catches issues early.
-
-### Document Deviations
-
-If you must depart from the Figma design (say, for accessibility or technical limits), record why in code comments.
-
-### Reuse Over Recreation
-
-Always look for existing components before creating new ones. Consistency across the codebase matters more than exact Figma replication.
-
-### Design System First
-
-When in doubt, prefer the project's design system patterns over literal Figma translation.
-
-## Common Issues and Solutions
-
-### Issue: Figma output is truncated
-
-**Cause:** The design is too complex or has too many nested layers to return in one response.
-**Solution:** Use `get_metadata` to get the node structure, then fetch specific nodes individually with `get_design_context`.
-
-### Issue: Design doesn't match after implementation
-
-**Cause:** Visual discrepancies between the implemented code and the original Figma design.
-**Solution:** Compare side-by-side with the screenshot from Step 3. Check spacing, colors, and typography values in the design context data.
-
-### Issue: Assets not loading
-
-**Cause:** The Figma MCP server's assets endpoint is not accessible or the URLs are being modified.
-**Solution:** Verify the Figma MCP server's assets endpoint is accessible. The server serves assets at `localhost` URLs. Use these directly without modification.
-
-### Issue: Design token values differ from Figma
-
-**Cause:** The project's design system tokens have different values than those specified in the Figma design.
-**Solution:** When project tokens differ from Figma values, prefer project tokens for consistency but adjust spacing/sizing to maintain visual fidelity.
-
-## Understanding Design Implementation
-
-The Figma implementation workflow establishes a reliable process for translating designs to code:
-
-**For designers:** Confidence that implementations will match their designs with pixel-perfect accuracy.
-**For developers:** A structured approach that eliminates guesswork and reduces back-and-forth revisions.
-**For teams:** Consistent, high-quality implementations that maintain design system integrity.
-
-By following this workflow, you ensure that every Figma design is implemented with the same level of care and attention to detail.
 
 ## Additional Resources
 

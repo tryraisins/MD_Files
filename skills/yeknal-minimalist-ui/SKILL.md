@@ -8,10 +8,7 @@ metadata:
 
 # Protocol: Premium Utilitarian Minimalism UI Architect
 
-## Automatic UI Quality Contract
-
-For every visible UI output, also apply the `yeknal-ui-quality-baseline` skill. This is automatic for a full product, a redesign, design-to-code work, or one small element such as a button, badge, input, icon, skeleton, loader, or animation. Preserve approved design files, established brands, platform conventions, and existing functional behavior; then enforce shared tokens, uniform padding and radii, coherent typography and iconography, optical centering, responsive containment, truthful loading states, purposeful motion, reduced-motion support, and rendered QA. This contract takes precedence over generic instructions later in this skill that mandate a fixed animation count, Lucide/Feather as a default, a loader package everywhere, or one-off spacing and radius values.
-
+Apply `yeknal-ui-quality-baseline` to every visible UI output. Where this style conflicts with that baseline (fixed animation counts, icon defaults, loader packages, one-off spacing or radius values), the baseline wins and this style applies only as the visual direction the brief asked for.
 
 ## 1. Protocol Overview
 Name: Premium Utilitarian Minimalism & Editorial UI
@@ -19,11 +16,9 @@ Description: A frontend engineering directive for producing refined, ultra-minim
 
 ## 2. Absolute Negative Constraints (Banned Elements)
 Avoid these common web development defaults:
-- DO NOT use the "Inter", "Roboto", or "Open Sans" typefaces.
-- DO NOT use generic, thin-line icon libraries like "Lucide", "Feather", or standard "Heroicons".
 - DO NOT use Tailwind's default heavy drop shadows (e.g., `shadow-md`, `shadow-lg`, `shadow-xl`). Shadows must be practically non-existent or heavily customized to be ultra-diffuse and low opacity (< 0.05).
 - DO NOT use primary colored backgrounds for large elements or sections (e.g., no bright blue, green, or red hero sections).
-- DO NOT use gradients, neon colors, or 3D glassmorphism (beyond subtle navbar blurs).
+- DO NOT use gradients as section or card fills, neon colors, or 3D glassmorphism. Low-opacity radial depth from section 7 is the only exception.
 - DO NOT use `rounded-full` (pill shapes) for large containers, cards, or primary buttons.
 - DO NOT use emojis anywhere in code, markup, text content, headings, or alt text. Replace with proper icons or clean SVG primitives.
 - DO NOT use generic placeholder names like "John Doe", "Acme Corp", or "Lorem Ipsum". Use realistic, contextual content.
@@ -77,9 +72,6 @@ Treat color as a scarce resource, spent only on semantic meaning or subtle accen
 ## 7. Subtle Motion & Micro-Animations
 Motion should feel invisible — present but never distracting. The goal is quiet sophistication, not spectacle.
 
-### Loading Feedback (React)
-
-Keep loading as restrained as the interface: geometry-matched skeletons for content arrival, stable pending controls for actions, and overlays only when interaction must genuinely pause. Reuse existing primitives. Use `thinking-orbs` only for a compatible visible assistant/process workflow, not as a universal spinner replacement. Require real-state timing, readable status, reduced motion, and failure or retry handling.
 - Scroll Entry: Elements fade in gently as they enter the viewport. Use `translateY(12px)` + `opacity: 0` resolving over `600ms` with `cubic-bezier(0.16, 1, 0.3, 1)`. Use `IntersectionObserver`, never `window.addEventListener('scroll')`.
 - Hover States: Cards lift with an ultra-subtle shadow shift (`box-shadow` transitioning from `0 0 0` to `0 2px 8px rgba(0,0,0,0.04)` over `200ms`). Buttons respond with `scale(0.98)` on `:active`.
 - Staggered Reveals: Lists and grid items enter with a cascade delay (`animation-delay: calc(var(--index) * 80ms)`). Never mount everything at once.
