@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "d744ade355269027041f0503b77afc1fe02bdfa5",
+  "sourceRevision": "3ce23daa863a841e9c895c54a0d4eaf662c580a9",
   "version": "2.6.0",
   "skills": [
     {
@@ -745,7 +745,7 @@
         "the",
         "yeknal-deploy"
       ],
-      "version": "22951ae2ae2f682d61ad6505d137030e2066eee139130b236c6d489f441f4bc9",
+      "version": "18ec0004288b340951b4e5f70786ec809b7e7577748db4bc832ca176b4a14893",
       "files": [
         {
           "path": "references/cloudflare.md",
@@ -794,8 +794,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "9ec46c168cce057114460dacbd3ff6b5633ccfd9eea83484edff9686c6d7660b",
-          "size": 3535
+          "sha256": "c90f1fc8ccff182e5313704badf3b85f3b6e248f885535f2cb49bf4bc08e37f7",
+          "size": 3508
         }
       ]
     },
@@ -2505,7 +2505,7 @@
         "update",
         "yeknal-notion"
       ],
-      "version": "cfcf2de6c88821e9b3c567b0cca3d7691de1b6ca6c56ca9c3ef704ede82034ec",
+      "version": "8ec05c822cc20f0330b3ac0fc02dc7c6fcad06a6be47611fb5857a9e431c2aa5",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -2604,8 +2604,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "7c8b6a9654b35301aaadc5c520a89ceff12993e2fbd38ba1a321cdb7c99a3752",
-          "size": 6241
+          "sha256": "04f84ebe2bbd9009108bc016c20277f58bd6ca5c7e4139f093d63509ee82e65c",
+          "size": 6224
         }
       ]
     },
