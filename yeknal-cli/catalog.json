@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "e2f302d026ecd9a88d981fce23cf449fa03668c5",
-  "version": "2.7.1",
+  "sourceRevision": "fc6b3b7cc3c6dc9d9e72b3921ea211044675b692",
+  "version": "2.8.0",
   "skills": [
     {
       "name": "yeknal-add-changelog",
@@ -68,6 +68,47 @@
           "path": "SKILL.md",
           "sha256": "b6ecf11ac15eeab1674e56dce52d5a079b2b17cd8392215b15e2b4d1e37d32c8",
           "size": 5493
+        }
+      ]
+    },
+    {
+      "name": "yeknal-agent-readable-site",
+      "description": "Use when a public site must be readable and quotable by AI agents: per-page markdown, llms.txt, llms-full.txt, ai.txt, head signals, crawler policy and a coverage check. Not content strategy or keywords.",
+      "keywords": [
+        "agent-readable",
+        "boundary",
+        "contract",
+        "markdown",
+        "page",
+        "related",
+        "rules",
+        "site",
+        "title",
+        "verification",
+        "workflow",
+        "yeknal-agent-readable-site"
+      ],
+      "version": "233b7711ad17abd8654625b23bb716c53ebe24bb180d9ed9e648422e11216670",
+      "files": [
+        {
+          "path": "references/markdown-endpoints.md",
+          "sha256": "e9bf14eec4407c271271104ce510ac43d24592a1a914d1d87fb4e5d2a842e0e6",
+          "size": 7939
+        },
+        {
+          "path": "references/site-files.md",
+          "sha256": "1d3c53f99d592dc474410673fbf8cb6354c20d57431bb632a733738ff1230097",
+          "size": 8864
+        },
+        {
+          "path": "scripts/check-ai-surface.mjs",
+          "sha256": "fe6c57888e54b1e233f0882de367f03fc20e2daf3e8f5660c99ed9190e92901a",
+          "size": 21187
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "0b7e2e9bc6f36eb201554c1fb29b0f05eaf9ff04d3b336a72c49454d05ed6fd0",
+          "size": 5528
         }
       ]
     },
@@ -495,7 +536,7 @@
     },
     {
       "name": "yeknal-content-seo",
-      "description": "Evidence-led search visibility: target queries, update-or-create decisions, metadata, structure, structured data, crawlability, sitemaps, canonicalization, local search, earned links, and AI answers. Use for SEO work.",
+      "description": "Evidence-led search visibility: target queries, update-or-create decisions, metadata, structured data, crawlability, sitemaps, canonicalization, local search, earned links, AI answers (AEO/GEO), and measured citations. Use for SEO, AEO or GEO strategy.",
       "keywords": [
         "and",
         "brand",
@@ -516,12 +557,12 @@
         "workflow",
         "yeknal-content-seo"
       ],
-      "version": "6aabfbf686b889d7e3ab23c7f75f9736c9f59f82769868ef96d4dd6754b6e58f",
+      "version": "0b02e166d0c19deb45d0a3745e6da4c712e92714ddea70d639c025a99a53c2f1",
       "files": [
         {
           "path": "references/authority-and-links.md",
-          "sha256": "cd1ff8bb41bbd63e6f6ed1c07b3a2c65635790c5d9fd453c64c340dab73df41f",
-          "size": 9290
+          "sha256": "242128d74f12b53d9e90ed272118e19854c62e04daf1869a6e4310e0d2e17953",
+          "size": 10376
         },
         {
           "path": "references/content-maintenance.md",
@@ -560,8 +601,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "9975c634d6be93cb3bd75bcff48b6cdf5e90a9b0a483224592c6707defd9692d",
-          "size": 11641
+          "sha256": "b80a07f8fc89d5afd576595c0c7170c678e04cea204c99d6141b30d3a71227f9",
+          "size": 12348
         }
       ]
     },
