@@ -79,7 +79,7 @@ npx yeknal slopscan
 
 Run it from the root of a web project. It scans source files for signs of generic, AI-made interface code and writes `yeknal-slopscan.log` and `yeknal-slopscan.json`. It runs locally, makes no network requests and installs no skills.
 
-It checks for stock marketing copy, placeholder text, gradient headline text, decorative emoji, stock icon sets, UI-kit default colors, missing image alt text, broken local image paths, click-only controls, skipped heading levels, unguarded motion and similar signals. Each finding names its file and line and carries a plain explanation and a fix.
+It checks for stock marketing copy, placeholder text, gradient headline text, clipped slogans, accent words inside a headline, zero-padded numbered labels, decorative emoji, stock icon sets, UI-kit default colors, dotted metadata lines, missing image alt text, broken local image paths, click-only controls, skipped heading levels, unguarded motion and similar signals. Each finding names its file and line and carries a plain explanation and a fix.
 
 The command does not score the repository and does not claim to know who or what wrote the code.
 

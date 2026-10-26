@@ -71,10 +71,9 @@
       "family": "copy",
       "fix": "Write the idea as one connected sentence that says what the product or person actually does.",
       "staticPlain": "Short lines in the copy are built from two or more clipped fragments of one to three words each, a rhythm that stock copy uses in place of saying something.",
-      "observation": "Copy strings made only of short capitalised fragments, each ending in a period.",
-      "inference": "This is a rendered measure.",
-      "assessment": "unassessed",
-      "unassessedReason": "Planned, not yet checked. SlopLens measures this on rendered text; a source pattern for it has not been written or calibrated yet."
+      "observation": "A heading or paragraph whose whole text is two or more capitalised fragments of one to three words each, every one closed with a period. Abbreviations, initialisms and domain endings are rejected.",
+      "inference": "The rhythm is present in source. Whether a reader meets it as a slogan rather than a legitimate platform list is a judgement, not a measurement.",
+      "assessment": "heuristic"
     },
     {
       "id": "gradient-text",
@@ -95,10 +94,9 @@
       "family": "surface",
       "fix": "Set the heading in one color and style, and let the words themselves carry the emphasis.",
       "staticPlain": "One word or short phrase inside a heading is set in a different color or in italic, a highlight habit that template headlines repeat.",
-      "observation": "The rendered color and font style of a short run inside a heading, compared with the heading itself.",
-      "inference": "This is a rendered measure.",
-      "assessment": "unassessed",
-      "unassessedReason": "Planned, not yet checked. It needs the computed color and style of text inside a heading, which source alone does not show."
+      "observation": "A heading element that contains a child span, em or i carrying an accent colour, gradient or italic utility, or a bare em or i.",
+      "inference": "The accent element is in the source. Whether it renders in a different colour or style from the heading itself cannot be established without the rendered page.",
+      "assessment": "heuristic"
     },
     {
       "id": "decorative-effects",
@@ -218,10 +216,9 @@
       "family": "layout",
       "fix": "Drop the numbers unless the order matters, and let the headings name the items.",
       "staticPlain": "Three or more labels open with zero-padded numbers such as 01, 02 and 03 on items that are not steps.",
-      "observation": "Visible labels that open with zero-padded numbers, outside ordered lists, tables and steps.",
-      "inference": "This is a rendered measure.",
-      "assessment": "unassessed",
-      "unassessedReason": "Planned, not yet checked. SlopLens measures this on rendered labels; a source pattern for it has not been written or calibrated yet."
+      "observation": "Three or more short labels in one file that open with a zero-padded number such as 01, 02 or 03, with no ordered list around them in that file.",
+      "inference": "The labels are in the source. Whether they are steps a reader needs, and whether a wrapper component renders an ordered list, is not shown.",
+      "assessment": "heuristic"
     },
     {
       "id": "template-text",
@@ -323,10 +320,9 @@
       "supporting": true,
       "fix": "Keep the facts readers need and write them as a sentence or a proper list.",
       "staticPlain": "Several short lines string three or more fragments together with middle dots as decoration rather than information. This only counts when other slop signals are present.",
-      "observation": "Short rendered lines that join three or more fragments with middle dots, outside navigation and footers.",
-      "inference": "This is a rendered measure.",
-      "assessment": "unassessed",
-      "unassessedReason": "Planned, not yet checked. SlopLens measures this on rendered text; a source pattern for it has not been written or calibrated yet."
+      "observation": "A short copy element whose text joins three or more fragments with middle dots, outside a literal nav, footer, header, aside or link element in the same file.",
+      "inference": "The punctuation habit is in the source. Whether the line decorates rather than informs, and whether a wrapper component renders it inside navigation, is not shown.",
+      "assessment": "heuristic"
     },
     {
       "id": "link-underlines",

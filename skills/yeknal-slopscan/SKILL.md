@@ -42,9 +42,9 @@ The command writes `yeknal-slopscan.log` and `yeknal-slopscan.json`, and adds bo
 
 The log has five parts.
 
-1. **Slop signals.** Familiar template patterns: stock copy, placeholder text, gradient headline text, decorative emoji, arrow-decorated links, mixed icon styles, invented proof and unsourced claims.
+1. **Slop signals.** Familiar template patterns: stock copy, placeholder text, gradient headline text, clipped slogans, accent words inside headings, numbered labels, decorative emoji, arrow-decorated links, mixed icon styles, invented proof and unsourced claims.
 2. **Quality issues.** Measured defects: images without alt text, broken local image paths, click-only boxes, missing control names, removed focus outlines and unguarded motion.
-3. **Supporting signals.** Stock icon sets and kit default colors. These are normal choices. They are reported only when a slop signal was also found, and they never count on their own.
+3. **Supporting signals.** Stock icon sets, kit default colors and dotted metadata strings. These are normal choices. They are reported only when a slop signal was also found, and they never count on their own.
 4. **Not checked.** The checks that need the rendered page. These are not guessed.
 5. **Coverage.** How many files were read, skipped, too large or unreadable, so a thin report is not mistaken for a clean one.
 

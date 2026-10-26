@@ -355,7 +355,17 @@ function scanTag(source, start) {
  * Extract markup elements from a JSX/HTML/Vue/Svelte/Astro source string.
  * This is a reader for the common shapes, not a parser. Anything ambiguous is
  * skipped rather than guessed.
+ *
+ * Each node records its parent index and depth so a rule can ask "is this
+ * inside a list", "is this a child of that heading" or "does this sit inside
+ * navigation". Void elements never open a scope, because an unclosed <img> in
+ * HTML would otherwise become the parent of everything after it.
  */
+const VOID_TAGS = new Set([
+  "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta",
+  "param", "source", "track", "wbr", "image",
+]);
+
 function extractMarkup(clean, starts) {
   const nodes = [];
   const classStrings = [];
@@ -391,6 +401,8 @@ function extractMarkup(clean, starts) {
     // one, so the outermost handler is the one worth reporting.
     const insideClickable = stack.some((entry) => entry.clickable);
     const clickable = /\bonClick\b|@click\b|\bon:click\b/.test(scanned.rawAttrs);
+    const parent = stack.length ? stack[stack.length - 1].nodeIndex : -1;
+    const depth = stack.length;
 
     let text = "";
     let inner = "";
@@ -401,10 +413,18 @@ function extractMarkup(clean, starts) {
       const lower = clean.toLowerCase();
       const closeIndex = lower.indexOf(`</${tag}`, scanned.end);
       inner = closeIndex === -1 ? clean.slice(scanned.end, sliceEnd) : clean.slice(scanned.end, closeIndex);
-      stack.push({ tag, clickable });
     }
 
-    nodes.push({ tag, text, inner, line, attrs, dynamic, raw: scanned.rawAttrs, hasSpread, insideClickable, selfClosing: scanned.selfClosing });
+    const nodeIndex = nodes.length;
+    nodes.push({
+      tag, text, inner, line, attrs, dynamic, raw: scanned.rawAttrs, hasSpread,
+      insideClickable, selfClosing: scanned.selfClosing, parent, depth, nodeIndex,
+      // A capitalised tag is a component, so its rendered children are unknown.
+      component: /^[A-Z]/.test(scanned.tag),
+    });
+
+    // Self-closing syntax and HTML void elements both close immediately.
+    if (!scanned.selfClosing && !VOID_TAGS.has(tag)) stack.push({ tag, clickable, nodeIndex });
   }
   return { nodes, classStrings };
 }
@@ -460,6 +480,131 @@ function isSpecific(raw) {
 
 const isShortCopy = (text) => text.length >= 2 && text.length <= 240;
 const isQuoted = (node) => QUOTE_TAGS.has(node.tag) || /^\s*["\u201c\u2018\u00ab]/.test(node.text);
+
+// ==========================================================================
+// Class tokens
+//
+// A class attribute is a list of tokens, and the difference between a base
+// utility and a variant matters: `underline` is an at-rest decoration while
+// `hover:underline` is not. Tokens are split with bracket awareness so an
+// arbitrary value such as `bg-[url(a:b)]` keeps its colon.
+// ==========================================================================
+
+function splitVariantPrefix(raw) {
+  let depth = 0;
+  let cut = -1;
+  for (let i = 0; i < raw.length; i += 1) {
+    const ch = raw[i];
+    if (ch === "[") depth += 1;
+    else if (ch === "]") depth = Math.max(0, depth - 1);
+    else if (ch === ":" && depth === 0) {
+      cut = i;
+      break;
+    }
+  }
+  if (cut === -1) return { variants: [], base: raw };
+  const prefix = raw.slice(0, cut);
+  if (!/^[A-Za-z0-9@_\-[\]=&>./'"*#]+$/.test(prefix)) return { variants: [], base: raw };
+  const rest = splitVariantPrefix(raw.slice(cut + 1));
+  return { variants: [prefix, ...rest.variants], base: rest.base };
+}
+
+function tokenizeClasses(value) {
+  const source = String(value || "");
+  const parts = [];
+  let buffer = "";
+  let depth = 0;
+  for (const ch of source) {
+    if (ch === "[") depth += 1;
+    else if (ch === "]") depth = Math.max(0, depth - 1);
+    if (/\s/.test(ch) && depth === 0) {
+      if (buffer) {
+        parts.push(buffer);
+        buffer = "";
+      }
+      continue;
+    }
+    buffer += ch;
+  }
+  if (buffer) parts.push(buffer);
+  return parts.map((raw) => ({ raw, ...splitVariantPrefix(raw) }));
+}
+
+/** True when an at-rest token matches. Variant-only tokens never do. */
+function hasBaseToken(tokens, re) {
+  return tokens.some((token) => token.variants.length === 0 && re.test(token.base));
+}
+
+// A colour utility, a gradient, or an italic marker. Sizes and weights are
+// excluded because they are not the accent this rule describes.
+const ACCENT_CLASS_RE = new RegExp(
+  "^(?:italic|bg-clip-text|text-transparent|" +
+  "text-(?:\\[[^\\]]+\\]|(?:slate|gray|grey|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|white|black)(?:-\\d{2,3})?)|" +
+  "bg-(?:gradient-to-|linear-to-)[a-z]+)$",
+);
+
+/** Walk the parent chain of a node, yielding each ancestor node. */
+function ancestorChain(nodes, node) {
+  const chain = [];
+  let index = node.parent;
+  const seen = new Set();
+  while (index >= 0 && nodes[index] && !seen.has(index)) {
+    seen.add(index);
+    chain.push(nodes[index]);
+    index = nodes[index].parent;
+  }
+  return chain;
+}
+
+function childNodes(nodes, node) {
+  return nodes.filter((candidate) => candidate.parent === node.nodeIndex);
+}
+
+// ==========================================================================
+// Clipped slogan shape
+// ==========================================================================
+
+const SLOGAN_ABBREVIATIONS = new Set([
+  "st", "mr", "mrs", "ms", "dr", "jr", "sr", "vs", "no", "inc", "ltd", "co",
+  "dept", "est", "approx", "fig", "eg", "ie", "etc", "ca", "cf", "al",
+]);
+
+/**
+ * True when one string is built from two or more clipped fragments of one to
+ * three words each, every one closed with a full stop: "Code. Curiosity.
+ * Craft.". Abbreviations, initialisms and domain endings produce the same
+ * punctuation without the rhythm, so they are rejected.
+ */
+function isClippedSlogan(text) {
+  const trimmed = String(text || "").trim();
+  if (trimmed.length < 8 || trimmed.length > 90) return false;
+  if (!trimmed.endsWith(".")) return false;
+  // A space before the final stop, or interpolation debris, means a value was
+  // stripped out of the sentence rather than written as copy.
+  if (/ \./.test(trimmed) || /\$\{|\{\{|\bundefined\b/.test(trimmed)) return false;
+  if (/\.(?:com|io|dev|org|net|co|app)\b/i.test(trimmed)) return false;
+  const fragments = trimmed.split(/(?<=[.!?])\s+/).map((part) => part.trim()).filter(Boolean);
+  if (fragments.length < 2 || fragments.length > 4) return false;
+  // Two fragments are only the clipped rhythm when both are genuinely short.
+  // "No users loaded. Click refresh." is a status message, not a slogan.
+  if (fragments.length === 2 && fragments.some((fragment) => fragment.replace(/[.!?]+$/, "").trim().split(/\s+/).length > 2)) {
+    return false;
+  }
+  for (const fragment of fragments) {
+    const bare = fragment.replace(/[.!?]+$/, "").trim();
+    if (!bare) return false;
+    const words = bare.split(/\s+/).filter(Boolean);
+    if (words.length > 3) return false;
+    if (!/^[A-Z0-9]/.test(words[0])) return false;
+    if (!/[A-Za-z]/.test(bare)) return false;
+    if (words.length === 1) {
+      if (/^[A-Z]{2,5}$/.test(bare)) return false;
+      if (/^[A-Z](?:\.[A-Z])+\.?$/.test(bare)) return false;
+      if (SLOGAN_ABBREVIATIONS.has(bare.toLowerCase())) return false;
+    }
+  }
+  return true;
+}
 
 function findClaim(text) {
   return CLAIM_PATTERNS.find((claim) => claim.re.test(text));
@@ -525,7 +670,8 @@ function analyseFile(filePath, source, context) {
   runCopyRules(collector, filePath, nodes, shortCopy);
   const effectHits = runSurfaceRules(collector, filePath, { clean, starts, declarations, classStrings, nodes, isStyle, isMarkup, stringLiterals });
   runProofRules(collector, filePath, nodes, shortCopy, declarations);
-  runSupportingRules(collector, filePath, { clean, stringLiterals, classStrings, declarations, tailwindConfigOverrides: context.tailwindConfigOverrides });
+  runLayoutRules(collector, filePath, { nodes });
+  runSupportingRules(collector, filePath, { clean, stringLiterals, classStrings, declarations, nodes, tailwindConfigOverrides: context.tailwindConfigOverrides });
   runQualityRules(collector, filePath, { nodes, clean, declarations, classStrings, ext, isMarkup, resolveAsset: context.resolveAsset });
 
   return { findings: collector.findings, effectHits, clean, nodes, classStrings, declarations };
@@ -558,6 +704,25 @@ function runCopyRules(collector, filePath, nodes, shortCopy) {
     for (const node of dashed) {
       collector.add("em-dash-copy", filePath, node.line, node.text, `${dashed.length} of ${shortCopy.length} headings, buttons and short blurbs in this file use an em dash.`);
     }
+  }
+
+  // clipped-slogans. The rhythm is judged, so this stays a heuristic: a
+  // platform list such as "iOS. Android. Web." has the same shape as slop.
+  const sloganNodes = nodes.filter((node) => (HEADING_TAGS.has(node.tag) || node.tag === "p") && isShortCopy(node.text || ""));
+  for (const node of sloganNodes) {
+    // A heading split across <br/> tags has one word per text node, so the
+    // inner markup is flattened before the shape is tested.
+    const flat = (node.inner || "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\{[^{}]*\}/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const candidate = flat || node.text;
+    if (!isClippedSlogan(candidate)) continue;
+    collector.add(
+      "clipped-slogans", filePath, node.line, candidate,
+      "Short fragments of one to three words are stacked in place of a sentence. The rhythm is present in source; whether a reader meets it as a slogan is a judgement, not a measurement.",
+    );
   }
 }
 
@@ -636,6 +801,26 @@ function runSurfaceRules(collector, filePath, ctx) {
       collector.add("mixed-icons", filePath, 1, importedIcons[0], `This file uses both outline and solid variants from ${importedIcons[0]}.`);
     }
   }
+  // heading-accent: a heading whose own child carries an accent word. The
+  // accent is a colour, gradient or italic on a nested span, or a bare <em>
+  // or <i>. Whether the child actually renders in another colour is a
+  // judgement from source, so this stays a heuristic.
+  for (const node of nodes) {
+    if (!HEADING_TAGS.has(node.tag)) continue;
+    const accent = childNodes(nodes, node).find((child) => {
+      if (child.component) return false;
+      if (!["span", "em", "i", "b", "strong"].includes(child.tag)) return false;
+      if (child.tag === "em" || child.tag === "i") return true;
+      const tokens = tokenizeClasses(child.attrs.class || child.attrs.classname || "");
+      return hasBaseToken(tokens, ACCENT_CLASS_RE);
+    });
+    if (!accent) continue;
+    collector.add(
+      "heading-accent", filePath, node.line, node.text || accent.text || node.tag,
+      "One word or phrase inside this heading sits in its own element with an accent colour, gradient or italic style. Whether it renders differently from the rest of the heading is not established from source.",
+    );
+  }
+
   void stringLiterals;
   void starts;
   void isMarkup;
@@ -730,6 +915,58 @@ function runSupportingRules(collector, filePath, ctx) {
     if (imports >= 1) {
       collector.add("icon-library", filePath, 1, pkg, `This file imports icons from ${pkg}, a stock icon set. A stock set is a normal choice and is not evidence of poor quality on its own.`);
       break;
+    }
+  }
+
+  // middot-metadata: a short line that joins three or more fragments with
+  // middle dots. Navigation is excluded only when this file shows the
+  // literal ancestor; a wrapper component that renders <nav> cannot be seen,
+  // so the finding says so rather than claiming the line is decorative.
+  const nodes = ctx.nodes || [];
+  for (const node of nodes) {
+    if (!COPY_TAGS.has(node.tag) || !isShortCopy(node.text || "")) continue;
+    if (!/[\u00b7]|&middot;/.test(node.text)) continue;
+    const fragments = node.text.split(/\u00b7|&middot;/).map((part) => part.trim()).filter(Boolean);
+    if (fragments.length < 3) continue;
+    if (node.text.length > 80) continue;
+    if (fragments.some((fragment) => fragment.length > 40)) continue;
+    // A fragment must read as a fact, not as leftover expression syntax. A
+    // template literal with a conditional leaves braces and dollar signs
+    // behind once the values are removed.
+    const readable = fragments.every((fragment) =>
+      /^[A-Za-z0-9][A-Za-z0-9\s'\u2019&.,()\/+-]{0,39}$/.test(fragment) && /[A-Za-z]{2}/.test(fragment));
+    if (!readable) continue;
+    const inNavigation = ancestorChain(nodes, node).some((ancestor) => ["nav", "footer", "header", "aside", "a"].includes(ancestor.tag));
+    if (inNavigation) continue;
+    collector.add(
+      "middot-metadata", filePath, node.line, node.text,
+      "This line strings three or more fragments together with middle dots. The punctuation habit is in the source; whether it decorates rather than informs, and whether a wrapper renders it inside navigation, is not established.",
+    );
+  }
+}
+
+// ---- layout ----
+
+function runLayoutRules(collector, filePath, ctx) {
+  const nodes = ctx.nodes || [];
+
+  // decorative-numbering: three or more zero-padded labels on items that are
+  // not an ordered list in this file. A <Steps> component that renders an
+  // <ol> is invisible to a source scan, so the finding says the order is not
+  // established instead of calling the numbers decorative.
+  const numbered = nodes.filter((node) => {
+    if (!COPY_TAGS.has(node.tag)) return false;
+    const text = (node.text || "").trim();
+    if (text.length > 30) return false;
+    if (!/^0[1-9](?:[.)]|\s|$)/.test(text)) return false;
+    return !ancestorChain(nodes, node).some((ancestor) => ancestor.tag === "ol");
+  });
+  if (numbered.length >= 3) {
+    for (const node of numbered) {
+      collector.add(
+        "decorative-numbering", filePath, node.line, node.text,
+        `${numbered.length} labels in this file open with a zero-padded number. The labels are in the source; whether they are steps a reader needs is not established.`,
+      );
     }
   }
 }
