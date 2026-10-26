@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "9f3d3a63244dac109bbfa4b4fe01857c6d2dae5f",
+  "sourceRevision": "ac51b4848862031263d9a8416a0caa5b19d6e127",
   "version": "2.7.0",
   "skills": [
     {
@@ -2021,7 +2021,7 @@
         "without",
         "yeknal-redesign-existing-projects"
       ],
-      "version": "db16c8d63bb0c758e0dfbe57243fc6a1d592a7c97622a8bbb2c2c214fb4c1939",
+      "version": "de0364d5914f6a1d2a7be943cd4cca9afe78e093439fc40ebdc55fb68e68277f",
       "files": [
         {
           "path": "LICENSE.txt",
@@ -2030,8 +2030,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "1d698d43cd9a28e7c1f0072e542d8c4e3402a4252159fa8c5a72cac4a2d85683",
-          "size": 6270
+          "sha256": "650387f817ae82bfcb3c26a97d4b245e093cf42433f658012d04e7a70bce55e8",
+          "size": 6495
         }
       ]
     },
@@ -2740,7 +2740,7 @@
         "with",
         "yeknal-ui-quality-baseline"
       ],
-      "version": "46ac132e31714ad994e789ad5c464e546e547f4c141a44fd5e2421ea542e003a",
+      "version": "dfc578c8e6bce21b8c7a395d7996bc2e82bd43c9ed3da802b675dae52ea285fb",
       "files": [
         {
           "path": "references/accessibility-design.md",
@@ -2793,9 +2793,14 @@
           "size": 5088
         },
         {
+          "path": "references/typeface-options.md",
+          "sha256": "3980a65fd135c0b9a23606d730f591b567e2698e8857ee32391f6e29e89c83f6",
+          "size": 3304
+        },
+        {
           "path": "references/typography.md",
-          "sha256": "020e99e58efa4c6b62cfb15dd7e2641ac022a686534d56e25836e93a8a960429",
-          "size": 5448
+          "sha256": "8c266b5b7151d593bdfedcfbaeec2331f183d6b5592ab4a49159c9494b74b952",
+          "size": 5735
         },
         {
           "path": "SKILL.md",
