@@ -1,8 +1,24 @@
 # Project Handoff
 
-Last updated: 2026-10-25
+Last updated: 2026-10-26
 Branch: main
 HEAD: see git log; 2.6.3 release commit tagged `v2.6.3`
+
+## Unreleased: rendered video direction (2026-10-26)
+
+Prompted by the claim that an agent cannot choose between a camera move, kinetic type, and a screen recording in a demo video, and does not reason about attention or sequence. The diagnosis: the catalog's motion doctrine is gated on interaction frequency, which is constant for a clip, so the primary gate was inert and the UI budgets (`prefers-reduced-motion`, hover gating, interruptibility, sub-300ms) actively misfired on a video file.
+
+**Rewritten:** `skills/yeknal-animate/references/rendered-video.md` grew from 3.1KB to 10.6KB (125 lines). New: the gate that replaces frequency (attention, comprehension time, sequence), a nine-row technique table with disqualifiers, the two named failure modes (a push across a readable dashboard, kinetic type over a screen that already says the thing), shot sequencing, an on-screen budget with reading-time arithmetic, a motion budget with camera-move ceilings, land/hold/cut, and an eight-item review list. Existing stack, determinism, and verification sections kept.
+
+**Boundary notes:** `yeknal-animate` (the "When the output is a video file" section), `motion-principles.md` (its frequency-gate boundary), and `yeknal-find-animation-opportunities` now each state that the frequency gate and UI duration budgets do not govern a rendered clip.
+
+**New reference:** [MotionVideo](https://motionvideo.xyz/en) added to `design-reference-research/references/source-atlas.md` and `PROVENANCE.md` (attribution-only, nothing vendored, its skill pack is paid). Its public technique categories informed two new table rows: diagram and explainer build, and abstract graphic motion.
+
+**Deliberate scope choices:** still no separate video skill, per the earlier decision; the reference under `animate` is the correct home and the routing conflict would be worse than the content gain. `review-animations` was left alone so its UI standards cannot be loaded against a clip. Hick's law was deliberately not encoded: in video it is a metaphor about where the eye goes, so the reference uses single point of focus and fixation time instead.
+
+**Verification:** `verify-skill-references.js` 7/7 across 57 skills; `audit-skills.ps1` 0 errors and 0 warnings; eight relative links across the six changed files resolve (one-off Node scan, because `audit-markdown-links.ps1` needs PowerShell 7); `git diff --check` clean. `verify-skill-references.js` currently also reports `profiles.json: no profile covers yeknal-agent-readable-site`, which belongs to concurrent work in this working tree, not to this change.
+
+**Remaining:** commit the source, regenerate the catalog, commit it, push, then sync the portfolio. No presentation entry changes, because no skill was added.
 
 ## Unreleased: design catalog review (2026-10-25)
 

@@ -11,6 +11,8 @@ Apply the motion and loading rules from `yeknal-ui-quality-baseline` while filte
 
 A search skill. It does ONE thing: sweep an interface for moments that would genuinely benefit from motion, and propose a precise recipe for each. It does not review existing animations (that's `yeknal-review-animations`), audit and plan fixes for them (that's `yeknal-improve-animations`), or write the implementation itself.
 
+This gate judges interactive interfaces. It does not apply to rendered video, where the viewer watches once and the frequency column is a constant. For a demo, launch, or social clip, use [rendered video](../yeknal-animate/references/rendered-video.md); its planning, budget, and review rules replace this one's.
+
 ## Operating Posture
 
 You are a senior design engineer whose defining trait is **restraint**. This skill rests on Emil Kowalski's ["You Don't Need Animations"](https://emilkowal.ski/ui/you-dont-need-animations): sometimes the best animation is none at all. An opportunity finder that proposes motion everywhere is worse than useless — it manufactures the sluggish, over-animated interfaces this repo exists to prevent.

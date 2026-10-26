@@ -1,6 +1,6 @@
 # UI source atlas
 
-Reviewed 2026-09-12. Use this as routing guidance, not as a mandatory browse list. Recheck live sources when a task depends on current content.
+Reviewed 2026-09-12; MotionVideo added 2026-10-26. Use this as routing guidance, not as a mandatory browse list. Recheck live sources when a task depends on current content.
 
 ## How the review was performed
 
@@ -9,6 +9,7 @@ All supplied URLs were attempted through a text-capable web reader and a rendere
 - SaaSpo returned a Cloudflare block in the rendered browser; only its discoverable text/category surface was available, so any deeper behavior remains `UNVERIFIED`.
 - 60fps loaded and exposed its motion taxonomy, but an automated screenshot timed out while waiting on page assets. Treat its clips as items to inspect individually when motion behavior matters.
 - One Page Love's OG gallery overflowed horizontally in the 390px rendered check. This is an observed property of the gallery page, not of the designs it contains.
+- MotionVideo was read through a text reader only. Its clips were not played, so any claim about clip timing, pacing, or audio remains `UNVERIFIED`.
 
 ## Mobile products and platform conventions
 
@@ -55,6 +56,7 @@ All supplied URLs were attempted through a text-capable web reader and a rendere
 | [Spectrum UI](https://ui.spectrumhq.in/) | shadcn/Tailwind/Motion components, blocks, charts, and agent-oriented patterns. | Verify licensing, current installation path, code quality, and whether the interaction is necessary. |
 | [beUI](https://beui.dev/) | React 19/Tailwind 4 motion components and blocks distributed through shadcn. | Confirm project-version compatibility and avoid importing demo styling or gratuitous motion. |
 | [60fps](https://60fps.design/) | Motion clips and taxonomy across controls, gestures, onboarding, loading, success, empty state, and navigation. | A clip is inspiration, not a timing specification. Reproduce purpose and physics only after measuring the product context. |
+| [MotionVideo](https://motionvideo.xyz/en) | AI-made motion clips published with the prompts behind them, grouped by technique: product UI, phone, charts, diagrams, kinetic type, shapes, particles, characters, photos, music, code. Reviewed live 2026-10-26. | Use the categories to name a technique, not the clips to set durations. Prompts are the previous author's composition, not your brief. Its agent skill pack is paid, so link the free gallery and vendor nothing. |
 | [Design Spells](https://designspells.com/) | Small delightful details across mobile, desktop, interaction, skeuomorphism, error states, and motion. | Reserve delight for suitable frequency and tone; require a static and reduced-motion path. |
 | [ui-skills](https://github.com/ibelick/ui-skills/tree/main/skills) | Scoped UI baseline, evidence-led `DESIGN.md` creation, accessibility, metadata, and motion-performance repair workflows. Reviewed at `f5dd1de9c0fc6c033a43dc3fd2a5be41366e9f43`. | Use its focused audit method to improve an existing local skill; do not import a second universal UI baseline or treat its commands as project authority. |
 

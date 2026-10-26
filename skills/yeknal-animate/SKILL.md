@@ -199,7 +199,11 @@ Before shipping motion that matters, read [frame budget](references/frame-budget
 
 ## When the output is a video file
 
-Interface motion and rendered video are different jobs with different rules. If the deliverable is a demo video or a launch clip rather than a page, read [rendered video](references/rendered-video.md) before writing anything. Do not animate a page in order to produce a video, and do not treat a video as an explanation for a page that does not work.
+Interface motion and rendered video are different jobs with different rules. If the deliverable is a demo video or a launch clip rather than a page, read [rendered video](references/rendered-video.md) before writing anything.
+
+The gates above do not carry over. The frequency table has nothing to rank, because a clip is watched once with no interaction. Reduced motion, hover gating, interruptibility, and the sub-300ms ceiling all assume an operator who is not there. What replaces them is attention, comprehension time, and shot sequence. Choosing the technique is the first decision in a clip, not the curve: a camera move over readable text destroys the read, and kinetic type over a screen that already says the thing is noise. Think in shots of two to four seconds, not in components.
+
+Do not animate a page in order to produce a video, and do not treat a video as an explanation for a page that does not work.
 
 ## Recipes
 

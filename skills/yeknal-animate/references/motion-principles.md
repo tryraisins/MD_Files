@@ -47,3 +47,5 @@ Before building, answer three questions:
 ## Boundary with the frequency gate
 
 The frequency gate in the skill wins every conflict. Anticipation, follow-through, and secondary action all cost delay or attention, and a repeated action cannot pay that cost. Apply them to onboarding, empty-to-populated transitions, celebratory confirmations, and one-off reveals; do not apply them to navigation, toggles, hovers, or anything a keyboard triggers.
+
+Linear video is the exception. A rendered clip is watched once, with no interaction, so frequency is a constant and cannot rank anything, while anticipation, staging, and follow-through are central rather than occasional. Read [rendered video](rendered-video.md) before applying this file to a video. Do not carry the frequency table, the sub-300ms ceiling, or `prefers-reduced-motion` into a clip.
