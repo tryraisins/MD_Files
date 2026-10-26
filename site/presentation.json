@@ -321,6 +321,28 @@
         "yeknal-playwright"
       ]
     },
+    "yeknal-agent-readable-site": {
+      "title": "Agent-readable site",
+      "purpose": "Gives every public page a markdown version and gives agents the files that explain the site: llms.txt, llms-full.txt, ai.txt, head signals and a crawler policy, plus a checker that separates host-blocked requirements from real failures.",
+      "tasks": [
+        "ship",
+        "docs"
+      ],
+      "whenToUse": [
+        "You want AI agents and answer engines to fetch your pages cheaply and attribute them correctly.",
+        "You are adding llms.txt, llms-full.txt or ai.txt and want them generated rather than hand-maintained.",
+        "You need to know which parts of an agent-readable surface your host can actually support."
+      ],
+      "avoid": "It does not choose keywords, rewrite pages or promise citations. Query and metadata work stays with content SEO, and a published file is never reported as a visibility result.",
+      "example": {
+        "ask": "Make our whole site readable by AI agents and show me which pages still have no markdown version.",
+        "outcome": "Every public route gets a markdown endpoint from the existing data loaders, the site files generate from one config, and the checker reports per-route coverage with the host's real limits named."
+      },
+      "related": [
+        "yeknal-content-seo",
+        "yeknal-deploy"
+      ]
+    },
     "yeknal-content-seo": {
       "title": "Content and SEO",
       "purpose": "Guides useful content and search visibility together, from keyword patterns and page briefs to metadata, structured data, sitemaps, local search, earned links and AI citations.",

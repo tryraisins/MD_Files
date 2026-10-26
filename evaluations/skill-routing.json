@@ -515,6 +515,49 @@
         "yeknal-ambition"
       ],
       "rationale": "A scoped fix with a reproduction is already at the right standard; an ambition pass would add ceremony without raising quality."
+    },
+    {
+      "id": "agent-readable-surface",
+      "prompt": "Add markdown versions of every page, llms.txt and ai.txt so ChatGPT and Claude can read our site, and tell me which pages still have no markdown version.",
+      "primary": "yeknal-agent-readable-site",
+      "secondary": [
+        "yeknal-content-seo"
+      ],
+      "mustNotLead": [
+        "yeknal-frontend-developer",
+        "yeknal-deploy"
+      ],
+      "rationale": "This is a delivery surface with routes, generated files and a coverage check, not a content-strategy or styling job."
+    },
+    {
+      "id": "aeo-query-and-citation-strategy",
+      "prompt": "Our AEO is weak. Which questions should we answer to get cited in ChatGPT and in AI Overviews, and how do we know whether it worked?",
+      "primary": "yeknal-content-seo",
+      "secondary": [],
+      "mustNotLead": [
+        "yeknal-agent-readable-site"
+      ],
+      "rationale": "Choosing answerable queries and measuring observed citations is search strategy. Markdown endpoints make a page cheap to fetch and cannot produce a citation."
+    },
+    {
+      "id": "crawl-controls-before-agent-files",
+      "prompt": "Our sitemap is missing a dozen live pages and several canonicals point at the wrong host. Fix the crawl and index controls before we do any AI-readability work.",
+      "primary": "yeknal-content-seo",
+      "secondary": [],
+      "mustNotLead": [
+        "yeknal-agent-readable-site"
+      ],
+      "rationale": "General crawl, canonical and sitemap correctness come before the surface that reads them; publishing agent files on an uncrawlable site fixes nothing."
+    },
+    {
+      "id": "chatgpt-cannot-see-the-site",
+      "prompt": "ChatGPT does not seem to know our site exists. Where do we start?",
+      "primary": "yeknal-content-seo",
+      "secondary": [
+        "yeknal-agent-readable-site"
+      ],
+      "mustNotLead": [],
+      "rationale": "The ambiguous middle: nothing here names a route or a file, so the diagnosis starts with whether the pages are useful, crawlable and cited, and the agent-readable surface is the follow-up rather than the opener."
     }
   ]
 }

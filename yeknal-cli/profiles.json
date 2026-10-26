@@ -75,6 +75,7 @@
   "web": {
     "description": "Specialist SEO, agent readability, performance, launch readiness and production-error workflows beyond core.",
     "skills": [
+      "agent-readable-site",
       "content-seo",
       "launch-readiness",
       "performance",

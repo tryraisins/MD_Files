@@ -4,6 +4,22 @@ Last updated: 2026-10-26
 Branch: main
 HEAD: see git log; 2.7.1 release commit tagged `v2.7.1`
 
+## Uncommitted: agent-readable site surface (2026-10-26)
+
+Prompted by the ScrollLaunch "make your whole site readable by AI agents" prompt. The catalog was strong on search intent, metadata, links and measurement, and had no delivery layer: nothing owned per-page markdown, the site files, head signals, or an AI crawler policy.
+
+**Added:** `skills/yeknal-agent-readable-site` in the `web` pack, with `references/markdown-endpoints.md` (three access paths, the header contract, middleware exclusions, the coverage check, framework notes, and a static-versus-server tier table), `references/site-files.md` (`llms.txt`, `llms-full.txt`, `ai.txt`, `robots.txt` groups, head signals, and an honest status table per artifact), and `scripts/check-ai-surface.mjs`, a zero-dependency checker with tier detection, MUST/SHOULD separation, and a `--coverage` mode that follows a split sitemap into its children.
+
+**Changed:** `content-seo` declares the boundary in both directions and its description carries AEO/GEO (206 chars). Its `references/authority-and-links.md` gained a short directories section: qualify the directory, treat a listing as a citation surface, and note that paying for a person's time is ordinary work while paying for a pass-credit link is the violation.
+
+**Corrected from the source:** the prompt publishes the withdrawn bracketed `ai.txt` form and cites spec v1.1.1; the live spec is v1.7.0 with H2 headings inside a ten-file set. The prompt also assumes a server, so the skill opens with a platform tier check. The score framing, the unverified rating claims, and the badge-for-a-dofollow-link follow-up were deliberately left out.
+
+**End to end:** applied to the separate portfolio repository (`C:\Users\nubiaville\Desktop\Portfolio\my-portfolio`, Astro 5, static, GitHub Pages). It is tier A, so it ships `.md` routes, the three files, head signals and coverage, and cannot negotiate content types or set headers; the checker reports that as unsupported rather than passing it. New there: `src/data/profile.ts` (project and identity facts moved out of `index.astro` so the agent copy cannot drift), `src/lib/markdown.ts`, `index.md.ts`, `skills.md.ts`, `skills/[slug].md.ts`, `llms-full.txt.ts`, `ai.txt.ts`, a rewritten `llms.txt.ts`, head signals in `index.astro` and `SkillsLayout.astro`, and AI crawler groups in `public/robots.txt`. That work is uncommitted and undeployed.
+
+**Verification:** `audit-skills.ps1` 0 errors and 0 warnings over 57 skills; `verify-skill-references.js` 7/7; `validate-routing-evals.ps1` 49 cases, 0 errors; `npm test --prefix yeknal-cli` 50/50; one-off Node link scan over 401 files and 193 relative links, 0 unresolved. Checker runs: portfolio 0 MUST failures and all 58 sitemap routes covered; the tier B reference 1 MUST failure (its own stale `ai.txt`) with coverage reported as partial; a plain site 4 MUST failures and 1 unsupported. A deliberate A/B on the portfolio's `robots.txt` proved the grouped-agent parser, then the file was restored and rebuilt. A Sonnet 5.5 review of the finished work found the checker could report a pass without measuring anything; the fixes are in (full-route content-type coverage, required `/index.md`, wrong-origin `llms.txt` as a failure, explicit `unsupported` header rows on tier A, grouped-agent and wildcard `robots.txt` parsing, bounded coverage that reports `partial`).
+
+**Bounds:** no production deploy, so GitHub Pages' `.md` content type is unverified. `audit-markdown-links.ps1` needs PowerShell 7 and this machine has 5.1, so the Node scan stood in. A screenshot was blocked with no visible desktop, so visual regression rests on the HTML delta (+438 characters, the two new head tags, no `undefined`, all seven projects present). Catalog regeneration is a post-commit step, so `catalog:check` reports the committed set until the source is committed. A concurrent workstream committed and re-synced the portfolio snapshot mid-run, so the end-to-end numbers reflect 56 catalog skills.
+
 ## Ambition pass, core trim and 2.7.1 (2026-10-26)
 
 Requested from two sources: Felix Rieseberg's "How to be more ambitious" essay (four axes, Speed skipped) and the `be-ambitious` skill in DannyMac180/skills (MIT, `a4e95dddae3015971397c61923175950a9fa2f76`), which covers depth only as a prompt rewriter.

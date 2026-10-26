@@ -120,7 +120,7 @@ npx yeknal security
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
 
-`yeknal@2.7.1` defaults to the 15-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
+`yeknal@2.8.0` defaults to the 15-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
 
 ### Install with skills.sh
 
@@ -250,6 +250,7 @@ The skill is read-only by default and explicitly not legal advice. It never pres
 
 `yeknal-content-seo` includes an IndexNow workflow for changed-URL notification and conditionally evaluates whether a public AI-readable brand facts page fills a real search-information gap. It does not claim such a page or `/llms.txt` improves AI Overview placement. The skill treats submission, crawling, indexing, ranking, and AI citations as separate proof boundaries.
 
+`yeknal-agent-readable-site` owns the delivery layer those decisions ship through: a markdown version of every public page through three access paths, one renderer registry, code-generated `llms.txt`, `llms-full.txt` and `ai.txt`, the head signals, and an AI crawler policy split into answer-engine indexers, user-initiated fetchers and training controls. It opens with a platform tier check, because a static host cannot negotiate content types or set response headers, and the bundled zero-dependency checker reports a host-blocked requirement as unsupported instead of passing it. The checker's coverage mode follows a split sitemap into its children and fails when a public route has no markdown version. Two things it refuses to encode: the stale bracketed `ai.txt` format that the source prompt still uses, and any claim that publishing these files produces a citation.
 
 ### Agent cost control
 

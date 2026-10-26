@@ -109,6 +109,16 @@ When evaluating a link profile, including your own, these patterns indicate inve
 
 None of these proves intent on its own. Together they describe a page that exists to sell slots.
 
+## Directories and listing surfaces
+
+A directory entry is a citation surface and a small referral channel before it is a link. Treat it as one.
+
+Qualify each directory before submitting: a real editorial standard that rejects some submissions, evidence of organic traffic, a category the product genuinely belongs to, an indexable page reached from a crawled page, and no footprint of a network built to sell slots. A list that accepts everything is a page nobody reads.
+
+Paying a person to file submissions is ordinary freelance work. Paying for a link that passes ranking credit is the violation described above, on both sides, so a placement advertising "safe dofollow" is that violation renamed. A compliant paid link carries `sponsored` or `nofollow`.
+
+Vendor claims about a domain-rating jump or an acceptance rate stay unverified until the live URLs exist, and a listing that asks for a badge in exchange for a link is a swap. Track each submission by directory, live URL, link status and referral sessions, and record rejections so the reason can be fixed rather than retried.
+
 ## AI citation prospecting
 
 Assistants that answer from live search read pages that already rank or are already cited. The work is to be named on those pages.

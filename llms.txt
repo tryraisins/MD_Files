@@ -17,6 +17,7 @@ yeknal-minimalist-ui: Premium utilitarian minimalism with editorial typography a
 yeknal-industrial-brutalist-ui: Raw mechanical interfaces, Swiss typography, and extreme scale contrast.
 yeknal-oil-motion: Specialized generated or captured frame-based interactive media workflow adapted from oil-oil/oil-motion.
 yeknal-pick-ui-library: Chooses libraries from installed dependencies and project fit; treats Rare UI, beUI, Spectrum UI, and Spell UI as inspectable component-source registries.
+yeknal-agent-readable-site: Make a public site readable and quotable by AI agents: per-page markdown endpoints, llms.txt, llms-full.txt, ai.txt, head signals and AI crawler policy, with a checker that separates host-blocked requirements from real failures. Makes no citation or ranking guarantees.
 yeknal-content-seo: Content and technical SEO, including IndexNow change notification and a conditional AI-readable brand facts page when branded-search work finds a real information gap; makes no AI Overview or ranking guarantees.
 yeknal-implement: End-to-end repository implementation command that defers to specific domain skills and preserves behavior.
 yeknal-review: Evidence-first code and system review.

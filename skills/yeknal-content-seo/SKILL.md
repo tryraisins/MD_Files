@@ -1,10 +1,11 @@
 ---
 name: yeknal-content-seo
-description: "Evidence-led search visibility: target queries, update-or-create decisions, metadata, structure, structured data, crawlability, sitemaps, canonicalization, local search, earned links, and AI answers. Use for SEO work."
+description: "Evidence-led search visibility: target queries, update-or-create decisions, metadata, structured data, crawlability, sitemaps, canonicalization, local search, earned links, AI answers (AEO/GEO), and measured citations. Use for SEO, AEO or GEO strategy."
 metadata:
   internal: true
   indexnow-source-reviewed: "2026-09-07"
   google-ai-features-source-reviewed: "2026-10-07"
+  agent-readability-boundary-reviewed: "2026-10-26"
 ---
 
 # Content and SEO
@@ -29,6 +30,7 @@ Anchor every decision in reader intent and product evidence. Produce genuinely u
 
 ## Rules
 
+- Own the query, the page, the metadata and the measurement. The routes, files and headers that make a page cheap for an agent to fetch belong to [agent-readable site](../yeknal-agent-readable-site/SKILL.md); do not duplicate its rules here or re-plan content inside it.
 - Never keyword-stuff, hide text, fabricate expertise, or promise rankings.
 - Never invent a search volume, difficulty score, ranking position, click-through rate, competitor detail, or citation. Write "not measured" and name what would measure it.
 - Prefer original evidence, clear authorship, and useful depth over padded length.
@@ -56,7 +58,7 @@ When the audit finds a real information gap, create or update a public, human-us
 
 Use the canonical URL, page title, visible content, internal links, and indexing controls consistently with the site's existing information architecture. Keep it discoverable to people and eligible crawlers if search visibility is an objective. Do not publish claims that the page is an "official AI instruction" or that it will dramatically affect AI Overviews.
 
-An optional `/llms.txt` file can act as a curated index to useful pages for agents that choose to read it. It is an independent proposal for agent discovery, not a documented Google ranking or AI Overview signal, and it does not replace useful public pages, crawlability, or a sitemap.
+An optional `/llms.txt` file can act as a curated index to useful pages for agents that choose to read it. It is an independent proposal for agent discovery, not a documented Google ranking or AI Overview signal, and it does not replace useful public pages, crawlability, or a sitemap. Once the pages exist, the files and endpoints that serve them belong to [agent-readable site](../yeknal-agent-readable-site/SKILL.md), which owns per-page markdown, the site-level files, the head signals and the crawler policy. Add those without re-planning the query or rewriting the page, and never report a published file as a visibility result.
 
 Assistants that answer from live search cite pages that already rank or are cited elsewhere, so useful pages and earned coverage come first. Model the short, recommendation-shaped queries an assistant would search rather than the sentence a customer would type, and build the prospect list from the pages those queries return. Do not place the site first in its own comparison content; readers and models discount it, and the claim is usually not true. [Authority and links](references/authority-and-links.md) covers citation prospecting, community threads, and the limits of each surface.
 
