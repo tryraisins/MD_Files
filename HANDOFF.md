@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-26
 Branch: main
-HEAD: see git log; 2.8.1 release tagged `v2.8.1`
+HEAD: see git log; 2.9.0 release tagged `v2.9.0`
 
 ## Release 2.8.1: README rewrite and rendered-scan handoff (2026-10-26)
 
