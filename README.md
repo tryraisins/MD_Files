@@ -107,7 +107,7 @@ npx yeknal security
 
 | Command | Result |
 | --- | --- |
-| `npx yeknal skills` | Syncs the 16-skill core profile into detected user-level agent folders, including shared UI/UX guidance and common motion design and review skills. |
+| `npx yeknal skills` | Syncs the 15-skill core profile into detected user-level agent folders, including shared UI/UX guidance and common motion design and review skills. |
 | `npx yeknal skills --skip-claude` | Avoids duplicate managed skills in OpenCode and other Claude-compatible readers by skipping and cleaning managed copies from `~/.claude/skills`. |
 | `npx yeknal skills --project --profile design` | Syncs the design specialist pack into the current repository's `.agents/skills`. |
 | `npx yeknal skills --project --profile process` | Syncs the optional process and domain-modeling workflows into the current repository. |
@@ -115,16 +115,16 @@ npx yeknal security
 | `npx yeknal skills --skills design-reference-research,prototype --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills slopscan` | Adds missing skills to the current repository without deleting or replacing existing skills. |
 | `npx yeknal skills --project --add --prune-archived --skills slopscan` | Same additive sync, plus removal of retired skills listed in `archived.json`. |
-| `npx yeknal skills --all` | Syncs every published skill (55 folders) for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs every published skill (57 folders) for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
 
-`yeknal@2.6.1` defaults to the 16-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
+`yeknal@2.7.0` defaults to the 15-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
 
 ### Install with skills.sh
 
-The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (55 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
+The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (57 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
 
 ```bash
 npx skills add tryraisins/MD_Files --list
@@ -150,26 +150,28 @@ npx skills add tryraisins/MD_Files --skill yeknal-frontend-design
 
 ## Capability profiles
 
-The global core is deliberately small: 16 entries a developer needs across unrelated projects. Its 16 entries cover:
+The global core is deliberately small: 15 entries a developer needs across unrelated projects. Its 15 entries cover:
 
-- process and delivery: implementation, review, diagnosis, finalization, project handoff, domain modeling, multi-agent orchestration, and Git safety;
+- process and delivery: implementation, review, diagnosis, finalization, project handoff, domain modeling, multi-agent orchestration, and an ambition pass that raises a brief to expert standard before work starts;
 - navigation: a model-free code index for entering a large repository without spending turns on guessed searches;
 - design: visual direction, redesign of an existing product, and the shared UI quality floor;
 - security: cross-stack application security for secure implementation and review;
-- verification: the end-to-end testing policy and real-browser verification through Playwright;
+- verification: the end-to-end testing policy;
 - documentation: Markdown maintenance.
+
+Git operations and real-browser automation moved to the `process` pack: both are task-level tools rather than cross-project defaults, and the ambition pass took the freed slot.
 
 Specialist packs add depth without forcing every style, platform, integration, or media workflow into every agent prompt:
 
 | Profile | Skills | Purpose |
 | --- | ---: | --- |
-| `core` | 16 | Cross-project process, design, security, verification, documentation, and code navigation. |
-| `process` | 9 | Agent cost, delivery extras, legacy sweeps, GitHub, exhaustive-output, and response modes beyond core. |
-| `design` | 21 | Specialist visual styles, motion, prototyping and design evidence. |
+| `core` | 15 | Cross-project process, reasoning, design, security, verification, documentation, and code navigation. |
+| `process` | 11 | Agent cost, Git operations, browser automation, delivery extras, legacy sweeps, GitHub, and verification upkeep beyond core. |
+| `design` | 22 | Specialist visual styles, motion, prototyping and design evidence. |
 | `security` | 5 | The five distinct security output contracts. |
-| `web` | 4 | Specialist SEO, performance, launch readiness and production errors beyond core. |
+| `web` | 5 | Specialist SEO, agent readability, performance, launch readiness and production errors beyond core. |
 | `platform` | 2 | Deployment routing and launch readiness. |
-| `all` | 55 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 57 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects` and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-improve-animations`, `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping and mobile workflows remain in the design pack because their triggers and output contracts differ. Deploy is one router (`yeknal-deploy`) that reads the provider from repository configuration, because four descriptions that all matched "deploy this" cost more in routing accuracy than they returned. Security keeps five folders for the same reason: implementation, review, auditing, threat modeling, and ownership analysis are not interchangeable artifacts.
 
@@ -203,6 +205,7 @@ The consolidated routers are `yeknal-orchestration-specialists` and `yeknal-rese
 
 ### Research and response modes
 
+- `yeknal-ambition`: the pre-flight pass that decides whether a brief is already at expert standard, and when it is not, names the bottleneck, the raw material, the method and the outside check. It offers the bigger option rather than taking it, and most briefs correctly get no pass at all.
 - `yeknal-research-analysis`: the canonical research workflow. Explicit deep-research requests load a focused reference for resumable evidence ledgers, claim verification, saturation-based stopping, and evidence-only follow-up instead of adding a second research skill.
 
 ### Markdown and implementation commands
@@ -247,6 +250,7 @@ The skill is read-only by default and explicitly not legal advice. It never pres
 
 `yeknal-content-seo` includes an IndexNow workflow for changed-URL notification and conditionally evaluates whether a public AI-readable brand facts page fills a real search-information gap. It does not claim such a page or `/llms.txt` improves AI Overview placement. The skill treats submission, crawling, indexing, ranking, and AI citations as separate proof boundaries.
 
+
 ### Agent cost control
 
 `yeknal-agent-cost-control` treats an inference bill as a design outcome rather than a provider price list. It reads per-session usage from the harness log, ranks sessions by cost, and then changes one lever: calls per session, content per call, tool surface, or model and effort. Cache work is explicitly conditional, because a setup already at a high cache-read share gains almost nothing from reordering prompts. A cheaper model is never accepted on cost alone: the outcome check counts findings that led to a change rather than findings reported, since a fall in reported problems is equally consistent with noise removed or real problems lost.
@@ -267,6 +271,8 @@ The 2026-10-07 workflow review examined [mattpocock/skills](https://github.com/m
 The 2026-10-23 review examined pstack in [cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack) at `4ec7ffa173eaa70d3d9467a627baf0954645a353`. Two behavioral-verification workflows were adapted as `yeknal-verification-harness` and `yeknal-verification-audit`, both in the `process` profile: the first generates a project-local skill with launch, doctor, drive, evidence, cleanup, and a feature map; the second keeps that map honest with one live pass and now lives inside that skill as `references/upkeep.md`. Upstream is MIT (Copyright 2026 Lauren Tan), so each skill bundles the notice. Two upstream behaviors changed. The hardcoded `.cursor/skills/verify-<app>/` path becomes the project's own skill directory with `.agents/skills/` as the neutral fallback, and the `disable-model-invocation` flag becomes explicit-only wording in the description, because this catalog's frontmatter contract allows only known fields. The formal-verification pair (model checkers, provers, TLA+) was reviewed and left out: it pays off only where concurrency, parsers, or invariants exceed what tests reach, and carrying it across a design-and-product catalog would add upkeep without demand.
 
 The 2026-10-24 review examined [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) at `c1c8a8c1471069fb0e188eeaff69b8e8db6564a8` and adapted it as `yeknal-security-audit` in the `security` profile. Upstream is MIT (Copyright 2025-2026 Cloudflare, Inc.), so the skill bundles the notice. The six-phase engine, coverage ledger, findings schema, and both zero-dependency validators are carried over; the domain attack-class companions move under `references/`. Three upstream behaviors changed. Its platform-neutral `research` and `general` roles are bound to this harness's real lanes, because an unbound role name silently collapses the audit into one context. Its OS-sandbox requirement is stated as source-only on Windows rather than quietly assumed, so behavioral leads stay `needs_validation` instead of being guessed. Both validators are patched for Windows, where upstream rejects every input because `O_NOFOLLOW` and `O_NONBLOCK` are unavailable; the local build keeps every other input check and only loses the race-free read. Its two validator test files are not shipped, since this catalog does not carry unit suites inside skills and the pinned commit makes re-vendoring a diff. The four existing security skills were retargeted in the same change so that exactly one skill owns a full audit.
+
+The 2026-10-26 review examined [DannyMac180/skills `be-ambitious`](https://github.com/DannyMac180/skills/tree/main/be-ambitious) at `a4e95dddae3015971397c61923175950a9fa2f76` (MIT, Copyright 2026 Dan McAteer) and Felix Rieseberg's [How to be more ambitious](https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/) (13 October 2026). One core skill was added: `yeknal-ambition` owns reframing a brief before work starts, which no other skill did. The port keeps the four-question depth pass and the deeper-not-bigger rule; altitude, range, the contract boundary and the outside-check rule are original synthesis, because the upstream skill covers depth only and stops after rewriting. The core profile gave up `yeknal-git` and `yeknal-playwright` to make room, and both moved to the `process` pack.
 
 The 2026-10-25 design review examined [ibelick/ui-skills](https://github.com/ibelick/ui-skills), [nutlope/hallmark](https://github.com/nutlope/hallmark) (MIT), and the new `animation-performance` skill in [emilkowalski/skills](https://github.com/emilkowalski/skills), alongside roughly twenty component registries and galleries. One skill was added: `yeknal-design-system`, which owns token layers, hardcoded-value mapping, component specs and migration, because the catalog demanded a `DESIGN.md` and supplied no method to build the system behind it. The rest landed as references inside existing skills rather than new skills: OKLCH color, typography, icons, effects and blends, component patterns, data display, account and money flows, motion principles, frame budget, and rendered video. Hallmark's contribution was method, not text: its rule-identifier scheme, the dealt direction that stops consecutive builds converging, its precision AI-tell list, and above all its eval harness, which informed `tools/design-eval` (briefs, a blind judge, and a scorecard). No component registry became a default; React Bits is recorded as MIT plus a Commons Clause restriction like Rare UI, and Shaders, snapcn and Arc UI are library references only.
 

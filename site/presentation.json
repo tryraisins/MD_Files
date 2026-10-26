@@ -130,6 +130,29 @@
         "yeknal-testing-strategy"
       ]
     },
+    "yeknal-ambition": {
+      "title": "Raise the bar on a brief",
+      "purpose": "Raises a task or prompt to expert standard before work starts, by finding the real bottleneck and naming the raw material, the method and the outside check that decides whether the result is right.",
+      "tasks": [
+        "build",
+        "docs"
+      ],
+      "whenToUse": [
+        "You want a deeper version of a task rather than a bigger one.",
+        "A brief is thin and you want to know what an expert in the field would ask for.",
+        "A request names an artifact when the real goal is the outcome behind it."
+      ],
+      "avoid": "It does not expand scope, add features, or replace execution. Most briefs need no pass at all, and a pass never changes acceptance criteria, access, ownership or cost without approval.",
+      "example": {
+        "ask": "Be more ambitious about this slow checkout page.",
+        "outcome": "It names the bottleneck, asks for production traces and a measurement on an agreed device, and writes a replacement brief with an explicit pass and fail condition."
+      },
+      "related": [
+        "yeknal-implement",
+        "yeknal-research-analysis",
+        "yeknal-orchestration-specialists"
+      ]
+    },
     "yeknal-code-graph": {
       "title": "Code graph",
       "purpose": "Builds a local, model-free index of a repository and answers with a small ranked slice, so an unfamiliar codebase can be entered in one call instead of many searches.",

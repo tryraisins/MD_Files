@@ -251,3 +251,19 @@ Catalog after this pass: 53 skills, 15 core, in five packs.
 Cross-reference guard (2026-10-25): `tools/verify-skill-references.js` runs in CI on every push and pull request. It fails when a skill body, `site/presentation.json`, `skills.sh.json`, `profiles.json`, `llms.txt` or a routing case names a missing skill, when a presentation entry uses an undeclared task, or when a catalog skill is in no profile. Proven by a probe skill that added a dangling reference and no profile coverage: the guard reported both and exited 1; after removing the probe it passed again.
 
 Boundaries: `audit-markdown-links.ps1` needs PowerShell 7, which is absent here, so a Node link check stood in. Model-based routing quality is asserted by the 44 evaluation cases, not proven for every client.
+
+## Ambition pass and core trim (2026-10-26)
+
+`yeknal-ambition` adapts the depth pass from [DannyMac180/skills `be-ambitious`](https://github.com/DannyMac180/skills/tree/main/be-ambitious) at `a4e95dddae3015971397c61923175950a9fa2f76` (MIT, Copyright 2026 Dan McAteer), and independently synthesizes the altitude and range axes from Felix Rieseberg's essay of 13 October 2026. It owns reframing a brief before work starts, which no existing skill did: `research-analysis` owns evidence, `implement` owns execution, `orchestration-specialists` owns the crew, and `review` and `finalize` own the gates, but all of them start from the brief as given.
+
+Three review decisions cut scope rather than add it, after review with GPT-6.1 Sol and Claude Sonnet 5.5:
+
+- **A gate with "none" as the normal answer.** Three tests settle it: the request states its own proof, the change is one searchable mechanical edit, or one authoritative source settles it. Only then is a bottleneck named (depth, range, altitude). The first end-to-end run showed why this matters: with a looser gate, a broken footer link and a field rename were both rewritten into measurement projects, while a launch announcement was waved through as "none". The gate was tightened and re-run.
+- **No inline mode.** The skill fires on an explicit request to raise the bar. When it fires mid-task it applies to the agent's own plan without stopping work or emitting a rewrite block.
+- **A contract boundary.** A pass may not change acceptance criteria, access, ownership or cost without approval; it offers the bigger option and proceeds with the original.
+
+Core moved from 16 to 15 entries. `yeknal-playwright` and `yeknal-git` left core for the `process` pack, because both are task-level tools rather than cross-project defaults; `yeknal-ambition` took one of the freed slots, leaving the core one entry smaller. Core discovery metadata is 3,713 characters of the 10,000 budget, down from 3,851 despite the new entry.
+
+Registration: `profiles.json` (core 16 to 15, process 9 to 11), `skills.sh.json`, `site/presentation.json`, `llms.txt`, `PROVENANCE.md`, `README.md`, and two routing cases plus a `mustNotLead` on the deep-research case so "deep research" still resolves to `yeknal-research-analysis`.
+
+Verification: `audit-skills.ps1` 0 errors and 0 warnings; `validate-routing-evals.ps1` 45 cases, 0 errors; `verify-skill-references.js` passes every check except the known untracked-skill coverage failure; `npm test --prefix yeknal-cli` 49/50 with the same known failure; core metadata 3,713/10,000. End to end: six briefs through a fresh lane. Round 1 scored 3 of 6 (two no-ops over-fired, one range under-fired); after the gate rewrite, round 2 scored 6 of 6. Boundaries: the untracked `skills/yeknal-agent-readable-site/` belongs to another in-progress workstream, so the local coverage test fails on it while the committed tree passes. `audit-markdown-links.ps1` still needs PowerShell 7 and this machine has 5.1.

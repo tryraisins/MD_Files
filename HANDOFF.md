@@ -2,7 +2,25 @@
 
 Last updated: 2026-10-26
 Branch: main
-HEAD: see git log; 2.6.3 release commit tagged `v2.6.3`
+HEAD: see git log; 2.7.0 release commit tagged `v2.7.0`
+
+## Ambition pass, core trim and 2.7.0 (2026-10-26)
+
+Requested from two sources: Felix Rieseberg's "How to be more ambitious" essay (four axes, Speed skipped) and the `be-ambitious` skill in DannyMac180/skills (MIT, `a4e95dddae3015971397c61923175950a9fa2f76`), which covers depth only as a prompt rewriter.
+
+**New skill:** `skills/yeknal-ambition/` with `references/worked-examples.md` (three rewrites, two deliberate no-op cases) and the upstream MIT notice. It owns reframing a brief before work starts. The four-question depth pass and the deeper-not-bigger rule come from upstream; altitude, range, the contract boundary and the outside-check rule are original synthesis.
+
+**Placement:** core. `yeknal-playwright` and `yeknal-git` left core for `process`, so core is 15 and process is 11. Core discovery metadata is 3,713 of the 10,000 budget.
+
+**Design after review with GPT-6.1 Sol and Sonnet 5.5:** a gate with "none" as the normal answer, no inline mode, and a contract boundary that forbids changing acceptance criteria, access, ownership or cost without approval. The first end-to-end run scored 3 of 6 because the gate was too loose; after tightening it, the second run scored 6 of 6. Do not loosen the gate back to "the brief feels thin": that version rewrote a broken footer link and a field rename into measurement projects, and waved a launch announcement through as none.
+
+**Also:** version 2.7.0; README counts (core 15, process 11, design 22 corrected from a stale 21, all 56); routing evals 43 to 45; the `core 16` assertion in `yeknal-cli/test/yeknal.test.js:581` is now `core 15`.
+
+**Unrelated work in the tree, left untouched and uncommitted:** the `skills/yeknal-content-seo/` edits, and the untracked `skills/yeknal-agent-readable-site/`. The last one makes the local profile-coverage test fail; the committed tree passes it.
+
+**Verification:** `audit-skills.ps1` 0 errors and 0 warnings; `validate-routing-evals.ps1` 45 cases, 0 errors; `verify-skill-references.js` passes every check except the known untracked-skill coverage failure; `npm test --prefix yeknal-cli` 49/50, same known failure; core metadata 3,713/10,000. End to end: six briefs through a fresh lane, 6/6 after the gate rewrite. Not run: `audit-markdown-links.ps1` (needs PowerShell 7, this machine has 5.1) and `skills-ref validate` (CI only).
+
+**Release:** commit source, `node tools/build-catalog.js`, commit the catalog, tag `v2.7.0`, push, `npm publish`, then portfolio sync.
 
 ## Unreleased: rendered video direction (2026-10-26)
 

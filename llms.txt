@@ -27,6 +27,7 @@ yeknal-finalize: Repository-appropriate documentation and quality gates with pub
 yeknal-orchestration-specialists: Bounded multi-agent, context, prompt, synthesis, and MCP coordination guidance.
 yeknal-agent-cost-control: Measure agent inference spend per session, find the sessions that own the bill, and change one cost lever at a time without silently losing review quality.
 yeknal-code-graph: Build a local, model-free index of a repository and query it for a small ranked slice of files, symbols, importers and routes. Use to orient in a large unfamiliar codebase; it is retrieval, not GraphRAG, and not a replacement for grep.
+yeknal-ambition: Raise a task or brief to expert standard before work starts by finding the real bottleneck and naming the raw material, method and outside check. Use when asked to be ambitious, raise the bar, or reframe a task the way an expert would.
 yeknal-research-analysis: Canonical evidence-backed research workflow, including a progressively disclosed deep-research mode with claim verification and saturation-based stopping.
 yeknal-break-ui: Adversarial worst-case data stress test for a component or screen, reporting each break and its fix against the shared UI quality baseline.
 yeknal-domain-modeling: Clarify domain concepts, maintain a project glossary, and record durable architecture decisions as ADRs only when the tradeoff warrants it.

@@ -135,7 +135,9 @@
       "secondary": [
         "yeknal-orchestration-specialists"
       ],
-      "mustNotLead": [],
+      "mustNotLead": [
+        "yeknal-ambition"
+      ],
       "rationale": "Deep research is a rigorous mode inside the canonical research skill rather than a duplicate entry point."
     },
     {
@@ -488,6 +490,31 @@
         "yeknal-review"
       ],
       "rationale": "Orientation in unknown code is a retrieval task. The graph narrows the files; implementation and review only start after the read confirms the answer."
+    },
+    {
+      "id": "raise-the-bar-on-a-brief",
+      "prompt": "Be more ambitious about this checkout performance ticket and rewrite it the way an expert would ask it.",
+      "primary": "yeknal-ambition",
+      "secondary": [
+        "yeknal-performance"
+      ],
+      "mustNotLead": [
+        "yeknal-implement",
+        "yeknal-troubleshoot"
+      ],
+      "rationale": "A request to raise the bar on the brief is a reframing job that ends with a replacement brief, not execution or diagnosis."
+    },
+    {
+      "id": "small-fix-stays-small",
+      "prompt": "Fix the null check that crashes the settings page when a profile has no avatar, and add the regression check.",
+      "primary": "yeknal-implement",
+      "secondary": [
+        "yeknal-testing-strategy"
+      ],
+      "mustNotLead": [
+        "yeknal-ambition"
+      ],
+      "rationale": "A scoped fix with a reproduction is already at the right standard; an ambition pass would add ceremony without raising quality."
     }
   ]
 }

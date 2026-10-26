@@ -2,16 +2,15 @@
   "core": {
     "description": "High-frequency process, reasoning, design, implementation, verification, and security workflows.",
     "skills": [
+      "ambition",
       "application-security",
       "code-graph",
       "domain-modeling",
       "finalize",
       "frontend-design",
-      "git",
       "implement",
       "markdown-management",
       "orchestration-specialists",
-      "playwright",
       "project-handoff",
       "redesign-existing-projects",
       "review",
@@ -28,7 +27,9 @@
       "domain-modeling",
       "gh-address-comments",
       "gh-fix-ci",
+      "git",
       "legacy-sweep",
+      "playwright",
       "research-analysis",
       "verification-harness",
       "yeet"
@@ -72,7 +73,7 @@
     ]
   },
   "web": {
-    "description": "Specialist SEO, performance, launch readiness and production-error workflows beyond core.",
+    "description": "Specialist SEO, agent readability, performance, launch readiness and production-error workflows beyond core.",
     "skills": [
       "content-seo",
       "launch-readiness",
