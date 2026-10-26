@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "ac51b4848862031263d9a8416a0caa5b19d6e127",
-  "version": "2.7.0",
+  "sourceRevision": "e2f302d026ecd9a88d981fce23cf449fa03668c5",
+  "version": "2.7.1",
   "skills": [
     {
       "name": "yeknal-add-changelog",
