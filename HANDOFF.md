@@ -22,7 +22,7 @@ Requested from two sources: Felix Rieseberg's "How to be more ambitious" essay (
 
 **Release:** commit source, `node tools/build-catalog.js`, commit the catalog, tag `v2.7.0`, push, `npm publish`, then portfolio sync.
 
-## Unreleased: rendered video direction (2026-10-26)
+## Rendered video direction (2026-10-26)
 
 Prompted by the claim that an agent cannot choose between a camera move, kinetic type, and a screen recording in a demo video, and does not reason about attention or sequence. The diagnosis: the catalog's motion doctrine is gated on interaction frequency, which is constant for a clip, so the primary gate was inert and the UI budgets (`prefers-reduced-motion`, hover gating, interruptibility, sub-300ms) actively misfired on a video file.
 
@@ -36,7 +36,7 @@ Prompted by the claim that an agent cannot choose between a camera move, kinetic
 
 **Verification:** `verify-skill-references.js` 7/7 across 57 skills; `audit-skills.ps1` 0 errors and 0 warnings; eight relative links across the six changed files resolve (one-off Node scan, because `audit-markdown-links.ps1` needs PowerShell 7); `git diff --check` clean. `verify-skill-references.js` currently also reports `profiles.json: no profile covers yeknal-agent-readable-site`, which belongs to concurrent work in this working tree, not to this change.
 
-**Remaining:** commit the source, regenerate the catalog, commit it, push, then sync the portfolio. No presentation entry changes, because no skill was added.
+**Released:** `4d5f236` (source) and `9aa351c` (catalog) are pushed; validation run 40310673046 passed in 24 seconds. The portfolio synced at `19ef7f4` and its Pages deploy run 40311443991 went green; live `tryraisins.dev/skills/animate/files.json` serves `references/rendered-video.md` at 10,652 bytes pinned to `4d5f236`. No presentation entry changes, because no skill was added.
 
 ## Unreleased: design catalog review (2026-10-25)
 
