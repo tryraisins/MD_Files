@@ -18,7 +18,27 @@ Two changes: the npm README was rewritten for people, and the slop scan now name
 
 **Not run:** `audit-markdown-links.ps1` (needs PowerShell 7, this machine has 5.1; a Node walk and an anchor check covered both changed files) and the Claude lanes.
 
-**Next:** 2.9.0 detector work agreed after review. Four single-file heuristics (`middot-metadata`, `decorative-numbering`, `clipped-slogans`, `heading-accent`), parent/child edges in `extractMarkup`, a class tokenizer that separates base classes from variants, and a stand-down rule for unknown components such as `<Link>` and `<Card>`. The page-model phase was rejected: the remaining layout rules need geometry or rendered counts, so they stay unassessed. Honest ceiling is 23 of 35, not 34.
+**Next:** the 3.0 candidate is tightening the twelve unassessed rules if a rendered mode is ever accepted, but each one needs geometry or a rendered count, so no static work is planned. Keep the parser additions (parent, depth, component flag, class tokens) in mind: they are what made 2.9.0 possible.
+
+## Release 2.9.0: four more rules assessed from source (2026-10-26)
+
+`middot-metadata`, `decorative-numbering`, `clipped-slogans` and `heading-accent` moved from unassessed to heuristic. Assessed coverage is 23 of 35 and the not-checked list is 12.
+
+**Parser:** every markup node now carries `parent`, `depth`, `nodeIndex` and `component` (a capitalised tag), and `VOID_TAGS` stops an unclosed `<img>`, `<br>` or `<input>` from becoming the parent of everything after it. `tokenizeClasses` splits a class attribute with bracket awareness and separates variant prefixes from the base utility, so `hover:underline` is never read as an at-rest underline.
+
+**Rule decisions, and why they stay heuristic:**
+- `middot-metadata` requires 3+ readable fragments, so template debris such as `{edu.country ? `, $ ` : ''} · ...` is rejected. Navigation is excluded only when the literal ancestor is in the file, because a wrapper that renders `<nav>` cannot be seen.
+- `decorative-numbering` requires 3+ labels and no literal `<ol>` around them. A `<Steps>` component that renders an ordered list is invisible, so the finding says the order is not established.
+- `clipped-slogans` requires 3+ fragments, or 2 fragments of at most 2 words each, and rejects a space before the final stop, interpolation debris, abbreviations, initialisms and domain endings.
+- `heading-accent` needs a child `span`/`em`/`i` with a base accent colour, gradient or italic utility, or a bare `em`/`i`. Capitalised components are skipped because their rendered children are unknown.
+
+**False positives found and fixed before release, on the seven-project pass:** template-literal debris read as dotted metadata, "Questions? Email us at ." and "No users loaded. Click refresh." read as clipped slogans. After the fixes the seven projects produced two findings, both genuinely italicised accent words in `streamslip-main` headings. Scan time on the largest project is 1.4 s.
+
+**Verification:** `npm test` 50/50; audit-skills 0 errors and 0 warnings; `verify-skill-references.js` 7/7; Slop Detector drift check reports no drift in the shared fields at 35/35; a planted fixture fires all four rules and a clean fixture stays at 0.
+
+**Release:** source `00061b8`, catalog `96a4d21`, tag `v2.9.0`, CI green in 33 s, published manually. Published-package proof: `npx yeknal@2.9.0 slopscan` on the planted fixture reports the four rules and `notChecked: 12`. Portfolio synced in `1af5fd4`.
+
+**Not run:** the Claude lanes are still capped, so this work has no Sonnet review; Sol was not re-run for it. `audit-markdown-links.ps1` still needs PowerShell 7.
 
 ## Agent-readable site surface (2026-10-26)
 
