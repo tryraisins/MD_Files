@@ -5,14 +5,16 @@
     "project": "SlopLens",
     "repository": "Slop Detector",
     "rulesFile": "shared/rules.ts",
-    "commit": "cca990d6fecdd1874795b7ae06768078461581e0"
+    "commit": "cca990d6fecdd1874795b7ae06768078461581e0",
+    "site": "https://sloplens.tryraisins.dev"
   },
   "note": "This is a hand-curated copy of the SlopLens rule catalog, adapted for a static source scan. SlopLens owns the rule identity, name, category, family, supporting flag and fix line. Everything specific to a source scan is owned here: the staticPlain wording, the observation and inference split, the assessment, the file types and the thresholds. There are no weights and no score, because a repository is not a page. Run the drift check in the Slop Detector repository after changing either copy.",
   "limitations": [
     "This scan reads source files. It cannot see the rendered page, so checks that need layout, computed styles or the accessibility tree are reported as unassessed rather than guessed.",
     "It cannot tell who or what wrote the code, and it does not try.",
     "Copy checks support English only.",
-    "A finding is a candidate for review, not a verdict. No single finding decides quality on its own."
+    "A finding is a candidate for review, not a verdict. No single finding decides quality on its own.",
+    "The checks that need a rendered page are reported as unassessed. For those, deploy the project and scan the live URL at https://sloplens.tryraisins.dev, which returns the 0 to 100 score, the tier and the points each rule added. This command prints the address and never contacts the site."
   ],
   "families": [
     { "id": "copy", "name": "Stock copy" },

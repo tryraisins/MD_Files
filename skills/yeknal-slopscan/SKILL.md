@@ -63,7 +63,7 @@ Read the whole report before editing. One finding is never a verdict, and the fi
 
 ## What the scan cannot do
 
-- It cannot see the rendered page, so layout, computed styles and the accessibility tree are out of reach. Rules that need them are listed as not checked, and the report points at the hosted SlopLens scan for that view.
+- It cannot see the rendered page, so layout, computed styles and the accessibility tree are out of reach. Rules that need them are listed as not checked, and the report points at https://sloplens.tryraisins.dev, where scanning the live URL returns a 0 to 100 score with a tier and points per rule. The command prints that address and never contacts it.
 - It reads English copy only.
 - It does not score the repository. A repository-wide number would measure size rather than quality, so the report gives counts instead.
 - It cannot tell who or what wrote the code.

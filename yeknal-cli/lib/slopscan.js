@@ -32,6 +32,11 @@ const { listGitVisibleFiles, safeReadFile, walkFiles } = require("./scan-files")
 
 const CATALOG = require("./slop-rules.json");
 
+// The rendered scan lives on the SlopLens site, because layout, computed styles
+// and the accessibility tree are out of reach from source. The command prints
+// this address and never contacts it: this scanner makes no network requests.
+const RENDERED_SCAN_URL = (CATALOG.source && CATALOG.source.site) || "https://sloplens.tryraisins.dev";
+
 // ==========================================================================
 // Patterns, ported from the SlopLens detectors so the two agree on what
 // counts. See the Slop Detector repository, server/detectors.ts.
@@ -1123,7 +1128,13 @@ function generateSlopScanLog(results) {
     lines.push(`      ${forLog(rule.unassessedReason || "Needs the rendered page.")}`);
   }
   lines.push("");
-  lines.push("  For the rendered checks, scan the live page at the SlopLens site.");
+  lines.push("  For these, the rendered page decides. Deploy the project, then scan");
+  lines.push("  the live URL for the 0 to 100 score, the tier and the points each rule");
+  lines.push("  added:");
+  lines.push("");
+  lines.push(`    ${RENDERED_SCAN_URL}`);
+  lines.push("");
+  lines.push("  This command prints that address. It does not contact the site.");
   lines.push("");
 
   lines.push("-".repeat(64));
@@ -1180,6 +1191,10 @@ function generateSlopScanJson(results) {
       name: rule.name,
       reason: rule.unassessedReason || "Needs the rendered page.",
     })),
+    renderedScan: {
+      url: RENDERED_SCAN_URL,
+      note: "Deploy the project, then scan the live URL for a 0 to 100 score. This command does not contact the site.",
+    },
   };
   // Keep the serialized JSON free of literal em dashes while preserving the
   // exact characters through the \u2014 escape, so evidence survives a parse.
