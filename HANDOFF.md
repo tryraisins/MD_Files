@@ -4,6 +4,10 @@ Last updated: 2026-10-26
 Branch: main
 HEAD: see git log; 2.9.0 release tagged `v2.9.0`
 
+## Tooling: PowerShell 7 installed (2026-10-26)
+
+`pwsh` 7.6.9 was installed through winget (`Microsoft.PowerShell`), side by side with Windows PowerShell 5.1. This closes the one recurring local validation gap, and the three Markdown scripts now run here exactly as CI runs them: `audit-markdown-links.ps1` checked 401 files and 193 relative links with 0 unresolved, `audit-skills.ps1` reports 57 skills with 0 errors and 0 warnings, and `validate-routing-evals.ps1` reports 49 cases with 0 errors. Entries below that mention PowerShell 5.1 are records of that time, not current limits. Use `pwsh`, not `powershell`, for these scripts.
+
 ## Release 2.8.1: README rewrite and rendered-scan handoff (2026-10-26)
 
 Two changes: the npm README was rewritten for people, and the slop scan now names the rendered scan site.
@@ -16,7 +20,7 @@ Two changes: the npm README was rewritten for people, and the slop scan now name
 
 **Release:** source `95a39b5`, catalog `2c58315`, tag `v2.8.1`, CI green in 25 s. Published manually; trusted publishing stays gated on `NPM_TRUSTED_PUBLISHING_ENABLED`. Published shasum `a9594aca063bc656b1e440994d30a90d97aa1554`. Proof from the published package: `npx yeknal@2.8.1 slopscan --json` reports `ruleVersion: sloplens-3.4.0` and `renderedScan.url`; `load yeknal-slopscan` returns revision `95a39b5` with the new sentence. Portfolio synced in `3b3320f` (snapshot at `95a39b5`, changed `yeknal-slopscan`).
 
-**Not run:** `audit-markdown-links.ps1` (needs PowerShell 7, this machine has 5.1; a Node walk and an anchor check covered both changed files) and the Claude lanes.
+**Not run:** the Claude lanes. The link audit was blocked at the time by PowerShell 5.1; PowerShell 7.6.9 is now installed and the audit passes (see the tooling note at the top).
 
 **Next:** the 3.0 candidate is tightening the twelve unassessed rules if a rendered mode is ever accepted, but each one needs geometry or a rendered count, so no static work is planned. Keep the parser additions (parent, depth, component flag, class tokens) in mind: they are what made 2.9.0 possible.
 
@@ -38,7 +42,7 @@ Two changes: the npm README was rewritten for people, and the slop scan now name
 
 **Release:** source `00061b8`, catalog `96a4d21`, tag `v2.9.0`, CI green in 33 s, published manually. Published-package proof: `npx yeknal@2.9.0 slopscan` on the planted fixture reports the four rules and `notChecked: 12`. Portfolio synced in `1af5fd4`.
 
-**Not run:** the Claude lanes are still capped, so this work has no Sonnet review; Sol was not re-run for it. `audit-markdown-links.ps1` still needs PowerShell 7.
+**Not run:** the Claude lanes are still capped, so this work has no Sonnet review; Sol was not re-run for it. The link audit was blocked at the time and now runs under PowerShell 7.6.9.
 
 ## Agent-readable site surface (2026-10-26)
 
@@ -531,7 +535,9 @@ can consume account usage. E2E/public/actual-agent final evidence follows below.
   the runtime content hash correctly changes when implementation changes.
 - Native Windows read-only command execution blocked an earlier fixture. Bounded
   actual-agent checks run with command execution enabled against isolated fixtures.
-- Windows skills-ref needs PYTHONUTF8=1; Markdown link audit needs PowerShell 7.
+- Windows skills-ref needs PYTHONUTF8=1. PowerShell 7.6.9 (`pwsh`) is installed as
+  of 2026-10-26, so `audit-markdown-links.ps1` runs locally and `powershell` (5.1)
+  is no longer the only interpreter. CI already used `shell: pwsh`.
 - Npm package commands run from yeknal-cli. Registry propagation may briefly be
   stale/404. Current trusted-publish GitHub variable is unset; authenticated local
   npm publish is the known fallback. Never print credential environment values.
