@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "95a39b5f5552e26ca8493af435f08a8fd34456ce",
-  "version": "2.8.1",
+  "sourceRevision": "00061b828e01544f48d56e626569f3a70272311a",
+  "version": "2.9.0",
   "skills": [
     {
       "name": "yeknal-add-changelog",
@@ -2657,12 +2657,12 @@
         "when",
         "yeknal-slopscan"
       ],
-      "version": "0b0f83c091a04ee17621fee651f81a50c4d64599c6a7a9ca67b4190f885a3e0e",
+      "version": "c4ced3368c9cc1adce4171c9309f3401c1af5deeed89fa83d10190489f21083d",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "332dedea0415ecf069b71347cba25c6523a06b9513611e13c6c95afce2de0c26",
-          "size": 5120
+          "sha256": "3612ba0229866aeb75907e9fbc62d0f1b4405063f14d14a6653e040c9b0d8e05",
+          "size": 5209
         }
       ]
     },
