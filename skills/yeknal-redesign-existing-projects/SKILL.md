@@ -58,7 +58,7 @@ Group findings into:
 3. **Page/flow defects:** weak hierarchy, evidence order, navigation, CTA, footer, 404, or recovery.
 4. **Polish opportunities:** imagery, material, motion, and signature details after the system works.
 
-Fix the highest-impact root cause instead of restyling every symptom. Keep changes reviewable. A font swap, asymmetric grid, glass surface, texture, or scroll effect is not automatically an upgrade.
+Fix the highest-impact root cause instead of restyling every symptom. Keep changes reviewable. A font swap, asymmetric grid, glass surface, texture, or scroll effect is not automatically an upgrade, and a face from [typeface options](../yeknal-ui-quality-baseline/references/typeface-options.md) is only a candidate after it passes the selection gate in [typography](../yeknal-ui-quality-baseline/references/typography.md).
 
 ## Implement without collateral change
 

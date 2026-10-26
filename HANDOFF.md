@@ -22,6 +22,20 @@ Requested from two sources: Felix Rieseberg's "How to be more ambitious" essay (
 
 **Release:** commit source, `node tools/build-catalog.js`, commit the catalog, tag `v2.7.0`, push, `npm publish`, then portfolio sync.
 
+## Typeface options reference (2026-10-26)
+
+Prompted by four typefaces the user wanted available when designing or redesigning sites: Plus Jakarta Sans, MADE Okine Sans, Degular Display, Nofex. A Claude review and the Codex planning lane independently agreed the shape: a gated candidate list owned by the UI quality baseline, not a font menu and not a new skill.
+
+**Excluded:** Okine Sans, Degular Display and Nofex. All three need a purchase for commercial use, and Nofex's free download is personal-use only. A project that licenses one records it in its own `DESIGN.md`; the catalog carries no paid recommendation.
+
+**New:** `skills/yeknal-ui-quality-baseline/references/typeface-options.md`. A scope sentence that it never picks a face, a five-part admission test (license, coverage, style axis, role, reason), a one-row candidate table, pairing, the license record, and how to add a row. No prices and no marketplace citations on purpose, because both go stale and neither is admissible evidence.
+
+**Linked from:** `references/typography.md` (after the no-defaults rule) and one clause in `yeknal-redesign-existing-projects/SKILL.md`. `yeknal-frontend-design/SKILL.md` was left alone deliberately: it is a tracked upstream derivative, and a link at its "Type" plan step would prime the menu this reference exists to prevent.
+
+**Verified:** Plus Jakarta Sans coverage read from the served weight-400 character map, not a listing page. All Yoruba and Igbo dot-below letters (U+1EB8/1EB9, U+1ECA/1ECB, U+1ECC/1ECD, U+1E62/1E63, U+1EE4/1EE5) and combining grave, acute and dot below are present. SIL OFL 1.1 and the variable 200-800 range with a true italic confirmed from the Google Fonts face declarations.
+
+**Remaining:** commit the reference and links, then `node tools/build-catalog.js` (it builds from the committed tree at HEAD, so it cannot include these files before the commit), commit the regenerated catalog, push, then sync the portfolio. No presentation entry changes, because no skill was added or renamed.
+
 ## Rendered video direction (2026-10-26)
 
 Prompted by the claim that an agent cannot choose between a camera move, kinetic type, and a screen recording in a demo video, and does not reason about attention or sequence. The diagnosis: the catalog's motion doctrine is gated on interaction frequency, which is constant for a clip, so the primary gate was inert and the UI budgets (`prefers-reduced-motion`, hover gating, interruptibility, sub-300ms) actively misfired on a video file.

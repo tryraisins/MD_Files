@@ -12,6 +12,8 @@ Size and weight cannot rescue a face chosen for the wrong job. Decide three thin
 
 Do not default to the same handful of fashionable AI-stack faces on every project. If a project has no brand, choose a face that suits the subject and say why in the design document.
 
+Free candidates that have already passed a license and coverage check are listed in [typeface options](typeface-options.md). Use that list to test a choice, never to make one: a listed face still has to answer the three questions above and earn a written reason in the design document.
+
 ## Pairing
 
 - One display or editorial family plus one highly readable product family is the ceiling. A monospace face is a third family only for short technical metadata.
