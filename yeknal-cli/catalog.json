@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "a9246104d861a12f472ab19764db7296186b2931",
+  "sourceRevision": "4d5f23650cf23128b33e548478e9960e8cdc694e",
   "version": "2.6.4",
   "skills": [
     {
@@ -127,7 +127,7 @@
         "works",
         "yeknal-animate"
       ],
-      "version": "4740fcfaf5b61747d87547dfad2652d34247e5ba586ef5b850b662b43de09540",
+      "version": "885699c550ee0815c5d5887dfe37b6363530a1c5478ec8f90d5c327aef3300a6",
       "files": [
         {
           "path": "RECIPES.md",
@@ -146,18 +146,18 @@
         },
         {
           "path": "references/motion-principles.md",
-          "sha256": "8a75ded444fe231111e5646321c400195816f202ad26bb9005fed2659be312a6",
-          "size": 3850
+          "sha256": "5796fd2db92349181bfeb53bc1e393950fdca1565bf020826c0a6d962d17ee78",
+          "size": 4250
         },
         {
           "path": "references/rendered-video.md",
-          "sha256": "f3add4ab9e36330820517787fb6f42e85634dc5e3668a572652095b17667f879",
-          "size": 3092
+          "sha256": "01b72f12c62a5ae04fe4ec54f91947801c64c621e3da336b6bc5e66ff32019c8",
+          "size": 10652
         },
         {
           "path": "SKILL.md",
-          "sha256": "e5ecb88201277f97105f37d4c78329192b74cfd2f5178eb7789f888da0b1d107",
-          "size": 15816
+          "sha256": "3f989e2e39cd4dc17dcae00164d1c693af19314685d1bb316557303fc45317e0",
+          "size": 16383
         }
       ]
     },
@@ -628,7 +628,7 @@
         "useful",
         "yeknal-design-reference-research"
       ],
-      "version": "c02e8fba933b75dafd19d48a3cc068ac936a4fee855db68042a47a6157b3c55a",
+      "version": "a52ca560f5b9a552bcddf72d22a970d8fd9229227467f5170bf6a4e6900aa8cb",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -647,8 +647,8 @@
         },
         {
           "path": "references/source-atlas.md",
-          "sha256": "d4eb56886e0558f4be94bfde8784faf94a6b605c1be3f58610a3daa729caf683",
-          "size": 8732
+          "sha256": "2902d09b00c62f318c6c44129299d5cff4c1f679c3044c90df557ae886d78b57",
+          "size": 9383
         },
         {
           "path": "SKILL.md",
@@ -854,12 +854,12 @@
         "workflow",
         "yeknal-find-animation-opportunities"
       ],
-      "version": "1fe253d4534e54029a2062bd545f8c043c78b40f640fd251fda20001f96fe737",
+      "version": "957d8ad4988190aed6ebae1ea6d70f386968854e11cb667afd82b8c4f6608760",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "c98466ab4fd6d2c16c4ee1e5bae9113392574a01104e3682edbb75fc5d325aa4",
-          "size": 9894
+          "sha256": "c01a402a2f67571a2b588ff3e4b78dc9894840ff3221fe256bd321809b03cc4e",
+          "size": 10208
         }
       ]
     },
