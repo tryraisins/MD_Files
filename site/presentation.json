@@ -147,6 +147,11 @@
         "ask": "Be more ambitious about this slow checkout page.",
         "outcome": "It names the bottleneck, asks for production traces and a measurement on an agreed device, and writes a replacement brief with an explicit pass and fail condition."
       },
+      "attribution": {
+        "credit": "Depth pass adapted from Dan McAteer's be-ambitious skill; altitude, range and the contract boundary synthesized from Felix Rieseberg's essay.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/DannyMac180/skills/tree/main/be-ambitious"
+      },
       "related": [
         "yeknal-implement",
         "yeknal-research-analysis",
