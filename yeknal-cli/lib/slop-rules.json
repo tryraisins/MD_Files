@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "ruleVersion": "sloplens-3.2.0",
+  "ruleVersion": "sloplens-3.4.0",
   "source": {
     "project": "SlopLens",
     "repository": "Slop Detector",
     "rulesFile": "shared/rules.ts",
-    "commit": "7d73916dd79ba95b50ef36a32663c15fc849c305"
+    "commit": "cca990d6fecdd1874795b7ae06768078461581e0"
   },
   "note": "This is a hand-curated copy of the SlopLens rule catalog, adapted for a static source scan. SlopLens owns the rule identity, name, category, family, supporting flag and fix line. Everything specific to a source scan is owned here: the staticPlain wording, the observation and inference split, the assessment, the file types and the thresholds. There are no weights and no score, because a repository is not a page. Run the drift check in the Slop Detector repository after changing either copy.",
   "limitations": [
@@ -63,6 +63,18 @@
       "unassessedReason": "Planned, not yet checked. Grouping bullets into the list a reader actually sees needs a rendered view, so the source scan does not attempt it yet."
     },
     {
+      "id": "clipped-slogans",
+      "name": "Clipped slogans",
+      "category": "slop",
+      "family": "copy",
+      "fix": "Write the idea as one connected sentence that says what the product or person actually does.",
+      "staticPlain": "Short lines in the copy are built from two or more clipped fragments of one to three words each, a rhythm that stock copy uses in place of saying something.",
+      "observation": "Copy strings made only of short capitalised fragments, each ending in a period.",
+      "inference": "This is a rendered measure.",
+      "assessment": "unassessed",
+      "unassessedReason": "Planned, not yet checked. SlopLens measures this on rendered text; a source pattern for it has not been written or calibrated yet."
+    },
+    {
       "id": "gradient-text",
       "name": "Gradient headline text",
       "category": "slop",
@@ -73,6 +85,18 @@
       "inference": "The technique is present in the source. Whether the gradient is visible, and whether the element is a headline, is not judged.",
       "assessment": "measured",
       "fileTypes": ["css", "scss", "less", "js", "ts", "jsx", "tsx", "vue", "svelte", "astro", "html"]
+    },
+    {
+      "id": "heading-accent",
+      "name": "Accent word in the headline",
+      "category": "slop",
+      "family": "surface",
+      "fix": "Set the heading in one color and style, and let the words themselves carry the emphasis.",
+      "staticPlain": "One word or short phrase inside a heading is set in a different color or in italic, a highlight habit that template headlines repeat.",
+      "observation": "The rendered color and font style of a short run inside a heading, compared with the heading itself.",
+      "inference": "This is a rendered measure.",
+      "assessment": "unassessed",
+      "unassessedReason": "Planned, not yet checked. It needs the computed color and style of text inside a heading, which source alone does not show."
     },
     {
       "id": "decorative-effects",
@@ -186,6 +210,18 @@
       "unassessedReason": "Needs the rendered page. The badge is identified by its rendered position, height and corner radius above the headline."
     },
     {
+      "id": "decorative-numbering",
+      "name": "Numbered labels on everything",
+      "category": "slop",
+      "family": "layout",
+      "fix": "Drop the numbers unless the order matters, and let the headings name the items.",
+      "staticPlain": "Three or more labels open with zero-padded numbers such as 01, 02 and 03 on items that are not steps.",
+      "observation": "Visible labels that open with zero-padded numbers, outside ordered lists, tables and steps.",
+      "inference": "This is a rendered measure.",
+      "assessment": "unassessed",
+      "unassessedReason": "Planned, not yet checked. SlopLens measures this on rendered labels; a source pattern for it has not been written or calibrated yet."
+    },
+    {
       "id": "template-text",
       "name": "Leftover template text",
       "category": "slop",
@@ -276,6 +312,32 @@
       "inference": "This is a rendered measure.",
       "assessment": "unassessed",
       "unassessedReason": "Planned, not yet checked. It needs the rendered position of a small label above a heading, which source alone does not show."
+    },
+    {
+      "id": "middot-metadata",
+      "name": "Dotted metadata strings",
+      "category": "slop",
+      "family": "supporting",
+      "supporting": true,
+      "fix": "Keep the facts readers need and write them as a sentence or a proper list.",
+      "staticPlain": "Several short lines string three or more fragments together with middle dots as decoration rather than information. This only counts when other slop signals are present.",
+      "observation": "Short rendered lines that join three or more fragments with middle dots, outside navigation and footers.",
+      "inference": "This is a rendered measure.",
+      "assessment": "unassessed",
+      "unassessedReason": "Planned, not yet checked. SlopLens measures this on rendered text; a source pattern for it has not been written or calibrated yet."
+    },
+    {
+      "id": "link-underlines",
+      "name": "Underlined links",
+      "category": "slop",
+      "family": "supporting",
+      "supporting": true,
+      "fix": "Mark links through clear labels, placement, color and a visible focus outline instead of underlines.",
+      "staticPlain": "A real share of the links are underlined at rest, or carry an underline that slides in on hover. Underlines are a common accessibility choice, so this only counts when other slop signals are present.",
+      "observation": "The rendered text decoration, bottom border, pseudo-element bar or gradient stripe on links.",
+      "inference": "This is a rendered measure.",
+      "assessment": "unassessed",
+      "unassessedReason": "Planned, not yet checked. It needs the computed styles of links and their pseudo-elements, which source alone does not show."
     },
     {
       "id": "mobile-overflow",
