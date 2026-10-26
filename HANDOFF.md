@@ -2,9 +2,25 @@
 
 Last updated: 2026-10-26
 Branch: main
-HEAD: see git log; 2.7.1 release commit tagged `v2.7.1`
+HEAD: see git log; 2.8.1 release tagged `v2.8.1`
 
-## Uncommitted: agent-readable site surface (2026-10-26)
+## Release 2.8.1: README rewrite and rendered-scan handoff (2026-10-26)
+
+Two changes: the npm README was rewritten for people, and the slop scan now names the rendered scan site.
+
+**README:** `yeknal-cli/README.md` went from 340 to 393 lines with a new order: what the tool does and does not do, first run, which-command table, security scan, slop scan (rendered checks, options, exit codes, what gets scanned), skills and profiles, everything else, agents table, requirements, notes, development, credits, license. Dropped: release history ("Version 2.4.1 adds..."), internal vocabulary (harness, bootstrap, materialization), the agent-folder wall inside Requirements, and HANDOFF references. Corrected against the real CLI: the profile list (`documents-media`, `productivity` and `openai` do not exist), search sources include `project`, `--limit` is 1 to 20, `--revision` needs a full 40-character SHA, `--restore` needs its argument shown, and the shallow Git clone fallback covers `skills` and `security` only.
+
+**Rendered scan handoff:** `slopscan` prints https://sloplens.tryraisins.dev in its NOT CHECKED section and carries `renderedScan { url, note }` in the JSON, sourced from `slop-rules.json` `source.site`. The command still makes no network request. The site needs a deployed URL and a human check, so the CLI can only print the address.
+
+**Review:** Sol returned REVISE twice and all eight corrections landed. Sonnet 5.5 review could not run: the Claude CLI hit its session limit, so the two lanes were replaced by Sol plus direct diff inspection. Do not treat the README as Claude-reviewed.
+
+**Release:** source `95a39b5`, catalog `2c58315`, tag `v2.8.1`, CI green in 25 s. Published manually; trusted publishing stays gated on `NPM_TRUSTED_PUBLISHING_ENABLED`. Published shasum `a9594aca063bc656b1e440994d30a90d97aa1554`. Proof from the published package: `npx yeknal@2.8.1 slopscan --json` reports `ruleVersion: sloplens-3.4.0` and `renderedScan.url`; `load yeknal-slopscan` returns revision `95a39b5` with the new sentence. Portfolio synced in `3b3320f` (snapshot at `95a39b5`, changed `yeknal-slopscan`).
+
+**Not run:** `audit-markdown-links.ps1` (needs PowerShell 7, this machine has 5.1; a Node walk and an anchor check covered both changed files) and the Claude lanes.
+
+**Next:** 2.9.0 detector work agreed after review. Four single-file heuristics (`middot-metadata`, `decorative-numbering`, `clipped-slogans`, `heading-accent`), parent/child edges in `extractMarkup`, a class tokenizer that separates base classes from variants, and a stand-down rule for unknown components such as `<Link>` and `<Card>`. The page-model phase was rejected: the remaining layout rules need geometry or rendered counts, so they stay unassessed. Honest ceiling is 23 of 35, not 34.
+
+## Agent-readable site surface (2026-10-26)
 
 Prompted by the ScrollLaunch "make your whole site readable by AI agents" prompt. The catalog was strong on search intent, metadata, links and measurement, and had no delivery layer: nothing owned per-page markdown, the site files, head signals, or an AI crawler policy.
 
