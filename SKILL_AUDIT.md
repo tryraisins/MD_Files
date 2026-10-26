@@ -262,7 +262,7 @@ Three review decisions cut scope rather than add it, after review with GPT-6.1 S
 - **No inline mode.** The skill fires on an explicit request to raise the bar. When it fires mid-task it applies to the agent's own plan without stopping work or emitting a rewrite block.
 - **A contract boundary.** A pass may not change acceptance criteria, access, ownership or cost without approval; it offers the bigger option and proceeds with the original.
 
-Core moved from 16 to 15 entries. `yeknal-playwright` and `yeknal-git` left core for the `process` pack, because both are task-level tools rather than cross-project defaults; `yeknal-ambition` took one of the freed slots, leaving the core one entry smaller. Core discovery metadata is 3,713 characters of the 10,000 budget, down from 3,851 despite the new entry.
+Core moved from 16 to 15 entries. Version 2.7.1 carries it: 2.7.0 was deprecated because its tarball picked up an uncommitted profile entry from a parallel checkout. `yeknal-playwright` and `yeknal-git` left core for the `process` pack, because both are task-level tools rather than cross-project defaults; `yeknal-ambition` took one of the freed slots, leaving the core one entry smaller. Core discovery metadata is 3,713 characters of the 10,000 budget, down from 3,851 despite the new entry.
 
 Registration: `profiles.json` (core 16 to 15, process 9 to 11), `skills.sh.json`, `site/presentation.json`, `llms.txt`, `PROVENANCE.md`, `README.md`, and two routing cases plus a `mustNotLead` on the deep-research case so "deep research" still resolves to `yeknal-research-analysis`.
 

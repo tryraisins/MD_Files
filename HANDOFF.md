@@ -2,9 +2,9 @@
 
 Last updated: 2026-10-26
 Branch: main
-HEAD: see git log; 2.7.0 release commit tagged `v2.7.0`
+HEAD: see git log; 2.7.1 release commit tagged `v2.7.1`
 
-## Ambition pass, core trim and 2.7.0 (2026-10-26)
+## Ambition pass, core trim and 2.7.1 (2026-10-26)
 
 Requested from two sources: Felix Rieseberg's "How to be more ambitious" essay (four axes, Speed skipped) and the `be-ambitious` skill in DannyMac180/skills (MIT, `a4e95dddae3015971397c61923175950a9fa2f76`), which covers depth only as a prompt rewriter.
 
@@ -14,13 +14,13 @@ Requested from two sources: Felix Rieseberg's "How to be more ambitious" essay (
 
 **Design after review with GPT-6.1 Sol and Sonnet 5.5:** a gate with "none" as the normal answer, no inline mode, and a contract boundary that forbids changing acceptance criteria, access, ownership or cost without approval. The first end-to-end run scored 3 of 6 because the gate was too loose; after tightening it, the second run scored 6 of 6. Do not loosen the gate back to "the brief feels thin": that version rewrote a broken footer link and a field rename into measurement projects, and waved a launch announcement through as none.
 
-**Also:** version 2.7.0; README counts (core 15, process 11, design 22 corrected from a stale 21, all 56); routing evals 43 to 45; the `core 16` assertion in `yeknal-cli/test/yeknal.test.js:581` is now `core 15`.
+**Also:** version 2.7.1; README counts (core 15, process 11, design 22 corrected from a stale 21, all 56); routing evals 43 to 45; the `core 16` assertion in `yeknal-cli/test/yeknal.test.js:581` is now `core 15`.
 
 **Unrelated work in the tree, left untouched and uncommitted:** the `skills/yeknal-content-seo/` edits, and the untracked `skills/yeknal-agent-readable-site/`. The last one makes the local profile-coverage test fail; the committed tree passes it.
 
 **Verification:** `audit-skills.ps1` 0 errors and 0 warnings; `validate-routing-evals.ps1` 45 cases, 0 errors; `verify-skill-references.js` passes every check except the known untracked-skill coverage failure; `npm test --prefix yeknal-cli` 49/50, same known failure; core metadata 3,713/10,000. End to end: six briefs through a fresh lane, 6/6 after the gate rewrite. Not run: `audit-markdown-links.ps1` (needs PowerShell 7, this machine has 5.1) and `skills-ref validate` (CI only).
 
-**Release:** commit source, `node tools/build-catalog.js`, commit the catalog, tag `v2.7.0`, push, `npm publish`, then portfolio sync.
+**Release:** source `9f3d3a6`, catalog `6cc5d6e`, attribution fix `9ecd463`, CI green. The 2.7.0 tarball was built from the dirty main checkout and carried another workstream's `web` profile entry for an unpublished skill; npm refused the unpublish, so 2.7.1 was cut from the committed tree (source `e2f302d`, catalog `377f20d`, tag `v2.7.1`, CI green). `yeknal@2.7.0` is deprecated with a pointer to 2.7.1. Published shasum `7e1035a7e2a395ffdf89a9b3dd2a02b84ad6806c`; the tarball verifies at 56 skills, core 15, web 4, ambition present. Portfolio synced in `f49ca87`; live page verified at 56 skills, `/skills/ambition/` at 200, and `npx yeknal@2.7.1 load yeknal-ambition` returns the skill at revision `e2f302d`.
 
 ## Typeface options reference (2026-10-26)
 

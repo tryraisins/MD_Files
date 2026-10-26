@@ -120,7 +120,7 @@ npx yeknal security
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
 
-`yeknal@2.7.0` defaults to the 15-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
+`yeknal@2.7.1` defaults to the 15-skill core profile, including shared UI/UX guidance and common motion design and review workflows.
 
 ### Install with skills.sh
 
