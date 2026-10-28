@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "00061b828e01544f48d56e626569f3a70272311a",
+  "sourceRevision": "f9d54a7328469fdaa4e19120a94a22ccb3d97160",
   "version": "2.9.0",
   "skills": [
     {
@@ -977,7 +977,7 @@
         "writing",
         "yeknal-frontend-design"
       ],
-      "version": "01f4c8e38ca1a35f6d92a269eda3babaf30b94c78e6889b0a06c4f7b82cbd905",
+      "version": "2f8967edf2fd703969ba2b0f501c7d0445cda691d880fb520d6e6f6336abf848",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -991,8 +991,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "9bd0940e6d68d99ed1069ba5655fb07cc594cf4a350da72ed63b784676f8a638",
-          "size": 7280
+          "sha256": "5ccbcef27c3f2b4112a215be506e330dc628c1f10d349f5e3b0597f339432392",
+          "size": 7821
         }
       ]
     },
@@ -1382,13 +1382,18 @@
         "handoff",
         "hard",
         "launch",
+        "laws",
         "legal",
         "owned",
+        "pass",
+        "quick",
+        "quiet",
         "readiness",
         "references",
         "register",
         "regulatory",
         "rules",
+        "six",
         "table",
         "the",
         "this",
@@ -1396,7 +1401,7 @@
         "workflow",
         "yeknal-launch-readiness"
       ],
-      "version": "bc5144af4f4b8acee23ab708fb3ae67acc614ba5354ee943dbb71fee2f3fd6f4",
+      "version": "991017ffee78f84632b547bb74fc345d4c391a7fdc4b9c7a2c07fe199ad02707",
       "files": [
         {
           "path": "references/evidence-and-fixes.md",
@@ -1405,8 +1410,8 @@
         },
         {
           "path": "references/jurisdictions.md",
-          "sha256": "60de2728b14bc00c8886a3058a9596769d057be35fdf77052aeff57eb298ca62",
-          "size": 15007
+          "sha256": "986b41d19039de339faa8c3838d78e60801f063ba06dc47f69cf38d20fe0d0e6",
+          "size": 15339
         },
         {
           "path": "references/launch-gates.md",
@@ -1415,8 +1420,8 @@
         },
         {
           "path": "references/obligations.md",
-          "sha256": "d4a99d9eeccea611d6a4cb390edb8c4dba25815d4023ec641751f2cbc684f94e",
-          "size": 9546
+          "sha256": "4a8cee7031cc517d409128cd02bae9bdf3a734f10abd704e0ff6f93e9225cda1",
+          "size": 9795
         },
         {
           "path": "references/report-template.md",
@@ -1425,8 +1430,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "828f6450932a54c2068e4494e9290b39b6cb779b57e8612c6976c62db0e8cee9",
-          "size": 7681
+          "sha256": "e5f0aeea87a1243974f61d37c8afe54780f84cde266fda2967cf6837dbdb7ebf",
+          "size": 10336
         }
       ]
     },
@@ -1608,7 +1613,7 @@
         "warm",
         "yeknal-minimalist-ui"
       ],
-      "version": "e4c7781f4b280c9f6ecd353b7c039b30b647e94575bfa3b5ad509a1866ec9e36",
+      "version": "1a8e8968925880a400ec8cfe3aff727c8563e0ab541981d5890f7e9dc10612f8",
       "files": [
         {
           "path": "LICENSE.txt",
@@ -1617,8 +1622,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "8bd28dbae96139738edcc198022ef7683387d719d6939449ab8b93afa879b62c",
-          "size": 8170
+          "sha256": "0bc87c66832ff04324118c047f210ea3d5b0acc8cadeae054c744c67356d8e08",
+          "size": 8478
         }
       ]
     },
@@ -2781,7 +2786,7 @@
         "with",
         "yeknal-ui-quality-baseline"
       ],
-      "version": "dfc578c8e6bce21b8c7a395d7996bc2e82bd43c9ed3da802b675dae52ea285fb",
+      "version": "9a1a01f1d6ca538014df9cbf32c7a721213d3e9c7bc0138c7ea987ded356e50d",
       "files": [
         {
           "path": "references/accessibility-design.md",
@@ -2795,8 +2800,8 @@
         },
         {
           "path": "references/color-systems.md",
-          "sha256": "f446b916666413956efd05d5ec7ed1ca5790aedb07aec536382734956660ad1f",
-          "size": 5718
+          "sha256": "7472919157747bebfc490a652e1084d3426383ac8a6bcae97bf0d38ccbd201a4",
+          "size": 6090
         },
         {
           "path": "references/component-patterns.md",
@@ -2845,8 +2850,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "7b259a8e8faff7d49213a2c82c30c64e72ae203d3778d48418a30f4cf7d175f6",
-          "size": 27518
+          "sha256": "6f65da015416daa73bc6759981cbb6c3891b5adf6267dce4b2675f56231a902a",
+          "size": 28594
         }
       ]
     },
