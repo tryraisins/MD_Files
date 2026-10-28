@@ -311,6 +311,19 @@
       "rationale": "This is search-performance diagnosis with query and page data, not application failure troubleshooting or a code review."
     },
     {
+      "id": "quick-quiet-law-check",
+      "prompt": "Before I launch this weekend, quickly check the app for a missing age gate, Google Fonts loaded externally, session replay, marketing email without unsubscribe, renewal terms away from the subscribe button, and no DMCA agent.",
+      "primary": "yeknal-launch-readiness",
+      "secondary": [
+        "yeknal-application-security"
+      ],
+      "mustNotLead": [
+        "yeknal-review",
+        "yeknal-security-audit"
+      ],
+      "rationale": "A pre-launch exposure check against named obligations belongs to launch readiness' quick pass; it is not a code review or a vulnerability audit."
+    },
+    {
       "id": "build-verification-harness",
       "prompt": "There is no scripted way to prove this app works. Build one that launches it, drives a flow like a user and keeps the evidence.",
       "primary": "yeknal-verification-harness",

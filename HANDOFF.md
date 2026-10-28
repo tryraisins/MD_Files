@@ -1,8 +1,20 @@
 # Project Handoff
 
-Last updated: 2026-10-26
+Last updated: 2026-10-28
 Branch: main
 HEAD: see git log; 2.9.0 release tagged `v2.9.0`
+
+## Two tweets absorbed: slop tells as a reason test, and a launch quick pass (2026-10-28)
+
+A list of ten design "slop indicators" and a list of six launch laws were compared against the catalog. Nothing was added to the scanner. Edits are uncommitted until the user asks.
+
+**Design:** the ten tells are each the prescribed signature of a real style elsewhere in this catalog (`yeknal-minimalist-ui` prescribes Instrument Serif with tight tracking, 1px bordered cards, rgba dividers and tag badges; `yeknal-industrial-brutalist-ui` prescribes borders, `<hr>` rules and terminal framing), so banning them would have contradicted two skills and trained a new monoculture. `yeknal-ui-quality-baseline` Anti-slop review now treats them as unmotivated defaults with a reason test, keeps the link, underline, invented-metric and logo-wall items as fixed rules, adds three conditional bullets (decorative tags, fake terminal or path chrome, atmospheric diagrams), and no longer recommends dividers as the replacement for nested cards. `color-systems.md` gained the one objective rule: alpha and `opacity` are judged on the composited color, with no cap on shade count. `yeknal-frontend-design` names the serif, italic, rule and numbering stack as a fingerprint to justify and asks for a reason in its Final critique. `yeknal-minimalist-ui` carries a short signature caution. `typography.md` is deliberately unchanged, because slightly tight display tracking is sound optics.
+
+**Scanner:** `tools/slopscan-failure-modes.md` records why dividers, italics, serif tracking, bordered containers, shade counts, tags, diagrams, breadcrumbs and detail density are not scanner rules. Only their co-occurrence without a brief is meaningful, and that needs the rendered page. A new rule would start in the Slop Detector repository and pass its drift check.
+
+**Launch:** `yeknal-launch-readiness` has a "Quick pass: six quiet laws" section (age gate, fonts, session replay, launch email, renewal terms, DMCA agent) with each row's register link, assessment and owner, a not-applicable rule, and a paste-ready prompt. `jurisdictions.md` records the California unconditional-gift renewal remedy as `verify` (likely Bus. and Prof. Code 17603, not confirmed against the source), and `obligations.md` has a matching row. The tweet's COPPA and CIPA wording was not adopted: COPPA stays conditioned on child-directed use or actual knowledge, and masking stays ahead of consent. Routing case `quick-quiet-law-check` added (50 cases).
+
+**Verified:** `audit-skills.ps1` 57 skills, 0 errors, 0 warnings; `audit-markdown-links.ps1` 200 links, 0 unresolved; `validate-routing-evals.ps1` 50 cases, 0 errors; `verify-skill-references.js` 7/7; `npm test` 50/50; `git diff --check` clean; `yeknal search` for the quiet-law prompt ranks `yeknal-launch-readiness` first. **Not yet done:** `sync-portfolio --validate` refuses until the catalog is rebuilt after the commit (`skills/` differs from catalog source `00061b8`), so run `node tools/build-catalog.js`, commit the catalog, then validate, push and sync the portfolio. **Unverified:** whether an agent applies the softer reason test well in a live design session, and the statute section for the gift remedy.
 
 ## Tooling: PowerShell 7 installed (2026-10-26)
 

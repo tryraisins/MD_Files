@@ -74,6 +74,7 @@ A transfer question attaches to any provider outside the user's jurisdiction, an
 | Check | Evidence | Smallest fix |
 | --- | --- | --- |
 | Renewal terms appear before the button | The pricing or checkout component | Price, interval, and cancellation terms next to the CTA |
+| A defective renewal notice puts the charge itself at risk | Checkout copy, terms, and refund policy | Treat renewal wording as a blocker; a non-compliant renewal may be unrecoverable (`verify` the remedy in [jurisdictions.md](jurisdictions.md)) |
 | Consent is affirmative for the recurring charge | Checkout flow and the stored mandate | Explicit consent, recorded with a timestamp |
 | Cancellation is as easy as signup | The account screen | Self-serve cancel, no contact form, no retention maze |
 | Reminders go out before renewal where required | Scheduled jobs | Pre-renewal notice email |

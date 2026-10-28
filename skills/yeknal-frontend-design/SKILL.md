@@ -44,6 +44,7 @@ These are fine only when the brief earns them:
 - broadsheet columns, hairline rules, and square corners regardless of content;
 - identical rounded cards, one radius everywhere, soft shadows, and decorative gradient washes;
 - tracked all-caps eyebrows, middle-dot metadata, spaced em-dash labels, tinted near-black, and monospace used only to signal depth;
+- a display serif with tight tracking, an italic accent word, hairline dividers, and numbered sections arriving together with no reason in the brief. Each can be right on its own; the stack is the current AI-editorial fingerprint, so choose each device for this subject or leave it out;
 - a centered badge over every heading or a decorative arrow after every link, including the North East Arrow (`↗` / `ArrowUpRight` / U+2197) or any similar external-link glyph, badge, or emoji. Carry a link's destination and behavior in its text and accessible name instead.
 
 If the brief asks for one, do it. Otherwise choose along the free design axes for this subject instead of trading one stock trend for another.
@@ -88,6 +89,7 @@ Before handoff:
 - Does every structural and decorative device carry information or reinforce the subject?
 - Is every link free of external-link arrows (`↗` / `ArrowUpRight` / U+2197), badges, and emojis, with its destination and behavior carried by the text and accessible name?
 - Is every link free of default, hover, focus, active, visited, and animated underlines, including bottom-border or pseudo-element substitutes, with clear action styling and visible focus outlines instead?
+- For each editorial device in use (display serif, italic accent, rules, numbering, tags, diagrams), can you say what it does here that plain type and spacing would not? Keeping one for a reason is fine; keeping it because it looks designed is the tell.
 - Is there one memorable idea rather than several competing effects?
 - Do copy, loading, empty, error, and success states sound like one product?
 - Does it hold up with keyboard, touch, zoom, narrow width, low height, slow network, and reduced motion?

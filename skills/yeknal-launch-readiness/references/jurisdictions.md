@@ -123,6 +123,8 @@ Applies to anyone offering goods or services to people in the EU, or monitoring 
 
 **On CIPA:** consent is a weaker defence than it looks under section 631, because the theory is third-party eavesdropping rather than notice. Masking form inputs and excluding sensitive fields is the reliable control. Treat consent as the second layer, not the first.
 
+**On the renewal remedy:** California's automatic-renewal statute is reported to treat goods or services supplied after a non-compliant renewal as an unconditional gift that the consumer need not pay for or return. `verify` the subsection (likely 17603) at the source before quoting it, and never present it as the likely outcome.
+
 **On the FTC click-to-cancel rule:** the Eighth Circuit vacated it in July 2025. State automatic-renewal laws are the live obligation, so do not cite the federal rule as current.
 
 ---

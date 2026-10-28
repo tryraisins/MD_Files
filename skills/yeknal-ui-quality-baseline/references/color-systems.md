@@ -66,6 +66,7 @@ Do not invert. Dark values are tuned independently: lightness inverts, but chrom
 - Body text, labels, and icons that carry meaning meet at least 4.5:1 against their actual background. Large display text meets 3:1.
 - Check against the real surface, including translucent and image-backed surfaces. A color that passes on a flat swatch can fail over a photo, a gradient, or a blurred material.
 - If text sits on a variable background, give it a solid or sufficiently opaque backing, or the contrast claim is unverifiable.
+- Alpha and `opacity` are not a shade system. `rgba()` or `opacity` on text, borders, and fills produces a different color on every background, so the token cannot be checked. Name the resolved color per surface, or define the token with `color-mix()`, and measure the composite. A rich scale of tints is fine; the problem is unnamed, unmeasured values, not their number.
 - Do not use a low-contrast pair to look refined. Refinement comes from restraint in hue and count, not from unreadable gray.
 - Test at 200% zoom and with forced-colors mode, where the OS overrides your palette entirely. Meaning must survive that override.
 

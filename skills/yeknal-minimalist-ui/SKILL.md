@@ -28,6 +28,7 @@ Avoid these common web development defaults:
 The interface leans on extreme typographic contrast and premium font selection to create an editorial feel.
 - Primary Sans-Serif (Body, UI, Buttons): Use clean, geometric, or system-native fonts with character. Target: `font-family: 'SF Pro Display', 'Geist Sans', 'Helvetica Neue', 'Switzer', sans-serif`.
 - Editorial Serif (Hero Headings & Quotes): Target: `font-family: 'Lyon Text', 'Newsreader', 'Playfair Display', 'Instrument Serif', serif`. Apply tight tracking (`letter-spacing: -0.02em` to `-0.04em`) and tight line-height (`1.1`).
+- Signature caution: a serif with tight tracking, 1px bordered cards, and tag badges are this style's signature and also its most-copied look. Choose the serif for the brief, and spend borders and tags only where they carry structure or state, so the result is this brief's version rather than a look-alike.
 - Monospace (Code, Keystrokes, Meta-data): Target: `font-family: 'Geist Mono', 'SF Mono', 'JetBrains Mono', monospace`.
 - Text Colors: Body text must never be absolute black (`#000000`). Use off-black/charcoal (`#111111` or `#2F3437`) with a generous `line-height` of `1.6` for legibility. Secondary text should be muted gray (`#787774`).
 

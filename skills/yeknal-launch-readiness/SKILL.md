@@ -42,6 +42,27 @@ Running launch readiness for every change wastes the session; skipping it before
 6. **Hand off.** Controls to `yeknal-application-security`, policy wording to `yeknal-markdown-management`, browser proof to `yeknal-playwright`, gates and publication to `yeknal-finalize`.
 7. **Deliver one register and one verdict** using [the report template](references/report-template.md). Blockers first. Then fixable now, then needs counsel, then needs a filing.
 
+## Quick pass: six quiet laws
+
+Use this when someone wants a fast check before launch and not the full audit. These six are cheap to fix and expensive to ignore, and a fast build skips them most often. It reads the same rows as the registers, so it never contradicts them.
+
+| Law | Register A row | What the source shows | Assessment | Who acts |
+| --- | --- | --- | --- | --- |
+| Age gate | [Minors](references/obligations.md) | An age field at signup, and whether the server refuses an under-age account | Field is `measured`; server enforcement is `unassessed` | Code: neutral age screen, enforced server-side |
+| Third-party fonts | [Embeds](references/obligations.md) | `fonts.googleapis.com` or `fonts.gstatic.com` in markup or CSS | `measured` | Code: self-host or use a system stack |
+| Session replay | [Embeds](references/obligations.md) | A replay script and its masking configuration | Presence `measured`; masking `heuristic`; consent behaviour `unassessed` | Code: mask every field and sensitive route, or remove it |
+| Launch email | [Marketing email](references/obligations.md) | A postal address and an unsubscribe token in each template | Template `measured`; honouring the opt-out `unassessed` | Code for the template; human for the address |
+| Renewal terms | [Subscriptions](references/obligations.md) | Price, interval, renewal, and cancel wording in the same block as the subscribe button | `heuristic`; the stored consent `unassessed` | Code: move the terms beside the button |
+| DMCA agent | [User content](references/obligations.md) | An upload surface with a takedown route | Route `measured`; registration `unassessed` | Human filing: register the agent at copyright.gov |
+
+Mark a row not applicable instead of failing it when its trigger is absent: COPPA reaches child-directed services and actual knowledge of a child's data, so an adult product with no known child users has no age-gate duty; the DMCA agent matters where users upload and US users are served; renewal terms matter only with a recurring charge; the email row only when promotional mail is sent.
+
+A paste-ready prompt for a user who wants the pass in one message:
+
+> Check my app for: a missing age gate, fonts loaded from external servers, session replay without masking, marketing emails without an unsubscribe link and postal address, renewal terms not beside the subscribe button, and no DMCA agent. Fix what is fixable in code and list what I must file or decide myself.
+
+The quick pass never replaces the registers and never produces "compliant". Report it as six rows with the assessment and owner shown, and say that the full register is still open.
+
 ## Register A: legal and regulatory
 
 Grouped by surface in [obligations.md](references/obligations.md), with the instruments and exposure in [jurisdictions.md](references/jurisdictions.md). Nigeria leads the matrix because the NDPA reaches any product processing Nigerian residents' data from anywhere, and its filing duties apply to small teams.

@@ -52,7 +52,7 @@ Prioritize in this order: inaccessible or broken behavior, responsive and state 
 - Keep container padding visually balanced. Make optical corrections deliberately and document them in the component primitive, not as scattered per-instance offsets.
 - Separate touch-target size from visible icon size. Interactive targets are at least 44 by 44 CSS pixels on touch surfaces unless the platform's stronger rule applies. This is the catalog's touch usability policy; distinguish it from a standard's minimum when reporting conformance.
 - Use a small, intentional radius scale. Controls, cards, dialogs, and pills should not all have the same radius, and every rectangle must not become a rounded card.
-- Avoid cards inside cards when grouping, whitespace, dividers, or typography can communicate structure.
+- Avoid cards inside cards. Grouping, whitespace, typography, or a rule where the structure is real can communicate structure; use the lightest one that does.
 - Use borders, shadows, and elevation consistently by semantic role rather than decoration.
 
 ### Optical centering is required
@@ -196,7 +196,7 @@ adding copy.
 
 ## Anti-slop review
 
-Reject defaults that make the result look generated rather than designed:
+Question defaults that make the result look generated rather than designed:
 
 - repeated purple/teal gradients, glowing orbs, glass panels, and sparkles without brand justification;
 - arbitrary dark green themes, especially `#173f36`-like palettes, as a generic sophistication shortcut;
@@ -214,9 +214,12 @@ Reject defaults that make the result look generated rather than designed:
 - a tracked-caps eyebrow label above every heading, or tracked caps on ordinary labels, captions, table heads, tags, or nav items;
 - an invented metric, testimonial, customer logo, or case-study count;
 - stack logos or a "trusted by" wall with no real relationship behind it;
-- the same hero composition on every page: centered badge, then heading, then subtitle, then two buttons, then a mockup.
+- the same hero composition on every page: centered badge, then heading, then subtitle, then two buttons, then a mockup;
+- a tag or chip on a card or section that carries no state, no category anyone filters by, and no action;
+- a terminal window, traffic-light chrome, or file-path breadcrumb on a product that is not a code tool, or a path that does not exist in the product;
+- a diagram drawn for atmosphere. It earns its place only by showing the real mechanism with labels a reader can follow; a more detailed diagram is not a better one.
 
-Each of these is a defect to remove, not a style to prefer. Removing one is never a regression; the layout must still work without it.
+The link-decoration, link-underline, invented-metric, testimonial, and logo-wall items are fixed rules, not style defaults, and stay as written. Every other item is an unmotivated default, not a banned device. One of them with a reason is a design choice; several arriving together with no reason from the brief are what reads as generated. Keep any the brief, the chosen style, or the product's own content earns, and be able to say what it does in this product. A chosen style skill such as `yeknal-minimalist-ui` or `yeknal-industrial-brutalist-ui` prescribes some of these devices on purpose, and its signature devices are the brief. Removing one you cannot justify is never a regression; the layout must still work without it.
 
 ## Small-element rule
 

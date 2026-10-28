@@ -136,3 +136,13 @@ Written before the tests, as the repository requires. Each entry names a concret
 - Whether a chosen gradient or glow is decoration or part of a deliberate illustration. The scanner cannot see the composition.
 - False-positive rates on third-party codebases. The real-repository pass records evidence but does not establish a rate, and the same repositories are never used both for tuning and for validation.
 - Behaviour on Node versions below 18 and on platforms other than Windows and Linux CI.
+
+## Tells deliberately not scanned
+
+The design tells people trade as "slop indicators" were assessed against the scanner and not added as rules: dividers and horizontal rules, italic words, a display serif with tight tracking, bordered containers, many color shades and opacities, tag or chip components, detailed diagrams, terminal or file-path chrome, and general detail density.
+
+**Reason:** each one is also the prescribed signature of a legitimate style in this catalog. `yeknal-minimalist-ui` calls for a display serif with tight tracking, 1px bordered cards, rgba dividers and tag badges, and `yeknal-industrial-brutalist-ui` calls for visible borders, `<hr>` rules and terminal framing. A source rule for any one of them would flag deliberate work at a high false-positive rate, and a flag that cannot be wrong teaches nobody anything.
+
+**What is meaningful:** the co-occurrence of several of them with no reason in the brief. That needs the rendered page and a human reading of the brief, so it stays in the design skills as a reason test (`yeknal-ui-quality-baseline` Anti-slop review and `yeknal-frontend-design` Final critique) and is not a scanner rule. Existing rules that already cover narrow, well-defined forms of these tells (`decorative-numbering`, `hero-badge`, `section-eyebrow`, `nested-containers`) are unchanged.
+
+**Before changing this:** the rule catalog is shared with the Slop Detector repository, so a new rule starts there and then passes the drift check.
