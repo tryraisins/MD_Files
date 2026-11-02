@@ -1,6 +1,6 @@
 ---
 name: yeknal-ui-quality-baseline
-description: "Apply one shared quality contract to any visible UI, covering tokens, spacing and optical centering, typography, icons, responsive containment, states, loading, motion, copy, and rendered QA. Use whenever visible interface work starts."
+description: "Apply one shared quality contract to any visible UI, covering tokens, spacing and optical centering, typography, icons, responsive containment, states, loading, motion, copy, where the visual richness belongs, and rendered QA. Use whenever visible interface work starts."
 ---
 
 # Universal UI Quality Baseline
@@ -40,6 +40,16 @@ When the visual direction is not already fixed, use `yeknal-design-reference-res
 - Keep a short rejection list so attractive but irrelevant patterns do not leak into the result.
 - Every major visual choice must trace to product content, a user need, a platform convention, or observed reference evidence—not merely “modern,” “premium,” or “clean.”
 
+## Decide where the richness goes
+
+Slop spreads color and effect over the chrome: backgrounds, borders, buttons, labels. Craft keeps the chrome quiet and concentrates richness in one or two content moments a person remembers.
+
+- Choose one or two moments from what the product actually shows: a rendered object, a chart whose colors each mean a series, a real product image, a figure set beautifully. Say where they are before you build.
+- Inside a moment, color may be rich and several hues may appear, as long as each one means something.
+- Keep navigation, buttons, borders, and labels on the neutral ramp, with one accent used rarely.
+- App and dashboard surfaces stay neutral, because people look at them for hours and the content carries the color. Landing page surfaces may tint further into the product's world.
+- An approved design, established brand, or `DESIGN.md` outranks this default and can spend richness differently; record the exception where the system lives.
+
 ## Repair the smallest real UI surface
 
 For a UI fix or improvement request, identify the affected route, component, state, and target viewport before styling. Reconstruct the local design system and working interaction first; record confirmed defects separately from preferences or unverified assumptions.
@@ -52,6 +62,7 @@ Prioritize in this order: inaccessible or broken behavior, responsive and state 
 - Keep container padding visually balanced. Make optical corrections deliberately and document them in the component primitive, not as scattered per-instance offsets.
 - Separate touch-target size from visible icon size. Interactive targets are at least 44 by 44 CSS pixels on touch surfaces unless the platform's stronger rule applies. This is the catalog's touch usability policy; distinguish it from a standard's minimum when reporting conformance.
 - Use a small, intentional radius scale. Controls, cards, dialogs, and pills should not all have the same radius, and every rectangle must not become a rounded card.
+- Nest radii arithmetically: an inner radius equals the outer radius minus the padding between them, and never drops below 4. A control inside a 16px card with 12px padding takes 4, not 8, or the corners visibly fight.
 - Avoid cards inside cards. Grouping, whitespace, typography, or a rule where the structure is real can communicate structure; use the lightest one that does.
 - Use borders, shadows, and elevation consistently by semantic role rather than decoration.
 
@@ -72,7 +83,7 @@ Buttons, badges, pills, chips, segmented controls, tabs, navigation items, avata
 - Load the exact weights used. Do not synthesize bold or rely on unavailable variable-font axes.
 - Use a concise weight hierarchy: regular body copy, medium or semibold controls, and semibold or bold headings as the typeface requires.
 - Equivalent labels use the same family, size, weight, letter spacing, casing, and line height.
-- Use tabular numerals for frequently compared operational values.
+- Use tabular numerals for frequently compared operational values, and one number format across a screen: if one figure reads `$48,210`, the next does not read `$124,860.40`. Decide the decimal, separator, unit, and abbreviation once.
 - Check the selected face at its rendered size for distinguishable letters and numbers, useful reading width, and comfortable line spacing in the supported languages. Font-size floors and font categories alone do not prove legibility.
 - Implement responsive type with `clamp()`, media queries, or container queries. Do not let text determine or break the control's target size.
 - For constrained controls, shorten secondary copy or move secondary actions before shrinking important text. Do not reduce control labels below 11px.
@@ -132,7 +143,8 @@ Motion explains hierarchy, feedback, spatial relationships, or state changes. Do
 - Use GSAP with ScrollTrigger for genuinely complex timelines or scroll choreography.
 - Use Anime.js for lightweight DOM or SVG sequences only when it is already the better project fit.
 - Prefer the existing motion system and one primary JavaScript motion library per surface. Do not create library soup.
-- Animate `transform`, `opacity`, and other compositor-friendly properties where possible; avoid animating layout properties during frequent interactions.
+- Animate `transform`, `opacity`, and other compositor-friendly properties where possible; avoid animating layout properties during frequent interactions. Never animate width, height, top, left, margins, or large blurs on interactions that repeat, because they stutter on weak devices.
+- Name the properties a transition covers (`transition-colors`, `transition-[transform,opacity]`) instead of `transition-all`, which silently animates properties nobody designed and delays input.
 - Keep high-frequency controls instant or very brief. Typical UI feedback belongs around 120-200ms; overlays and spatial transitions commonly belong around 180-300ms. Brand-led narrative motion may be longer when it does not block work.
 - Avoid `ease-in` for user-triggered entrances. Use project tokens, a crisp ease-out, or tuned spring behavior.
 - Make motion interruptible where users can reverse an action. Do not delay input until an entrance sequence finishes.
@@ -244,6 +256,7 @@ Even when the task is only one button, badge, input, icon, loader, or skeleton:
 - For new or materially changed flows, exercise relevant screen-reader and system-setting behavior in the running interface; use the reference's scoped checks and record the tested browser/device/tool combination. Automated scans, screenshots, and simulations alone do not establish accessibility conformance or observed usability.
 - Confirm that trimmed copy removed no required label, field instruction, error message, or accessible name, and that every remaining string reads as interface copy rather than marketing.
 - For a public launch, confirm the home page says what the product does in one clear line, each page has one dominant primary action, every page has an accurate title and description, the site has a working favicon, and no visible placeholder or template text remains.
+- Ask the template question: swap the product name for a competitor's. If the screen still fits unchanged, the direction is not specific enough. Name what is specific to this product in the copy, the richness moments, or the signature detail, and fix the part that fails.
 - Run relevant lint, type checks, tests, builds, and browser checks. A successful build is not visual proof.
 - Report what was verified, what failed, and what remains blocked without overclaiming.
 
@@ -256,6 +269,7 @@ Before calling a public website launch-ready, consolidate applicable checks into
 - Responsive containment, mobile navigation where needed, enlarged-text layout, and keyboard completion have been checked.
 - Loading, empty, error, form, success, disabled, and transition behavior has been checked where those states exist.
 - Page titles and descriptions, favicon, and visible copy have been checked; no placeholder or template text remains.
+- The template question is answered by naming what is specific to this product, not by asserting that the page is distinctive.
 - Relevant automated checks and rendered browser verification have been run, with any unavailable device or production checks called out explicitly.
 
 For broader crawlability and metadata review, follow `yeknal-content-seo`; this sign-off does not replace its canonical, indexing, social-card, sitemap, or structured-data checks.

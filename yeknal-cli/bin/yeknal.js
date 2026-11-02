@@ -61,7 +61,7 @@ function usage() {
   console.log("  npx yeknal skills --all");
   console.log("  npx yeknal profiles");
   console.log("  npx yeknal security   Sync security skills + scan current project\n");
-  console.log("  npx yeknal slopscan [--json] [--out DIR] [--fail-on N|any] [--ignore GLOB] [--path DIR]");
+  console.log("  npx yeknal slopscan [--json] [--out DIR] [--fail-on N|any] [--fail-on-defects] [--ignore GLOB] [--path DIR]");
   console.log("                        Scan the current project for AI-slop indicators (local, no network)\n");
 }
 
@@ -3031,6 +3031,7 @@ function parseSlopScanArgs(args) {
   let jsonToStdout = false;
   let out = null;
   let failOn = null;
+  let failOnDefects = false;
 
   const takeValue = (flag, index) => {
     const value = args[index + 1];
@@ -3045,6 +3046,7 @@ function parseSlopScanArgs(args) {
     if (arg === "--json") jsonToStdout = true;
     else if (arg === "--out") { out = takeValue(arg, i); i += 1; }
     else if (arg === "--fail-on") { failOn = takeValue(arg, i); i += 1; }
+    else if (arg === "--fail-on-defects") failOnDefects = true;
     else if (arg === "--ignore") { options.ignore.push(takeValue(arg, i)); i += 1; }
     else if (arg === "--path") { options.path = takeValue(arg, i); i += 1; }
     else throw new Error(`Unknown argument for slopscan: ${arg}`);
@@ -3054,7 +3056,7 @@ function parseSlopScanArgs(args) {
     throw new Error("--fail-on takes a whole number or the word any.");
   }
 
-  return { options, jsonToStdout, out, failOn };
+  return { options, jsonToStdout, out, failOn, failOnDefects };
 }
 
 /**
@@ -3100,7 +3102,7 @@ function writeSlopScanReport(target, contents) {
 }
 
 async function runSlopScanCommand(args) {
-  const { options, jsonToStdout, out, failOn } = parseSlopScanArgs(args);
+  const { options, jsonToStdout, out, failOn, failOnDefects } = parseSlopScanArgs(args);
   const slopscan = require("../lib/slopscan");
 
   const log = jsonToStdout ? () => {} : (message) => console.log(message);
@@ -3110,6 +3112,9 @@ async function runSlopScanCommand(args) {
   const results = await slopscan.runSlopScan(options);
   const summary = slopscan.summarise(results);
   const primaryCount = slopscan.countPrimaryFindings(summary);
+  const repairCount = slopscan.countFindingsByAction(summary, "repair");
+  const confirmCount = slopscan.countFindingsByAction(summary, "confirm");
+  const evidenceCount = slopscan.countFindingsByAction(summary, "evidence");
   const gateOpen = slopscan.splitSignals(summary).gateOpen;
 
   for (const warning of results.warnings) console.error(`  Warning: ${warning}`);
@@ -3124,6 +3129,7 @@ async function runSlopScanCommand(args) {
     }
     log("");
     log(`  ${primaryCount} finding(s) across ${active.length} rule(s).`);
+    log(`  ${repairCount} repair, ${confirmCount} to confirm on the rendered screen, ${evidenceCount} evidence.`);
     log(`  ${summary.primary.length - active.length} other rule(s) checked with nothing found.`);
     if (summary.supporting.length) {
       log(`  ${summary.supporting.length} supporting signal(s) ${gateOpen ? "reported alongside a slop signal" : "observed but not counted, since no slop signal was found"}.`);
@@ -3169,6 +3175,10 @@ async function runSlopScanCommand(args) {
     const threshold = failOn === "any" ? 1 : Number(failOn);
     if (primaryCount >= threshold) process.exitCode = 1;
   }
+
+  // Repair-class findings only: certain defects with a known fix. Slop signals
+  // and unconfirmed heuristics never fail a build, so CI cannot gate on taste.
+  if (failOnDefects && repairCount > 0) process.exitCode = 1;
 }
 
 // ==========================================

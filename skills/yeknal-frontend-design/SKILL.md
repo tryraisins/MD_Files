@@ -60,6 +60,7 @@ Write a compact plan before code:
 5. `Type` - families, roles, scale, and line-length intent.
 6. `Layout` - one or two short ASCII wireframes when structure is open, plus the mobile transformation.
 7. `Interaction` - the one or two moments where motion or feedback earns its place.
+8. `Richness` - the one or two content moments that carry the color and craft, and what stays quiet around them. The baseline's richness budget owns the default; this field names where it lands here.
 
 Critique the plan against the brief first. Rewrite any decision you could reuse unchanged on unrelated products. State only the material revision, then implement.
 

@@ -1217,6 +1217,25 @@ function ruleById(id) {
   return CATALOG.rules.find((rule) => rule.id === id);
 }
 
+/**
+ * What a finding authorizes. This is derived from the two axes that already
+ * exist, never authored separately, so the classes cannot drift away from the
+ * rules: a measured quality rule is a defect to repair, a heuristic quality
+ * rule has to be confirmed on the rendered screen before it is treated as one,
+ * and every slop rule is evidence for a scope decision. A scan finding never
+ * authorizes a restyle; only a calibration verdict does.
+ */
+function actionFor(rule) {
+  if (!rule || rule.category !== "quality") return "evidence";
+  return rule.assessment === "measured" ? "repair" : "confirm";
+}
+
+function countFindingsByAction(summary, action) {
+  return summary.primary
+    .filter((group) => actionFor(group.rule) === action)
+    .reduce((total, group) => total + group.findings.length, 0);
+}
+
 function summarise(results) {
   const byRule = new Map();
   for (const finding of results.findings) {
@@ -1290,7 +1309,7 @@ function generateSlopScanLog(results) {
     lines.push("");
     for (const { rule, findings } of withFindings) {
       const assessment = rule.assessment === "measured" ? "measured" : "heuristic";
-      lines.push(`  [${rule.id}] ${rule.name} (${assessment}) - ${findings.length} finding${findings.length === 1 ? "" : "s"}`);
+      lines.push(`  [${rule.id}] ${rule.name} (${assessment}, ${actionFor(rule)}) - ${findings.length} finding${findings.length === 1 ? "" : "s"}`);
       lines.push(`      ${forLog(rule.staticPlain)}`);
       lines.push("");
       for (const finding of findings) {
@@ -1416,8 +1435,14 @@ function generateSlopScanJson(results) {
     filesRead: results.filesRead,
     coverage: results.coverage,
     supportingGateOpen: gateOpen,
+    byAction: {
+      repair: countFindingsByAction(summary, "repair"),
+      confirm: countFindingsByAction(summary, "confirm"),
+      evidence: countFindingsByAction(summary, "evidence"),
+    },
     findings: results.findings.map((finding) => ({
       ruleId: finding.ruleId,
+      action: actionFor(ruleById(finding.ruleId)),
       file: relative(results.projectDir, finding.file),
       line: finding.line,
       text: finding.text,
@@ -1631,10 +1656,12 @@ async function runSlopScan(options = {}) {
 
 module.exports = {
   CATALOG,
+  actionFor,
   analyseFile,
   blankComments,
   collectCandidateFiles,
   collectMotionSites,
+  countFindingsByAction,
   countPrimaryFindings,
   generateSlopScanJson,
   generateSlopScanLog,

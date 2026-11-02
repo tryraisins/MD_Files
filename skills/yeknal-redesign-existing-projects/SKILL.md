@@ -1,6 +1,6 @@
 ---
 name: yeknal-redesign-existing-projects
-description: Redesign an existing website or app without breaking behavior or data flow. Use for visual refreshes, UX improvements, responsive repair, or de-genericization.
+description: Redesign an existing website or app without breaking behavior or data flow, deciding first whether a screen needs a redesign or a small repair. Use for visual refreshes, UX improvements, responsive repair, or de-genericization.
 metadata:
   source: https://github.com/leonxlnx/taste-skill
   source-commit: ce26fc25c0e5e8cab638f883de62d9a86ee5e45b
@@ -11,6 +11,8 @@ metadata:
 Improve the real product, not an imagined replacement. A redesign succeeds when the interface becomes clearer, more coherent, more distinctive, and more robust while its required behavior still works.
 
 Also apply `yeknal-ui-quality-baseline`. Use `yeknal-design-reference-research` when the redesign is reference-led or the current product lacks a defensible direction. Use `yeknal-human-ai-interface-design` for real generation, recommendation, retrieval, copilot, or agent behavior.
+
+The calibration gate, the direction card, and the property-by-property pass order are adapted from [unslop](https://github.com/heydamir/unslop) by Damir Sokolovsky (CC BY 4.0). They are reworded for this catalog, and the credit stays with the source.
 
 ## Preserve the contract
 
@@ -28,6 +30,8 @@ Do not replace working behavior with mock data, placeholders, dead controls, red
 
 Capture the current product at representative viewports and states. Record confirmed defects separately from preferences and unknowns. If references are involved, compare functionally similar products and follow the evidence boundaries in `yeknal-design-reference-research`; attractive screenshots do not prove usability or implementation quality.
 
+When the codebase is available, run `yeknal-slopscan` and fold its results into the evidence: repair-class findings are confirmed defects, confirm-class findings need the rendered screen, and the rest are signals for the verdict below.
+
 Define:
 
 - the user and business problem the redesign addresses;
@@ -35,6 +39,30 @@ Define:
 - what must remain recognizable;
 - the smallest coherent system change that can achieve the thesis;
 - three fashionable patterns explicitly rejected because they do not fit.
+
+## Decide how much change is justified
+
+Read the evidence before planning anything. One of three outcomes, and the outcome limits what may change:
+
+- **Heavy.** Signs across color, type, icons, and copy. Run the full process below.
+- **Light.** A mostly designed screen with a few defects left. Polish only: take the direction from the existing brand, keep the palette, type, layout, and visual language, and put larger ideas in the report as suggestions rather than changes.
+- **None.** The screen holds up. Say so plainly, name at most two or three refinements with exact values, and apply them only when the user agrees. Do not restyle a good screen to look productive.
+
+Scope calibration limits visual change, never repair. A scan finding never authorizes a restyle; only this verdict does, and confirmed defects are fixed at any verdict. An inaccessible control, a broken image, or a state nobody can read is fixed at every level, with the smallest edit that works.
+
+## Set the direction
+
+Write this before planning, from the product, never from what is trending:
+
+- **Product.** What it does and for whom, in one plain sentence.
+- **Character.** Two or three concrete words, like `calm, exact, a little warm`. Clean, modern, sleek, minimal, and premium are banned: they describe every template.
+- **World.** The place or material the product belongs to. A notes app lives near paper and ink, a monitoring tool near instruments and night shifts. The world sets the tint of the neutrals and the accent.
+- **Moments.** One or two places where the screen earns rich color, material, or detail, chosen from what the product actually shows.
+- **Signature.** One small detail only this product would have, used consistently. One, not five.
+
+Pair it with the baseline's richness budget: the chrome stays quiet and the moments carry the craft. An existing brand, logo, or `DESIGN.md` outranks this card, so build around it instead of inventing a second identity. A gradient or sparkle inside the existing logo is not brand justification unless the user says so.
+
+Confirm the direction with the user only when the choice would materially change the outcome. Otherwise record it in one line and proceed.
 
 ## Audit the experience
 
@@ -60,6 +88,17 @@ Group findings into:
 
 Fix the highest-impact root cause instead of restyling every symptom. Keep changes reviewable. A font swap, asymmetric grid, glass surface, texture, or scroll effect is not automatically an upgrade, and a face from [typeface options](../yeknal-ui-quality-baseline/references/typeface-options.md) is only a candidate after it passes the selection gate in [typography](../yeknal-ui-quality-baseline/references/typography.md).
 
+## Work one property at a time
+
+Fix in four stages, finishing each across the whole screen before starting the next:
+
+1. **Systemic.** Spacing, then color. Every spacing value lands on the 4px step, equal things get equal sizes, and one neutral ramp plus one accent replaces scattered hues. Spacing comes first because everything else reads differently once the rhythm is right.
+2. **Content.** Copy, then icons. The length of the headline decides its size and position, so settle the words before judging type.
+3. **Structure.** Type, then layout. Re-check spacing after any layout change, because a new grid invalidates the gaps you just fixed.
+4. **Polish.** Details, then motion. These come last because they have to fit a screen that already works without them.
+
+This order is subordinate to risk. An inaccessible control, a broken state, or a behavior regression is fixed when it is found, not when its stage arrives.
+
 ## Implement without collateral change
 
 - Work in the installed stack and inspect dependencies before imports.
@@ -78,9 +117,11 @@ After implementation:
 2. Walk primary and recovery flows with keyboard and touch assumptions.
 3. Exercise real loading, empty, long-content, error, success, disabled, permission, and interrupted states where the environment permits.
 4. Check clipping, overflow, focus, content order, layout shift, image crops, sticky collisions, reduced motion, and performance regressions.
-5. Re-read the redesign thesis and rejection list; remove trend-driven additions that lack a product reason.
-6. Report exactly what static checks, browsers, devices, data, services, and deployments were or were not verified.
+5. Run `yeknal-slopscan` again: confirm the repair-class findings are gone and that no change went beyond the verdict.
+6. Ask the template question. Swap the product name for a competitor's; if the screen still fits unchanged, the direction is not specific enough. Name what is product-specific in the copy, the moments, and the signature detail, and push the ones that fail.
+7. Re-read the redesign thesis and rejection list; remove trend-driven additions that lack a product reason.
+8. Report exactly what static checks, browsers, devices, data, services, and deployments were or were not verified.
 
 ## Deliverable
 
-Return the confirmed problems, governing thesis, changes made, preserved behavior, validation evidence, and unresolved live-environment gates. Do not claim tenant, backend, deployment, analytics, or device proof from local static checks alone.
+Return the calibration verdict, the direction card, the confirmed problems, changes made, preserved behavior, validation evidence, and unresolved live-environment gates. Do not claim tenant, backend, deployment, analytics, or device proof from local static checks alone.

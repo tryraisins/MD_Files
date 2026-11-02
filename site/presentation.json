@@ -509,7 +509,7 @@
     },
     "yeknal-frontend-design": {
       "title": "Frontend design",
-      "purpose": "Sets a distinctive visual direction for new or heavily reshaped UI, from typography and composition to palette and interface copy.",
+      "purpose": "Sets a distinctive visual direction for new or heavily reshaped UI, from typography and composition to palette, interface copy, and where the visual richness goes.",
       "tasks": [
         "design"
       ],
@@ -1034,27 +1034,29 @@
     },
     "yeknal-redesign-existing-projects": {
       "title": "Redesign an existing product",
-      "purpose": "Refreshes the look or flow of a working site or app without breaking its behaviour or the data behind it.",
+      "purpose": "Refreshes the look or flow of a working site or app without breaking its behaviour or the data behind it, after deciding whether the screen needs a redesign or a targeted repair.",
       "tasks": [
         "design"
       ],
       "whenToUse": [
         "A product works but looks dated or generic.",
         "Responsive layouts are broken and need repairing.",
+        "You are not sure whether a screen needs a redesign or a small repair.",
         "You want UX improvements without rewriting the app."
       ],
       "example": {
         "ask": "Give the admin dashboard a visual refresh without changing how anything works.",
-        "outcome": "It inventories every route and state first, then restyles them while keeping each feature behaving the same."
+        "outcome": "It inventories every route and state, decides how much change the screen justifies, then restyles within that limit while keeping each feature behaving the same."
       },
       "attribution": {
-        "credit": "Adapted from Leonxlnx’s taste-skill collection. Its library guidance credits Rare UI, which requires attribution if you install one of its components.",
-        "license": "MIT",
+        "credit": "Adapted from Leonxlnx’s taste-skill collection. Its calibration gate, direction card and pass order are adapted from unslop by Damir Sokolovsky (CC BY 4.0). Library guidance credits Rare UI, which requires attribution if you install one of its components.",
+        "license": "MIT, plus CC BY 4.0 for the material adapted from unslop",
         "sourceUrl": "https://github.com/leonxlnx/taste-skill"
       },
       "related": [
         "yeknal-frontend-design",
-        "yeknal-ui-quality-baseline"
+        "yeknal-ui-quality-baseline",
+        "yeknal-slopscan"
       ]
     },
     "yeknal-research-analysis": {
@@ -1256,7 +1258,7 @@
     },
     "yeknal-slopscan": {
       "title": "Slop scan",
-      "purpose": "Scans a codebase locally for AI-slop indicators such as stock marketing copy, placeholder text, gradient headline text, decorative emoji, stock icon sets and kit default colors, and writes a report that explains each finding and how to fix it.",
+      "purpose": "Scans a codebase locally for AI-slop indicators such as stock marketing copy, placeholder text, gradient headline text, decorative emoji, stock icon sets and kit default colors, and writes a report that explains each finding, the class it falls into, and how to fix it.",
       "tasks": [
         "design",
         "review"
@@ -1264,15 +1266,17 @@
       "whenToUse": [
         "You want to know whether a codebase carries the familiar signs of a shipped template.",
         "Copy or interface patterns need checking before a launch.",
+        "You want to know which findings are real defects and which only inform a design decision.",
         "You want findings with locations and fixes rather than a general opinion."
       ],
-      "avoid": "It reads source files only. It cannot see the rendered page, so checks that need a browser are reported as unassessed.",
+      "avoid": "It reads source files only. It cannot see the rendered page, so checks that need a browser are reported as unassessed, and a finding never authorizes a restyle on its own.",
       "example": {
         "ask": "Scan this project for AI slop before we launch.",
-        "outcome": "It reports each indicator with its file and line, a plain explanation and a fix, lists what it could not assess, and writes both a readable log and a JSON report."
+        "outcome": "It reports each indicator with its file and line, separates certain defects from signals, lists what it could not assess, and writes both a readable log and a JSON report."
       },
       "related": [
         "yeknal-ui-quality-baseline",
+        "yeknal-redesign-existing-projects",
         "yeknal-review"
       ]
     },
@@ -1318,7 +1322,7 @@
     },
     "yeknal-ui-quality-baseline": {
       "title": "UI quality baseline",
-      "purpose": "Applies a shared set of visual, responsive, accessibility, state, motion and copy checks whenever an agent creates or changes visible UI.",
+      "purpose": "Applies a shared set of visual, responsive, accessibility, state, motion and copy checks whenever an agent creates or changes visible UI, including where the visual richness belongs.",
       "tasks": [
         "design",
         "review"
@@ -1326,6 +1330,7 @@
       "whenToUse": [
         "You want every UI change held to the same standard.",
         "Layouts break at small widths or with large text.",
+        "A screen is clean but could belong to any product.",
         "Loading, empty and error states keep getting forgotten."
       ],
       "example": {

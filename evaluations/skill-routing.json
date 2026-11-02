@@ -628,6 +628,41 @@
         "yeknal-application-security"
       ],
       "rationale": "Visual work on a payment form is not payment integrity work; the money-path invariant must not pull ordinary UI changes into a security skill."
+    },
+    {
+      "id": "screen-fine-no-redesign",
+      "prompt": "Look at this pricing page. It holds up. Do we need to redesign it, or is a small fix enough?",
+      "primary": "yeknal-redesign-existing-projects",
+      "secondary": [
+        "yeknal-ui-quality-baseline"
+      ],
+      "mustNotLead": [
+        "yeknal-frontend-design",
+        "yeknal-design-taste-frontend"
+      ],
+      "rationale": "Deciding whether change is justified at all is the calibration step, and a good screen must be allowed to stay as it is."
+    },
+    {
+      "id": "slop-findings-do-not-authorize-restyle",
+      "prompt": "The slop scan found forty issues in this app. Should we restyle the whole thing now?",
+      "primary": "yeknal-slopscan",
+      "secondary": [
+        "yeknal-redesign-existing-projects"
+      ],
+      "mustNotLead": [
+        "yeknal-frontend-design"
+      ],
+      "rationale": "A scan produces evidence and repair-class defects; how much may change comes from the calibration verdict, not from the finding count."
+    },
+    {
+      "id": "nested-corner-radius",
+      "prompt": "The corners inside our cards look worse than the card's own corner. What values should they be?",
+      "primary": "yeknal-ui-quality-baseline",
+      "secondary": [],
+      "mustNotLead": [
+        "yeknal-high-end-visual-design"
+      ],
+      "rationale": "Nested radius is mechanical geometry in the shared baseline, not a request for a new visual direction."
     }
   ]
 }

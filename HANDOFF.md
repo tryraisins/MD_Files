@@ -4,6 +4,20 @@ Last updated: 2026-11-02
 Branch: main
 HEAD: see git log; 2.9.0 release tagged `v2.9.0`
 
+## Unslop absorbed as a calibration gate, not a new skill (2026-11-02)
+
+The viral [unslop](https://github.com/heydamir/unslop) skill (CC BY 4.0, 5.6k stars) was reviewed by Go DeepSeek, GPT-6.1 Terra and Sonnet 5.5. **Decision: no new skill, no story video.** The useful part is a decision process, and the catalog already owns detection (`yeknal-slopscan`), the quality contract (`yeknal-ui-quality-baseline`) and repair workflow (`yeknal-redesign-existing-projects`).
+
+**Added.** `yeknal-redesign-existing-projects` gained a calibration gate (heavy / light / none, and "none" is a valid verdict), a five-line direction card (product, character, world, moments, signature), a four-stage property order with a spacing re-check after layout, the template question in rendered validation, and a CC BY credit line. `yeknal-ui-quality-baseline` gained the richness budget (quiet chrome, one or two content moments), nested-radius arithmetic, tabular figures with one number format, named transitions, and the template question at sign-off. `yeknal-frontend-design` gained a `Richness` field in its plan.
+
+**Scanner.** Findings now carry a derived class: `repair` (measured quality: missing alt, broken image), `confirm` (heuristic quality: click-only box, focus, labels, motion), `evidence` (every slop rule). The class is computed from `category` and `assessment`, never authored per rule. New `--fail-on-defects` exits 1 only on repair-class findings, so CI cannot gate on taste. The skill now states the authority boundary and no longer claims click-only boxes, removed focus rings and unguarded motion are measured; they are heuristic.
+
+**Rejected, deliberately.** A Defects/Signals report rename (the axes cross-cut: gradient text is measured but slop, click-targets is quality but heuristic), a hand-authored `action` field in `slop-rules.json` (derivable, and it would drift), the story video (marketing output, Playwright plus ffmpeg dependency), the house-style bans on weights, italics and tracked caps (they contradict `yeknal-minimalist-ui` and would train a new monoculture), the mandatory approval stop, and "treat every finding as a defect" on new interfaces.
+
+**Verified:** `verify-skill-references.js` 7/7; `build-catalog.js --check` clean; `audit-skills.ps1` 57 skills, 0 errors; `audit-markdown-links.ps1` 403 files, 206 links, 0 unresolved; `validate-routing-evals.ps1` 58 cases, 0 errors; `npm test` in `yeknal-cli` 50/50; `git diff --check` clean. E2E: `slopscan --path <fixture>` printed `3 repair, 0 to confirm, 2 evidence`, logged `(measured, repair)` per finding, `--fail-on-defects` exited 1 and `--fail-on 999` exited 0.
+
+**Still open.** Nothing is committed or published. The catalog needs a rebuild after the commit, then `sync-portfolio.js --validate`, and `yeknal-cli` is still 2.9.0, so the new flag reaches `npx yeknal` only at the next release. The new rules have not been exercised on a live rendered screen, so their effect on real output is unproven.
+
 ## Launch quick pass corrected after a Terra review (2026-11-02)
 
 The "six quiet laws" launch tweet was reviewed again, this time by GPT-6.1 Terra, against the primary statutes rather than the earlier adoption record. Terra returned REVISE on the prior review and found one real defect in the skill: `jurisdictions.md` said "Tightened from 1 January 2026" for the California automatic-renewal amendments. Section 17602(j) says contracts entered into, amended, or extended on or after **1 July 2025**.
