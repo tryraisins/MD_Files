@@ -20,7 +20,9 @@ Prompted by a developer who forged an M-Pesa callback on a live system and got a
 
 **Not run:** `skills-ref validate` needs the pinned Python validator and is CI-only here. No live payment integration was exercised, so the four-part proof is documented as a requirement, not demonstrated against a real provider.
 
-**Remaining sequence:** commit the source, run `node tools/build-catalog.js`, commit the regenerated catalog, push, confirm CI, then `node tools/sync-portfolio.js --portfolio ../../Portfolio/my-portfolio`.
+**Published:** source `75bdc93`, catalog `79ee37a`, CI "Validate skills and CLI" green. Portfolio synced at `fab7dee` with one changed entry, Deploy GitHub Pages green. Live proof: `https://tryraisins.dev/skills/application-security/files.json` serves `references/PAYMENT-CALLBACKS.md` at 8,716 bytes pinned to `75bdc93`, and the skill page shows the new payment `whenToUse` line.
+
+**Discovery gap observed, not caused by this change:** `yeknal search "forged mpesa payment callback"` on this machine returns only unrelated installed skills from the five local roots and never reaches the catalog, so catalog ranking for the new routing case is unproven here. Model-level activation scoring is a separate behavioural boundary in any case.
 
 ## Two tweets absorbed: slop tells as a reason test, and a launch quick pass (2026-10-28)
 
