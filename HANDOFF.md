@@ -14,7 +14,11 @@ A viral "50 free backlinks to get ranked on Google + AI search" list was reviewe
 
 **Verification:** `audit-skills.ps1` 57 skills, 0 errors, 0 warnings; `validate-routing-evals.ps1` 55 cases (2 added), 0 errors; `verify-skill-references.js` 7/7; `audit-markdown-links.ps1` 402 files / 203 links, 0 unresolved under `pwsh` 7; `parity check yeknal-content-seo` PASS; `verify-public-discovery.js` passed. `SKILL_AUDIT.md` has the full record.
 
-**Deliberately not done:** no per-site re-test of the tester's 50 platforms (only `uneed.best` was spot-checked, and its homepage has no `robots` meta, which says nothing about listing pages). No catalog rebuild, commit, or portfolio sync yet: `node tools/build-catalog.js` then commit is the next release step, and `sync-portfolio.js --validate` cannot pass before that.
+**Deliberately not done:** no per-site re-test of the tester's 50 platforms (only `uneed.best` was spot-checked, and its homepage has no `robots` meta, which says nothing about listing pages).
+
+**Published.** Source `5ea4411`, catalog `e4c3b62`, CI "Validate skills and CLI" green. `sync-portfolio.js --validate` passes at `5ea4411`; portfolio synced with one changed entry (`yeknal-content-seo`) in `4df8766`, Deploy GitHub Pages green. Live proof: `https://tryraisins.dev/skills/content-seo/files.json` is pinned to `5ea4411`, and the served `references/authority-and-links.md` (13,875 bytes, sha256 `c7e76796…`) carries "Audit a claimed link", "Keep the evidence branches separate" and the directory clause. The un-cache-busted URL still served `75bdc93` for a few minutes after deploy, so verify live content with a cache-busting query rather than the bare path.
+
+**Still unverified:** nothing here demonstrates a ranking effect in either direction, and no listing on the original 50 was re-tested.
 
 ## Payment callback integrity added to application security (2026-11-02)
 
