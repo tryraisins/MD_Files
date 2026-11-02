@@ -1,12 +1,30 @@
 # Project Handoff
 
-Last updated: 2026-10-28
+Last updated: 2026-11-02
 Branch: main
 HEAD: see git log; 2.9.0 release tagged `v2.9.0`
 
+## Payment callback integrity added to application security (2026-11-02)
+
+Prompted by a developer who forged an M-Pesa callback on a live system and got a payment marked successful, plus follow-up replies about always returning success, IP allowlists, URL tokens, and using the callback only to query the provider.
+
+**Decision: extend, do not create a skill.** The catalog already carries five security skills, and this content is one invariant set, not a workflow. A sixth "payments" skill would dilute routing; the honest wider scope (intents, reconciliation, refunds, ledger) was deliberately not attempted.
+
+**Changed:** `skills/yeknal-application-security/SKILL.md` gained a "Payments and money paths" section and a description that names payment authenticity and money-path integrity. `Security-Master.md` gained a "Payment integrity" subsection and one pre-merge checklist row, so its single-baseline claim stays true. New `references/PAYMENT-CALLBACKS.md` carries the detail: the invariant, the seven-step flow model, provider mechanics (Daraja, Stripe, Paystack, Flutterwave, and no-auth providers), an eleven-row failure catalogue, acknowledgement rules, lifecycle and reconciliation, and the four-part end-to-end proof. `site/presentation.json` purpose and `whenToUse` widened. Three routing cases added (forged M-Pesa callback, Stripe webhook entitlement, and a negative case so payment form styling does not get pulled into the security skill), taking the dataset to 53.
+
+**Reviewed by GPT-6.1 Sol, verdict REVISE, all corrections landed.** The material ones: a valid signature authenticates an event, not its suitability for fulfilment; provider references are lookup keys, not capabilities and not secrets (some legitimately reach browsers); "one transition, one direction" is wrong because refunds and reversals move state, so dedupe deliveries separately from financial effects and scope uniqueness by provider, merchant, environment and operation; 200 after durable staging rather than before, 400 on a bad signature, never trust `X-Forwarded-For`; and the forged-payload test alone also passes on a handler that fulfils nothing, so the positive path, replay, and mismatch cases are mandatory.
+
+**Deliberately not claimed:** the reference does not assert that Daraja callbacks are unauthenticated as settled fact or publish IP ranges. It says Daraja does not document a Stripe-style signature as of this writing and tells the reader to confirm against current Safaricom documentation. That claim could not be verified here because the Daraja documentation site timed out.
+
+**Verification:** `verify-skill-references.js` 7/7 across 57 skills; `verify-discovery.js` 30/30; `audit-skills.ps1` 57 skills, 0 errors, 0 warnings; `audit-markdown-links.ps1` 402 files, 203 relative links, 0 unresolved; `validate-routing-evals.ps1` 53 cases, 0 errors; `npm test` in `yeknal-cli` 50/50; `git diff --check` clean.
+
+**Not run:** `skills-ref validate` needs the pinned Python validator and is CI-only here. No live payment integration was exercised, so the four-part proof is documented as a requirement, not demonstrated against a real provider.
+
+**Remaining sequence:** commit the source, run `node tools/build-catalog.js`, commit the regenerated catalog, push, confirm CI, then `node tools/sync-portfolio.js --portfolio ../../Portfolio/my-portfolio`.
+
 ## Two tweets absorbed: slop tells as a reason test, and a launch quick pass (2026-10-28)
 
-A list of ten design "slop indicators" and a list of six launch laws were compared against the catalog. Nothing was added to the scanner. Edits are uncommitted until the user asks.
+A list of ten design "slop indicators" and a list of six launch laws were compared against the catalog. Nothing was added to the scanner. Published in `f9d54a7` with the catalog in `762c604`.
 
 **Design:** the ten tells are each the prescribed signature of a real style elsewhere in this catalog (`yeknal-minimalist-ui` prescribes Instrument Serif with tight tracking, 1px bordered cards, rgba dividers and tag badges; `yeknal-industrial-brutalist-ui` prescribes borders, `<hr>` rules and terminal framing), so banning them would have contradicted two skills and trained a new monoculture. `yeknal-ui-quality-baseline` Anti-slop review now treats them as unmotivated defaults with a reason test, keeps the link, underline, invented-metric and logo-wall items as fixed rules, adds three conditional bullets (decorative tags, fake terminal or path chrome, atmospheric diagrams), and no longer recommends dividers as the replacement for nested cards. `color-systems.md` gained the one objective rule: alpha and `opacity` are judged on the composited color, with no cap on shade count. `yeknal-frontend-design` names the serif, italic, rule and numbering stack as a fingerprint to justify and asks for a reason in its Final critique. `yeknal-minimalist-ui` carries a short signature caution. `typography.md` is deliberately unchanged, because slightly tight display tracking is sound optics.
 

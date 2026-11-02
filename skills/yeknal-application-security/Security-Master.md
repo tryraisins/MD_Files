@@ -128,6 +128,16 @@ Tailor CSP sources and Trusted Types to the application. Prefer nonce/hash polic
 - Make idempotency keys scoped to tenant, route/operation, normalized request hash, and expiry. Store the result transactionally.
 - Protect high-value business flows from automation, replay, inventory exhaustion, fake accounts, approval bypass, and state-machine skips.
 
+### Payment integrity
+
+Fulfilment is a decision, not an echo of an incoming payload. See [references/PAYMENT-CALLBACKS.md](references/PAYMENT-CALLBACKS.md) for the detailed control set.
+
+- Treat provider callbacks, webhooks, IPNs, and push notifications as unauthenticated until a signature over the raw body or an authenticated outbound query proves otherwise. Provider documentation, not a tutorial, decides which applies.
+- Bind authenticated evidence to merchant, environment, order, amount, currency, payer, and successful state before granting value.
+- Keep delivery deduplication separate from financial effects. Scope uniqueness by provider, merchant, environment, and operation so refunds and reversals still apply.
+- Permit refunds, reversals, disputes, and late success in the state model; never model payment status as a one-way flag.
+- Reconcile independently of callback delivery, and treat timeouts as unknown outcomes.
+
 ### SSRF
 
 For any outbound request influenced by untrusted data:
@@ -224,6 +234,7 @@ On suspected exposure:
 - [ ] Cookie-authenticated unsafe methods have CSRF protection; session settings match the actual flow.
 - [ ] Password, token, and crypto choices match current guidance rather than stale examples.
 - [ ] Sensitive flows handle replay, races, duplicate delivery, and exceptional conditions.
+- [ ] Money paths fulfil only from authenticated payment evidence bound to the expected order, amount, currency, and state; duplicates, mismatches, and reversals follow policy.
 - [ ] SSRF, uploads, parsers, redirects, webhooks, and resource consumption are bounded.
 - [ ] Browser headers were verified on final responses; deprecated `X-XSS-Protection` advice is absent.
 - [ ] Secrets are absent from source, diffs, logs, fixtures, and artifacts; temporary credential files were ignored first and removed.

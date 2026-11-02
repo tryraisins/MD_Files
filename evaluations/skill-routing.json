@@ -571,6 +571,43 @@
       ],
       "mustNotLead": [],
       "rationale": "The ambiguous middle: nothing here names a route or a file, so the diagnosis starts with whether the pages are useful, crawlable and cited, and the agent-readable surface is the follow-up rather than the opener."
+    },
+    {
+      "id": "mpesa-callback-forgery",
+      "prompt": "Someone posted a forged M-Pesa callback payload to our live endpoint and the order was marked paid. Fix the integration.",
+      "primary": "yeknal-application-security",
+      "secondary": [
+        "yeknal-security-audit"
+      ],
+      "mustNotLead": [
+        "yeknal-security-best-practices",
+        "yeknal-review"
+      ],
+      "rationale": "A money-path integrity defect with a live impact is implementation and control guidance; an unsigned callback is not covered by any stack checklist."
+    },
+    {
+      "id": "stripe-webhook-entitlement",
+      "prompt": "Add Stripe checkout and give the customer access as soon as the webhook fires.",
+      "primary": "yeknal-application-security",
+      "secondary": [
+        "yeknal-security-best-practices"
+      ],
+      "mustNotLead": [
+        "yeknal-review"
+      ],
+      "rationale": "Granting entitlement from a notification is a money-path decision, so the payment invariant leads even though the stack reference also applies."
+    },
+    {
+      "id": "payment-checkout-ui",
+      "prompt": "Restyle the card payment form so the fields line up and the error states read clearly.",
+      "primary": "yeknal-ui-quality-baseline",
+      "secondary": [
+        "yeknal-frontend-developer"
+      ],
+      "mustNotLead": [
+        "yeknal-application-security"
+      ],
+      "rationale": "Visual work on a payment form is not payment integrity work; the money-path invariant must not pull ordinary UI changes into a security skill."
     }
   ]
 }

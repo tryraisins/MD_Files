@@ -1,10 +1,10 @@
 ---
 name: yeknal-application-security
-description: Design or harden application security across web, API, cloud, CI/CD, and AI systems. Use for secure implementation or broad AppSec analysis.
+description: Design or harden application security across web, API, cloud, CI/CD, and AI systems, including payment authenticity and money-path integrity. Use for secure implementation or broad AppSec analysis.
 metadata:
   baseline: Security-Master.md
   openai-plugins-reviewed-commit: 1e285826e604f66f7208f7ac4dba0fe8341d1f57
-  last-reviewed: "2026-09-07"
+  last-reviewed: "2026-11-02"
 ---
 
 # Application Security
@@ -62,6 +62,18 @@ Prefer secret managers, workload identity, and short-lived CI OIDC credentials o
 - Model sensitive flows as state machines. Protect against replay, race conditions, double spend, step skipping, stale approvals, and idempotency collisions.
 - Rate limits are risk controls, not fixed universal numbers. Apply layered quotas by operation cost and abuse model; return `429` and truthful retry guidance without exposing bypassable internals.
 - Make idempotency records tenant-bound, operation-bound, request-bound, expiring, and transactionally linked to the side effect.
+
+## Payments and money paths
+
+Anything that grants value on the strength of an incoming message is a money path: orders, subscriptions, wallets, licences, credits, provisioning, and shipping release. Read [references/PAYMENT-CALLBACKS.md](references/PAYMENT-CALLBACKS.md) for provider mechanics, the failure catalogue, and the end-to-end proof.
+
+- An unauthenticated notification is a hint. Fulfil only when proof of payment that you obtained through an authenticated channel is bound to the expected merchant, environment, paying party, order, amount, currency, and a successful payment state. A valid signature authenticates the event, not its suitability for fulfilment.
+- Compare against a server-created intent. Capture merchant, environment, order, amount, currency, and payer before initiating, and reject a receipt that does not match. Where the flow accepts unsolicited receipts, route unmatched ones to review instead of fulfilment. Payer identity need not equal the beneficiary.
+- Provider references are lookup keys, not capabilities and not secrets. Some legitimately reach the browser. Accept them as untrusted lookup input behind an ownership check; never accept them as proof of payment.
+- Permit an explicit transition table rather than one-way status values. Refunds, reversals, disputes, and late success all move state. Deduplicate deliveries separately from financial effects, scoped by provider, merchant, environment, and operation, or a legitimate reversal is suppressed by a reused transaction ID.
+- Acknowledge after durable staging, not before. Return `400` on an invalid signature; follow the provider's own response contract where one exists, and never lose captured payment evidence because the write failed.
+- IP allowlists, URL tokens, and unguessable paths are defence in depth. They are spoofable or leaky and never replace authentication. Bind any query trigger the callback fires so unauthenticated callers cannot exhaust provider quotas.
+- Reconcile on a schedule independent of callback delivery. Treat a timeout as unknown, not failed, and never let an unmatched, underpaid, duplicated, or reversed payment leave value attached.
 
 ## Browser and frontend
 

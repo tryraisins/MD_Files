@@ -251,12 +251,13 @@
     },
     "yeknal-application-security": {
       "title": "Application security",
-      "purpose": "Designs or hardens security across web apps, APIs, cloud setup, CI/CD pipelines and AI features, covering the OWASP-style risks a product is likely to face.",
+      "purpose": "Designs or hardens security across web apps, APIs, cloud setup, CI/CD pipelines, payments and AI features, covering the OWASP-style risks a product is likely to face.",
       "tasks": [
         "security"
       ],
       "whenToUse": [
         "You are building authentication, authorization or an API that handles user data.",
+        "A payment callback or webhook can mark an order paid, credit a wallet or unlock access.",
         "A project needs a broad security pass before launch.",
         "You want secure defaults for headers, secrets, rate limits and logging."
       ],
