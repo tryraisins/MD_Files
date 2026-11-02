@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "30afa1ddfaaa7f8294e709d0f183eca563daa8a4",
+  "sourceRevision": "fb49e8e59d708829546ea34a51f3feca50424eea",
   "version": "2.9.0",
   "skills": [
     {
@@ -1874,12 +1874,12 @@
         "visuals",
         "yeknal-pick-ui-library"
       ],
-      "version": "7a06cd249cce62b4f531ecb72365dea3821d35e69ce9985ca9ab9b53455b5ede",
+      "version": "1e6199b2ed225cffb72a45f179ffe88aaf5ed597925bc77cd1c5aa97e6779833",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "b406e728bed42528975003356f0c2cdfb5c0ebc7378ac7572be5cc7e89e7dd25",
-          "size": 11985
+          "sha256": "b93d17b1c4c50910eb0becab34b3df34e8acf4ba3df8d8ffe291805ee9280ddd",
+          "size": 12295
         }
       ]
     },
@@ -2799,7 +2799,7 @@
         "with",
         "yeknal-ui-quality-baseline"
       ],
-      "version": "9a1a01f1d6ca538014df9cbf32c7a721213d3e9c7bc0138c7ea987ded356e50d",
+      "version": "b4af7a92fd7d4bb574a31b67f9b5ae35819aeb1cbaac2c15676af44392203961",
       "files": [
         {
           "path": "references/accessibility-design.md",
@@ -2818,8 +2818,8 @@
         },
         {
           "path": "references/component-patterns.md",
-          "sha256": "9075cab4283d91f88df72c149e2d94cfaa9f69fd01e2aafa732710f93a7a8622",
-          "size": 10543
+          "sha256": "ed23a32088a9413e18cc11854718d9ba8c8241452d2088ad20999c32c618e304",
+          "size": 10780
         },
         {
           "path": "references/data-display.md",
@@ -2847,6 +2847,11 @@
           "size": 2620
         },
         {
+          "path": "references/notifications-and-toasts.md",
+          "sha256": "a86aa9fd37bc1f5648eeb6eb174f02612a59a0291abc931f612305511c1df885",
+          "size": 6492
+        },
+        {
           "path": "references/page-and-flow.md",
           "sha256": "eba5a98baaff2b71e2b158a29062c2450efd531f7af7c6b1479bd9f158b6c71d",
           "size": 5088
@@ -2863,8 +2868,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "6f65da015416daa73bc6759981cbb6c3891b5adf6267dce4b2675f56231a902a",
-          "size": 28594
+          "sha256": "c6a16e9588f903779e118584fde46d1a70f313b49c74f4fca11634e52e15b73d",
+          "size": 28827
         }
       ]
     },
