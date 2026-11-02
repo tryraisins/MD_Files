@@ -16,7 +16,9 @@ The viral [unslop](https://github.com/heydamir/unslop) skill (CC BY 4.0, 5.6k st
 
 **Verified:** `verify-skill-references.js` 7/7; `build-catalog.js --check` clean; `audit-skills.ps1` 57 skills, 0 errors; `audit-markdown-links.ps1` 403 files, 206 links, 0 unresolved; `validate-routing-evals.ps1` 58 cases, 0 errors; `npm test` in `yeknal-cli` 50/50; `git diff --check` clean. E2E: `slopscan --path <fixture>` printed `3 repair, 0 to confirm, 2 evidence`, logged `(measured, repair)` per finding, `--fail-on-defects` exited 1 and `--fail-on 999` exited 0.
 
-**Still open.** Nothing is committed or published. The catalog needs a rebuild after the commit, then `sync-portfolio.js --validate`, and `yeknal-cli` is still 2.9.0, so the new flag reaches `npx yeknal` only at the next release. The new rules have not been exercised on a live rendered screen, so their effect on real output is unproven.
+**Published.** Source `629b37f` with the catalog repinned in `ae2fa4e` and `e4871a2`, tag `v2.10.0`, CI "Validate skills and CLI" green on `e4871a2`. `yeknal@2.10.0` is on npm with shasum `eda2721f8a3b84c401e3734a48b150d3d03362f8`, published from the authenticated local client because the trusted-publishing workflow is still dormant (no `NPM_TRUSTED_PUBLISHING_ENABLED` variable, so the release event skipped its job). Portfolio synced in `fc7e2c5`, Deploy GitHub Pages green. Live proof: `https://tryraisins.dev/skills/redesign-existing-projects/files.json` serves `sourceRevision` `ae2fa4e` with `SKILL.md` at 10,580 bytes, and the served file carries "Decide how much change is justified", "Work one property at a time" and the unslop credit; the same URL served `fb49e8e` for about 90 seconds after deploy, so check twice with a cache-busting query.
+
+**Still open.** The rules have not been exercised on a live rendered screen, so their effect on real design output is unproven. Enabling npm trusted publishing is a separate repository decision that needs the OIDC connection first.
 
 ## Launch quick pass corrected after a Terra review (2026-11-02)
 
