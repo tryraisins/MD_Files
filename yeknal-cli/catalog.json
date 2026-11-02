@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "4a041e45ec4889d6967f95d3ec38d0f4ec0d252a",
-  "version": "2.9.0",
+  "sourceRevision": "ae2fa4e4ee981ac184880fad8de8b8474748a198",
+  "version": "2.10.0",
   "skills": [
     {
       "name": "yeknal-add-changelog",
@@ -985,7 +985,7 @@
         "writing",
         "yeknal-frontend-design"
       ],
-      "version": "2f8967edf2fd703969ba2b0f501c7d0445cda691d880fb520d6e6f6336abf848",
+      "version": "dfda5048487118fbcf7efb818070fa3e1ff07c4f12d1a9aa75cc97f1e56f6d5c",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -999,8 +999,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "5ccbcef27c3f2b4112a215be506e330dc628c1f10d349f5e3b0597f339432392",
-          "size": 7821
+          "sha256": "3f655c86337639283b0b6bd234b3df2db5ac69aa0159c4332924e1c252d6d620",
+          "size": 8021
         }
       ]
     },
@@ -2052,7 +2052,7 @@
     },
     {
       "name": "yeknal-redesign-existing-projects",
-      "description": "Redesign an existing website or app without breaking behavior or data flow. Use for visual refreshes, UX improvements, responsive repair, or de-genericization.",
+      "description": "Redesign an existing website or app without breaking behavior or data flow, deciding first whether a screen needs a redesign or a small repair. Use for visual refreshes, UX improvements, responsive repair, or de-genericization.",
       "keywords": [
         "and",
         "audit",
@@ -2062,25 +2062,35 @@
         "coherence",
         "collateral",
         "contract",
+        "decide",
         "deliverable",
+        "direction",
         "establish",
         "evidence",
         "existing",
         "experience",
+        "how",
         "implement",
+        "justified",
+        "much",
+        "one",
         "plan",
         "preserve",
         "product",
+        "property",
         "redesign",
         "rendered",
         "risk",
+        "set",
         "taste",
         "the",
+        "time",
         "validation",
         "without",
+        "work",
         "yeknal-redesign-existing-projects"
       ],
-      "version": "de0364d5914f6a1d2a7be943cd4cca9afe78e093439fc40ebdc55fb68e68277f",
+      "version": "9aa927b1c90d34deda6085923ab48cd83724852710fa86fa2d9110ed60757067",
       "files": [
         {
           "path": "LICENSE.txt",
@@ -2089,8 +2099,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "650387f817ae82bfcb3c26a97d4b245e093cf42433f658012d04e7a70bce55e8",
-          "size": 6495
+          "sha256": "2cce666c2a30e37db5865c30d48ca7ccd78b3777bf13a28e9a109a902300bc92",
+          "size": 10580
         }
       ]
     },
@@ -2659,9 +2669,11 @@
       "description": "Scan a codebase locally for AI-slop signs such as stock marketing copy, placeholder text, gradient headline text, decorative emoji, and template leftovers, then act on the report. Use before a launch or when a project reads as generic.",
       "keywords": [
         "acting",
+        "authority",
         "cannot",
         "changing",
         "findings",
+        "has",
         "reading",
         "report",
         "running",
@@ -2675,12 +2687,12 @@
         "when",
         "yeknal-slopscan"
       ],
-      "version": "c4ced3368c9cc1adce4171c9309f3401c1af5deeed89fa83d10190489f21083d",
+      "version": "7da62fcb71c4b5dc2b7513c742cc6acad3e2ddac8dee4690c6588a5690164541",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "3612ba0229866aeb75907e9fbc62d0f1b4405063f14d14a6653e040c9b0d8e05",
-          "size": 5209
+          "sha256": "b51be6ffde0c20683ad62996b599f4adf7402a589ec0190888f625df5b50c7dc",
+          "size": 6974
         }
       ]
     },
@@ -2733,7 +2745,7 @@
     },
     {
       "name": "yeknal-ui-quality-baseline",
-      "description": "Apply one shared quality contract to any visible UI, covering tokens, spacing and optical centering, typography, icons, responsive containment, states, loading, motion, copy, and rendered QA. Use whenever visible interface work starts.",
+      "description": "Apply one shared quality contract to any visible UI, covering tokens, spacing and optical centering, typography, icons, responsive containment, states, loading, motion, copy, where the visual richness belongs, and rendered QA. Use whenever visible interface work starts.",
       "keywords": [
         "accessibility",
         "ai-mediated",
@@ -2749,6 +2761,7 @@
         "context",
         "copy",
         "data",
+        "decide",
         "design",
         "discipline",
         "durable",
@@ -2756,6 +2769,7 @@
         "flow",
         "form",
         "geometry",
+        "goes",
         "ground",
         "handoff",
         "iconography",
@@ -2779,6 +2793,7 @@
         "required",
         "responsive",
         "review",
+        "richness",
         "rule",
         "sign-off",
         "small-element",
@@ -2795,11 +2810,9 @@
         "typography",
         "uniform",
         "universal",
-        "verification",
-        "with",
-        "yeknal-ui-quality-baseline"
+        "verification"
       ],
-      "version": "b4af7a92fd7d4bb574a31b67f9b5ae35819aeb1cbaac2c15676af44392203961",
+      "version": "4311104affe305a9944da5845eeb40b0b40d1bb3a2dfe3a40276755288386ead",
       "files": [
         {
           "path": "references/accessibility-design.md",
@@ -2868,8 +2881,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "c6a16e9588f903779e118584fde46d1a70f313b49c74f4fca11634e52e15b73d",
-          "size": 28827
+          "sha256": "718ad378624571441f2168aa62eb12fbe307bb9a0c5464934a447b300913efa5",
+          "size": 30955
         }
       ]
     },
