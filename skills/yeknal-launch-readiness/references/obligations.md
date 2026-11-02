@@ -33,7 +33,7 @@ This is the single most common launch defect, and it produces both transfer expo
 | --- | --- | --- |
 | Fonts are served from the origin | `fonts.googleapis.com`, `fonts.gstatic.com` in markup or CSS | Self-host, or use a system stack |
 | Analytics and pixels wait for consent | Script tags in the document head, tag manager containers | Move behind the consent gate |
-| Session replay masks inputs | Replay configuration | Mask all form fields, exclude sensitive routes, or remove it |
+| Session replay is minimized, then masked, then consented | Replay configuration, and what leaves the browser | Remove it where it is not needed; otherwise mask all form fields, exclude sensitive routes, and check the captured payload |
 | Chat widgets are reviewed | Widget bootstrap scripts | Load after consent, and check what it records |
 | Transfers have a mechanism | Hosting region, provider DPAs, transfer instrument | Document the instrument, or move the data |
 | Every vendor has a contract | A processor list | Sign the DPA, or remove the vendor |
@@ -73,8 +73,8 @@ A transfer question attaches to any provider outside the user's jurisdiction, an
 
 | Check | Evidence | Smallest fix |
 | --- | --- | --- |
-| Renewal terms appear before the button | The pricing or checkout component | Price, interval, and cancellation terms next to the CTA |
-| A defective renewal notice puts the charge itself at risk | Checkout copy, terms, and refund policy | Treat renewal wording as a blocker; a non-compliant renewal may be unrecoverable (`verify` the remedy in [jurisdictions.md](jurisdictions.md)) |
+| Renewal terms sit in visual proximity to the consent request | The pricing or checkout component | Price, interval, and cancellation terms in the same block as the CTA |
+| A missing affirmative consent puts the charge itself at risk | Checkout flow, stored consent, terms, and refund policy | Treat renewal consent as a blocker; without it the supply can be deemed a gift under s.17603 (see [jurisdictions.md](jurisdictions.md)) |
 | Consent is affirmative for the recurring charge | Checkout flow and the stored mandate | Explicit consent, recorded with a timestamp |
 | Cancellation is as easy as signup | The account screen | Self-serve cancel, no contact form, no retention maze |
 | Reminders go out before renewal where required | Scheduled jobs | Pre-renewal notice email |
@@ -89,7 +89,7 @@ A transfer question attaches to any provider outside the user's jurisdiction, an
 | Check | Evidence | Smallest fix |
 | --- | --- | --- |
 | A copyright takedown route exists | A published contact and a working inbox | A policy page plus a real routing address |
-| A DMCA agent is registered where US users are served | copyright.gov record | Register, USD 6, renew every three years |
+| A DMCA agent is registered and published where US users are served | copyright.gov record and the site's contact page | Register, USD 6, publish the contact, renew every three years |
 | The takedown process handles counter-notices | Internal runbook | Written steps, with a restore path |
 | Repeat infringers are suspended | Moderation tooling | A strike counter and an enforced threshold |
 | An intermediary contact is designated where required | Site footer, filings | Named contact, and a Nigerian address where the platform is large |

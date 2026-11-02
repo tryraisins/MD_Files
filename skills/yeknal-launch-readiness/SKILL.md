@@ -2,7 +2,7 @@
 name: yeknal-launch-readiness
 description: "Audit a product for launch readiness before it becomes publicly reachable: legal obligations plus the engineering gates no other workflow owns, then one register and a go or no-go. Use when asked whether an app can ship."
 metadata:
-  last-reviewed: "2026-10-23"
+  last-reviewed: "2026-11-02"
   jurisdictions: "NG, EU/EEA, UK, US federal, US California"
   boundary: "Not legal advice. Read-only by default."
 ---
@@ -50,12 +50,14 @@ Use this when someone wants a fast check before launch and not the full audit. T
 | --- | --- | --- | --- | --- |
 | Age gate | [Minors](references/obligations.md) | An age field at signup, and whether the server refuses an under-age account | Field is `measured`; server enforcement is `unassessed` | Code: neutral age screen, enforced server-side |
 | Third-party fonts | [Embeds](references/obligations.md) | `fonts.googleapis.com` or `fonts.gstatic.com` in markup or CSS | `measured` | Code: self-host or use a system stack |
-| Session replay | [Embeds](references/obligations.md) | A replay script and its masking configuration | Presence `measured`; masking `heuristic`; consent behaviour `unassessed` | Code: mask every field and sensitive route, or remove it |
+| Session replay | [Embeds](references/obligations.md) | A replay script, its masking configuration, and what leaves the browser | Presence `measured`; masking `heuristic`; consent behaviour `unassessed` | Code: remove it where it is not needed, or mask every field and sensitive route and verify the captured payload |
 | Launch email | [Marketing email](references/obligations.md) | A postal address and an unsubscribe token in each template | Template `measured`; honouring the opt-out `unassessed` | Code for the template; human for the address |
-| Renewal terms | [Subscriptions](references/obligations.md) | Price, interval, renewal, and cancel wording in the same block as the subscribe button | `heuristic`; the stored consent `unassessed` | Code: move the terms beside the button |
-| DMCA agent | [User content](references/obligations.md) | An upload surface with a takedown route | Route `measured`; registration `unassessed` | Human filing: register the agent at copyright.gov |
+| Renewal terms | [Subscriptions](references/obligations.md) | Price, interval, renewal, and cancel wording in visual proximity to the consent request | `heuristic`; the stored consent `unassessed` | Code: move the terms beside the button and record the consent |
+| DMCA agent | [User content](references/obligations.md) | An upload surface with a takedown route | Route `measured`; registration and published contact `unassessed` | Human filing: register the agent at copyright.gov, then publish the contact |
 
 Mark a row not applicable instead of failing it when its trigger is absent: COPPA reaches child-directed services and actual knowledge of a child's data, so an adult product with no known child users has no age-gate duty; the DMCA agent matters where users upload and US users are served; renewal terms matter only with a recurring charge; the email row only when promotional mail is sent.
+
+A field, a banner, and adjacent wording are attempts, not compliance. None of these six is satisfied by the presence of the control: an age field with no server enforcement, a consent banner that does not gate the script, and renewal text nobody consented to are open rows. Record what the control does, not that it exists.
 
 A paste-ready prompt for a user who wants the pass in one message:
 
@@ -103,10 +105,21 @@ Do not restate these checks. Confirm the owning skill ran, note its result, and 
 | Platform rollback commands | the relevant `*-deploy` skill |
 | Dependency and supply-chain audit | `yeknal-application-security` |
 
+## Depth this skill does not own
+
+The quick pass and Register A decide whether an obligation binds and whether the behaviour matches the claim. They do not implement it. When the register surfaces consent management, a rights-request endpoint, a retention job, or a notice rewrite, name the gap and hand it on rather than closing the row.
+
+- Policy wording goes to `yeknal-markdown-management`, and the row stays open until the code matches the sentence.
+- Consent gates, rights endpoints, retention jobs, and replay configuration are product work with no owning skill. Record each as an open item with the file and the behaviour to change.
+- Depth beyond these rows belongs to the specialist: accessibility to `yeknal-ui-quality-baseline`, controls to `yeknal-application-security`, browser proof to `yeknal-playwright`.
+
+If privacy implementation ever grows enough to need its own workflow, it becomes a separate skill and this file links to it instead of duplicating the rules. Two owners for the same consent timing is how the sources drift apart.
+
 ## Hard rules
 
 - Keep "must", "should", and "market practice" as three visibly different labels.
 - Analytics, pixels, chat widgets, and session replay count as non-compliant until shown to load behind consent.
+- A control that exists but does not enforce is an open row, not a pass.
 - A backup that has never been restored is `unassessed`, and a restore claim needs a date and a method, or it did not happen, whatever the provider dashboard says.
 - Never mark a row green because a policy page exists. Mark it green when the behaviour matches the page.
 

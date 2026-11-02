@@ -99,10 +99,10 @@ Applies to anyone offering goods or services to people in the EU, or monitoring 
 
 | Requirement | What it means at launch | Exposure | Instrument |
 | --- | --- | --- | --- |
-| Children's data | Applies to services directed to under-13s, or with actual knowledge of a child's data. Requires notice, verifiable parental consent, and, after the 2025 rule amendments, separate consent for third-party disclosure and targeted advertising, written retention limits, and a written information security program | Civil penalty up to USD 53,088 per violation | COPPA, 16 CFR Part 312 |
-| Marketing email | Accurate headers, no deceptive subject, ad identification, a physical postal address, a working opt-out honoured within 10 business days, and liability for vendors sending on your behalf | Up to USD 53,088 per email in violation | CAN-SPAM, 15 U.S.C. 7701 |
+| Children's data | Applies to services directed to under-13s, and to a general-audience service with actual knowledge that it collects a child's data. Requires notice, verifiable parental consent, and, after the 2025 rule amendments, separate consent for third-party disclosure for purposes not integral to the service including targeted advertising, written retention limits, and a written information security program; most of those amendments reached their compliance date on 22 April 2026. An under-13 visitor is not the trigger by itself, and an age field is not the duty | Civil penalty up to USD 53,088 per violation, never per child | COPPA, 16 CFR Part 312; 90 Fed. Reg. 16918 |
+| Marketing email | Accurate headers, no deceptive subject, ad identification, a physical postal address, a working opt-out honoured within 10 business days, and liability for vendors sending on your behalf | Up to USD 53,088 per violation, a ceiling and not a predicted award. Individual recipients have no private claim; qualifying access providers may sue under 15 U.S.C. 7706(g) | CAN-SPAM, 15 U.S.C. 7701, 7706(g) |
 | Deceptive practices | A privacy policy or pricing claim you do not honour is an unfair or deceptive practice. This is the most commonly used lever against small products | Civil penalties and consent orders | FTC Act s.5 |
-| Copyright safe harbour | Registered agent, a takedown process, a repeat-infringer policy, and agent details on the site. Registration alone grants nothing | Loss of safe harbour, direct liability | DMCA 17 U.S.C. 512, 37 CFR 201.38 |
+| Copyright safe harbour | Registered agent, a takedown process, a repeat-infringer policy, and agent details on the site. Registration alone grants nothing | Loss of the s.512(c) hosting safe harbour, which is not itself liability; infringement stays a separate question | DMCA 17 U.S.C. 512, 37 CFR 201.38 |
 | Accessibility | No web-specific regulation, but Title III litigation and state law create real exposure | Injunctive relief, damages under state law | ADA Title III |
 | Third-party content | Moderation immunity for user content, which Nigeria does not provide | Baseline protection only | 47 U.S.C. 230 |
 
@@ -118,14 +118,14 @@ Applies to anyone offering goods or services to people in the EU, or monitoring 
 | --- | --- | --- | --- |
 | Privacy notice | An online privacy policy is required for commercial sites collecting personal data from California residents | Statutory damages in some claims | Cal. Bus. and Prof. Code 22575 |
 | Consumer privacy | Applies above thresholds (annual revenue over USD 25m, 100,000+ consumers, or 50%+ revenue from selling data). A pre-revenue launch often falls outside, and saying that plainly is more useful than a checklist | Administrative fines, private right of action after a breach | CCPA as amended by CPRA |
-| Automatic renewal | Clear disclosure before the charge, affirmative consent, cancellation as easy as signup, and annual reminders. Tightened from 1 January 2026 | Restitution and civil penalties; an unauthorised charge is the real risk | Cal. Bus. and Prof. Code 17600-17606, AB 2863 |
-| Recording and interception | Session replay, chat widgets, and some analytics have been treated as eavesdropping. Statutory damages are USD 5,000 per violation, with a private right of action and an active class-action practice | USD 5,000 per violation | CIPA, Penal Code 631, 632, 637.2 |
+| Automatic renewal | Offer terms clear and conspicuous in visual proximity to the consent request, express affirmative consent, a retainable acknowledgment, three years of consent records, an online cancel route where signup was online, and pre-renewal notices. The 2024 amendments apply to contracts entered into, amended, or extended on or after 1 July 2025 | Restitution and civil penalties; an unauthorised charge is the real risk | Cal. Bus. and Prof. Code 17600-17606, s.17602(j), AB 2863 |
+| Recording and interception | Session replay, chat widgets, and some analytics have been treated as eavesdropping. Direct claims against a site recording its own sessions have failed; aiding a third-party provider survives pleading. Statutory damages are the greater of USD 5,000 per violation or three times actual damages, with a private right of action | USD 5,000 per violation or treble actual damages | CIPA, Penal Code 631, 632, 637.2 |
 
-**On CIPA:** consent is a weaker defence than it looks under section 631, because the theory is third-party eavesdropping rather than notice. Masking form inputs and excluding sensitive fields is the reliable control. Treat consent as the second layer, not the first.
+**On CIPA:** the case law is uneven and still moving. *Thomas* (9th Cir., 18 June 2025) held that a site cannot eavesdrop on its own conversation, so the direct claim fails. *Mikulsky* (20 June 2025) let an aiding-and-abetting claim against a third-party replay provider past pleading. *Gutierrez* (9 July 2025) affirmed summary judgment for want of evidence that the vendor read anything in transit; the broader view that the wiretap clause excludes internet traffic was a concurrence, not the holding. All three are unpublished memoranda, so read them as signals rather than settled law. Disable replay you do not need, verify what actually leaves the browser, mask and exclude sensitive routes, then obtain informed consent before collection where required. Masking is valuable but incomplete, because it misses URLs, dynamic content, and fields the vendor adds. No single control is a safe harbour.
 
-**On the renewal remedy:** California's automatic-renewal statute is reported to treat goods or services supplied after a non-compliant renewal as an unconditional gift that the consumer need not pay for or return. `verify` the subsection (likely 17603) at the source before quoting it, and never present it as the likely outcome.
+**On the renewal remedy:** s.17603 deems goods, wares, merchandise, or products sent under a continuous service agreement or automatic renewal to be an unconditional gift where the business did not first obtain the affirmative consent described in s.17602. The stated trigger is missing affirmative consent, not a proximity defect alone. Whether a particular digital service falls inside that wording, and what refund or restitution follows, needs separate analysis. Do not present the gift result as automatic, and never as the likely outcome.
 
-**On the FTC click-to-cancel rule:** the Eighth Circuit vacated it in July 2025. State automatic-renewal laws are the live obligation, so do not cite the federal rule as current.
+**On the FTC click-to-cancel rule:** the Eighth Circuit vacated it in July 2025. That does not remove federal law: the FTC Act and ROSCA still apply alongside state automatic-renewal statutes, which are the live obligation. Do not cite the vacated rule as current.
 
 ---
 
@@ -148,13 +148,13 @@ Two useful defaults: children's data is regulated almost everywhere, and nearly 
 Use these to calibrate, not to frighten:
 
 - A single unlawful cross-border transfer produced a N766m penalty in Nigeria in 2024.
-- A single embedded font produced a EUR 100 damages award in Munich in 2022, and the same theory reaches every third-party embed.
-- Session replay and chat widgets have generated serial CIPA class actions in California, which is why masking beats consent.
-- Children's data draws the largest per-violation figures, which is why an age gate is cheaper than a lawyer.
+- A single embedded font produced a EUR 100 damages award in Munich in 2022. That is one district court result, so treat it as a live theory rather than a price list.
+- Session replay and chat widgets have generated thousands of CIPA filings in California. Defendant wins are real but unpublished and fact-bound, so removing the tool beats masking, and masking beats a banner.
+- Children's data draws the largest per-violation figures. The duty is verifiable parental consent and a written program; an age field substitutes for neither.
 
 ## Sources
 
-Verified against primary or regulator-published material on 2026-10-23 unless a row says `verify`.
+Verified against primary or regulator-published material on 2026-10-23 unless a row says `verify`. Re-verified on 2026-11-02 against the California statute text, the Ninth Circuit memoranda, and the COPPA amendment notice for the rows that carried open questions.
 
 - NDPA 2023 gazetted text, and the NDPC FAQ at ndpc.gov.ng/faqs.
 - NDPC General Application and Implementation Directive 2025, NDPC/NDP ACT-GAID/01/2025.
@@ -162,8 +162,10 @@ Verified against primary or regulator-published material on 2026-10-23 unless a 
 - Nigeria Copyright Act 2022, ss.54-55.
 - CBN Consumer Protection Regulations 2019; Nigeria Direct Debit Scheme guidelines.
 - FTC civil penalty notice, Federal Register, 15 September 2026 (no 2026 adjustment).
-- FTC CAN-SPAM compliance guide; 16 CFR 1.98.
+- FTC CAN-SPAM compliance guide; 16 CFR 1.98; 15 U.S.C. 7706(g) for provider suits.
 - GDPR, ePrivacy Directive, Consumer Rights Directive, Omnibus Directive, European Accessibility Act, Digital Services Act.
 - UK GDPR and DPA 2018, PECR, DMCC Act 2024, Online Safety Act 2023.
-- COPPA and 16 CFR Part 312; DMCA 17 U.S.C. 512 and 37 CFR 201.38.
-- Cal. Bus. and Prof. Code 22575 and 17600-17606; CIPA Penal Code 631, 632, 637.2; CCPA/CPRA.
+- COPPA and 16 CFR Part 312; 90 Fed. Reg. 16918 (2025 rule amendments).
+- DMCA 17 U.S.C. 512, 504(c)(2) and 37 CFR 201.38.
+- Cal. Bus. and Prof. Code 22575 and 17600-17606, including s.17602(j) and s.17603; CIPA Penal Code 631, 632, 637.2; CCPA/CPRA.
+- Ninth Circuit memoranda: *Thomas v. Papa John's*, No. 24-14 (18 June 2025); *Mikulsky v. Bloomingdale's*, No. 24-3564 (20 June 2025); *Gutierrez v. Converse*, No. 24-4797 (9 July 2025).
