@@ -4,7 +4,7 @@ description: "Evidence-led search visibility: target queries, update-or-create d
 metadata:
   internal: true
   indexnow-source-reviewed: "2026-09-07"
-  google-ai-features-source-reviewed: "2026-10-07"
+  google-ai-features-source-reviewed: "2026-11-02"
   agent-readability-boundary-reviewed: "2026-10-26"
 ---
 
@@ -39,6 +39,7 @@ Anchor every decision in reader intent and product evidence. Produce genuinely u
 - Keep headings, metadata, URLs, and schema aligned with the actual page.
 - Do not recommend a fixed page count, publishing cadence, link count, waiting period, or ranking target as a universal SEO rule. Base priorities on search intent, site evidence, business value, and relevant policy.
 - Do not buy links, arrange reciprocal links for ranking credit, hide paid-link footprints, or create third-party pages primarily to borrow another site's ranking signals. Recommend genuine, editorially earned coverage instead.
+- Treat a curated backlink or directory list as a prospect source, not a plan. A submission, a saved profile field, or a pending listing is not a link, and a live listing never proves a ranking gain.
 - Use descriptive internal-link anchors that help readers; do not enforce an exact-match anchor quota. Add words such as "best" or a year to titles only when the page genuinely supports the claim and its information is current.
 - Never imply that an AI-specific page, an `llms.txt` file, schema, or a particular title phrase guarantees AI Overview inclusion, citations, rankings, or traffic.
 - Report technical SEO checks separately from editorial recommendations.
@@ -47,7 +48,9 @@ Anchor every decision in reader intent and product evidence. Produce genuinely u
 
 ## AI search and brand information
 
-For branded-search or generative-AI visibility work, first check the site's existing About, organization, product, service, contact, and policy pages. [Google's current guidance](https://developers.google.com/search/docs/appearance/ai-features) says established SEO practices apply to AI Overviews and AI Mode and that there are no additional technical requirements or special optimizations for inclusion.
+For branded-search or generative-AI visibility work, first check the site's existing About, organization, product, service, contact, and policy pages. Google's [guidance for generative AI features](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) says those features retrieve from the same index and sit on the same ranking and quality systems as Search, so established SEO practice applies. There is no special markup, "chunking", or AI-only rewrite that earns placement.
+
+Two current conditions are worth checking rather than assuming. A page must be indexed and eligible to show a snippet, and the property must be included in the Search Console [generative AI control](https://support.google.com/webmasters/answer/16908024), which defaults to include and became available worldwide on 31 August 2026; an excluded property is not served in AI Overviews, AI Mode, or the generative features in Discover. Google also states that Search ignores `llms.txt` and similar files: they neither help nor hurt Google visibility, whatever other agents do with them.
 
 When the audit finds a real information gap, create or update a public, human-useful **AI-readable brand information page** (sometimes requested as an "AI instructions page"). Treat it as an accurate source of facts, not a hidden prompt or an instruction that controls how a search engine or AI system must answer. Include only verified details relevant to the site, such as:
 
@@ -58,11 +61,11 @@ When the audit finds a real information gap, create or update a public, human-us
 
 Use the canonical URL, page title, visible content, internal links, and indexing controls consistently with the site's existing information architecture. Keep it discoverable to people and eligible crawlers if search visibility is an objective. Do not publish claims that the page is an "official AI instruction" or that it will dramatically affect AI Overviews.
 
-An optional `/llms.txt` file can act as a curated index to useful pages for agents that choose to read it. It is an independent proposal for agent discovery, not a documented Google ranking or AI Overview signal, and it does not replace useful public pages, crawlability, or a sitemap. Once the pages exist, the files and endpoints that serve them belong to [agent-readable site](../yeknal-agent-readable-site/SKILL.md), which owns per-page markdown, the site-level files, the head signals and the crawler policy. Add those without re-planning the query or rewriting the page, and never report a published file as a visibility result.
+An optional `/llms.txt` file can act as a curated index to useful pages for agents that choose to read it. It is an independent proposal for agent discovery, not a Google ranking or AI Overview signal, and Google states that Search ignores such files. Other agent tools may read them, so offer one only where a real audience uses it. It never replaces useful public pages, crawlability, or a sitemap. Once the pages exist, the files and endpoints that serve them belong to [agent-readable site](../yeknal-agent-readable-site/SKILL.md), which owns per-page markdown, the site-level files, the head signals and the crawler policy. Add those without re-planning the query or rewriting the page, and never report a published file as a visibility result.
 
 Assistants that answer from live search cite pages that already rank or are cited elsewhere, so useful pages and earned coverage come first. Model the short, recommendation-shaped queries an assistant would search rather than the sentence a customer would type, and build the prospect list from the pages those queries return. Do not place the site first in its own comparison content; readers and models discount it, and the claim is usually not true. [Authority and links](references/authority-and-links.md) covers citation prospecting, community threads, and the limits of each surface.
 
-For measurement, record the branded queries, pages, dates, markets, and available Search Console/analytics baseline. AI-generated answers can vary by query, location, time, and system; report observed citations and traffic separately from hypotheses, and do not claim causation from a single appearance or fluctuation. Sample answers logged out, for a fixed query set, on a schedule, and record what was cited.
+For measurement, record the branded queries, pages, dates, markets, and available Search Console/analytics baseline. Use the Search Console generative AI performance report where the property has it, and keep those impressions apart from ordinary Search clicks. AI-generated answers can vary by query, location, time, and system; report observed citations and traffic separately from hypotheses, and do not claim causation from a single appearance or fluctuation. Sample answers logged out, for a fixed query set, on a schedule, and record what was cited.
 
 ## Protect existing page value during optimization
 

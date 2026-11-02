@@ -113,11 +113,39 @@ None of these proves intent on its own. Together they describe a page that exist
 
 A directory entry is a citation surface and a small referral channel before it is a link. Treat it as one.
 
+Google's [link spam policy](https://developers.google.com/search/docs/essentials/spam-policies#link-spam) names "low-quality directory or bookmark site links" among its examples. That does not make every submission a violation, but a directory link added so that it will be counted begins inside a category Google already discounts. A curated "50 free backlinks to get ranked" list is that category at scale. Use such a list as a prospect source, never as a plan, and price each entry against the eligibility, cost and condition it actually carries.
+
 Qualify each directory before submitting: a real editorial standard that rejects some submissions, evidence of organic traffic, a category the product genuinely belongs to, an indexable page reached from a crawled page, and no footprint of a network built to sell slots. A list that accepts everything is a page nobody reads.
 
 Paying a person to file submissions is ordinary freelance work. Paying for a link that passes ranking credit is the violation described above, on both sides, so a placement advertising "safe dofollow" is that violation renamed. A compliant paid link carries `sponsored` or `nofollow`.
 
 Vendor claims about a domain-rating jump or an acceptance rate stay unverified until the live URLs exist, and a listing that asks for a badge in exchange for a link is a swap. Track each submission by directory, live URL, link status and referral sessions, and record rejections so the reason can be fixed rather than retried.
+
+### Audit a claimed link
+
+A listing exists, a link exists, and a link is credited are three different facts. Before counting one, record the evidence for each row separately; a row you could not check is `unverified`, not a pass.
+
+- the exact source URL, the destination it points at, and the date checked;
+- whether a signed-out visitor can load it, not just you while logged in;
+- the rendered `<a href>`, not the visible text: `nofollow`, `ugc` and `sponsored` are separate qualifiers, and a page can carry more than one;
+- the page-level controls: `noindex` in `<meta name="robots">`, `X-Robots-Tag` on the response, and any `robots.txt` block on that path;
+- whether the *source* page is indexed, which for a third-party listing usually cannot be confirmed without the owner;
+- whether the link is in the returned HTML or appears only after JavaScript runs;
+- the canonical URL, and whether it points at a different page;
+- whether the listing is genuinely public: login-gated, pending review, or saved only to a profile field.
+
+The three qualifiers are hints, not a verdict. Their absence does not earn credit, and their presence does not prove zero value: a nofollow link on a page the audience reads can still send qualified visitors. "Only two links without `nofollow`" is therefore a publication finding, not an SEO result. Note also that `ugc` is not `nofollow`; a link without `nofollow` but with `ugc` is still unqualified.
+
+### Keep the evidence branches separate
+
+A backlink campaign is not one chain of proven steps. These outcomes are independent, and each needs its own evidence:
+
+- **Publication:** a signed-out visitor can load the page and the link is in the HTML.
+- **Discovery:** the page is crawled and indexed, which a third-party listing may never confirm from outside.
+- **Referral:** clicks and conversions in analytics, measured whether or not the link is qualified.
+- **AI citation:** the page retrieved and named for a query you sampled on a fixed date.
+
+Referral traffic does not require ranking credit. A citation does not require referral traffic. Per-link ranking credit is not observable from outside the engine, so never report it as a verified milestone. Report which branch you observed and which you did not.
 
 ## AI citation prospecting
 
@@ -130,6 +158,8 @@ Assistants that answer from live search read pages that already rank or are alre
 5. Check whether the site ranks itself first in its own comparison content. Readers and models discount self-ranking, and the claim is usually not true. Rewrite the ranking on the merits; the site can still appear, placed honestly.
 
 Do not assume one engine behaves like another, or that this month's pattern holds. Citation share by surface moves quickly; verify before committing a quarter to one channel. Answers also differ between the public app and an API, so sample the surface the audience actually uses.
+
+Google's [guidance for generative AI features](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) states that those features sit on the same ranking and quality systems as Search and warns against seeking inauthentic "mentions" across blogs, videos and forums. A submission campaign built to manufacture mentions is what that warning describes. Being named because a page had already decided the product was worth naming is not.
 
 A domain occupies only one or two organic positions on a page. If the result page also shows video, community threads, and third-party lists, the site can compete only by also appearing in those layers, or by being the subject of them. Rank opportunities by how many non-website surfaces already occupy the result, not only by demand.
 
@@ -154,3 +184,6 @@ A third-party authority score is an estimate. The evidence that matters is click
 - Sending from an address that hides who is writing.
 - Treating a one-off citation as a durable position.
 - Reporting a domain score instead of business outcomes.
+- Treating a curated backlink list as a plan rather than a prospect source.
+- Counting a submission, a saved profile field, or a pending listing as a link.
+- Reporting a nofollow link as a failure without checking whether it sends visitors.

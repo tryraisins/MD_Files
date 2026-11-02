@@ -6,12 +6,11 @@
 - baseline 3, current 3, missing 0, added 0
 
 ## headings (advisory)
-- baseline 4, current 8, missing 0, added 4
+- baseline 4, current 7, missing 0, added 3
 - added:
   - AI search and brand information
   - Performance review
   - Protect existing page value during optimization
-  - When to load a reference
 
 ## backticks (error)
 - baseline 2, current 4, missing 0, added 2
@@ -20,8 +19,9 @@
   - llms.txt
 
 ## links (error)
-- baseline 1, current 8, missing 0, added 7
+- baseline 1, current 9, missing 0, added 8
 - added:
+  - ../yeknal-agent-readable-site/SKILL.md
   - references/authority-and-links.md
   - references/content-maintenance.md
   - references/keyword-intent-and-patterns.md

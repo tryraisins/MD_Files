@@ -300,6 +300,26 @@
       "rationale": "Link acquisition with an explicit policy boundary is part of the SEO workflow; it is not generic research and must not drift into paid placement."
     },
     {
+      "id": "backlink-list-audit",
+      "prompt": "Someone posted a list of 50 free directories that supposedly get you ranked on Google. Before I spend a week submitting, tell me which ones actually produce a live link and what that link is worth.",
+      "primary": "yeknal-content-seo",
+      "secondary": [],
+      "mustNotLead": [
+        "yeknal-agent-readable-site"
+      ],
+      "rationale": "Qualifying a link list by publication, follow status and referral value is the earned-link workflow; publishing agent-readable files cannot produce a backlink."
+    },
+    {
+      "id": "ai-overview-eligibility",
+      "prompt": "We rank on page one but never appear in AI Overviews. Do we need llms.txt or special schema markup to be included?",
+      "primary": "yeknal-content-seo",
+      "secondary": [],
+      "mustNotLead": [
+        "yeknal-agent-readable-site"
+      ],
+      "rationale": "Inclusion depends on indexing, snippet eligibility and the Search Console generative AI control; Google states that Search ignores llms.txt and that no special schema is required, so the agent-readable surface must not lead."
+    },
+    {
       "id": "traffic-drop-triage",
       "prompt": "Clicks fell across a dozen pages last month. Tell me which pages lost ranking versus click-through rate, and what to do first.",
       "primary": "yeknal-content-seo",

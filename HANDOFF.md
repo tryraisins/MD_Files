@@ -4,6 +4,18 @@ Last updated: 2026-11-02
 Branch: main
 HEAD: see git log; 2.9.0 release tagged `v2.9.0`
 
+## Backlink-list claims absorbed into content SEO, plus stale AI-search eligibility (2026-11-02)
+
+A viral "50 free backlinks to get ranked on Google + AI search" list was reviewed against a public falsification attempt (all 50 tried for one early-access consumer product: 12 public links, 7 unconfirmable, 31 failed, 2 without `nofollow`). Reviewed by GPT-6.1 Sol, since Luna/Terra routing is retired here; Sol returned the analysis, and its two factual leads were then verified against Google's live documentation.
+
+**Two edits, no new skill.** `skills/yeknal-content-seo/references/authority-and-links.md` gained an "Audit a claimed link" checklist and a "Keep the evidence branches separate" section, and its directories section now quotes Google's "low-quality directory or bookmark site links" clause and treats a curated list as a prospect source, not a plan. `skills/yeknal-content-seo/SKILL.md` had a genuinely stale AI-search section: it cited `appearance/ai-features` and claimed no additional requirements, while Google now requires inclusion in the Search Console generative AI control (default include, worldwide 31 August 2026), offers a generative AI performance report, and states that Search ignores `llms.txt`. That is the more consequential half of this change.
+
+**Corrections carried, not copied.** The tester's "only 2 without nofollow" is wrong: DEV carries `rel="ugc"`, so three links lack all three qualifiers, and all three qualifiers are hints rather than verdicts. Their "no verified backlink" bucket merges pending, ineligible, paid-only and blocked outcomes. The skill now records publication, discovery, referral and AI citation as independent branches, because per-link ranking credit is not observable from outside.
+
+**Verification:** `audit-skills.ps1` 57 skills, 0 errors, 0 warnings; `validate-routing-evals.ps1` 55 cases (2 added), 0 errors; `verify-skill-references.js` 7/7; `audit-markdown-links.ps1` 402 files / 203 links, 0 unresolved under `pwsh` 7; `parity check yeknal-content-seo` PASS; `verify-public-discovery.js` passed. `SKILL_AUDIT.md` has the full record.
+
+**Deliberately not done:** no per-site re-test of the tester's 50 platforms (only `uneed.best` was spot-checked, and its homepage has no `robots` meta, which says nothing about listing pages). No catalog rebuild, commit, or portfolio sync yet: `node tools/build-catalog.js` then commit is the next release step, and `sync-portfolio.js --validate` cannot pass before that.
+
 ## Payment callback integrity added to application security (2026-11-02)
 
 Prompted by a developer who forged an M-Pesa callback on a live system and got a payment marked successful, plus follow-up replies about always returning success, IP allowlists, URL tokens, and using the callback only to query the provider.
