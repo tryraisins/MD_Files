@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "f9d54a7328469fdaa4e19120a94a22ccb3d97160",
+  "sourceRevision": "75bdc93bdcf6226ebcf270c1b5935f736dd52d21",
   "version": "2.9.0",
   "skills": [
     {
@@ -347,7 +347,7 @@
     },
     {
       "name": "yeknal-application-security",
-      "description": "Design or harden application security across web, API, cloud, CI/CD, and AI systems. Use for secure implementation or broad AppSec analysis.",
+      "description": "Design or harden application security across web, API, cloud, CI/CD, and AI systems, including payment authenticity and money-path integrity. Use for secure implementation or broad AppSec analysis.",
       "keywords": [
         "agentic",
         "and",
@@ -368,6 +368,9 @@
         "integrity",
         "invariants",
         "logic",
+        "money",
+        "paths",
+        "payments",
         "safety",
         "scope",
         "security",
@@ -378,17 +381,22 @@
         "with",
         "yeknal-application-security"
       ],
-      "version": "5171b62ef1f95250676c4e4811c240e73518eb1da58abf3bd5cb55079c27063c",
+      "version": "b47200c5fb13046d6ccf48a1e9e200630665e9879ef913da7fba83f446b299ec",
       "files": [
         {
+          "path": "references/PAYMENT-CALLBACKS.md",
+          "sha256": "6228094477a8cca51cf1cb1caa0377046820d2d5b13a491ab2e56817dc077039",
+          "size": 8716
+        },
+        {
           "path": "Security-Master.md",
-          "sha256": "8a158f7de38fb60df9c9433f9ca9956f395f9818003c4dcbcb4ab1638c44242d",
-          "size": 17436
+          "sha256": "d9642a6c23299d4e00ccb1c129607ec12540e029b4e503b322f8271679d6515f",
+          "size": 18549
         },
         {
           "path": "SKILL.md",
-          "sha256": "9614aa0e04a8d85e14d1009f1f84dc5e7f2e23902f22efa80d7598c0da37f4c8",
-          "size": 10689
+          "sha256": "863b08751e4813cfd612500c156e18accd706ce67fc1bf20195089022d803f19",
+          "size": 12914
         }
       ]
     },
