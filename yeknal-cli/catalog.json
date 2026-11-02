@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "75bdc93bdcf6226ebcf270c1b5935f736dd52d21",
+  "sourceRevision": "5ea4411d0fe40093abb1c6b22943d3fbba9ed980",
   "version": "2.9.0",
   "skills": [
     {
@@ -565,12 +565,12 @@
         "workflow",
         "yeknal-content-seo"
       ],
-      "version": "0b02e166d0c19deb45d0a3745e6da4c712e92714ddea70d639c025a99a53c2f1",
+      "version": "f0b0e99ba98bdea450d34a48e6293c6acae7121aeb1582895e8827a632205aa3",
       "files": [
         {
           "path": "references/authority-and-links.md",
-          "sha256": "242128d74f12b53d9e90ed272118e19854c62e04daf1869a6e4310e0d2e17953",
-          "size": 10376
+          "sha256": "c7e76796335e5d8ccd45ea16e1187a22e5dd62ae088e05f8806a2ed48e1a8700",
+          "size": 13875
         },
         {
           "path": "references/content-maintenance.md",
@@ -609,8 +609,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "b80a07f8fc89d5afd576595c0c7170c678e04cea204c99d6141b30d3a71227f9",
-          "size": 12348
+          "sha256": "43e08c2d5a4c036debfb58426cbc27d84a64afed9372d20ea3aba28eaae77963",
+          "size": 13488
         }
       ]
     },
