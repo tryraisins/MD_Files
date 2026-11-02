@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "5ea4411d0fe40093abb1c6b22943d3fbba9ed980",
+  "sourceRevision": "30afa1ddfaaa7f8294e709d0f183eca563daa8a4",
   "version": "2.9.0",
   "skills": [
     {
@@ -1384,6 +1384,8 @@
         "already",
         "and",
         "boundaries",
+        "depth",
+        "does",
         "elsewhere",
         "fits",
         "gates",
@@ -1392,6 +1394,8 @@
         "launch",
         "laws",
         "legal",
+        "not",
+        "own",
         "owned",
         "pass",
         "quick",
@@ -1402,6 +1406,7 @@
         "regulatory",
         "rules",
         "six",
+        "skill",
         "table",
         "the",
         "this",
@@ -1409,7 +1414,7 @@
         "workflow",
         "yeknal-launch-readiness"
       ],
-      "version": "991017ffee78f84632b547bb74fc345d4c391a7fdc4b9c7a2c07fe199ad02707",
+      "version": "a59c0114acfbb284674fb024255c5d8f94a3ba3d39966010fe5fb8d5cf8bd586",
       "files": [
         {
           "path": "references/evidence-and-fixes.md",
@@ -1418,8 +1423,8 @@
         },
         {
           "path": "references/jurisdictions.md",
-          "sha256": "986b41d19039de339faa8c3838d78e60801f063ba06dc47f69cf38d20fe0d0e6",
-          "size": 15339
+          "sha256": "964d6257a626a9c3612598e45f5197c2048d9b520d29eb64e188fcb3195d1e1c",
+          "size": 17791
         },
         {
           "path": "references/launch-gates.md",
@@ -1428,8 +1433,8 @@
         },
         {
           "path": "references/obligations.md",
-          "sha256": "4a8cee7031cc517d409128cd02bae9bdf3a734f10abd704e0ff6f93e9225cda1",
-          "size": 9795
+          "sha256": "c8522f6aa5971488a59857676bcfbe4ba630d64f4742064d1b4753999327fb0e",
+          "size": 10025
         },
         {
           "path": "references/report-template.md",
@@ -1438,8 +1443,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "e5f0aeea87a1243974f61d37c8afe54780f84cde266fda2967cf6837dbdb7ebf",
-          "size": 10336
+          "sha256": "8eede0e72ea75ccc38ed74014e082d54d132814e4047bebbdce3238006c598a3",
+          "size": 11940
         }
       ]
     },
