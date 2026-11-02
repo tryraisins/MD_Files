@@ -4,6 +4,24 @@ Last updated: 2026-11-02
 Branch: main
 HEAD: see git log; 2.9.0 release tagged `v2.9.0`
 
+## Launch quick pass corrected after a Terra review (2026-11-02)
+
+The "six quiet laws" launch tweet was reviewed again, this time by GPT-6.1 Terra, against the primary statutes rather than the earlier adoption record. Terra returned REVISE on the prior review and found one real defect in the skill: `jurisdictions.md` said "Tightened from 1 January 2026" for the California automatic-renewal amendments. Section 17602(j) says contracts entered into, amended, or extended on or after **1 July 2025**.
+
+**Changed, no new skill.** `references/jurisdictions.md`: the COPPA row narrows to child-directed services plus actual knowledge, says "per violation, never per child", and dates the 2025 amendments (22 April 2026 compliance); the CAN-SPAM row adds the 15 U.S.C. 7706(g) provider suit right and treats USD 53,088 as a ceiling; the DMCA row scopes the consequence to the s.512(c) hosting safe harbour; the CIPA row and note carry *Thomas*, *Mikulsky* and *Gutierrez*, say all three are unpublished, and replace "masking is the reliable control" with remove, verify the payload, then consent; s.17603 is stated from the text with the missing-consent trigger and no automatic gift claim; the vacated FTC rule no longer reads as the end of federal law; three enforcement bullets lost their overconfident phrasing. The sources list records the 2026-11-02 re-verification and the three memoranda.
+
+`references/obligations.md`: the replay row becomes minimized, then masked, then consented; the renewal rows move to visual proximity plus the s.17603 consequence; the DMCA row requires the published contact.
+
+`SKILL.md`: quick-pass rows for replay, renewal and DMCA updated; a paragraph says a field, a banner and adjacent wording are attempts, not compliance; a new "Depth this skill does not own" section names what stays open (consent gates, rights endpoints, retention jobs, replay configuration) instead of adding a second launch skill; last-reviewed 2026-11-02. `site/presentation.json` `avoid` now carries the same control-is-not-compliance line.
+
+**Verified:** `audit-skills.ps1` 57 skills, 0 errors, 0 warnings; `validate-routing-evals.ps1` 55 cases, 0 errors; `verify-skill-references.js` 7/7; `audit-markdown-links.ps1` 402 files / 203 links, 0 unresolved; `npm test` in `yeknal-cli` 50/50; `git diff --check` clean.
+
+**Published:** source `30afa1d`, catalog `76a3f88`, CI "Validate skills and CLI" green. `sync-portfolio.js --validate` passes at `30afa1d`; portfolio synced in `7f13297` with one changed entry (`yeknal-launch-readiness`), Deploy GitHub Pages green. Live proof: `https://tryraisins.dev/skills/launch-readiness/files.json` is pinned to `30afa1d`, the skill page carries the new control-is-not-compliance line, and the served `references/jurisdictions.md` carries "on or after 1 July 2025" with no "1 January 2026". Both the bare and query-busted URLs served the old revision for about three minutes after deploy, so check the live figure twice before calling a sync wrong.
+
+**Not run:** `parity.js check yeknal-launch-readiness` reports no baseline for this skill, so the rendered-page parity check is still unavailable for it.
+
+**Still open:** no skill owns consent-gate, rights-endpoint, retention-job or replay-configuration implementation. The launch skill records those as open rows. Revisit only if that work needs its own workflow, and then let exactly one skill own the consent timing.
+
 ## Backlink-list claims absorbed into content SEO, plus stale AI-search eligibility (2026-11-02)
 
 A viral "50 free backlinks to get ranked on Google + AI search" list was reviewed against a public falsification attempt (all 50 tried for one early-access consumer product: 12 public links, 7 unconfirmable, 31 failed, 2 without `nofollow`). Reviewed by GPT-6.1 Sol, since Luna/Terra routing is retired here; Sol returned the analysis, and its two factual leads were then verified against Google's live documentation.
