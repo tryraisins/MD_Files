@@ -115,6 +115,7 @@ For page- or screen-level work, map entry, primary job, commitment, completion, 
 
 For a specific component surface, read [component patterns](references/component-patterns.md) before styling it: navigation and sidebar density, footer, error pages, carousel, empty states, toasts, modals and sheets, tabs, command palette, destructive actions, forms, and theme toggle. Apply the entry for the surface in front of you rather than the whole file.
 
+- Transient notifications, undo windows, and background results: read [notification surfaces](references/notifications-and-toasts.md) before choosing between inline feedback, the project's toast primitive, and a single-island panel.
 - Charts, dashboards, stat blocks, and tables: read [data display](references/data-display.md). Choose the chart from the question, never from the data.
 - Sign-in, one-time codes, settings, billing, checkout, and cancellation: read [account and money flows](references/account-and-money.md). Never show success before the server confirms it, and never invent a price.
 

@@ -34,7 +34,7 @@ For source registries such as shadcn or Rare UI, inspect `components.json`, the 
 | Unstyled, accessible primitives (dialogs, popovers, menus, selects) | [shadcn/ui](https://ui.shadcn.com) on Radix by default; [base-ui](https://base-ui.com) only where the project already uses it |
 | Distinctive animated React source components in a shadcn-compatible project | Start with [Rare UI](https://www.rareui.com/components); also inspect [beUI](https://beui.dev/), [Spectrum UI](https://ui.spectrumhq.in/), or [Spell UI](https://github.com/xxtomm/spell-ui) when their exact component better fits the interaction. |
 | Command menus (⌘K palettes) | [cmdk](https://cmdk.paco.me) |
-| Toasts / notifications | [Sonner](https://sonner.emilkowal.ski) |
+| Toasts / notifications | [Sonner](https://sonner.emilkowal.ski) by default. [notch-toast](https://notch.devsethi.me) only in a React project that wants one edge-attached island replacing the stack, and only when notifications are sparse and nothing consequential rides on them. See the notification surfaces reference in `yeknal-ui-quality-baseline` for the override rules. |
 | One-time password / verification code inputs | [input-otp](https://input-otp.rodz.dev) |
 | Customizable GUIs / control panels | [Leva](https://github.com/pmndrs/leva) — [dialkit](https://joshpuckett.me/dialkit) is an alternative |
 

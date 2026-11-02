@@ -82,6 +82,7 @@ These seven values are checkable without judgement. `tools/design-eval/conforman
 - Auto-dismiss only non-critical confirmations, give at least five seconds, pause on hover or focus, and never dismiss something the user must read.
 - Stack at most three. A stack that grows without bound hides the interface and is a runaway bug.
 - Announce with appropriate urgency: `polite` for routine success, `assertive` sparingly and only for failure that changes what the user must do.
+- For a single-island notification surface, where one morphing panel replaces the stack, read [notification surfaces](notifications-and-toasts.md) first. It covers when that variant fits and the library defaults that must be overridden.
 
 ## Modals, drawers, and sheets
 
