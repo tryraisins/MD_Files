@@ -15,6 +15,8 @@ Before adopting a family:
 
 Browsers like [Icônes](https://icones.js.org) (Iconify) index hundreds of sets side by side and are the fastest way to check coverage. Use them to compare and to check glyphs; do not fetch icon geometry from an icon API at runtime.
 
+An icon lookup server or local index is a convenience for finding exact names, not a dependency. If you use one, restrict results to a set whose licence permits commercial use in the product, record the exact set and version in the project's design notes, and never call it during build or at runtime. Hugeicons is an example where this matters: its README lists 6,000+ free icons under MIT beside a much larger paid catalogue, so free and paid results are not interchangeable.
+
 **Runtime icon fetching is a defect in most products.** It adds a third-party request on the critical path, shifts layout when icons resolve late, and fails closed on restricted networks. Bundle the icons you use, or inline the SVG paths.
 
 ## Sizing and alignment

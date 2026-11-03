@@ -82,7 +82,7 @@ Registry selection is not a beauty contest. Compare the precise interaction, lic
 
 ### Animated component marketplaces
 
-A large class of registries sells the same artifact under different prices: React plus Tailwind, animated, installed as source through the shadcn CLI, marketed as an "agent-ready interaction layer". Examples include paid catalogs such as [Planes](https://useplanes.com) and [Arc UI](https://uiarc.dev), and free sets such as [Kokonut UI](https://kokonutui.com), [Aceternity UI](https://ui.aceternity.com), and [Magic UI](https://magicui.dev). They are compatible with the default stack by construction, so compatibility is not the deciding question.
+A large class of registries sells the same artifact under different prices: React plus Tailwind, animated, installed as source through the shadcn CLI, marketed as an "agent-ready interaction layer". Examples include paid catalogs such as [Planes](https://useplanes.com) and [Arc UI](https://uiarc.dev), free sets such as [Kokonut UI](https://kokonutui.com), [Aceternity UI](https://ui.aceternity.com), and [Magic UI](https://magicui.dev), and mixed free-and-paid registries such as [21st.dev](https://21st.dev). They are compatible with the default stack by construction, so compatibility is not the deciding question.
 
 Two questions decide, and only two:
 

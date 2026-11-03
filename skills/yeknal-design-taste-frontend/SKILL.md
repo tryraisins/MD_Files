@@ -71,7 +71,7 @@ A reference clip is not a timing specification. Recreate purpose and perceived p
 
 - Inspect the package manifest before importing anything. Reuse the installed framework, styling system, and primitives.
 - Preserve semantic HTML, route behavior, focus order, forms, state, data bindings, side effects, errors, and analytics.
-- Prefer real, approved product images and truthful sample data. Label fixtures and placeholders; never invent realistic people, dates, metrics, endorsements, or logos to make a mockup appear live. Generate imagery only when the user authorizes it and it has a clear content role, and record that it is generated where disclosure matters.
+- Prefer real, approved product images and truthful sample data. Label fixtures and placeholders; never invent realistic people, dates, metrics, endorsements, or logos to make a mockup appear live. Generate imagery only when the user authorizes it and it has a clear content role, and record that it is generated where disclosure matters. When the deliverable is an authored product still or loop rather than working UI, that rule is enforced by `yeknal-product-scenes`.
 - Use fluid constraints, intrinsic layout, grid or flex according to the relationship, `dvh` where a dynamic viewport is genuinely required, and intentional overflow only.
 - Keep client-side animation and pointer work isolated from static rendering. Clean up observers, timelines, listeners, and asynchronous work.
 - Meet the repository's performance and accessibility gates; decorative ambition does not waive them.

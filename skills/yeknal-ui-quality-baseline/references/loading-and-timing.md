@@ -10,6 +10,14 @@ Choose feedback by what the user is waiting for:
 - Keep shimmer quiet and directional. Under `prefers-reduced-motion`, use a static or gently fading placeholder.
 - Do not show skeletons for destructive writes or short button actions; they imply content is arriving, not that a mutation is processing.
 
+### Server-rendered and already-available content
+
+- Never replace content the server already rendered with a skeleton when client JavaScript takes over. Swapping real text for placeholders and back costs the user the same content twice and reads as a regression, not a load.
+- When data resolves inside the 120-200ms reveal delay, skip the placeholder and render the content. A skeleton that flashes for one frame is worse than the wait it covered.
+- Reserve image geometry with `width` and `height` attributes or `aspect-ratio` before the file arrives, so revealing it causes no layout shift.
+- Reveal an image as it decodes rather than gating the whole region on it, and put the fade behind the reduced-motion guard.
+- Treat visible server-rendered content as final. A skeleton is for content that has not arrived, never for content the runtime has not hydrated yet.
+
 ### Action or process loading
 
 - A pending button keeps its label or an equally clear status, retains its dimensions, sets `aria-busy`, prevents accidental duplicate submission, and remains understandable without animation.

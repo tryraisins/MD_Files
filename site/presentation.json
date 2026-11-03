@@ -1034,6 +1034,35 @@
         "yeknal-finalize"
       ]
     },
+    "yeknal-product-scenes": {
+      "title": "Product scenes",
+      "purpose": "Builds authored faux product UI for marketing and social surfaces, such as hero stills, feature cards, cursor demos and bento grids, derived from the real product and labelled so a picture is never mistaken for a live screenshot.",
+      "tasks": [
+        "design"
+      ],
+      "whenToUse": [
+        "You need a hero image, changelog card or social still of the product.",
+        "A launch page needs a feature card or bento grid showing real screens.",
+        "You want a short loop that shows one interaction and its result.",
+        "An existing mockup has invented metrics, names or logos in it."
+      ],
+      "avoid": "Not for building the working interface, and not for general UI motion. Use it for the exported image or loop itself.",
+      "example": {
+        "ask": "Make a hero image and a short loop for the invoice feature.",
+        "outcome": "It derives the real product tokens, composes one scene around a single claim, exports the still and the loop at their display sizes, and keeps the exports as the evidence."
+      },
+      "attribution": {
+        "credit": "Written for this catalog. Names Stageshow by Benji Taylor as a reference implementation without copying it.",
+        "license": "MIT",
+        "sourceUrl": "https://github.com/benjitaylor/skills/tree/main/stageshow"
+      },
+      "related": [
+        "yeknal-design-taste-frontend",
+        "yeknal-brandkit",
+        "yeknal-pick-ui-library",
+        "yeknal-animate"
+      ]
+    },
     "yeknal-prototype": {
       "title": "Prototype variants",
       "purpose": "Builds several genuinely different versions of a UI piece behind a visual picker, so you can flip between them live and keep the one that feels right.",

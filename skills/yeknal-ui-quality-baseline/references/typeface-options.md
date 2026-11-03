@@ -22,6 +22,19 @@ Failing any one of these makes a family ineligible, however good it looks. Price
 
 Coverage was read from the served weight-400 file's character map, not from a listing page. Re-check if you load a different subset, source, or weight.
 
+## Checked and not admitted
+
+Recorded so the same fashionable faces are not re-evaluated from scratch. None is a candidate until the blocking item in the last column is fixed.
+
+| Family | Licence and source | Why it failed |
+|---|---|---|
+| Figtree | SIL OFL 1.1 via Google Fonts | Coverage. The variable file maps 391 code points and omits every Yoruba and Igbo dot-below letter: U+1EB9 (ẹ), U+1ECD (ọ), U+1E63 (ṣ), U+1ECB (ị), U+1EE5 (ụ), and U+1E45 (ṅ), plus the combining dot below U+0323 and the naira sign U+20A6. It cannot set product copy for those locales, and a fallback would break the metrics mid-string. |
+| Switzer | ITF Free Font License via Fontshare (Indian Type Foundry) | Coverage, and the licence text is served only with JavaScript, so its self-hosting terms are still unconfirmed. Its variable file maps 385 code points and omits the same six dot-below letters, U+0323, U+0301, U+0300, U+20A6, U+2116, and the arrow U+2192. |
+| Geist Serif | SIL OFL | Not yet shippable. It exists only on a pre-release canary tag (`serif-preview`) of the `geist` package, so there is no stable file a project can depend on. Revisit once it ships a normal release. |
+| Brodine | Commercial licence only | Licence. It is not self-hostable under a free licence, so it fails the first clause regardless of quality. A project that buys it may use it and record it there. |
+
+Coverage for Figtree and Switzer was read from each variable TrueType file's `cmap` table by probing the glyph groups the admission test cares about, not by trusting the listed subsets. The same probe passes on the admitted Plus Jakarta Sans row, which maps 721 code points and contains all six dot-below letters, the combining marks, and the naira sign, so the probe is not the cause of these failures. Geist Serif's status was read from the package's published version tags.
+
 ## Pairing
 
 Pair a candidate across a real contrast axis, never with another face of the same class at the same size. The rules and the failure mode are in [Pairing](typography.md#pairing).

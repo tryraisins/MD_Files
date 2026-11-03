@@ -202,6 +202,7 @@ The consolidated routers are `yeknal-orchestration-specialists` and `yeknal-rese
 - `yeknal-break-ui`: adversarial worst-case data stress testing that renders demo and edge-case fixtures behind a dev-only toggle and reports each break with its fix; it complements the shared baseline's mobile web platform layer rather than duplicating it.
 - `yeknal-oil-motion`: a specialized workflow for generated or captured frame-based interactive media, adapted from `oil-oil/oil-motion`.
 - `yeknal-pick-ui-library`: dependency-aware component selection with Rare UI, beUI, Spectrum UI, and Spell UI treated as inspectable source registries, not default dependencies.
+- `yeknal-product-scenes`: authored faux product UI for marketing and social surfaces, such as hero stills, feature cards, cursor demos, and bento grids, built from the real product's tokens and exported with the artifact kept as evidence. It names Stageshow as an MIT-licensed reference implementation without vendoring it.
 
 ### Research and response modes
 
@@ -330,6 +331,7 @@ This catalog adapts and consolidates work from many upstream authors. Full sourc
 - Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack) (MIT) for `yeknal-verification-harness`, which now also carries the upkeep loop from the former `yeknal-verification-audit`.
 - Vercel, Cloudflare, Netlify, Render, Sentry and GitHub for the deploy and operations skills retained in the catalog.
 - Rare UI (MIT + Commons Clause + Attribution), referenced for component selection; not vendored. Any project that installs a Rare UI component must retain its notice and add a README credit linking to [rareui.com](https://www.rareui.com).
+- Benji Taylor's [Stageshow](https://github.com/benjitaylor/skills/tree/main/stageshow) (MIT), named as the reference implementation behind `yeknal-product-scenes`. Its kit and text are not copied; the credit records where the method was read.
 
 ## License
 

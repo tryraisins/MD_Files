@@ -69,6 +69,7 @@ These match upstream skill names published on skills.sh. They are MIT-licensed u
 | `yeknal-animate` (rendered video reference), `yeknal-design-reference-research` | Reviewed [MotionVideo](https://motionvideo.xyz/en) on 2026-10-26 as a gallery of AI-made motion clips. Its public technique categories informed the wording of our own technique table; no clip, prompt, or skill text is copied, and its separately sold skill pack is not vendored. |
 | `yeknal-pick-ui-library`, `yeknal-ui-quality-baseline` | Reviewed [Arc UI](https://uiarc.dev), [Shaders](https://github.com/shader-effects-inc/shaders) (MIT), [snapcn](https://snapcn.dev) (MIT), and [React Bits](https://github.com/DavidHDev/react-bits) (MIT + Commons Clause) as library references only. React Bits is not vendored; any project copying its source must keep its notice and observe the Commons Clause. |
 | `yeknal-design-taste-frontend`, `yeknal-slopscan` | The precision tell list is an independent rewrite informed by publicly discussed AI-tell patterns, including Hallmark's floor. Wording is ours. |
+| `yeknal-product-scenes` | Reviewed [Stageshow](https://github.com/benjitaylor/skills/tree/main/stageshow) by Benji Taylor on 2026-11-03, including its `LICENSE` (MIT, Copyright 2026 Benji Taylor) and `README`. The claim-first structure, honesty rules, composition geometry, and capture verification are written here; no upstream text, kit component, or example asset is copied, and the MIT kit is not vendored. |
 
 ## Original skills (no upstream identified)
 
