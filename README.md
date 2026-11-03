@@ -115,7 +115,7 @@ npx yeknal security
 | `npx yeknal skills --skills design-reference-research,prototype --project` | Syncs only those named skills into one repository. |
 | `npx yeknal skills --project --add --skills slopscan` | Adds missing skills to the current repository without deleting or replacing existing skills. |
 | `npx yeknal skills --project --add --prune-archived --skills slopscan` | Same additive sync, plus removal of retired skills listed in `archived.json`. |
-| `npx yeknal skills --all` | Syncs every published skill (57 folders) for legacy or exhaustive setups. |
+| `npx yeknal skills --all` | Syncs every published skill (58 folders) for legacy or exhaustive setups. |
 | `npx yeknal profiles` | Lists available profiles, sizes, and skill names without downloading skills. |
 | `npx yeknal security` | Syncs the four security skills, scans the current folder, and writes text, JSON, and SARIF reports. |
 | `npx yeknal slopscan` | Scans the current folder for AI-slop indicators and writes a readable log and a JSON report with fixes. |
@@ -124,7 +124,7 @@ npx yeknal security
 
 ### Install with skills.sh
 
-The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (57 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
+The catalog is published to the [skills.sh](https://skills.sh) directory under unique `yeknal-*` slugs. The `skills/` folder holds the published set (58 skills); internal specialists remain installable with `npx yeknal skills` but are hidden from skills.sh discovery.
 
 ```bash
 npx skills add tryraisins/MD_Files --list
@@ -169,9 +169,9 @@ Specialist packs add depth without forcing every style, platform, integration, o
 | `process` | 11 | Agent cost, Git operations, browser automation, delivery extras, legacy sweeps, GitHub, and verification upkeep beyond core. |
 | `design` | 22 | Specialist visual styles, motion, prototyping and design evidence. |
 | `security` | 5 | The five distinct security output contracts. |
-| `web` | 5 | Specialist SEO, agent readability, performance, launch readiness and production errors beyond core. |
+| `web` | 6 | Specialist SEO, agent readability, performance, hot-path auditing, launch readiness and production errors beyond core. |
 | `platform` | 2 | Deployment routing and launch readiness. |
-| `all` | 57 | Every catalog entry; use when discovery cost is acceptable. |
+| `all` | 58 | Every catalog entry; use when discovery cost is acceptable. |
 
 Design is consolidated at the routing layer rather than flattened into one oversized skill. `yeknal-frontend-design`, `yeknal-ui-quality-baseline`, `yeknal-design-reference-research`, `yeknal-redesign-existing-projects` and the shared motion workflows (`yeknal-animate`, `yeknal-animate-expo`, `yeknal-apple-design`, `yeknal-improve-animations`, `yeknal-review-animations`) provide the core paths. Aesthetic systems, prototyping and mobile workflows remain in the design pack because their triggers and output contracts differ. Deploy is one router (`yeknal-deploy`) that reads the provider from repository configuration, because four descriptions that all matched "deploy this" cost more in routing accuracy than they returned. Security keeps five folders for the same reason: implementation, review, auditing, threat modeling, and ownership analysis are not interchangeable artifacts.
 

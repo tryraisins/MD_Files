@@ -39,6 +39,14 @@ For TypeScript, Python, and Go, look for defensive over-engineering that obscure
 
 Do not flag real boundary validation, domain-specific normalization, idiomatic language error handling, framework-mandated interfaces, cancellation, retries, or deliberate public compatibility. A finding must name the actual contract, the observable risk or maintenance cost, and the smallest behavior-preserving simplification. Never recommend deleting a guard merely because it is defensive.
 
+### Implicit state review
+
+When a change touches durable state, a multi-step flow, or flags that gate a screen, look for a state machine that exists but was never named. Inspect `CHECK (x IN (...))` constraints, status, state, stage, or phase columns, a status column beside a history table, mirrored booleans such as `isLoading` with `isError` with `hasData`, nullable timestamps that mean "running", lease and lock columns, staged preference fields, and wizard step numbers.
+
+For each, report the states, every site that writes a transition, the transitions that are currently representable but should not be, and any fact stored twice. The defect to name is a combination that can be reached and must not be, or two writers that disagree about which transitions are legal.
+
+Recommend only the smallest correction the defect needs: an atomic guard at the writer (`UPDATE ... WHERE status = ANY(...)` plus a row-count check, never a read, a check, then a write), a constraint that removes the impossible combination, or deleting the duplicated truth. Do not recommend a generic transitions framework, a statechart library, or converting every enum into a machine. A solo project can over-engineer a small tool this way, and an explicit machine without a defect behind it is new maintenance for no behavior. Where the model itself is unclear, say so and point to `yeknal-domain-modeling` instead of inventing vocabulary. For a sweep of the whole application rather than a review of one change, use `yeknal-hot-path-audit`.
+
 ## Output
 
 - One summary line: what was reviewed, against what comparison point, and what could not be verified.

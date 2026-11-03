@@ -34,6 +34,8 @@ Each row is a hypothesis until the trace supports it. After the fix, re-run the 
 | One query per row | Query log repeats the same statement | Join, batch, or eager-load in one query | Very large | Shape changes in the API | Query count and total time |
 | Page 20 is slow | Full scan, offset pagination, no index | Composite index matching filter and sort, cursor pagination | Very large | Migration and backfill | `EXPLAIN`, p75 for deep pages |
 | Huge payload | Response size far above rendered data | Select needed fields, trim nested objects, compress | Large | Consumers expecting fields | Bytes and parse time |
+| Whole row for two fields | Query returns wide rows or a TOASTed column; caller reads a few fields | Project the fields in the query, keep filter and sort keys, add a covering index | Medium to large | A `SELECT *` serialized into the response changes the payload | Row width, bytes, query time |
+| One JSONB key on a hot read | `->>` on a large document, `pg_column_size` far above the keys read | Expression index first, then a stored generated column, then a real column | Medium to large | Backfill and a dual-write window where column and document disagree | Plan, bytes, p95 query time |
 | Duplicate requests | Same URL requested twice at once | Shared in-flight promise, cache layer | Medium | Cache key mistakes | Request count per screen |
 | Images late and heavy | LCP is an image, bytes exceed slot | Size correctly, modern format, priority on the LCP image | Large | Quality regression | LCP and bytes |
 | Whole list renders | DOM node count grows with data | Virtualize, paginate, or both | Large | Find-in-page, accessibility | Node count, scroll p95 |
@@ -62,6 +64,10 @@ These changes often look like improvements and are not:
 - **Removing content or states.** Smaller page, broken product.
 - **Measuring a dev build.** The numbers describe a different app.
 - **Optimizing a once-per-session path.** The user pays per interaction, not per install.
+- **Replacing `new URL()` with string handling.** It is often the correct, safe parser, and this catalog's security guidance mandates it with a protocol and host allowlist. Parse once and pass the parsed object; never remove the parse.
+- **Hoisting a regex literal.** Engines cache compiled literals, so this is style, not speed. Only a pattern compiled from a runtime value inside a loop pays a real cost, and a hoisted `/g` or `/y` pattern carries `lastIndex` across calls, which causes intermittent false results.
+- **Promoting a JSONB key to a column by default.** An expression index or a stored generated column usually serves the read without a migration, and promotion adds a backfill plus a dual-write window where the column and the document disagree.
+- **Parallelizing awaits that are ordered by consequences.** A save and an email look independent and are not: `Promise.all` sends the email when the save fails.
 
 ## Order of work
 

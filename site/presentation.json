@@ -627,6 +627,31 @@
         "yeknal-yeet"
       ]
     },
+    "yeknal-hot-path-audit": {
+      "title": "Hot-path audit",
+      "purpose": "Reads the code paths that run on every request and prices the cost hiding in ordinary code: serialized I/O, whole rows and JSONB documents fetched for a few fields, repeated URL parsing and regex construction, hot keys trapped in large JSONB, and state that is really an undocumented state machine.",
+      "tasks": [
+        "build",
+        "review"
+      ],
+      "whenToUse": [
+        "Something feels slow and you suspect the code path rather than the screen.",
+        "You are about to touch durable state and want the implicit state machine named first.",
+        "A query loads a whole row or a large document to read two fields.",
+        "You want the micro-optimizations rejected out loud instead of argued about later."
+      ],
+      "avoid": "It does not produce the before and after numbers, and it does not diagnose a broken feature. Use App performance when the claim needs a measurement, and Troubleshoot when something does not work.",
+      "example": {
+        "ask": "Audit the checkout request path and tell me what is structurally expensive.",
+        "outcome": "It records a baseline, prices each finding by call site and frequency, splits the three genuinely unordered calls, projects two over-wide queries, and lists the regex hoists it rejected as noise."
+      },
+      "related": [
+        "yeknal-performance",
+        "yeknal-review",
+        "yeknal-troubleshoot",
+        "yeknal-domain-modeling"
+      ]
+    },
     "yeknal-high-end-visual-design": {
       "title": "High-end visual design",
       "purpose": "Creates art-directed, showcase-level web interfaces with a product-specific visual idea, expressive type, deliberate composition and considered motion.",

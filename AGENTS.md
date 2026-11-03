@@ -60,7 +60,8 @@ data-dense UI, a secondary label that distinguishes rows, states, or metrics is
 content. If a screen needs explanation to make sense, fix the layout instead of
 adding copy.
 
-This standard reaches every install because `yeknal-ui-quality-baseline` carries it.
+This standard reaches every install because `yeknal-implement` carries the three-audience rule
+and its conflict order, and `yeknal-ui-quality-baseline` carries the copy discipline.
 
 ## Portfolio skills library
 

@@ -17,6 +17,18 @@ Turn a requested behavior into the smallest complete, verified repository change
 
 Do not invent tools, agents, packages, or integrations. Inspect what is actually installed before relying on it.
 
+## The UX, DX, and AX standard
+
+Three people open every screen: the user experience (UX), the developer experience (DX), and the agent experience (AX) that edits it next. Serve all three, or you are robbing one to pay another.
+
+- UX: clear hierarchy, fewer steps to the goal, accessible by default, responsive, fast, honest loading and error states.
+- DX: readable, conventional, consistently named, typed where the stack allows, testable through its real entry point, and free of cleverness that needs a comment to excuse it.
+- AX: discoverable structure, stable file and symbol names, explicit conventions, machine-readable configuration, and no hidden magic or implicit state an agent cannot see from the repository.
+
+When the three genuinely conflict, keep the product correct first, then protect UX, then weigh DX and AX equally. Never trade UX for a tidier abstraction, and never trade DX or AX for a prettier screen.
+
+A label that only exists to explain the layout is a layout bug. Fix the hierarchy, grouping, spacing, control names, or visible state instead of adding a caption. Required field labels, error messages, consequence warnings, accessibility text, and secondary labels that distinguish rows or states all stay. The full copy rules live in `yeknal-ui-quality-baseline`.
+
 ## Workflow
 
 1. Read the relevant source, tests, configuration, documentation, and working-tree state.
@@ -37,6 +49,7 @@ Add deterministic automation when an operation is repeated, regression-prone, sa
 
 - Do not replace a working path with placeholders, mock data, redirects, or cosmetic approximations.
 - Do not change data contracts, dependencies, authentication, storage, or deployment behavior silently.
+- Do not add a flag when the product needs a state. Name the states, keep the legal transitions in one place, and enforce them atomically in the store rather than with a read, a check, then a write.
 - Do not claim static analysis proves runtime, browser, tenant, database, payment, or production behavior.
 - Do not estimate completion time unless the user asks.
 - Do not commit or push unless the user requested it.

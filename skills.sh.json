@@ -13,6 +13,7 @@
         "yeknal-domain-modeling",
         "yeknal-finalize",
         "yeknal-git",
+        "yeknal-hot-path-audit",
         "yeknal-implement",
         "yeknal-legacy-sweep",
         "yeknal-markdown-management",
