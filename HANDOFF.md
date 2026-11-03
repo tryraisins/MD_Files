@@ -1,8 +1,22 @@
 # Project Handoff
 
-Last updated: 2026-11-02
+Last updated: 2026-11-03
 Branch: main
-HEAD: see git log; 2.9.0 release tagged `v2.9.0`
+HEAD: see git log; 2.11.0 release tagged `v2.11.0`
+
+## Hot-path audit shipped, state review went to review (2026-11-03)
+
+A set of viral performance and AGENTS.md tweets was reviewed by Sonnet 5.5, Go DeepSeek V4 Pro and GPT-6.1 Terra (Terra returned HTTP 400 twice and was replaced by the Go reasoning lane). **Decision: one new skill, and no new skill for the other half.** The tweets bundled six directives; only five are a cost sweep, and the sixth is correctness with a different trigger.
+
+**Added.** `yeknal-hot-path-audit` (58th skill, `web` profile, Process and reasoning group) audits request-time paths in five classes: serialized I/O, over-fetching, redundant URL and path parsing, regex construction, and hot keys in large JSONB. It carries a five-part finding contract (site, cost, frequency, gain, risk), three fix tiers with only the safe tier runnable under `--fix`, and a mandatory "rejected as noise" section so micro-work is not re-litigated. `yeknal-review` gained an `Implicit state review` lens under Focused lenses: states, transition writers, representable-but-illegal combinations, and duplicated truth, with atomic guards in the store and an explicit ban on a generic transitions framework. `yeknal-implement` gained the UX, DX, and AX standard plus the "a label that only explains the layout is a layout bug" rule, and a guardrail against adding a flag where the product needs a state. `yeknal-performance/references/fix-catalog.md` gained two Content load rows (whole row for two fields, one JSONB key on a hot read) and four Traps entries.
+
+**Corrected.** `AGENTS.md` claimed `yeknal-ui-quality-baseline` carries the three-audience standard; it carries only the copy half. The claim now names `yeknal-implement` for the triad and the baseline for copy.
+
+**Rejected, deliberately.** The tweets' literal wording for `new URL()` and module-level regex. `new URL()` is the parser this catalog's own security references mandate with a protocol and host allowlist, and a hand-rolled replacement is the classic SSRF and open-redirect vector; the adopted form is "parse once and pass the object". Regex literals are compiled and cached per site, so hoisting one is style, not speed; only a `new RegExp`/`re.compile` from a runtime value inside a loop is real, and a hoisted `/g` or `/y` pattern carries `lastIndex` into a correctness bug. Also rejected: promoting a JSONB key by default (expression index, then stored generated column), a separate state-machine skill (no distinct trigger or procedure), and the tweet's "if the screen needs a caption the screen is broken" as a standalone rule (it would strip required labels).
+
+**Verified:** `audit-skills.ps1` 58 skills, 0 errors, 0 warnings; `audit-markdown-links.ps1` 405 files, 206 links, 0 unresolved; `verify-skill-references.js` 7/7 (58 skills, 58 presentation entries, 6 packs, 38 `llms.txt` entries); `npm test` in `yeknal-cli` 50/50; `build-catalog.js --check` clean at `3ca7666`; `sync-portfolio.js --validate` valid at `3f3855a`. E2E: the portfolio build emitted `dist/skills/hot-path-audit/index.html` with the presentation copy and the sitemap entry, and the deployed `gh-pages` tree (`56355e6`) serves that page; `npx yeknal@2.11.0 skills --all` installed 58 folders and the installed `SKILL.md` is byte-identical to the repo file.
+
+**Published.** Source `2459c7d` with the catalog repinned in `8838e92` and again in `3ca7666` after the version bump `3f3855a`, tag `v2.11.0`, CI green on `3ca7666`. `yeknal@2.11.0` is on npm with shasum `2976edecd90a5511e93ed780cbdd17de91691e29`, published from the authenticated local client because trusted publishing stays dormant. Portfolio synced in `c4ea14d`, Deploy GitHub Pages green. Unverified: the public `https://tryraisins.dev/skills/hot-path-audit/` could not be fetched from this machine (transport blocked, `status=000`), so live proof is the `gh-pages` commit contents rather than a public response.
 
 ## Unslop absorbed as a calibration gate, not a new skill (2026-11-02)
 
