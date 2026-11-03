@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "ae2fa4e4ee981ac184880fad8de8b8474748a198",
+  "sourceRevision": "2459c7d4a4cb5f057943ff049c85c44ac24d0b8d",
   "version": "2.10.0",
   "skills": [
     {
@@ -1198,6 +1198,58 @@
       ]
     },
     {
+      "name": "yeknal-hot-path-audit",
+      "description": "Audit the code paths that run on every request for cost that hides in ordinary code: serialized I/O that could be one round trip, whole rows and JSONB documents fetched for a few fields, redundant URL parsing and regex construction, single hot keys trapped in large JSONB, and state that is really an undocumented state machine. Use for a hot-path review, a why-is-this-slow pass, or before a refactor that touches durable state.",
+      "keywords": [
+        "and",
+        "audit",
+        "before",
+        "check",
+        "classes",
+        "construction",
+        "contract",
+        "fits",
+        "five",
+        "fix",
+        "format",
+        "hot",
+        "hot-path",
+        "invocation",
+        "jsonb",
+        "keys",
+        "large",
+        "machines",
+        "measure",
+        "output",
+        "over-fetching",
+        "parsing",
+        "path",
+        "paths",
+        "redundant",
+        "regex",
+        "scan",
+        "serialized",
+        "state",
+        "the",
+        "this",
+        "tiers",
+        "traps",
+        "url",
+        "verification",
+        "where",
+        "yeknal-hot-path-audit",
+        "you"
+      ],
+      "version": "cb69894faf271cb4df05a47b0543d8b17161be40986db46ea36dc3b3144198a6",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "8e0992b28a14b8f040c66a2c8bf55d8de722219cbd8f5f3beebbb504aca7a507",
+          "size": 13440
+        }
+      ]
+    },
+    {
       "name": "yeknal-human-ai-interface-design",
       "description": "Design AI-mediated interfaces that earn appropriate reliance: capability, provenance, uncertainty, approval, failure, and recovery. Use when an AI feature proposes, generates, retrieves, or acts, and the user must verify, approve, or undo it.",
       "keywords": [
@@ -1252,6 +1304,7 @@
       "name": "yeknal-implement",
       "description": "Implement a scoped feature or fix end to end while preserving repository behavior. Use when the user asks to build, change, add, or repair code; not for the closing gates, review, or publication, which is `yeknal-finalize`.",
       "keywords": [
+        "and",
         "from",
         "guardrails",
         "implement",
@@ -1259,16 +1312,18 @@
         "precedence",
         "repeatable",
         "separate",
+        "standard",
+        "the",
         "work",
         "workflow",
         "yeknal-implement"
       ],
-      "version": "3f090e546238c870edcd9c60c1158af86ab6930012b9dda883deb9a6c61f3b6e",
+      "version": "6eb50e8e61e8974a5c385a972f68d113542baa32de679c6abd382aca7a0bc21d",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "d315cf4f821c49d626c6877997437446b436f0cc5ec3d61883ecad08248c06dd",
-          "size": 3102
+          "sha256": "1594343218910a6fda1d056d9067220804e82eba68b4d3a0d7ab4e80091cc791",
+          "size": 4592
         }
       ]
     },
@@ -1800,12 +1855,12 @@
         "workflow",
         "yeknal-performance"
       ],
-      "version": "6a5f98076857a5d34a599332efcd41de844ccf0e4929039e8db4877b31708e68",
+      "version": "784e18eec438c93177906718ae6e0711c323492ec013d088da6e09fb613e5677",
       "files": [
         {
           "path": "references/fix-catalog.md",
-          "sha256": "ab7d6b837b64bb1850efaa0bf63d3843c050750277f66e64256053c489a004b8",
-          "size": 6762
+          "sha256": "3431ff32eeaf411a2d7b34143b8617930b1648c3dbe95f77e9a2170d9ab8d09c",
+          "size": 8281
         },
         {
           "path": "references/measuring.md",
@@ -2148,6 +2203,7 @@
         "change",
         "dead-code",
         "focused",
+        "implicit",
         "independent",
         "inspect",
         "language",
@@ -2156,16 +2212,17 @@
         "refactoring",
         "review",
         "simplification",
+        "state",
         "the",
         "two",
         "yeknal-review"
       ],
-      "version": "78fc177a82594536e98108784c694b00261ce35ff52b3b016fe09f89502fc678",
+      "version": "51d2899de67e6f6b1ce5f4bc6b670f3b6705e35c54c464e113af47bccaf53053",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "f0bf88b3f14fdbbff83904db083c7aa611e85e57036cc24d987d7b68472e6aa0",
-          "size": 4001
+          "sha256": "84331fd9629646ca401e08bc7db18384fb60935e74c9c4cd1a615d1c6aa8aad9",
+          "size": 5525
         }
       ]
     },
