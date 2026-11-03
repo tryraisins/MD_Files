@@ -18,7 +18,9 @@ The viral [unslop](https://github.com/heydamir/unslop) skill (CC BY 4.0, 5.6k st
 
 **Published.** Source `629b37f` with the catalog repinned in `ae2fa4e` and `e4871a2`, tag `v2.10.0`, CI "Validate skills and CLI" green on `e4871a2`. `yeknal@2.10.0` is on npm with shasum `eda2721f8a3b84c401e3734a48b150d3d03362f8`, published from the authenticated local client because the trusted-publishing workflow is still dormant (no `NPM_TRUSTED_PUBLISHING_ENABLED` variable, so the release event skipped its job). Portfolio synced in `fc7e2c5`, Deploy GitHub Pages green. Live proof: `https://tryraisins.dev/skills/redesign-existing-projects/files.json` serves `sourceRevision` `ae2fa4e` with `SKILL.md` at 10,580 bytes, and the served file carries "Decide how much change is justified", "Work one property at a time" and the unslop credit; the same URL served `fb49e8e` for about 90 seconds after deploy, so check twice with a cache-busting query.
 
-**Still open.** The rules have not been exercised on a live rendered screen, so their effect on real design output is unproven. Enabling npm trusted publishing is a separate repository decision that needs the OIDC connection first.
+**Still open.** The rules have not been exercised on a live rendered screen, so their effect on real design output is unproven.
+
+**Trusted publishing declined (2026-11-03).** OIDC publishing was set up as far as the repository variable and then dropped. It buys exactly two things, no long-lived token in GitHub and a provenance badge, at the cost of a first publish that must land within two days of configuring the publisher. Publishing from the authenticated local client already works and has no deadline, so `npm publish` stays the release path and `NPM_TRUSTED_PUBLISHING_ENABLED` is deleted, which leaves the release-triggered workflow dormant instead of failing its job. Revisit only if provenance becomes a requirement, and use the CLI (`npm trust github yeknal --file publish.yml --repo tryraisins/MD_Files --allow-publish`, npm 11.15 or later) rather than the settings page.
 
 ## Launch quick pass corrected after a Terra review (2026-11-02)
 
