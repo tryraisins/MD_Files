@@ -19,7 +19,9 @@ Do not use it for:
 - Brand identity boards. That is `yeknal-brandkit`.
 - Rendered product video from real components. That is the Remotion row in `yeknal-pick-ui-library`.
 
-`Stageshow` ([benjitaylor/skills/stageshow](https://github.com/benjitaylor/skills/tree/main/stageshow), MIT, Copyright 2026 Benji Taylor) is the open reference implementation of this craft: it ships composition and motion guidance, a React kit to copy from, examples, and tooling that films the result. Read it for method. Do not vendor its kit or inherit its aesthetic defaults. The brief and the product decide the look.
+`Stageshow` ([benjitaylor/skills/stageshow](https://github.com/benjitaylor/skills/tree/main/stageshow)) is the open reference implementation of this craft: it ships composition and motion guidance, a React kit, examples, and tooling that films the result. Its **source** is MIT (Copyright 2026 Benji Taylor). Its bundled artwork is not: `NOTICE.md` records app icons taken from product bundles, brand SVGs under their own licences, and product and OS names that stay with their owners and grant no trademark rights. Read it for method. Do not vendor the kit, do not reuse its icon or brand artwork, and do not inherit its aesthetic defaults. The brief and the product decide the look.
+
+This skill owns stills and single-shot loops of five seconds or less. A multi-shot launch film, a narrated demo, or anything cut between scenes belongs to [rendered video](../yeknal-animate/references/rendered-video.md), which can use these scenes as its shots.
 
 ## The scene makes one claim
 
@@ -43,6 +45,8 @@ Every scene is derived, never invented. Read the actual product before drawing a
 
 Then subtract. A scene shows one surface at readable size, not a dashboard shrunk to illegibility. If the real screen is too dense to read at the target size, crop it and enlarge it rather than shrinking the whole thing.
 
+If there is no real product to derive from, do not manufacture one. Either build the screen first, or make a type-led card that states the claim in the product's own words with no fake interface behind it, or stop and ask. An invented product UI is the single most common way this craft produces something worthless.
+
 ## Honesty rules
 
 These are inherited from the evidence rule in `yeknal-design-taste-frontend`. They are not optional decoration, because a faux scene is the one place where a picture can be mistaken for proof.
@@ -52,6 +56,8 @@ These are inherited from the evidence rule in `yeknal-design-taste-frontend`. Th
 - Never compose a scene so it reads as a screenshot of a running production build, especially any scene implying connected accounts, live traffic, or real customer data.
 - Label the artifact where it appears: "Illustration", "Sample data", or the product's own wording. One visible label, in the layout, not a footnote.
 - Put the label inside the image when the artifact will be posted where a caption cannot travel with it. A caption only carries the disclosure where the placement keeps it attached.
+- Render the label at a readable size and at least 4.5:1 against whatever sits behind it. A label nobody can read is not a disclosure.
+- Localise the sample content the way the product would: currency, dates, names, and address order. Translate the label too. A scene in English over a localised product contradicts the claim.
 - If a scene depicts a capability that is not shipped, the scene does not ship. Do not illustrate a roadmap as a screenshot.
 
 ## Choose the form before the layout
@@ -69,12 +75,15 @@ One scene, one form. A bento grid of cursor demos is two forms arguing.
 
 ## Compose at final size
 
-Design at the size and ratio the artifact will be displayed at, then export at twice that for retina. Never design at desktop width and scale down.
+Design at the size and ratio the artifact will be displayed at, then export at twice that for images placed in a page. Never design at desktop width and scale down.
 
-- Pick the ratio first: 16:9 for hero and video, 4:3 or 1:1 for social and changelog, 9:16 for stories, 3:2 or 1.91:1 for link previews.
+- Pick the ratio first: 16:9 or 21:9 for a hero, 1:1 or 4:5 for social, 3:2, 4:3 or 1.91:1 for a card or link preview, 9:16 for stories, 2:1 or 3:1 for a README banner.
+- Resample for the placement, not uniformly. A page image exports at 2x of its displayed size. A link preview must be exactly 1200 by 630, so 2x makes it invalid. Video exports at native resolution.
 - Recompose per ratio. Cropping a 16:9 scene to 9:16 deletes the product. A vertical version needs its own crop, its own type size, and often a different single element.
-- Keep the type scale honest. Body text inside a scene must still read at the exported size; if it does not, the scene is showing too much.
+- Judge type at the smallest placement, not the design width. Text that is 14px on a 1600px canvas renders near 9px in a 1200px container and near 3px on a phone, so size it for the smallest container that will show it, and ship a separate mobile crop rather than one image for every width.
 - Leave one deliberate focal point and let the rest recede. Everything at equal contrast is a texture, not a picture.
+
+For a page or a bento set, treat the scenes as one system: shared canvas, frame treatment, corner radius, type scale, and label rule. One claim per tile. Allow one autoplaying loop per viewport; the rest are stills, or play once when scrolled into view.
 
 Full geometry, crops, bento construct, and safe zones: [scene composition](references/scene-composition.md).
 
@@ -84,7 +93,7 @@ Motion in a scene is the action and its consequence. Nothing else moves because 
 
 - One causal chain: pointer arrives, presses, the surface responds, the result settles.
 - Time the response the way the real component would. A press that resolves in 80ms in the product must not take 600ms in the scene.
-- Give the loop a reset. Returning to frame zero through a visible transition is a defect; hold the result, then cut, or fade to the next pass.
+- Give the loop a reset. Animating back to frame zero is a defect; hold the result, then cut, or fade to the next pass.
 - Never animate a loading state the product would not show, and never fake a progress bar.
 - Poster frame for reduced motion and for still export: the state that carries the claim, not an empty first frame.
 
@@ -94,11 +103,12 @@ Timings, easing, cursor choreography, and capture: [scene motion and capture](re
 
 A scene is finished when you have looked at the exported artifact at its real display size, not when the component renders.
 
-1. Export the still and the loop.
-2. Open the still at the display size, and at 400% to inspect edges, radii, and type.
+1. Export the still. Export and inspect a loop only when the claim needs time, or when the brief asked for one.
+2. Open the still at its smallest real display size, and at 400% to inspect edges, radii, and type.
 3. Watch the loop at least twice to catch the second pass.
-4. Check: is the claim visible in under two seconds without the caption; does anything clip, blur, or fall below readable size; does the type match the product; is the sample data plainly sample data; is the label present; does reduced motion still carry the claim.
-5. Keep the export and the brief together as the evidence. A scene with no exported artifact was not verified.
+4. Check: is the claim visible in under two seconds without the caption; does anything clip, blur, or fall below readable size; does the type match the product; is the sample data plainly sample data; is the label present, readable, and at 4.5:1; does reduced motion still carry the claim.
+5. Write the alt text with the artifact: the claim, then the word illustration. "Illustration: draft an invoice from a photo in two taps." The image is unreadable to anyone using a screen reader, so the alt text carries the whole claim or it carries nothing.
+6. Keep the export, the alt text, and the brief together as the evidence. A scene with no exported artifact was not verified.
 
 ## Failure modes
 

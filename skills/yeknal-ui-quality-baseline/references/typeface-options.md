@@ -28,12 +28,14 @@ Recorded so the same fashionable faces are not re-evaluated from scratch. None i
 
 | Family | Licence and source | Why it failed |
 |---|---|---|
-| Figtree | SIL OFL 1.1 via Google Fonts | Coverage. The variable file maps 391 code points and omits every Yoruba and Igbo dot-below letter: U+1EB9 (ẹ), U+1ECD (ọ), U+1E63 (ṣ), U+1ECB (ị), U+1EE5 (ụ), and U+1E45 (ṅ), plus the combining dot below U+0323 and the naira sign U+20A6. It cannot set product copy for those locales, and a fallback would break the metrics mid-string. |
-| Switzer | ITF Free Font License via Fontshare (Indian Type Foundry) | Coverage, and the licence text is served only with JavaScript, so its self-hosting terms are still unconfirmed. Its variable file maps 385 code points and omits the same six dot-below letters, U+0323, U+0301, U+0300, U+20A6, U+2116, and the arrow U+2192. |
+| Figtree | SIL OFL 1.1 via Google Fonts | Coverage. The tested file maps 391 code points and has neither the precomposed dot-below letters U+1EB9 (ẹ), U+1ECD (ọ), U+1E63 (ṣ), U+1ECB (ị), U+1EE5 (ụ), nor ṅ U+1E45, nor the combining dot below U+0323 that would compose them from base letters. It also lacks the naira sign U+20A6. Yoruba and Igbo copy cannot be set in it without falling back mid-string. |
+| Switzer | ITF Free Font License via Fontshare (Indian Type Foundry) | Coverage, and the licence text is served only with JavaScript, so its self-hosting terms are still unconfirmed. The tested file maps 385 code points and omits the same five precomposed dot-below letters and ṅ, the combining marks U+0323, U+0301 and U+0300, U+20A6, U+2116, and the arrow U+2192. |
 | Geist Serif | SIL OFL | Not yet shippable. It exists only on a pre-release canary tag (`serif-preview`) of the `geist` package, so there is no stable file a project can depend on. Revisit once it ships a normal release. |
-| Brodine | Commercial licence only | Licence. It is not self-hostable under a free licence, so it fails the first clause regardless of quality. A project that buys it may use it and record it there. |
+| Brodine | Commercial licence only | Not a licence failure, a procurement step. It can be used if the project buys a web licence that permits self-hosting, which then has to be verified at the foundry. Until someone does that, it is not a candidate. |
 
-Coverage for Figtree and Switzer was read from each variable TrueType file's `cmap` table by probing the glyph groups the admission test cares about, not by trusting the listed subsets. The same probe passes on the admitted Plus Jakarta Sans row, which maps 721 code points and contains all six dot-below letters, the combining marks, and the naira sign, so the probe is not the cause of these failures. Geist Serif's status was read from the package's published version tags.
+Both rejections hold on precomposed and decomposed text: the dot-below letters are absent, and so is U+0323, the mark a fallback renderer would need to build them from `e` plus a combining dot. That second absence is what makes the verdict final rather than a subset artifact.
+
+Read the two coverage results on 2026-11-03 from each family's variable TrueType `cmap`: the Google Fonts repository copy of `Figtree[wght].ttf` (62,712 bytes) and the Fontshare CDN variable file for Switzer (53,572 bytes). The result is scoped to those two files at those sizes; a different weight, subset, or format may differ, so re-probe before reusing these verdicts elsewhere. The same probe against `PlusJakartaSans[wght].ttf` (176,288 bytes, 721 code points) found every probed character, so the probe itself is not the reason these two failed. Geist Serif's status was read from the package's published version tags.
 
 ## Pairing
 

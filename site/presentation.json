@@ -1052,7 +1052,7 @@
         "outcome": "It derives the real product tokens, composes one scene around a single claim, exports the still and the loop at their display sizes, and keeps the exports as the evidence."
       },
       "attribution": {
-        "credit": "Written for this catalog. Names Stageshow by Benji Taylor as a reference implementation without copying it.",
+        "credit": "Written for this catalog. Names Stageshow by Benji Taylor as a reference implementation; its MIT source was read for method and none of its artwork or code is reused.",
         "license": "MIT",
         "sourceUrl": "https://github.com/benjitaylor/skills/tree/main/stageshow"
       },

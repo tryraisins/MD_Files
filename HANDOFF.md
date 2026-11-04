@@ -2,7 +2,22 @@
 
 Last updated: 2026-11-04
 Branch: main
-HEAD: see git log; 2.11.0 release tagged `v2.11.0`
+HEAD: see git log; catalog pinned by `tools/build-catalog.js`; no release tag since `v2.9.0`
+
+## Design tweet review: the product scenes skill (2026-11-04)
+
+A batch of design tweets (Stageshow, free font candidates, resource links, Skullet, Hugeicons, a copy-discipline prompt) was reviewed with Sonnet 5.5 and GPT-6.1 Terra, then audited again by Sol 6.1 and Opus 5.5 before the follow-up fixes.
+
+**Added:** `yeknal-product-scenes`, authored faux product UI for marketing and social surfaces. It owns stills and single-shot loops of five seconds or less; multi-shot video stays with `yeknal-animate/references/rendered-video.md`.
+
+**Extended:** `references/loading-and-timing.md` (server-rendered content is final, image reveals reserve geometry), `references/typeface-options.md` (a checked-and-not-admitted table), `references/icons.md` (lookup indexes are a coverage aid, never a runtime dependency), and `yeknal-pick-ui-library` (21st.dev as a mixed free-and-paid registry).
+
+**Rejected with evidence:** Figtree and Switzer, because the tested variable files lack the five precomposed dot-below letters, ṅ, the combining dot below U+0323, and the naira sign, so both precomposed and decomposed Yoruba and Igbo copy fail. Geist Serif is a canary-only release. Brodine needs procurement. Mobbin, Lottiefiles, uiverse.io, realtimecolors and fontjoy were dropped as paid, unattributable or contrary to the token system.
+
+**Stageshow:** source is MIT, but its `NOTICE.md` excludes bundled app icons, brand artwork and trademark rights. Read for method only; nothing is vendored.
+
+**Published:** catalog repinned at 2.12.0, portfolio synced and deployed. Corrections from the Sol and Opus review moved cursor timing to 450-700ms, fixed the bento cell counts, made the poster a separate file, scoped the font evidence to the tested files, and added alt text, label contrast, a pause control, localisation, theme shipping, and the no-real-product rule.
+
 
 ## BoardUI design tweet: one skill extended, no new skill (2026-11-04)
 

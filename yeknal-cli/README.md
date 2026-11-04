@@ -135,7 +135,7 @@ Lists the built-in profiles with their skill counts and names, without a network
 | --- | --- | --- |
 | `core` | 15 | High-frequency process, reasoning, design, implementation, verification and security workflows. The default. |
 | `process` | 11 | Agent cost, delivery extras, legacy sweeps, GitHub and verification upkeep beyond core. |
-| `design` | 22 | Specialist visual styles, motion, prototyping, Figma and image-led workflows beyond core design. Includes `slopscan`. |
+| `design` | 23 | Specialist visual styles, motion, prototyping, Figma and image-led workflows beyond core design. Includes `slopscan`. |
 | `security` | 5 | Multi-phase auditing, secure implementation, focused review, threat modeling and ownership analysis. |
 | `web` | 5 | SEO, agent readability, performance, launch readiness and production-error workflows. |
 | `platform` | 2 | Deployment routing and launch readiness for specific platforms. |
