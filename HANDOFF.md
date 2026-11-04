@@ -1,8 +1,22 @@
 # Project Handoff
 
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 Branch: main
 HEAD: see git log; 2.11.0 release tagged `v2.11.0`
+
+## BoardUI design tweet: one skill extended, no new skill (2026-11-04)
+
+A design tweet ("stop ai slop in your UI") linking to [BoardUI](https://boardui.com) was reviewed by Sonnet 5.5 and GPT-6.1 Terra. The tweet body is login-gated on X, so the review covered BoardUI's public **free** material only: `llms.txt`, the agent-skill page and the agentic-UI post. Pro, its components, its templates and license activation were excluded as out of scope, per the user's instruction to ignore anything paid, restricted or account-gated.
+
+**Decision: extend two skills, create none.** Terra proposed two extensions; Sonnet kept one and rejected the other as scope creep for a developer who consumes registries rather than publishing one. The narrower set was adopted.
+
+**Added.** `yeknal-human-ai-interface-design/references/lifecycle-and-patterns.md` gained a "Composer and input control" state table (empty, typing or attaching, ready, sending or streaming, disabled by limit, failed) with rules for stop-in-place plus a preserved next draft, per-file upload progress, a limit-disabled composer that keeps text with its cause and reset time, failure that keeps text and attachments with retry in place, Enter versus Shift+Enter, no send during IME composition, live-region announcements, and outcome-changing settings shown in the composer. Its state model gained a `Stalled` row (last real event and its age, stop, retry, no invented reason). `SKILL.md` Step 4 now names the composer as a designed control, and the Step 5 ban on fabricated progress gained a matching treatment: measured elapsed time is allowed beside a labeled working state, from a real start timestamp, after a short delay, with no layout shift and no percentage illusion, linking to the baseline's `loading-and-timing.md` so one rule keeps one owner. `yeknal-design-system` gained a clean-room check: a fresh agent given only `DESIGN.md` should build a conforming component, or the contract is incomplete.
+
+**Rejected, deliberately.** A BoardUI entry in `yeknal-pick-ui-library` (the differentiators are Pro and the free tier was not independently assessed, so a listing would be a vendor funnel); a new agentic-UI inventory skill (the lifecycle state table already owns clarification, progress, provenance, approval, limits and recovery); a new "agent-installable design system" skill (`pick-ui-library` owns registry consumption, `design-system` owns the system); new anti-slop rules or another scanner (`slopscan` and the baseline own detection and the quality contract, and the site's four rules are token discipline already in `design-system`); the motion descriptions (vendor prose with no citable source, and the WebKit-ignores-CSS-blur-on-SVG claim cannot be tested on this machine); any markdown or MCP discovery addition (`agent-readable-site` already owns content negotiation, `llms.txt` and the MCP discovery-file row); and a design-system publishing section.
+
+**Verified:** `audit-skills.ps1` 59 skills, 0 errors, 0 warnings; `audit-markdown-links.ps1` 408 files, 210 links, 0 unresolved; `verify-skill-references.js` 7/7 across 59 skills; `build-catalog.js --check` clean at `070549f`; `git diff --check` clean.
+
+**Unverified:** the tweet body itself, everything about BoardUI beyond its public free pages, and the Safari/WebKit blur claim.
 
 ## Hot-path audit shipped, state review went to review (2026-11-03)
 

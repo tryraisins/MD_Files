@@ -49,6 +49,8 @@ Keep it in the published DESIGN.md shape, which is portable across tools:
 
 Write it for an agent: concrete values, roles, and explicit never-do rules. Prose about brand feeling belongs in one short paragraph, not in the token list. The file must be short enough that a person reads it and current enough that an agent can obey it.
 
+Check the contract in a clean room: a fresh agent given only `DESIGN.md` should build a conforming component. If it has to ask where a value or a role comes from, the contract is incomplete.
+
 ## Mapping hardcoded values onto tokens
 
 This is the highest-value job and the most commonly done badly. It is **read-only** by default: report, never edit, unless the user asks for the migration.

@@ -48,6 +48,7 @@ Load [references/lifecycle-and-patterns.md](references/lifecycle-and-patterns.md
 - Accepting a suggestion may be one action; dismissing or continuing manually should be equally cheap.
 - Generated output stays editable. Support selected-part revision, comparison, version history, and continuation from the current draft when the task warrants it.
 - Separate global controls—memory, data access, automatic actions, notification policy—from controls for one output.
+- The composer that starts a run is a designed control, not one text field: empty, typing or attaching, ready, sending or streaming with stop in place, disabled by limit, and failed with the draft kept. [The lifecycle reference](references/lifecycle-and-patterns.md) carries the state table.
 - Add friction before publishing, sending, purchasing, deleting, changing permissions, or touching many records. Keep exploration and reversible drafting fluid.
 - Show whose rule constrained behavior: user preference, administrator policy, safety rule, privacy limit, technical limitation, or commercial placement.
 - Keep retrieved content, instructions, tools, and actions visibly and architecturally distinct.
@@ -60,6 +61,7 @@ Load [references/lifecycle-and-patterns.md](references/lifecycle-and-patterns.md
 - Human handoff carries the task summary, evidence, uncertainty, attempted actions, unresolved questions, and next step.
 - Do not leave a silent spinner. Explain whether the system is searching, waiting on a tool, preparing a draft, awaiting approval, rate-limited, or stuck.
 - Never fabricate progress, elapsed stages, citations, or tool activity.
+- Measured elapsed time is not fabrication. Show it only beside a labeled working state, read from a real start timestamp and paired with the current stage, after a short delay and without layout shift. It is a clock, not an estimate of remaining work, and never a percentage. [Loading and timing](../yeknal-ui-quality-baseline/references/loading-and-timing.md) owns the generic anti-fabrication rule.
 
 ## Step 6 — Accessibility and inclusion
 

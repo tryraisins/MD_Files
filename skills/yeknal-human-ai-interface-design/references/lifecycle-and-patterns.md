@@ -13,12 +13,30 @@ Name states from observable system behavior. A useful superset is:
 | Planned | Understand proposed multi-step work. | Scope, steps, affected systems, approvals, and edit or cancel. |
 | Queued | Know work has not started. | Queue status, cost or limit if relevant, cancel or background option. |
 | Working | Understand meaningful progress. | Current stage, real sources or tools, stop control, and no fabricated percentage. |
+| Stalled | Tell a slow run from a dead one. | Last real event and how long ago it happened, stop, retry, and no invented reason. |
 | Partial | Use valid output without mistaking it for completion. | Completed, failed, skipped, stale, and pending parts. |
 | Awaiting approval | Judge a proposed commitment. | Diff or preview, scope, impact, alternatives, approve, edit, reject, cancel. |
 | Completed | Verify outcome and continue. | Result, evidence, changed items, follow-up, and undo where possible. |
 | Failed or rate-limited | Recover without guessing. | Cause at a useful level, preserved input, retry timing, alternative, escalation. |
 | Canceled | Know what stopped and what remains. | Completed side effects, rollback status, resumable context. |
 | Stale | Avoid reliance on outdated work. | Source or model age, refresh action, changed assumptions. |
+
+## Composer and input control
+
+The composer starts every run, so give it its own states instead of one text field with a send button.
+
+| Composer state | Required surface |
+| --- | --- |
+| Empty | What the system accepts, one real example or a structured input, and the settings that change the outcome. |
+| Typing or attaching | Each file with its name, upload progress or failure, and a remove action. Block send only while an upload is unfinished, and say why. |
+| Ready | A send action that reflects what will run, including attachments and settings. |
+| Sending or streaming | Stop in the send action's position, and the next draft preserved while a run is active. |
+| Disabled by limit | Editable text, the cause, the reset time, and a way to continue elsewhere. Never a silently gray control. |
+| Failed | Text and attachments kept, the cause at a useful level, and retry in place. |
+
+- Enter sends and Shift+Enter inserts a line in a single-purpose composer; a multi-line editor needs an explicit send, never a hidden keyboard rule. Never send while an input method is composing.
+- Announce submission, state changes, and errors through a live region. Visible activity in the run is not read aloud by itself.
+- A setting that changes the outcome, such as model, scope, or permission, is visible in the composer, not a hidden default.
 
 ## Interaction-pattern selection
 
