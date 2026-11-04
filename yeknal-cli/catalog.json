@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "796d3bc2c70059fc861465d1156e2bdfed50b6d7",
-  "version": "2.12.0",
+  "sourceRevision": "3a0f804eeb2f07300b23b50f57b489af326cae0a",
+  "version": "2.12.1",
   "skills": [
     {
       "name": "yeknal-add-changelog",
@@ -2065,7 +2065,7 @@
         "verify",
         "yeknal-product-scenes"
       ],
-      "version": "81dba453aed81edb2235c3e7fc770f116efa104f11e10692e1d76418154b9503",
+      "version": "0686f54c656fdd6419fb84be37112bb1f9cdf18bd4c11e392d7be346b82c96c9",
       "files": [
         {
           "path": "references/scene-composition.md",
@@ -2079,8 +2079,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "535dd0c7931f2af42e9acb76e18112e8727c62ca9d4b5cd216c45825e0fe9fb4",
-          "size": 10336
+          "sha256": "1e0a90471fed9b52a96d7ce1e7c9d3f6639ddd80a6b8b351e6ce69c45944dd5d",
+          "size": 10418
         }
       ]
     },
