@@ -25,7 +25,7 @@ current stack is React-compatible.
   up Tailwind CSS (v4) and shadcn/ui, even when neither is present yet.
 - Apply the default only when it is compatible with the current stack. If the
   project is not React-compatible (for example Vue, Svelte, Angular, plain
-  HTML/CSS, a native app, or a design-tool file such as Paper/Penpot/Pencil), do
+  HTML/CSS, a native app, or a design-tool file such as OpenDesign), do
   not force React or shadcn; use the stack-appropriate equivalent and note the
   deviation.
 - Use shadcn/ui on the Radix base (`npx shadcn@latest init -d --base radix`) and
