@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "070549f58da0bcf15136705a39552a5b74c20f5b",
+  "sourceRevision": "796d3bc2c70059fc861465d1156e2bdfed50b6d7",
   "version": "2.12.0",
   "skills": [
     {
@@ -776,12 +776,12 @@
         "values",
         "yeknal-design-system"
       ],
-      "version": "6d10f26eee8d1aa723f12ac5ee3d5a02a26fa1d49ea364b2efba9637004187b2",
+      "version": "a5aaeb95987d6c085025deeb93412a24bea570a8b79595f966bfa66fe9c29f46",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "b7c12c73b6f36a9620489d9658145447640cdc49dceecf0147a5031925575ada",
-          "size": 8039
+          "sha256": "f3988b8632c6aa29c014287dec85857e4736ddc14f671b22e2320a4a49253338",
+          "size": 8231
         }
       ]
     },
@@ -1281,7 +1281,7 @@
         "write",
         "yeknal-human-ai-interface-design"
       ],
-      "version": "c7c123ebbf5fcfa0b52b2c18f4e6ec0710cebb0e3c7b106a5b10a330ff5cb2f7",
+      "version": "5eb8c57046cecc72ba00cb3e62c6d0ab2d8e8d820b4d34bf0fe5bf5037ee9d63",
       "files": [
         {
           "path": "agents/openai.yaml",
@@ -1290,13 +1290,13 @@
         },
         {
           "path": "references/lifecycle-and-patterns.md",
-          "sha256": "fc459f9b732de81796d8fee9f7caed9d0f4de5cc13278c0d1384b9cc8bf64173",
-          "size": 4536
+          "sha256": "000e3032686f2be68d0c39796b7b92df0dccbd8d35af7da94c8ddd0c9bb8b1ec",
+          "size": 6011
         },
         {
           "path": "SKILL.md",
-          "sha256": "d75ea8a7d82cf2d25b3215ccbf72815c20888cca6d53ed1f58cba7a5d67358f7",
-          "size": 6417
+          "sha256": "c983620b026fe43c65037cd0316a3fdc607f2b9a865dffba1ef4a5190d7c62e4",
+          "size": 7111
         }
       ]
     },
@@ -2065,22 +2065,22 @@
         "verify",
         "yeknal-product-scenes"
       ],
-      "version": "8c70b9da59338ed575ab6d2ea9f3c14f708a049c6d384cb1d46699b48b421eba",
+      "version": "81dba453aed81edb2235c3e7fc770f116efa104f11e10692e1d76418154b9503",
       "files": [
         {
           "path": "references/scene-composition.md",
-          "sha256": "7080a7b1f613a671c274f0c91cbe3d6e061e75531d50b433d3cbb71879dc5b55",
-          "size": 5988
+          "sha256": "38d53a63cc87c279066e08d5be1b3783bbaee8121db81403fb9486a57afa3e96",
+          "size": 7196
         },
         {
           "path": "references/scene-motion-and-capture.md",
-          "sha256": "8e8b68b2c649fd6e0150bd888bdb99c5f4056f50b65eaeb030a4fa717332818c",
-          "size": 5619
+          "sha256": "d39113aaa92ccf38a45af51a4ec62934497e95fb6a53ae8832496ddfb4d6951b",
+          "size": 6650
         },
         {
           "path": "SKILL.md",
-          "sha256": "8a2a6601e1e241cd39cb6fcfb032139dbb384672495374e7879a58fcae35e0fe",
-          "size": 8146
+          "sha256": "535dd0c7931f2af42e9acb76e18112e8727c62ca9d4b5cd216c45825e0fe9fb4",
+          "size": 10336
         }
       ]
     },
@@ -2918,7 +2918,7 @@
         "universal",
         "verification"
       ],
-      "version": "7107a152177a2f17367aa338f40c6fb1c9a9e4cfb2335899f85d5bec9347e873",
+      "version": "dc8ed4bd88c0d5db87007ee7c8c78c8a3287236fceaa2e0f6e98fbbb17ae552f",
       "files": [
         {
           "path": "references/accessibility-design.md",
@@ -2977,8 +2977,8 @@
         },
         {
           "path": "references/typeface-options.md",
-          "sha256": "f907c3d92dfa2dfd12f7b8986eaf8d91699ac9edd209573414487426816e540e",
-          "size": 5169
+          "sha256": "df48685ee4fa211cd86a1d0acc7d12463ff5f38c34c2130600e145400580aeda",
+          "size": 5714
         },
         {
           "path": "references/typography.md",
