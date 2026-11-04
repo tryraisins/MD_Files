@@ -3,7 +3,7 @@ name: yeknal-product-scenes
 description: "Build authored faux product UI for marketing and social surfaces: stills, feature cards, cursor demos and bento grids that read like the real product without pretending to be a live screenshot. Use for landing page hero art, README images, changelog cards, launch clips and social posts."
 metadata:
   last-reviewed: "2026-11-03"
-  reference-implementation: "Stageshow by Benji Taylor, MIT, https://github.com/benjitaylor/skills"
+  reference-implementation: "Stageshow by Benji Taylor. Source MIT; bundled artwork and marks excluded, see its NOTICE.md. https://github.com/benjitaylor/skills/tree/main/stageshow"
 ---
 
 # Product scenes
