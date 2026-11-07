@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "3a0f804eeb2f07300b23b50f57b489af326cae0a",
+  "sourceRevision": "2006d65963bc52d4ee951a41034fd2bb236bb9ce",
   "version": "2.12.1",
   "skills": [
     {
@@ -2245,7 +2245,7 @@
     },
     {
       "name": "yeknal-review",
-      "description": "Review code or systems for concrete defects, regressions, and maintainability risks when the user requests an audit or quality assessment.",
+      "description": "Review code or systems for concrete defects, regressions, and maintainability risks when the user requests a quality assessment or code review. Not for vulnerability hunting or security audits.",
       "keywords": [
         "and",
         "axes",
@@ -2266,12 +2266,12 @@
         "two",
         "yeknal-review"
       ],
-      "version": "51d2899de67e6f6b1ce5f4bc6b670f3b6705e35c54c464e113af47bccaf53053",
+      "version": "8d7061bb3493528a0932c627cfdafe55438f05747e700c27eed36d8ca692da66",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "84331fd9629646ca401e08bc7db18384fb60935e74c9c4cd1a615d1c6aa8aad9",
-          "size": 5525
+          "sha256": "792a6d606bea32f7aa425e07d3da815bbd89702d63c1fbcf7747058ac7f10d25",
+          "size": 5580
         }
       ]
     },
@@ -2320,14 +2320,16 @@
     },
     {
       "name": "yeknal-security-audit",
-      "description": "Run a multi-phase security audit of a repository, directory, or diff with a coverage ledger, adversarial verification, and schema-validated findings. Use only for explicit audit or pen-test requests, not general security questions.",
+      "description": "Run a multi-phase security audit of a repository, directory, or diff: coverage ledger, adversarial verification, schema-validated findings. Use for explicit audits, pen tests, and requests to prove which vulnerabilities are real, not quality reviews.",
       "keywords": [
         "and",
         "anti-patterns",
         "audit",
         "boundary",
         "budget",
+        "cannot",
         "certainty",
+        "confirm",
         "core",
         "coverage",
         "effective",
@@ -2350,6 +2352,7 @@
         "respect",
         "result",
         "roles",
+        "run",
         "runs",
         "safety",
         "security",
@@ -2357,13 +2360,15 @@
         "setup",
         "smallest",
         "source",
+        "target",
         "the",
         "validators",
         "visibility",
+        "when",
         "workflow",
         "yeknal-security-audit"
       ],
-      "version": "6b1ed712ea00ec9dfafebec405b5ef703e516ea12c03f2b483f30f8988c91015",
+      "version": "0a344c37237017dcb1b2623a8e3cc22fdc67e21fbc7862bbd7ee0f9e561ef379",
       "files": [
         {
           "path": "LICENSE.txt",
@@ -2402,8 +2407,8 @@
         },
         {
           "path": "references/HUNTING.md",
-          "sha256": "71c121decea1322c47c718f6e110f1a892980bb4266bd7ac55ef043a213ade09",
-          "size": 22446
+          "sha256": "4130d6316898221451d2e3bcc65ee5d31ed5b44db22eb57512b87e14a8f00663",
+          "size": 23582
         },
         {
           "path": "references/MEMORY-SAFETY-AND-BINARY.md",
@@ -2417,8 +2422,8 @@
         },
         {
           "path": "references/RECONNAISSANCE.md",
-          "sha256": "02ca887aca84de8ae137f1891bd2f0a54f28d3fa6da92a27f54734382b3381a2",
-          "size": 15902
+          "sha256": "b625cf6cff7259e9c5ac4bfb961b12a5d20939ecbcbe63dea5ac643b17fb1da6",
+          "size": 16002
         },
         {
           "path": "references/RESOURCE-EXHAUSTION-AND-AVAILABILITY.md",
@@ -2432,8 +2437,8 @@
         },
         {
           "path": "references/VALIDATION-AND-REPORTING.md",
-          "sha256": "7bfb4e0264ba5f9e2c710f5d8d7cf9d9ff66c772c8e4dd56dccee7dfd18a0d72",
-          "size": 18175
+          "sha256": "4ce84dfd80a1cd36638aab2ae2df104edb9dfe40c959f312e6b38bb0a4022bb3",
+          "size": 19605
         },
         {
           "path": "references/WEB-PROTOCOL-AND-AUTH.md",
@@ -2442,8 +2447,8 @@
         },
         {
           "path": "scripts/report-schema.json",
-          "sha256": "6575c9de4a62255699ea052ebf9a49ebfb373a32891bcd89af6f55cc84b35519",
-          "size": 14494
+          "sha256": "14f7aab43bd0a9b6171ecb4ed443b5bcc857b43c17985921153662e359c19d9a",
+          "size": 15383
         },
         {
           "path": "scripts/validate-coverage-ledger.cjs",
@@ -2452,13 +2457,13 @@
         },
         {
           "path": "scripts/validate-findings.cjs",
-          "sha256": "68148ce4b9709d45875af0a17c8dcd91403d610b390c8cb52332731fddb22ae7",
-          "size": 29379
+          "sha256": "7fae783dc419b45e2db948dd3e19b893fa576c953bc2adef06d7f18d4d5b9f73",
+          "size": 32356
         },
         {
           "path": "SKILL.md",
-          "sha256": "bcaf1320444791ef90e3d9d1401b9b1a9a4a61c875ea65934b7bded48b4be9b8",
-          "size": 19111
+          "sha256": "5e8b7cf641b9fc068ca61e4bc76ad74f9a89e8b2521413900876306d3a804339",
+          "size": 23156
         }
       ]
     },
