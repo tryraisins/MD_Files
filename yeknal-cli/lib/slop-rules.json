@@ -8,7 +8,7 @@
     "commit": "cca990d6fecdd1874795b7ae06768078461581e0",
     "site": "https://sloplens.tryraisins.dev"
   },
-  "note": "This is a hand-curated copy of the SlopLens rule catalog, adapted for a static source scan. SlopLens owns the rule identity, name, category, family, supporting flag and fix line. Everything specific to a source scan is owned here: the staticPlain wording, the observation and inference split, the assessment, the file types and the thresholds. There are no weights and no score, because a repository is not a page. Run the drift check in the Slop Detector repository after changing either copy.",
+  "note": "This is a hand-curated copy of the SlopLens rule catalog, adapted for a static source scan. SlopLens owns the rule identity, name, category, family, supporting flag and fix line. Everything specific to a source scan is owned here: the staticPlain wording, the observation and inference split, the assessment, the file types and the thresholds. There are no weights and no score, because a repository is not a page. Rules marked yeknalOnly describe the repository shell and have no rendered-page counterpart, so they are excluded from the drift check. Run the drift check in the Slop Detector repository after changing either copy.",
   "limitations": [
     "This scan reads source files. It cannot see the rendered page, so checks that need layout, computed styles or the accessibility tree are reported as unassessed rather than guessed.",
     "It cannot tell who or what wrote the code, and it does not try.",
@@ -23,7 +23,8 @@
     { "id": "unfinished", "name": "Unfinished template" },
     { "id": "proof", "name": "Proof and claims" },
     { "id": "supporting", "name": "Supporting signals" },
-    { "id": "quality", "name": "Quality issues" }
+    { "id": "quality", "name": "Quality issues" },
+    { "id": "floor", "name": "Site floor" }
   ],
   "rules": [
     {
@@ -456,6 +457,32 @@
       "inference": "The jump is in source order within one file. Across components the rendered order may differ, so only complete documents are checked.",
       "assessment": "heuristic",
       "fileTypes": ["html", "astro"]
+    },
+    {
+      "id": "floor-missing-not-found",
+      "name": "No not-found route",
+      "category": "floor",
+      "family": "floor",
+      "yeknalOnly": true,
+      "fix": "Add a route that renders a recovery screen for an unknown path, with links back to the main destinations.",
+      "staticPlain": "A routed app has no surface for an unknown path, so a mistyped address or a dead link lands on a blank screen or the wrong page.",
+      "observation": "A client-routed web app with no not-found component, no 404 route and no catch-all route anywhere in the tree.",
+      "inference": "No not-found surface was found in source. A route registered at runtime or by a plugin would not be visible here.",
+      "assessment": "measured",
+      "fileTypes": ["js", "jsx", "ts", "tsx", "vue", "svelte"]
+    },
+    {
+      "id": "floor-catch-all-redirect",
+      "name": "Unknown paths redirect home",
+      "category": "floor",
+      "family": "floor",
+      "yeknalOnly": true,
+      "fix": "Render a recovery screen for the unknown path and keep the address the visitor arrived on.",
+      "staticPlain": "Every unknown address is redirected to the home page, so a dead link silently loses the page the visitor was trying to reach and nobody can tell it happened.",
+      "observation": "A catch-all route whose action is a redirect to the site root, such as path \"*\" with Navigate to \"/\", or a host redirect from /* to /.",
+      "inference": "The redirect is in source. The router that mounts it decides whether it runs.",
+      "assessment": "measured",
+      "fileTypes": ["js", "jsx", "ts", "tsx", "vue", "svelte", "json"]
     }
   ]
 }

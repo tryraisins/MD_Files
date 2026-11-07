@@ -81,6 +81,8 @@ Run it from the root of a web project. It scans source files for signs of generi
 
 It checks for stock marketing copy, placeholder text, gradient headline text, clipped slogans, accent words inside a headline, zero-padded numbered labels, decorative emoji, stock icon sets, UI-kit default colors, dotted metadata lines, missing image alt text, broken local image paths, click-only controls, skipped heading levels, unguarded motion and similar signals. Each finding names its file and line and carries a plain explanation and a fix.
 
+It also checks the site floor: a client-routed web project with no not-found route, and a catch-all route that redirects unknown paths to the home page. Both are measured defects rather than taste, so they count under `--fail-on-defects`. Floor rules only run on web projects; a library or a CLI is never asked for a 404 page.
+
 The command does not score the repository and does not claim to know who or what wrote the code.
 
 ### Rendered-page checks

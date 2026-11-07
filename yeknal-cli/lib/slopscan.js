@@ -1226,8 +1226,11 @@ function ruleById(id) {
  * authorizes a restyle; only a calibration verdict does.
  */
 function actionFor(rule) {
-  if (!rule || rule.category !== "quality") return "evidence";
-  return rule.assessment === "measured" ? "repair" : "confirm";
+  if (!rule) return "evidence";
+  if (rule.category === "quality" || rule.category === "floor") {
+    return rule.assessment === "measured" ? "repair" : "confirm";
+  }
+  return "evidence";
 }
 
 function countFindingsByAction(summary, action) {
@@ -1248,6 +1251,10 @@ function summarise(results) {
 
   for (const rule of CATALOG.rules) {
     const findings = byRule.get(rule.id) || [];
+    // Floor rules describe a web project's shell, so they are not reported for
+    // a library, a CLI or a script collection. Reporting them there would gate
+    // CI on a requirement that does not apply.
+    if (rule.category === "floor" && !results.webApp) continue;
     if (rule.assessment === "unassessed") {
       unassessed.push({ rule, findings });
     } else if (rule.supporting) {
@@ -1322,6 +1329,7 @@ function generateSlopScanLog(results) {
     }
   };
 
+  section("SITE FLOOR", summary.primary.filter((group) => group.rule.category === "floor"));
   section("SLOP SIGNALS", summary.primary.filter((group) => group.rule.category === "slop"));
   section("QUALITY ISSUES", summary.primary.filter((group) => group.rule.category === "quality"));
 
@@ -1431,6 +1439,7 @@ function generateSlopScanJson(results) {
     ruleSource: results.ruleSource,
     timestamp: results.timestamp,
     projectDir: results.projectDir,
+    webApp: results.webApp,
     limitations: CATALOG.limitations,
     filesRead: results.filesRead,
     coverage: results.coverage,
@@ -1552,6 +1561,114 @@ function validateIgnorePatterns(patterns) {
   }
 }
 
+// ==========================================================================
+// Site floor
+//
+// Project-level checks on the shell a web project needs before its pages mean
+// anything. They read routes and host configuration, so they belong to the
+// repository, not to one file. A deployed status code cannot be seen from
+// source: a host can answer 200 for a path that does not exist. That half of
+// the floor belongs to the live sweep in yeknal-content-seo.
+// ==========================================================================
+
+const WEB_FRAMEWORKS = new Set([
+  "next", "react", "react-dom", "react-router", "react-router-dom", "vue", "nuxt",
+  "@sveltejs/kit", "svelte", "astro", "@remix-run/react", "gatsby", "solid-js",
+  "@angular/core", "preact", "lit",
+]);
+
+const CLIENT_ROUTERS = new Set([
+  "react-router", "react-router-dom", "vue-router", "wouter",
+  "@tanstack/react-router", "@solidjs/router", "svelte-routing", "@reach/router",
+]);
+
+const NOT_FOUND_FILE_RE = /(?:^|[\\/])(?:not[-_ ]?found|404|_404)[^\\/]*\.[a-z]+$/i;
+const NOT_FOUND_ROUTE_RE = /(?:path|route)\s*[:=]\s*["'`][^"'`]*(?:404|not[\s-]?found)[^"'`]*["'`]/i;
+const CATCH_ALL_REDIRECT_RES = [
+  /path\s*[:=]\s*["'`]\*["'`][\s\S]{0,400}?<Navigate\b[^>]{0,300}?to\s*=\s*["'`]\/["'`]/,
+  /path\s*:\s*["'`]\*["'`][\s\S]{0,400}?redirect\s*\(\s*["'`]\/["'`]/,
+  /source\s*:\s*["'`]\/\*["'`][\s\S]{0,300}?destination\s*:\s*["'`]\/["'`]/,
+];
+
+function readPackageManifest(projectDir) {
+  const file = path.join(projectDir, "package.json");
+  if (!fs.existsSync(file)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function isWebApp(pkg, projectDir) {
+  if (pkg) {
+    const deps = { ...pkg.dependencies, ...pkg.devDependencies, ...pkg.peerDependencies };
+    if (Object.keys(deps).some((name) => WEB_FRAMEWORKS.has(name))) return true;
+  }
+  return fs.existsSync(path.join(projectDir, "index.html"));
+}
+
+function usesClientRouter(pkg) {
+  if (!pkg) return false;
+  const deps = { ...pkg.dependencies, ...pkg.devDependencies };
+  return Object.keys(deps).some((name) => CLIENT_ROUTERS.has(name));
+}
+
+function lineOfIndex(text, index) {
+  return text.slice(0, index).split("\n").length;
+}
+
+function floorFindings(analysed, projectDir, pkg) {
+  if (!isWebApp(pkg, projectDir)) return [];
+
+  let notFoundPath = null;
+  let redirectHit = null;
+
+  for (const file of analysed) {
+    if (!notFoundPath && NOT_FOUND_FILE_RE.test(file.path)) notFoundPath = file.path;
+    if (!notFoundPath && NOT_FOUND_ROUTE_RE.test(file.clean)) notFoundPath = file.path;
+    if (redirectHit) continue;
+    for (const re of CATCH_ALL_REDIRECT_RES) {
+      const match = re.exec(file.clean);
+      if (!match) continue;
+      redirectHit = {
+        path: file.path,
+        line: lineOfIndex(file.clean, match.index),
+        text: match[0].slice(0, 160).replace(/\s+/g, " "),
+      };
+      break;
+    }
+  }
+
+  const findings = [];
+
+  if (redirectHit) {
+    findings.push({
+      ruleId: "floor-catch-all-redirect",
+      file: redirectHit.path,
+      line: redirectHit.line,
+      text: redirectHit.text,
+      detail: "Unknown paths are sent to the home page instead of a recovery screen, so a dead link silently loses the address the visitor arrived on.",
+    });
+  }
+
+  if (usesClientRouter(pkg) && !notFoundPath && !redirectHit) {
+    const anchor =
+      analysed.find((file) => /(?:router|routes|app)\.[jt]sx?$/i.test(file.path)) ||
+      analysed.find((file) => /\.[jt]sx?$/i.test(file.path)) ||
+      null;
+    findings.push({
+      ruleId: "floor-missing-not-found",
+      file: anchor ? anchor.path : projectDir,
+      line: 1,
+      text: "",
+      detail: "This app uses a client router and no not-found route was found, so an unknown address has no surface to land on.",
+    });
+  }
+
+  return findings;
+}
+
 async function runSlopScan(options = {}) {
   const projectDir = path.resolve(options.path || process.cwd());
   if (!fs.existsSync(projectDir)) throw new Error(`scan path does not exist: ${projectDir}`);
@@ -1640,11 +1757,18 @@ async function runSlopScan(options = {}) {
     }
   }
 
+  // The site floor is a property of the project, not of a file, so it runs once
+  // over the analysed tree after the per-file rules have finished.
+  const manifest = readPackageManifest(projectDir);
+  const webApp = isWebApp(manifest, projectDir);
+  findings.push(...floorFindings(analysed, projectDir, manifest));
+
   findings.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line || a.ruleId.localeCompare(b.ruleId));
 
   return {
     timestamp: new Date().toISOString(),
     projectDir,
+    webApp,
     filesRead,
     coverage,
     warnings,
@@ -1663,12 +1787,15 @@ module.exports = {
   collectMotionSites,
   countFindingsByAction,
   countPrimaryFindings,
+  floorFindings,
   generateSlopScanJson,
   generateSlopScanLog,
   globMatch,
   hasReducedMotionGuard,
   isSpecific,
+  isWebApp,
   runSlopScan,
   splitSignals,
   summarise,
+  usesClientRouter,
 };
