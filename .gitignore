@@ -6,3 +6,6 @@ yeknal-security.sarif
 # Slop scan reports
 yeknal-slopscan.log
 yeknal-slopscan.json
+
+# Browser tool transcripts and screenshots
+.playwright-mcp/
