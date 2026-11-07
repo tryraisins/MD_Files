@@ -18,6 +18,8 @@ Re-reviewed Cloudflare's security-audit skill with Go DeepSeek, GPT-6.1 Terra an
 
 **Unverified.** No real audit run, so the trusted-local path is unproven end to end.
 
+**Published.** `yeknal@2.12.2` from the local authenticated client, shasum `ee6d0450ae5ad8ec6a64459143185a14850fb48f`, registry confirmed. Catalog repinned at `317a7b0`; validation workflow green on `6264a46`. Portfolio synced in `520d66d` and its Pages deploy passed. The live `files.json` could not be fetched because the host was unreachable from this machine.
+
 
 ## Design tweet review: the product scenes skill (2026-11-04)
 
