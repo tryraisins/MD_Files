@@ -18,6 +18,7 @@ Before touching UI:
 3. Treat approved design files as the visual authority and current code as the feature and behavior authority unless the user says otherwise.
 4. Reuse established primitives when they meet the quality bar. Do not introduce a second component, icon, skeleton, or motion system for novelty.
 5. If there is no system, establish the smallest coherent token set needed for the work before styling individual elements. For React-compatible stacks, default to **Tailwind CSS (v4) + shadcn/ui** (Radix base) as that foundation, setting them up when absent and whether or not the project already uses them; for non-React stacks use the stack-appropriate equivalent. An explicit brief, approved design, or documented system wins over the default.
+6. Read the `Web floor` block in `HANDOFF.md` when one exists. A web project whose floor names `missing` for the not-found route, icons, or metadata is not yet a site, and that gap outranks styling work on it.
 
 For the affected task, consider familiarity, digital literacy, input ability, divided attention, and connectivity where they change the interaction. Viewport size alone does not describe the user's context.
 

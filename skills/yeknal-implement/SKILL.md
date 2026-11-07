@@ -35,9 +35,10 @@ A label that only exists to explain the layout is a layout bug. Fix the hierarch
 2. Trace the existing end-to-end path: input, state, data flow, authorization, validation, side effects, errors, and rendered output.
 3. State the smallest change that satisfies the request and name the proof that must come from a browser, tenant, database, provider, or deployment.
 4. Implement the full path. Preserve unrelated behavior and user changes.
-5. Verify through the real entry point per the repository's testing policy: drive the browser, CLI, or HTTP path, end with a repeatable artifact, and report any boundary you cannot reach instead of writing an isolated test. `yeknal-testing-strategy` owns the detail.
-6. When behavior, setup, or commands changed, update the repository-root `HANDOFF.md` and the affected Markdown through `yeknal-project-handoff` and `yeknal-markdown-management`.
-7. Report the outcome, changed files, evidence, and any unverified external boundary.
+5. For user-facing web routes, the shared shell is part of the change, not a follow-up. When the project's handoff names a `missing` floor item, or the project has none yet, create it here: a not-found route that renders recovery instead of redirecting to the home page, the icon set, a per-route title and description, and robots or sitemap to match the project's exposure. Record the resulting paths in the floor block. The stack decides the file; the behavior is the requirement.
+6. Verify through the real entry point per the repository's testing policy: drive the browser, CLI, or HTTP path, end with a repeatable artifact, and report any boundary you cannot reach instead of writing an isolated test. `yeknal-testing-strategy` owns the detail. For a route-based app, fetch a path that does not exist and report the status code and what rendered, because a component can exist while the host still answers 200 for everything.
+7. When behavior, setup, or commands changed, update the repository-root `HANDOFF.md` and the affected Markdown through `yeknal-project-handoff` and `yeknal-markdown-management`.
+8. Report the outcome, changed files, evidence, and any unverified external boundary.
 
 ## Separate judgment from repeatable work
 

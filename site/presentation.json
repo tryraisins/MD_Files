@@ -1312,7 +1312,7 @@
     },
     "yeknal-slopscan": {
       "title": "Slop scan",
-      "purpose": "Scans a codebase locally for AI-slop indicators such as stock marketing copy, placeholder text, gradient headline text, decorative emoji, stock icon sets and kit default colors, and writes a report that explains each finding, the class it falls into, and how to fix it.",
+      "purpose": "Scans a codebase locally for AI-slop indicators such as stock marketing copy, placeholder text, gradient headline text, decorative emoji, stock icon sets and kit default colors, checks the site floor a web project needs before its pages mean anything, and writes a report that explains each finding, the class it falls into, and how to fix it.",
       "tasks": [
         "design",
         "review"

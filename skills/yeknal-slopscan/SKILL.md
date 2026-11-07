@@ -43,13 +43,14 @@ The command writes `yeknal-slopscan.log` and `yeknal-slopscan.json`, and adds bo
 
 ## Reading the report
 
-The log has five parts.
+The log has six parts.
 
 1. **Slop signals.** Familiar template patterns: stock copy, placeholder text, gradient headline text, clipped slogans, accent words inside headings, numbered labels, decorative emoji, arrow-decorated links, mixed icon styles, invented proof and unsourced claims.
 2. **Quality issues.** Images without alt text and broken local image paths are measured defects. Click-only boxes, missing control names, removed focus outlines and unguarded motion are also reported here, but each is heuristic: the pattern is certain, the defect is not until the rendered screen confirms it.
-3. **Supporting signals.** Stock icon sets, kit default colors and dotted metadata strings. These are normal choices. They are reported only when a slop signal was also found, and they never count on their own.
-4. **Not checked.** The checks that need the rendered page. These are not guessed.
-5. **Coverage.** How many files were read, skipped, too large or unreadable, so a thin report is not mistaken for a clean one.
+3. **Site floor.** The shell a web project needs before its pages mean anything: no not-found route, a catch-all route that redirects to `/`, a host rewrite that answers 200 for every path, and a document head with no description or share image. These are measured and repair-class. The floor checks read routes, host configuration and the head template; they cannot see a deployed status code, which belongs to the live sweep in `yeknal-content-seo`.
+4. **Supporting signals.** Stock icon sets, kit default colors and dotted metadata strings. These are normal choices. They are reported only when a slop signal was also found, and they never count on their own.
+5. **Not checked.** The checks that need the rendered page. These are not guessed.
+6. **Coverage.** How many files were read, skipped, too large or unreadable, so a thin report is not mistaken for a clean one.
 
 Each rule is labelled `measured` or `heuristic`, and each finding carries the class it authorizes: `repair`, `confirm`, or `evidence`. A measured finding is syntactically certain, such as an image element written with no alt attribute. A heuristic finding means the source shows the pattern but the inference is not certain, such as a buzzword in a string that may never render.
 
@@ -59,7 +60,7 @@ A scan finding never authorizes a restyle; only a calibration verdict does, and 
 
 Every finding falls into one class, derived from its category and assessment:
 
-- **Repair.** Measured quality findings: missing alt text, a broken local image path. Fix with the smallest edit at any verdict, including on a screen that needs no redesign.
+- **Repair.** Measured quality and floor findings: missing alt text, a broken local image path, a missing not-found route, a catch-all route that redirects to `/`, a host rewrite that answers 200 for every path, a head with no description or share image. Fix with the smallest edit at any verdict, including on a screen that needs no redesign.
 - **Confirm.** Heuristic quality findings: a click-only box, a missing control name, a removed focus outline, unguarded motion. Check the rendered screen first. Once confirmed it is still a defect fix, so it stays in scope at any verdict.
 - **Evidence.** Slop findings of any assessment: stock copy, gradient text, decorative emoji, unsourced claims. These inform the verdict and never authorize a restyle on their own.
 

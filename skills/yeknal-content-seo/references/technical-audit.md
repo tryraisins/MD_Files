@@ -97,6 +97,36 @@ The framework is an implementation detail. The rules above apply to static HTML,
 - HTTPS is enforced, and every redirect is a single permanent hop.
 - Share cards resolve to a real image at the expected crop.
 
+## Deployed-route sweep
+
+Run this once against the real host before a launch, and again after any routing or host change. One row per route, evidence taken from the response, never from the template that was supposed to produce it.
+
+| Column | Pass condition |
+| --- | --- |
+| Status | The intended code. A reachable page is 200; an unknown path must not be 200. |
+| Title | Unique, matches the visible page, non-empty in the served HTML. |
+| Description | Present in the served HTML, specific to the route, and not the site-wide default. |
+| Canonical | Absolute, correct origin, correct trailing-slash policy. |
+| Share image | The declared URL returns 200 with an image content type, at the expected aspect ratio. |
+| Icons | The declared icon and `/favicon.ico` both resolve. |
+| Alternative text | Counted over rendered images, not over source files. |
+
+Add these once for the origin:
+
+- `/robots.txt` returns 200 or an intentional 404, and its rules match the owner's decision.
+- `/sitemap.xml` returns 200, every entry resolves to a 200 canonical page, and no entry is noindex.
+- Staging, preview, and internal routes are not reachable without auth.
+
+Probe the not-found case rather than trusting it. Request a path that cannot exist, such as `/this-route-does-not-exist-probe`, and record the status and what rendered. A soft 404 is a recovery page served with 200; a catch-all redirect to the homepage is worse, because it silently discards the URL the visitor arrived for. Both make a single-page app look healthy while every broken link reports success.
+
+Three failures this sweep exists to catch, none visible from source alone:
+
+- a client-side router whose `*` route redirects to `/`, so the file looks deliberate and the behavior is a bare redirect;
+- a host rewrite such as `/* /index.html 200`, which returns 200 for every path and defeats error monitoring;
+- an Open Graph or icon URL that is declared in the head and answers 404 at the edge.
+
+On a client-rendered app the status behavior and the metadata are decided by the host, not the bundle. Report what the host did. If the correct status cannot be produced without edge routing, ship the recovery surface and record the status limitation instead of claiming a pass.
+
 ## Verification boundary
 
 A successful build does not prove the deployed host, the canonical origin, the CDN response, the crawler's view, or the search engine's interpretation. Inspect the rendered document and the served response from the real environment. State which of those you actually checked.
