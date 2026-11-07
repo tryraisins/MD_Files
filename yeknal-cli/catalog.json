@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "317a7b0d085a9a6c1e4c404d4bfbd1946a966c2d",
-  "version": "2.12.2",
+  "sourceRevision": "73ddf7fb39bd8a83c8e098ddd5673753d467e055",
+  "version": "2.13.0",
   "skills": [
     {
       "name": "yeknal-add-changelog",
@@ -565,7 +565,7 @@
         "workflow",
         "yeknal-content-seo"
       ],
-      "version": "f0b0e99ba98bdea450d34a48e6293c6acae7121aeb1582895e8827a632205aa3",
+      "version": "535d6301e9a23da64df73d6c8f58a3188c7ecab095bbae0745f0d159d45f1644",
       "files": [
         {
           "path": "references/authority-and-links.md",
@@ -604,8 +604,8 @@
         },
         {
           "path": "references/technical-audit.md",
-          "sha256": "f82e4a734401bc733984962a08f3a815eaf453b4832f6b619102b2300cc1c00e",
-          "size": 6656
+          "sha256": "d8449bf6bcb1ef6145f38d2724ca6d9a9f694dfea0e3fa1ad49ca80420707321",
+          "size": 8898
         },
         {
           "path": "SKILL.md",
@@ -1318,12 +1318,12 @@
         "workflow",
         "yeknal-implement"
       ],
-      "version": "6eb50e8e61e8974a5c385a972f68d113542baa32de679c6abd382aca7a0bc21d",
+      "version": "4d0c758c9e608020641b1183bf0685fa5ad1b617e07ca60d5b6986b9456846fe",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "1594343218910a6fda1d056d9067220804e82eba68b4d3a0d7ab4e80091cc791",
-          "size": 4592
+          "sha256": "e6a749233330ad029e9d6e577de6612adf03be85273d955d66ef7c7690494bb6",
+          "size": 5256
         }
       ]
     },
@@ -2089,6 +2089,8 @@
       "description": "Create, update, or resume work from a concise repository-root HANDOFF.md so another agent can continue without the current conversation. Use for substantial ongoing projects, milestones, and task handoffs.",
       "keywords": [
         "and",
+        "block",
+        "floor",
         "handoff",
         "keep",
         "project",
@@ -2096,15 +2098,16 @@
         "safe",
         "start",
         "trustworthy",
+        "web",
         "work",
         "yeknal-project-handoff"
       ],
-      "version": "65965eb2ec3b2a788bb7795dcfe10f5bdd4fa0238f499291864ea9d217d05898",
+      "version": "a4abfb738adad10d5099fb9c9bf9a3a58b0b768a42a5e496861288b402e43076",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "cb16a31ad731b179e43ba773182373f4c2fb6de741df20965baa8b1dd8193411",
-          "size": 1325
+          "sha256": "d2c4c69fbc6132f486b22ba68d54dd500a700cde66f15ef029ea69c8c6139133",
+          "size": 2591
         }
       ]
     },
@@ -2798,12 +2801,12 @@
         "when",
         "yeknal-slopscan"
       ],
-      "version": "7da62fcb71c4b5dc2b7513c742cc6acad3e2ddac8dee4690c6588a5690164541",
+      "version": "c5d49327233d92cf8a4d8a7710d03ecc93b3f1d8e60f85cbe5e889890ae0d5a8",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "b51be6ffde0c20683ad62996b599f4adf7402a589ec0190888f625df5b50c7dc",
-          "size": 6974
+          "sha256": "31a9ecfdb66d078c0fd2a208ecb887f528e7ac5f049690aab7ad50309cca82db",
+          "size": 7505
         }
       ]
     },
@@ -2923,7 +2926,7 @@
         "universal",
         "verification"
       ],
-      "version": "dc8ed4bd88c0d5db87007ee7c8c78c8a3287236fceaa2e0f6e98fbbb17ae552f",
+      "version": "9b163af025a856816882a5600745344ba647446a1ccd9a8cf3e2935e7d28253a",
       "files": [
         {
           "path": "references/accessibility-design.md",
@@ -2992,8 +2995,8 @@
         },
         {
           "path": "SKILL.md",
-          "sha256": "718ad378624571441f2168aa62eb12fbe307bb9a0c5464934a447b300913efa5",
-          "size": 30955
+          "sha256": "304cd8875a70c27c2d3c9840f853d9e2c05abc5c783847664a361bcd1dcad77b",
+          "size": 31165
         }
       ]
     },
