@@ -1,8 +1,23 @@
 # Project Handoff
 
-Last updated: 2026-11-04
+Last updated: 2026-11-07
 Branch: main
 HEAD: see git log; catalog pinned by `tools/build-catalog.js`; no release tag since `v2.9.0`
+
+## Security audit evidence contract (2026-11-07)
+
+Re-reviewed Cloudflare's security-audit skill with Go DeepSeek, GPT-6.1 Terra and Opus. **Decision: no new skill and no core slot.** The fork at `skills/yeknal-security-audit` is current at upstream HEAD `c1c8a8c`, so the work was repair.
+
+**Fixed.** `confirmed` required an executed `observed_result` while the default policy forbade execution, so honest runs had to invent evidence or downgrade every finding to `needs_validation`. Records now declare `execution.method` (`source` or `local`) and `execution.policy`, the validator enforces both directions, and an optional `run-metadata.json` argument rejects an executed record in a source-only run or a record whose policy contradicts the run. `trusted-local-opt-in` was added as an explicit per-run authorization with ownership attestation, pre-read scripts, an allowlisted environment and one named executor; source-only remains the default.
+
+**Also fixed.** Validator paths missing `scripts/` in two references, a write-isolation reference that pointed at removed text, recon items that contradicted the policy, and the `yeknal-review`/audit trigger collision, with one new routing case.
+
+**Added.** `tools/verify-security-audit-contract.js`, 18 black-box cases through both CLI validators, wired into `validate.yml`.
+
+**Verified.** Contract 18/18; `verify-skill-references.js` 7/7; routing 59 cases, 0 errors; `audit-skills.ps1` 0 errors, 0 warnings; `build-catalog.js --check` clean; `git diff --check` clean. No target code was executed.
+
+**Unverified.** No real audit run, so the trusted-local path is unproven end to end.
+
 
 ## Design tweet review: the product scenes skill (2026-11-04)
 

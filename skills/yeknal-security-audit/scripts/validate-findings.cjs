@@ -43,6 +43,7 @@ const SEVERITY_RANK = new Map([
   ["high", 3],
   ["critical", 4],
 ]);
+const SOURCE_ONLY_RESULT_PREFIX = "Source-established (not executed):";
 const LIMITS = Object.freeze({
   inputBytes: 5 * 1024 * 1024,
   nestingDepth: 64,
@@ -557,6 +558,31 @@ function collectFindingSemanticErrors(findings) {
       if (!finding.execution || typeof finding.execution !== "object" || typeof finding.execution.observed_result !== "string" || !hasVisibleProse(finding.execution.observed_result)) {
         errors.push(`${base}: confirmed finding requires a visible execution observed_result`);
       }
+      if (finding.execution && typeof finding.execution === "object") {
+        const method = finding.execution.method;
+        const policy = finding.execution.policy;
+        if (method === "source") {
+          if (policy !== "source-only-no-sandbox") {
+            errors.push(`${base}.execution.policy: a source-established record requires policy "source-only-no-sandbox"`);
+          }
+          if (hasOwn(finding.execution, "payloads")) {
+            errors.push(`${base}.execution.payloads: a source-established record must not claim an executed payload`);
+          }
+          if (typeof finding.execution.observed_result === "string" && !finding.execution.observed_result.startsWith(SOURCE_ONLY_RESULT_PREFIX)) {
+            errors.push(`${base}.execution.observed_result: a source-established record must start with ${safeQuote(SOURCE_ONLY_RESULT_PREFIX)}`);
+          }
+        } else if (method === "local") {
+          if (policy === "source-only-no-sandbox") {
+            errors.push(`${base}.execution.policy: an executed record cannot use policy "source-only-no-sandbox"`);
+          }
+          if (!Array.isArray(finding.execution.payloads) || finding.execution.payloads.length === 0) {
+            errors.push(`${base}.execution.payloads: an executed record requires at least one payload, fixture, or command`);
+          }
+          if (typeof finding.execution.observed_result === "string" && finding.execution.observed_result.startsWith(SOURCE_ONLY_RESULT_PREFIX)) {
+            errors.push(`${base}.execution.observed_result: an executed record must not use the source-only prefix`);
+          }
+        }
+      }
       if (!finding.remediation || typeof finding.remediation !== "object" || typeof finding.remediation.strategy !== "string" || !hasVisibleProse(finding.remediation.strategy)) {
         errors.push(`${base}: confirmed finding requires visible remediation`);
       }
@@ -711,9 +737,9 @@ function enforceJsonTextLimits(contents) {
   }
 }
 
-function run(file) {
+function run(file, metadataFile) {
   if (!file) {
-    console.error("Usage: node validate-findings.cjs <path-to-findings.json>");
+    console.error("Usage: node validate-findings.cjs <path-to-findings.json> [run-metadata.json]");
     return 1;
   }
 
@@ -757,6 +783,32 @@ function run(file) {
     console.error("Failed to validate findings JSON: unexpected validation error");
     return 1;
   }
+
+  if (metadataFile) {
+    let metadata;
+    try {
+      metadata = JSON.parse(readFileWithinLimit(metadataFile));
+    } catch {
+      console.error("Failed to read run metadata for the execution-policy cross-check");
+      return 1;
+    }
+    const policy = metadata && metadata.execution_policy;
+    const policies = new Set(["source-only-no-sandbox", "trusted-local-opt-in", "sandboxed-local-only"]);
+    if (!policies.has(policy)) {
+      errors.push(`${metadataFile}: execution_policy must be one of ${[...policies].join(", ")}`);
+    } else if (Array.isArray(findings)) {
+      findings.forEach((finding, index) => {
+        const execution = finding && typeof finding === "object" ? finding.execution : null;
+        if (!execution || typeof execution !== "object") return;
+        if (policy === "source-only-no-sandbox" && execution.method === "local") {
+          errors.push(`$[${index}].execution.method: a run declared "source-only-no-sandbox" cannot contain an executed record`);
+        }
+        if (execution.method === "local" && execution.policy !== policy) {
+          errors.push(`$[${index}].execution.policy: must equal the run policy ${safeQuote(policy)}`);
+        }
+      });
+    }
+  }
   for (const message of errors) console.error("ERROR:", escapeUnsafeDiagnosticCharacters(message));
   if (errors.length > 0) {
     const cap = errors.length === LIMITS.validationErrors ? `; output capped at ${LIMITS.validationErrors}` : "";
@@ -781,4 +833,4 @@ module.exports = {
   validateDocument,
 };
 
-if (require.main === module) process.exit(run(process.argv[2]));
+if (require.main === module) process.exit(run(process.argv[2], process.argv[3]));

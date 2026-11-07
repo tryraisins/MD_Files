@@ -1194,7 +1194,7 @@
         "A previous audit needs its coverage gaps closed or its findings rechecked against changed code."
       ],
       "avoid": "It only runs a full audit when you ask for one. Security questions and focused reviews belong to the narrower security skills.",
-      "requirements": "Needs Node.js for the two zero-dependency validators. Target code is not executed without an OS-enforced sandbox.",
+      "requirements": "Needs Node.js for the two zero-dependency validators. Source-only by default; executing target code needs explicit per-run authorization or an OS-enforced sandbox.",
       "example": {
         "ask": "Audit this repository for security vulnerabilities and give me the findings.",
         "outcome": "It plans coverage, hunts in isolated units, has every candidate independently disproved or confirmed, and writes findings.json plus a report derived from it."

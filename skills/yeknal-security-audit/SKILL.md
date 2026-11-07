@@ -1,6 +1,6 @@
 ---
 name: "yeknal-security-audit"
-description: "Run a multi-phase security audit of a repository, directory, or diff with a coverage ledger, adversarial verification, and schema-validated findings. Use only for explicit audit or pen-test requests, not general security questions."
+description: "Run a multi-phase security audit of a repository, directory, or diff: coverage ledger, adversarial verification, schema-validated findings. Use for explicit audits, pen tests, and requests to prove which vulnerabilities are real, not quality reviews."
 license: MIT
 metadata:
   source: https://github.com/cloudflare/security-audit-skill
@@ -11,7 +11,7 @@ metadata:
 
 # Security Audit
 
-Find vulnerabilities that cross a real trust boundary, then give the owner source evidence, a safe reproduction, a priority, and the smallest effective fix.
+Find vulnerabilities that cross a real trust boundary, then give the owner source evidence, a safe reproduction when execution is authorized or a source-established proof otherwise, a priority, and the smallest effective fix.
 
 This is an audit execution engine, not a checklist. It plans coverage, hunts in isolated units, gives every candidate to a fresh verifier that tries to disprove it, writes machine-readable records, and derives the report from those records. A candidate with no concrete affected principal, resource, or security outcome is not a finding.
 
@@ -24,17 +24,21 @@ Loading this skill does not authorize the full workflow or any file creation.
 - **Guidance mode.** For security questions, focused review of a specific finding, methodology questions, or triage, answer from `yeknal-application-security` plus this skill's core principles. Launch focused agents when useful, but they return to the current task. Do not run all six phases and do not create a run directory.
 - **Full audit mode.** Use the complete workflow when the user asks to audit or pen-test a codebase, asks for a full or end-to-end security review, or asks for report artifacts. Run all six phases and write the files defined below.
 
+A scoped request to find vulnerabilities in a path and say which are real, such as "find vulnerabilities in ./src and tell me which ones hold up", authorizes a `quick` run scoped to that path even without the word audit. State the scope and the profile in one line before starting.
+
 If the request could mean either mode, ask one focused question before creating files.
 
 ## Audit roles
 
 The workflow needs three independent roles. Bind them to real subagents; never simulate the roles inside one context.
 
+The reference companions use platform-neutral names. `general` means this harness's general-purpose subagent, and `research` means a read-only source-reading subagent; map both to `general` or `explore` as this table specifies.
+
 | Role | Lane | Responsibility |
 | --- | --- | --- |
-| Reconnaissance and hunting | A read-only explorer agent | Read-only source inspection, one coverage unit per assignment, structured candidate output |
-| Repository-wide tracing and coverage critique | A repository-wide tracing agent | Follow a path across subsystems, find ledger gaps, never hunt and never write |
-| Candidate and record verification | A fresh agent per candidate, a stronger reasoning agent when the candidate turns on subtle logic | Try to disprove the claim from source, with no access to the hunter's reasoning |
+| Reconnaissance and hunting | `general` with a read-only brief; `explore` only for narrow location work | Read-only source inspection, one coverage unit per assignment, structured candidate output |
+| Repository-wide tracing and coverage critique | `explore` or `general`, read-only | Follow a path across subsystems, find ledger gaps, never hunt and never write |
+| Candidate and record verification | A fresh `general` instance per candidate, or a stronger reasoning lane when the candidate turns on subtle logic | Try to disprove the claim from source, with no access to the hunter's reasoning |
 
 Rules that hold in every profile:
 
@@ -42,16 +46,19 @@ Rules that hold in every profile:
 - Independence comes from fresh context. A verifier receives the candidate fingerprint, the claimed boundary, and the claimed evidence paths. It never receives the hunter's narrative, and it never verifies its own find.
 - The parent is the only writer of shared run files.
 - Hunting and tracing roles are read-only. Never send them code edits, and never ask a hunting role to fix what it found. Remediation is separate work that the user requests.
+- If the harness cannot delegate, or the user has not authorized subagents, stop and ask. Record `run_status: "incomplete"` with `incomplete_reason: "delegation_unavailable"` and launch no phase. Never collapse the roles into one context to work around the limitation.
 
 Budget the run in agent invocations. A `deep` profile on a large repository is a deliberate spend, not a default.
 
 ## Execution safety
 
-Source inspection is read-only and always allowed. Executing target code is a separate authorization.
+Source inspection is read-only and always allowed. Executing target code is a separate authorization. Record the chosen `execution_policy` in `run-metadata.json`: `source-only-no-sandbox` (default), `trusted-local-opt-in`, or `sandboxed-local-only`.
 
-**Default on this machine: no OS-enforced sandbox exists, so target code does not execute.** Compiling, running tests, launching the app, driving a browser, fuzzing, and processing fixtures all require an OS-enforced sandbox that provides no external network, an empty environment populated from an allowlist, a read-only target, writes confined to an assigned `scratch/` directory, and explicit CPU, memory, process, disk, and wall-clock limits. Without every one of those controls, keep the lead as `needs_validation`, state the missing capability, and give a safe owner-facing validation plan.
+**Default: `source-only-no-sandbox`.** Without an OS-enforced sandbox, target code does not execute. Compiling, running tests, launching the app, driving a browser, fuzzing, and processing fixtures all require a sandbox that provides no external network, an empty environment populated from an allowlist, a read-only target, writes confined to an assigned `scratch/` directory, and explicit CPU, memory, process, disk, and wall-clock limits. Without every one of those controls, keep the lead as `needs_validation`, state the missing capability, and give a safe owner-facing validation plan. A source-established finding is still a finding; see core principles.
 
-If a real sandbox becomes available (WSL2 or a container with those controls), execute only the minimum local check that establishes the defect.
+**Opt-in: `trusted-local-opt-in`.** The user may authorize, for one run, executing only the repository's own existing test suite, build, or dev server, in the project's normal environment, on the user's own machine and code. Require an explicit per-run authorization recorded in `run-metadata.json`, including the user's attestation that they own or trust the code and a per-command record. Read the test and build scripts before running them. Run with an allowlisted environment rather than inheriting the ambient one, install no dependencies, and make no calls to third-party or shared services. The parent, or one named verifier, is the only executor. Use dummy data and dummy principals, and stop at the first result that establishes or refutes the defect. This policy never licenses probes against deployed endpoints, shared infrastructure, other users' data, or third-party systems. Declare the unsandboxed run in the report.
+
+**`sandboxed-local-only`** applies when a real sandbox is available (WSL2 or a container with every control above). Execute only the minimum local check that establishes the defect.
 
 Both modes:
 
@@ -60,9 +67,9 @@ Both modes:
 - Never test availability against a live or shared process.
 - Never publish artifacts, alter releases, spend paid API quota, or pursue persistence, post-exploitation, or concealment.
 - Stop at the first minimum effect that proves the boundary failure: a wrong return value, an unauthorized dummy record, a sanitizer finding, or a policy difference.
-- If the decisive fact lives outside source or the sandbox, report `needs_validation` rather than guessing.
+- If the decisive fact lives outside source and outside the authorized execution scope, report `needs_validation` rather than guessing.
 
-For a reproduced check, record the command, the exact test input, the sandbox limits, and only the allowlisted environment variable names with safe non-secret values. Never capture the ambient environment.
+For a reproduced check, record the command, the exact test input, the execution limits, and only the allowlisted environment variable names with safe non-secret values. Never capture the ambient environment.
 
 ## Setup
 
@@ -74,7 +81,7 @@ Resolve these before reconnaissance:
 - **Output directory.** A new writable directory outside the target, defaulting to `~/security-audit-skill/<repo-name>/run-<N>` with the next unused integer. Use a directory inside the target only when the user explicitly selects it and version control ignores the whole directory. Otherwise stop and ask for an external path.
 - **Source ref.** The reviewed commit and whether the worktree is dirty. Do not treat unreviewed generated or modified files as part of the revision.
 
-Write `run-metadata.json` before delegating, with `run_id`, `repo`, `target`, `source_ref`, `profile`, `scope_paths`, `budget` (null when unset), `execution_policy: "source-only-no-sandbox"` or `"sandboxed-source-and-local-only"`, the selected companion files, prior-run paths, shared-file owners, and `run_status: "in_progress"`.
+Write `run-metadata.json` before delegating, with `run_id`, `repo`, `target`, `source_ref`, `profile`, `scope_paths`, `budget` (null when unset), `execution_policy` (one of `source-only-no-sandbox`, `trusted-local-opt-in`, or `sandboxed-local-only`), the execution authorization and its limits when not source-only, the selected companion files, prior-run paths, shared-file owners, and `run_status: "in_progress"`.
 
 Each delegated agent gets its own root under `<output-dir>/agents/<agent-id>/` with separate `scratch/` and `artifacts/`. Agent IDs match `^[a-z0-9][a-z0-9_-]{0,63}$`, stay lowercase, and must not be a Windows device name (`con`, `prn`, `aux`, `nul`, `com1`-`com9`, `lpt1`-`lpt9`). Agents write only inside their own `scratch/`, never to shared files, target source, or another agent's directory. Do not fall back to `/tmp` or the home directory as scratch.
 
@@ -89,7 +96,7 @@ No single pass is complete, and coverage is a claim that must be countably suppo
 If earlier runs exist, read every compatible `coverage-ledger.json` and `findings.json` before planning:
 
 1. Compare current source against each prior record and unit. A prior source ref alone does not prove the path is unchanged.
-2. Carry a prior `confirmed` record forward only when its source and conditions are unchanged and its evidence still meets the current contract. Link it to a `planned` unit, keep its fingerprint, exclude only that root cause from hunters, and still send it through final verification.
+2. Carry a prior `confirmed` record forward only when its source and conditions are unchanged and its evidence still meets the current contract. A carried record without `execution.method` and `execution.policy` is rewritten to the current shape before it is carried, and a legacy record that cannot state how it was established is not carried as `confirmed`. Link it to a `planned` unit, keep its fingerprint, exclude only that root cause from hunters, and still send it through final verification.
 3. When the source behind a prior `confirmed` record changed, create a planned revalidation unit and keep it huntable.
 4. Prior `needs_validation`, `deferred`, `blocked`, `out_of_scope`, and changed-source units are current work. They never suppress a unit.
 5. A prior covered unit informs priority but stays visible. A prior `rejected` record suppresses only that unchanged failed claim.
@@ -130,6 +137,16 @@ If an unexpectedly large candidate set exhausts the validation budget, stop hunt
 
 Name the lower-trust principal, the accepted input or action, the intended control, the crossed boundary, the affected principal or resource, and a concrete observed or owner-observable result. A missing best practice, a guessed deployment behavior, a generic parser crash, or self-impact is not a finding.
 
+### Confirm from source when the target cannot run
+
+Every `confirmed` record declares how it was established through `execution.method` and the matching `execution.policy`. The record's policy states how that record was established, not the run's maximum authorization: a source trace inside an execution-authorized run still uses `source-only-no-sandbox`.
+
+Under `source-only-no-sandbox`, a confirmed record needs a complete entrypoint-to-sink trace, the strongest source-visible control shown not to apply or to fail open, stated conditions, and a fresh verifier's independent re-trace. It uses `execution.method: "source"`, `execution.policy: "source-only-no-sandbox"`, no `payloads`, and an `observed_result` that begins exactly `Source-established (not executed):` and states only what the trace proves. Severity still follows demonstrated impact; source evidence does not downgrade a real boundary failure into `needs_validation`.
+
+Never move source reasoning into an executed-sounding `observed_result`. If a decisive step needs runtime proof, the record is `needs_validation`, not a weaker `confirmed`.
+
+Under `trusted-local-opt-in` or `sandboxed-local-only`, a confirmed record uses `execution.method: "local"`, at least one payload, fixture, or command, and the real observed output.
+
 ### Separate priority from certainty
 
 Only `confirmed` records carry severity, and severity cannot exceed demonstrated impact.
@@ -161,7 +178,7 @@ Run all six phases in order.
 1. **Reconnaissance.** Map architecture, trust boundaries, input surfaces, build paths, companion selections, and prior evidence. Write `architecture.md` and the initial `coverage-ledger.json` per `references/RECONNAISSANCE.md`, then run the ledger validator.
 2. **Coverage-led hunting.** Assign isolated hunters from ledger units, record every check, and use coverage critics to find gaps. Methodology, candidate format, and per-domain attack classes live in `references/HUNTING.md`, `references/ATTACK-CLASSES.md`, and the domain companions below.
 3. **Candidate validation.** Consolidate fingerprints and give every unique candidate to a fresh verifier that tries to disprove it. Rules are in `references/VALIDATION-AND-REPORTING.md`.
-4. **Structured output.** Write every final `confirmed`, `needs_validation`, and `rejected` record to `findings.json`, then validate against `scripts/report-schema.json` with `scripts/validate-findings.cjs` and re-validate the ledger.
+4. **Structured output.** Write every final `confirmed`, `needs_validation`, and `rejected` record to `findings.json`, then validate against `scripts/report-schema.json` with `scripts/validate-findings.cjs` (pass `run-metadata.json` as the second argument for the execution-policy cross-check) and re-validate the ledger.
 5. **Independent record verification.** Use fresh agents to verify the source claims behind final records. A materially replaced record gets another independent verifier, and the ledger is re-validated after each replacement.
 6. **Target-neutral report.** Derive `REPORT.md`, `FINDINGS-DETAIL.md`, and `NEEDS-VALIDATION.md` from verified records and the ledger. No live-probe instructions.
 
@@ -189,7 +206,7 @@ Both validators are zero-dependency Node scripts. `report-schema.json` must stay
 
 ```bash
 node <skill-dir>/scripts/validate-coverage-ledger.cjs <run-dir>/coverage-ledger.json
-node <skill-dir>/scripts/validate-findings.cjs <run-dir>/findings.json
+node <skill-dir>/scripts/validate-findings.cjs <run-dir>/findings.json [<run-dir>/run-metadata.json]
 ```
 
 Run the ledger validator after creating the ledger and after every later ledger update. Run the findings validator in Phase 4 and again after every Phase 5 replacement. A validator failure is a blocking defect in the records, not a warning.
@@ -204,6 +221,8 @@ Keep run directories outside shared or target-controlled locations. Platform-spe
 4. Emitting prose-only hunter output that cannot be deduplicated or verified.
 5. Using carried prior findings as exemplars that anchor the current hunt.
 6. Writing the report before independent verification, or letting prose and JSON disagree.
+7. Recording a source trace as an executed `observed_result`, or leaving `execution.method` unset.
+8. Collapsing hunting and verification into one context when delegation is unavailable.
 
 ## References
 

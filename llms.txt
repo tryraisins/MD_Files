@@ -1,5 +1,5 @@
 yeknal-application-security: Cross-stack secure-by-design guidance for authentication, authorization, sessions, APIs, supply chains, browser protections, and AI or agentic systems. Use for security-sensitive implementation and review.
-yeknal-security-audit: Multi-phase security audit with a coverage ledger, isolated hunting, adversarial verification, and schema-validated findings. Use for explicit audit or pen-test requests.
+yeknal-security-audit: Multi-phase security audit with a coverage ledger, isolated hunting, adversarial verification, and schema-validated findings. Use for explicit audits, pen tests, and requests to prove which vulnerabilities are real, not quality reviews.
 yeknal-security-best-practices: Repository security review workflow grounded in the modern application-security baseline. Use for focused vulnerability and configuration audits.
 yeknal-security-threat-model: Trust-boundary, asset, threat, and mitigation analysis including prompt injection, compromised tools, memory poisoning, and excessive agency. Use for threat modeling.
 yeknal-security-ownership-map: Sensitive-code ownership, concentration, and CODEOWNERS comparison. Use for security stewardship and bus-factor analysis.

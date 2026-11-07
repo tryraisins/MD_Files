@@ -1,6 +1,6 @@
 ---
 name: yeknal-review
-description: Review code or systems for concrete defects, regressions, and maintainability risks when the user requests an audit or quality assessment.
+description: Review code or systems for concrete defects, regressions, and maintainability risks when the user requests a quality assessment or code review. Not for vulnerability hunting or security audits.
 ---
 
 # Review

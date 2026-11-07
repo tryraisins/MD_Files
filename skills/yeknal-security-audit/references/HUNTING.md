@@ -17,7 +17,7 @@ Every hunter prompt contains these parts in this order:
 3. Assigned coverage IDs, subsystem, boundary, repository-relative starting paths, and each unit's assignment block map from `coverage-ledger.json`.
 4. The exact selected blocks, copied verbatim: each selected ordinary attack-class block from `ATTACK-CLASSES.md`, and from each selected companion its `Core discipline`, each chosen attack-class subsection, `Universal moves`, and `Validation rules`. Ordinary blocks are self-contained and carry no companion-style `Core discipline`, `Universal moves`, or `Validation rules` sections. Do not send block or companion names alone.
 5. Explicit excluded ordinary and companion blocks with a reason for each exclusion.
-6. The core hunting method below, followed by the promotion procedure block.
+6. The core hunting method below, followed by the promotion procedure block when the run policy allows execution.
 7. The core validation rules below.
 8. Carried same-source prior confirmed exclusions, each limited to fingerprint, title, and root cause, plus peer-owned current coverage IDs that this hunter must not duplicate.
 9. The unique scratch/artifact paths, safe agent ID, predeclared promotion allowlist and byte limits, and the structured-result contract, including the Structured hunter result block below and the `confirmed` and `needs_validation` branches of `report-schema.json` copied verbatim.
@@ -30,7 +30,8 @@ A prompt may select several companion blocks when the same path crosses several 
 ## Defensive vulnerability-finding method
 
 Your goal is to find source-grounded security invariant failures and the smallest fix,
-not to expand harm beyond the boundary result. Stay within source review and bounded local execution.
+not to expand harm beyond the boundary result. Stay within source review and the
+authorized execution scope.
 Do not contact deployed endpoints, provider APIs, registries, identity systems,
 message brokers, shared services, or other users. Use local dummy data only.
 
@@ -68,18 +69,20 @@ Consolidate the same root cause, but establish each variant's conditions and imp
 independently. Do not investigate peer-owned units. Return a variant with no current
 coverage unit as `uncovered`.
 
-USE THE NARROWEST LOCAL CHECK THAT SETTLES THE CLAIM. Target-controlled builds,
+USE THE NARROWEST CHECK THAT SETTLES THE CLAIM. Under the default
+`source-only-no-sandbox` policy the target does not run: settle the claim from
+the trace, record `method: source` with `artifact: null`, and never describe an
+executed result. When the run policy allows execution, target-controlled builds,
 tests, processes, browsers, emulators, fuzzers, and fixture processing may run only
-inside the parent-approved OS-enforced sandbox. It must disable external networking,
-start from an empty allowlisted environment, expose target and tools read-only, permit
-writes only to your scratch directory, and apply low CPU, memory, process, file-size,
-disk, and wall-clock limits. Isolated loopback is allowed only for a local fixture.
-If any control is unavailable, do not execute: return needs_validation with that exact
-blocker. Prefer an existing unit test, minimal function harness, dummy-tenant service
-call, small malformed fixture, deterministic race schedule, or locally rendered policy.
-Do not install or fetch tools.
+inside the approved boundary described in `SKILL.md`. Under `trusted-local-opt-in`,
+hunters do not execute: record `method: source` and return the exact command as an
+unresolved fact for the named executor. Under `sandboxed-local-only`, execute only
+inside the sandbox. If any control is unavailable, do not execute: return
+needs_validation with that exact blocker. Prefer an existing
+unit test, small malformed fixture, dummy-tenant service call, deterministic race
+schedule, or locally rendered policy over a new harness. Do not install or fetch tools.
 
-Record the exact input, command, limits, and minimum result. For the environment,
+When a check executes, record the exact input, command, limits, and minimum result. For the environment,
 record only allowlisted variable names and safe non-secret values needed to reproduce
 the check. Never capture the ambient environment, inherited variables, credentials,
 authentication state, or unrelated host paths. The target-controlled process writes
@@ -142,8 +145,10 @@ file separately:
 
 1. A candidate needs a complete repository-relative source trace and evidence for the
    claimed root cause, including the strongest source-visible control.
-2. A proposed confirmed record needs a bounded local observed result, meaningful impact
-   across a stated boundary, complete conditions, and no visible preventing layer.
+2. A proposed confirmed record needs a bounded observed result when execution is
+   authorized, or a complete source trace with the decisive control shown not to
+   apply when it is not. Either way it needs meaningful impact across a stated
+   boundary, complete conditions, and no visible preventing layer.
 3. Do not strengthen a crash into code execution, ordinary work into shared availability,
    or a same-principal action into privilege gain.
 4. If a required fact is not source-visible or locally observable, use
@@ -158,12 +163,12 @@ file separately:
 
 ## Local validation boundaries
 
-Local execution is for confirmation, not impact expansion:
+Local execution is for confirmation, not impact expansion. It is allowed only when the run policy is `trusted-local-opt-in` or `sandboxed-local-only`, and only the named executor runs the command.
 
-- **Allowed only in the required OS sandbox:** offline builds with present dependencies; isolated-loopback processes using dummy state; unit and integration tests; small fixture processing; sanitizers; bounded fuzz/regression tests; deterministic concurrency checks; local browser/emulator tests with dummy accounts; rendered manifests and policy evaluation with dummy identities; mocked external or paid calls.
+- **Allowed:** offline builds with present dependencies; isolated-loopback processes using dummy state; the repository's own unit and integration tests; small fixture processing; sanitizers; bounded fuzz/regression tests; deterministic concurrency checks; local browser/emulator tests with dummy accounts; rendered manifests and policy evaluation with dummy identities; mocked external or paid calls. Under `trusted-local-opt-in`, run only the repository's own pre-read test, build, or dev-server command with an allowlisted environment.
 - **Disallowed:** live or deployed traffic; requests to services not started for this isolated check; network dependency installation; real accounts or credentials; production data; shared queues, cloud resources, runners, registries, signing or release services; publishing; stress, saturation, or cost generation; any work after the minimum dummy-data boundary result.
 
-The sandbox starts with an empty environment, gives target code no external network or host writable path, and enforces explicit low resource and time limits for every check, not only checks expected to be expensive. Scratch output remains target-controlled after exit. Promote it only with the no-follow, path-confined, regular-file, bounded-size host procedure in `SKILL.md`. Missing any sandbox or promotion capability does not erase a source-grounded candidate; represent the exact blocker in `needs_validation`.
+Under `sandboxed-local-only` the sandbox starts with an empty environment, gives target code no external network or host writable path, and enforces explicit low resource and time limits for every check, not only checks expected to be expensive. Scratch output remains target-controlled after exit. Promote it only with the no-follow, path-confined, regular-file, bounded-size host procedure copied into this prompt. Under `trusted-local-opt-in` the parent runs the command with an allowlisted environment, records the transcript directly beneath the check owner's `artifacts/` path, and needs no scratch promotion. Missing any required capability does not erase a source-grounded candidate; represent the exact blocker in `needs_validation`.
 
 ## Structured hunter result
 
@@ -207,10 +212,10 @@ Return exactly one JSON object, with no surrounding prose:
 
 Each `candidates` entry is schema-shaped except that it uses `proposed_verdict` in place of `verdict`:
 
-- `proposed_verdict: "confirmed"`: include every field required by the `confirmed` branch of `report-schema.json` other than `verdict`: `fingerprint`, title, description, `root_cause`, `intended_behavior`, ordered `trace`, `evidence`, `conditions`, target-neutral `execution`, `remediation`, `severity`, and `confidence`. The execution instructions describe only the bounded local check already performed. `payloads` holds the minimum test input, fixture, or native invocation. `observed_result` records actual local output. Overall severity must not exceed observed impact.
+- `proposed_verdict: "confirmed"`: include every field required by the `confirmed` branch of `report-schema.json` other than `verdict`: `fingerprint`, title, description, `root_cause`, `intended_behavior`, ordered `trace`, `evidence`, `conditions`, target-neutral `execution`, `remediation`, `severity`, and `confidence`. Under `source-only-no-sandbox`, `execution` uses `method: "source"`, `policy: "source-only-no-sandbox"`, no `payloads`, and an `observed_result` beginning exactly `Source-established (not executed):`. When execution is authorized, it uses `method: "local"` with the declared policy, the minimum test input or command in `payloads`, and the actual observed output. Overall severity must not exceed demonstrated impact.
 - `proposed_verdict: "needs_validation"`: include every field required by that schema branch other than `verdict`: `fingerprint`, title, description, `claimed_root_cause`, ordered `trace`, `evidence`, nonempty `blockers`, and `validation_plan` with at least one applicable `local` or `deployment` step. Do not invent an inapplicable context. Do not include severity, execution, remediation, reason, or a confirmed `root_cause`. `deployment` is an owner-observed check, not a request to probe a live target.
 
-Every assigned coverage ID appears exactly once in `units`. A `covered` unit needs an owner, nonempty `reviewed_paths` and `checks`, no unresolved fact, and no candidate. A `candidate` unit has the same owned evidence and is the only state that carries linked fingerprints. A `blocked` unit is an owned partial review with nonempty paths, checks, and unresolved facts but no fingerprint. All source paths are repository-relative, never absolute or traversal paths. A trace with several entries begins at `entrypoint`, ends at `sink`, and labels intermediate steps `propagation`. Every check has its own canonical lowercase `agent_id` and nonempty `reviewed_paths`; the unit-level list is exactly the union of those owned paths. A `source` check uses `artifact: null`. A `local` check uses one successfully parent-promoted regular file beneath `agents/<check.agent_id>/artifacts/`; this permits a verifier to add independently owned evidence without taking ownership from the hunter. Never link scratch, an output-root file, or another check owner's artifact.
+Every assigned coverage ID appears exactly once in `units`. A `covered` unit needs an owner, nonempty `reviewed_paths` and `checks`, no unresolved fact, and no candidate. A `candidate` unit has the same owned evidence and is the only state that carries linked fingerprints. A `blocked` unit is an owned partial review with nonempty paths, checks, and unresolved facts but no fingerprint. All source paths are repository-relative, never absolute or traversal paths. A trace with several entries begins at `entrypoint`, ends at `sink`, and labels intermediate steps `propagation`. Every check has its own canonical lowercase `agent_id` and nonempty `reviewed_paths`; the unit-level list is exactly the union of those owned paths. A `source` check uses `artifact: null`. A `local` check uses one regular file beneath `agents/<check.agent_id>/artifacts/`: under `sandboxed-local-only` that file was promoted by trusted parent-side code, and under `trusted-local-opt-in` it is the parent-recorded command transcript. This permits a verifier to add independently owned evidence without taking ownership from the hunter. Never link scratch, an output-root file, or another check owner's artifact.
 
 ## Parent consolidation and ledger update
 
@@ -220,7 +225,7 @@ Consolidate candidate entries by fingerprint and then by root cause. One root ca
 
 ## Coverage-critic waves
 
-Immediately after each hunter wave, spend the reserved invocation on one fresh `research` post-wave coverage critic. It receives `architecture.md`, the full coverage ledger including each assignment block map, current candidate fingerprints and states, and the prior-ledger gap summary. It reads source but does not write or run targets. Require exactly this JSON:
+Immediately after each hunter wave, spend the reserved invocation on one fresh read-only post-wave coverage critic. It receives `architecture.md`, the full coverage ledger including each assignment block map, current candidate fingerprints and states, and the prior-ledger gap summary. It reads source but does not write or run targets. Require exactly this JSON:
 
 ```json
 {

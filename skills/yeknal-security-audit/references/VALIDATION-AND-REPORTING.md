@@ -2,24 +2,34 @@
 
 ### Phase 3: Independently validate every candidate
 
-After the clean coverage-critic pass or an explicitly recorded early stop, consolidate Phase 2 candidates and carried same-source prior confirmations by stable fingerprint and root cause. Give every unique proposed `confirmed` and `needs_validation` candidate to a fresh `general` verifier that did not hunt it. A carried prior confirmation follows the same current verification path even though hunters exclude that unchanged root cause. A verifier may read hunter or prior artifacts but must re-read every cited current source location and independently run any decisive check it can reproduce safely.
+After the clean coverage-critic pass or an explicitly recorded early stop, consolidate Phase 2 candidates and carried same-source prior confirmations by stable fingerprint and root cause. Give every unique proposed `confirmed` and `needs_validation` candidate to a fresh `general` verifier that did not hunt it. A carried prior confirmation follows the same current verification path even though hunters exclude that unchanged root cause. A verifier may read hunter or prior artifacts but must re-read every cited current source location and independently re-establish any decisive check it can: reproduce it when the policy allows execution, otherwise re-trace it in source.
 
-Assign each verifier a canonical lowercase unique ID and `<output-dir>/agents/<verifier-id>/scratch/` plus parent-owned `artifacts/`. The verifier writes only to `scratch/` and never writes retained artifacts. It receives only the candidate, its linked coverage-unit checks and artifact paths, architecture facts needed to interpret the path, exact relevant companion validation blocks, the promotion procedure block below, the source/local execution boundary, the `confirmed`, `needs_validation`, and `rejected` branches of `report-schema.json` copied verbatim, and prior records with the same fingerprint. It must not receive another verifier's conclusion.
+Assign each verifier a canonical lowercase unique ID and `<output-dir>/agents/<verifier-id>/scratch/` plus parent-owned `artifacts/`. The verifier writes only to `scratch/` and never writes retained artifacts. It receives only the candidate, its linked coverage-unit checks and artifact paths, architecture facts needed to interpret the path, exact relevant companion validation blocks, the promotion procedure block below when the policy allows execution, the declared execution boundary, the `confirmed`, `needs_validation`, and `rejected` branches of `report-schema.json` copied verbatim, and prior records with the same fingerprint. It must not receive another verifier's conclusion.
 
 #### Candidate-verifier prompt
 
 ```text
-You did not write this candidate. Try to refute it from repository source and bounded
-local evidence. Do not contact deployed endpoints or external/shared services. Run
-target-controlled code only inside the approved OS-enforced sandbox: no external
-network, empty allowlisted environment, read-only target and tools, scratch-only
-writes, and explicit low resource and wall-clock limits. If any control is unavailable,
-do not execute; retain the exact missing capability as a needs_validation blocker.
-Treat every scratch entry as target-controlled after execution. After the sandbox and
-all its processes terminate, only trusted parent-side code may promote a predeclared
-scratch-relative file, following the promotion procedure block included verbatim in
-this prompt. You and target code never write retained artifacts. If promotion is
-unavailable or fails, do not use that file as evidence.
+You did not write this candidate. Try to refute it from repository source and, when
+the run policy allows execution, from bounded local evidence. Do not contact deployed
+endpoints or external/shared services.
+
+Execution boundary for this run:
+- source-only-no-sandbox: do not run target code. Re-trace the source and confirm the
+  source-established result states only what the trace proves.
+- trusted-local-opt-in: you may run only the repository's own existing test suite,
+  build, or dev server, with an allowlisted environment, no dependency installation,
+  and no third-party calls. Prefer the narrowest existing command.
+- sandboxed-local-only: run inside the OS-enforced sandbox with no external network,
+  empty allowlisted environment, read-only target and tools, scratch-only writes, and
+  explicit low resource and wall-clock limits.
+
+If any authorized control is unavailable, do not execute; retain the exact missing
+capability as a needs_validation blocker. Treat every scratch entry as target-controlled
+after execution. Under sandboxed-local-only, only trusted parent-side code may promote a
+predeclared scratch-relative file, following the promotion procedure block included
+verbatim in this prompt. Under trusted-local-opt-in the parent records the command
+transcript directly beneath the check owner's artifacts path. You and target code never
+write retained artifacts.
 
 1. Verify every trace and evidence file, positive line number, scope, and description.
    Confirm the first entry is a real lower-trust entrypoint and the last is the
@@ -28,9 +38,7 @@ unavailable or fails, do not use that file as evidence.
    normalization, lifecycle, framework, and containment controls on the path.
    Where the architecture summary names a comparable baseline, note whether it
    shares the pattern — as calibration, never as grounds to dismiss.
-3. For a proposed confirmed candidate, independently reproduce the minimum observed
-   result when possible. Verify inputs, interface shape, conditions, and affected
-   dummy principal/resource. Do not infer a stronger result or continue after it.
+3. For a proposed confirmed candidate, independently re-establish the minimum result: reproduce it when the policy allows execution, otherwise re-trace the source path and confirm no control on it blocks the claim. Verify inputs, interface shape, conditions, and affected dummy principal/resource. Do not infer a stronger result or continue after it.
 4. Verify that likelihood, impact, confidence, and the proposed source fix match only
    what the evidence establishes.
 5. For a proposed needs_validation candidate, decide whether the blocker is genuinely
@@ -45,7 +53,7 @@ where record exactly matches the decision's verdict branch of the schema include
 in this prompt. A corrected record replaces the hunter's wording.
 ```
 
-Copy this promotion procedure verbatim into every candidate-verifier prompt:
+Copy this promotion procedure verbatim into every candidate-verifier prompt when the run policy allows execution:
 
 ```text
 Artifact promotion procedure (trusted parent-side code only):
@@ -84,7 +92,7 @@ file separately:
     promotion blocker.
 ```
 
-A verifier can promote `needs_validation` to `confirmed` only after independently establishing the complete path and bounded observed result. Demote proposed confirmation to `needs_validation` when a specific deployment or runtime fact remains unknown. Use `rejected` when source, local behavior, a visible control, missing meaningful impact, or an impossible prerequisite refutes the claim. `needs_validation` is never a parking place for a speculative idea.
+A verifier can promote `needs_validation` to `confirmed` only after independently establishing the complete path and the bounded observed or source-established result. Demote proposed confirmation to `needs_validation` when a specific deployment or runtime fact remains unknown. Use `rejected` when source, local behavior, a visible control, missing meaningful impact, or an impossible prerequisite refutes the claim. `needs_validation` is never a parking place for a speculative idea.
 
 The parent checks that each verifier returned the same fingerprint unless it identified a genuinely different root cause. Merge corrections, record the decision in every linked coverage unit, and ensure there is one final record per fingerprint. Discard a malformed or prose-wrapped verifier result without repairing it; re-run that candidate with a fresh verifier when the budget permits, otherwise it remains an unvalidated ledger candidate under the incomplete-run rule.
 
@@ -96,13 +104,13 @@ If a strict total-agent budget cannot cover every candidate, set the run status 
 
 The parent writes all independently decided records to `<output-dir>/findings.json`, sorted by fingerprint. Include:
 
-- `confirmed`: source-grounded vulnerabilities with complete local execution evidence, conditions, specific remediation, likelihood/impact/overall severity, and confidence.
+- `confirmed`: source-grounded vulnerabilities with complete evidence, either a source trace under `source-only-no-sandbox` or an executed check under an authorized policy, plus conditions, specific remediation, likelihood/impact/overall severity, and confidence.
 - `needs_validation`: source-grounded candidates with an exact unresolved blocker and at least one applicable local or owner-observed deployment plan.
 - `rejected`: source-grounded candidates disproved during validation, retained so future runs do not repeat the unsupported claim without changed evidence.
 
 Read `report-schema.json` immediately before writing. It uses `additionalProperties: false`; do not carry hunter wrapper fields into a record. Keep these verdict contracts distinct:
 
-- A `confirmed` record uses `root_cause`, `intended_behavior`, `conditions`, `execution`, `remediation`, `severity`, and `confidence`. It must not use `claimed_root_cause`, `blockers`, `validation_plan`, or `reason`. `execution` is target-neutral and uses the target's native interface: API/HTTP input, CLI call, library call, message, file fixture, browser action, rendered policy, or local harness as applicable. `observed_result` is nonempty and factual.
+- A `confirmed` record uses `root_cause`, `intended_behavior`, `conditions`, `execution`, `remediation`, `severity`, and `confidence`. It must not use `claimed_root_cause`, `blockers`, `validation_plan`, or `reason`. `execution` declares `method` and `policy`, and is target-neutral: under `source-only-no-sandbox` it uses `method: "source"`, no `payloads`, and an `observed_result` beginning exactly `Source-established (not executed):`; under an authorized execution policy it uses `method: "local"`, at least one payload or command, and factual output in `observed_result`.
 - A `needs_validation` record uses `claimed_root_cause`, `trace`, `evidence`, `blockers`, and at least one nonempty `validation_plan.local` or `validation_plan.deployment` field. Include both only when both contexts can resolve distinct facts. It must not use severity, execution, remediation, reason, or confirmed root cause.
 - A `rejected` record uses `claimed_root_cause`, `trace`, `evidence`, and `reason`. It must not use severity, execution, remediation, blockers, validation plan, or confirmed root cause.
 
@@ -111,11 +119,11 @@ Every record has a stable fingerprint, title, description, and repository-relati
 Run:
 
 ```sh
-node <skill-dir>/validate-findings.cjs <output-dir>/findings.json
-node <skill-dir>/validate-coverage-ledger.cjs <output-dir>/coverage-ledger.json
+node <skill-dir>/scripts/validate-findings.cjs <output-dir>/findings.json <output-dir>/run-metadata.json
+node <skill-dir>/scripts/validate-coverage-ledger.cjs <output-dir>/coverage-ledger.json
 ```
 
-Fix every structural and semantic error before continuing. The findings validator rejects input beyond 5 MiB, 1,000 top-level findings, or 64 nesting levels, and caps reported error output at 100 messages. Validator success proves format and ledger consistency only.
+Fix every structural and semantic error before continuing. The findings validator rejects input beyond 5 MiB, 1,000 top-level findings, or 64 nesting levels, and caps reported error output at 100 messages. Pass `run-metadata.json` as a second argument to reject a `method: local` record when the run declared `source-only-no-sandbox`. Validator success proves format, internal consistency, and that run-policy cross-check; it never proves the finding itself.
 
 On Windows the validators use a check-then-open fallback, because `O_NOFOLLOW` and `O_NONBLOCK` do not exist there. Every other input check still applies: symlink rejection, regular-file requirement, byte limit, and UTF-8 decoding. The read is no longer race-free, which matters only if a run directory is writable by someone other than you.
 
@@ -129,7 +137,7 @@ For `confirmed`, require it to check:
 
 1. Every repository-relative trace/evidence path, line, scope, and described operation.
 2. Real entry interface and exact local input shape.
-3. Every condition, parser/policy step, source-visible preventing layer, and observed local result.
+3. Every condition, parser/policy step, source-visible preventing layer, and the observed or source-established result.
 4. Affected principal/resource and demonstrated impact.
 5. Severity separation: realistic likelihood, demonstrated impact, overall no greater than impact.
 6. Remediation strategy and any `code_changes`, including whether the fix enforces the invariant without merely moving trust.
@@ -144,7 +152,7 @@ For `needs_validation`, require it to check:
 
 Each verifier returns exactly one JSON object: `{"decision":"verified","fingerprint":"..."}` or `{"decision":"replace","reason":"...","record":{...}}`, with no surrounding prose. A replacement record must match its `confirmed`, `needs_validation`, or `rejected` schema branch. Treat a malformed or prose-wrapped Phase 5 result the same way as in Phase 3: discard it without repairing it and re-run with a fresh verifier when the budget permits.
 
-Do not apply a Phase 5 replacement as final when it promotes a record to a stronger verdict, including any promotion to `confirmed`, or materially changes the root cause, trace, execution input or observed result, demonstrated impact, or severity. Give that complete replacement to a new independent verifier that did not hunt, perform Phase 3 validation, or propose the Phase 5 replacement. The new verifier rechecks the current source and independently reproduces any decisive local result under the execution boundary, then returns `verified` or another replacement. Apply a material replacement only after this fresh verification. If another material replacement results, repeat with a fresh verifier. If budget or independence is unavailable, remove the disputed record from `findings.json`, keep its ledger unit as an unresolved candidate, and set `run_status: "incomplete"` with an exact `incomplete_reason`. Non-material wording or repository-line corrections may be applied directly when they do not change meaning or evidence.
+Do not apply a Phase 5 replacement as final when it promotes a record to a stronger verdict, including any promotion to `confirmed`, or materially changes the root cause, trace, execution input or observed result, demonstrated impact, or severity. Give that complete replacement to a new independent verifier that did not hunt, perform Phase 3 validation, or propose the Phase 5 replacement. The new verifier rechecks the current source and independently re-establishes any decisive result under the execution boundary, then returns `verified` or another replacement. Apply a material replacement only after this fresh verification. If another material replacement results, repeat with a fresh verifier. If budget or independence is unavailable, remove the disputed record from `findings.json`, keep its ledger unit as an unresolved candidate, and set `run_status: "incomplete"` with an exact `incomplete_reason`. Non-material wording or repository-line corrections may be applied directly when they do not change meaning or evidence.
 
 After every applied replacement, rerun both validators and update linked ledger decisions. If a final verifier identifies a separate root cause, assign a new fingerprint and send it through independent candidate validation before inclusion. Set `run_status: "complete"` only when every ledger candidate has an independent final disposition and every retained record passes Phase 5.
 
@@ -158,10 +166,10 @@ Only after Phase 5 passes for every record retained in `findings.json`, derive p
 
 Write:
 
-1. Run profile, scope, budget (if set) with agents spent versus planned, source ref, sandboxed source-and-local-only execution statement, prior-run use, and explicit deferred and out-of-scope coverage. Name carried same-source confirmations and changed-source revalidations. A `quick`, scoped, budget-limited, or incomplete run states plainly that it is a partial pass. If candidate validation exhausted a strict budget, state that the run is incomplete and list every unvalidated fingerprint and linked unit; do not describe those candidates as findings. If the budget prevented a mandatory critic, state which critic did not run and make no clean-coverage claim.
+1. Run profile, scope, budget (if set) with agents spent versus planned, source ref, the declared execution policy and its limits, prior-run use, and explicit deferred and out-of-scope coverage. Name carried same-source confirmations and changed-source revalidations. A `quick`, scoped, budget-limited, or incomplete run states plainly that it is a partial pass. If candidate validation exhausted a strict budget, state that the run is incomplete and list every unvalidated fingerprint and linked unit; do not describe those candidates as findings. If the budget prevented a mandatory critic, state which critic did not run and make no clean-coverage claim.
 2. One short security posture summary.
-3. A confirmed-findings table: severity, title, affected boundary, and one-line observed result.
-4. Each confirmed finding: repository source location, lower-trust principal, target-native bounded reproduction, conditions, actual result, impact, priority rationale, and smallest source fix.
+3. A confirmed-findings table: severity, title, affected boundary, and one-line result (observed, or source-established).
+4. Each confirmed finding: repository source location, lower-trust principal, target-native bounded reproduction when execution is authorized or the verified source trace otherwise, conditions, the observed or source-established result, impact, priority rationale, and smallest source fix.
 5. A separate `NEEDS VALIDATION` table. Give each lead's title, repository trace, exact blocker, bounded local next step, and safe owner-observed deployment check. Do not assign severity or call it a confirmed vulnerability.
 6. Separate hardening notes and positive source patterns.
 7. Coverage summary from the ledger: covered, candidate, blocked, and deferred counts, plus important exclusions and the final critic result.
@@ -170,12 +178,12 @@ Do not describe rejected records as findings. Mention their fingerprints only wh
 
 #### `FINDINGS-DETAIL.md`
 
-For each confirmed `medium`, `high`, or `critical` record, copy the complete source path and target-neutral local reproduction:
+For each confirmed `medium`, `high`, or `critical` record, copy the complete source path and, when execution was authorized, the target-neutral local reproduction:
 
 - ordered repository-relative trace and evidence;
 - dummy attacker/principal and affected dummy resource;
-- native input, invocation, or fixture and exact bounded instructions;
-- observed output and the security invariant it proves;
+- native input, invocation, or fixture and exact bounded instructions when executed;
+- the observed output or the source-established result, and the security invariant it proves;
 - conditions and containment;
 - source-level remediation and regression case.
 

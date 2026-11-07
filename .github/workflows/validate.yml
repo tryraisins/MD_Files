@@ -68,6 +68,9 @@ jobs:
       - name: Check cross-references between skills, metadata and routing cases
         run: node tools/verify-skill-references.js
 
+      - name: Check the security-audit evidence contract
+        run: node tools/verify-security-audit-contract.js
+
       - name: Check changed whitespace
         shell: pwsh
         env:

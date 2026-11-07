@@ -118,8 +118,18 @@
           },
           "execution": {
             "type": "object",
-            "description": "Target-neutral reproduction in the target's native interface.",
+            "description": "How the finding was established: a source trace under a no-execution policy, or an executed check.",
             "properties": {
+              "method": {
+                "type": "string",
+                "enum": ["source", "local"],
+                "description": "source means established by tracing code without running the target; local means established by an executed check."
+              },
+              "policy": {
+                "type": "string",
+                "enum": ["source-only-no-sandbox", "trusted-local-opt-in", "sandboxed-local-only"],
+                "description": "How this record was established: source-only-no-sandbox for a source trace, or the execution policy under which the check ran. Not the run's maximum authorization."
+              },
               "attacker_perspective": {
                 "type": "string",
                 "minLength": 1,
@@ -145,10 +155,11 @@
               "observed_result": {
                 "type": "string",
                 "minLength": 1,
-                "visibleContent": true
+                "visibleContent": true,
+                "description": "For method local, the real observed output. For method source, prose beginning exactly \"Source-established (not executed):\" that states only what the trace proves."
               }
             },
-            "required": ["attacker_perspective", "payloads", "instructions", "observed_result"],
+            "required": ["method", "policy", "attacker_perspective", "instructions", "observed_result"],
             "additionalProperties": false
           },
           "remediation": {

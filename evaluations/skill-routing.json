@@ -405,6 +405,17 @@
       "rationale": "The question is inference spend and whether a cheaper configuration is safe, which needs measurement plus an outcome gate, not app speed work or a new delegation plan."
     },
     {
+      "id": "quality-review-not-security-audit",
+      "prompt": "Review this module for code quality problems and maintainability risks.",
+      "primary": "yeknal-review",
+      "secondary": [],
+      "mustNotLead": [
+        "yeknal-security-audit",
+        "yeknal-slopscan"
+      ],
+      "rationale": "A quality request stays with review; the words audit and security do not appear, so the expensive audit engine must not fire."
+    },
+    {
       "id": "full-security-audit",
       "prompt": "Do a full security audit of this repository and give me the findings.",
       "primary": "yeknal-security-audit",
