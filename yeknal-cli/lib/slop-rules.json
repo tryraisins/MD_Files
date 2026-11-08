@@ -5,7 +5,7 @@
     "project": "SlopLens",
     "repository": "Slop Detector",
     "rulesFile": "shared/rules.ts",
-    "commit": "9547341d0e2d871b2f3f5337092fb53403e716fc",
+    "commit": "ab0f76737b43ad299878ad83017e45ee64bb2c2a",
     "site": "https://sloplens.tryraisins.dev"
   },
   "note": "This is a hand-curated copy of the SlopLens rule catalog, adapted for a static source scan. SlopLens owns the rule identity, name, category, family, supporting flag and fix line. Everything specific to a source scan is owned here: the staticPlain wording, the observation and inference split, the assessment, the file types and the thresholds. There are no weights and no score, because a repository is not a page. Rules marked yeknalOnly describe the repository shell and have no rendered-page counterpart, so they are excluded from the drift check. Run the drift check in the Slop Detector repository after changing either copy.",
@@ -337,6 +337,19 @@
       "inference": "This is a rendered measure.",
       "assessment": "unassessed",
       "unassessedReason": "Planned, not yet checked. It needs the computed styles of links and their pseudo-elements, which source alone does not show."
+    },
+    {
+      "id": "tag-chips",
+      "name": "Decorative tag chips",
+      "category": "slop",
+      "family": "supporting",
+      "supporting": true,
+      "fix": "Let headings and plain text carry the labels, or use chips only where people actually filter or tag.",
+      "staticPlain": "Small rounded chips that are not controls repeat across several sections as decoration, a shape borrowed from tags and filters. Navigation, forms, article rows and list rows are where categories and filters legitimately live, so this only counts when other slop signals are present.",
+      "observation": "The rendered size, radius, fill or border and region of short labels that are not links, buttons or list rows.",
+      "inference": "This is a rendered measure.",
+      "assessment": "unassessed",
+      "unassessedReason": "Needs the computed box, radius and fill of repeated labels across sections, which source alone does not show. Deploy the project and scan the live URL."
     },
     {
       "id": "mobile-overflow",
