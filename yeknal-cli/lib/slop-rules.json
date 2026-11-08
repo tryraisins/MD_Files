@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "ruleVersion": "sloplens-3.4.0",
+  "ruleVersion": "sloplens-3.5.0",
   "source": {
     "project": "SlopLens",
     "repository": "Slop Detector",
     "rulesFile": "shared/rules.ts",
-    "commit": "cca990d6fecdd1874795b7ae06768078461581e0",
+    "commit": "9547341d0e2d871b2f3f5337092fb53403e716fc",
     "site": "https://sloplens.tryraisins.dev"
   },
   "note": "This is a hand-curated copy of the SlopLens rule catalog, adapted for a static source scan. SlopLens owns the rule identity, name, category, family, supporting flag and fix line. Everything specific to a source scan is owned here: the staticPlain wording, the observation and inference split, the assessment, the file types and the thresholds. There are no weights and no score, because a repository is not a page. Rules marked yeknalOnly describe the repository shell and have no rendered-page counterpart, so they are excluded from the drift check. Run the drift check in the Slop Detector repository after changing either copy.",
@@ -236,13 +236,13 @@
     },
     {
       "id": "fake-testimonial",
-      "name": "Placeholder testimonial company",
+      "name": "Invented testimonial",
       "category": "slop",
       "family": "proof",
       "fix": "Replace it with a testimonial from someone readers can find, or remove the quote.",
-      "staticPlain": "A customer quote credits a company name that reads as a placeholder, such as TechCorp, Acme Inc or Lorem Ipsum. This is the strongest form of invented proof, and a real quote from a person readers can look up does not count.",
-      "observation": "A placeholder company name inside the attribution line of a quotation or a figure caption.",
-      "inference": "The attribution reads as a placeholder. A real company that happens to share the name would also match.",
+      "staticPlain": "A customer quote credits a company name that reads as a placeholder, such as TechCorp, Acme Inc or Lorem Ipsum, or sits beside a portrait from a stock photo service. This is invented proof, and a real quote from a person readers can look up does not count.",
+      "observation": "A placeholder company name, or a stock photo service address, inside the attribution and media of a quotation or figure caption.",
+      "inference": "The attribution reads as a placeholder or the portrait comes from a stock service. A real company that happens to share the name would also match.",
       "assessment": "heuristic",
       "fileTypes": ["js", "ts", "jsx", "tsx", "vue", "svelte", "astro", "html"]
     },
@@ -457,6 +457,42 @@
       "inference": "The jump is in source order within one file. Across components the rendered order may differ, so only complete documents are checked.",
       "assessment": "heuristic",
       "fileTypes": ["html", "astro"]
+    },
+    {
+      "id": "placeholder-label",
+      "name": "Placeholder as the label",
+      "category": "quality",
+      "family": "quality",
+      "fix": "Give the field a visible label, or an accessible name that stays when the placeholder is gone.",
+      "staticPlain": "A form field uses its placeholder as its only label, so the question disappears as soon as someone starts typing and screen readers have nothing stable to announce.",
+      "observation": "An input or textarea written literally with a placeholder and no label element, aria-label, aria-labelledby or title.",
+      "inference": "The field has no literal label in the source. A wrapper component could supply one, so only literal fields are reported.",
+      "assessment": "heuristic",
+      "fileTypes": ["jsx", "tsx", "vue", "svelte", "astro", "html"]
+    },
+    {
+      "id": "small-input-text",
+      "name": "Tiny form text on phones",
+      "category": "quality",
+      "family": "quality",
+      "fix": "Set form text to at least 16 pixels on small screens.",
+      "staticPlain": "Text inside a form field is smaller than 16 pixels on a phone, so iOS zooms the whole page when the field is tapped.",
+      "observation": "The computed font size of a text field on a phone-sized viewport.",
+      "inference": "The size can come from a stylesheet, a utility class or a design token, so it is left unassessed in a source scan.",
+      "assessment": "unassessed",
+      "fileTypes": ["css", "scss", "less", "js", "ts", "jsx", "tsx", "vue", "svelte", "astro", "html"]
+    },
+    {
+      "id": "zoom-disabled",
+      "name": "Zoom disabled",
+      "category": "quality",
+      "family": "quality",
+      "fix": "Remove user-scalable=no and maximum-scale limits from the viewport meta tag.",
+      "staticPlain": "The viewport meta tag stops people zooming in, so someone who needs larger text cannot enlarge it.",
+      "observation": "A viewport meta tag whose content sets user-scalable to no or 0, or a maximum-scale below 2.",
+      "inference": "The tag is literal in the source. A value built by a framework config would not be seen.",
+      "assessment": "measured",
+      "fileTypes": ["html", "astro", "jsx", "tsx", "vue", "svelte"]
     },
     {
       "id": "floor-missing-not-found",
